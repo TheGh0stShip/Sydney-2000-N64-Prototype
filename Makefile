@@ -20,6 +20,8 @@ verify: $(BASEROM) verify-matching
 
 verify-matching: $(BASEROM)
 	$(N64DK) match-batch config/matching_kmc.tsv=kmc+asn64 --project . -I tools/ultralib/include
+	$(N64DK) match-batch config/matching_kmc_builtin.tsv=kmc+builtin --project . -I tools/ultralib/include -I tools/ultralib/include/PR -I tools/ultralib/src/audio
+	$(N64DK) match-batch config/matching_kmc_as.tsv=kmc+as --project . -I tools/ultralib/include
 
 clean:
 	rm -rf $(BUILD_DIR)
