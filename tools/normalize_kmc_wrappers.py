@@ -446,6 +446,74 @@ def normalize_vector_plane_test(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_resolved_record_value(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,24"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80005310"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one resolved-record value body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,24", "move\t$6,$0", "sw\t$31,20($sp)",
+        "jal\tfunc_80004CA4", "sw\t$16,16($sp)", "move\t$3,$2", "li\t$2,-1",
+        "beq\t$3,$2,.L2", "sll\t$4,$3,2", "la\t$16,buffer",
+        "addu\t$4,$4,$3", "sll\t$4,$4,2", "subu\t$4,$4,$3", "sll\t$4,$4,2",
+        "lw\t$2,records", "move\t$5,$16", "li\t$6,0x0000004c", "addu\t$2,$2,4",
+        "jal\tfunc_80011300", "addu\t$4,$2,$4", "lw\t$2,4($16)",
+        "lw\t$3,baseValue", "j\t.L3", "addu\t$2,$3,$2", ".L2:",
+        "move\t$2,$0", ".L3:", "lw\t$31,20($sp)", "lw\t$16,16($sp)",
+        "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected resolved-record value body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tmove\t$6,$0\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tjal\tfunc_80004CA4\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tmove\t$3,$2\n",
+        "\tli\t$2,-1\n",
+        "\tbeq\t$3,$2,.L2\n",
+        "\tlui\t$16,%hi(buffer)\n",
+        "\taddiu\t$16,$16,%lo(buffer)\n",
+        "\tmove\t$5,$16\n",
+        "\tlui\t$2,%hi(records)\n",
+        "\tli\t$6,0x0000004c\n",
+        "\tsll\t$4,$3,2\n",
+        "\taddu\t$4,$4,$3\n",
+        "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$3\n",
+        "\tlw\t$2,%lo(records)($2)\n",
+        "\tsll\t$4,$4,2\n",
+        "\taddiu\t$2,$2,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\tlui\t$2,%hi(baseValue)\n",
+        "\tlw\t$3,%lo(baseValue)($2)\n",
+        "\tlw\t$2,4($16)\n",
+        "\tj\t.L3\n",
+        "\taddu\t$2,$3,$2\n",
+        ".L2:\n",
+        "\tmove\t$2,$0\n",
+        ".L3:\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2407,6 +2475,7 @@ def main() -> None:
     parser.add_argument("--schedule-render-record-bytes", action="store_true")
     parser.add_argument("--schedule-audio-record-reset", action="store_true")
     parser.add_argument("--normalize-vector-plane-test", action="store_true")
+    parser.add_argument("--schedule-resolved-record-value", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2459,6 +2528,7 @@ def main() -> None:
             args.schedule_render_record_bytes,
             args.schedule_audio_record_reset,
             args.normalize_vector_plane_test,
+            args.schedule_resolved_record_value,
         )
     )
     if selected != 1:
@@ -2557,6 +2627,8 @@ def main() -> None:
         lines = schedule_audio_record_reset(lines)
     if args.normalize_vector_plane_test:
         lines = normalize_vector_plane_test(lines)
+    if args.schedule_resolved_record_value:
+        lines = schedule_resolved_record_value(lines)
     args.output.write_text("".join(lines))
 
 
