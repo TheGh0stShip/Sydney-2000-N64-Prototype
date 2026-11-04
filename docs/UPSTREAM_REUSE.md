@@ -25,10 +25,11 @@ prototype bytes before it enters a matching manifest.
    reference with Sound Tools assets and runtime work. Use it mainly for bank,
    cue, and asset-format comparisons.
 6. [Nagano Winter Olympics '98](https://github.com/TheGh0stShip/Nagano-Winter-Olympics-98-N64)
-   remains useful for generic game helpers. A normalized whole-program scan
-   found one exact reusable non-SDK routine so far, but Nagano was developed by
-   Konami rather than Sydney developer Attention to Detail, so game-engine
-   overlap is lower than initially expected.
+   remains useful for generic game helpers and structural comparisons. A
+   normalized whole-program scan found exact SDK and assembly leaf routines,
+   but no proven game-engine C donor yet. Nagano was developed by Konami rather
+   than Sydney developer Attention to Detail, so its measured overlap is lower
+   than initially expected.
 
 ## Shared foundations
 
