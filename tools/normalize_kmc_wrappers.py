@@ -1719,6 +1719,81 @@ def reuse_initialized_address(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_stream_consumption(lines: list[str]) -> list[str]:
+    """Reproduce the stream state and bounded-consumption branch schedule."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lb\t$14,4573($4)"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_800267AC"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one stream-consumption body; "
+            f"found {(len(starts), len(ends))}"
+        )
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "lb\t$14,4573($4)", "li\t$1,0x00000003", "move\t$2,$0",
+        "bne\t$14,$1,.L6", "lw\t$2,4520($4)", "blez\t$2,.L3",
+        "subu\t$15,$2,$5", "bgtz\t$15,.L3", "sw\t$15,4520($4)",
+        "li\t$25,0x00000004", "sb\t$25,4573($4)", "sw\t$0,4520($4)",
+        ".L3:", "lw\t$3,4564($4)", "lw\t$8,4568($4)",
+        "subu\t$2,$8,$3", "sltu\t$1,$5,$2", "move\t$6,$2",
+        "bnel\t$1,$0,.L5", "move\t$6,$5", ".L5:",
+        "addu\t$9,$3,$6", "sw\t$9,4564($4)", "move\t$2,$6",
+        ".L6:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected stream-consumption compiler body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlb\t$14,4573($4)\n",
+        "\tli\t$1,0x00000003\n",
+        "\tor\t$2,$0,$0\n",
+        "\tbne\t$14,$1,.L6\n",
+        "\tnop\n",
+        "\tlw\t$2,4520($4)\n",
+        "\tblez\t$2,.L3\n",
+        "\tsubu\t$15,$2,$5\n",
+        "\tbgtz\t$15,.L3\n",
+        "\tsw\t$15,4520($4)\n",
+        "\tli\t$25,0x00000004\n",
+        "\tsb\t$25,4573($4)\n",
+        "\tsw\t$0,4520($4)\n",
+        ".L3:\n",
+        "\tlw\t$3,4564($4)\n",
+        "\tlw\t$8,4568($4)\n",
+        "\tsubu\t$2,$8,$3\n",
+        "\tsltu\t$1,$5,$2\n",
+        "\tbeq\t$1,$0,.L4\n",
+        "\tor\t$6,$2,$0\n",
+        "\tb\t.L5\n",
+        "\tor\t$6,$5,$0\n",
+        ".L4:\n",
+        ".L5:\n",
+        "\taddu\t$9,$3,$6\n",
+        "\tsw\t$9,4564($4)\n",
+        "\tj\t$31\n",
+        "\tor\t$2,$6,$0\n",
+        ".L6:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1758,6 +1833,7 @@ def main() -> None:
     parser.add_argument("--schedule-masked-vector-copy", action="store_true")
     parser.add_argument("--schedule-record-transition", action="store_true")
     parser.add_argument("--reuse-initialized-address", action="store_true")
+    parser.add_argument("--schedule-stream-consumption", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1798,6 +1874,7 @@ def main() -> None:
             args.schedule_masked_vector_copy,
             args.schedule_record_transition,
             args.reuse_initialized_address,
+            args.schedule_stream_consumption,
         )
     )
     if selected != 1:
@@ -1872,6 +1949,8 @@ def main() -> None:
         lines = schedule_record_transition(lines)
     if args.reuse_initialized_address:
         lines = reuse_initialized_address(lines)
+    if args.schedule_stream_consumption:
+        lines = schedule_stream_consumption(lines)
     args.output.write_text("".join(lines))
 
 
