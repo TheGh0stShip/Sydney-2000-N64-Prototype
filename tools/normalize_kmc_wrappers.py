@@ -5290,6 +5290,71 @@ def schedule_packed_coordinate_wrap(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_collection_reset(lines: list[str]) -> list[str]:
+    labels = [index for index, line in enumerate(lines) if line.strip() == "func_80014384:"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80014384"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime-collection reset")
+    start = labels[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start + 1 : end]
+        if line.strip() and not line.lstrip().startswith((".", "#"))
+    ]
+    body = [item for item in body if item]
+    required = [
+        "la\t$4,D_8005AAAC", "lw\t$2,0($4)", "lw\t$3,188($2)",
+        "sw\t$0,188($2)", "sw\t$0,184($2)", "sw\t$2,0($4)",
+        "la\t$4,D_8005AAB0", "la\t$4,D_8005AAB4", "sh\t$0,D_8005A930",
+        "jal\tfunc_80018904", "jal\tfunc_80018910", "jal\tfunc_8001891C",
+        "sw\t$0,D_8005B7E0", "sw\t$0,D_8005B7F0",
+    ]
+    cursor = 0
+    for instruction in required:
+        try:
+            cursor = body.index(instruction, cursor) + 1
+        except ValueError as exc:
+            raise ValueError(f"unexpected runtime-collection reset near {instruction!r}") from exc
+
+    lines[start + 1 : end] = [
+        "\t.frame\t$sp,24,$31\n", "\t.mask\t0x80000000,-8\n",
+        "\t.fmask\t0x00000000,0\n", "\t.set\tnoreorder\n",
+        "\taddiu\t$sp,$sp,-24\n", "\tsw\t$31,16($sp)\n",
+        "\tlui\t$4,%hi(D_8005AAAC)\n", ".Lreset_list_0:\n",
+        "\tlw\t$2,%lo(D_8005AAAC)($4)\n", "\tbeqz\t$2,.Lreset_list_1_setup\n",
+        "\tmove\t$3,$2\n", "\tlw\t$2,188($3)\n", "\tsw\t$0,188($3)\n",
+        "\tsw\t$0,184($3)\n", "\tj\t.Lreset_list_0\n",
+        "\tsw\t$2,%lo(D_8005AAAC)($4)\n", ".Lreset_list_1_setup:\n",
+        "\tlui\t$4,%hi(D_8005AAB0)\n", ".Lreset_list_1:\n",
+        "\tlw\t$2,%lo(D_8005AAB0)($4)\n", "\tbeqz\t$2,.Lreset_list_2_setup\n",
+        "\tmove\t$3,$2\n", "\tlw\t$2,188($3)\n", "\tsw\t$0,188($3)\n",
+        "\tsw\t$0,184($3)\n", "\tj\t.Lreset_list_1\n",
+        "\tsw\t$2,%lo(D_8005AAB0)($4)\n", ".Lreset_list_2_setup:\n",
+        "\tlui\t$4,%hi(D_8005AAB4)\n", ".Lreset_list_2:\n",
+        "\tlw\t$2,%lo(D_8005AAB4)($4)\n", "\tbeqz\t$2,.Lreset_records\n",
+        "\tmove\t$3,$2\n", "\tlw\t$2,188($3)\n", "\tsw\t$0,188($3)\n",
+        "\tsw\t$0,184($3)\n", "\tj\t.Lreset_list_2\n",
+        "\tsw\t$2,%lo(D_8005AAB4)($4)\n", ".Lreset_records:\n",
+        "\tlui\t$2,%hi(D_8005A930)\n", "\tsh\t$0,%lo(D_8005A930)($2)\n",
+        "\tmove\t$4,$0\n", "\tlui\t$2,%hi(D_8005AAF0)\n",
+        "\taddiu\t$5,$2,%lo(D_8005AAF0)\n", ".Lreset_record_loop:\n",
+        "\tandi\t$2,$4,0xff\n", "\taddiu\t$4,$4,1\n", "\tsll\t$3,$2,5\n",
+        "\taddu\t$3,$3,$2\n", "\tsll\t$3,$3,2\n", "\taddu\t$3,$3,$5\n",
+        "\tandi\t$2,$4,0xff\n", "\tsltiu\t$2,$2,3\n", "\tsw\t$0,116($3)\n",
+        "\tbnez\t$2,.Lreset_record_loop\n", "\tsw\t$0,120($3)\n",
+        "\tjal\tfunc_80018904\n", "\tnop\n", "\tjal\tfunc_80018910\n",
+        "\tnop\n", "\tjal\tfunc_8001891C\n", "\tnop\n", "\tlw\t$31,16($sp)\n",
+        "\tlui\t$2,%hi(D_8005B7E0)\n", "\tsw\t$0,%lo(D_8005B7E0)($2)\n",
+        "\tlui\t$2,%hi(D_8005B7E4)\n", "\tsw\t$0,%lo(D_8005B7E4)($2)\n",
+        "\tlui\t$2,%hi(D_8005B7EC)\n", "\tsw\t$0,%lo(D_8005B7EC)($2)\n",
+        "\tlui\t$2,%hi(D_8005B7F0)\n", "\tsw\t$0,%lo(D_8005B7F0)($2)\n",
+        "\tmove\t$2,$0\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,24\n",
+        "\t.set\treorder\n", "\n",
+    ]
+    return lines
+
+
 def schedule_double_tangent(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
     ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037F70"]
@@ -6423,6 +6488,7 @@ def main() -> None:
     parser.add_argument("--schedule-nested-render-object-creation", action="store_true")
     parser.add_argument("--schedule-startup-message-drain", action="store_true")
     parser.add_argument("--schedule-packed-coordinate-wrap", action="store_true")
+    parser.add_argument("--schedule-runtime-collection-reset", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
@@ -6531,6 +6597,7 @@ def main() -> None:
             args.schedule_nested_render_object_creation,
             args.schedule_startup_message_drain,
             args.schedule_packed_coordinate_wrap,
+            args.schedule_runtime_collection_reset,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
@@ -6721,6 +6788,8 @@ def main() -> None:
         lines = schedule_startup_message_drain(lines)
     if args.schedule_packed_coordinate_wrap:
         lines = schedule_packed_coordinate_wrap(lines)
+    if args.schedule_runtime_collection_reset:
+        lines = schedule_runtime_collection_reset(lines)
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
