@@ -25,7 +25,7 @@ The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
 Automated analysis currently identifies 761 functions, including 261 Nintendo
 SDK functions. The game and most libraries were built with KMC GCC. Exact C
-matching currently covers 282 functions, 53,840 code bytes, and 1,808 initialized
+matching currently covers 284 functions, 54,940 code bytes, and 1,824 initialized
 data bytes.
 
 Generated analysis lives in `config/`. It is evidence for source splitting and
