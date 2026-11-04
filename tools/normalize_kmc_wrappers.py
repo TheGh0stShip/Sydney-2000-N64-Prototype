@@ -801,6 +801,85 @@ def schedule_indexed_record_signature(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_collections(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800175FC"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one object-collection body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$16,16($sp)", "lw\t$16,-2147112252",
+        "sw\t$31,24($sp)", "beq\t$16,$0,.L2", "sw\t$17,20($sp)",
+        "li\t$17,-2147155968", "ori\t$17,$17,0xaac8", ".L3:",
+        "jal\tfunc_80017454", "move\t$4,$16", "lw\t$16,0($17)",
+        "bne\t$16,$0,.L3", "addu\t$17,$17,4", ".L2:",
+        "lw\t$16,-2147112272", "beq\t$16,$0,.L8", ".L9:",
+        "jal\tfunc_80017454", "move\t$4,$16", "lw\t$16,188($16)",
+        "bne\t$16,$0,.L9", ".L8:", "lw\t$16,-2147112268",
+        "beq\t$16,$0,.L12", ".L13:", "jal\tfunc_80017454",
+        "move\t$4,$16", "lw\t$16,188($16)", "bne\t$16,$0,.L13",
+        ".L12:", "lw\t$31,24($sp)", "lw\t$17,20($sp)",
+        "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected object-collection body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,32\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tlw\t$16,-21820($2)\n",
+        "\tsw\t$31,24($sp)\n",
+        "\tbeq\t$16,$0,.L2\n",
+        "\tsw\t$17,20($sp)\n",
+        "\taddiu\t$2,$2,-21820\n",
+        "\taddiu\t$17,$2,4\n",
+        ".L3:\n",
+        "\tjal\tfunc_80017454\n",
+        "\tmove\t$4,$16\n",
+        "\tlw\t$16,0($17)\n",
+        "\tbne\t$16,$0,.L3\n",
+        "\taddiu\t$17,$17,4\n",
+        ".L2:\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$16,-21840($2)\n",
+        ".L8:\n",
+        "\tbeq\t$16,$0,.L10\n",
+        "\tlui\t$2,0x8006\n",
+        "\tjal\tfunc_80017454\n",
+        "\tmove\t$4,$16\n",
+        "\tlw\t$16,188($16)\n",
+        "\tj\t.L8\n",
+        "\tnop\n",
+        ".L10:\n",
+        "\tlw\t$16,-21836($2)\n",
+        ".L12:\n",
+        "\tbeq\t$16,$0,.L14\n",
+        "\tnop\n",
+        "\tjal\tfunc_80017454\n",
+        "\tmove\t$4,$16\n",
+        "\tlw\t$16,188($16)\n",
+        "\tj\t.L12\n",
+        "\tnop\n",
+        ".L14:\n",
+        "\tlw\t$31,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2767,6 +2846,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-update-passes", action="store_true")
     parser.add_argument("--schedule-handle-pair-allocation", action="store_true")
     parser.add_argument("--schedule-indexed-record-signature", action="store_true")
+    parser.add_argument("--schedule-object-collections", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2824,6 +2904,7 @@ def main() -> None:
             args.schedule_object_update_passes,
             args.schedule_handle_pair_allocation,
             args.schedule_indexed_record_signature,
+            args.schedule_object_collections,
         )
     )
     if selected != 1:
@@ -2932,6 +3013,8 @@ def main() -> None:
         lines = schedule_handle_pair_allocation(lines)
     if args.schedule_indexed_record_signature:
         lines = schedule_indexed_record_signature(lines)
+    if args.schedule_object_collections:
+        lines = schedule_object_collections(lines)
     args.output.write_text("".join(lines))
 
 
