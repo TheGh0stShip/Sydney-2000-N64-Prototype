@@ -505,6 +505,52 @@ def reuse_configuration_limit(lines: list[str]) -> list[str]:
     return lines
 
 
+def split_aliased_boolean_stores(lines: list[str]) -> list[str]:
+    starts = [
+        index
+        for index, line in enumerate(lines)
+        if re.fullmatch(r"\s*beq\s+\$4,\$0,\.L[0-9]+\s*", line)
+    ]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one boolean branch; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if len(body) != 8:
+        raise ValueError(f"unexpected aliased-boolean body: {body!r}")
+    fail = body[0].rsplit(",", 1)[1]
+    done = body[3].split("\t", 1)[1] if body[3].startswith("j\t") else ""
+    true_store = re.fullmatch(r"sw\t\$2,([A-Za-z_][A-Za-z0-9_]*)", body[2])
+    false_store = re.fullmatch(r"sw\t\$0,([A-Za-z_][A-Za-z0-9_]*)", body[5])
+    expected = [
+        f"beq\t$4,$0,{fail}", "li\t$2,0x00000001", body[2],
+        f"j\t{done}", f"{fail}:", body[5], f"{done}:", "j\t$31",
+    ]
+    if (
+        not done
+        or not true_store
+        or not false_store
+        or len(body) != len(expected)
+        or body != expected
+    ):
+        raise ValueError(f"unexpected aliased-boolean body: {body!r}")
+    true_symbol = true_store.group(1)
+    false_symbol = false_store.group(1)
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        f"\tbeq\t$4,$0,{fail}\n",
+        f"\tlui\t$2,%hi({false_symbol})\n",
+        f"\tlui\t$3,%hi({true_symbol})\n",
+        "\tli\t$2,0x00000001\n",
+        "\tj\t$31\n",
+        f"\tsw\t$2,%lo({true_symbol})($3)\n",
+        f"{fail}:\n",
+        "\tj\t$31\n",
+        f"\tsw\t$0,%lo({false_symbol})($2)\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -522,6 +568,7 @@ def main() -> None:
     parser.add_argument("--schedule-copy-string", action="store_true")
     parser.add_argument("--move-record-address-before-index", action="store_true")
     parser.add_argument("--reuse-configuration-limit", action="store_true")
+    parser.add_argument("--split-aliased-boolean-stores", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -540,6 +587,7 @@ def main() -> None:
             args.schedule_copy_string,
             args.move_record_address_before_index,
             args.reuse_configuration_limit,
+            args.split_aliased_boolean_stores,
         )
     )
     if selected != 1:
@@ -570,6 +618,8 @@ def main() -> None:
         lines = move_record_address_before_index(lines)
     if args.reuse_configuration_limit:
         lines = reuse_configuration_limit(lines)
+    if args.split_aliased_boolean_stores:
+        lines = split_aliased_boolean_stores(lines)
     args.output.write_text("".join(lines))
 
 
