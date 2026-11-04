@@ -4717,6 +4717,66 @@ def schedule_heap_block_release(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_heap_block_allocation(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "move\t$7,$0"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037D10"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one heap-block allocation body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "move\t$7,$0", "move\t$8,$0", "beq\t$5,$0,.L14", "move\t$6,$0",
+        "addu\t$3,$5,15", "li\t$2,-16", "and\t$3,$3,$2",
+        "beq\t$4,$0,.L4", "addu\t$9,$3,16", ".L6:", "lw\t$2,8($4)",
+        "bne\t$2,$0,.L5", "lw\t$5,4($4)", "sltu\t$2,$5,$3",
+        "bne\t$2,$0,.L5", "beq\t$6,$0,.L8", "sltu\t$2,$5,$6",
+        "beq\t$2,$0,.L5", ".L8:", "move\t$7,$4", "move\t$6,$5",
+        "lw\t$8,0($7)", ".L5:", "lw\t$4,0($4)", "bne\t$4,$0,.L6",
+        ".L4:", "bne\t$6,$0,.L10", "addu\t$2,$3,32", ".L14:",
+        "j\t.L13", "move\t$2,$0", ".L10:", "sltu\t$2,$6,$2",
+        "bne\t$2,$0,.L11", "li\t$2,0x00000001", "addu\t$2,$7,$9",
+        "sw\t$3,4($7)", "li\t$3,0x00000001", "sw\t$3,8($7)",
+        "subu\t$3,$6,$9", "sw\t$2,0($7)", "sw\t$8,0($2)",
+        "sw\t$3,4($2)", "j\t.L12", "sw\t$0,8($2)", ".L11:",
+        "sw\t$8,0($7)", "sw\t$6,4($7)", "sw\t$2,8($7)", ".L12:",
+        "addu\t$2,$7,16", ".L13:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected heap-block allocation body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\tbeq\t$5,$0,.Lheap_allocate_fail\n",
+        "\taddiu\t$5,$5,15\n", "\tli\t$2,-16\n", "\tand\t$5,$5,$2\n",
+        "\taddiu\t$10,$5,16\n", "\tmove\t$7,$0\n", "\tmove\t$9,$0\n",
+        ".Lheap_allocate_search:\n", "\tlw\t$2,8($4)\n",
+        "\tbnez\t$2,.Lheap_allocate_next\n", "\tnop\n", "\tlw\t$6,4($4)\n",
+        "\tsltu\t$2,$6,$5\n", "\tbnez\t$2,.Lheap_allocate_next\n",
+        "\tsltu\t$2,$6,$7\n", "\tsltiu\t$3,$7,1\n", "\tor\t$2,$2,$3\n",
+        "\tbeq\t$2,$0,.Lheap_allocate_next\n", "\tnop\n", "\tmove\t$8,$4\n",
+        "\tmove\t$7,$6\n", "\tlw\t$9,0($8)\n", ".Lheap_allocate_next:\n",
+        "\tlw\t$4,0($4)\n", "\tbnez\t$4,.Lheap_allocate_search\n", "\tnop\n",
+        "\tbeq\t$7,$0,.Lheap_allocate_fail\n", "\taddiu\t$2,$5,32\n",
+        "\tsltu\t$2,$7,$2\n", "\tbnez\t$2,.Lheap_allocate_whole\n",
+        "\tmove\t$4,$8\n", "\taddu\t$2,$8,$10\n", "\tsw\t$2,0($8)\n",
+        "\tsw\t$5,4($8)\n", "\tli\t$2,1\n", "\tsw\t$2,8($8)\n",
+        "\tlw\t$4,0($8)\n", "\tsw\t$9,0($4)\n", "\tsubu\t$2,$7,$10\n",
+        "\tsw\t$2,4($4)\n", "\tj\t.Lheap_allocate_finish\n", "\tsw\t$0,8($4)\n",
+        ".Lheap_allocate_whole:\n", "\tsw\t$9,0($4)\n", "\tsw\t$7,4($4)\n",
+        "\tli\t$2,1\n", "\tsw\t$2,8($4)\n", ".Lheap_allocate_finish:\n",
+        "\tj\t.Lheap_allocate_done\n", "\taddiu\t$2,$8,16\n",
+        ".Lheap_allocate_fail:\n", "\tmove\t$2,$0\n", ".Lheap_allocate_done:\n",
+        "\tjr\t$31\n", "\tnop\n", "\tnop\n", "\tnop\n", "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4799,6 +4859,7 @@ def main() -> None:
     parser.add_argument("--schedule-record-resource-resolution", action="store_true")
     parser.add_argument("--schedule-packed-display-record-update", action="store_true")
     parser.add_argument("--schedule-heap-block-release", action="store_true")
+    parser.add_argument("--schedule-heap-block-allocation", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4882,6 +4943,7 @@ def main() -> None:
             args.schedule_record_resource_resolution,
             args.schedule_packed_display_record_update,
             args.schedule_heap_block_release,
+            args.schedule_heap_block_allocation,
         )
     )
     if selected != 1:
@@ -5042,6 +5104,8 @@ def main() -> None:
         lines = schedule_packed_display_record_update(lines)
     if args.schedule_heap_block_release:
         lines = schedule_heap_block_release(lines)
+    if args.schedule_heap_block_allocation:
+        lines = schedule_heap_block_allocation(lines)
     args.output.write_text("".join(lines))
 
 
