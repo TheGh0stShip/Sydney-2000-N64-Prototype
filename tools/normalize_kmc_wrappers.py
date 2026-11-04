@@ -4368,6 +4368,66 @@ def schedule_object_resource_cleanup(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_record_resource_release(lines: list[str]) -> list[str]:
+    starts = [
+        index for index, line in enumerate(lines[:-1])
+        if line.strip() == "lw\t$2,resourceRecordCount"
+        and lines[index + 1].strip() == "subu\t$sp,$sp,40"
+    ]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8000F1D4"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one record-resource release body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$2,resourceRecordCount", "subu\t$sp,$sp,40", "sw\t$17,20($sp)",
+        "move\t$17,$0", "sw\t$31,32($sp)", "sw\t$20,28($sp)",
+        "sw\t$18,24($sp)", "beq\t$2,$0,.L2", "sw\t$16,16($sp)",
+        "li\t$20,-2146500608", "la\t$16,resourceRecords", "addu\t$18,$16,216",
+        ".L3:", "lw\t$2,216($16)", "beq\t$2,$0,.L6", "ori\t$4,$20,0x2758",
+        "jal\tfunc_800AA658", "move\t$5,$18", "sw\t$0,216($16)", ".L6:",
+        "addu\t$18,$18,224", "lw\t$2,resourceRecordCount", "addu\t$17,$17,1",
+        "sltu\t$2,$17,$2", "bne\t$2,$0,.L3", "addu\t$16,$16,224", ".L2:",
+        "lw\t$2,-2147190332", "beq\t$2,$0,.L8", "li\t$5,-2147221504",
+        "la\t$4,commandContext", "jal\tfunc_800AA658", "ori\t$5,$5,0x79c4", ".L8:",
+        "sw\t$0,-2147190332", "sw\t$0,resourceRecordCount", "jal\tfunc_8001B1D4",
+        "lw\t$31,32($sp)", "lw\t$20,28($sp)", "lw\t$18,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected record-resource release body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$3,0x8004\n", "\tlw\t$2,31108($3)\n", "\taddiu\t$sp,$sp,-40\n",
+        "\tsw\t$17,20($sp)\n", "\tmove\t$17,$0\n", "\tsw\t$31,36($sp)\n",
+        "\tsw\t$20,32($sp)\n", "\tsw\t$19,28($sp)\n", "\tsw\t$18,24($sp)\n",
+        "\tbeq\t$2,$0,.Lrr_done_loop\n", "\tsw\t$16,16($sp)\n",
+        "\tlui\t$20,0x800f\n", "\tmove\t$19,$3\n", "\tlui\t$2,0x8005\n",
+        "\taddiu\t$2,$2,-26072\n", "\taddiu\t$18,$2,216\n", "\tmove\t$16,$2\n",
+        ".Lrr_loop:\n", "\tlw\t$2,216($16)\n", "\tbeq\t$2,$0,.Lrr_next\n",
+        "\taddiu\t$4,$20,10072\n", "\tjal\tfunc_800AA658\n", "\tmove\t$5,$18\n",
+        "\tsw\t$0,216($16)\n", ".Lrr_next:\n", "\taddiu\t$18,$18,224\n",
+        "\tlw\t$2,31108($19)\n", "\taddiu\t$17,$17,1\n", "\tsltu\t$2,$17,$2\n",
+        "\tbne\t$2,$0,.Lrr_loop\n", "\taddiu\t$16,$16,224\n",
+        ".Lrr_done_loop:\n", "\tlui\t$16,0x8004\n", "\tlw\t$2,31172($16)\n",
+        "\tbeq\t$2,$0,.Lrr_clear\n", "\taddiu\t$5,$16,31172\n",
+        "\tlui\t$4,0x800f\n", "\tjal\tfunc_800AA658\n", "\taddiu\t$4,$4,10072\n",
+        ".Lrr_clear:\n", "\tlui\t$2,0x8004\n", "\tsw\t$0,31172($16)\n",
+        "\tjal\tfunc_8001B1D4\n", "\tsw\t$0,31108($2)\n",
+        "\tlw\t$31,36($sp)\n", "\tlw\t$20,32($sp)\n", "\tlw\t$19,28($sp)\n",
+        "\tlw\t$18,24($sp)\n", "\tlw\t$17,20($sp)\n", "\tlw\t$16,16($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,40\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4444,6 +4504,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-record-payload", action="store_true")
     parser.add_argument("--schedule-audio-record-volume-initialization", action="store_true")
     parser.add_argument("--schedule-object-resource-cleanup", action="store_true")
+    parser.add_argument("--schedule-record-resource-release", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4521,6 +4582,7 @@ def main() -> None:
             args.schedule_indexed_record_payload,
             args.schedule_audio_record_volume_initialization,
             args.schedule_object_resource_cleanup,
+            args.schedule_record_resource_release,
         )
     )
     if selected != 1:
@@ -4669,6 +4731,8 @@ def main() -> None:
         lines = schedule_audio_record_volume_initialization(lines)
     if args.schedule_object_resource_cleanup:
         lines = schedule_object_resource_cleanup(lines)
+    if args.schedule_record_resource_release:
+        lines = schedule_record_resource_release(lines)
     args.output.write_text("".join(lines))
 
 

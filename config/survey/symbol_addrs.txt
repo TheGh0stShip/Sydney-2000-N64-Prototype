@@ -832,3 +832,6 @@ audioInitializationObject = 0x80038C40; // type:object
 objectCleanupBlocked = 0x800620DC; // type:u32
 firstDiskStatus = 0x8006EE44; // type:u8[]
 secondDiskStatus = 0x8006EEBC; // type:u8[]
+resourceRecordCount = 0x80047984; // type:u32
+resourceRecords = 0x80049A28; // type:u8[]
+finalResourceHandle = 0x800479C4; // type:u32
