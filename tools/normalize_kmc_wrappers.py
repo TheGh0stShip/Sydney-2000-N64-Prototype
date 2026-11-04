@@ -6848,6 +6848,132 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_render_record_creation(lines: list[str]) -> list[str]:
+    function_name = "func_80015F98"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime render-record creator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800AA804", "func_8000C68C", "D_8005A9E8", "D_8005A83C",
+                  "D_8005ACD0", "D_8005AC7C", "D_80000C50", "D_80000ADC",
+                  "D_80000C58"):
+        if token not in body:
+            raise ValueError(f"unexpected runtime render-record creator near {token!r}")
+    assembly = """\
+\t.frame\t$sp,56,$31
+\t.mask\t0x80070000,-20
+\t.fmask\t0x00f00000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-56
+\tsw\t$18,32($sp)
+\tmove\t$18,$4
+\tsdc1\t$f20,40($sp)
+\tmtc1\t$5,$f20
+\tmove\t$5,$18
+\tsdc1\t$f22,48($sp)
+\tmtc1\t$6,$f22
+\tli\t$6,124
+\tlui\t$2,%hi(D_8005A9E8)
+\tsw\t$16,24($sp)
+\tmove\t$16,$7
+\tlui\t$7,%hi(D_80000C50)
+\tlw\t$4,%lo(D_8005A9E8)($2)
+\taddiu\t$7,$7,%lo(D_80000C50)
+\tsw\t$31,36($sp)
+\tjal\tfunc_800AA804
+\tsw\t$17,28($sp)
+\tlw\t$3,0($18)
+\tbnez\t$3,.Lruntime_create_found
+\tandi\t$4,$16,0xffff
+\tj\t.Lruntime_create_return
+\tli\t$2,-1000
+.Lruntime_create_found:
+\tmove\t$5,$0
+\tmove\t$6,$5
+\tmove\t$7,$5
+\tli\t$2,64
+\tsw\t$2,0($3)
+\tjal\tfunc_8000C68C
+\tsw\t$0,16($sp)
+\tlw\t$3,0($18)
+\tsh\t$2,112($3)
+\tlui\t$2,%hi(D_8005A83C)
+\tlw\t$3,%lo(D_8005A83C)($2)
+\tli\t$2,1
+\tbne\t$3,$2,.Lruntime_create_full_size
+\tnop
+\tlui\t$1,%hi(D_80000C58)
+\tlwc1\t$f0,%lo(D_80000C58)($1)
+\tmul.s\t$f2,$f20,$f0
+\tlw\t$2,0($18)
+\tmul.s\t$f0,$f22,$f0
+\tswc1\t$f2,56($2)
+\tlw\t$2,0($18)
+\tj\t.Lruntime_create_dimensions_done
+\tswc1\t$f0,60($2)
+.Lruntime_create_full_size:
+\tlw\t$2,0($18)
+\tswc1\t$f20,56($2)
+\tlw\t$2,0($18)
+\tswc1\t$f22,60($2)
+.Lruntime_create_dimensions_done:
+\tli\t$6,4
+\tlui\t$7,%hi(D_80000ADC)
+\taddiu\t$7,$7,%lo(D_80000ADC)
+\tlui\t$2,%hi(D_8005A9E8)
+\tlui\t$16,%hi(D_8005ACD0)
+\tlui\t$17,%hi(D_8005AC7C)
+\taddiu\t$16,$16,%lo(D_8005ACD0)
+\taddiu\t$5,$16,12
+\tlw\t$3,%lo(D_8005AC7C)($17)
+\tlw\t$4,%lo(D_8005A9E8)($2)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\taddu\t$5,$2,$5
+\taddu\t$2,$2,$16
+\tli\t$3,1
+\tsw\t$3,8($2)
+\tsw\t$0,12($2)
+\tjal\tfunc_800AA804
+\tsw\t$0,16($2)
+\tlw\t$3,%lo(D_8005AC7C)($17)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\tlw\t$3,0($18)
+\taddu\t$2,$2,$16
+\tsw\t$3,4($2)
+\tlw\t$3,12($2)
+\tlw\t$2,0($18)
+\tli\t$4,60
+\tsw\t$2,0($3)
+\tlw\t$5,%lo(D_8005AC7C)($17)
+\tmove\t$2,$0
+\tsll\t$3,$5,2
+\taddu\t$3,$3,$5
+\taddiu\t$5,$5,1
+\tsll\t$3,$3,2
+\taddu\t$3,$3,$16
+\tsw\t$4,0($3)
+\tsw\t$5,%lo(D_8005AC7C)($17)
+.Lruntime_create_return:
+\tlw\t$31,36($sp)
+\tlw\t$18,32($sp)
+\tlw\t$17,28($sp)
+\tlw\t$16,24($sp)
+\tldc1\t$f22,48($sp)
+\tldc1\t$f20,40($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_record_release(lines: list[str]) -> list[str]:
     function_name = "func_800172CC"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -10475,6 +10601,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-offset-table-load", action="store_true")
     parser.add_argument("--schedule-resource-data-resolution", action="store_true")
     parser.add_argument("--schedule-runtime-render-record-release", action="store_true")
+    parser.add_argument("--schedule-runtime-render-record-creation", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -10618,6 +10745,7 @@ def main() -> None:
             args.schedule_audio_offset_table_load,
             args.schedule_resource_data_resolution,
             args.schedule_runtime_render_record_release,
+            args.schedule_runtime_render_record_creation,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10855,6 +10983,8 @@ def main() -> None:
         lines = schedule_resource_data_resolution(lines)
     if args.schedule_runtime_render_record_release:
         lines = schedule_runtime_render_record_release(lines)
+    if args.schedule_runtime_render_record_creation:
+        lines = schedule_runtime_render_record_creation(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
