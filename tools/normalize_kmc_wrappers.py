@@ -280,6 +280,46 @@ def _function_body(lines: list[str], start: int) -> tuple[int, list[str]]:
     return end, body
 
 
+def schedule_render_record_bytes(lines: list[str]) -> list[str]:
+    starts = [
+        index
+        for index in range(len(lines) - 2)
+        if [lines[index + offset].strip() for offset in range(3)]
+        == ["sb\t$0,44($4)", "sb\t$0,45($4)", "sb\t$0,46($4)"]
+    ]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one leading render-byte store group; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    expected = [
+        "sb\t$0,44($4)", "sb\t$0,45($4)", "sb\t$0,46($4)",
+        "l.s\t$f0,defaultScale", "li\t$2,0x000000ff",
+        "sh\t$2,70($4)", "sh\t$2,68($4)", "sh\t$2,66($4)",
+        "sh\t$2,64($4)", "li\t$2,0x00001234",
+        "sw\t$0,0($4)", "sw\t$0,4($4)", "sw\t$0,8($4)",
+        "sw\t$0,12($4)", "sw\t$0,16($4)", "sw\t$0,20($4)",
+        "sw\t$0,24($4)", "sh\t$0,42($4)", "sh\t$0,40($4)",
+        "sw\t$0,72($4)", "sw\t$0,76($4)", "sw\t$2,28($4)",
+        "sw\t$0,48($4)", "sw\t$0,56($4)", "sw\t$0,80($4)",
+        "sw\t$0,128($4)", "s.s\t$f0,32($4)", "j\t$31",
+        "s.s\t$f0,36($4)",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected render-record body: {body!r}")
+    insertions = [
+        index
+        for index in range(start + 3, end)
+        if lines[index].strip() == "sw\t$0,128($4)"
+    ]
+    if len(insertions) != 1:
+        raise ValueError(f"expected exactly one word-0x80 store; found {len(insertions)}")
+    moved = lines[start : start + 3]
+    del lines[start : start + 3]
+    insertion = insertions[0] - 3
+    lines[insertion:insertion] = moved
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2238,6 +2278,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-reference-return", action="store_true")
     parser.add_argument("--normalize-object-queue-entry", action="store_true")
     parser.add_argument("--schedule-scheduler-queue-return", action="store_true")
+    parser.add_argument("--schedule-render-record-bytes", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2287,6 +2328,7 @@ def main() -> None:
             args.schedule_object_reference_return,
             args.normalize_object_queue_entry,
             args.schedule_scheduler_queue_return,
+            args.schedule_render_record_bytes,
         )
     )
     if selected != 1:
@@ -2379,6 +2421,8 @@ def main() -> None:
         lines = normalize_object_queue_entry(lines)
     if args.schedule_scheduler_queue_return:
         lines = schedule_scheduler_queue_return(lines)
+    if args.schedule_render_record_bytes:
+        lines = schedule_render_record_bytes(lines)
     args.output.write_text("".join(lines))
 
 
