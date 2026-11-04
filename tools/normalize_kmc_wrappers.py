@@ -8664,6 +8664,122 @@ def schedule_color_palette_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_display_pipeline_state_initialization(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_8001B2C0:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_8001B2C0"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one display-pipeline state initializer")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "sh\t$0,displayStateValue", "sw\t$0,displayStateFirst",
+        "sw\t$0,displayStateSecond", "lw\t$2,screenWidth",
+        "lw\t$3,screenHeight", "lw\t$4,displayCommandPointer",
+        "sw\t$2,displayWidth", "sw\t$3,displayHeight",
+        "sw\t$3,displayCommandPointer",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected display-pipeline initializer near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,8,$31
+\t.mask\t0x00010000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-8
+\tlui\t$7,0xe300
+\tori\t$7,$7,0x0a01
+\tlui\t$9,0xd700
+\tori\t$9,$9,2
+\tlui\t$8,0x8000
+\tori\t$8,$8,0x8000
+\tlui\t$10,0xe200
+\tori\t$10,$10,0x1e01
+\tlui\t$11,0xe300
+\tori\t$11,$11,0x0c00
+\tlui\t$12,0xe300
+\tori\t$12,$12,0x1201
+\tlui\t$13,0xe300
+\tori\t$13,$13,0x1402
+\tlui\t$14,0xe300
+\tori\t$14,$14,0x0d01
+\tlui\t$15,0xe300
+\tori\t$15,$15,0x0f00
+\tsw\t$16,0($sp)
+\tlui\t$16,0xe300
+\tori\t$16,$16,0x1001
+\tlui\t$5,%hi(displayCommandPointer)
+\tlui\t$2,%hi(displayStateValue)
+\tsh\t$0,%lo(displayStateValue)($2)
+\tlui\t$2,%hi(displayStateFirst)
+\tsw\t$0,%lo(displayStateFirst)($2)
+\tlui\t$2,%hi(displayStateSecond)
+\tsw\t$0,%lo(displayStateSecond)($2)
+\tlui\t$2,%hi(screenWidth)
+\tlw\t$3,%lo(displayCommandPointer)($5)
+\tlw\t$4,%lo(screenWidth)($2)
+\tlui\t$2,%hi(displayWidth)
+\tmove\t$6,$3
+\taddiu\t$3,$3,8
+\tsw\t$4,%lo(displayWidth)($2)
+\tlui\t$2,%hi(screenHeight)
+\tlw\t$4,%lo(screenHeight)($2)
+\tlui\t$2,%hi(displayHeight)
+\tsw\t$3,%lo(displayCommandPointer)($5)
+\tsw\t$0,4($6)
+\tsw\t$4,%lo(displayHeight)($2)
+\tlui\t$2,0xe700
+\tsw\t$2,0($6)
+\taddiu\t$2,$3,8
+\taddiu\t$4,$3,16
+\tsw\t$2,%lo(displayCommandPointer)($5)
+\tsw\t$7,0($3)
+\tsw\t$0,4($3)
+\tsw\t$9,8($3)
+\tsw\t$8,4($2)
+\taddiu\t$2,$3,24
+\tsw\t$4,%lo(displayCommandPointer)($5)
+\tsw\t$10,16($3)
+\tsw\t$0,4($4)
+\taddiu\t$4,$3,32
+\taddiu\t$6,$3,40
+\tsw\t$2,%lo(displayCommandPointer)($5)
+\tsw\t$11,24($3)
+\tsw\t$0,4($2)
+\tli\t$2,8192
+\tsw\t$4,%lo(displayCommandPointer)($5)
+\tsw\t$12,32($3)
+\tsw\t$2,4($4)
+\taddiu\t$4,$3,48
+\tli\t$2,3072
+\tsw\t$13,40($3)
+\tsw\t$2,4($6)
+\taddiu\t$2,$3,56
+\tsw\t$6,%lo(displayCommandPointer)($5)
+\tsw\t$4,%lo(displayCommandPointer)($5)
+\tsw\t$14,48($3)
+\tsw\t$0,4($4)
+\taddiu\t$4,$3,64
+\tsw\t$2,%lo(displayCommandPointer)($5)
+\tsw\t$4,%lo(displayCommandPointer)($5)
+\tsw\t$15,56($3)
+\tsw\t$0,4($2)
+\tsw\t$16,64($3)
+\tsw\t$0,4($4)
+\tlw\t$16,0($sp)
+\taddiu\t$2,$3,72
+\tsw\t$2,%lo(displayCommandPointer)($5)
+\tjr\t$31
+\taddiu\t$sp,$sp,8
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -8786,6 +8902,7 @@ def main() -> None:
     parser.add_argument("--schedule-yielding-task-loop", action="store_true")
     parser.add_argument("--schedule-bitmap-object-initialization", action="store_true")
     parser.add_argument("--schedule-color-palette-initialization", action="store_true")
+    parser.add_argument("--schedule-display-pipeline-state-initialization", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -8915,6 +9032,7 @@ def main() -> None:
             args.schedule_yielding_task_loop,
             args.schedule_bitmap_object_initialization,
             args.schedule_color_palette_initialization,
+            args.schedule_display_pipeline_state_initialization,
         )
     )
     if selected != 1:
@@ -9163,6 +9281,8 @@ def main() -> None:
         lines = schedule_bitmap_object_initialization(lines)
     if args.schedule_color_palette_initialization:
         lines = schedule_color_palette_initialization(lines)
+    if args.schedule_display_pipeline_state_initialization:
+        lines = schedule_display_pipeline_state_initialization(lines)
     args.output.write_text("".join(lines))
 
 
