@@ -794,6 +794,53 @@ def order_scaled_indexed_record_result(lines: list[str]) -> list[str]:
     return lines
 
 
+def expand_controller_motor_reset_addresses(lines: list[str]) -> list[str]:
+    controller_matches: list[tuple[int, str]] = []
+    record_matches: list[tuple[int, str]] = []
+    operand_matches: list[int] = []
+    for index, line in enumerate(lines):
+        controller = re.fullmatch(
+            r"\s*la\s+\$20,([A-Za-z_][A-Za-z0-9_]*)\s*", line
+        )
+        record = re.fullmatch(
+            r"\s*la\s+\$17,([A-Za-z_][A-Za-z0-9_]*)\s*", line
+        )
+        if controller:
+            controller_matches.append((index, controller.group(1)))
+        if record:
+            record_matches.append((index, record.group(1)))
+        if line.strip() == "addu\t$4,$20,$18":
+            operand_matches.append(index)
+
+    counts = (
+        len(controller_matches),
+        len(record_matches),
+        len(operand_matches),
+    )
+    if counts != (1, 1, 2):
+        raise ValueError(
+            "expected one controller address, one record address, and two calls; "
+            f"found {counts}"
+        )
+
+    controller_index, controller_symbol = controller_matches[0]
+    record_index, record_symbol = record_matches[0]
+    for index in operand_matches:
+        lines[index] = "\taddu\t$4,$18,$20\n"
+    for index, register, symbol in sorted(
+        (
+            (controller_index, "$20", controller_symbol),
+            (record_index, "$17", record_symbol),
+        ),
+        reverse=True,
+    ):
+        lines[index : index + 1] = [
+            f"\tlui\t$2,%hi({symbol})\n",
+            f"\taddiu\t{register},$2,%lo({symbol})\n",
+        ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -819,6 +866,7 @@ def main() -> None:
     parser.add_argument("--schedule-broadcast-message", action="store_true")
     parser.add_argument("--order-indexed-record-address-operands", action="store_true")
     parser.add_argument("--order-scaled-indexed-record-result", action="store_true")
+    parser.add_argument("--expand-controller-motor-reset-addresses", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -845,6 +893,7 @@ def main() -> None:
             args.schedule_broadcast_message,
             args.order_indexed_record_address_operands,
             args.order_scaled_indexed_record_result,
+            args.expand_controller_motor_reset_addresses,
         )
     )
     if selected != 1:
@@ -891,6 +940,8 @@ def main() -> None:
         lines = order_indexed_record_address_operands(lines)
     if args.order_scaled_indexed_record_result:
         lines = order_scaled_indexed_record_result(lines)
+    if args.expand_controller_motor_reset_addresses:
+        lines = expand_controller_motor_reset_addresses(lines)
     args.output.write_text("".join(lines))
 
 
