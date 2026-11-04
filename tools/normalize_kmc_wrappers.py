@@ -7676,6 +7676,196 @@ def schedule_music_resource_load(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_render_surface_fill(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+
+    def replace_once(old: str, new: str, label: str) -> None:
+        nonlocal text
+        count = text.count(old)
+        if count != 1:
+            raise ValueError(f"expected one {label} pattern; found {count}")
+        text = text.replace(old, new, 1)
+
+    for old, new in (
+        ("\t.frame\t$sp,48,$31", "\t.frame\t$sp,32,$31"),
+        ("\tsubu\t$sp,$sp,48\n", "\tsubu\t$sp,$sp,32\n"),
+        ("\tsw\t$31,44($sp)\n", "\tsw\t$31,28($sp)\n"),
+        ("\tsw\t$18,40($sp)\n", "\tsw\t$18,24($sp)\n"),
+        ("\tsw\t$17,36($sp)\n", "\tsw\t$17,20($sp)\n"),
+        ("\tsw\t$16,32($sp)\n", "\tsw\t$16,16($sp)\n"),
+        ("\tlw\t$31,44($sp)\n", "\tlw\t$31,28($sp)\n"),
+        ("\tlw\t$18,40($sp)\n", "\tlw\t$18,24($sp)\n"),
+        ("\tlw\t$17,36($sp)\n", "\tlw\t$17,20($sp)\n"),
+        ("\tlw\t$16,32($sp)\n", "\tlw\t$16,16($sp)\n"),
+    ):
+        replace_once(old, new, "surface fill frame")
+
+    replace_once(
+        "\tlbu\t$4,67($sp)\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeq\t$16,$0,.L1\n"
+        "\tandi\t$5,$5,0x00ff\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tlw\t$3,128($16)\n"
+        "\tandi\t$6,$6,0x00ff\n"
+        "\tandi\t$2,$7,0x00ff\n"
+        "\tsh\t$5,64($16)\n"
+        "\tsh\t$6,66($16)\n"
+        "\tsh\t$2,68($16)\n"
+        "\tandi\t$3,$3,0x0008\n",
+        "\tlbu\t$3,51($sp)\n"
+        "\tbne\t$16,$0,.L3\n"
+        "\tandi\t$10,$5,0x00ff\n"
+        "\tj\t.L1\n"
+        "\tmove\t$2,$0\n"
+        ".L3:\n"
+        "\tandi\t$9,$6,0x00ff\n"
+        "\tandi\t$8,$7,0x00ff\n"
+        "\tlw\t$2,128($16)\n"
+        "\tandi\t$4,$3,0x00ff\n"
+        "\tsh\t$10,64($16)\n"
+        "\tsh\t$9,66($16)\n"
+        "\tsh\t$8,68($16)\n"
+        "\tandi\t$2,$2,0x0008\n",
+        "surface color setup",
+    )
+    replace_once(
+        "\tbeq\t$3,$0,.L1\n"
+        "\tsh\t$4,70($16)\n",
+        "\tbeq\t$2,$0,.L1\n"
+        "\tsh\t$4,70($16)\n",
+        "surface enable test",
+    )
+    replace_once(
+        "\tbne\t$3,$2,.L4\n"
+        "\tlw\t$2,0($16)\n",
+        "\tbne\t$3,$2,.L4\n"
+        "\tnop\n"
+        "\tlw\t$2,0($16)\n",
+        "surface type branch",
+    )
+    replace_once(
+        "\tsll\t$3,$5,8\n"
+        "\tandi\t$3,$3,0xf800\n"
+        "\tsll\t$2,$6,3\n"
+        "\tandi\t$2,$2,0x07c0\n"
+        "\tor\t$3,$3,$2\n"
+        "\tsrl\t$2,$7,2\n"
+        "\tandi\t$2,$2,0x003e\n"
+        "\tor\t$2,$2,$3\n"
+        "\tlw\t$3,60($16)\n"
+        "\tori\t$18,$2,0x0001\n",
+        "\tsll\t$3,$5,8\n"
+        "\tandi\t$3,$3,0xf800\n"
+        "\tsll\t$2,$6,3\n"
+        "\tandi\t$2,$2,0x07c0\n"
+        "\tor\t$3,$3,$2\n"
+        "\tsrl\t$2,$7,2\n"
+        "\tandi\t$2,$2,0x003e\n"
+        "\tor\t$3,$3,$2\n"
+        "\tori\t$18,$3,0x0001\n"
+        "\tlw\t$3,60($16)\n",
+        "packed surface color",
+    )
+
+    replace_once(
+        ".L8:\n"
+        "\tlw\t$6,12($16)\n"
+        "\tlw\t$2,16($16)\n"
+        "\t#nop\n"
+        "\tmult\t$6,$2\n"
+        "\tmflo\t$6\n"
+        "\t#nop\n"
+        "\tlw\t$3,72($16)\n"
+        "\tsll\t$2,$17,2\n"
+        "\taddu\t$2,$2,$3\n"
+        "\tlw\t$4,0($2)\n"
+        "\tmove\t$5,$0\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_80037F30\n"
+        "\tsll\t$6,$6,1\n",
+        ".L8:\n"
+        "\tlw\t$3,12($16)\n"
+        "\tlw\t$2,16($16)\n"
+        "\tmove\t$5,$0\n"
+        "\tmult\t$3,$2\n"
+        "\tlw\t$3,72($16)\n"
+        "\tsll\t$2,$17,2\n"
+        "\taddu\t$2,$2,$3\n"
+        "\tlw\t$4,0($2)\n"
+        "\tmflo\t$11\n"
+        "\tjal\tfunc_80037F30\n"
+        "\tsll\t$6,$11,1\n",
+        "clear surface loop",
+    )
+    replace_once(
+        "\tbeq\t$2,$0,.L1\n"
+        "\tj\t.L8\n",
+        "\tbeq\t$2,$0,.L1\n"
+        "\tnop\n"
+        "\tj\t.L8\n"
+        "\tnop\n",
+        "clear surface loop branches",
+    )
+    replace_once(
+        ".L14:\n"
+        "\tlw\t$6,12($16)\n"
+        "\tlw\t$2,16($16)\n"
+        "\t#nop\n"
+        "\tmult\t$6,$2\n"
+        "\tmflo\t$6\n"
+        "\t#nop\n"
+        "\tlw\t$3,72($16)\n"
+        "\tsll\t$2,$17,2\n"
+        "\taddu\t$2,$2,$3\n"
+        "\tlw\t$4,0($2)\n"
+        "\tandi\t$5,$18,0xffff\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_80037F30\n"
+        "\tsll\t$6,$6,1\n",
+        ".L14:\n"
+        "\tlw\t$3,12($16)\n"
+        "\tlw\t$2,16($16)\n"
+        "\tandi\t$5,$18,0xffff\n"
+        "\tmult\t$3,$2\n"
+        "\tlw\t$3,72($16)\n"
+        "\tsll\t$2,$17,2\n"
+        "\taddu\t$2,$2,$3\n"
+        "\tlw\t$4,0($2)\n"
+        "\tmflo\t$11\n"
+        "\tjal\tfunc_80037F30\n"
+        "\tsll\t$6,$11,1\n",
+        "fill surface loop",
+    )
+    replace_once(
+        "\tbne\t$2,$0,.L14\n"
+        ".L1:\n",
+        "\tbne\t$2,$0,.L14\n"
+        "\tnop\n"
+        ".L1:\n",
+        "fill surface loop branch",
+    )
+    replace_once(
+        "\taddu\t$sp,$sp,48\n"
+        "\tj\t$31\n",
+        "\tj\t$31\n"
+        "\taddu\t$sp,$sp,32\n",
+        "surface fill epilogue",
+    )
+
+    output = ["\t.set\tnoreorder\n"]
+    for line in text.splitlines(keepends=True):
+        if line.strip() == ".set\treorder":
+            output.append("\t.set\tnoreorder\n")
+        else:
+            output.append(line)
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -7791,6 +7981,7 @@ def main() -> None:
     parser.add_argument("--schedule-sound-resource-initialization", action="store_true")
     parser.add_argument("--schedule-named-archive-search", action="store_true")
     parser.add_argument("--schedule-music-resource-load", action="store_true")
+    parser.add_argument("--schedule-render-surface-fill", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -7913,6 +8104,7 @@ def main() -> None:
             args.schedule_sound_resource_initialization,
             args.schedule_named_archive_search,
             args.schedule_music_resource_load,
+            args.schedule_render_surface_fill,
         )
     )
     if selected != 1:
@@ -8147,6 +8339,8 @@ def main() -> None:
         lines = schedule_named_archive_search(lines)
     if args.schedule_music_resource_load:
         lines = schedule_music_resource_load(lines)
+    if args.schedule_render_surface_fill:
+        lines = schedule_render_surface_fill(lines)
     args.output.write_text("".join(lines))
 
 
