@@ -75,6 +75,37 @@
     "nop\n" \
     "jr $31\n" \
     "nop\n"
+#elif defined(BUILD_DISABLE)
+#define INTERRUPT_BODY \
+    "lui $10,0x8007\n" \
+    "addiu $10,$10,-31664\n" \
+    "lw $11,0($10)\n" \
+    "andi $11,$11,0xff00\n" \
+    "mfc0 $8,$12\n" \
+    "li $1,-2\n" \
+    "and $9,$8,$1\n" \
+    "mtc0 $9,$12\n" \
+    "andi $2,$8,1\n" \
+    "lw $8,0($10)\n" \
+    "andi $8,$8,0xff00\n" \
+    "beq $8,$11,1f\n" \
+    "lui $10,0x8006\n" \
+    "addiu $10,$10,28848\n" \
+    "lw $9,280($10)\n" \
+    "andi $10,$9,0xff00\n" \
+    "and $10,$10,$8\n" \
+    "lui $1,0xffff\n" \
+    "ori $1,$1,0xff\n" \
+    "and $9,$9,$1\n" \
+    "or $9,$9,$10\n" \
+    "li $1,-2\n" \
+    "and $9,$9,$1\n" \
+    "mtc0 $9,$12\n" \
+    "nop\n" \
+    "nop\n" \
+    "1:\n" \
+    "jr $31\n" \
+    "nop\n"
 #else
 #define INTERRUPT_BODY \
     "mfc0 $8,$12\n" \
