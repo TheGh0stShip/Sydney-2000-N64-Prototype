@@ -514,6 +514,80 @@ def schedule_resolved_record_value(lines: list[str]) -> list[str]:
     return lines
 
 
+def normalize_slot_state_initializer(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "move\t$3,$0"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80006E7C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 2:
+        raise ValueError(f"expected two slot-state zero-index sites; found {candidates!r}")
+    start, end = candidates[0][0], candidates[-1][1]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    labels = [item[:-1] for item in body if re.fullmatch(r"\.L[0-9]+:", item)]
+    if len(labels) != 2:
+        raise ValueError(f"expected two slot-state loop labels; found {len(labels)}")
+    records, slots = labels
+    expected = [
+        "move\t$3,$0", "move\t$6,$4", "move\t$5,$4", "li\t$7,-2147221504",
+        "sw\t$0,0($4)", "sw\t$0,4($4)", f"{records}:", "sw\t$0,8($5)",
+        "addu\t$11,$7,15672", "lw\t$2,0($11)", "lw\t$8,4($11)",
+        "lw\t$9,8($11)", "lw\t$10,12($11)", "sw\t$2,24($6)",
+        "sw\t$8,28($6)", "sw\t$9,32($6)", "sw\t$10,36($6)",
+        "addu\t$6,$6,16", "addu\t$3,$3,1", "sltu\t$2,$3,3",
+        f"bne\t$2,$0,{records}", "addu\t$5,$5,4", "move\t$3,$0", f"{slots}:",
+        "addu\t$3,$3,1", "sw\t$0,72($4)", "sw\t$0,104($4)",
+        "sw\t$0,136($4)", "sltu\t$2,$3,8", f"bne\t$2,$0,{slots}",
+        "addu\t$4,$4,4", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected slot-state initializer body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tmove\t$3,$0\n",
+        "\tlui\t$7,0x8004\n",
+        "\tmove\t$6,$4\n",
+        "\tmove\t$5,$4\n",
+        "\tsw\t$0,0($4)\n",
+        "\tsw\t$0,4($4)\n",
+        f"{records}:\n",
+        "\tsw\t$0,8($5)\n",
+        "\taddiu\t$11,$7,15672\n",
+        "\tlw\t$8,0($11)\n",
+        "\tlw\t$9,4($11)\n",
+        "\tlw\t$10,8($11)\n",
+        "\tsw\t$8,24($6)\n",
+        "\tsw\t$9,28($6)\n",
+        "\tsw\t$10,32($6)\n",
+        "\tlw\t$8,12($11)\n",
+        "\tsw\t$8,36($6)\n",
+        "\taddiu\t$6,$6,16\n",
+        "\taddiu\t$3,$3,1\n",
+        "\tsltu\t$2,$3,3\n",
+        f"\tbne\t$2,$0,{records}\n",
+        "\taddiu\t$5,$5,4\n",
+        "\tmove\t$3,$0\n",
+        f"{slots}:\n",
+        "\tsw\t$0,72($4)\n",
+        "\tsw\t$0,104($4)\n",
+        "\tsw\t$0,136($4)\n",
+        "\taddiu\t$3,$3,1\n",
+        "\tsltu\t$2,$3,8\n",
+        f"\tbne\t$2,$0,{slots}\n",
+        "\taddiu\t$4,$4,4\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\tnop\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2476,6 +2550,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-record-reset", action="store_true")
     parser.add_argument("--normalize-vector-plane-test", action="store_true")
     parser.add_argument("--schedule-resolved-record-value", action="store_true")
+    parser.add_argument("--normalize-slot-state-initializer", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2529,6 +2604,7 @@ def main() -> None:
             args.schedule_audio_record_reset,
             args.normalize_vector_plane_test,
             args.schedule_resolved_record_value,
+            args.normalize_slot_state_initializer,
         )
     )
     if selected != 1:
@@ -2629,6 +2705,8 @@ def main() -> None:
         lines = normalize_vector_plane_test(lines)
     if args.schedule_resolved_record_value:
         lines = schedule_resolved_record_value(lines)
+    if args.normalize_slot_state_initializer:
+        lines = normalize_slot_state_initializer(lines)
     args.output.write_text("".join(lines))
 
 
