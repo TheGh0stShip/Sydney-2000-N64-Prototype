@@ -5496,6 +5496,71 @@ def schedule_render_task_submission(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_pi_worker_startup(lines: list[str]) -> list[str]:
+    frames = [index for index, line in enumerate(lines) if line.strip().startswith(".frame")]
+    masks = [index for index, line in enumerate(lines) if line.strip().startswith(".mask")]
+    if len(frames) != 1 or lines[frames[0]].strip().split("#", 1)[0].rstrip() != ".frame\t$sp,24,$31":
+        raise ValueError("unexpected PI-worker startup frame")
+    if len(masks) != 1 or lines[masks[0]].strip() != ".mask\t0x80000000,-8":
+        raise ValueError("unexpected PI-worker startup register mask")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,24"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80004710"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one PI-worker startup body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,24", "sw\t$31,16($sp)", "jal\tfunc_800341E0",
+        "jal\tfunc_80037E90", "move\t$4,$3", "jal\tfunc_800114BC",
+        "li\t$2,-1340997632", "ori\t$2,$2,0x7640", "li\t$4,-1340997632",
+        "ori\t$4,$4,0x7640", "li\t$5,-2146959360", "ori\t$5,$5,0x3d50",
+        "li\t$6,0x00070000", "sw\t$2,romCursor", "jal\tfunc_80011300",
+        "ori\t$6,$6,0xc470", "jal\tfunc_8002E280", "li\t$4,-2146959360",
+        "ori\t$4,$4,0x3d50", "li\t$5,0x00070000", "jal\tfunc_8002E200",
+        "ori\t$5,$5,0xc470", "li\t$4,-2147483648", "ori\t$4,$4,0x22a0",
+        "li\t$5,-2147483648", "jal\tfunc_800290F0", "ori\t$5,$5,0x22b0",
+        "li\t$4,-2146959360", "ori\t$4,$4,0xcc50", "li\t$5,-2146959360",
+        "jal\tfunc_800290F0", "ori\t$5,$5,0xcca4", "la\t$4,scheduler",
+        "move\t$5,$0", "jal\tfunc_80005D10", "li\t$6,0x00000001",
+        "jal\tfunc_8001E588", "move\t$4,$0", "jal\tfunc_800043E0",
+        "lw\t$31,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected PI-worker startup body: {body!r}")
+    lines[frames[0]] = "\t.frame\t$sp,32,$31\n"
+    lines[masks[0]] = "\t.mask\t0x80030000,-8\n"
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-32\n", "\tsw\t$31,24($sp)\n",
+        "\tsw\t$17,20($sp)\n", "\tjal\tfunc_800341E0\n", "\tsw\t$16,16($sp)\n",
+        "\tjal\tfunc_80037E90\n", "\taddu\t$4,$3,$0\n", "\tjal\tfunc_800114BC\n",
+        "\tlui\t$16,0x8010\n", "\tlui\t$2,%hi(romCursor)\n", "\tlui\t$4,0xb012\n",
+        "\taddiu\t$4,$4,0x7640\n", "\tsw\t$4,%lo(romCursor)($2)\n",
+        "\tlui\t$2,0x8008\n", "\taddiu\t$2,$2,0x3d5f\n", "\tsrl\t$17,$2,4\n",
+        "\tsll\t$17,$17,4\n", "\taddu\t$5,$17,$0\n", "\taddiu\t$16,$16,0x1c0\n",
+        "\taddiu\t$2,$2,-15\n", "\tsubu\t$16,$16,$2\n", "\tjal\tfunc_80011300\n",
+        "\taddu\t$6,$16,$0\n", "\tjal\tfunc_8002E280\n", "\tnop\n",
+        "\taddu\t$4,$17,$0\n", "\tjal\tfunc_8002E200\n", "\taddu\t$5,$16,$0\n",
+        "\tlui\t$4,0x8000\n", "\taddiu\t$4,$4,0x22a0\n", "\tlui\t$5,0x8000\n",
+        "\tjal\tfunc_800290F0\n", "\taddiu\t$5,$5,0x22b0\n",
+        "\tlui\t$4,0x8009\n", "\taddiu\t$4,$4,-13232\n", "\tlui\t$5,0x8009\n",
+        "\tjal\tfunc_800290F0\n", "\taddiu\t$5,$5,-13148\n",
+        "\tlui\t$4,%hi(scheduler)\n", "\taddiu\t$4,$4,%lo(scheduler)\n",
+        "\taddu\t$5,$0,$0\n", "\tjal\tfunc_80005D10\n", "\taddiu\t$6,$0,1\n",
+        "\tjal\tfunc_8001E588\n", "\taddu\t$4,$0,$0\n", "\tjal\tfunc_800043E0\n",
+        "\tnop\n", "\tlw\t$31,24($sp)\n", "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5589,6 +5654,7 @@ def main() -> None:
     parser.add_argument("--schedule-worker-request-dispatch", action="store_true")
     parser.add_argument("--schedule-audio-heap-initialization", action="store_true")
     parser.add_argument("--schedule-render-task-submission", action="store_true")
+    parser.add_argument("--schedule-pi-worker-startup", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5683,6 +5749,7 @@ def main() -> None:
             args.schedule_worker_request_dispatch,
             args.schedule_audio_heap_initialization,
             args.schedule_render_task_submission,
+            args.schedule_pi_worker_startup,
         )
     )
     if selected != 1:
@@ -5865,6 +5932,8 @@ def main() -> None:
         lines = schedule_audio_heap_initialization(lines)
     if args.schedule_render_task_submission:
         lines = schedule_render_task_submission(lines)
+    if args.schedule_pi_worker_startup:
+        lines = schedule_pi_worker_startup(lines)
     args.output.write_text("".join(lines))
 
 
