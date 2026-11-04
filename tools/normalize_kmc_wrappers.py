@@ -939,6 +939,70 @@ def schedule_double_buffer_allocations(lines: list[str]) -> list[str]:
     return lines
 
 
+def suppress_asset_relocation_load_hazards(lines: list[str]) -> list[str]:
+    """Keep two KMC assembler hazard boundaries out of the relocation loop."""
+    inner_loads = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "lbu\t$2,128($6)"
+        and index + 1 < len(lines)
+        and lines[index + 1].strip() == "#.set\tnovolatile"
+        and any(
+            re.fullmatch(r"\s*beq\s+\$2,\$0,\.L[0-9]+\s*", following)
+            for following in lines[index + 1 : index + 6]
+        )
+    ]
+    inner_branches = [
+        index
+        for index, line in enumerate(lines)
+        if re.fullmatch(r"\s*beq\s+\$2,\$0,(\.L[0-9]+)\s*", line)
+        and index + 1 < len(lines)
+        and lines[index + 1].strip() == "move\t$5,$0"
+    ]
+    returns = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "j\t$31"
+        and index > 0
+        and re.fullmatch(r"\.L[0-9]+:\s*", lines[index - 1])
+    ]
+    counts = (len(inner_loads), len(inner_branches), len(returns))
+    if counts != (1, 1, 1):
+        raise ValueError(
+            "expected one relocation count load, inner branch, and return; "
+            f"found {counts}"
+        )
+
+    load_index = inner_loads[0]
+    branch_index = inner_branches[0]
+    if not (load_index < branch_index <= load_index + 5):
+        raise ValueError("unexpected relocation load/branch spacing")
+    lines.insert(load_index, "\t.set\tnoreorder\n")
+    branch_index += 1
+    lines.insert(branch_index + 2, "\t.set\treorder\n")
+
+    return_index = [
+        index for index, line in enumerate(lines) if line.strip() == "j\t$31"
+    ][0]
+    reorder_indices = [
+        index
+        for index in range(max(0, return_index - 6), return_index)
+        if lines[index].strip() == ".set\treorder"
+    ]
+    if len(reorder_indices) != 1:
+        raise ValueError(
+            "expected one reorder directive before relocation return; "
+            f"found {len(reorder_indices)}"
+        )
+    del lines[reorder_indices[0]]
+    return_index -= 1
+    lines[return_index + 1 : return_index + 1] = [
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -966,6 +1030,7 @@ def main() -> None:
     parser.add_argument("--order-scaled-indexed-record-result", action="store_true")
     parser.add_argument("--expand-controller-motor-reset-addresses", action="store_true")
     parser.add_argument("--schedule-double-buffer-allocations", action="store_true")
+    parser.add_argument("--suppress-asset-relocation-load-hazards", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -994,6 +1059,7 @@ def main() -> None:
             args.order_scaled_indexed_record_result,
             args.expand_controller_motor_reset_addresses,
             args.schedule_double_buffer_allocations,
+            args.suppress_asset_relocation_load_hazards,
         )
     )
     if selected != 1:
@@ -1044,6 +1110,8 @@ def main() -> None:
         lines = expand_controller_motor_reset_addresses(lines)
     if args.schedule_double_buffer_allocations:
         lines = schedule_double_buffer_allocations(lines)
+    if args.suppress_asset_relocation_load_hazards:
+        lines = suppress_asset_relocation_load_hazards(lines)
     args.output.write_text("".join(lines))
 
 

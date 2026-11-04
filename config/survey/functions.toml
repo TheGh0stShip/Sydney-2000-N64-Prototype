@@ -106,7 +106,7 @@ functions = [
     { name = "func_8000A994", vram = 0x8000a994, size = 0x1c0 }, # c
     { name = "func_8000AB54", vram = 0x8000ab54, size = 0xc }, # stub
     { name = "func_8000AB60", vram = 0x8000ab60, size = 0xb0 }, # c
-    { name = "func_8000AC10", vram = 0x8000ac10, size = 0x120 }, # leaf
+    { name = "func_8000AC10", vram = 0x8000ac10, size = 0x120 }, # c
     { name = "func_8000AD30", vram = 0x8000ad30, size = 0x6c8 }, # c
     { name = "func_8000B3F8", vram = 0x8000b3f8, size = 0x210 }, # leaf
     { name = "func_8000B608", vram = 0x8000b608, size = 0xa28 }, # c
