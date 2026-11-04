@@ -551,6 +551,57 @@ def split_aliased_boolean_stores(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_message_queue_initializer(lines: list[str]) -> list[str]:
+    starts = [
+        index
+        for index, line in enumerate(lines)
+        if re.fullmatch(r"\s*la\s+\$4,[A-Za-z_][A-Za-z0-9_]*\s*", line)
+    ]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one queue address load; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    queue = re.fullmatch(r"la\t\$4,([A-Za-z_][A-Za-z0-9_]*)", body[0])
+    buffer = re.fullmatch(r"la\t\$5,([A-Za-z_][A-Za-z0-9_]*)", body[1])
+    helper = re.fullmatch(r"jal\t([A-Za-z_][A-Za-z0-9_]*)", body[3])
+    ready = re.fullmatch(r"sw\t\$2,([A-Za-z_][A-Za-z0-9_]*)", body[6])
+    expected = [
+        body[0], body[1], "sw\t$31,16($sp)", body[3],
+        "li\t$6,0x00000008", "li\t$2,0x00000001", body[6],
+        "lw\t$31,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if (
+        len(body) != 10
+        or not queue
+        or not buffer
+        or not helper
+        or not ready
+        or body != expected
+    ):
+        raise ValueError(f"unexpected message-queue initializer: {body!r}")
+    queue_symbol = queue.group(1)
+    buffer_symbol = buffer.group(1)
+    ready_symbol = ready.group(1)
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        f"\tlui\t$4,%hi({queue_symbol})\n",
+        f"\tlui\t$5,%hi({buffer_symbol})\n",
+        f"\taddiu\t$4,$4,%lo({queue_symbol})\n",
+        f"\taddiu\t$5,$5,%lo({buffer_symbol})\n",
+        "\tsw\t$31,16($sp)\n",
+        f"\tjal\t{helper.group(1)}\n",
+        "\tli\t$6,0x00000008\n",
+        f"\tlui\t$3,%hi({ready_symbol})\n",
+        "\tlw\t$31,16($sp)\n",
+        "\tli\t$2,0x00000001\n",
+        f"\tsw\t$2,%lo({ready_symbol})($3)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -569,6 +620,7 @@ def main() -> None:
     parser.add_argument("--move-record-address-before-index", action="store_true")
     parser.add_argument("--reuse-configuration-limit", action="store_true")
     parser.add_argument("--split-aliased-boolean-stores", action="store_true")
+    parser.add_argument("--schedule-message-queue-initializer", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -588,6 +640,7 @@ def main() -> None:
             args.move_record_address_before_index,
             args.reuse_configuration_limit,
             args.split_aliased_boolean_stores,
+            args.schedule_message_queue_initializer,
         )
     )
     if selected != 1:
@@ -620,6 +673,8 @@ def main() -> None:
         lines = reuse_configuration_limit(lines)
     if args.split_aliased_boolean_stores:
         lines = split_aliased_boolean_stores(lines)
+    if args.schedule_message_queue_initializer:
+        lines = schedule_message_queue_initializer(lines)
     args.output.write_text("".join(lines))
 
 
