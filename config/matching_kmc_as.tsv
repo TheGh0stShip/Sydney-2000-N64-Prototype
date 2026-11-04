@@ -274,3 +274,4 @@
 0x6210	0x5C	src/game/call_helper_if_subsystem_ready.c	--symbol=subsystem:0x8004367C -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80005610 -DPREPARE_HELPER_NAME=func_80017888 -DMAIN_HELPER_NAME=func_80004CA4 -DSUBSYSTEM_NAME=subsystem	a18b01dc0c524f23f428513f65b4c72427dd2a842c80747f041d3dc9200e6bd9
 0x266D8	0x5C	src/libmus/invalidate_record_id.c	--symbol=records:0x8006BBC0 --symbol=recordCount:0x8006BBC4 -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80025AD8 -DRECORDS_NAME=records -DCOUNT_NAME=recordCount	edc30475c09da0220a7a9000bcc4a809deb790dffc6ae945c6cb0b90dec9e0ca
 0x38550	0x50	src/game/find_substring.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80037950	432bb24e28171e0f81d5d017197098b654a2faf11d14ba06a20619c73b738368
+0x1EF4C	0x60	src/game/wait_for_message_type.c	--symbol=queue:0x8006B820 -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_8001E34C -DRECEIVE_NAME=func_80032BB0 -DQUEUE_NAME=queue	74c7cdc482102650cabc2826aacf829935bb08156ab3594853c36715f443e168
