@@ -8443,6 +8443,115 @@ def schedule_yielding_task_loop(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_bitmap_object_initialization(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80018D28:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80018D28"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one bitmap-object initializer")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "l.s\t$f0,bitmapUnitScale", "la\t$7,bitDataName",
+        "la\t$7,bitmapsName", "la\t$7,pixelBufferName",
+        "jal\tfunc_800AA804", "sw\t$2,128($16)",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected bitmap-object initializer near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80030000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$16,16($sp)
+\tmove\t$16,$4
+\tsw\t$17,20($sp)
+\tlui\t$17,%hi(memoryContext)
+\taddiu\t$17,$17,%lo(memoryContext)
+\tmove\t$4,$17
+\taddiu\t$5,$16,72
+\tlui\t$7,%hi(bitDataName)
+\taddiu\t$7,$7,%lo(bitDataName)
+\tli\t$2,1
+\tsw\t$31,24($sp)
+\tsw\t$2,0($16)
+\tmove\t$6,$2
+\tsw\t$2,20($16)
+\tsw\t$2,24($16)
+\tsh\t$2,40($16)
+\tsh\t$2,42($16)
+\tli\t$2,16
+\tlui\t$1,%hi(bitmapUnitScale)
+\tlwc1\t$f0,%lo(bitmapUnitScale)($1)
+\taddiu\t$6,$6,1
+\tsw\t$2,60($16)
+\tlw\t$2,20($16)
+\tsll\t$6,$6,2
+\tsw\t$0,80($16)
+\tsw\t$0,4($16)
+\tsw\t$0,8($16)
+\tsw\t$0,80($16)
+\tsw\t$0,84($16)
+\tsw\t$0,72($16)
+\tsw\t$0,76($16)
+\tori\t$2,$2,8
+\tswc1\t$f0,32($16)
+\tswc1\t$f0,36($16)
+\tjal\tfunc_800AA804
+\tsw\t$2,20($16)
+\tmove\t$4,$17
+\taddiu\t$5,$16,76
+\tlui\t$7,%hi(bitmapsName)
+\tlw\t$6,0($16)
+\taddiu\t$7,$7,%lo(bitmapsName)
+\taddiu\t$6,$6,1
+\tjal\tfunc_800AA804
+\tsll\t$6,$6,4
+\tmove\t$4,$17
+\taddiu\t$5,$16,80
+\tli\t$6,64
+\tlui\t$7,%hi(pixelBufferName)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(pixelBufferName)
+\tlw\t$3,72($16)
+\tlw\t$2,80($16)
+\tli\t$4,4
+\tsw\t$4,12($16)
+\tsw\t$4,16($16)
+\tsw\t$2,0($3)
+\tlw\t$2,76($16)
+\tsh\t$4,2($2)
+\tsh\t$4,0($2)
+\tlw\t$2,76($16)
+\tsh\t$0,6($2)
+\tsh\t$0,4($2)
+\tlw\t$2,72($16)
+\tlw\t$3,76($16)
+\tlw\t$2,0($2)
+\tsw\t$2,8($3)
+\tlw\t$2,76($16)
+\tsh\t$4,12($2)
+\tlw\t$2,76($16)
+\tsh\t$0,14($2)
+\tlw\t$3,128($16)
+\tlw\t$2,0($16)
+\tori\t$3,$3,6
+\tsw\t$3,128($16)
+\tlw\t$31,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -8563,6 +8672,7 @@ def main() -> None:
     parser.add_argument("--schedule-slot-entry-release", action="store_true")
     parser.add_argument("--schedule-image-tile-conversion", action="store_true")
     parser.add_argument("--schedule-yielding-task-loop", action="store_true")
+    parser.add_argument("--schedule-bitmap-object-initialization", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -8690,6 +8800,7 @@ def main() -> None:
             args.schedule_slot_entry_release,
             args.schedule_image_tile_conversion,
             args.schedule_yielding_task_loop,
+            args.schedule_bitmap_object_initialization,
         )
     )
     if selected != 1:
@@ -8934,6 +9045,8 @@ def main() -> None:
         lines = schedule_image_tile_conversion(lines)
     if args.schedule_yielding_task_loop:
         lines = schedule_yielding_task_loop(lines)
+    if args.schedule_bitmap_object_initialization:
+        lines = schedule_bitmap_object_initialization(lines)
     args.output.write_text("".join(lines))
 
 
