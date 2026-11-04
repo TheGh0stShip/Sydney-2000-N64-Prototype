@@ -1184,6 +1184,83 @@ def schedule_audio_record_allocation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_record_volume_reset(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$5,audioMasterVolume"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001D6D8"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one audio-record volume-reset body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$5,audioMasterVolume", "subu\t$sp,$sp,32", "li\t$4,0x00000002",
+        "sw\t$18,24($sp)", "la\t$18,audioRecordVolumes", "sw\t$17,20($sp)",
+        "sw\t$16,16($sp)", "la\t$16,audioRecords+52", "sw\t$31,28($sp)",
+        "sw\t$0,audioRecordLock", "sw\t$0,audioUpdatePending",
+        "jal\tfunc_8001E994", "move\t$17,$0", ".L5:", "lw\t$2,-48($16)",
+        "beql\t$2,$0,.L9", "addu\t$17,$17,1", "lw\t$5,0($18)",
+        "bltzl\t$5,.L7", "addu\t$5,$5,127", ".L7:", "lw\t$4,0($16)",
+        "jal\tfunc_8001EDE0", "sra\t$5,$5,7", "addu\t$17,$17,1", ".L9:",
+        "addu\t$16,$16,64", "slt\t$2,$17,20", "bne\t$2,$0,.L5",
+        "addu\t$18,$18,4", "lw\t$31,28($sp)", "lw\t$18,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected audio-record volume-reset body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,32\n",
+        "\tli\t$4,2\n",
+        "\tsw\t$18,24($sp)\n",
+        "\tmove\t$18,$0\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$5,20356($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20324($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$31,28($sp)\n",
+        "\tsw\t$17,20($sp)\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tjal\tfunc_8001E994\n",
+        "\tsw\t$0,20484($2)\n",
+        "\tlui\t$2,0x8007\n",
+        "\taddiu\t$17,$2,-18512\n",
+        "\tlui\t$2,0x8007\n",
+        "\taddiu\t$16,$2,-19792\n",
+        ".L5:\n",
+        "\tlw\t$2,4($16)\n",
+        "\tbeql\t$2,$0,.L9\n",
+        "\taddiu\t$17,$17,4\n",
+        "\tlw\t$5,0($17)\n",
+        "\tbltzl\t$5,.L7\n",
+        "\taddiu\t$5,$5,127\n",
+        ".L7:\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001EDE0\n",
+        "\tsra\t$5,$5,7\n",
+        "\taddiu\t$17,$17,4\n",
+        ".L9:\n",
+        "\taddiu\t$18,$18,1\n",
+        "\tslt\t$2,$18,20\n",
+        "\tbne\t$2,$0,.L5\n",
+        "\taddiu\t$16,$16,64\n",
+        "\tlw\t$31,28($sp)\n",
+        "\tlw\t$18,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3155,6 +3232,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-runtime-initialization", action="store_true")
     parser.add_argument("--schedule-resolved-record-signature", action="store_true")
     parser.add_argument("--schedule-audio-record-allocation", action="store_true")
+    parser.add_argument("--schedule-audio-record-volume-reset", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3217,6 +3295,7 @@ def main() -> None:
             args.schedule_audio_runtime_initialization,
             args.schedule_resolved_record_signature,
             args.schedule_audio_record_allocation,
+            args.schedule_audio_record_volume_reset,
         )
     )
     if selected != 1:
@@ -3335,6 +3414,8 @@ def main() -> None:
         lines = schedule_resolved_record_signature(lines)
     if args.schedule_audio_record_allocation:
         lines = schedule_audio_record_allocation(lines)
+    if args.schedule_audio_record_volume_reset:
+        lines = schedule_audio_record_volume_reset(lines)
     args.output.write_text("".join(lines))
 
 

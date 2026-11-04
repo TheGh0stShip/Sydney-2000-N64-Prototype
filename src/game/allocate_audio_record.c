@@ -10,26 +10,10 @@
 #define LOCK_NAME audioRecordLock
 #endif
 
+#include "audio_record.h"
+
 typedef signed int s32;
 typedef unsigned int u32;
-
-typedef struct AudioRecord {
-    u32 active;
-    u32 enabled;
-    u32 special;
-    u32 initialized;
-    u32 value;
-    u32 volume;
-    u32 limit;
-    u32 elapsed;
-    u32 specialValue;
-    u32 index;
-    u32 counter;
-    u32 owner;
-    u32 state;
-    u32 reserved;
-    u32 padding[2];
-} AudioRecord;
 
 extern AudioRecord RECORDS_NAME[20];
 extern u32 LOCK_NAME;
@@ -59,7 +43,7 @@ s32 LEAF_NAME(void *unused, u32 value, void *unused2, u32 specialValue) {
                 record->special = 1;
                 record->specialValue = specialValue;
             }
-            record->reserved = 0;
+            record->handle = 0;
             record->index = index;
             return index;
         }
