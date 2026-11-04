@@ -1420,6 +1420,81 @@ def schedule_random_audio_selection(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_formatted_command_dispatch(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8000F13C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one formatted-command dispatch body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "sw\t$18,32($sp)", "move\t$18,$4",
+        "sw\t$17,28($sp)", "la\t$17,formattedCommand", "move\t$4,$17",
+        "la\t$5,commandFormat", "move\t$6,$18", "sw\t$31,36($sp)",
+        "sw\t$16,24($sp)", "jal\tfunc_8002F6B0", "sw\t$0,16($sp)",
+        "la\t$16,commandBuffer", "la\t$5,commandPrefix", "jal\tfunc_80037890",
+        "move\t$4,$16", "move\t$4,$16", "jal\tfunc_80037900", "move\t$5,$17",
+        "move\t$4,$18", "addu\t$5,$sp,16", "la\t$6,commandContext",
+        "jal\tfunc_80005A70", "li\t$7,0x00000001", "beql\t$2,$0,.L2",
+        "sw\t$0,16($sp)", ".L2:", "lw\t$2,16($sp)", "lw\t$31,36($sp)",
+        "lw\t$18,32($sp)", "lw\t$17,28($sp)", "lw\t$16,24($sp)",
+        "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected formatted-command dispatch body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,40\n",
+        "\tsw\t$18,32($sp)\n",
+        "\tmove\t$18,$4\n",
+        "\tsw\t$17,28($sp)\n",
+        "\tlui\t$17,0x8007\n",
+        "\taddiu\t$17,$17,-28016\n",
+        "\tmove\t$4,$17\n",
+        "\tlui\t$5,0x8000\n",
+        "\taddiu\t$5,$5,1824\n",
+        "\tmove\t$6,$18\n",
+        "\tsw\t$31,36($sp)\n",
+        "\tsw\t$16,24($sp)\n",
+        "\tjal\tfunc_8002F6B0\n",
+        "\tsw\t$0,16($sp)\n",
+        "\tlui\t$16,0x8007\n",
+        "\taddiu\t$16,$16,-28000\n",
+        "\tmove\t$4,$16\n",
+        "\tlui\t$5,0x8006\n",
+        "\tjal\tfunc_80037890\n",
+        "\taddiu\t$5,$5,-23048\n",
+        "\tmove\t$4,$16\n",
+        "\tjal\tfunc_80037900\n",
+        "\tmove\t$5,$17\n",
+        "\tmove\t$4,$18\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tlui\t$6,0x800f\n",
+        "\taddiu\t$6,$6,10072\n",
+        "\tjal\tfunc_80005A70\n",
+        "\tli\t$7,1\n",
+        "\tbeql\t$2,$0,.L2\n",
+        "\tsw\t$0,16($sp)\n",
+        ".L2:\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tlw\t$31,36($sp)\n",
+        "\tlw\t$18,32($sp)\n",
+        "\tlw\t$17,28($sp)\n",
+        "\tlw\t$16,24($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,40\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3394,6 +3469,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-record-volume-reset", action="store_true")
     parser.add_argument("--schedule-audio-transition-configuration", action="store_true")
     parser.add_argument("--schedule-random-audio-selection", action="store_true")
+    parser.add_argument("--schedule-formatted-command-dispatch", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3459,6 +3535,7 @@ def main() -> None:
             args.schedule_audio_record_volume_reset,
             args.schedule_audio_transition_configuration,
             args.schedule_random_audio_selection,
+            args.schedule_formatted_command_dispatch,
         )
     )
     if selected != 1:
@@ -3583,6 +3660,8 @@ def main() -> None:
         lines = schedule_audio_transition_configuration(lines)
     if args.schedule_random_audio_selection:
         lines = schedule_random_audio_selection(lines)
+    if args.schedule_formatted_command_dispatch:
+        lines = schedule_formatted_command_dispatch(lines)
     args.output.write_text("".join(lines))
 
 
