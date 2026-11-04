@@ -64,12 +64,37 @@ def move_stack_allocation_before_global_load(lines: list[str]) -> list[str]:
     return lines
 
 
+def move_full_address_before_ra_save(lines: list[str]) -> list[str]:
+    matches: list[int] = []
+    for index in range(len(lines) - 2):
+        save = lines[index].strip().replace(" ", "")
+        address = lines[index + 1].strip()
+        directive = lines[index + 2].strip()
+        if (
+            save == "sw\t$31,16($sp)".replace(" ", "")
+            and re.fullmatch(r"la\s+\$4,[A-Za-z_][A-Za-z0-9_]*", address)
+            and directive == ".set\tnoreorder"
+        ):
+            matches.append(index)
+
+    if len(matches) != 1:
+        raise ValueError(
+            "expected exactly one return-address save / full '$4' address pair; "
+            f"found {len(matches)}"
+        )
+
+    index = matches[0]
+    lines[index], lines[index + 1] = lines[index + 1], lines[index]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--move-first-address-before-ra-save", action="store_true")
     parser.add_argument("--move-stack-allocation-before-global-load", action="store_true")
+    parser.add_argument("--move-full-address-before-ra-save", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -77,6 +102,7 @@ def main() -> None:
         (
             args.move_first_address_before_ra_save,
             args.move_stack_allocation_before_global_load,
+            args.move_full_address_before_ra_save,
         )
     )
     if selected != 1:
@@ -85,6 +111,8 @@ def main() -> None:
         lines = move_first_address_before_ra_save(lines)
     if args.move_stack_allocation_before_global_load:
         lines = move_stack_allocation_before_global_load(lines)
+    if args.move_full_address_before_ra_save:
+        lines = move_full_address_before_ra_save(lines)
     args.output.write_text("".join(lines))
 
 
