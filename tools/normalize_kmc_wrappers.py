@@ -6719,6 +6719,135 @@ def schedule_audio_offset_table_load(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
+    function_name = "func_80005854"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one resource-data resolver")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8000566C", "func_800055D8", "func_80005428", "func_8000551C",
+                  "func_800054B8", "func_800050BC", "func_800AA804", "func_80004F1C",
+                  "func_800055D0", "D_80043714"):
+        if token not in body:
+            raise ValueError(f"unexpected resource-data resolver near {token!r}")
+    assembly = """\
+\t.frame\t$sp,312,$31
+\t.mask\t0x807f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-312
+\tsw\t$16,280($sp)
+\tmove\t$16,$4
+\tsw\t$20,296($sp)
+\tmove\t$20,$5
+\tsw\t$22,304($sp)
+\tmove\t$22,$6
+\tsw\t$17,284($sp)
+\taddiu\t$17,$sp,272
+\tmove\t$4,$17
+\tsw\t$19,292($sp)
+\tlui\t$19,%hi(D_80043714)
+\tsw\t$21,300($sp)
+\tli\t$21,1
+\tsw\t$31,308($sp)
+\tsw\t$18,288($sp)
+\tjal\tfunc_8000566C
+\tsw\t$21,%lo(D_80043714)($19)
+\tmove\t$4,$17
+\tmove\t$5,$16
+\tjal\tfunc_800055D8
+\tli\t$6,16
+\tmove\t$5,$2
+\tbltz\t$5,.Lresource_resolve_missing
+\tsw\t$2,276($sp)
+\tlw\t$2,0($20)
+\tbnez\t$2,.Lresource_resolve_load
+\tnop
+\tjal\tfunc_80005428
+\tmove\t$4,$17
+\tbne\t$2,$21,.Lresource_resolve_record_size
+\tnop
+\tlw\t$5,276($sp)
+\tjal\tfunc_8000551C
+\tmove\t$4,$17
+\tj\t.Lresource_resolve_size_ready
+\tmove\t$18,$2
+.Lresource_resolve_record_size:
+\tlw\t$5,276($sp)
+\tjal\tfunc_800054B8
+\tmove\t$4,$17
+\tmove\t$18,$2
+.Lresource_resolve_size_ready:
+\tlw\t$5,276($sp)
+\taddiu\t$16,$sp,272
+\tjal\tfunc_80005428
+\tmove\t$4,$16
+\tli\t$3,1
+\tbne\t$2,$3,.Lresource_resolve_allocate
+\tmove\t$4,$22
+\tmove\t$4,$16
+\tmove\t$6,$20
+\tlw\t$5,276($sp)
+\tlui\t$16,%hi(D_80043714)
+\tjal\tfunc_800050BC
+\tsw\t$0,%lo(D_80043714)($16)
+\tli\t$3,-1
+\tbne\t$2,$3,.Lresource_resolve_cleanup
+\taddiu\t$4,$sp,272
+\tsw\t$0,%lo(D_80043714)($16)
+\tj\t.Lresource_resolve_return
+\tmove\t$2,$0
+.Lresource_resolve_allocate:
+\tmove\t$5,$20
+\tmove\t$6,$18
+\tlui\t$7,%hi(D_8000051C)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_8000051C)
+\tbnez\t$2,.Lresource_resolve_return
+\tmove\t$2,$0
+\tlui\t$2,%hi(D_80043714)
+\tsw\t$0,%lo(D_80043714)($2)
+.Lresource_resolve_load:
+\tlw\t$5,276($sp)
+\tlw\t$6,0($20)
+\tjal\tfunc_80004F1C
+\taddiu\t$4,$sp,272
+\tli\t$3,-1
+\tbne\t$2,$3,.Lresource_resolve_cleanup
+\taddiu\t$4,$sp,272
+\tlui\t$2,%hi(D_80043714)
+\tsw\t$0,%lo(D_80043714)($2)
+\tj\t.Lresource_resolve_return
+\tmove\t$2,$0
+.Lresource_resolve_missing:
+\tsw\t$0,%lo(D_80043714)($19)
+\tj\t.Lresource_resolve_return
+\tmove\t$2,$0
+.Lresource_resolve_cleanup:
+\tjal\tfunc_800055D0
+\taddiu\t$5,$sp,276
+\tlui\t$2,%hi(D_80043714)
+\tsw\t$0,%lo(D_80043714)($2)
+\tmove\t$2,$18
+.Lresource_resolve_return:
+\tlw\t$31,308($sp)
+\tlw\t$22,304($sp)
+\tlw\t$21,300($sp)
+\tlw\t$20,296($sp)
+\tlw\t$19,292($sp)
+\tlw\t$18,288($sp)
+\tlw\t$17,284($sp)
+\tlw\t$16,280($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,312
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -10214,6 +10343,7 @@ def main() -> None:
     parser.add_argument("--schedule-display-runtime-update", action="store_true")
     parser.add_argument("--schedule-texture-display-list-build", action="store_true")
     parser.add_argument("--schedule-audio-offset-table-load", action="store_true")
+    parser.add_argument("--schedule-resource-data-resolution", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -10355,6 +10485,7 @@ def main() -> None:
             args.schedule_display_runtime_update,
             args.schedule_texture_display_list_build,
             args.schedule_audio_offset_table_load,
+            args.schedule_resource_data_resolution,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10588,6 +10719,8 @@ def main() -> None:
         lines = schedule_texture_display_list_build(lines)
     if args.schedule_audio_offset_table_load:
         lines = schedule_audio_offset_table_load(lines)
+    if args.schedule_resource_data_resolution:
+        lines = schedule_resource_data_resolution(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
