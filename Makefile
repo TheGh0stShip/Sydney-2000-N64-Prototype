@@ -6,7 +6,7 @@ N64DK_PYTHON ?= $(N64DK_ROOT)/.venv/bin/python
 N64DK_TOOLCHAIN ?= ../BattleTanx/.toolchain
 N64DK := PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) -m n64dk
 
-.PHONY: all setup verify verify-matching clean
+.PHONY: all setup verify verify-matching report report-check clean
 
 all: setup
 
@@ -23,6 +23,12 @@ verify-matching: $(BASEROM)
 	$(N64DK) match-batch config/matching_kmc_hook.tsv=kmc+hook --project . --normalizer 'python3 tools/normalize_kmc_wrappers.py {extra} {input} {output}'
 	$(N64DK) match-batch config/matching_kmc_builtin.tsv=kmc+builtin --project . -I tools/ultralib/include -I tools/ultralib/include/PR -I tools/ultralib/src/audio -I tools/ultralib/src/gu
 	$(N64DK) match-batch config/matching_kmc_as.tsv=kmc+as --project . -I tools/ultralib/include -I tools/ultralib/include/PR -I tools/ultralib/include/compiler/gcc -I tools/ultralib/src/audio -I tools/ultralib/src/gu -I tools/battletanx_ga/src/libmus -I tools/battletanx_ga/src/n_audio -I tools/battletanx_ga/include
+
+report:
+	$(PYTHON) tools/generate_decomp_report.py
+
+report-check: report
+	git diff --exit-code -- build/report.json
 
 clean:
 	rm -rf $(BUILD_DIR)

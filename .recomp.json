@@ -1,0 +1,40 @@
+{
+  "$schema": "https://recomp.fyi/schema/v1.json",
+  "game": "Sydney 2000",
+  "system": "N64",
+  "type": "decomp",
+  "original": {
+    "region": "USA",
+    "revision": "Prototype",
+    "serial": "SYD2K",
+    "sha1": "711c79790a713e65cc2ecb4857f35898b8e92985"
+  },
+  "project": "Sydney 2000 N64 prototype matching decompilation",
+  "status": "in-progress",
+  "toolchain": [
+    "n64-decomp-kit",
+    "Objdiff"
+  ],
+  "approach": "Byte-matching C decompilation with relocation-aware verification against the North American prototype ROM.",
+  "maintainers": [
+    {
+      "name": "TheGh0stShip",
+      "link": "https://github.com/TheGh0stShip"
+    }
+  ],
+  "links": [
+    {
+      "label": "Repository",
+      "url": "https://github.com/TheGh0stShip/Sydney-2000-N64-Prototype"
+    },
+    {
+      "label": "ByteMatch progress",
+      "url": "https://bytematch.dev/TheGh0stShip/Sydney-2000-N64-Prototype"
+    }
+  ],
+  "tags": [
+    "matching",
+    "MIPS",
+    "prototype"
+  ]
+}
