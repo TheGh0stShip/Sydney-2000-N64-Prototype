@@ -6848,6 +6848,136 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_render_record_release(lines: list[str]) -> list[str]:
+    function_name = "func_800172CC"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime render-record releaser")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002E280", "func_80032BB0", "func_8001369C", "func_800AA658",
+                  "D_800661D4", "D_800392F8", "D_8005AC7C", "D_8005ACD0",
+                  "D_8005A9E8"):
+        if token not in body:
+            raise ValueError(f"unexpected runtime render-record releaser near {token!r}")
+    assembly = """\
+\t.frame\t$sp,56,$31
+\t.mask\t0x807f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-56
+\tsw\t$21,44($sp)
+\tmove\t$21,$4
+\tsw\t$22,48($sp)
+\tmove\t$22,$5
+\tsw\t$31,52($sp)
+\tsw\t$20,40($sp)
+\tsw\t$19,36($sp)
+\tsw\t$18,32($sp)
+\tsw\t$17,28($sp)
+\tsw\t$16,24($sp)
+\tjal\tfunc_8002E280
+\tsw\t$0,16($sp)
+\tlui\t$3,%hi(D_800661D4)
+\tlw\t$2,%lo(D_800661D4)($3)
+\tbeqz\t$2,.Lruntime_release_drain_done
+\tlui\t$19,%hi(D_800392F8)
+\tli\t$18,1
+\tli\t$17,2
+\tmove\t$16,$3
+\taddiu\t$4,$19,%lo(D_800392F8)
+.Lruntime_release_drain:
+\taddiu\t$5,$sp,16
+\tjal\tfunc_80032BB0
+\tmove\t$6,$0
+\tbnez\t$2,.Lruntime_release_drain_test
+\tnop
+\tlw\t$2,16($sp)
+\tlh\t$2,0($2)
+\tbeq\t$2,$18,.Lruntime_release_drain_test
+\tnop
+\tbne\t$2,$17,.Lruntime_release_drain_test
+\tnop
+\tlw\t$2,%lo(D_800661D4)($16)
+\taddiu\t$2,$2,-1
+\tsw\t$2,%lo(D_800661D4)($16)
+.Lruntime_release_drain_test:
+\tlw\t$2,%lo(D_800661D4)($16)
+\tbnez\t$2,.Lruntime_release_drain
+\taddiu\t$4,$19,%lo(D_800392F8)
+.Lruntime_release_drain_done:
+\tjal\tfunc_8002E280
+\tnop
+\tlui\t$2,%hi(D_8005AC7C)
+\tlw\t$2,%lo(D_8005AC7C)($2)
+\tbeqz\t$2,.Lruntime_release_done
+\tmove\t$3,$0
+\tli\t$5,60
+\tlui\t$20,%hi(D_8005A9E8)
+\tlui\t$2,%hi(D_8005ACD0)
+\taddiu\t$2,$2,%lo(D_8005ACD0)
+\taddiu\t$19,$2,16
+\taddiu\t$18,$2,12
+\taddiu\t$17,$2,4
+\tmove\t$16,$2
+.Lruntime_release_scan:
+\tlw\t$4,4($16)
+\tbnel\t$4,$21,.Lruntime_release_next
+\taddiu\t$19,$19,20
+\tlw\t$2,0($16)
+\tbne\t$2,$5,.Lruntime_release_done
+\tnop
+\tjal\tfunc_8001369C
+\tmove\t$5,$22
+\tlw\t$2,4($16)
+\tbeqz\t$2,.Lruntime_release_second
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\tmove\t$5,$17
+.Lruntime_release_second:
+\tlw\t$2,12($16)
+\tbeqz\t$2,.Lruntime_release_third
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\tmove\t$5,$18
+.Lruntime_release_third:
+\tlw\t$2,16($16)
+\tbeqz\t$2,.Lruntime_release_done
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\tmove\t$5,$19
+\tj\t.Lruntime_release_done
+\tnop
+.Lruntime_release_next:
+\taddiu\t$18,$18,20
+\taddiu\t$17,$17,20
+\tlui\t$2,%hi(D_8005AC7C)
+\tlw\t$2,%lo(D_8005AC7C)($2)
+\taddiu\t$3,$3,1
+\tsltu\t$2,$3,$2
+\tbnez\t$2,.Lruntime_release_scan
+\taddiu\t$16,$16,20
+.Lruntime_release_done:
+\tlw\t$31,52($sp)
+\tlw\t$22,48($sp)
+\tlw\t$21,44($sp)
+\tlw\t$20,40($sp)
+\tlw\t$19,36($sp)
+\tlw\t$18,32($sp)
+\tlw\t$17,28($sp)
+\tlw\t$16,24($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -10344,6 +10474,7 @@ def main() -> None:
     parser.add_argument("--schedule-texture-display-list-build", action="store_true")
     parser.add_argument("--schedule-audio-offset-table-load", action="store_true")
     parser.add_argument("--schedule-resource-data-resolution", action="store_true")
+    parser.add_argument("--schedule-runtime-render-record-release", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -10486,6 +10617,7 @@ def main() -> None:
             args.schedule_texture_display_list_build,
             args.schedule_audio_offset_table_load,
             args.schedule_resource_data_resolution,
+            args.schedule_runtime_render_record_release,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10721,6 +10853,8 @@ def main() -> None:
         lines = schedule_audio_offset_table_load(lines)
     if args.schedule_resource_data_resolution:
         lines = schedule_resource_data_resolution(lines)
+    if args.schedule_runtime_render_record_release:
+        lines = schedule_runtime_render_record_release(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
