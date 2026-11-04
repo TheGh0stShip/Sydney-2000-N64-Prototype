@@ -267,3 +267,4 @@
 0x1B13C	0x44	src/game/release_object_if_flagged.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_8001A53C -DCLEANUP_HELPER_NAME=func_8001A480 -DRELEASE_HELPER_NAME=func_80004380	01bb56e0bdfe1f4e55bb6e7abc1ba04e89d1095f7d7d478154464993692fe55a
 0x38A9C	0x48	src/game/random_lcg.c	--symbol=randomSeed:0x800707C0 -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80037E9C -DSEED_NAME=randomSeed	7e9be40af569724768dbf60ac588320c55bbc96dcae0c1c81bccfd7be54647ff
 0x2EBA0	0x30	src/libultra/unlink_node.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_8002DFA0	2ec55fa0ed8dc9e3afb60ebfc4120974dd453c2892cabe1c447697a1a54e2844
+0x2BFF0	0x28	src/libultra/send_null_message.c	--symbol=queue:0x8006EFC0 -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_8002B3F0 -DSEND_MESSAGE_NAME=func_80032CE0 -DQUEUE_NAME=queue	9ddb2a857b7f43bb5cec3b7011158074e26dfcbee31f6f8f284ad34ba5fc29ea
