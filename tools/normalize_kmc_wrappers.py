@@ -953,6 +953,80 @@ def schedule_named_record_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_runtime_initialization(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,24"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001E058"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one audio-runtime initialization body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,24", "sw\t$16,16($sp)", "li\t$16,0x00000001",
+        "sw\t$31,20($sp)", "sw\t$16,audioRuntimeEnabled",
+        "sw\t$0,audioRuntimeState", "sw\t$0,audioRuntimePending",
+        "jal\tfunc_800341E0", "la\t$5,audioRuntimeRecords+324",
+        "li\t$4,0x00000009", "sw\t$2,audioRuntimeTime",
+        "sw\t$3,audioRuntimeTime+4", "sw\t$0,audioRuntimeCurrent",
+        "sw\t$16,audioRuntimeReady", "sw\t$0,audioRuntimeCount", ".L5:",
+        "sw\t$0,0($5)", "addu\t$4,$4,-1", "bgez\t$4,.L5",
+        "addu\t$5,$5,-36", "sw\t$0,audioRuntimeTail",
+        "sw\t$0,audioRuntimeLimit", "lw\t$31,20($sp)", "lw\t$16,16($sp)",
+        "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected audio-runtime initialization body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tli\t$16,1\n",
+        "\tsw\t$16,20956($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20932($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tjal\tfunc_800341E0\n",
+        "\tsw\t$0,20944($2)\n",
+        "\tli\t$5,9\n",
+        "\tlui\t$4,0x8006\n",
+        "\taddiu\t$4,$4,20564\n",
+        "\taddiu\t$4,$4,324\n",
+        "\tlui\t$1,0x8006\n",
+        "\tsw\t$2,20936($1)\n",
+        "\tlui\t$1,0x8006\n",
+        "\tsw\t$3,20940($1)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20924($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$16,20948($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20960($2)\n",
+        ".L5:\n",
+        "\tsw\t$0,0($4)\n",
+        "\taddiu\t$5,$5,-1\n",
+        "\tbgez\t$5,.L5\n",
+        "\taddiu\t$4,$4,-36\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20964($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20968($2)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2921,6 +2995,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-record-signature", action="store_true")
     parser.add_argument("--schedule-object-collections", action="store_true")
     parser.add_argument("--schedule-named-record-resolution", action="store_true")
+    parser.add_argument("--schedule-audio-runtime-initialization", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2980,6 +3055,7 @@ def main() -> None:
             args.schedule_indexed_record_signature,
             args.schedule_object_collections,
             args.schedule_named_record_resolution,
+            args.schedule_audio_runtime_initialization,
         )
     )
     if selected != 1:
@@ -3092,6 +3168,8 @@ def main() -> None:
         lines = schedule_object_collections(lines)
     if args.schedule_named_record_resolution:
         lines = schedule_named_record_resolution(lines)
+    if args.schedule_audio_runtime_initialization:
+        lines = schedule_audio_runtime_initialization(lines)
     args.output.write_text("".join(lines))
 
 
