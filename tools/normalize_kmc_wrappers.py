@@ -5874,6 +5874,125 @@ def schedule_video_mode_initialization(
     return lines
 
 
+def schedule_video_mode_selection(lines: list[str]) -> list[str]:
+    function_name = "func_80010EF4"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one video-mode selector")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["jal\tfunc_80010AA0", "jal\tfunc_80034C30", "jal\tfunc_8002F260",
+                "jal\tfunc_80010CE8", "jal\tfunc_800351A0", "sh\t$2,0($17)",
+                "sh\t$2,0($18)"]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected video-mode selector near {instruction!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$18,24($sp)
+\tmove\t$18,$4
+\tsw\t$17,20($sp)
+\tmove\t$17,$5
+\tlui\t$2,%hi(D_8005A83C)
+\tlw\t$3,%lo(D_8005A83C)($2)
+\tli\t$2,1
+\tsw\t$31,28($sp)
+\tbeq\t$3,$2,.Lvideo_default_output
+\tsw\t$16,16($sp)
+\tli\t$2,3
+\tbne\t$3,$2,.Lvideo_check_double
+\tli\t$4,2
+\tli\t$2,240
+\tsh\t$2,0($17)
+\tj\t.Lvideo_store_width
+\tli\t$2,640
+.Lvideo_check_double:
+\tbne\t$3,$4,.Lvideo_initialize
+\tlui\t$3,%hi(D_8005A828)
+\tli\t$2,480
+\tsh\t$2,0($17)
+\tj\t.Lvideo_store_width
+\tli\t$2,640
+.Lvideo_initialize:
+\tli\t$2,240
+\tsw\t$2,%lo(D_8005A828)($3)
+\tlui\t$2,%hi(D_800661CC)
+\tlui\t$3,%hi(D_8005A824)
+\tsw\t$4,%lo(D_800661CC)($2)
+\tli\t$2,320
+\tjal\tfunc_80010AA0
+\tsw\t$2,%lo(D_8005A824)($3)
+\tlui\t$16,%hi(D_80067480)
+\taddiu\t$16,$16,%lo(D_80067480)
+\tjal\tfunc_80034C30
+\tmove\t$4,$16
+\tlui\t$2,%hi(D_8005A894)
+\taddiu\t$2,$2,%lo(D_8005A894)
+\taddiu\t$3,$16,80
+.Lvideo_select_copy:
+\tlw\t$7,0($16)
+\tlw\t$8,4($16)
+\tlw\t$9,8($16)
+\tlw\t$10,12($16)
+\tsw\t$7,0($2)
+\tsw\t$8,4($2)
+\tsw\t$9,8($2)
+\tsw\t$10,12($2)
+\taddiu\t$16,$16,16
+\tbne\t$16,$3,.Lvideo_select_copy
+\taddiu\t$2,$2,16
+\tlui\t$4,%hi(D_80068330)
+\taddiu\t$4,$4,%lo(D_80068330)
+\tlui\t$3,%hi(D_8005A890)
+\tlui\t$2,%hi(D_80067480)
+\taddiu\t$2,$2,%lo(D_80067480)
+\tlui\t$5,%hi(D_8005A840)
+\taddiu\t$5,$5,%lo(D_8005A840)
+\tli\t$6,80
+\tjal\tfunc_8002F260
+\tsw\t$2,%lo(D_8005A890)($3)
+\tlui\t$3,%hi(D_8005A83C)
+\tli\t$2,1
+\tsw\t$2,%lo(D_8005A83C)($3)
+\tlui\t$2,%hi(D_8005A82C)
+\tjal\tfunc_80010CE8
+\tsw\t$0,%lo(D_8005A82C)($2)
+\tjal\tfunc_800351A0
+\tli\t$4,1
+\tlui\t$2,%hi(D_800661C8)
+\tsw\t$0,%lo(D_800661C8)($2)
+\tlui\t$2,%hi(D_800F2740-20)
+\tlui\t$3,%hi(D_8005A826)
+\tlui\t$4,%hi(D_8005A82A)
+\tlhu\t$3,%lo(D_8005A826)($3)
+\tlhu\t$4,%lo(D_8005A82A)($4)
+\taddiu\t$2,$2,%lo(D_800F2740-20)
+\tsh\t$3,20($2)
+\tsh\t$4,22($2)
+.Lvideo_default_output:
+\tli\t$2,240
+\tsh\t$2,0($17)
+\tli\t$2,320
+.Lvideo_store_width:
+\tsh\t$2,0($18)
+\tlw\t$31,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -9243,6 +9362,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-node-unlink", action="store_true")
     parser.add_argument("--schedule-runtime-display-commands", action="store_true")
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
+    parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
     parser.add_argument("--schedule-vertex-record-conversion", action="store_true")
@@ -9376,6 +9496,7 @@ def main() -> None:
             args.schedule_runtime_node_unlink,
             args.schedule_runtime_display_commands,
             args.schedule_runtime_render_resource,
+            args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
             args.schedule_vertex_record_conversion,
@@ -9595,6 +9716,8 @@ def main() -> None:
         lines = schedule_runtime_display_commands(lines)
     if args.schedule_runtime_render_resource:
         lines = schedule_runtime_render_resource(lines)
+    if args.schedule_video_mode_selection:
+        lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
         lines = schedule_video_mode_initialization(lines)
     if args.schedule_resource_display_lists:
