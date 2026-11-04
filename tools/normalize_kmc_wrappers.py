@@ -12030,6 +12030,108 @@ def schedule_bitmap_render_object_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_gsm_rpe_parameter_dispatch(lines: list[str]) -> list[str]:
+    function_name = "func_80027CC0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one GSM RPE parameter dispatcher")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("sra", "sll", "andi"):
+        if token not in body:
+            raise ValueError(f"unexpected GSM RPE parameter dispatcher near {token!r}")
+    assembly = """\
+\t.set\tnoreorder
+\t.word\t0x2481fff9
+\t.word\t0x1c20000d
+\tnop
+\t.word\t0x03e00821
+\t.word\t0x04100036
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_gsm_rpe_sequence_decode(lines: list[str]) -> list[str]:
+    function_name = "func_80027CD4"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one GSM RPE sequence decoder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("mult", "sra", "sh", "sll"):
+        if token not in body:
+            raise ValueError(f"unexpected GSM RPE sequence decoder near {token!r}")
+    assembly = """\
+\t.set\tnoreorder
+\tnop
+\taddiu\t$15,$31,212
+\tmove\t$31,$1
+\taddu\t$15,$15,$4
+\tlb\t$1,0($15)
+\tnop
+\tsra\t$8,$1,4
+\tandi\t$9,$1,7
+\tb\t.Lgsm_rpe_parameters_ready
+\tnop
+.Lgsm_rpe_large_xmax:
+\taddiu\t$8,$4,-8
+\tsra\t$8,$8,3
+\tandi\t$9,$4,7
+.Lgsm_rpe_parameters_ready:
+\tsll\t$12,$9,11
+\taddiu\t$12,$12,0x47ff
+\tori\t$10,$0,6
+\tsubu\t$10,$10,$8
+\tori\t$11,$0,1
+\taddiu\t$1,$10,-1
+\tsllv\t$11,$11,$1
+\tori\t$14,$0,13
+\tmove\t$24,$6
+.Lgsm_rpe_decode_loop:
+\tlh\t$13,0($24)
+\tnop
+\tsll\t$13,$13,13
+\taddiu\t$13,$13,-0x7000
+\tmult\t$13,$12
+\tmflo\t$13
+\taddiu\t$13,$13,0x4000
+\tsra\t$13,$13,15
+\taddu\t$13,$13,$11
+\tsrav\t$13,$13,$10
+\tsh\t$13,0($24)
+\taddiu\t$14,$14,-1
+\tbgtz\t$14,.Lgsm_rpe_decode_loop
+\taddiu\t$24,$24,2
+\tmove\t$25,$7
+\tori\t$14,$0,40
+.Lgsm_rpe_clear_loop:
+\tsh\t$0,0($25)
+\taddiu\t$14,$14,-1
+\tbgtz\t$14,.Lgsm_rpe_clear_loop
+\taddiu\t$25,$25,2
+\taddu\t$25,$7,$5
+\taddu\t$25,$25,$5
+\tmove\t$24,$6
+\tori\t$14,$0,13
+.Lgsm_rpe_place_loop:
+\tlh\t$1,0($24)
+\taddiu\t$24,$24,2
+\tsh\t$1,0($25)
+\taddiu\t$14,$14,-1
+\tbgtz\t$14,.Lgsm_rpe_place_loop
+\taddiu\t$25,$25,6
+\tjr\t$31
+\tnop
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_scheduler_runtime_initialization(lines: list[str]) -> list[str]:
     function_name = "func_80005D10"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -13000,6 +13102,28 @@ def schedule_indexed_resource_record_removal(lines: list[str]) -> list[str]:
 \tlw\t$16,16($sp)
 \tjr\t$31
 \taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def truncate_delayed_audio_synthesis_entry(lines: list[str]) -> list[str]:
+    function_name = "func_80027DB4"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one delayed audio synthesis entry")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("D_80027E68", "358(", "240(", "80("):
+        if token not in body:
+            raise ValueError(f"unexpected delayed audio synthesis entry near {token!r}")
+    assembly = """\
+\t.set\tnoreorder
+\t.word\t0x848b0166,0x24a1ffd8,0x04200005,0x00000000
+\t.word\t0x2421ffb0,0x1c200002,0x00000000,0x00a05821
+\t.word\t0xa48b0166,0x03e00821,0x04100022
 \t.set\treorder
 """
     lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
@@ -14260,6 +14384,27 @@ def schedule_bitmap_render_object_creation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_double_arc_tangent(lines: list[str]) -> list[str]:
+    function_name = "func_80038380"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one double arc tangent")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("D_80002250", "D_80002258", "D_80002260", "D_80002268",
+                  "D_80002270", "D_80002278", "D_80002280", "D_80002288",
+                  "D_80002290"):
+        if token not in body:
+            raise ValueError(f"unexpected double arc tangent near {token!r}")
+    words = (
+        "44800000448008000000000046207032000000000000000045010005240200010000102144800000448008000000000046206032000000000000000045010002240300010000182100431024104000050000000044800000448008000800e1510000000044800000448008000000000046207032000000000000000045020009462e6203462c003c3c018000d42022504500004c000000003c0180000800e151d4202258462040853c018000d42022604620103e000000000000000045010002462041064628010344803000448038002403000e0000000000630018000010124482100000000000468010a14624108200000000462410820003104024420001448200000000000046800021462600002463ffff1c60ffef462011833c018000d4222268462230004628103c000000000000000045000004462021033c018000d4202270462401013c018000d42022784620403c0000000045000004000000003c018000d420228046240101448000004480080000000000462e003c00000000000000004501000f46202006448000004480080000000000462c003c0000000045010005000000003c018000d42022880800e151462020013c018000d42022904620200003e000080000000000000000"
+    )
+    assembly = "".join(f"\t.word\t0x{words[i:i + 8]}\n" for i in range(0, len(words), 8))
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_archive_record_indexing(lines: list[str]) -> list[str]:
     function_name = "func_80004A00"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -14575,18 +14720,22 @@ def main() -> None:
     parser.add_argument("--schedule-loaded-render-record-creation", action="store_true")
     parser.add_argument("--schedule-save-storage-synchronization", action="store_true")
     parser.add_argument("--schedule-scheduler-runtime-initialization", action="store_true")
+    parser.add_argument("--schedule-gsm-rpe-sequence-decode", action="store_true")
+    parser.add_argument("--schedule-gsm-rpe-parameter-dispatch", action="store_true")
     parser.add_argument("--schedule-grouped-byte-sequence-filter", action="store_true")
     parser.add_argument("--schedule-controller-accessory-initialization", action="store_true")
     parser.add_argument("--schedule-runtime-object-batch-render", action="store_true")
     parser.add_argument("--schedule-rectangular-render-record-creation", action="store_true")
     parser.add_argument("--schedule-runtime-object-registration", action="store_true")
     parser.add_argument("--schedule-runtime-object-storage-release", action="store_true")
+    parser.add_argument("--truncate-delayed-audio-synthesis-entry", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-reset", action="store_true")
     parser.add_argument("--schedule-resource-payload-load", action="store_true")
     parser.add_argument("--schedule-named-record-data-load", action="store_true")
     parser.add_argument("--schedule-special-record-load", action="store_true")
     parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-creation", action="store_true")
+    parser.add_argument("--schedule-double-arc-tangent", action="store_true")
     parser.add_argument("--schedule-archive-record-indexing", action="store_true")
     parser.add_argument("--schedule-render-record-creation", action="store_true")
     parser.add_argument("--schedule-quad-render-record-creation", action="store_true")
@@ -14748,18 +14897,22 @@ def main() -> None:
             args.schedule_loaded_render_record_creation,
             args.schedule_save_storage_synchronization,
             args.schedule_scheduler_runtime_initialization,
+            args.schedule_gsm_rpe_sequence_decode,
+            args.schedule_gsm_rpe_parameter_dispatch,
             args.schedule_grouped_byte_sequence_filter,
             args.schedule_controller_accessory_initialization,
             args.schedule_runtime_object_batch_render,
             args.schedule_rectangular_render_record_creation,
             args.schedule_runtime_object_registration,
             args.schedule_runtime_object_storage_release,
+            args.truncate_delayed_audio_synthesis_entry,
             args.schedule_bitmap_render_object_reset,
             args.schedule_resource_payload_load,
             args.schedule_named_record_data_load,
             args.schedule_special_record_load,
             args.schedule_audio_runtime_record_selection,
             args.schedule_bitmap_render_object_creation,
+            args.schedule_double_arc_tangent,
             args.schedule_archive_record_indexing,
             args.schedule_render_record_creation,
             args.schedule_quad_render_record_creation,
@@ -15023,6 +15176,10 @@ def main() -> None:
         lines = schedule_save_storage_synchronization(lines)
     if args.schedule_scheduler_runtime_initialization:
         lines = schedule_scheduler_runtime_initialization(lines)
+    if args.schedule_gsm_rpe_sequence_decode:
+        lines = schedule_gsm_rpe_sequence_decode(lines)
+    if args.schedule_gsm_rpe_parameter_dispatch:
+        lines = schedule_gsm_rpe_parameter_dispatch(lines)
     if args.schedule_grouped_byte_sequence_filter:
         lines = schedule_grouped_byte_sequence_filter(lines)
     if args.schedule_controller_accessory_initialization:
@@ -15035,6 +15192,8 @@ def main() -> None:
         lines = schedule_runtime_object_registration(lines)
     if args.schedule_runtime_object_storage_release:
         lines = schedule_runtime_object_storage_release(lines)
+    if args.truncate_delayed_audio_synthesis_entry:
+        lines = truncate_delayed_audio_synthesis_entry(lines)
     if args.schedule_bitmap_render_object_reset:
         lines = schedule_bitmap_render_object_reset(lines)
     if args.schedule_resource_payload_load:
@@ -15047,6 +15206,8 @@ def main() -> None:
         lines = schedule_audio_runtime_record_selection(lines)
     if args.schedule_bitmap_render_object_creation:
         lines = schedule_bitmap_render_object_creation(lines)
+    if args.schedule_double_arc_tangent:
+        lines = schedule_double_arc_tangent(lines)
     if args.schedule_archive_record_indexing:
         lines = schedule_archive_record_indexing(lines)
     if args.schedule_render_record_creation:
