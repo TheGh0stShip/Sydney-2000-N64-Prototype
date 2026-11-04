@@ -5850,6 +5850,76 @@ def schedule_resource_record_processing(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_named_resource_load(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,56"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80005AA4"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one named-resource load body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,56", "sw\t$17,44($sp)", "move\t$17,$4",
+        "sw\t$16,40($sp)", "move\t$16,$5", "sw\t$31,48($sp)",
+        "jal\tfunc_8000566C", "addu\t$4,$sp,32", "li\t$2,0x00000001",
+        "sw\t$2,resourceLookupBusy", "beq\t$16,$0,.L2", "la\t$4,resourcePath",
+        "jal\tfunc_800059DC", "move\t$5,$17", "j\t.L8", "addu\t$16,$sp,32",
+        ".L2:", "la\t$4,resourcePath", "jal\tfunc_80037890", "move\t$5,$17",
+        "addu\t$16,$sp,32", ".L8:", "move\t$4,$16", "la\t$5,resourcePath",
+        "jal\tfunc_80005610", "li\t$6,0x00000010", "bltz\t$2,.L4",
+        "sw\t$2,36($sp)", "move\t$4,$16", "jal\tfunc_80005428", "move\t$5,$2",
+        "li\t$3,0x00000001", "bne\t$2,$3,.L5", "lw\t$5,36($sp)",
+        "jal\tfunc_8000551C", "move\t$4,$16", "j\t.L9", "move\t$16,$2",
+        ".L5:", "lw\t$5,36($sp)", "jal\tfunc_800054B8", "move\t$4,$16",
+        "move\t$16,$2", ".L9:", "addu\t$4,$sp,32", "jal\tfunc_800055D0",
+        "addu\t$5,$sp,36", "sw\t$16,resourceResult+4",
+        "sw\t$16,resourceResult+8", "sw\t$0,resourceResult",
+        "sh\t$0,resourceResult+14", "sh\t$0,resourceResult+12",
+        "sw\t$0,resourceLookupBusy", ".L4:", "lw\t$31,48($sp)",
+        "lw\t$17,44($sp)", "lw\t$16,40($sp)", "addu\t$sp,$sp,56", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected named-resource load body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-56\n", "\tsw\t$17,44($sp)\n",
+        "\taddu\t$17,$4,$0\n", "\tsw\t$16,40($sp)\n", "\taddu\t$16,$5,$0\n",
+        "\tsw\t$31,48($sp)\n", "\tjal\tfunc_8000566C\n", "\taddiu\t$4,$sp,32\n",
+        "\tlui\t$3,%hi(resourceLookupBusy)\n", "\taddiu\t$2,$0,1\n",
+        "\tbeqz\t$16,.Lnamed_resource_copy\n",
+        "\tsw\t$2,%lo(resourceLookupBusy)($3)\n", "\tlui\t$4,%hi(resourcePath)\n",
+        "\taddiu\t$4,$4,%lo(resourcePath)\n", "\tjal\tfunc_800059DC\n",
+        "\taddu\t$5,$17,$0\n", "\tj\t.Lnamed_resource_find\n",
+        "\taddiu\t$16,$sp,32\n", ".Lnamed_resource_copy:\n",
+        "\tlui\t$4,%hi(resourcePath)\n", "\taddiu\t$4,$4,%lo(resourcePath)\n",
+        "\tjal\tfunc_80037890\n", "\taddu\t$5,$17,$0\n",
+        "\taddiu\t$16,$sp,32\n", ".Lnamed_resource_find:\n", "\taddu\t$4,$16,$0\n",
+        "\tlui\t$5,%hi(resourcePath)\n", "\taddiu\t$5,$5,%lo(resourcePath)\n",
+        "\tjal\tfunc_80005610\n", "\taddiu\t$6,$0,16\n",
+        "\tbltz\t$2,.Lnamed_resource_done\n", "\tsw\t$2,36($sp)\n",
+        "\taddu\t$4,$16,$0\n", "\tjal\tfunc_80005428\n", "\taddu\t$5,$2,$0\n",
+        "\taddiu\t$3,$0,1\n", "\tbne\t$2,$3,.Lnamed_resource_record\n", "\tnop\n",
+        "\tlw\t$5,36($sp)\n", "\tjal\tfunc_8000551C\n", "\taddu\t$4,$16,$0\n",
+        "\tj\t.Lnamed_resource_result\n", "\taddu\t$16,$2,$0\n",
+        ".Lnamed_resource_record:\n", "\tlw\t$5,36($sp)\n",
+        "\tjal\tfunc_800054B8\n", "\taddu\t$4,$16,$0\n", "\taddu\t$16,$2,$0\n",
+        ".Lnamed_resource_result:\n", "\taddiu\t$4,$sp,32\n", "\tjal\tfunc_800055D0\n",
+        "\taddiu\t$5,$sp,36\n", "\tlui\t$3,%hi(resourceResult)\n",
+        "\taddiu\t$2,$3,%lo(resourceResult)\n", "\tsw\t$16,4($2)\n",
+        "\tsw\t$16,8($2)\n", "\tsw\t$0,%lo(resourceResult)($3)\n",
+        "\tlui\t$3,%hi(resourceLookupBusy)\n", "\tsh\t$0,14($2)\n", "\tsh\t$0,12($2)\n",
+        "\tsw\t$0,%lo(resourceLookupBusy)($3)\n", ".Lnamed_resource_done:\n",
+        "\tlw\t$31,48($sp)\n", "\tlw\t$17,44($sp)\n", "\tlw\t$16,40($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,56\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5948,6 +6018,7 @@ def main() -> None:
     parser.add_argument("--schedule-render-object-release", action="store_true")
     parser.add_argument("--schedule-display-record-initialization", action="store_true")
     parser.add_argument("--schedule-resource-record-processing", action="store_true")
+    parser.add_argument("--schedule-named-resource-load", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -6047,6 +6118,7 @@ def main() -> None:
             args.schedule_render_object_release,
             args.schedule_display_record_initialization,
             args.schedule_resource_record_processing,
+            args.schedule_named_resource_load,
         )
     )
     if selected != 1:
@@ -6239,6 +6311,8 @@ def main() -> None:
         lines = schedule_display_record_initialization(lines)
     if args.schedule_resource_record_processing:
         lines = schedule_resource_record_processing(lines)
+    if args.schedule_named_resource_load:
+        lines = schedule_named_resource_load(lines)
     args.output.write_text("".join(lines))
 
 
