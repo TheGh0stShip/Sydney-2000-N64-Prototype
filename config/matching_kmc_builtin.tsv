@@ -3,3 +3,5 @@
 0x2EBE0	0x34	tools/ultralib/src/audio/heapinit.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	ad5cfacfff51e18d0e6c266c6cce1502fb2fc58f6050215bc9ca951c97a1637e
 0x2EC20	0x48	tools/ultralib/src/audio/heapalloc.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	20bb9d32cbacb4238d3cb992dd313be563e371402392074a95b4942e12b9fa4c
 0x2EC70	0x34	tools/ultralib/src/audio/copy.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	d811db31e000330b00e35d42a248823e8fb5685dd55afd818cf5f29c8b3f6a1f
+0x2EB80	0x50	src/libultra/audio_sl.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	344b3d2716ad710073155b6624a28631d72bb28b19a00b6694ac8724d1c0221f
+0x2F560	0xDC	src/libultra/gu_mtx_cat_f.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	88ecad609341cf1891c7945b0f69ee8d2428c176ac91a15a9129be818fbdcb7a
