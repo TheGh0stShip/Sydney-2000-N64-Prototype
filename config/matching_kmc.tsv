@@ -1,5 +1,6 @@
 # KMC GCC 2.7.2 source matches
 # rom_start size source flags sha256
 0x18450	0x10	src/game/read_word_address.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80017850 -DWORD_PAGE=0x80060000 -DWORD_INDEX=-5507	80ec8ebea8e2d4bc7d22de932668c395151843e413cf4fbf75e2ccf0f5ad7a0c
+0x18954	0x10	src/game/read_word_address.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80017D54 -DWORD_PAGE=0x80040000 -DWORD_INDEX=-6892	471926524931c231a24869876a7e53829b31ea71c2539db8327e7b7e3983520a
 0x28F28	0x74	src/game/pi_bus_access.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	670c7976f686c90f6e4692ff3d9742bb093a70639aeb3f671af11b437bc88aec
 0x2B660	0x20	src/libultra/os_pi_get_cmd_queue.c	--assembler=asn64 --symbol=__osPiDevMgr:0x80066C90 -O3 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	a0003f1f3c94c52281d033a260b06b6d42d589357ff7c79d2335a8ba26c802db
