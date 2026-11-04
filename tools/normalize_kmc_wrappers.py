@@ -5476,6 +5476,118 @@ def schedule_runtime_display_commands(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime render-resource updater")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["jal\tfunc_80018838", "jal\tfunc_80008F3C", "lw\t$4,196($16)",
+                "sw\t$18,20($4)", "lw\t$3,92($4)", "lw\t$3,96($4)",
+                "ori\t$2,$2,0x0020", "sw\t$2,0($4)"]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected render-resource updater near {instruction!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$16,16($sp)
+\tmove\t$16,$4
+\tsw\t$18,24($sp)
+\tmove\t$18,$5
+\tsw\t$31,28($sp)
+\tbeqz\t$16,.Lrender_done
+\tsw\t$17,20($sp)
+\tlw\t$2,196($16)
+\tbeqz\t$2,.Lrender_done
+\tlui\t$3,0x2
+\tlw\t$2,192($16)
+\tand\t$2,$2,$3
+\tbnez\t$2,.Lrender_done
+\tnop
+\tjal\tfunc_80018838
+\tnop
+\tbeqz\t$2,.Lrender_single
+\tli\t$2,0xfffe
+\tlw\t$17,196($16)
+\tlhu\t$2,0($17)
+\tbeqz\t$2,.Lrender_collection_done
+\tmove\t$16,$0
+\tmove\t$4,$17
+.Lrender_collection_loop:
+\tmove\t$5,$16
+\tmove\t$6,$18
+\tjal\tfunc_80008F3C
+\tmove\t$7,$0
+\tlhu\t$2,0($17)
+\taddiu\t$16,$16,1
+\tsltu\t$2,$16,$2
+\tbnez\t$2,.Lrender_collection_loop
+\tmove\t$4,$17
+.Lrender_collection_done:
+\tj\t.Lrender_done
+\tsw\t$18,24($17)
+.Lrender_single:
+\tlw\t$4,196($16)
+\tsltu\t$2,$2,$4
+\tbeqz\t$2,.Lrender_done
+\tnop
+\tlw\t$3,0($4)
+\tandi\t$2,$3,1
+\tbeqz\t$2,.Lrender_commands
+\tandi\t$2,$3,2
+\tlw\t$2,40($4)
+\tandi\t$2,$2,2
+\tbnez\t$2,.Lrender_done
+\tnop
+\tbeqz\t$18,.Lrender_clear
+\tsw\t$18,20($4)
+\tj\t.Lrender_or_flag
+\tmove\t$2,$3
+.Lrender_clear:
+\tlw\t$2,0($4)
+\tli\t$3,-33
+\tj\t.Lrender_store_flag
+\tand\t$2,$2,$3
+.Lrender_commands:
+\tbeqz\t$2,.Lrender_done
+\tnop
+\tlw\t$3,92($4)
+\tbeqz\t$3,.Lrender_second
+\tsw\t$18,20($4)
+\tlui\t$2,0xde00
+\tsw\t$2,0($3)
+\tsw\t$18,4($3)
+.Lrender_second:
+\tlw\t$3,96($4)
+\tbeqz\t$3,.Lrender_set_flag
+\tlui\t$2,0xde00
+\tsw\t$2,0($3)
+\tsw\t$18,4($3)
+.Lrender_set_flag:
+\tlw\t$2,0($4)
+.Lrender_or_flag:
+\tori\t$2,$2,0x20
+.Lrender_store_flag:
+\tsw\t$2,0($4)
+.Lrender_done:
+\tlw\t$31,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_double_tangent(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
     ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037F70"]
@@ -6612,6 +6724,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-collection-reset", action="store_true")
     parser.add_argument("--schedule-runtime-node-unlink", action="store_true")
     parser.add_argument("--schedule-runtime-display-commands", action="store_true")
+    parser.add_argument("--schedule-runtime-render-resource", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
@@ -6723,6 +6836,7 @@ def main() -> None:
             args.schedule_runtime_collection_reset,
             args.schedule_runtime_node_unlink,
             args.schedule_runtime_display_commands,
+            args.schedule_runtime_render_resource,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
@@ -6919,6 +7033,8 @@ def main() -> None:
         lines = schedule_runtime_node_unlink(lines)
     if args.schedule_runtime_display_commands:
         lines = schedule_runtime_display_commands(lines)
+    if args.schedule_runtime_render_resource:
+        lines = schedule_runtime_render_resource(lines)
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
