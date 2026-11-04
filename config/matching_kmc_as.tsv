@@ -29,6 +29,7 @@
 0x1ECEC	0x8	src/game/return_argument.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8001E0EC	33b8a3ecc253e501e8d6cc02eef147b269f0076c36976aed96857a56b68cec73
 0x1ECF4	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001E0F4	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
 0x1ED68	0x8	src/game/return_argument.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8001E168	33b8a3ecc253e501e8d6cc02eef147b269f0076c36976aed96857a56b68cec73
+0x27438	0xC	src/game/set_byte_field.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80026838 -DFIELD_OFFSET=0x11DD -DFIELD_VALUE=4	373d94bfa21b28591ac71f09bc88fec1d6d78c3837058384ec11e2ec814f7c96
 0x29EB0	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_800292B0	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
 0x6EF0	0x58	src/libultra/sched_add_client_legacy.c	--symbol=osSetIntMask:0x8002A3E0 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C	746e38dd8a06707af64a8fd047c9fb0179cc2caf60ab53949b7c223c5e4a7fd1
 0x352F0	0x38	tools/ultralib/src/io/vigetcurrframebuf.c	--symbol=__osDisableInt:0x8002A670 --symbol=__osViCurr:0x80067130 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	78a421ba6530590b649a0c54e0b22557c200f325c6686d880e616e2d9085c007
