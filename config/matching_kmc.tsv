@@ -1,0 +1,3 @@
+# KMC GCC 2.7.2 source matches
+# rom_start size source flags sha256
+0x2B660	0x20	src/libultra/os_pi_get_cmd_queue.c	--assembler=asn64 --symbol=__osPiDevMgr:0x80066C90 -O3 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	a0003f1f3c94c52281d033a260b06b6d42d589357ff7c79d2335a8ba26c802db

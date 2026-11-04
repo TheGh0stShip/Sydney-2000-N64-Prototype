@@ -4,7 +4,7 @@ Matching decompilation of the unreleased North American prototype of
 *Sydney 2000* for Nintendo 64.
 
 The original game image is required but is not distributed by this project.
-Place it at `baserom.z64`, then run:
+Clone submodules, place the image at `baserom.z64`, then run:
 
 ```sh
 make setup
@@ -24,7 +24,8 @@ Accepted image:
 The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
 Automated analysis currently identifies 761 functions, including 261 Nintendo
-SDK functions. The game and most libraries were built with KMC GCC.
+SDK functions. The game and most libraries were built with KMC GCC. Exact C
+matching currently covers 1 function and 32 bytes.
 
 Generated analysis lives in `config/`. It is evidence for source splitting and
 symbol naming; addresses remain provisional until each unit is linked and
