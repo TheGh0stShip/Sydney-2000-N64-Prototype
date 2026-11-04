@@ -4830,6 +4830,68 @@ def schedule_indexed_object_record_initialization(lines: list[str]) -> list[str]
     return lines
 
 
+def schedule_nested_render_object_creation(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001A044"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one nested-render creation body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$17,20($sp)", "move\t$17,$4",
+        "andi\t$5,$5,0x00ff", "li\t$2,0x00000002", "sw\t$31,24($sp)",
+        "sw\t$16,16($sp)", "bne\t$5,$2,.L2", "sw\t$0,56($17)",
+        "l.s\t$f0,nestedObjectSmallScale", "j\t.L6", "s.s\t$f0,52($17)",
+        ".L2:", "xori\t$3,$5,0x0001", "sltu\t$3,$3,1",
+        "xori\t$2,$5,0x0003", "sltu\t$2,$2,1", "or\t$3,$3,$2",
+        "beq\t$3,$0,.L6", "l.s\t$f0,nestedObjectLargeScale",
+        "s.s\t$f0,52($17)", ".L6:", "jal\tfunc_800043A8",
+        "li\t$4,0x00000084", "move\t$16,$2", "jal\tfunc_8001A580",
+        "move\t$4,$16", "move\t$4,$16", "la\t$5,nestedObjectVector",
+        "move\t$6,$0", "move\t$7,$0", "jal\tfunc_80018940",
+        "sw\t$4,56($17)", "lw\t$3,56($17)", "lw\t$2,20($3)",
+        "ori\t$2,$2,0x0028", "sw\t$2,20($3)", "lw\t$3,56($17)",
+        "li\t$2,0x00000020", "sw\t$2,28($3)", "lw\t$31,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected nested-render creation body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-32\n", "\tsw\t$17,20($sp)\n",
+        "\tmove\t$17,$4\n", "\tandi\t$5,$5,0xff\n", "\tli\t$2,2\n",
+        "\tsw\t$31,24($sp)\n", "\tsw\t$16,16($sp)\n",
+        "\tbeq\t$5,$2,.Lnested_render_small\n", "\tsw\t$0,56($17)\n",
+        "\tslti\t$2,$5,3\n", "\tbeq\t$2,$0,.Lnested_render_high_type\n",
+        "\tli\t$2,1\n", "\tbeq\t$5,$2,.Lnested_render_large\n", "\tnop\n",
+        "\tj\t.Lnested_render_allocate\n", "\tnop\n", ".Lnested_render_high_type:\n",
+        "\tli\t$2,3\n", "\tbeq\t$5,$2,.Lnested_render_large\n", "\tnop\n",
+        "\tj\t.Lnested_render_allocate\n", "\tnop\n", ".Lnested_render_small:\n",
+        "\tlui\t$1,%hi(nestedObjectSmallScale)\n",
+        "\tlwc1\t$f0,%lo(nestedObjectSmallScale)($1)\n",
+        "\tj\t.Lnested_render_allocate\n", "\tswc1\t$f0,52($17)\n",
+        ".Lnested_render_large:\n", "\tlui\t$1,%hi(nestedObjectLargeScale)\n",
+        "\tlwc1\t$f0,%lo(nestedObjectLargeScale)($1)\n", "\tswc1\t$f0,52($17)\n",
+        ".Lnested_render_allocate:\n", "\tjal\tfunc_800043A8\n", "\tli\t$4,132\n",
+        "\tmove\t$16,$2\n", "\tjal\tfunc_8001A580\n", "\tmove\t$4,$16\n",
+        "\tmove\t$4,$16\n", "\tlui\t$5,%hi(nestedObjectVector)\n",
+        "\taddiu\t$5,$5,%lo(nestedObjectVector)\n", "\tmove\t$6,$0\n",
+        "\tmove\t$7,$6\n", "\tjal\tfunc_80018940\n", "\tsw\t$4,56($17)\n",
+        "\tlw\t$3,56($17)\n", "\tlw\t$2,20($3)\n", "\tori\t$2,$2,0x28\n",
+        "\tsw\t$2,20($3)\n", "\tlw\t$3,56($17)\n", "\tli\t$2,32\n",
+        "\tsw\t$2,28($3)\n", "\tlw\t$31,24($sp)\n", "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4914,6 +4976,7 @@ def main() -> None:
     parser.add_argument("--schedule-heap-block-release", action="store_true")
     parser.add_argument("--schedule-heap-block-allocation", action="store_true")
     parser.add_argument("--schedule-indexed-object-record-initialization", action="store_true")
+    parser.add_argument("--schedule-nested-render-object-creation", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4999,6 +5062,7 @@ def main() -> None:
             args.schedule_heap_block_release,
             args.schedule_heap_block_allocation,
             args.schedule_indexed_object_record_initialization,
+            args.schedule_nested_render_object_creation,
         )
     )
     if selected != 1:
@@ -5163,6 +5227,8 @@ def main() -> None:
         lines = schedule_heap_block_allocation(lines)
     if args.schedule_indexed_object_record_initialization:
         lines = schedule_indexed_object_record_initialization(lines)
+    if args.schedule_nested_render_object_creation:
+        lines = schedule_nested_render_object_creation(lines)
     args.output.write_text("".join(lines))
 
 
