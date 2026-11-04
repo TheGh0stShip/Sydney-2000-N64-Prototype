@@ -37,3 +37,4 @@
 0x2AFE0	0xA0	src/libultra/interrupt_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_SET_MASK -DLEAF_NAME=func_8002A3E0	eaeb66e8cc8708fef1b040355bfbd420d43f8bf50bcd64f031bd7bb0aa849739
 0x2B270	0x70	src/libultra/interrupt_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_DISABLE -DLEAF_NAME=func_8002A670	9632dfa9394b20b65c2edf4652a42575cac31cac64386f4a345753ac122ce37b
 0x30180	0xA0	src/libultra/bzero_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8002F580	1c6198ec810303f71baaf1c5fa044a8e0eea9446ac383854d910c4fee4fffcf3
+0x36550	0x110	src/libultra/bcmp_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80035950	44d38cf51b9d9f008e5245f63723219224ec20e1bc04fb0010af395b86016dd4
