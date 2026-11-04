@@ -6115,6 +6115,125 @@ def schedule_render_resource_release(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_pixel_decode(lines: list[str]) -> list[str]:
+    function_name = "func_80010800"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one indexed-pixel decoder")
+    start, end = labels[0], ends[0]
+    source = "".join(lines[start + 1:end])
+    for token in ("pixelData", "pixelScale", "pixelFormat", "mult", "lbu"):
+        if token not in source:
+            raise ValueError(f"unexpected indexed-pixel decoder near {token!r}")
+    assembly = """\
+\t.frame\t$sp,24,$31
+\t.mask\t0x001f0000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-24
+\tmove\t$13,$4
+\tsw\t$19,12($sp)
+\tli\t$19,1
+\tli\t$12,2
+\tsw\t$18,8($sp)
+\tli\t$18,240
+\tsw\t$17,4($sp)
+\tlui\t$17,%hi(pixelFormat)
+\tsw\t$16,0($sp)
+\taddiu\t$16,$7,36
+\tlui\t$2,%hi(pixelScale)
+\tlw\t$25,%lo(pixelScale)($2)
+\tlui\t$2,%hi(pixelData)
+\tlw\t$3,40($sp)
+\tlw\t$10,%lo(pixelData)($2)
+\tlw\t$9,44($sp)
+\tli\t$14,3
+\tsw\t$20,16($sp)
+\taddiu\t$11,$3,-1
+\tsllv\t$24,$14,$11
+\tslt\t$15,$9,$12
+.Lpixel_loop:
+\tlw\t$3,0($6)
+\tlw\t$2,0($13)
+\tmult\t$3,$2
+\tlw\t$8,0($5)
+\tand\t$4,$8,$24
+\tsrlv\t$4,$4,$11
+\tmflo\t$20
+\tandi\t$3,$3,0x0001
+\taddu\t$2,$20,$8
+\tmult\t$2,$25
+\tsll\t$3,$3,1
+\txor\t$4,$4,$3
+\tsll\t$4,$4,1
+\tlw\t$3,12($13)
+\tmflo\t$20
+\tsrl\t$2,$20,4
+\tsll\t$2,$2,3
+\taddu\t$3,$3,$2
+\tbeq\t$9,$19,.Lpixel_byte
+\taddu\t$3,$3,$4
+\tbeqz\t$15,.Lpixel_wide_modes
+\tnop
+\tbeqz\t$9,.Lpixel_nibble
+\tandi\t$2,$8,0x0002
+\tj\t.Lpixel_advance
+\taddiu\t$7,$7,4
+.Lpixel_wide_modes:
+\tbeq\t$9,$12,.Lpixel_halfword
+\taddu\t$2,$10,$3
+\tbeql\t$9,$14,.Lpixel_store_format
+\tsw\t$12,%lo(pixelFormat)($17)
+\tj\t.Lpixel_advance
+\taddiu\t$7,$7,4
+.Lpixel_nibble:
+\tsrl\t$2,$2,1
+\taddu\t$2,$3,$2
+\taddu\t$2,$10,$2
+\tandi\t$4,$8,0x0001
+\tsll\t$3,$4,2
+\tlbu\t$2,0($2)
+\tsrav\t$3,$18,$3
+\tand\t$2,$2,$3
+\tbnez\t$4,.Lpixel_store_format
+\tsw\t$2,0($7)
+\tsra\t$2,$2,4
+\tj\t.Lpixel_store_format
+\tsw\t$2,0($7)
+.Lpixel_byte:
+\tandi\t$2,$8,0x0001
+\taddu\t$2,$3,$2
+\taddu\t$2,$10,$2
+\tlbu\t$2,0($2)
+\tj\t.Lpixel_store_format
+\tsw\t$2,0($7)
+.Lpixel_halfword:
+\tlbu\t$3,0($2)
+\tlbu\t$2,1($2)
+\tsll\t$3,$3,8
+\tor\t$3,$3,$2
+\tsw\t$3,0($7)
+.Lpixel_store_format:
+\taddiu\t$7,$7,4
+.Lpixel_advance:
+\taddiu\t$6,$6,4
+\tslt\t$2,$7,$16
+\tbnez\t$2,.Lpixel_loop
+\taddiu\t$5,$5,4
+\tlw\t$20,16($sp)
+\tlw\t$19,12($sp)
+\tlw\t$18,8($sp)
+\tlw\t$17,4($sp)
+\tlw\t$16,0($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,24
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -9485,6 +9604,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-display-commands", action="store_true")
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
     parser.add_argument("--schedule-render-resource-release", action="store_true")
+    parser.add_argument("--schedule-indexed-pixel-decode", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -9620,6 +9740,7 @@ def main() -> None:
             args.schedule_runtime_display_commands,
             args.schedule_runtime_render_resource,
             args.schedule_render_resource_release,
+            args.schedule_indexed_pixel_decode,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -9842,6 +9963,8 @@ def main() -> None:
         lines = schedule_runtime_render_resource(lines)
     if args.schedule_render_resource_release:
         lines = schedule_render_resource_release(lines)
+    if args.schedule_indexed_pixel_decode:
+        lines = schedule_indexed_pixel_decode(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
