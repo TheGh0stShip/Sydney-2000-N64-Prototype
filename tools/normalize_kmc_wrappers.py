@@ -5421,6 +5421,61 @@ def schedule_runtime_node_unlink(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_display_commands(lines: list[str]) -> list[str]:
+    labels = [index for index, line in enumerate(lines) if line.strip() == "func_800147F4:"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800147F4"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime display-command emitter")
+    start = labels[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start + 1 : end]
+        if line.strip() and not line.lstrip().startswith((".", "#"))
+    ]
+    body = [item for item in body if item]
+    required = [
+        "lhu\t$2,16($5)", "lhu\t$2,18($5)", "lhu\t$2,12($5)",
+        "lhu\t$3,14($5)", "lw\t$6,D_800663DC", "sw\t$2,D_800663DC",
+        "lw\t$5,D_8005AC98", "sw\t$0,D_8005AC98",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected display-command emitter near {instruction!r}")
+
+    lines[start + 1 : end] = [
+        "\t.frame\t$sp,0,$31\n", "\t.mask\t0x00000000,0\n",
+        "\t.fmask\t0x00000000,0\n", "\t.set\tnoreorder\n",
+        "\tlui\t$9,0xdc08\n", "\tori\t$9,$9,0x8\n",
+        "\tlui\t$11,%hi(D_800663DC)\n", "\tlui\t$2,%hi(D_8005F910)\n",
+        "\taddiu\t$2,$2,%lo(D_8005F910)\n", "\tsll\t$4,$4,4\n",
+        "\taddu\t$4,$4,$2\n", "\tlw\t$10,%lo(D_800663DC)($11)\n",
+        "\tlhu\t$3,12($5)\n", "\tlhu\t$6,14($5)\n", "\tlhu\t$7,16($5)\n",
+        "\tlhu\t$5,18($5)\n", "\tli\t$2,0x1ff\n", "\tsh\t$2,4($4)\n",
+        "\tsh\t$0,6($4)\n", "\tsh\t$2,12($4)\n", "\tsh\t$0,14($4)\n",
+        "\tmove\t$8,$10\n", "\taddiu\t$10,$10,8\n", "\tsll\t$2,$7,1\n",
+        "\tsh\t$2,0($4)\n", "\tsll\t$2,$5,1\n", "\tsll\t$3,$3,1\n",
+        "\taddu\t$3,$3,$7\n", "\tsll\t$3,$3,1\n", "\tsll\t$6,$6,1\n",
+        "\taddu\t$6,$6,$5\n", "\tsll\t$6,$6,1\n", "\tsh\t$2,2($4)\n",
+        "\tlui\t$2,0xdb06\n", "\taddiu\t$5,$10,8\n", "\tsh\t$6,10($4)\n",
+        "\taddiu\t$6,$10,16\n", "\tsh\t$3,8($4)\n", "\tsw\t$2,0($8)\n",
+        "\tsw\t$0,4($8)\n", "\tsw\t$4,4($10)\n", "\tlui\t$4,0xde00\n",
+        "\tlui\t$2,0x6\n", "\tlui\t$7,%hi(D_8005AC98)\n",
+        "\tlw\t$3,%lo(D_8005AC98)($7)\n", "\taddiu\t$2,$2,0x6180\n",
+        "\tsw\t$10,%lo(D_800663DC)($11)\n", "\tsw\t$5,%lo(D_800663DC)($11)\n",
+        "\tsw\t$9,0($10)\n", "\tsw\t$6,%lo(D_800663DC)($11)\n",
+        "\tsw\t$4,8($10)\n", "\tbeqz\t$3,.Ldisplay_final\n", "\tsw\t$2,4($5)\n",
+        "\taddiu\t$2,$10,24\n", "\tsw\t$2,%lo(D_800663DC)($11)\n",
+        "\tlui\t$2,0x6\n", "\taddiu\t$2,$2,0x6048\n", "\tsw\t$4,16($10)\n",
+        "\tsw\t$2,4($6)\n", "\tsw\t$0,%lo(D_8005AC98)($7)\n",
+        ".Ldisplay_final:\n", "\tlw\t$2,%lo(D_800663DC)($11)\n", "\tmove\t$3,$2\n",
+        "\taddiu\t$2,$2,8\n", "\tsw\t$2,%lo(D_800663DC)($11)\n",
+        "\tlui\t$2,0x6\n", "\taddiu\t$2,$2,0x6138\n", "\tsw\t$4,0($3)\n",
+        "\tjr\t$31\n", "\tsw\t$2,4($3)\n", "\t.set\treorder\n", "\n",
+    ]
+    return lines
+
+
 def schedule_double_tangent(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
     ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037F70"]
@@ -6556,6 +6611,7 @@ def main() -> None:
     parser.add_argument("--schedule-packed-coordinate-wrap", action="store_true")
     parser.add_argument("--schedule-runtime-collection-reset", action="store_true")
     parser.add_argument("--schedule-runtime-node-unlink", action="store_true")
+    parser.add_argument("--schedule-runtime-display-commands", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
@@ -6666,6 +6722,7 @@ def main() -> None:
             args.schedule_packed_coordinate_wrap,
             args.schedule_runtime_collection_reset,
             args.schedule_runtime_node_unlink,
+            args.schedule_runtime_display_commands,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
@@ -6860,6 +6917,8 @@ def main() -> None:
         lines = schedule_runtime_collection_reset(lines)
     if args.schedule_runtime_node_unlink:
         lines = schedule_runtime_node_unlink(lines)
+    if args.schedule_runtime_display_commands:
+        lines = schedule_runtime_display_commands(lines)
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
