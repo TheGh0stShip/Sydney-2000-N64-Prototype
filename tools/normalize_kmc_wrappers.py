@@ -588,6 +588,76 @@ def normalize_slot_state_initializer(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_update_passes(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80017C6C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one object-update pass body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "sw\t$16,16($sp)", "move\t$16,$4",
+        "sw\t$17,20($sp)", "li\t$17,-2147090432", "sw\t$31,32($sp)",
+        "sw\t$19,28($sp)", "sw\t$18,24($sp)", "lw\t$19,-22212($17)",
+        "lhu\t$18,106($16)", "lhu\t$2,34($16)", "sh\t$2,106($16)",
+        "jal\tfunc_80012834", "sw\t$0,-22212($17)", "move\t$4,$16",
+        "jal\tfunc_80012BD8", "li\t$5,0x00000001", "move\t$4,$16",
+        "li\t$2,0x00000001", "jal\tfunc_80012834", "sw\t$2,-22212($17)",
+        "move\t$4,$16", "jal\tfunc_80012BD8", "li\t$5,0x00000001",
+        "sh\t$18,106($16)", "sw\t$0,32($16)", "sw\t$19,-22212($17)",
+        "lw\t$31,32($sp)", "lw\t$19,28($sp)", "lw\t$18,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected object-update pass body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,40\n",
+        "\tsw\t$17,20($sp)\n",
+        "\tlui\t$17,0x8006\n",
+        "\tsw\t$19,28($sp)\n",
+        "\tlw\t$19,-22212($17)\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tmove\t$16,$4\n",
+        "\tsw\t$31,32($sp)\n",
+        "\tsw\t$18,24($sp)\n",
+        "\tlhu\t$18,106($16)\n",
+        "\tlhu\t$2,34($16)\n",
+        "\tsw\t$0,-22212($17)\n",
+        "\tjal\tfunc_80012834\n",
+        "\tsh\t$2,106($16)\n",
+        "\tmove\t$4,$16\n",
+        "\tjal\tfunc_80012BD8\n",
+        "\tli\t$5,0x00000001\n",
+        "\tmove\t$4,$16\n",
+        "\tli\t$2,0x00000001\n",
+        "\tjal\tfunc_80012834\n",
+        "\tsw\t$2,-22212($17)\n",
+        "\tmove\t$4,$16\n",
+        "\tjal\tfunc_80012BD8\n",
+        "\tli\t$5,0x00000001\n",
+        "\tsh\t$18,106($16)\n",
+        "\tsw\t$0,32($16)\n",
+        "\tlw\t$31,32($sp)\n",
+        "\tsw\t$19,-22212($17)\n",
+        "\tlw\t$19,28($sp)\n",
+        "\tlw\t$18,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,40\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2551,6 +2621,7 @@ def main() -> None:
     parser.add_argument("--normalize-vector-plane-test", action="store_true")
     parser.add_argument("--schedule-resolved-record-value", action="store_true")
     parser.add_argument("--normalize-slot-state-initializer", action="store_true")
+    parser.add_argument("--schedule-object-update-passes", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2605,6 +2676,7 @@ def main() -> None:
             args.normalize_vector_plane_test,
             args.schedule_resolved_record_value,
             args.normalize_slot_state_initializer,
+            args.schedule_object_update_passes,
         )
     )
     if selected != 1:
@@ -2707,6 +2779,8 @@ def main() -> None:
         lines = schedule_resolved_record_value(lines)
     if args.normalize_slot_state_initializer:
         lines = normalize_slot_state_initializer(lines)
+    if args.schedule_object_update_passes:
+        lines = schedule_object_update_passes(lines)
     args.output.write_text("".join(lines))
 
 
