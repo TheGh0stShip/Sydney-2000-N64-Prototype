@@ -8226,6 +8226,113 @@ def schedule_slot_entry_release(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_image_tile_conversion(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_8000C280:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_8000C280"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one image-tile conversion routine")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "lw\t$2,imageConversionEnabled", "la\t$10,imageTileOutput",
+        "lhu\t$2,0($5)", "ori\t$2,$2,0x0001", "sh\t$2,0($6)",
+        "sh\t$2,0($4)", "sltu\t$2,$7,64", "addu\t$8,$8,$12",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected image-tile conversion near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,0,$31
+\t.mask\t0x00000000,0
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\tlui\t$2,%hi(imageConversionEnabled)
+\tlw\t$2,%lo(imageConversionEnabled)($2)
+\tbeqz\t$2,.Limage_done
+\tli\t$2,640
+\tbne\t$5,$2,.Limage_standard
+\tli\t$10,16
+\tli\t$10,24
+\tli\t$3,32
+\tli\t$8,9
+\tj\t.Limage_setup
+\tli\t$6,1920
+.Limage_standard:
+\tli\t$8,4
+\tsll\t$2,$5,1
+\taddu\t$6,$2,$5
+\tli\t$3,32
+.Limage_setup:
+\tmove\t$7,$0
+\tlui\t$2,%hi(imageTileOutput)
+\taddiu\t$11,$2,%lo(imageTileOutput)
+\taddiu\t$13,$11,2048
+\tmult\t$3,$5
+\tsll\t$9,$8,1
+\tsll\t$12,$6,1
+\tsll\t$2,$10,1
+\taddu\t$2,$4,$2
+\tmflo\t$14
+\tsll\t$3,$14,1
+\taddu\t$8,$2,$3
+.Limage_tile_loop:
+\tsltiu\t$2,$7,32
+\tbeqz\t$2,.Limage_second_bank
+\tmove\t$6,$8
+\tmove\t$3,$7
+\tj\t.Limage_destinations
+\tmove\t$4,$0
+.Limage_second_bank:
+\taddiu\t$3,$7,-32
+\tli\t$4,2
+.Limage_destinations:
+\tsll\t$4,$4,11
+\tsll\t$3,$3,6
+\taddu\t$2,$3,$11
+\taddu\t$2,$4,$2
+\taddiu\t$5,$2,62
+\taddu\t$3,$3,$13
+\taddu\t$4,$4,$3
+\taddiu\t$4,$4,62
+\tmove\t$3,$0
+.Limage_first_half:
+\tlhu\t$2,0($6)
+\taddu\t$6,$6,$9
+\taddiu\t$3,$3,1
+\tori\t$2,$2,1
+\tsh\t$2,0($5)
+\tsltiu\t$2,$3,32
+\tbnez\t$2,.Limage_first_half
+\taddiu\t$5,$5,-2
+\tsltiu\t$2,$3,64
+\tbeqzl\t$2,.Limage_next_tile
+\taddiu\t$7,$7,1
+.Limage_second_half:
+\tlhu\t$2,0($6)
+\taddu\t$6,$6,$9
+\taddiu\t$3,$3,1
+\tori\t$2,$2,1
+\tsh\t$2,0($4)
+\tsltiu\t$2,$3,64
+\tbnez\t$2,.Limage_second_half
+\taddiu\t$4,$4,-2
+\taddiu\t$7,$7,1
+.Limage_next_tile:
+\tsltiu\t$2,$7,64
+\tbnez\t$2,.Limage_tile_loop
+\taddu\t$8,$8,$12
+.Limage_done:
+\tjr\t$31
+\tnop
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -8344,6 +8451,7 @@ def main() -> None:
     parser.add_argument("--schedule-render-surface-fill", action="store_true")
     parser.add_argument("--schedule-framebuffer-rebuild", action="store_true")
     parser.add_argument("--schedule-slot-entry-release", action="store_true")
+    parser.add_argument("--schedule-image-tile-conversion", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -8469,6 +8577,7 @@ def main() -> None:
             args.schedule_render_surface_fill,
             args.schedule_framebuffer_rebuild,
             args.schedule_slot_entry_release,
+            args.schedule_image_tile_conversion,
         )
     )
     if selected != 1:
@@ -8709,6 +8818,8 @@ def main() -> None:
         lines = schedule_framebuffer_rebuild(lines)
     if args.schedule_slot_entry_release:
         lines = schedule_slot_entry_release(lines)
+    if args.schedule_image_tile_conversion:
+        lines = schedule_image_tile_conversion(lines)
     args.output.write_text("".join(lines))
 
 
