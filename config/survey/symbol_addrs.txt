@@ -793,3 +793,5 @@ audioRuntimeEnabled = 0x800651DC; // type:u32
 audioRuntimeCount = 0x800651E0; // type:u32
 audioRuntimeTail = 0x800651E4; // type:u32
 audioRuntimeLimit = 0x800651E8; // type:u32
+audioRecordLock = 0x80064F64; // type:u32
+audioRecords = 0x8006B2B0; // type:object
