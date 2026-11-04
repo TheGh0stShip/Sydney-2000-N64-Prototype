@@ -5404,6 +5404,98 @@ def schedule_audio_heap_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_render_task_submission(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001E420"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one render-task submission body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$16,16($sp)", "move\t$16,$4",
+        "li\t$3,-2147483648", "ori\t$3,$3,0x22c0", "li\t$2,0x00000001",
+        "sw\t$31,24($sp)", "sw\t$17,20($sp)", "sw\t$2,16($16)",
+        "li\t$2,0x000000d0", "sll\t$7,$7,3", "sw\t$2,28($16)",
+        "sw\t$5,64($16)", "sw\t$6,68($16)", "sw\t$0,20($16)",
+        "sw\t$3,24($16)", "lw\t$2,renderResourcePairs($7)",
+        "lw\t$4,firstRenderBuffer", "lw\t$3,secondRenderBuffer",
+        "lw\t$5,renderOutputBuffer", "li\t$6,0x00010000", "sw\t$2,32($16)",
+        "lw\t$17,48($sp)", "lw\t$7,renderResourcePairs+4($7)",
+        "ori\t$6,$6,0x4000", "li\t$2,0x00000800", "sw\t$2,44($16)",
+        "li\t$2,0x00000400", "sw\t$3,56($16)", "addu\t$3,$3,$6",
+        "sw\t$2,52($16)", "li\t$2,0x00000c00", "sw\t$2,76($16)",
+        "la\t$2,renderMessageQueue", "sw\t$4,48($16)", "sw\t$3,60($16)",
+        "sw\t$5,72($16)", "sw\t$0,0($16)", "sw\t$2,80($16)",
+        "andi\t$2,$17,0x0040", "sw\t$17,8($16)", "beq\t$2,$0,.L2",
+        "sw\t$7,40($16)", "la\t$2,firstRenderSignal", "j\t.L7",
+        "sw\t$2,84($16)", ".L2:", "la\t$2,secondRenderSignal",
+        "sw\t$2,84($16)", ".L7:", "lw\t$4,schedulerCommandQueue",
+        "move\t$5,$16", "jal\tfunc_80032CE0", "li\t$6,0x00000001",
+        "lw\t$3,renderTaskIndex", "sll\t$2,$3,2",
+        "lw\t$2,renderTaskMessages($2)", "sw\t$2,12($16)",
+        "andi\t$2,$17,0x0040", "beq\t$2,$0,.L4", "addu\t$3,$3,1",
+        "lw\t$2,renderTaskLimit", "sw\t$3,renderTaskIndex",
+        "sltu\t$2,$3,$2", "bne\t$2,$0,.L4", "sw\t$0,renderTaskIndex",
+        ".L4:", "lw\t$2,renderFrame", "addu\t$2,$2,1",
+        "andi\t$2,$2,0x0001", "sw\t$2,renderFrame", "lw\t$31,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected render-task submission body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-32\n", "\tsw\t$16,16($sp)\n",
+        "\taddu\t$16,$4,$0\n", "\taddiu\t$2,$0,1\n", "\tlui\t$3,0x8000\n",
+        "\taddiu\t$3,$3,0x22c0\n", "\tsw\t$31,24($sp)\n",
+        "\tsw\t$17,20($sp)\n", "\tsw\t$2,16($16)\n", "\tlui\t$2,0x8000\n",
+        "\taddiu\t$2,$2,0x2390\n", "\tsubu\t$2,$2,$3\n", "\tsw\t$2,28($16)\n",
+        "\tlui\t$2,%hi(renderResourcePairs)\n",
+        "\taddiu\t$2,$2,%lo(renderResourcePairs)\n", "\tsll\t$7,$7,3\n",
+        "\taddu\t$7,$7,$2\n", "\tsw\t$5,64($16)\n", "\tsw\t$6,68($16)\n",
+        "\tsw\t$0,20($16)\n", "\tsw\t$3,24($16)\n", "\tlw\t$2,0($7)\n",
+        "\tlui\t$8,1\n", "\tsw\t$2,32($16)\n", "\tlui\t$2,%hi(firstRenderBuffer)\n",
+        "\tlw\t$4,4($7)\n", "\tlw\t$3,%lo(firstRenderBuffer)($2)\n",
+        "\taddiu\t$2,$0,2048\n", "\tsw\t$2,44($16)\n",
+        "\tlui\t$2,%hi(secondRenderBuffer)\n", "\tsw\t$3,48($16)\n",
+        "\tlw\t$3,%lo(secondRenderBuffer)($2)\n", "\taddiu\t$2,$0,1024\n",
+        "\tsw\t$2,52($16)\n", "\tlui\t$2,%hi(renderOutputBuffer)\n",
+        "\tlw\t$2,%lo(renderOutputBuffer)($2)\n", "\tori\t$8,$8,0x4000\n",
+        "\tsw\t$3,56($16)\n", "\taddu\t$3,$3,$8\n", "\tsw\t$3,60($16)\n",
+        "\tsw\t$2,72($16)\n", "\tlw\t$17,48($sp)\n", "\taddiu\t$2,$0,3072\n",
+        "\tsw\t$2,76($16)\n", "\tlui\t$2,%hi(renderMessageQueue)\n",
+        "\taddiu\t$2,$2,%lo(renderMessageQueue)\n", "\tsw\t$0,0($16)\n",
+        "\tsw\t$2,80($16)\n", "\tsw\t$4,40($16)\n", "\tandi\t$2,$17,0x40\n",
+        "\tbeqz\t$2,.Lrender_second_signal\n", "\tsw\t$17,8($16)\n",
+        "\tlui\t$2,%hi(firstRenderSignal)\n", "\tj\t.Lrender_signal_done\n",
+        "\taddiu\t$2,$2,%lo(firstRenderSignal)\n", ".Lrender_second_signal:\n",
+        "\tlui\t$2,%hi(secondRenderSignal)\n",
+        "\taddiu\t$2,$2,%lo(secondRenderSignal)\n", ".Lrender_signal_done:\n",
+        "\tsw\t$2,84($16)\n", "\tlui\t$2,%hi(schedulerCommandQueue)\n",
+        "\taddu\t$5,$16,$0\n", "\tlw\t$4,%lo(schedulerCommandQueue)($2)\n",
+        "\tjal\tfunc_80032CE0\n", "\taddiu\t$6,$0,1\n",
+        "\tlui\t$3,%hi(renderTaskMessages)\n", "\tlui\t$5,%hi(renderTaskIndex)\n",
+        "\tlw\t$4,%lo(renderTaskIndex)($5)\n",
+        "\taddiu\t$3,$3,%lo(renderTaskMessages)\n", "\tsll\t$2,$4,2\n",
+        "\taddu\t$2,$2,$3\n", "\tlw\t$2,0($2)\n", "\tsw\t$2,12($16)\n",
+        "\tandi\t$2,$17,0x40\n", "\tbeqz\t$2,.Lrender_index_done\n",
+        "\tlui\t$2,%hi(renderTaskLimit)\n", "\tlw\t$3,%lo(renderTaskLimit)($2)\n",
+        "\taddiu\t$2,$4,1\n", "\tsw\t$2,%lo(renderTaskIndex)($5)\n",
+        "\tsltu\t$2,$2,$3\n", "\tbeqzl\t$2,.Lrender_index_done\n",
+        "\tsw\t$0,%lo(renderTaskIndex)($5)\n", ".Lrender_index_done:\n",
+        "\tlui\t$3,%hi(renderFrame)\n", "\tlw\t$2,%lo(renderFrame)($3)\n",
+        "\tlw\t$31,24($sp)\n", "\tlw\t$17,20($sp)\n", "\tlw\t$16,16($sp)\n",
+        "\taddiu\t$2,$2,1\n", "\tandi\t$2,$2,1\n", "\tsw\t$2,%lo(renderFrame)($3)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,32\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5496,6 +5588,7 @@ def main() -> None:
     parser.add_argument("--schedule-message-worker-loop", action="store_true")
     parser.add_argument("--schedule-worker-request-dispatch", action="store_true")
     parser.add_argument("--schedule-audio-heap-initialization", action="store_true")
+    parser.add_argument("--schedule-render-task-submission", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5589,6 +5682,7 @@ def main() -> None:
             args.schedule_message_worker_loop,
             args.schedule_worker_request_dispatch,
             args.schedule_audio_heap_initialization,
+            args.schedule_render_task_submission,
         )
     )
     if selected != 1:
@@ -5769,6 +5863,8 @@ def main() -> None:
         lines = schedule_worker_request_dispatch(lines)
     if args.schedule_audio_heap_initialization:
         lines = schedule_audio_heap_initialization(lines)
+    if args.schedule_render_task_submission:
+        lines = schedule_render_task_submission(lines)
     args.output.write_text("".join(lines))
 
 
