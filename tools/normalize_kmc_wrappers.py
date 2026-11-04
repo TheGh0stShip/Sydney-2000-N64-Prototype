@@ -4601,6 +4601,63 @@ def schedule_record_resource_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_packed_display_record_update(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,24"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800072C0"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one packed-display update body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,24", "sw\t$31,16($sp)", "jal\tfunc_80008224",
+        "move\t$10,$0", "la\t$11,displayRecords", "la\t$7,displayRecordObjects",
+        "la\t$9,displayRecordTemplates", "move\t$8,$0", ".L5:",
+        "lh\t$2,displayRecordIndices+8($8)", "sll\t$3,$2,1", "addu\t$3,$3,$2",
+        "sll\t$3,$3,1", "addu\t$3,$3,$11", "lwl\t$2,0($9)",
+        "lwr\t$2,3($9)", "lh\t$4,4($9)", "swl\t$2,0($3)",
+        "swr\t$2,3($3)", "sh\t$4,4($3)", "lw\t$2,0($7)",
+        "lbu\t$2,2($2)", "sb\t$2,2($3)", "lw\t$2,0($7)",
+        "addu\t$8,$8,12", "addu\t$10,$10,1", "lbu\t$2,3($2)",
+        "addu\t$9,$9,6", "sb\t$2,3($3)", "sltu\t$2,$10,4",
+        "bne\t$2,$0,.L5", "addu\t$7,$7,4", "lw\t$31,16($sp)",
+        "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected packed-display update body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-24\n", "\tsw\t$31,16($sp)\n",
+        "\tjal\tfunc_80008224\n", "\tnop\n", "\tmove\t$8,$0\n",
+        "\tlui\t$2,%hi(displayRecords)\n", "\taddiu\t$9,$2,%lo(displayRecords)\n",
+        "\tlui\t$2,%hi(displayRecordObjects)\n",
+        "\taddiu\t$6,$2,%lo(displayRecordObjects)\n",
+        "\tlui\t$2,%hi(displayRecordTemplates)\n",
+        "\taddiu\t$7,$2,%lo(displayRecordTemplates)\n",
+        "\tlui\t$2,%hi(displayRecordIndices)\n",
+        "\taddiu\t$5,$2,%lo(displayRecordIndices)\n", ".Lpacked_display_loop:\n",
+        "\tlh\t$3,8($5)\n", "\taddiu\t$8,$8,1\n", "\tsll\t$2,$3,1\n",
+        "\taddu\t$2,$2,$3\n", "\tsll\t$2,$2,1\n", "\taddu\t$2,$2,$9\n",
+        "\tlwl\t$10,0($7)\n", "\tlwr\t$10,3($7)\n", "\tlh\t$11,4($7)\n",
+        "\tswl\t$10,0($2)\n", "\tswr\t$10,3($2)\n", "\tsh\t$11,4($2)\n",
+        "\tlh\t$3,8($5)\n", "\taddiu\t$7,$7,6\n", "\tsll\t$2,$3,1\n",
+        "\taddu\t$2,$2,$3\n", "\tlw\t$3,0($6)\n", "\tsll\t$2,$2,1\n",
+        "\tlbu\t$3,2($3)\n", "\taddu\t$2,$2,$9\n", "\tsb\t$3,2($2)\n",
+        "\tlw\t$4,0($6)\n", "\taddiu\t$6,$6,4\n", "\tlh\t$3,8($5)\n",
+        "\tsll\t$2,$3,1\n", "\taddu\t$2,$2,$3\n", "\tsll\t$2,$2,1\n",
+        "\tlbu\t$3,3($4)\n", "\taddu\t$2,$2,$9\n", "\tsb\t$3,3($2)\n",
+        "\tsltiu\t$2,$8,4\n", "\tbne\t$2,$0,.Lpacked_display_loop\n",
+        "\taddiu\t$5,$5,12\n", "\tlw\t$31,16($sp)\n", "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,24\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4681,6 +4738,7 @@ def main() -> None:
     parser.add_argument("--schedule-double-arc-cosine", action="store_true")
     parser.add_argument("--schedule-object-timing-configuration", action="store_true")
     parser.add_argument("--schedule-record-resource-resolution", action="store_true")
+    parser.add_argument("--schedule-packed-display-record-update", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4762,6 +4820,7 @@ def main() -> None:
             args.schedule_double_arc_cosine,
             args.schedule_object_timing_configuration,
             args.schedule_record_resource_resolution,
+            args.schedule_packed_display_record_update,
         )
     )
     if selected != 1:
@@ -4918,6 +4977,8 @@ def main() -> None:
         lines = schedule_object_timing_configuration(lines)
     if args.schedule_record_resource_resolution:
         lines = schedule_record_resource_resolution(lines)
+    if args.schedule_packed_display_record_update:
+        lines = schedule_packed_display_record_update(lines)
     args.output.write_text("".join(lines))
 
 
