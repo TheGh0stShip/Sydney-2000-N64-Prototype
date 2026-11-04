@@ -11,3 +11,13 @@
 0x4018	0x8	src/boot/clear_boot_word.s	-O2 -G0 -mips3 -mgp32 -mfp32	a5cde8f9223175c51193337c952b39e477d9d4a019ae6f55c07b772e305b1fa4
 0x28C34	0x28C	src/game/gsm_short_term_synthesis.s	-O2 -G0 -mips3 -mgp32 -mfp32	7e1c85ef94709b6ebd00ac7b266e1f97e3bf1cc9be002349b28f21a15b0ce81e
 0x3361C	0x17C	src/libultra/dispatch_thread.s	--symbol=__osPopThread:0x80032A0C -O2 -G0 -mips3 -mgp32 -mfp32	a0000132f528ec57ab89185c4ac4f576630317db8d960087a840641e49fa0230
+0x3EBC	0x30	src/boot/setup_boot_tlb_entry.s	--symbol=func_80001FD8:0x80001FD8 -O2 -G0 -mips3 -mgp32 -mfp32	58c768b9250c362887463e3d66c3d3ab68dab47b804a187e5fa26961d38aab52
+0x3EF0	0x20	src/boot/write_boot_tlb_entry.s	-O2 -G0 -mips3 -mgp32 -mfp32	76af10cb4fd7fbc4fb8ea7e7507d7f33c22ed928d3f05dce18f9e804677179af
+0x3F34	0x3C	src/boot/prepare_boot_tlb_entries.s	--symbol=func_80001FD8:0x80001FD8 --symbol=func_80001FC8:0x80001FC8 -O2 -G0 -mips3 -mgp32 -mfp32	41667de9d23ad68ce9564240a60857b1ddb5dc9ddef33409a6a5f246a1a8e353
+0x3F70	0x24	src/boot/prepare_boot_tlb_tail.s	--symbol=func_80001FD8:0x80001FD8 -O2 -G0 -mips3 -mgp32 -mfp32	d70050bce4792b48b283b0040a55463ffc65cc7b737037b5ffdd26f91bb3d2f0
+0x1000	0x40	src/boot/entry.s	--symbol=func_800048B0:0x800048B0 -O2 -G0 -mips3 -mgp32 -mfp32	0ed794008f6f97717e0cb42b3e811739a4d1c7141aae62714b08d0ce82fc5aa4
+0x29EB8	0xC	src/game/write_cp0_status.s	-O2 -G0 -mips3 -mgp32 -mfp32	2cbf13dc62f3cfcdd5b7b506d5f3f7f0ec898fbd99b88b5a452ed04ca2bba461
+0x382E0	0x10	src/libultra/get_cp0_status.s	-O2 -G0 -mips3 -mgp32 -mfp32	98eb78e5220bcc1e31ff049202bde4471c76ac15ebbc22d818771f741671fe0a
+0x382F0	0x10	src/libultra/set_fpcsr.s	-O2 -G0 -mips3 -mgp32 -mfp32	1b1c2a5e117a433a988d960120310c5634987537358a5b13b49fddcee5d2dac4
+0x38300	0x10	src/libultra/set_cp0_status.s	-O2 -G0 -mips3 -mgp32 -mfp32	8c9798aafb630c54a679991a2a686c3379687a94f8b3c8c14e5eafe1cd8cb961
+0x38310	0x10	src/libultra/set_cp0_watchlo.s	-O2 -G0 -mips3 -mgp32 -mfp32	57a60924b5ab6bcac4231c2f07f0716ee5d63495724303dbfa626ca0f4112708
