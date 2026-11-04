@@ -157,3 +157,4 @@
 0x2C0E0	0x10	tools/battletanx_ga/src/libultra/os_ai_get_status.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	ca2590df63a0994d2295be9346906b5706c52e06e06a133776138a7b7929c473
 0x33EE0	0x10	tools/battletanx_ga/src/libultra/os_sp_get_status.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	2e827923487755f449dbe9074b0d6fbc69a89128fd74ab6f1b1d25c100006a03
 0x34D50	0x40	tools/battletanx_ga/src/libultra/os_dequeue_thread.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	b591186c4890fa7b7706cc4afb48d3ae86da868c825901350881f97da589d05c
+0x2B300	0xD0	tools/ultralib/src/io/pirawdma.c	--symbol=osVirtualToPhysical:0x8002E7A0 --symbol=osRomBase:0x80000308 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J	eff035cc53210b201db6643c1ccd0838526eaba357060797d2839dd4e1d9708e
