@@ -5322,6 +5322,88 @@ def schedule_worker_request_dispatch(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_heap_initialization(lines: list[str]) -> list[str]:
+    entries = [line for line in lines if line.strip() == ".ent\tfunc_8001E170"]
+    frames = [line for line in lines if line.strip().startswith(".frame")]
+    if len(entries) != 1 or [line.strip().split("#", 1)[0].rstrip() for line in frames] != [
+        ".frame\t$sp,152,$31"
+    ]:
+        raise ValueError("unexpected audio-heap initialization entry or frame")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,152"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001E170"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one audio-heap initialization body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,152", "sw\t$17,140($sp)", "la\t$17,memoryContext",
+        "move\t$4,$17", "sw\t$16,136($sp)", "la\t$16,audioState+20980",
+        "move\t$5,$16", "li\t$6,0x00030000", "ori\t$6,$6,0x2000",
+        "la\t$7,audioAllocationCallback", "sw\t$31,144($sp)",
+        "jal\tfunc_800AA804", "sw\t$0,0($16)", "li\t$3,0x00030000",
+        "lw\t$5,0($16)", "ori\t$3,$3,0x2000", "addu\t$4,$16,4",
+        "li\t$2,0x00000014", "sw\t$2,20($sp)", "la\t$2,scheduler",
+        "sw\t$2,24($sp)", "li\t$2,0x0000007f", "sw\t$2,28($sp)",
+        "addu\t$2,$sp,88", "sw\t$2,40($sp)", "li\t$2,0x00000040",
+        "sw\t$2,52($sp)", "li\t$2,0x00000100", "sw\t$2,56($sp)",
+        "li\t$2,0x0000ac44", "sw\t$2,60($sp)", "li\t$2,0x00001000",
+        "sw\t$2,64($sp)", "li\t$2,0x00000001", "sw\t$2,68($sp)",
+        "li\t$2,0x00000048", "sw\t$2,72($sp)", "li\t$2,0x00000200",
+        "sw\t$0,16($sp)", "sw\t$3,36($sp)", "sw\t$0,44($sp)",
+        "sw\t$0,48($sp)", "sw\t$2,76($sp)", "jal\tfunc_8001EF98",
+        "sw\t$5,32($sp)", "jal\tfunc_8001E70C", "addu\t$4,$sp,16",
+        "move\t$4,$17", "move\t$5,$16", "sw\t$2,audioState+21000",
+        "sw\t$2,audioState+20976", "jal\tfunc_800AA488", "addu\t$6,$2,10240",
+        "lw\t$31,144($sp)", "lw\t$17,140($sp)", "lw\t$16,136($sp)",
+        "addu\t$sp,$sp,152", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected audio-heap initialization body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-152\n",
+        "\tsw\t$17,140($sp)\n", "\tlui\t$17,%hi(memoryContext)\n",
+        "\taddiu\t$17,$17,%lo(memoryContext)\n", "\taddu\t$4,$17,$0\n",
+        "\tsw\t$16,136($sp)\n", "\tlui\t$16,%hi(audioState)\n",
+        "\tsw\t$18,144($sp)\n", "\taddiu\t$18,$16,%lo(audioState)+0x51f4\n",
+        "\taddu\t$5,$18,$0\n", "\tlui\t$6,3\n", "\tori\t$6,$6,0x2000\n",
+        "\tlui\t$7,%hi(audioAllocationCallback)\n",
+        "\taddiu\t$7,$7,%lo(audioAllocationCallback)\n", "\tsw\t$31,148($sp)\n",
+        "\tjal\tfunc_800AA804\n", "\tsw\t$0,%lo(audioState)+0x51f4($16)\n",
+        "\tlui\t$3,3\n", "\tori\t$3,$3,0x2000\n",
+        "\tlui\t$4,%hi(audioState)\n", "\taddiu\t$4,$4,%lo(audioState)+0x51f8\n",
+        "\taddiu\t$2,$0,20\n", "\tsw\t$2,20($sp)\n",
+        "\tlui\t$2,%hi(scheduler)\n", "\tsw\t$3,36($sp)\n",
+        "\tlw\t$3,%lo(audioState)+0x51f4($16)\n", "\taddiu\t$2,$2,%lo(scheduler)\n",
+        "\tsw\t$2,24($sp)\n", "\taddiu\t$2,$0,127\n",
+        "\tsw\t$2,28($sp)\n", "\taddiu\t$2,$0,64\n",
+        "\tsw\t$2,52($sp)\n", "\taddiu\t$2,$sp,88\n",
+        "\tsw\t$2,40($sp)\n", "\tori\t$2,$0,0xac44\n",
+        "\tsw\t$2,60($sp)\n", "\taddiu\t$2,$0,256\n",
+        "\tsw\t$2,56($sp)\n", "\taddiu\t$2,$0,4096\n",
+        "\tsw\t$2,64($sp)\n", "\taddiu\t$2,$0,1\n",
+        "\tsw\t$2,68($sp)\n", "\taddiu\t$2,$0,72\n",
+        "\tsw\t$2,72($sp)\n", "\taddiu\t$2,$0,512\n",
+        "\tsw\t$0,16($sp)\n", "\tsw\t$0,44($sp)\n", "\tsw\t$0,48($sp)\n",
+        "\tsw\t$2,76($sp)\n", "\tjal\tfunc_8001EF98\n", "\tsw\t$3,32($sp)\n",
+        "\tjal\tfunc_8001E70C\n", "\taddiu\t$4,$sp,16\n",
+        "\taddu\t$4,$17,$0\n", "\taddu\t$5,$18,$0\n",
+        "\taddiu\t$6,$2,10240\n", "\tlui\t$3,%hi(audioState)\n",
+        "\tsw\t$2,%lo(audioState)+0x5208($3)\n", "\tlui\t$3,%hi(audioState)\n",
+        "\tjal\tfunc_800AA488\n", "\tsw\t$2,%lo(audioState)+0x51f0($3)\n",
+        "\tlw\t$31,148($sp)\n", "\tlw\t$18,144($sp)\n",
+        "\tlw\t$17,140($sp)\n", "\tlw\t$16,136($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,152\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5413,6 +5495,7 @@ def main() -> None:
     parser.add_argument("--schedule-double-sine", action="store_true")
     parser.add_argument("--schedule-message-worker-loop", action="store_true")
     parser.add_argument("--schedule-worker-request-dispatch", action="store_true")
+    parser.add_argument("--schedule-audio-heap-initialization", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5505,6 +5588,7 @@ def main() -> None:
             args.schedule_double_sine,
             args.schedule_message_worker_loop,
             args.schedule_worker_request_dispatch,
+            args.schedule_audio_heap_initialization,
         )
     )
     if selected != 1:
@@ -5683,6 +5767,8 @@ def main() -> None:
         lines = schedule_message_worker_loop(lines)
     if args.schedule_worker_request_dispatch:
         lines = schedule_worker_request_dispatch(lines)
+    if args.schedule_audio_heap_initialization:
+        lines = schedule_audio_heap_initialization(lines)
     args.output.write_text("".join(lines))
 
 
