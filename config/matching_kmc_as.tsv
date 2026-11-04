@@ -1,5 +1,23 @@
 # KMC GCC 2.7.2 source matches using the original assembler scheduler
 # rom_start size source flags sha256
+0x9168	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80008568	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1003C	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8000F43C	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x181F4	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_800175F4	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x18410	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017810	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x18418	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017818	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x18530	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017930	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x18704	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017B04	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1870C	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017B0C	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x18974	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017D74	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1897C	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_80017D7C	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1AD40	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001A140	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1AFA4	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001A3A4	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1CFB8	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001C3B8	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1E1C8	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001D5C8	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1E1D0	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001D5D0	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1EC24	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001E024	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1ECF4	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_8001E0F4	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x29EB0	0x8	src/game/empty_stub.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DSTUB_NAME=func_800292B0	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
 0x6EF0	0x58	src/libultra/sched_add_client_legacy.c	--symbol=osSetIntMask:0x8002A3E0 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C	746e38dd8a06707af64a8fd047c9fb0179cc2caf60ab53949b7c223c5e4a7fd1
 0x352F0	0x38	tools/ultralib/src/io/vigetcurrframebuf.c	--symbol=__osDisableInt:0x8002A670 --symbol=__osViCurr:0x80067130 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	78a421ba6530590b649a0c54e0b22557c200f325c6686d880e616e2d9085c007
 0x35440	0x38	tools/ultralib/src/io/vigetnextframebuf.c	--symbol=__osDisableInt:0x8002A670 --symbol=__osViNext:0x80067134 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	c075c47cd23102f25c28b950e7be1d68bbc0e93595c76f76171c490bbb9820aa
