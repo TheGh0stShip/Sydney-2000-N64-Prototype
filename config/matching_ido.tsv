@@ -1,0 +1,1 @@
+0x26F70	0xC4	src/game/initialize_async_state.c	-O2 -G0 -mips2 -non_shared -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80026370 -DBZERO_NAME=func_8002F580 -DCREATE_QUEUE_NAME=func_800320D0	9c9c6b7ee2562e72d8f5b76d3bc25a734c9eee8b2dcc7b96c13aae3efe5c1328
