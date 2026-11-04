@@ -1548,6 +1548,78 @@ def schedule_handle_array_release(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_masked_vector_copy(lines: list[str]) -> list[str]:
+    """Reproduce the packed-source vector copy loop's original schedule."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$2,0($4)"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_80017938"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one masked-vector copy body; "
+            f"found {(len(starts), len(ends))}"
+        )
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "lw\t$2,0($4)", "subu\t$sp,$sp,8", "li\t$8,0x00000001",
+        "lw\t$2,80($2)", "addu\t$4,$6,8", "move\t$7,$0",
+        "move\t$3,$2", "sw\t$3,0($sp)", ".L5:", "sll\t$2,$8,$7",
+        "and\t$2,$5,$2", "beq\t$2,$0,.L8", "addu\t$7,$7,1",
+        "l.s\t$f0,0($6)", "s.s\t$f0,0($3)", "l.s\t$f0,-4($4)",
+        "s.s\t$f0,4($3)", "l.s\t$f0,0($4)", "addu\t$6,$6,12",
+        "addu\t$4,$4,12", "s.s\t$f0,8($3)", ".L8:",
+        "sltu\t$2,$7,4", "bne\t$2,$0,.L5", "addu\t$3,$3,36",
+        "move\t$2,$0", "addu\t$sp,$sp,8", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected masked-vector compiler body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,8\n",
+        "\tmove\t$7,$0\n",
+        "\tlw\t$2,0($4)\n",
+        "\tli\t$8,0x00000001\n",
+        "\tlw\t$2,80($2)\n",
+        "\taddu\t$4,$6,8\n",
+        "\tmove\t$3,$2\n",
+        "\tsw\t$3,0($sp)\n",
+        ".L5:\n",
+        "\tsll\t$2,$8,$7\n",
+        "\tand\t$2,$5,$2\n",
+        "\tbeq\t$2,$0,.L8\n",
+        "\taddu\t$7,$7,1\n",
+        "\tl.s\t$f0,0($6)\n",
+        "\ts.s\t$f0,0($3)\n",
+        "\tl.s\t$f0,-4($4)\n",
+        "\taddu\t$6,$6,12\n",
+        "\ts.s\t$f0,4($3)\n",
+        "\tl.s\t$f0,0($4)\n",
+        "\taddu\t$4,$4,12\n",
+        "\ts.s\t$f0,8($3)\n",
+        ".L8:\n",
+        "\tsltu\t$2,$7,4\n",
+        "\tbne\t$2,$0,.L5\n",
+        "\taddu\t$3,$3,36\n",
+        "\tmove\t$2,$0\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,8\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1584,6 +1656,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-resource-value", action="store_true")
     parser.add_argument("--schedule-player-scratch-allocator", action="store_true")
     parser.add_argument("--schedule-handle-array-release", action="store_true")
+    parser.add_argument("--schedule-masked-vector-copy", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1621,6 +1694,7 @@ def main() -> None:
             args.schedule_object_resource_value,
             args.schedule_player_scratch_allocator,
             args.schedule_handle_array_release,
+            args.schedule_masked_vector_copy,
         )
     )
     if selected != 1:
@@ -1689,6 +1763,8 @@ def main() -> None:
         lines = schedule_player_scratch_allocator(lines)
     if args.schedule_handle_array_release:
         lines = schedule_handle_array_release(lines)
+    if args.schedule_masked_vector_copy:
+        lines = schedule_masked_vector_copy(lines)
     args.output.write_text("".join(lines))
 
 
