@@ -5703,6 +5703,83 @@ def schedule_render_object_release(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_display_record_initialization(lines: list[str]) -> list[str]:
+    frames = [index for index, line in enumerate(lines) if line.strip().startswith(".frame")]
+    masks = [index for index, line in enumerate(lines) if line.strip().startswith(".mask")]
+    if len(frames) != 1 or lines[frames[0]].strip().split("#", 1)[0].rstrip() != ".frame\t$sp,32,$31":
+        raise ValueError("unexpected display-record initialization frame")
+    if len(masks) != 1 or lines[masks[0]].strip() != ".mask\t0x80070000,-4":
+        raise ValueError("unexpected display-record initialization register mask")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800071D0"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one display-record initialization body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$16,16($sp)", "move\t$16,$0",
+        "sw\t$18,24($sp)", "la\t$18,displayRecords", "sw\t$17,20($sp)",
+        "li\t$17,0x00000001", "sw\t$31,28($sp)", ".L4:",
+        "lbu\t$3,secondDisplayIndex", "sll\t$2,$3,1", "addu\t$2,$2,$3",
+        "lbu\t$3,firstDisplayIndex", "sll\t$2,$2,2", "addu\t$2,$2,$18",
+        "sw\t$0,0($2)", "sw\t$17,4($2)", "sh\t$0,10($2)",
+        "jal\tfunc_800BC3D0", "sh\t$3,8($2)", "lbu\t$5,secondDisplayIndex",
+        "lbu\t$7,firstDisplayIndex", "andi\t$4,$2,0x00ff", "jal\tfunc_800BC3E0",
+        "move\t$6,$0", "lbu\t$2,secondDisplayIndex", "bne\t$2,$0,.L5",
+        "li\t$4,0x0000000c", "move\t$5,$0", "move\t$6,$0",
+        "jal\tfunc_800BC3E0", "li\t$7,0x00000008", "la\t$4,displayContext",
+        "li\t$5,0x0000000c", "li\t$6,0x00000001", "jal\tfunc_800BC1E8",
+        "li\t$7,0x0000000c", ".L5:", "jal\tfunc_800BC3B0",
+        "addu\t$16,$16,1", "lbu\t$2,firstDisplayIndex",
+        "lbu\t$3,secondDisplayIndex", "addu\t$2,$2,1", "addu\t$3,$3,1",
+        "sb\t$2,firstDisplayIndex", "sltu\t$2,$16,4", "sb\t$3,secondDisplayIndex",
+        "bne\t$2,$0,.L4", "lw\t$31,28($sp)", "lw\t$18,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected display-record initialization body: {body!r}")
+    lines[frames[0]] = "\t.frame\t$sp,40,$31\n"
+    lines[masks[0]] = "\t.mask\t0x800f0000,-8\n"
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-40\n", "\tsw\t$18,24($sp)\n",
+        "\taddu\t$18,$0,$0\n", "\tsw\t$16,16($sp)\n",
+        "\tlui\t$16,%hi(secondDisplayIndex)\n", "\tlui\t$2,%hi(displayRecords)\n",
+        "\tsw\t$19,28($sp)\n", "\taddiu\t$19,$2,%lo(displayRecords)\n",
+        "\tsw\t$17,20($sp)\n", "\tlui\t$17,%hi(firstDisplayIndex)\n",
+        "\tsw\t$31,32($sp)\n", ".Ldisplay_record_loop:\n", "\tsltiu\t$2,$18,4\n",
+        "\tbeqz\t$2,.Ldisplay_record_done\n", "\tnop\n",
+        "\tlbu\t$3,%lo(secondDisplayIndex)($16)\n",
+        "\tlbu\t$4,%lo(firstDisplayIndex)($17)\n", "\tsll\t$2,$3,1\n",
+        "\taddu\t$2,$2,$3\n", "\tsll\t$2,$2,2\n", "\taddu\t$2,$2,$19\n",
+        "\taddiu\t$3,$0,1\n", "\tsw\t$0,0($2)\n", "\tsw\t$3,4($2)\n",
+        "\tsh\t$4,8($2)\n", "\tjal\tfunc_800BC3D0\n", "\tsh\t$0,10($2)\n",
+        "\tandi\t$4,$2,0xff\n", "\tlbu\t$5,%lo(secondDisplayIndex)($16)\n",
+        "\tlbu\t$7,%lo(firstDisplayIndex)($17)\n", "\tjal\tfunc_800BC3E0\n",
+        "\taddu\t$6,$0,$0\n", "\tlbu\t$2,%lo(secondDisplayIndex)($16)\n",
+        "\tbnez\t$2,.Ldisplay_record_advance\n", "\taddiu\t$4,$0,12\n",
+        "\taddu\t$5,$2,$0\n", "\taddu\t$6,$0,$0\n", "\tjal\tfunc_800BC3E0\n",
+        "\taddiu\t$7,$0,8\n", "\tlui\t$4,%hi(displayContext)\n",
+        "\taddiu\t$4,$4,%lo(displayContext)\n", "\taddiu\t$5,$0,12\n",
+        "\taddiu\t$6,$0,1\n", "\tjal\tfunc_800BC1E8\n", "\taddu\t$7,$5,$0\n",
+        ".Ldisplay_record_advance:\n", "\tjal\tfunc_800BC3B0\n",
+        "\taddiu\t$18,$18,1\n", "\tlbu\t$2,%lo(firstDisplayIndex)($17)\n",
+        "\tlbu\t$3,%lo(secondDisplayIndex)($16)\n", "\taddiu\t$2,$2,1\n",
+        "\taddiu\t$3,$3,1\n", "\tsb\t$2,%lo(firstDisplayIndex)($17)\n",
+        "\tj\t.Ldisplay_record_loop\n", "\tsb\t$3,%lo(secondDisplayIndex)($16)\n",
+        ".Ldisplay_record_done:\n", "\tlw\t$31,32($sp)\n", "\tlw\t$19,28($sp)\n",
+        "\tlw\t$18,24($sp)\n", "\tlw\t$17,20($sp)\n", "\tlw\t$16,16($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,40\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5799,6 +5876,7 @@ def main() -> None:
     parser.add_argument("--schedule-pi-worker-startup", action="store_true")
     parser.add_argument("--schedule-runtime-memory-initialization", action="store_true")
     parser.add_argument("--schedule-render-object-release", action="store_true")
+    parser.add_argument("--schedule-display-record-initialization", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5896,6 +5974,7 @@ def main() -> None:
             args.schedule_pi_worker_startup,
             args.schedule_runtime_memory_initialization,
             args.schedule_render_object_release,
+            args.schedule_display_record_initialization,
         )
     )
     if selected != 1:
@@ -6084,6 +6163,8 @@ def main() -> None:
         lines = schedule_runtime_memory_initialization(lines)
     if args.schedule_render_object_release:
         lines = schedule_render_object_release(lines)
+    if args.schedule_display_record_initialization:
+        lines = schedule_display_record_initialization(lines)
     args.output.write_text("".join(lines))
 
 
