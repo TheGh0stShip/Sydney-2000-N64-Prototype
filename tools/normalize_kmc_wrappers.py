@@ -1432,6 +1432,70 @@ def schedule_object_resource_value(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_player_scratch_allocator(lines: list[str]) -> list[str]:
+    """Reproduce the two-return schedule of the per-player scratch allocator."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$4,allocationCount"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_80017DFC"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one player scratch allocator body; "
+            f"found {(len(starts), len(ends))}"
+        )
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    markers = (
+        sum(instruction.endswith(",currentPlayer") for instruction in body),
+        sum(instruction.endswith(",scratchBuffer") for instruction in body),
+        body.count("j\t$31"),
+    )
+    if len(body) != 18 or markers != (2, 2, 1):
+        raise ValueError(
+            "unexpected scratch-allocator compiler body: "
+            f"length {len(body)}, markers {markers}"
+        )
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$3,%hi(allocationCount)\n",
+        "\tlw\t$4,%lo(allocationCount)($3)\n",
+        "\tsltiu\t$2,$4,128\n",
+        "\tbeqzl\t$2,.Lscratch_fallback\n",
+        "\tlui\t$2,%hi(currentPlayer)\n",
+        "\taddiu\t$2,$4,1\n",
+        "\tsw\t$2,%lo(allocationCount)($3)\n",
+        "\tlui\t$2,%hi(currentPlayer)\n",
+        "\tsll\t$4,$4,7\n",
+        "\tlui\t$3,%hi(scratchBuffer)\n",
+        "\tlw\t$2,%lo(currentPlayer)($2)\n",
+        "\taddiu\t$3,$3,%lo(scratchBuffer)\n",
+        "\tsll\t$2,$2,6\n",
+        "\taddu\t$2,$2,$3\n",
+        "\tj\t$31\n",
+        "\taddu\t$2,$4,$2\n",
+        ".Lscratch_fallback:\n",
+        "\tlw\t$3,%lo(currentPlayer)($2)\n",
+        "\tlui\t$2,%hi(scratchBuffer)\n",
+        "\taddiu\t$2,$2,%lo(scratchBuffer)\n",
+        "\tsll\t$3,$3,6\n",
+        "\tj\t$31\n",
+        "\taddu\t$2,$3,$2\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1466,6 +1530,7 @@ def main() -> None:
     parser.add_argument("--schedule-two-optional-handles", action="store_true")
     parser.add_argument("--schedule-decode-path-string", action="store_true")
     parser.add_argument("--schedule-object-resource-value", action="store_true")
+    parser.add_argument("--schedule-player-scratch-allocator", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1501,6 +1566,7 @@ def main() -> None:
             args.schedule_two_optional_handles,
             args.schedule_decode_path_string,
             args.schedule_object_resource_value,
+            args.schedule_player_scratch_allocator,
         )
     )
     if selected != 1:
@@ -1565,6 +1631,8 @@ def main() -> None:
         lines = schedule_decode_path_string(lines)
     if args.schedule_object_resource_value:
         lines = schedule_object_resource_value(lines)
+    if args.schedule_player_scratch_allocator:
+        lines = schedule_player_scratch_allocator(lines)
     args.output.write_text("".join(lines))
 
 
