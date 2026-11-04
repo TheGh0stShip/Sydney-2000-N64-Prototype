@@ -2019,6 +2019,54 @@ def schedule_indexed_record_value(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_all_vector_planes(lines: list[str]) -> list[str]:
+    """Use the original non-likely success branch and return delay slot."""
+    branches = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "bnel\t$2,$0,.L4"
+    ]
+    returns = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "j\t$31"
+    ]
+    if len(branches) != 1 or len(returns) != 1:
+        raise ValueError(
+            "expected one vector-plane success branch and return; "
+            f"found {(len(branches), len(returns))}"
+        )
+    branch = branches[0]
+    if branch + 1 >= len(lines) or lines[branch + 1].strip() != "addu\t$16,$16,1":
+        raise ValueError("unexpected vector-plane branch delay slot")
+    lines[branch] = lines[branch].replace("bnel", "bne", 1)
+
+    transfers = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "mfc1\t$5,$f20"
+    ]
+    if len(transfers) != 1 or lines[transfers[0] + 1].strip() != ".set\tnoreorder":
+        raise ValueError("unexpected vector-plane float transfer schedule")
+    transfer = transfers[0]
+    noreorder = lines.pop(transfer + 1)
+    lines.insert(transfer, noreorder)
+
+    ret = returns[0]
+    previous = ret - 1
+    while previous >= 0 and not lines[previous].strip():
+        previous -= 1
+    if previous < 0 or lines[previous].strip() != "addu\t$sp,$sp,40":
+        raise ValueError("unexpected vector-plane epilogue")
+    stack_line = lines.pop(previous)
+    ret = lines.index(next(line for line in lines if line.strip() == "j\t$31"))
+    lines.insert(ret + 1, stack_line)
+    epilogues = [index for index, line in enumerate(lines) if line.strip() == ".L3:"]
+    if len(epilogues) != 1:
+        raise ValueError(f"expected one vector-plane epilogue label; found {len(epilogues)}")
+    lines.insert(epilogues[0] + 1, "\t.set\tnoreorder\n")
+    ret = [index for index, line in enumerate(lines) if line.strip() == "j\t$31"][0]
+    lines.insert(ret + 2, "\t.set\treorder\n")
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -2063,6 +2111,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-record-copy", action="store_true")
     parser.add_argument("--truncate-nonreturning-thread", action="store_true")
     parser.add_argument("--schedule-indexed-record-value", action="store_true")
+    parser.add_argument("--schedule-all-vector-planes", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2108,6 +2157,7 @@ def main() -> None:
             args.schedule_indexed_record_copy,
             args.truncate_nonreturning_thread,
             args.schedule_indexed_record_value,
+            args.schedule_all_vector_planes,
         )
     )
     if selected != 1:
@@ -2192,6 +2242,8 @@ def main() -> None:
         lines = truncate_nonreturning_thread(lines)
     if args.schedule_indexed_record_value:
         lines = schedule_indexed_record_value(lines)
+    if args.schedule_all_vector_planes:
+        lines = schedule_all_vector_planes(lines)
     args.output.write_text("".join(lines))
 
 
