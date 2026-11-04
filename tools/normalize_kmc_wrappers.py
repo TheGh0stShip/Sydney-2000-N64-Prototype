@@ -8333,6 +8333,116 @@ def schedule_image_tile_conversion(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_yielding_task_loop(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80005F60:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80005F60"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one yielding task loop")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "jal\tfunc_8002E280", "lw\t$2,schedulerTaskBlocked",
+        "jal\tfunc_80033270", "jal\tfunc_80033290",
+        "jal\tfunc_80032EC0", "jal\tfunc_800330CC",
+        "jal\tfunc_80032BB0", "jal\tfunc_80032CE0",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected yielding task loop near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,48,$31
+\t.mask\t0x801f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-48
+\tsw\t$18,32($sp)
+\tmove\t$18,$4
+\tsw\t$20,40($sp)
+\taddiu\t$20,$18,172
+\tsw\t$19,36($sp)
+\taddiu\t$19,$sp,20
+\tsw\t$31,44($sp)
+\tsw\t$17,28($sp)
+\tsw\t$16,24($sp)
+\tsw\t$0,20($sp)
+\tsw\t$0,16($sp)
+\taddiu\t$4,$18,4
+.Lyield_receive:
+\taddiu\t$5,$sp,16
+\tjal\tfunc_80032BB0
+\tli\t$6,1
+\tjal\tfunc_8002E280
+\tnop
+\tlui\t$2,%hi(schedulerTaskBlocked)
+\tlw\t$2,%lo(schedulerTaskBlocked)($2)
+\tbnez\t$2,.Lyield_complete
+\tnop
+\tlw\t$17,1644($18)
+\tbeqz\t$17,.Lyield_submit
+\tmove\t$16,$0
+\tjal\tfunc_80033270
+\tli\t$16,2
+\taddiu\t$4,$18,172
+\taddiu\t$5,$sp,20
+\tjal\tfunc_80032BB0
+\tli\t$6,1
+\tjal\tfunc_80033290
+\taddiu\t$4,$17,16
+\tbnezl\t$2,.Lyield_submit
+\tli\t$16,1
+.Lyield_submit:
+\tlw\t$2,16($sp)
+\taddiu\t$4,$2,16
+\tjal\tfunc_80032EC0
+\tsw\t$2,1648($18)
+\tlw\t$4,16($sp)
+\tjal\tfunc_800330CC
+\taddiu\t$4,$4,16
+\tmove\t$4,$20
+\tmove\t$5,$19
+\tjal\tfunc_80032BB0
+\tli\t$6,1
+\tlw\t$2,1652($18)
+\tbeqz\t$2,.Lyield_resume
+\tsw\t$0,1648($18)
+\taddiu\t$4,$18,284
+\tmove\t$5,$19
+\tjal\tfunc_80032CE0
+\tli\t$6,1
+.Lyield_resume:
+\tli\t$2,1
+\tbne\t$16,$2,.Lyield_notify
+\tli\t$2,2
+\taddiu\t$16,$17,16
+\tjal\tfunc_80032EC0
+\tmove\t$4,$16
+\tjal\tfunc_800330CC
+\tmove\t$4,$16
+\tj\t.Lyield_complete
+\tnop
+.Lyield_notify:
+\tbne\t$16,$2,.Lyield_complete
+\tmove\t$4,$20
+\tmove\t$5,$19
+\tjal\tfunc_80032CE0
+\tli\t$6,1
+.Lyield_complete:
+\tlw\t$2,16($sp)
+\tlw\t$4,80($2)
+\tlw\t$5,84($2)
+\tjal\tfunc_80032CE0
+\tli\t$6,1
+\tj\t.Lyield_receive
+\taddiu\t$4,$18,4
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -8452,6 +8562,7 @@ def main() -> None:
     parser.add_argument("--schedule-framebuffer-rebuild", action="store_true")
     parser.add_argument("--schedule-slot-entry-release", action="store_true")
     parser.add_argument("--schedule-image-tile-conversion", action="store_true")
+    parser.add_argument("--schedule-yielding-task-loop", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -8578,6 +8689,7 @@ def main() -> None:
             args.schedule_framebuffer_rebuild,
             args.schedule_slot_entry_release,
             args.schedule_image_tile_conversion,
+            args.schedule_yielding_task_loop,
         )
     )
     if selected != 1:
@@ -8820,6 +8932,8 @@ def main() -> None:
         lines = schedule_slot_entry_release(lines)
     if args.schedule_image_tile_conversion:
         lines = schedule_image_tile_conversion(lines)
+    if args.schedule_yielding_task_loop:
+        lines = schedule_yielding_task_loop(lines)
     args.output.write_text("".join(lines))
 
 
