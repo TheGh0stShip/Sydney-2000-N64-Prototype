@@ -1,0 +1,22 @@
+start	end	size	class	category	kind	name	evidence
+0x0	0x40	64	rom_metadata	rom_metadata	header	rom_header	rom header
+0x40	0x1000	4032	rom_metadata	rom_metadata	ipl3	ipl3	cic 6102
+0x1000	0x103C	60	code	program	.text	text_80000400	datamap section
+0x103C	0x2EC0	7812	data	program	.rodata	rodata_8000043C	datamap section
+0x2EC0	0x3240	896	data	program	.data	data_800022C0	datamap section
+0x3240	0x3B80	2368	code	program	rsp_text	rsp_80002640	RSP opcodes only, vector-heavy (64-byte granularity)
+0x3B80	0x4040	1216	data	program	.data	data_800022C0	datamap section
+0x4040	0x4F80	3904	code	program	rsp_text	rsp_80003440	RSP opcodes only, vector-heavy (64-byte granularity)
+0x4F80	0x39170	213488	code	program	.text	text_80004380	datamap section
+0x39170	0x69070	196352	data	program	.data	data_80038570	datamap section
+0x69070	0x6EA00	22928	unknown	-	-	gap_69070	-
+0x6EA00	0x70800	7680	referenced	loader_range	raw	rom_6EA00	records 0x80072A6C in 0x800AD9BC
+0x70800	0xB0000	260096	unknown	-	-	gap_70800	-
+0xB0000	0xC0000	65536	referenced	loader_range	raw	rom_B0000	records 0x800F5CE0 in 0x800EA224
+0xC0000	0xD0000	65536	unknown	-	-	gap_C0000	-
+0xD0000	0xE0000	65536	referenced	loader_range	raw	rom_D0000	records 0x800F5CE8 in 0x800EA224
+0xE0000	0xF0000	65536	unknown	-	-	gap_E0000	-
+0xF0000	0x100000	65536	referenced	loader_range	raw	rom_F0000	records 0x800F5CF0 in 0x800EA224
+0x100000	0x127640	161344	unknown	-	-	gap_100000	-
+0x127640	0x1A7680	524352	referenced	loader_range	pi	rom_127640	size 0x80004900 in 0x800048B0
+0x1A7680	0x2000000	31820160	unknown	-	-	gap_1A7680	-

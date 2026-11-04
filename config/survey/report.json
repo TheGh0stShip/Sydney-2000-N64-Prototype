@@ -1,0 +1,242 @@
+{
+ "rom": {
+  "title": "Syd2k USA",
+  "game_code": "\u0000\u0000\u0000\u0000",
+  "version": 0,
+  "sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+  "size": 33554432,
+  "byte_order": "z64",
+  "cic": "6102",
+  "checksum_ok": true,
+  "entry_header": "0x80000400",
+  "entry": "0x80000400",
+  "crc": "80A78080/5F9F8833"
+ },
+ "timings": {
+  "program_image": 0.0,
+  "functions": 0.7,
+  "datamap": 0.28,
+  "sdk": 6.51,
+  "audio": 0.81,
+  "gfx": 0.11,
+  "assets": 27.44,
+  "rsp_in_text": 0.05
+ },
+ "errors": {},
+ "program": {
+  "method": "static",
+  "entry": "0x80000400",
+  "hand_over": "0x800048B0",
+  "stack_top": "0x803FFFF0",
+  "main": {
+   "vram": "0x80000400",
+   "end": "0x80068470",
+   "size": 426096,
+   "kind": "rom",
+   "rom": "0x1000",
+   "rom_end": "0x69070",
+   "evidence": "IPL3 copy"
+  },
+  "segments": [
+   {
+    "vram": "0x80000400",
+    "end": "0x80068470",
+    "size": 426096,
+    "kind": "rom",
+    "rom": "0x1000",
+    "rom_end": "0x69070",
+    "evidence": "IPL3 copy"
+   },
+   {
+    "vram": "0x80068470",
+    "end": "0x800707D0",
+    "size": 33632,
+    "kind": "bss",
+    "evidence": "entry routine clear loop"
+   }
+  ]
+ },
+ "functions": {
+  "text": "0x80000400..0x80038568",
+  "text_size": 229736,
+  "data_start": "0x80038568",
+  "image_end": "0x80068470",
+  "functions": 761,
+  "kinds": {
+   "c": 447,
+   "stub": 102,
+   "asm": 43,
+   "leaf": 169
+  },
+  "seeds": {
+   "entry": 1,
+   "unreferenced": 170,
+   "call": 515,
+   "pointer": 75
+  },
+  "jump_tables": 24,
+  "jump_table_entries": 526,
+  "in_text_data": [
+   "0x80000440+0x1384",
+   "0x8000180C+0x7CC",
+   "0x80003310+0x24",
+   "0x80003394+0x34",
+   "0x800033F4+0x24",
+   "0x80003420+0xF60",
+   "0x80027E68+0x1CC",
+   "0x80032888+0x14"
+  ],
+  "stray_words": 6,
+  "findings": {
+   "rejected_start": 1,
+   "stray_words": 6,
+   "in_text_data": 8,
+   "start_in_delay_slot": 9,
+   "falls_through": 7,
+   "junk_start": 1,
+   "cross_branch": 3,
+   "late_start": 2,
+   "branch_outside": 1
+  }
+ },
+ "datamap": {
+  "image": "0x80000400..0x80068470 (ROM 0x1000..0x69070)",
+  "bss": "0x80068470..0x800707D0",
+  "sections": [
+   ".text 0x80000400..0x8000043C (0x3C)",
+   ".rodata 0x8000043C..0x800022C0 (0x1E84)",
+   ".data 0x800022C0..0x80004380 (0x20C0)",
+   ".text 0x80004380..0x80038570 (0x341F0)",
+   ".data 0x80038570..0x80068470 (0x2FF00)"
+  ],
+  "section_bytes": {
+   ".text": "0x3422c",
+   ".rodata": "0x1e84",
+   ".data": "0x31fc0"
+  },
+  "functions": 755,
+  "xref_sites": 2710,
+  "data_addresses": 961,
+  "objects": 925,
+  "object_types": {
+   "unreferenced": 2,
+   "words": 503,
+   "string": 102,
+   "f32": 114,
+   "f64": 167,
+   "jtbl": 28,
+   "pointers": 9
+  },
+  "single_owner_objects": 689,
+  "shared_objects": 234,
+  "jump_tables": 28,
+  "strings": 102
+ },
+ "sdk": {
+  "functions_named": 261,
+  "high_confidence": 228,
+  "sdk_version": [
+   "2.0J:libgultra_rom"
+  ],
+  "library_compiler": {
+   "kmc": 217,
+   "sn": 2
+  },
+  "game_compiler": "kmc",
+  "game_compiler_share": {
+   "kmc": 0.924,
+   "ido": 0.076
+  },
+  "microcode": [
+   "F3DEX 2.08 fifo @0x392A8"
+  ],
+  "audio": {},
+  "libmus": [
+   "N64 PtrTablesV2",
+   "N64 WaveTables"
+  ]
+ },
+ "audio": {
+  "counts": {
+   "containers": 0,
+   "samples": 0,
+   "midi": 0,
+   "intervals": 0
+  },
+  "bytes": {}
+ },
+ "gfx": {
+  "family": "f3dex2",
+  "family_from": "microcode F3DEX 2.08 at ROM 0x392A8",
+  "display_lists": 20,
+  "pools": [
+   "0x66628..0x66700 (4 blobs)",
+   "0x669B8..0x66D38 (11 blobs)"
+  ],
+  "blobs": 15,
+  "textured_blobs": 0,
+  "pool_bytes": 1112,
+  "standalone_lists": 9
+ },
+ "assets": {
+  "streams": {},
+  "streams_with_loader": 0,
+  "loader_ranges": {
+   "records": 6,
+   "size": 1
+  },
+  "dma_wrappers": [],
+  "ledger_bytes": {
+   "-": 32795072,
+   "loader_range": 759360
+  },
+  "unknown_bytes": 32790976
+ },
+ "offsets": "ROM offsets",
+ "rsp_in_text": [
+  "0x80002640..0x80002F80",
+  "0x80003440..0x80004380"
+ ],
+ "cross_checks": [
+  "text end: functions 0x80038568, datamap 0x80038570 (unexplained)"
+ ],
+ "ledger_totals": {
+  "rom_metadata": 4096,
+  "code": 219820,
+  "data": 206276,
+  "unknown": 32395600,
+  "referenced": 728640
+ },
+ "ledger_categories": {
+  "rom_metadata": 4096,
+  "program": 426096,
+  "-": 32395600,
+  "loader_range": 728640
+ },
+ "unknown_bytes": 32395600,
+ "referenced_only_bytes": 728640,
+ "unknown_ranges": 6,
+ "largest_unknown": [
+  "0x1A7680..0x2000000 (0x1e58980)",
+  "0x70800..0xB0000 (0x3f800)",
+  "0x100000..0x127640 (0x27640)",
+  "0xC0000..0xD0000 (0x10000)",
+  "0xE0000..0xF0000 (0x10000)",
+  "0x69070..0x6EA00 (0x5990)"
+ ],
+ "dropped_overlaps": {
+  "graphics": 24
+ },
+ "unknown_without_graphics": 32395600,
+ "complete": false,
+ "next_steps": [
+  "ROM 0x1A7680..0x2000000 (0x1e58980 bytes) is unclassified; 6.6 bits/byte, zlib ratio 0.74: raw media or lightly packed data (audio, textures, animation)",
+  "investigate: text end: functions 0x80038568, datamap 0x80038570 (unexplained)",
+  "ROM 0x70800..0xB0000 (0x3f800 bytes) is unclassified; 6.0 bits/byte, zlib ratio 0.46: raw structured data (tables, text, level data)",
+  "ROM 0x100000..0x127640 (0x27640 bytes) is unclassified; 5.7 bits/byte, zlib ratio 0.43: raw structured data (tables, text, level data)",
+  "ROM 0xC0000..0xD0000 (0x10000 bytes) is unclassified; 5.9 bits/byte, zlib ratio 0.47: raw structured data (tables, text, level data)",
+  "ROM 0xE0000..0xF0000 (0x10000 bytes) is unclassified; 5.9 bits/byte, zlib ratio 0.50: raw structured data (tables, text, level data)",
+  "ROM 0x69070..0x6EA00 (0x5990 bytes) is unclassified; 6.1 bits/byte, zlib ratio 0.47: raw structured data (tables, text, level data)",
+  "review function boundaries flagged in functions.toml: 7 falls_through, 3 cross_branch, 1 branch_outside"
+ ]
+}

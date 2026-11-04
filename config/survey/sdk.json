@@ -1,0 +1,2600 @@
+{
+ "rom": "Sydney 2000 (2000) Prototype.bin",
+ "region": {
+  "rom_start": "0x1000",
+  "rom_end": "0x101000",
+  "vram": "0x80000400"
+ },
+ "summary": {
+  "functions_named": 261,
+  "high_confidence": 228,
+  "sdk_version": [
+   "2.0J:libgultra_rom"
+  ],
+  "library_compiler": {
+   "kmc": 217,
+   "sn": 2
+  },
+  "game_compiler": "kmc",
+  "game_compiler_share": {
+   "kmc": 0.924,
+   "ido": 0.076
+  },
+  "microcode": [
+   "F3DEX 2.08 fifo @0x392A8"
+  ],
+  "audio": {},
+  "libmus": [
+   "N64 PtrTablesV2",
+   "N64 WaveTables"
+  ]
+ },
+ "versions": [
+  {
+   "build": "ultralib:2.0J:libgultra_rom",
+   "support": 169,
+   "contradict": 10,
+   "score": 159,
+   "candidate": true
+  },
+  {
+   "build": "ultralib:2.0K:libgultra_rom",
+   "support": 165,
+   "contradict": 14,
+   "score": 151,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0J:libgultra",
+   "support": 163,
+   "contradict": 16,
+   "score": 147,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0L:libgultra_rom",
+   "support": 162,
+   "contradict": 17,
+   "score": 145,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0K:libgultra",
+   "support": 156,
+   "contradict": 23,
+   "score": 133,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0L:libgultra",
+   "support": 153,
+   "contradict": 26,
+   "score": 127,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0D/2.0E/2.0F/2.0G/2.0H:libgultra_rom",
+   "support": 132,
+   "contradict": 43,
+   "score": 89,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0I:libgultra_rom",
+   "support": 132,
+   "contradict": 43,
+   "score": 89,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0D/2.0E/2.0F/2.0G/2.0H:libgultra",
+   "support": 127,
+   "contradict": 48,
+   "score": 79,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0I:libgultra",
+   "support": 127,
+   "contradict": 48,
+   "score": 79,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0I:libultra",
+   "support": 6,
+   "contradict": 142,
+   "score": -136,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0I:libultra_rom",
+   "support": 6,
+   "contradict": 142,
+   "score": -136,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0D/2.0E/2.0F/2.0G/2.0H:libultra",
+   "support": 6,
+   "contradict": 144,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0D/2.0E/2.0F/2.0G/2.0H:libultra_rom",
+   "support": 6,
+   "contradict": 144,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0J:libultra",
+   "support": 7,
+   "contradict": 145,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0J:libultra_rom",
+   "support": 7,
+   "contradict": 145,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0K:libultra",
+   "support": 7,
+   "contradict": 145,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0K:libultra_rom",
+   "support": 7,
+   "contradict": 145,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0L:libultra",
+   "support": 7,
+   "contradict": 145,
+   "score": -138,
+   "candidate": false
+  },
+  {
+   "build": "ultralib:2.0L:libultra_rom",
+   "support": 7,
+   "contradict": 145,
+   "score": -138,
+   "candidate": false
+  }
+ ],
+ "functions": [
+  {
+   "rom": "0x6EF0",
+   "vram": "0x800062F0",
+   "size": "0x58",
+   "name": "osScAddClient",
+   "confidence": 0.842,
+   "kind": "variant",
+   "alternatives": []
+  },
+  {
+   "rom": "0x1F594",
+   "vram": "0x8001E994",
+   "size": "0x2C",
+   "name": "MusSetMasterVolume",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x1F5C0",
+   "vram": "0x8001E9C0",
+   "size": "0x30",
+   "name": "MusStartSong",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x1FA7C",
+   "vram": "0x8001EE7C",
+   "size": "0x28",
+   "name": "MusHandleUnPause",
+   "confidence": 0.95,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x1FC94",
+   "vram": "0x8001F094",
+   "size": "0x98",
+   "name": "player_text_1AE0",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x20AA4",
+   "vram": "0x8001FEA4",
+   "size": "0x1C",
+   "name": "__MusIntInitSweep",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21138",
+   "vram": "0x80020538",
+   "size": "0x0",
+   "name": "func_800FD438",
+   "confidence": 0.8,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x211CC",
+   "vram": "0x800205CC",
+   "size": "0x0",
+   "name": "func_800FD4CC",
+   "confidence": 0.7,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21308",
+   "vram": "0x80020708",
+   "size": "0x0",
+   "name": "func_800FD608",
+   "confidence": 0.7,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x215B8",
+   "vram": "0x800209B8",
+   "size": "0x0",
+   "name": "func_800FD8B8",
+   "confidence": 0.6,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21760",
+   "vram": "0x80020B60",
+   "size": "0x26C",
+   "name": "player_text_329C",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21A20",
+   "vram": "0x80020E20",
+   "size": "0x20",
+   "name": "Fstop",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21A40",
+   "vram": "0x80020E40",
+   "size": "0x30",
+   "name": "Fwave",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21A70",
+   "vram": "0x80020E70",
+   "size": "0x20",
+   "name": "Fport",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21A9C",
+   "vram": "0x80020E9C",
+   "size": "0x128",
+   "name": "Fdefa",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21BC4",
+   "vram": "0x80020FC4",
+   "size": "0xE4",
+   "name": "Ftempo",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21CA8",
+   "vram": "0x800210A8",
+   "size": "0x14",
+   "name": "Fendit",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21CBC",
+   "vram": "0x800210BC",
+   "size": "0x24",
+   "name": "Fcutoff",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21CE0",
+   "vram": "0x800210E0",
+   "size": "0x70",
+   "name": "Fvibup",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21D50",
+   "vram": "0x80021150",
+   "size": "0x74",
+   "name": "Fvibdown",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21DC4",
+   "vram": "0x800211C4",
+   "size": "0x10",
+   "name": "Fviboff",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21DD4",
+   "vram": "0x800211D4",
+   "size": "0x30",
+   "name": "Flength",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21E34",
+   "vram": "0x80021234",
+   "size": "0x58",
+   "name": "Fdistort",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21EC4",
+   "vram": "0x800212C4",
+   "size": "0x6C",
+   "name": "Ffor",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21F30",
+   "vram": "0x80021330",
+   "size": "0x9C",
+   "name": "Fnext",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x21FCC",
+   "vram": "0x800213CC",
+   "size": "0x28",
+   "name": "Fwobble",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2201C",
+   "vram": "0x8002141C",
+   "size": "0x14",
+   "name": "Fvelocity",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22030",
+   "vram": "0x80021430",
+   "size": "0x14",
+   "name": "Fpan",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2204C",
+   "vram": "0x8002144C",
+   "size": "0x48",
+   "name": "Fdrums",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22094",
+   "vram": "0x80021494",
+   "size": "0xC",
+   "name": "Fdrumsoff",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x220A8",
+   "vram": "0x800214A8",
+   "size": "0x70",
+   "name": "Fgoto",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22128",
+   "vram": "0x80021528",
+   "size": "0x50",
+   "name": "FrandNote",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22178",
+   "vram": "0x80021578",
+   "size": "0x50",
+   "name": "FrandVolume",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x221C8",
+   "vram": "0x800215C8",
+   "size": "0x50",
+   "name": "FrandPan",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22228",
+   "vram": "0x80021628",
+   "size": "0xD0",
+   "name": "Fstartfx",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x222F8",
+   "vram": "0x800216F8",
+   "size": "0x3C",
+   "name": "Fbendrange",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22344",
+   "vram": "0x80021744",
+   "size": "0x44",
+   "name": "Fchangefx",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22388",
+   "vram": "0x80021788",
+   "size": "0x70",
+   "name": "Fmarker",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x223F8",
+   "vram": "0x800217F8",
+   "size": "0xC",
+   "name": "Flength0",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22640",
+   "vram": "0x80021A40",
+   "size": "0x578",
+   "name": "n_alEnvmixerPull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22BB8",
+   "vram": "0x80021FB8",
+   "size": "0xA4",
+   "name": "n_alEnvmixerParam",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22C5C",
+   "vram": "0x8002205C",
+   "size": "0x220",
+   "name": "n_env_text_061C",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22E7C",
+   "vram": "0x8002227C",
+   "size": "0x140",
+   "name": "_getRate",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x22FBC",
+   "vram": "0x800223BC",
+   "size": "0x48",
+   "name": "_getVol",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x23010",
+   "vram": "0x80022410",
+   "size": "0x448",
+   "name": "n_alAdpcmPull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x23458",
+   "vram": "0x80022858",
+   "size": "0x18C",
+   "name": "n_alLoadParam",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x235E4",
+   "vram": "0x800229E4",
+   "size": "0x144",
+   "name": "_decodeChunk",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x23730",
+   "vram": "0x80022B30",
+   "size": "0x1BC",
+   "name": "n_alResamplePull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x23DD8",
+   "vram": "0x800231D8",
+   "size": "0x2C",
+   "name": "__allocParam",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x23E7C",
+   "vram": "0x8002327C",
+   "size": "0x38",
+   "name": "_n_freePVoice",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x24000",
+   "vram": "0x80023400",
+   "size": "0x3EC",
+   "name": "n_alFxNew",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x243EC",
+   "vram": "0x800237EC",
+   "size": "0x134",
+   "name": "alN_PVoiceNew",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x24830",
+   "vram": "0x80023C30",
+   "size": "0x1F0",
+   "name": "alFxParamHdl",
+   "confidence": 0.742,
+   "kind": "variant",
+   "alternatives": []
+  },
+  {
+   "rom": "0x24A20",
+   "vram": "0x80023E20",
+   "size": "0x210",
+   "name": "_n_loadOutputBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x24C30",
+   "vram": "0x80024030",
+   "size": "0x128",
+   "name": "_n_loadBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x24D58",
+   "vram": "0x80024158",
+   "size": "0x118",
+   "name": "_n_saveBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x24E70",
+   "vram": "0x80024270",
+   "size": "0x98",
+   "name": "_n_filterBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x25048",
+   "vram": "0x80024448",
+   "size": "0x270",
+   "name": "n_alSynNew",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x252B8",
+   "vram": "0x800246B8",
+   "size": "0x0",
+   "name": "func_80102980",
+   "confidence": 0.6,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x25450",
+   "vram": "0x80024850",
+   "size": "0x0",
+   "name": "func_800FEB80",
+   "confidence": 0.6,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x257D0",
+   "vram": "0x80024BD0",
+   "size": "0x5C",
+   "name": "ChangeCustomEffect",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x25C8C",
+   "vram": "0x8002508C",
+   "size": "0x64",
+   "name": "__OsSchedInstall",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2628C",
+   "vram": "0x8002568C",
+   "size": "0x30",
+   "name": "__MusIntMemMalloc",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2630C",
+   "vram": "0x8002570C",
+   "size": "0x0",
+   "name": "func_800FFA1C",
+   "confidence": 0.6,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2A830",
+   "vram": "0x80029C30",
+   "size": "0x74",
+   "name": "osEepromProbe",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2A8B0",
+   "vram": "0x80029CB0",
+   "size": "0x168",
+   "name": "osEepromWrite",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2AA18",
+   "vram": "0x80029E18",
+   "size": "0xA8",
+   "name": "__osPackEepWriteData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2AAC0",
+   "vram": "0x80029EC0",
+   "size": "0x19C",
+   "name": "__osEepStatus",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2AC60",
+   "vram": "0x8002A060",
+   "size": "0x198",
+   "name": "osEepromRead",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2ADF8",
+   "vram": "0x8002A1F8",
+   "size": "0x88",
+   "name": "__osPackEepReadData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2AE80",
+   "vram": "0x8002A280",
+   "size": "0xE4",
+   "name": "osEepromLongWrite",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2AF70",
+   "vram": "0x8002A370",
+   "size": "0x70",
+   "name": "osEepromLongRead",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2AFE0",
+   "vram": "0x8002A3E0",
+   "size": "0xA0",
+   "name": "osSetIntMask",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B080",
+   "vram": "0x8002A480",
+   "size": "0x60",
+   "name": "osGetIntMask",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B0E0",
+   "vram": "0x8002A4E0",
+   "size": "0x190",
+   "name": "osCreatePiManager",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B270",
+   "vram": "0x8002A670",
+   "size": "0x70",
+   "name": "__osDisableInt",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B2E0",
+   "vram": "0x8002A6E0",
+   "size": "0x1C",
+   "name": "__osRestoreInt",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B3D0",
+   "vram": "0x8002A7D0",
+   "size": "0x1EC",
+   "name": "__osEPiRawStartDma",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B5C0",
+   "vram": "0x8002A9C0",
+   "size": "0x94",
+   "name": "osEPiStartDma",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B660",
+   "vram": "0x8002AA60",
+   "size": "0x20",
+   "name": "osPiGetCmdQueue",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B680",
+   "vram": "0x8002AA80",
+   "size": "0x178",
+   "name": "osCartRomInit",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2B800",
+   "vram": "0x8002AC00",
+   "size": "0x3B8",
+   "name": "__osDevMgrMain",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2BBC0",
+   "vram": "0x8002AFC0",
+   "size": "0x40",
+   "name": "__osSetGlobalIntMask",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2BC00",
+   "vram": "0x8002B000",
+   "size": "0x48",
+   "name": "__osResetGlobalIntMask",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2BC50",
+   "vram": "0x8002B050",
+   "size": "0x168",
+   "name": "__osEPiRawReadIo",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2BDC0",
+   "vram": "0x8002B1C0",
+   "size": "0x164",
+   "name": "__osEPiRawWriteIo",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2BF30",
+   "vram": "0x8002B330",
+   "size": "0x54",
+   "name": "__osPiCreateAccessQueue",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osSiCreateAccessQueue"
+   ]
+  },
+  {
+   "rom": "0x2BF84",
+   "vram": "0x8002B384",
+   "size": "0x6C",
+   "name": "__osPiGetAccess",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osSiGetAccess"
+   ]
+  },
+  {
+   "rom": "0x2C020",
+   "vram": "0x8002B420",
+   "size": "0xA8",
+   "name": "osPiStartDma",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2C0F0",
+   "vram": "0x8002B4F0",
+   "size": "0x118",
+   "name": "osAiSetFrequency",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2C210",
+   "vram": "0x8002B610",
+   "size": "0x94",
+   "name": "osAiSetNextBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2C2B0",
+   "vram": "0x8002B6B0",
+   "size": "0x14",
+   "name": "__osAiDeviceBusy",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2C2D0",
+   "vram": "0x8002B6D0",
+   "size": "0xA4",
+   "name": "init_lpfilter",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "_init_lpfilter"
+   ]
+  },
+  {
+   "rom": "0x2C374",
+   "vram": "0x8002B774",
+   "size": "0x498",
+   "name": "alFxNew",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2C810",
+   "vram": "0x8002BC10",
+   "size": "0x444",
+   "name": "alAdpcmPull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2CC54",
+   "vram": "0x8002C054",
+   "size": "0x39C",
+   "name": "alRaw16Pull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2CFF0",
+   "vram": "0x8002C3F0",
+   "size": "0x1AC",
+   "name": "alLoadParam",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2D19C",
+   "vram": "0x8002C59C",
+   "size": "0x178",
+   "name": "_decodeChunk",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2D320",
+   "vram": "0x8002C720",
+   "size": "0x500",
+   "name": "alEnvmixerPull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2D820",
+   "vram": "0x8002CC20",
+   "size": "0xD4",
+   "name": "alEnvmixerParam",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2D8F4",
+   "vram": "0x8002CCF4",
+   "size": "0x2D4",
+   "name": "_pullSubFrame",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2DBC8",
+   "vram": "0x8002CFC8",
+   "size": "0x24",
+   "name": "_ldexpf",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2DBEC",
+   "vram": "0x8002CFEC",
+   "size": "0x280",
+   "name": "_getRate",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2DE6C",
+   "vram": "0x8002D26C",
+   "size": "0x84",
+   "name": "_getVol",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2DEF0",
+   "vram": "0x8002D2F0",
+   "size": "0x1C",
+   "name": "alFilterNew",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2DF10",
+   "vram": "0x8002D310",
+   "size": "0xC0",
+   "name": "alResampleParam",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2DFE0",
+   "vram": "0x8002D3E0",
+   "size": "0x374",
+   "name": "alFxPull",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2E354",
+   "vram": "0x8002D754",
+   "size": "0x14",
+   "name": "alFxParam",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2E368",
+   "vram": "0x8002D768",
+   "size": "0x1F0",
+   "name": "alFxParamHdl",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2E558",
+   "vram": "0x8002D958",
+   "size": "0x218",
+   "name": "_loadOutputBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2E770",
+   "vram": "0x8002DB70",
+   "size": "0x170",
+   "name": "_loadBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2E8E0",
+   "vram": "0x8002DCE0",
+   "size": "0x170",
+   "name": "_saveBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EA50",
+   "vram": "0x8002DE50",
+   "size": "0x9C",
+   "name": "_filterBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EAEC",
+   "vram": "0x8002DEEC",
+   "size": "0x8C",
+   "name": "_doModFunc",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EB80",
+   "vram": "0x8002DF80",
+   "size": "0x20",
+   "name": "alLink",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EBA0",
+   "vram": "0x8002DFA0",
+   "size": "0x30",
+   "name": "alUnlink",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EBE0",
+   "vram": "0x8002DFE0",
+   "size": "0x34",
+   "name": "alHeapInit",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EC20",
+   "vram": "0x8002E020",
+   "size": "0x48",
+   "name": "alHeapDBAlloc",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EC70",
+   "vram": "0x8002E070",
+   "size": "0x34",
+   "name": "alCopy",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2ECC8",
+   "vram": "0x8002E0C8",
+   "size": "0x40",
+   "name": "_freePVoice",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2ED08",
+   "vram": "0x8002E108",
+   "size": "0x48",
+   "name": "_timeToSamplesNoRound",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2ED50",
+   "vram": "0x8002E150",
+   "size": "0xB0",
+   "name": "osInvalDCache",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EE00",
+   "vram": "0x8002E200",
+   "size": "0x74",
+   "name": "osInvalICache",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EE80",
+   "vram": "0x8002E280",
+   "size": "0x28",
+   "name": "osWritebackDCacheAll",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EEB0",
+   "vram": "0x8002E2B0",
+   "size": "0x88",
+   "name": "osContStartReadData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EF38",
+   "vram": "0x8002E338",
+   "size": "0x9C",
+   "name": "osContGetReadData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2EFD4",
+   "vram": "0x8002E3D4",
+   "size": "0xB8",
+   "name": "__osPackReadData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F090",
+   "vram": "0x8002E490",
+   "size": "0x19C",
+   "name": "osContInit",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F22C",
+   "vram": "0x8002E62C",
+   "size": "0xB4",
+   "name": "__osContGetInitData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osPfsGetInitData"
+   ]
+  },
+  {
+   "rom": "0x2F2E0",
+   "vram": "0x8002E6E0",
+   "size": "0xBC",
+   "name": "__osPackRequestData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F3A0",
+   "vram": "0x8002E7A0",
+   "size": "0x54",
+   "name": "osVirtualToPhysical",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F410",
+   "vram": "0x8002E810",
+   "size": "0x150",
+   "name": "__cosf",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F560",
+   "vram": "0x8002E960",
+   "size": "0xDC",
+   "name": "guMtxCatF",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F640",
+   "vram": "0x8002EA40",
+   "size": "0x74",
+   "name": "guMtxCatL",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F6C0",
+   "vram": "0x8002EAC0",
+   "size": "0x98",
+   "name": "guMtxF2L",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F758",
+   "vram": "0x8002EB58",
+   "size": "0xA8",
+   "name": "guMtxL2F",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F800",
+   "vram": "0x8002EC00",
+   "size": "0x50",
+   "name": "guMtxIdentF",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F850",
+   "vram": "0x8002EC50",
+   "size": "0xF0",
+   "name": "guMtxIdent",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2F940",
+   "vram": "0x8002ED40",
+   "size": "0x1C8",
+   "name": "guPerspective",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2FB10",
+   "vram": "0x8002EF10",
+   "size": "0x60",
+   "name": "guScaleF",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2FB70",
+   "vram": "0x8002EF70",
+   "size": "0x7C",
+   "name": "guScale",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2FBF0",
+   "vram": "0x8002EFF0",
+   "size": "0x1A0",
+   "name": "__sinf",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2FD90",
+   "vram": "0x8002F190",
+   "size": "0x54",
+   "name": "guTranslateF",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2FDE4",
+   "vram": "0x8002F1E4",
+   "size": "0x70",
+   "name": "guTranslate",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x2FE60",
+   "vram": "0x8002F260",
+   "size": "0x31C",
+   "name": "bcopy",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30180",
+   "vram": "0x8002F580",
+   "size": "0xA0",
+   "name": "bzero",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30220",
+   "vram": "0x8002F620",
+   "size": "0x40",
+   "name": "strchr",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30260",
+   "vram": "0x8002F660",
+   "size": "0x24",
+   "name": "strlen",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30284",
+   "vram": "0x8002F684",
+   "size": "0x28",
+   "name": "memcpy",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x302B0",
+   "vram": "0x8002F6B0",
+   "size": "0x58",
+   "name": "sprintf",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30308",
+   "vram": "0x8002F708",
+   "size": "0x34",
+   "name": "proutSprintf",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30340",
+   "vram": "0x8002F740",
+   "size": "0x580",
+   "name": "_Printf",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x308C0",
+   "vram": "0x8002FCC0",
+   "size": "0x4D0",
+   "name": "_Putfld",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30D90",
+   "vram": "0x80030190",
+   "size": "0x250",
+   "name": "_Litob",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x30FE0",
+   "vram": "0x800303E0",
+   "size": "0x584",
+   "name": "__udivdi3",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x31570",
+   "vram": "0x80030970",
+   "size": "0x0",
+   "name": "__umoddi3",
+   "confidence": 0.6,
+   "kind": "call",
+   "alternatives": []
+  },
+  {
+   "rom": "0x31A70",
+   "vram": "0x80030E70",
+   "size": "0x84",
+   "name": "ldiv",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x31AF4",
+   "vram": "0x80030EF4",
+   "size": "0x134",
+   "name": "lldiv",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x31C30",
+   "vram": "0x80031030",
+   "size": "0x5EC",
+   "name": "__divdi3",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x32220",
+   "vram": "0x80031620",
+   "size": "0x44C",
+   "name": "_Ldtob",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x3266C",
+   "vram": "0x80031A6C",
+   "size": "0x98",
+   "name": "_Ldunscale",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x32704",
+   "vram": "0x80031B04",
+   "size": "0x5A8",
+   "name": "_Genld",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x32CD0",
+   "vram": "0x800320D0",
+   "size": "0x24",
+   "name": "osCreateMesgQueue",
+   "confidence": 0.85,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x32D00",
+   "vram": "0x80032100",
+   "size": "0x134",
+   "name": "osJamMesg",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x32E50",
+   "vram": "0x80032250",
+   "size": "0x57C",
+   "name": "__osException",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x333CC",
+   "vram": "0x800327CC",
+   "size": "0xBC",
+   "name": "send_mesg",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33488",
+   "vram": "0x80032888",
+   "size": "0x34",
+   "name": "handle_CpU",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x334BC",
+   "vram": "0x800328BC",
+   "size": "0x108",
+   "name": "__osEnqueueAndYield",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x335C4",
+   "vram": "0x800329C4",
+   "size": "0x48",
+   "name": "__osEnqueueThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x3360C",
+   "vram": "0x80032A0C",
+   "size": "0x10",
+   "name": "__osPopThread",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x3361C",
+   "vram": "0x80032A1C",
+   "size": "0x17C",
+   "name": "__osDispatchThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x337B0",
+   "vram": "0x80032BB0",
+   "size": "0x124",
+   "name": "osRecvMesg",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x338E0",
+   "vram": "0x80032CE0",
+   "size": "0x130",
+   "name": "osSendMesg",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33A10",
+   "vram": "0x80032E10",
+   "size": "0xAC",
+   "name": "osSetEventMesg",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33AC0",
+   "vram": "0x80032EC0",
+   "size": "0x20C",
+   "name": "osSpTaskLoad",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33CCC",
+   "vram": "0x800330CC",
+   "size": "0x2C",
+   "name": "osSpTaskStartGo",
+   "confidence": 0.95,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33D00",
+   "vram": "0x80033100",
+   "size": "0x74",
+   "name": "osWritebackDCache",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33D80",
+   "vram": "0x80033180",
+   "size": "0x18",
+   "name": "__osSpDeviceBusy",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33DA0",
+   "vram": "0x800331A0",
+   "size": "0x10",
+   "name": "__osSpSetStatus",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33DB0",
+   "vram": "0x800331B0",
+   "size": "0x30",
+   "name": "__osSpSetPc",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33DE0",
+   "vram": "0x800331E0",
+   "size": "0x8C",
+   "name": "__osSpRawStartDma",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33E90",
+   "vram": "0x80033290",
+   "size": "0x4C",
+   "name": "osSpTaskYielded",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33EF0",
+   "vram": "0x800332F0",
+   "size": "0x58",
+   "name": "osScAddClient",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x33F50",
+   "vram": "0x80033350",
+   "size": "0x104",
+   "name": "__scMain",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34054",
+   "vram": "0x80033454",
+   "size": "0x100",
+   "name": "__scHandleRetrace",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34154",
+   "vram": "0x80033554",
+   "size": "0xF0",
+   "name": "__scHandleRSP",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34244",
+   "vram": "0x80033644",
+   "size": "0x90",
+   "name": "__scHandleRDP",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x342D4",
+   "vram": "0x800336D4",
+   "size": "0x54",
+   "name": "__scTaskReady",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34328",
+   "vram": "0x80033728",
+   "size": "0x8C",
+   "name": "__scTaskComplete",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x343B4",
+   "vram": "0x800337B4",
+   "size": "0x58",
+   "name": "__scAppendList",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x3440C",
+   "vram": "0x8003380C",
+   "size": "0xD0",
+   "name": "__scExec",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x344DC",
+   "vram": "0x800338DC",
+   "size": "0x38",
+   "name": "__scYield",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34514",
+   "vram": "0x80033914",
+   "size": "0x214",
+   "name": "__scSchedule",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34730",
+   "vram": "0x80033B30",
+   "size": "0x98",
+   "name": "osDpSetNextBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x347D0",
+   "vram": "0x80033BD0",
+   "size": "0x18",
+   "name": "__osDpDeviceBusy",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x347F0",
+   "vram": "0x80033BF0",
+   "size": "0xA4",
+   "name": "__osSiRawStartDma",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x348A0",
+   "vram": "0x80033CA0",
+   "size": "0x54",
+   "name": "__osSiCreateAccessQueue",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osPiCreateAccessQueue"
+   ]
+  },
+  {
+   "rom": "0x348F4",
+   "vram": "0x80033CF4",
+   "size": "0x6C",
+   "name": "__osSiGetAccess",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osPiGetAccess"
+   ]
+  },
+  {
+   "rom": "0x34990",
+   "vram": "0x80033D90",
+   "size": "0xD0",
+   "name": "osCreateThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34A60",
+   "vram": "0x80033E60",
+   "size": "0xD8",
+   "name": "osDestroyThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34B40",
+   "vram": "0x80033F40",
+   "size": "0x18",
+   "name": "osGetThreadPri",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34B60",
+   "vram": "0x80033F60",
+   "size": "0xC8",
+   "name": "osSetThreadPri",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34C30",
+   "vram": "0x80034030",
+   "size": "0x118",
+   "name": "osStartThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34D50",
+   "vram": "0x80034150",
+   "size": "0x34",
+   "name": "__osDequeueThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34D90",
+   "vram": "0x80034190",
+   "size": "0x48",
+   "name": "osYieldThread",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34DE0",
+   "vram": "0x800341E0",
+   "size": "0x84",
+   "name": "osGetTime",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34E70",
+   "vram": "0x80034270",
+   "size": "0xC",
+   "name": "osGetCount",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34E80",
+   "vram": "0x80034280",
+   "size": "0x94",
+   "name": "osSetTimer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34F20",
+   "vram": "0x80034320",
+   "size": "0x54",
+   "name": "__osTimerServicesInit",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x34F74",
+   "vram": "0x80034374",
+   "size": "0x13C",
+   "name": "__osTimerInterrupt",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x350B0",
+   "vram": "0x800344B0",
+   "size": "0x60",
+   "name": "__osSetTimerIntr",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35110",
+   "vram": "0x80034510",
+   "size": "0x108",
+   "name": "__osInsertTimer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35220",
+   "vram": "0x80034620",
+   "size": "0xC",
+   "name": "__osSetCompare",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35230",
+   "vram": "0x80034630",
+   "size": "0xB8",
+   "name": "__osProbeTLB",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x352F0",
+   "vram": "0x800346F0",
+   "size": "0x38",
+   "name": "osViGetCurrentFramebuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "osViGetNextFramebuffer"
+   ]
+  },
+  {
+   "rom": "0x35330",
+   "vram": "0x80034730",
+   "size": "0x104",
+   "name": "__osViInit",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35440",
+   "vram": "0x80034840",
+   "size": "0x38",
+   "name": "osViGetNextFramebuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "osViGetCurrentFramebuffer"
+   ]
+  },
+  {
+   "rom": "0x35480",
+   "vram": "0x80034880",
+   "size": "0x1A0",
+   "name": "osCreateViManager",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35620",
+   "vram": "0x80034A20",
+   "size": "0x198",
+   "name": "viMgrMain",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x357C0",
+   "vram": "0x80034BC0",
+   "size": "0xC",
+   "name": "__osViGetCurrentContext",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": [
+    "osPiGetDeviceType",
+    "__osGetActiveQueue",
+    "__osGetCurrFaultedThread",
+    "__osViGetNextContext"
+   ]
+  },
+  {
+   "rom": "0x357D0",
+   "vram": "0x80034BD0",
+   "size": "0x58",
+   "name": "osViSetEvent",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35830",
+   "vram": "0x80034C30",
+   "size": "0x4C",
+   "name": "osViSetMode",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35880",
+   "vram": "0x80034C80",
+   "size": "0x164",
+   "name": "osViSetSpecialFeatures",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x359F0",
+   "vram": "0x80034DF0",
+   "size": "0x44",
+   "name": "osViSetYScale",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35A40",
+   "vram": "0x80034E40",
+   "size": "0x44",
+   "name": "osViSwapBuffer",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35A90",
+   "vram": "0x80034E90",
+   "size": "0x308",
+   "name": "__osViSwapContext",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35DA0",
+   "vram": "0x800351A0",
+   "size": "0x5C",
+   "name": "osViBlack",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35E00",
+   "vram": "0x80035200",
+   "size": "0x144",
+   "name": "__osMotorAccess",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x35F44",
+   "vram": "0x80035344",
+   "size": "0x248",
+   "name": "osMotorInit",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36190",
+   "vram": "0x80035590",
+   "size": "0x6C",
+   "name": "__osContAddressCrc",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x361FC",
+   "vram": "0x800355FC",
+   "size": "0x7C",
+   "name": "__osContDataCrc",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36280",
+   "vram": "0x80035680",
+   "size": "0x1F8",
+   "name": "osPfsInitPak",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36478",
+   "vram": "0x80035878",
+   "size": "0xCC",
+   "name": "__osPfsCheckRamArea",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36550",
+   "vram": "0x80035950",
+   "size": "0x110",
+   "name": "bcmp",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36660",
+   "vram": "0x80035A60",
+   "size": "0x460",
+   "name": "osPfsChecker",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36AC0",
+   "vram": "0x80035EC0",
+   "size": "0x158",
+   "name": "corrupted_init",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36C18",
+   "vram": "0x80036018",
+   "size": "0x168",
+   "name": "corrupted",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36D80",
+   "vram": "0x80036180",
+   "size": "0x58",
+   "name": "osPfsRepairId",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36DE0",
+   "vram": "0x800361E0",
+   "size": "0xF0",
+   "name": "__osPfsGetStatus",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36ED0",
+   "vram": "0x800362D0",
+   "size": "0x94",
+   "name": "__osPfsRequestOneChannel",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36F64",
+   "vram": "0x80036364",
+   "size": "0x80",
+   "name": "__osPfsGetOneChannelData",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x36FF0",
+   "vram": "0x800363F0",
+   "size": "0x64",
+   "name": "__osPfsSelectBank",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37060",
+   "vram": "0x80036460",
+   "size": "0x44",
+   "name": "__osIdCheckSum",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x370A4",
+   "vram": "0x800364A4",
+   "size": "0x2EC",
+   "name": "__osRepairPackId",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37390",
+   "vram": "0x80036790",
+   "size": "0x164",
+   "name": "__osCheckPackId",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x374F4",
+   "vram": "0x800368F4",
+   "size": "0x1CC",
+   "name": "__osGetId",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x376C0",
+   "vram": "0x80036AC0",
+   "size": "0xB8",
+   "name": "__osCheckId",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37778",
+   "vram": "0x80036B78",
+   "size": "0x338",
+   "name": "__osPfsRWInode",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37AC0",
+   "vram": "0x80036EC0",
+   "size": "0x1E8",
+   "name": "__osContRamRead",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37CB0",
+   "vram": "0x800370B0",
+   "size": "0x204",
+   "name": "__osContRamWrite",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37F20",
+   "vram": "0x80037320",
+   "size": "0x1C",
+   "name": "osAfterPreNMI",
+   "confidence": 0.8,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x37F40",
+   "vram": "0x80037340",
+   "size": "0xA0",
+   "name": "osGetMemSize",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x382D0",
+   "vram": "0x800376D0",
+   "size": "0xC",
+   "name": "__osGetCause",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x382F0",
+   "vram": "0x800376F0",
+   "size": "0x10",
+   "name": "__osSetFpcCsr",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x38300",
+   "vram": "0x80037700",
+   "size": "0x10",
+   "name": "__osSetSR",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x38310",
+   "vram": "0x80037710",
+   "size": "0x10",
+   "name": "__osSetWatchLo",
+   "confidence": 0.5,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x38320",
+   "vram": "0x80037720",
+   "size": "0x4C",
+   "name": "__osSiRawReadIo",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osSpRawReadIo"
+   ]
+  },
+  {
+   "rom": "0x38370",
+   "vram": "0x80037770",
+   "size": "0x18",
+   "name": "__osSiDeviceBusy",
+   "confidence": 0.7,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x38390",
+   "vram": "0x80037790",
+   "size": "0x48",
+   "name": "__osSiRawWriteIo",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": [
+    "__osSpRawWriteIo"
+   ]
+  },
+  {
+   "rom": "0x383E0",
+   "vram": "0x800377E0",
+   "size": "0x58",
+   "name": "osMapTLBRdb",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  },
+  {
+   "rom": "0x38440",
+   "vram": "0x80037840",
+   "size": "0x44",
+   "name": "osUnmapTLBAll",
+   "confidence": 0.99,
+   "kind": "exact",
+   "alternatives": []
+  }
+ ],
+ "microcode": [
+  {
+   "rom": "0x392A8",
+   "text": "RSP Gfx ucode F3DEX       fifo 2.08  Yoshitaka Yasumoto 1999 Nintendo.",
+   "family": "F3DEX",
+   "version": "2.08",
+   "variant": "fifo",
+   "nearest_rsp_text": [
+    "0x4040",
+    "0x4F80"
+   ]
+  }
+ ],
+ "rsp_text": [
+  [
+   "0x3240",
+   "0x3B80"
+  ],
+  [
+   "0x4040",
+   "0x4F80"
+  ],
+  [
+   "0x1676F40",
+   "0x1677BC0"
+  ],
+  [
+   "0x1B0E940",
+   "0x1B317C0"
+  ]
+ ],
+ "audio": [],
+ "libmus": [
+  {
+   "rom": "0x55D568",
+   "tag": "N64 PtrTablesV2"
+  },
+  {
+   "rom": "0x5674A4",
+   "tag": "N64 WaveTables"
+  }
+ ],
+ "compiler": {
+  "verdict": "kmc",
+  "share": {
+   "kmc": 0.924,
+   "ido": 0.076
+  },
+  "classified": 473
+ }
+}

@@ -1,0 +1,31 @@
+[rom]
+sha1 = "711c79790a713e65cc2ecb4857f35898b8e92985"
+size = 0x2000000
+byte_order = "big"
+cic = 6102
+
+[[segment]]
+name = "header"
+rom_start = 0x0
+rom_end = 0x40
+kind = "header"
+
+[[segment]]
+name = "ipl3"
+rom_start = 0x40
+rom_end = 0x1000
+kind = "boot"
+
+[[segment]]
+name = "main"
+rom_start = 0x1000
+rom_end = 0x69070
+vram_start = 0x80000400
+vram_end = 0x80068470
+kind = "program"
+
+[[segment]]
+name = "bss"
+vram_start = 0x80068470
+vram_end = 0x800707D0
+kind = "bss"

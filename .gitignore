@@ -1,0 +1,7 @@
+*.bin
+*.z64
+*.n64
+*.v64
+build/
+.toolchain/
+__pycache__/

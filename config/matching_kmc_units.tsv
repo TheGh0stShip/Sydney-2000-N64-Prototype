@@ -1,0 +1,2 @@
+# unit vram size status
+os_pi_get_cmd_queue 0x8002AA60 0x20 candidate
