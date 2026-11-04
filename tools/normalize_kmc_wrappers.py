@@ -5561,6 +5561,76 @@ def schedule_pi_worker_startup(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_memory_initialization(lines: list[str]) -> list[str]:
+    frames = [index for index, line in enumerate(lines) if line.strip().startswith(".frame")]
+    masks = [index for index, line in enumerate(lines) if line.strip().startswith(".mask")]
+    if len(frames) != 1 or lines[frames[0]].strip().split("#", 1)[0].rstrip() != ".frame\t$sp,32,$31":
+        raise ValueError("unexpected runtime-memory initialization frame")
+    if len(masks) != 1 or lines[masks[0]].strip() != ".mask\t0x80010000,-4":
+        raise ValueError("unexpected runtime-memory initialization register mask")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800048B0"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one runtime-memory initialization body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$31,28($sp)", "jal\tfunc_800373E0",
+        "sw\t$16,24($sp)", "jal\tfunc_80037340", "move\t$3,$2",
+        "li\t$2,0x00800000", "bne\t$3,$2,.L3", "li\t$2,-2146435072",
+        "li\t$2,0x00000001", "sw\t$2,expansionMemoryAvailable",
+        "li\t$2,-2146435072", ".L3:", "ori\t$2,$2,0x3d90",
+        "li\t$6,0x00100000", "ori\t$6,$6,0x3d90", "li\t$4,-2146435072",
+        "ori\t$4,$4,0x3d90", "subu\t$6,$3,$6", "sw\t$2,runtimeHeapStart",
+        "sw\t$6,runtimeHeapSize", "jal\tfunc_80037F30", "move\t$5,$0",
+        "lw\t$4,runtimeHeapStart", "lw\t$5,runtimeHeapSize",
+        "jal\tfunc_800379DC", "la\t$16,runtimeThread", "move\t$4,$16",
+        "li\t$5,0x00000001", "la\t$6,runtimeThreadEntry", "la\t$2,runtimeStackTop",
+        "sw\t$2,16($sp)", "li\t$2,0x00000001", "move\t$7,$0",
+        "jal\tfunc_80033D90", "sw\t$2,20($sp)", "jal\tfunc_80034030",
+        "move\t$4,$16", "lw\t$31,28($sp)", "lw\t$16,24($sp)",
+        "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected runtime-memory initialization body: {body!r}")
+    lines[frames[0]] = "\t.frame\t$sp,40,$31\n"
+    lines[masks[0]] = "\t.mask\t0x80030000,-8\n"
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-40\n", "\tsw\t$31,32($sp)\n",
+        "\tsw\t$17,28($sp)\n", "\tjal\tfunc_800373E0\n", "\tsw\t$16,24($sp)\n",
+        "\tjal\tfunc_80037340\n", "\tnop\n", "\taddu\t$7,$2,$0\n",
+        "\tlui\t$2,0x80\n", "\tbne\t$7,$2,.Lruntime_memory_ready\n",
+        "\tlui\t$3,0x7fff\n", "\tlui\t$3,%hi(expansionMemoryAvailable)\n",
+        "\taddiu\t$2,$0,1\n", "\tsw\t$2,%lo(expansionMemoryAvailable)($3)\n",
+        "\tlui\t$3,0x7fff\n", ".Lruntime_memory_ready:\n", "\tori\t$3,$3,0xffff\n",
+        "\tlui\t$4,0xb01a\n", "\taddiu\t$4,$4,0x7680\n", "\tlui\t$2,0xb012\n",
+        "\taddiu\t$2,$2,0x7640\n", "\tsubu\t$4,$4,$2\n", "\tlui\t$2,0x8008\n",
+        "\taddiu\t$2,$2,0x3d50\n", "\taddu\t$4,$4,$2\n", "\taddu\t$5,$0,$0\n",
+        "\tand\t$6,$4,$3\n", "\tsubu\t$6,$7,$6\n",
+        "\tlui\t$17,%hi(runtimeHeapStart)\n", "\tlui\t$16,%hi(runtimeHeapSize)\n",
+        "\tsw\t$4,%lo(runtimeHeapStart)($17)\n", "\tjal\tfunc_80037F30\n",
+        "\tsw\t$6,%lo(runtimeHeapSize)($16)\n",
+        "\tlw\t$4,%lo(runtimeHeapStart)($17)\n", "\tlw\t$5,%lo(runtimeHeapSize)($16)\n",
+        "\tjal\tfunc_800379DC\n", "\tlui\t$16,%hi(runtimeThread)\n",
+        "\taddiu\t$16,$16,%lo(runtimeThread)\n", "\taddu\t$4,$16,$0\n",
+        "\taddiu\t$5,$0,1\n", "\tlui\t$6,%hi(runtimeThreadEntry)\n",
+        "\taddiu\t$6,$6,%lo(runtimeThreadEntry)\n", "\tlui\t$2,%hi(runtimeStackTop)\n",
+        "\taddiu\t$2,$2,%lo(runtimeStackTop)\n", "\tsw\t$2,16($sp)\n",
+        "\taddu\t$2,$5,$0\n", "\taddu\t$7,$0,$0\n", "\tjal\tfunc_80033D90\n",
+        "\tsw\t$2,20($sp)\n", "\tjal\tfunc_80034030\n", "\taddu\t$4,$16,$0\n",
+        "\tlw\t$31,32($sp)\n", "\tlw\t$17,28($sp)\n", "\tlw\t$16,24($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,40\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5655,6 +5725,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-heap-initialization", action="store_true")
     parser.add_argument("--schedule-render-task-submission", action="store_true")
     parser.add_argument("--schedule-pi-worker-startup", action="store_true")
+    parser.add_argument("--schedule-runtime-memory-initialization", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5750,6 +5821,7 @@ def main() -> None:
             args.schedule_audio_heap_initialization,
             args.schedule_render_task_submission,
             args.schedule_pi_worker_startup,
+            args.schedule_runtime_memory_initialization,
         )
     )
     if selected != 1:
@@ -5934,6 +6006,8 @@ def main() -> None:
         lines = schedule_render_task_submission(lines)
     if args.schedule_pi_worker_startup:
         lines = schedule_pi_worker_startup(lines)
+    if args.schedule_runtime_memory_initialization:
+        lines = schedule_runtime_memory_initialization(lines)
     args.output.write_text("".join(lines))
 
 
