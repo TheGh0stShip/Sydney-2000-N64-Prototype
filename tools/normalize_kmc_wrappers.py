@@ -7349,6 +7349,205 @@ def schedule_sound_resource_initialization(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_named_archive_search(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+
+    def replace_once(old: str, new: str, label: str) -> None:
+        nonlocal text
+        count = text.count(old)
+        if count != 1:
+            raise ValueError(f"expected one {label} pattern; found {count}")
+        text = text.replace(old, new, 1)
+
+    for old, new in (
+        ("\t.frame\t$sp,64,$31", "\t.frame\t$sp,56,$31"),
+        ("\tsubu\t$sp,$sp,64\n", "\tsubu\t$sp,$sp,56\n"),
+        ("\tsw\t$22,56($sp)\n", "\tsw\t$22,48($sp)\n"),
+        ("\tsw\t$31,60($sp)\n", "\tsw\t$31,52($sp)\n"),
+        ("\tsw\t$21,52($sp)\n", "\tsw\t$21,44($sp)\n"),
+        ("\tsw\t$20,48($sp)\n", "\tsw\t$20,40($sp)\n"),
+        ("\tsw\t$19,44($sp)\n", "\tsw\t$19,36($sp)\n"),
+        ("\tsw\t$18,40($sp)\n", "\tsw\t$18,32($sp)\n"),
+        ("\tsw\t$17,36($sp)\n", "\tsw\t$17,28($sp)\n"),
+        ("\tsw\t$16,32($sp)\n", "\tsw\t$16,24($sp)\n"),
+        ("\tlw\t$31,60($sp)\n", "\tlw\t$31,52($sp)\n"),
+        ("\tlw\t$22,56($sp)\n", "\tlw\t$22,48($sp)\n"),
+        ("\tlw\t$21,52($sp)\n", "\tlw\t$21,44($sp)\n"),
+        ("\tlw\t$20,48($sp)\n", "\tlw\t$20,40($sp)\n"),
+        ("\tlw\t$19,44($sp)\n", "\tlw\t$19,36($sp)\n"),
+        ("\tlw\t$18,40($sp)\n", "\tlw\t$18,32($sp)\n"),
+        ("\tlw\t$17,36($sp)\n", "\tlw\t$17,28($sp)\n"),
+        ("\tlw\t$16,32($sp)\n", "\tlw\t$16,24($sp)\n"),
+    ):
+        replace_once(old, new, "archive frame")
+
+    replace_once(
+        "\tla\t$21,D_800693B0\n"
+        "\tli\t$3,-1\t\t\t# 0xffffffff\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeq\t$2,$3,.L15\n"
+        "\tmove\t$2,$0\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tlw\t$4,16($sp)\n"
+        "\tmove\t$5,$21\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800113DC\n"
+        "\tli\t$6,0x00000008\t\t# 8\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tlw\t$2,16($sp)\n"
+        "\t#nop\n"
+        "\taddu\t$2,$2,8\n"
+        "\tsw\t$2,16($sp)\n"
+        "\tlw\t$3,0($21)\n"
+        "\tli\t$2,0x73460000\t\t# 1933967360\n"
+        "\tori\t$2,$2,0x00fe\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeq\t$3,$2,.L3\n"
+        "\tmove\t$2,$0\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tj\t.L15\n"
+        ".L16:\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tj\t.L15\n"
+        "\tmove\t$2,$16\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        ".L3:\n"
+        "\tlw\t$20,D_800693B0+4\n"
+        "\t#nop\n",
+        "\tlui\t$16,0x8007\n"
+        "\tli\t$3,-1\t\t\t# 0xffffffff\n"
+        "\tbeq\t$2,$3,.L17\n"
+        "\taddiu\t$21,$16,-27728\n"
+        "\tmove\t$5,$21\n"
+        "\tli\t$6,0x00000008\t\t# 8\n"
+        "\tlw\t$4,16($sp)\n"
+        "\tjal\tfunc_800113DC\n"
+        "\tmove\t$17,$21\n"
+        "\tli\t$2,0x73460000\t\t# 1933967360\n"
+        "\tori\t$2,$2,0x00fe\n"
+        "\tlw\t$3,16($sp)\n"
+        "\tlw\t$4,-27728($16)\n"
+        "\taddu\t$3,$3,8\n"
+        "\tbeq\t$4,$2,.L3\n"
+        "\tsw\t$3,16($sp)\n"
+        "\tj\t.L15\n"
+        "\tmove\t$2,$0\n"
+        ".L16:\n"
+        "\tj\t.L15\n"
+        "\tmove\t$2,$16\n"
+        ".L3:\n"
+        "\tlw\t$20,4($17)\n",
+        "archive header load",
+    )
+    replace_once(
+        "\tmove\t$19,$20\n"
+        ".L18:\n"
+        "\tsltu\t$2,$19,57\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeql\t$2,$0,.L7\n"
+        "\tli\t$19,0x00000038\t\t# 56\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        ".L7:\n"
+        "\tsll\t$16,$19,2\n",
+        "\tsltu\t$2,$20,57\n"
+        ".L18:\n"
+        "\tbne\t$2,$0,.L7\n"
+        "\tmove\t$19,$20\n"
+        "\tli\t$19,0x00000038\t\t# 56\n"
+        ".L7:\n"
+        "\tmove\t$5,$21\n"
+        "\tsll\t$16,$19,2\n",
+        "archive batch clamp",
+    )
+    replace_once(
+        "\tlw\t$4,16($sp)\n"
+        "\tmove\t$5,$21\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800113DC\n"
+        "\tmove\t$6,$16\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tlw\t$2,16($sp)\n"
+        "\tmove\t$17,$21\n"
+        "\tmove\t$18,$0\n"
+        "\taddu\t$2,$2,$16\n",
+        "\tmove\t$6,$16\n"
+        "\tlw\t$4,16($sp)\n"
+        "\tjal\tfunc_800113DC\n"
+        "\tmove\t$17,$21\n"
+        "\tlw\t$2,16($sp)\n"
+        "\tmove\t$18,$0\n"
+        "\taddu\t$2,$2,$16\n",
+        "archive batch read",
+    )
+    replace_once(
+        "\tlw\t$16,0($17)\n"
+        "\taddu\t$17,$17,8\n"
+        "\tmove\t$4,$22\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800378C0\n"
+        "\tmove\t$5,$17\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n",
+        "\tlw\t$16,0($17)\n"
+        "\taddu\t$17,$17,8\n"
+        "\tmove\t$5,$17\n"
+        "\taddu\t$17,$17,32\n"
+        "\tjal\tfunc_800378C0\n"
+        "\tmove\t$4,$22\n",
+        "archive entry comparison",
+    )
+    replace_once(
+        "\tbne\t$2,$0,.L11\n"
+        "\taddu\t$17,$17,32\n",
+        "\tbne\t$2,$0,.L11\n"
+        "\tnop\n",
+        "archive entry loop",
+    )
+    replace_once(
+        "\tbne\t$20,$0,.L18\n"
+        "\tmove\t$19,$20\n",
+        "\tbne\t$20,$0,.L18\n"
+        "\tsltu\t$2,$20,57\n",
+        "archive outer loop",
+    )
+    replace_once(
+        "\taddu\t$sp,$sp,64\n"
+        "\tj\t$31\n",
+        "\tj\t$31\n"
+        "\taddu\t$sp,$sp,56\n",
+        "archive epilogue",
+    )
+    replace_once(
+        "\tmove\t$2,$0\n"
+        ".L15:\n",
+        ".L17:\n"
+        "\tmove\t$2,$0\n"
+        ".L15:\n",
+        "archive zero return",
+    )
+
+    output = ["\t.set\tnoreorder\n"]
+    for line in text.splitlines(keepends=True):
+        if line.strip() == ".set\treorder":
+            output.append("\t.set\tnoreorder\n")
+        else:
+            output.append(line)
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -7462,6 +7661,7 @@ def main() -> None:
     parser.add_argument("--schedule-stream-channel-mixer", action="store_true")
     parser.add_argument("--schedule-scaled-value-addition", action="store_true")
     parser.add_argument("--schedule-sound-resource-initialization", action="store_true")
+    parser.add_argument("--schedule-named-archive-search", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -7582,6 +7782,7 @@ def main() -> None:
             args.schedule_stream_channel_mixer,
             args.schedule_scaled_value_addition,
             args.schedule_sound_resource_initialization,
+            args.schedule_named_archive_search,
         )
     )
     if selected != 1:
@@ -7812,6 +8013,8 @@ def main() -> None:
         lines = schedule_scaled_value_addition(lines)
     if args.schedule_sound_resource_initialization:
         lines = schedule_sound_resource_initialization(lines)
+    if args.schedule_named_archive_search:
+        lines = schedule_named_archive_search(lines)
     args.output.write_text("".join(lines))
 
 
