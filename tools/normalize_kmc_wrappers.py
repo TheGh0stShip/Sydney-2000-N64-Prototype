@@ -7255,6 +7255,100 @@ def schedule_scaled_value_addition(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_sound_resource_initialization(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+
+    def replace_once(old: str, new: str, label: str) -> None:
+        nonlocal text
+        count = text.count(old)
+        if count != 1:
+            raise ValueError(f"expected one {label} pattern; found {count}")
+        text = text.replace(old, new, 1)
+
+    replace_once(
+        "\tla\t$18,D_80060000\n"
+        "\tla\t$16,commandContext\n"
+        "\tla\t$4,D_80001328\n"
+        "\taddu\t$5,$18,20304\n"
+        "\tmove\t$6,$16\n"
+        "\tli\t$7,0x00000001\t\t# 1\n"
+        "\tmove\t$17,$18\n",
+        "\tla\t$4,D_80001328\n"
+        "\tlui\t$18,0x8006\n"
+        "\taddu\t$5,$18,20304\n"
+        "\tla\t$16,commandContext\n"
+        "\tmove\t$6,$16\n"
+        "\tli\t$7,0x00000001\t\t# 1\n"
+        "\tlui\t$17,0x8006\n",
+        "sound resource address setup",
+    )
+    replace_once(
+        "\tsw\t$2,D_80060000+20312\n"
+        "\tlw\t$4,20308($17)\n"
+        "\tjal\tfunc_8001EF00\n"
+        "\tlw\t$4,20304($18)\n"
+        "\tlw\t$5,D_80060000+20312\n",
+        "\tlw\t$4,20308($17)\n"
+        "\tlui\t$16,0x8006\n"
+        "\tjal\tfunc_8001EF00\n"
+        "\tsw\t$2,20312($16)\n"
+        "\tlw\t$4,20304($18)\n"
+        "\tlw\t$5,20312($16)\n",
+        "sound bank preparation",
+    )
+    replace_once(
+        "\tlw\t$4,20308($17)\n"
+        "\tjal\tfunc_8001EF84\n"
+        "\tsw\t$2,D_80064F5C\n"
+        "\tlw\t$4,20308($17)\n"
+        "\tjal\tfunc_8001EF8C\n"
+        "\tmove\t$4,$19\n",
+        "\tlw\t$4,20308($17)\n"
+        "\tjal\tfunc_8001EF84\n"
+        "\tnop\n"
+        "\tlw\t$4,20308($17)\n"
+        "\tlui\t$3,0x8006\n"
+        "\tjal\tfunc_8001EF8C\n"
+        "\tsw\t$2,%lo(D_80064F5C)($3)\n"
+        "\tmove\t$4,$19\n",
+        "sound bank value update",
+    )
+    replace_once(
+        "\tla\t$16,D_8006B2B0\n",
+        "\tlui\t$2,0x8007\n"
+        "\taddiu\t$16,$2,-19792\n",
+        "audio record address",
+    )
+    replace_once(
+        "\tmove\t$6,$0\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_80025780\n"
+        "\tmove\t$7,$0\n",
+        "\tmove\t$6,$0\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_80025780\n"
+        "\tmove\t$7,$6\n",
+        "stream zero arguments",
+    )
+    replace_once(
+        "\taddu\t$sp,$sp,48\n"
+        "\tj\t$31\n",
+        "\tj\t$31\n"
+        "\taddu\t$sp,$sp,48\n",
+        "sound resource epilogue",
+    )
+
+    output = ["\t.set\tnoreorder\n"]
+    for line in text.splitlines(keepends=True):
+        if line.strip() == ".set\treorder":
+            output.append("\t.set\tnoreorder\n")
+        else:
+            output.append(line)
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -7367,6 +7461,7 @@ def main() -> None:
     parser.add_argument("--schedule-active-slot-release", action="store_true")
     parser.add_argument("--schedule-stream-channel-mixer", action="store_true")
     parser.add_argument("--schedule-scaled-value-addition", action="store_true")
+    parser.add_argument("--schedule-sound-resource-initialization", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -7486,6 +7581,7 @@ def main() -> None:
             args.schedule_active_slot_release,
             args.schedule_stream_channel_mixer,
             args.schedule_scaled_value_addition,
+            args.schedule_sound_resource_initialization,
         )
     )
     if selected != 1:
@@ -7714,6 +7810,8 @@ def main() -> None:
         lines = schedule_stream_channel_mixer(lines)
     if args.schedule_scaled_value_addition:
         lines = schedule_scaled_value_addition(lines)
+    if args.schedule_sound_resource_initialization:
+        lines = schedule_sound_resource_initialization(lines)
     args.output.write_text("".join(lines))
 
 
