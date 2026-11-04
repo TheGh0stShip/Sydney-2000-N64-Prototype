@@ -5780,6 +5780,76 @@ def schedule_display_record_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_resource_record_processing(lines: list[str]) -> list[str]:
+    frames = [index for index, line in enumerate(lines) if line.strip().startswith(".frame")]
+    masks = [index for index, line in enumerate(lines) if line.strip().startswith(".mask")]
+    if len(frames) != 1 or lines[frames[0]].strip().split("#", 1)[0].rstrip() != ".frame\t$sp,56,$31":
+        raise ValueError("unexpected resource-record processing frame")
+    if len(masks) != 1 or lines[masks[0]].strip() != ".mask\t0x800f0000,-8":
+        raise ValueError("unexpected resource-record processing register mask")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$3,resourceRecordCount"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8000C944"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one resource-record processing body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$3,resourceRecordCount", "subu\t$sp,$sp,56", "sw\t$17,36($sp)",
+        "li\t$2,-1", "sw\t$31,48($sp)", "sw\t$19,44($sp)",
+        "sw\t$18,40($sp)", "sw\t$16,32($sp)", "sw\t$0,currentResourceRecord",
+        "sw\t$2,selectedResourceRecord", "beq\t$3,$0,.L3", "move\t$17,$0",
+        "li\t$19,-2147483648", "li\t$18,0x7fff0000", "ori\t$18,$18,0xffff",
+        "la\t$16,resourceRecords", ".L5:", "lw\t$3,0($16)", "and\t$2,$3,$19",
+        "beq\t$2,$0,.L4", "and\t$2,$3,$18", "sw\t$2,0($16)",
+        "sw\t$17,16($sp)", "lw\t$2,28($16)", "sw\t$2,20($sp)",
+        "lw\t$4,0($16)", "lw\t$5,16($16)", "lw\t$6,20($16)",
+        "lw\t$7,24($16)", "jal\tfunc_8000CA34", ".L4:",
+        "lw\t$2,resourceRecordCount", "addu\t$17,$17,1", "sltu\t$2,$17,$2",
+        "bne\t$2,$0,.L5", "addu\t$16,$16,224", ".L3:",
+        "lw\t$31,48($sp)", "lw\t$19,44($sp)", "lw\t$18,40($sp)",
+        "lw\t$17,36($sp)", "lw\t$16,32($sp)", "addu\t$sp,$sp,56", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected resource-record processing body: {body!r}")
+    lines[masks[0]] = "\t.mask\t0x807f0000,-4\n"
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-56\n", "\tsw\t$17,28($sp)\n",
+        "\taddu\t$17,$0,$0\n", "\tlui\t$2,%hi(currentResourceRecord)\n",
+        "\tlui\t$5,%hi(resourceRecordCount)\n", "\tlw\t$3,%lo(resourceRecordCount)($5)\n",
+        "\tlui\t$4,%hi(selectedResourceRecord)\n",
+        "\tsw\t$0,%lo(currentResourceRecord)($2)\n", "\taddiu\t$2,$0,-1\n",
+        "\tsw\t$31,52($sp)\n", "\tsw\t$22,48($sp)\n", "\tsw\t$21,44($sp)\n",
+        "\tsw\t$20,40($sp)\n", "\tsw\t$19,36($sp)\n", "\tsw\t$18,32($sp)\n",
+        "\tsw\t$16,24($sp)\n", "\tbeqz\t$3,.Lresource_records_done\n",
+        "\tsw\t$2,%lo(selectedResourceRecord)($4)\n", "\tlui\t$22,0x8000\n",
+        "\tlui\t$2,%hi(resourceRecords)\n", "\taddiu\t$2,$2,%lo(resourceRecords)\n",
+        "\taddiu\t$21,$2,16\n", "\tlui\t$19,0x7fff\n", "\tori\t$19,$19,0xffff\n",
+        "\taddu\t$20,$5,$0\n", "\taddu\t$16,$2,$0\n", "\taddu\t$18,$17,$0\n",
+        ".Lresource_record_loop:\n", "\tlw\t$4,0($16)\n", "\tand\t$2,$4,$22\n",
+        "\tbeqz\t$2,.Lresource_record_next\n", "\taddu\t$2,$18,$21\n",
+        "\tlw\t$5,0($2)\n", "\taddiu\t$2,$2,4\n", "\tlw\t$6,0($2)\n",
+        "\taddiu\t$2,$2,4\n", "\tlw\t$7,0($2)\n", "\tlw\t$3,4($2)\n",
+        "\tand\t$2,$4,$19\n", "\tsw\t$2,0($16)\n", "\tsw\t$17,16($sp)\n",
+        "\tsw\t$3,20($sp)\n", "\tlw\t$4,0($16)\n", "\tjal\tfunc_8000CA34\n",
+        "\tnop\n", ".Lresource_record_next:\n", "\taddiu\t$16,$16,224\n",
+        "\tlw\t$2,%lo(resourceRecordCount)($20)\n", "\taddiu\t$17,$17,1\n",
+        "\tsltu\t$2,$17,$2\n", "\tbnez\t$2,.Lresource_record_loop\n",
+        "\taddiu\t$18,$18,224\n", ".Lresource_records_done:\n", "\tlw\t$31,52($sp)\n",
+        "\tlw\t$22,48($sp)\n", "\tlw\t$21,44($sp)\n", "\tlw\t$20,40($sp)\n",
+        "\tlw\t$19,36($sp)\n", "\tlw\t$18,32($sp)\n", "\tlw\t$17,28($sp)\n",
+        "\tlw\t$16,24($sp)\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,56\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5877,6 +5947,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-memory-initialization", action="store_true")
     parser.add_argument("--schedule-render-object-release", action="store_true")
     parser.add_argument("--schedule-display-record-initialization", action="store_true")
+    parser.add_argument("--schedule-resource-record-processing", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5975,6 +6046,7 @@ def main() -> None:
             args.schedule_runtime_memory_initialization,
             args.schedule_render_object_release,
             args.schedule_display_record_initialization,
+            args.schedule_resource_record_processing,
         )
     )
     if selected != 1:
@@ -6165,6 +6237,8 @@ def main() -> None:
         lines = schedule_render_object_release(lines)
     if args.schedule_display_record_initialization:
         lines = schedule_display_record_initialization(lines)
+    if args.schedule_resource_record_processing:
+        lines = schedule_resource_record_processing(lines)
     args.output.write_text("".join(lines))
 
 
