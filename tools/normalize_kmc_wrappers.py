@@ -1261,6 +1261,89 @@ def schedule_audio_record_volume_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_transition_configuration(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if "li\t$2,-2147090432" in line]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001DA28"]
+    candidates = [(starts[0], ends[0])] if starts and len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one audio-transition configuration body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "li\t$2,-2147090432", "ori\t$2,$2,0x4f7c", "lw\t$2,0($2)",
+        "beq\t$2,$0,.L1", "move\t$7,$5", "bgez\t$7,.L3",
+        "li\t$2,-2146500608", "ori\t$2,$2,0x1b4c", "lw\t$7,0($2)",
+        ".L3:", "bgez\t$4,.L7", "slt\t$2,$4,$7", "li\t$2,-2146500608",
+        "ori\t$2,$2,0x1b4c", "lw\t$4,0($2)", "slt\t$2,$4,$7", ".L7:",
+        "beq\t$2,$0,.L5", "li\t$6,-2147090432", "ori\t$6,$6,0x4f60",
+        "li\t$5,-2147090432", "ori\t$5,$5,0x4f6c", "li\t$4,-2147090432",
+        "ori\t$4,$4,0x4f74", "li\t$3,-2147090432", "ori\t$3,$3,0x4f78",
+        "li\t$2,0x00000001", "sw\t$2,0($6)", "sw\t$2,0($5)",
+        "sw\t$2,0($4)", "sw\t$7,0($3)", "j\t.L1", ".L5:",
+        "ori\t$6,$6,0x4f60", "li\t$5,-2147090432", "ori\t$5,$5,0x4f70",
+        "li\t$4,-2147090432", "ori\t$4,$4,0x4f78", "li\t$3,-2146500608",
+        "ori\t$3,$3,0x1b4c", "li\t$2,0x00000001", "sw\t$2,0($6)",
+        "sw\t$2,0($5)", "sw\t$0,0($4)", "lw\t$3,0($3)",
+        "li\t$2,-2147090432", "ori\t$2,$2,0x4f74", "sw\t$3,0($2)",
+        ".L1:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected audio-transition configuration body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$2,20348($2)\n",
+        "\tbeq\t$2,$0,.L1\n",
+        "\tnop\n",
+        "\tbgez\t$5,.L3\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,6880\n",
+        "\tlw\t$5,108($2)\n",
+        ".L3:\n",
+        "\tbgez\t$4,.L7\n",
+        "\tslt\t$2,$4,$5\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,6880\n",
+        "\tlw\t$4,108($2)\n",
+        "\tslt\t$2,$4,$5\n",
+        ".L7:\n",
+        "\tbeq\t$2,$0,.L5\n",
+        "\tlui\t$2,0x8006\n",
+        "\tli\t$3,1\n",
+        "\tsw\t$3,20320($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$3,20332($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$3,20340($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tj\t$31\n",
+        "\tsw\t$5,20344($2)\n",
+        ".L5:\n",
+        "\tli\t$3,1\n",
+        "\tsw\t$3,20320($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$3,20336($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,20344($2)\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,6880\n",
+        "\tlw\t$3,108($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$3,20340($2)\n",
+        ".L1:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3233,6 +3316,7 @@ def main() -> None:
     parser.add_argument("--schedule-resolved-record-signature", action="store_true")
     parser.add_argument("--schedule-audio-record-allocation", action="store_true")
     parser.add_argument("--schedule-audio-record-volume-reset", action="store_true")
+    parser.add_argument("--schedule-audio-transition-configuration", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3296,6 +3380,7 @@ def main() -> None:
             args.schedule_resolved_record_signature,
             args.schedule_audio_record_allocation,
             args.schedule_audio_record_volume_reset,
+            args.schedule_audio_transition_configuration,
         )
     )
     if selected != 1:
@@ -3416,6 +3501,8 @@ def main() -> None:
         lines = schedule_audio_record_allocation(lines)
     if args.schedule_audio_record_volume_reset:
         lines = schedule_audio_record_volume_reset(lines)
+    if args.schedule_audio_transition_configuration:
+        lines = schedule_audio_transition_configuration(lines)
     args.output.write_text("".join(lines))
 
 
