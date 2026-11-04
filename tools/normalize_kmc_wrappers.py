@@ -363,6 +363,42 @@ def schedule_nested_float_quad(lines: list[str]) -> list[str]:
     return lines
 
 
+def duplicate_nested_bit_returns(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one nested-object load; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if len(body) != 12 or not re.fullmatch(r"beq\t\$5,\$0,\.L[0-9]+", body[1]):
+        raise ValueError(f"unexpected nested bit body: {body!r}")
+    fail = body[1].rsplit(",", 1)[1]
+    expected = [
+        "lw\t$4,0($4)", f"beq\t$5,$0,{fail}", "li\t$3,-3",
+        "lw\t$2,128($4)", "j\t.L3", "ori\t$2,$2,0x0002",
+        f"{fail}:", "lw\t$2,128($4)", "and\t$2,$2,$3",
+        ".L3:", "j\t$31", "sw\t$2,128($4)",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected nested bit body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlw\t$4,0($4)\n",
+        f"\tbeq\t$5,$0,{fail}\n",
+        "\tli\t$3,-3\n",
+        "\tlw\t$2,128($4)\n",
+        "\tori\t$2,$2,0x0002\n",
+        "\tj\t$31\n",
+        "\tsw\t$2,128($4)\n",
+        f"{fail}:\n",
+        "\tlw\t$2,128($4)\n",
+        "\tand\t$2,$2,$3\n",
+        "\tj\t$31\n",
+        "\tsw\t$2,128($4)\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -376,6 +412,7 @@ def main() -> None:
     parser.add_argument("--duplicate-nested-flag-returns", action="store_true")
     parser.add_argument("--schedule-nested-float-pair", action="store_true")
     parser.add_argument("--schedule-nested-float-quad", action="store_true")
+    parser.add_argument("--duplicate-nested-bit-returns", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -390,6 +427,7 @@ def main() -> None:
             args.duplicate_nested_flag_returns,
             args.schedule_nested_float_pair,
             args.schedule_nested_float_quad,
+            args.duplicate_nested_bit_returns,
         )
     )
     if selected != 1:
@@ -412,6 +450,8 @@ def main() -> None:
         lines = schedule_nested_float_pair(lines)
     if args.schedule_nested_float_quad:
         lines = schedule_nested_float_quad(lines)
+    if args.duplicate_nested_bit_returns:
+        lines = duplicate_nested_bit_returns(lines)
     args.output.write_text("".join(lines))
 
 
