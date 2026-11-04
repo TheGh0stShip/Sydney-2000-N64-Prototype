@@ -4003,6 +4003,110 @@ def schedule_chunked_rom_read(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_chunked_writeback_rom_read(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$2,romQueueInitialized"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800113DC"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one chunked writeback ROM-read body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$2,romQueueInitialized", "subu\t$sp,$sp,88", "sw\t$17,68($sp)",
+        "move\t$17,$6", "sw\t$19,76($sp)", "move\t$19,$4",
+        "sw\t$18,72($sp)", "move\t$18,$5", "sw\t$31,84($sp)",
+        "sw\t$20,80($sp)", "bne\t$2,$0,.L2", "sw\t$16,64($sp)",
+        "la\t$4,romQueue", "la\t$5,romMessages", "jal\tosCreateMesgQueue",
+        "li\t$6,0x00000008", "li\t$2,0x00000001", "sw\t$2,romQueueInitialized",
+        ".L2:", "beq\t$17,$0,.L3", "la\t$20,romQueue", ".L4:",
+        "move\t$16,$17", "slt\t$2,$16,2049", "beql\t$2,$0,.L7",
+        "li\t$16,0x00000800", ".L7:", "move\t$4,$18",
+        "jal\tosInvalDCache", "move\t$5,$16", "jal\tosWritebackDCacheAll",
+        "subu\t$17,$17,$16", "addu\t$4,$sp,32", "li\t$5,0x00000001",
+        "move\t$6,$0", "move\t$7,$19", "sw\t$18,16($sp)",
+        "sw\t$16,20($sp)", "jal\tosPiStartDma", "sw\t$20,24($sp)",
+        "move\t$4,$20", "addu\t$5,$sp,56", "jal\tosRecvMesg",
+        "li\t$6,0x00000001", "addu\t$19,$19,$16", "bne\t$17,$0,.L4",
+        "addu\t$18,$18,$16", ".L3:", "lw\t$31,84($sp)",
+        "lw\t$20,80($sp)", "lw\t$19,76($sp)", "lw\t$18,72($sp)",
+        "lw\t$17,68($sp)", "lw\t$16,64($sp)", "addu\t$sp,$sp,88",
+        "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected chunked writeback ROM-read body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,88\n",
+        "\tsw\t$16,64($sp)\n",
+        "\tlui\t$16,0x8006\n",
+        "\tlw\t$2,-22288($16)\n",
+        "\tsw\t$17,68($sp)\n",
+        "\tmove\t$17,$6\n",
+        "\tsw\t$19,76($sp)\n",
+        "\tmove\t$19,$4\n",
+        "\tsw\t$18,72($sp)\n",
+        "\tmove\t$18,$5\n",
+        "\tsw\t$31,84($sp)\n",
+        "\tbne\t$2,$0,.L2\n",
+        "\tsw\t$20,80($sp)\n",
+        "\tlui\t$4,0x8006\n",
+        "\taddiu\t$4,$4,-22284\n",
+        "\tlui\t$5,0x8006\n",
+        "\taddiu\t$5,$5,-22260\n",
+        "\tjal\tosCreateMesgQueue\n",
+        "\tli\t$6,8\n",
+        "\tli\t$2,1\n",
+        "\tsw\t$2,-22288($16)\n",
+        ".L2:\n",
+        "\tbeq\t$17,$0,.L3\n",
+        "\tlui\t$2,0x8006\n",
+        "\taddiu\t$20,$2,-22284\n",
+        ".L4:\n",
+        "\tslti\t$2,$17,2049\n",
+        "\tbne\t$2,$0,.L5\n",
+        "\tmove\t$16,$17\n",
+        "\tli\t$16,2048\n",
+        ".L5:\n",
+        "\tmove\t$4,$18\n",
+        "\tjal\tosInvalDCache\n",
+        "\tmove\t$5,$16\n",
+        "\tjal\tosWritebackDCacheAll\n",
+        "\tsubu\t$17,$17,$16\n",
+        "\taddiu\t$4,$sp,32\n",
+        "\tli\t$5,1\n",
+        "\tmove\t$6,$0\n",
+        "\tmove\t$7,$19\n",
+        "\tsw\t$18,16($sp)\n",
+        "\tsw\t$16,20($sp)\n",
+        "\tjal\tosPiStartDma\n",
+        "\tsw\t$20,24($sp)\n",
+        "\tmove\t$4,$20\n",
+        "\taddiu\t$5,$sp,56\n",
+        "\tjal\tosRecvMesg\n",
+        "\tli\t$6,1\n",
+        "\taddu\t$19,$19,$16\n",
+        "\tbne\t$17,$0,.L4\n",
+        "\taddu\t$18,$18,$16\n",
+        ".L3:\n",
+        "\tlw\t$31,84($sp)\n",
+        "\tlw\t$20,80($sp)\n",
+        "\tlw\t$19,76($sp)\n",
+        "\tlw\t$18,72($sp)\n",
+        "\tlw\t$17,68($sp)\n",
+        "\tlw\t$16,64($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,88\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4075,6 +4179,7 @@ def main() -> None:
     parser.add_argument("--schedule-checked-named-record-resolution", action="store_true")
     parser.add_argument("--schedule-blocking-rom-read", action="store_true")
     parser.add_argument("--schedule-chunked-rom-read", action="store_true")
+    parser.add_argument("--schedule-chunked-writeback-rom-read", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4148,6 +4253,7 @@ def main() -> None:
             args.schedule_checked_named_record_resolution,
             args.schedule_blocking_rom_read,
             args.schedule_chunked_rom_read,
+            args.schedule_chunked_writeback_rom_read,
         )
     )
     if selected != 1:
@@ -4288,6 +4394,8 @@ def main() -> None:
         lines = schedule_blocking_rom_read(lines)
     if args.schedule_chunked_rom_read:
         lines = schedule_chunked_rom_read(lines)
+    if args.schedule_chunked_writeback_rom_read:
+        lines = schedule_chunked_writeback_rom_read(lines)
     args.output.write_text("".join(lines))
 
 

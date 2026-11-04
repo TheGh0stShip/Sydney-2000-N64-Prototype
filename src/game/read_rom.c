@@ -44,11 +44,17 @@ void LEAF_NAME(u32 deviceAddress, void *destination, u32 size) {
         do {
             chunkSize = remaining < 2049 ? remaining : 2048;
             osInvalDCache(destinationReg, chunkSize);
+#ifdef WRITEBACK_EACH_CHUNK
+            osWritebackDCacheAll();
+            remaining -= chunkSize;
+#endif
             osPiStartDma(&ioMessage, OS_MESG_PRI_HIGH, OS_READ,
                          deviceAddressReg, destinationReg, chunkSize, queue);
             osRecvMesg(queue, &completionMessage, OS_MESG_BLOCK);
             deviceAddressReg += chunkSize;
+#ifndef WRITEBACK_EACH_CHUNK
             remaining -= chunkSize;
+#endif
             destinationReg += chunkSize;
         } while (remaining != 0);
     }
