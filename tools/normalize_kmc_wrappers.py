@@ -6848,6 +6848,144 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_flagged_model_matrix_build(lines: list[str]) -> list[str]:
+    function_name = "func_8000D41C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one flagged model-matrix builder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002EAC0", "D_80068B80", "D_8005A52C", "D_80000670",
+                  "D_80000678", "D_80000680"):
+        if token not in body:
+            raise ValueError(f"unexpected flagged model-matrix builder near {token!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80030000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$31,24($sp)
+\tsw\t$17,20($sp)
+\tsw\t$16,16($sp)
+\tlwc1\t$f0,0($5)
+\tlui\t$2,%hi(D_80068B80)
+\tswc1\t$f0,%lo(D_80068B80)($2)
+\tlwc1\t$f0,4($5)
+\taddiu\t$3,$2,%lo(D_80068B80)
+\tswc1\t$f0,4($3)
+\tlwc1\t$f0,8($5)
+\tswc1\t$f0,8($3)
+\tlwc1\t$f0,16($5)
+\tswc1\t$f0,16($3)
+\tlwc1\t$f0,20($5)
+\tswc1\t$f0,20($3)
+\tlwc1\t$f0,24($5)
+\tswc1\t$f0,24($3)
+\tlwc1\t$f0,32($5)
+\tmove\t$16,$4
+\tswc1\t$f0,32($3)
+\tlwc1\t$f0,36($5)
+\tmove\t$17,$6
+\tswc1\t$f0,36($3)
+\tlwc1\t$f0,40($5)
+\tandi\t$2,$7,2
+\tbeqz\t$2,.Lflagged_matrix_first_done
+\tswc1\t$f0,40($3)
+\tmove\t$6,$0
+\tmove\t$8,$3
+\tlui\t$1,%hi(D_80000670)
+\tldc1\t$f2,%lo(D_80000670)($1)
+\tmove\t$3,$0
+.Lflagged_matrix_first_outer:
+\tsll\t$4,$6,4
+.Lflagged_matrix_first_inner:
+\taddu\t$2,$4,$8
+\tlwc1\t$f0,0($2)
+\tcvt.d.s\t$f0,$f0
+\tmul.d\t$f0,$f0,$f2
+\taddiu\t$3,$3,1
+\tcvt.s.d\t$f0,$f0
+\tswc1\t$f0,0($2)
+\tslti\t$2,$3,3
+\tbnez\t$2,.Lflagged_matrix_first_inner
+\taddiu\t$4,$4,4
+\taddiu\t$6,$6,1
+\tslti\t$2,$6,3
+\tbnez\t$2,.Lflagged_matrix_first_outer
+\tmove\t$3,$0
+.Lflagged_matrix_first_done:
+\tandi\t$2,$7,4
+\tbeqz\t$2,.Lflagged_matrix_second_done
+\tmove\t$6,$0
+\tlui\t$2,%hi(D_80068B80)
+\taddiu\t$7,$2,%lo(D_80068B80)
+\tlui\t$1,%hi(D_80000678)
+\tldc1\t$f2,%lo(D_80000678)($1)
+\tmove\t$3,$0
+.Lflagged_matrix_second_outer:
+\tsll\t$4,$6,4
+.Lflagged_matrix_second_inner:
+\taddu\t$2,$4,$7
+\tlwc1\t$f0,0($2)
+\tcvt.d.s\t$f0,$f0
+\tmul.d\t$f0,$f0,$f2
+\taddiu\t$3,$3,1
+\tcvt.s.d\t$f0,$f0
+\tswc1\t$f0,0($2)
+\tslti\t$2,$3,3
+\tbnez\t$2,.Lflagged_matrix_second_inner
+\taddiu\t$4,$4,4
+\taddiu\t$6,$6,1
+\tslti\t$2,$6,3
+\tbnez\t$2,.Lflagged_matrix_second_outer
+\tmove\t$3,$0
+.Lflagged_matrix_second_done:
+\tlui\t$4,%hi(D_80068B80)
+\tmtc1\t$0,$f0
+\tlui\t$1,%hi(D_80000680)
+\tlwc1\t$f2,%lo(D_80000680)($1)
+\taddiu\t$4,$4,%lo(D_80068B80)
+\tswc1\t$f0,44($4)
+\tswc1\t$f0,28($4)
+\tswc1\t$f0,12($4)
+\tswc1\t$f2,60($4)
+\tlwc1\t$f0,64($5)
+\tswc1\t$f0,48($4)
+\tlwc1\t$f0,68($5)
+\tswc1\t$f0,52($4)
+\tlwc1\t$f0,72($5)
+\tswc1\t$f0,56($4)
+\tlwc1\t$f0,64($5)
+\tlui\t$2,%hi(D_8005A52C)
+\tswc1\t$f0,%lo(D_8005A52C)($2)
+\tlwc1\t$f0,68($5)
+\tlui\t$2,%hi(D_8005A530)
+\tswc1\t$f0,%lo(D_8005A530)($2)
+\tlui\t$2,%hi(D_8005A534)
+\tlwc1\t$f0,72($5)
+\tmove\t$5,$17
+\tjal\tfunc_8002EAC0
+\tswc1\t$f0,%lo(D_8005A534)($2)
+\tlui\t$4,0xda38
+\tlw\t$2,0($16)
+\tori\t$4,$4,3
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($16)
+\tsw\t$4,0($3)
+\tsw\t$17,4($3)
+\tlw\t$31,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_scaled_model_matrix_build(lines: list[str]) -> list[str]:
     function_name = "func_8000D5D4"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -11063,6 +11201,431 @@ def schedule_bitmap_render_object_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_resource_record_removal(lines: list[str]) -> list[str]:
+    function_name = "func_800086A0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one indexed resource-record remover")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800AA658", "D_800479C8", "D_800456C0", "D_80049A28",
+                  "D_800F2758"):
+        if token not in body:
+            raise ValueError(f"unexpected indexed resource-record remover near {token!r}")
+    assembly = """\
+\t.frame\t$sp,56,$31
+\t.mask\t0x81ff0000,-4
+\t.set\tnoreorder
+\tlui\t$2,%hi(D_800479C8)
+\tlw\t$2,%lo(D_800479C8)($2)
+\taddiu\t$sp,$sp,-56
+\tsw\t$17,20($sp)
+\tmove\t$17,$0
+\tsw\t$31,52($sp)
+\tsw\t$30,48($sp)
+\tsw\t$23,44($sp)
+\tsw\t$22,40($sp)
+\tsw\t$21,36($sp)
+\tsw\t$20,32($sp)
+\tsw\t$19,28($sp)
+\tsw\t$18,24($sp)
+\tbeqz\t$2,.Lindexed_remove_done
+\tsw\t$16,16($sp)
+\tli\t$20,65535
+\tlui\t$2,%hi(D_80049A28)
+\taddiu\t$30,$2,%lo(D_80049A28)
+\tli\t$23,65534
+\tlui\t$22,%hi(D_800F2758)
+\tmove\t$5,$17
+\tlui\t$2,%hi(D_800456C0)
+\taddiu\t$21,$2,%lo(D_800456C0)
+\tmove\t$3,$21
+.Lindexed_remove_scan:
+\tlw\t$2,0($3)
+\tbnel\t$2,$4,.Lindexed_remove_next
+\taddiu\t$5,$5,132
+\tlhu\t$3,4($3)
+\tbeq\t$3,$20,.Lindexed_remove_shift_test
+\tlui\t$2,%hi(D_80049B00)
+\taddiu\t$19,$2,%lo(D_80049B00)
+\tlui\t$2,%hi(D_800456C0)
+\taddiu\t$18,$2,%lo(D_800456C0)
+\taddiu\t$16,$5,2
+.Lindexed_remove_resources:
+\tsll\t$2,$3,3
+\tsubu\t$2,$2,$3
+\tsll\t$5,$2,5
+\taddu\t$3,$5,$30
+\tlhu\t$2,8($3)
+\taddiu\t$2,$2,-1
+\tsh\t$2,8($3)
+\tandi\t$2,$2,0xffff
+\tbnez\t$2,.Lindexed_remove_resource_next
+\taddu\t$2,$16,$18
+\tlw\t$2,216($3)
+\tsw\t$23,0($3)
+\tbeqz\t$2,.Lindexed_remove_release_next
+\tsw\t$0,4($3)
+\taddiu\t$4,$22,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddu\t$5,$5,$19
+.Lindexed_remove_release_next:
+\taddu\t$2,$16,$18
+.Lindexed_remove_resource_next:
+\tlhu\t$3,4($2)
+\tbne\t$3,$20,.Lindexed_remove_resources
+\taddiu\t$16,$16,2
+.Lindexed_remove_shift_test:
+\tlui\t$3,%hi(D_800479C8)
+\tlw\t$2,%lo(D_800479C8)($3)
+\taddiu\t$2,$2,-1
+\tsltu\t$2,$17,$2
+\tbeqz\t$2,.Lindexed_remove_decrement
+\tmove\t$7,$17
+\tmove\t$8,$3
+\tsll\t$2,$17,5
+\taddu\t$2,$2,$17
+\tsll\t$2,$2,2
+\taddiu\t$6,$2,132
+\taddu\t$5,$2,$21
+.Lindexed_remove_shift:
+\tmove\t$4,$5
+\taddu\t$3,$6,$21
+\taddiu\t$2,$3,128
+.Lindexed_remove_copy:
+\tlw\t$9,0($3)
+\tlw\t$10,4($3)
+\tlw\t$11,8($3)
+\tlw\t$12,12($3)
+\tsw\t$9,0($4)
+\tsw\t$10,4($4)
+\tsw\t$11,8($4)
+\tsw\t$12,12($4)
+\taddiu\t$3,$3,16
+\tbne\t$3,$2,.Lindexed_remove_copy
+\taddiu\t$4,$4,16
+\taddiu\t$6,$6,132
+\taddiu\t$5,$5,132
+\tlw\t$2,%lo(D_800479C8)($8)
+\taddiu\t$7,$7,1
+\tlw\t$9,0($3)
+\taddiu\t$2,$2,-1
+\tsltu\t$2,$7,$2
+\tbnez\t$2,.Lindexed_remove_shift
+\tsw\t$9,0($4)
+\tlui\t$3,%hi(D_800479C8)
+.Lindexed_remove_decrement:
+\tlw\t$2,%lo(D_800479C8)($3)
+\taddiu\t$2,$2,-1
+\tj\t.Lindexed_remove_done
+\tsw\t$2,%lo(D_800479C8)($3)
+.Lindexed_remove_next:
+\tlui\t$2,%hi(D_800479C8)
+\tlw\t$2,%lo(D_800479C8)($2)
+\taddiu\t$17,$17,1
+\tsltu\t$2,$17,$2
+\tbnez\t$2,.Lindexed_remove_scan
+\taddiu\t$3,$3,132
+.Lindexed_remove_done:
+\tlw\t$31,52($sp)
+\tlw\t$30,48($sp)
+\tlw\t$23,44($sp)
+\tlw\t$22,40($sp)
+\tlw\t$21,36($sp)
+\tlw\t$20,32($sp)
+\tlw\t$19,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_grouped_byte_sequence_filter(lines: list[str]) -> list[str]:
+    function_name = "func_8000A994"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one grouped byte-sequence filter")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("32(", "24(", "lbu", "sb"):
+        if token not in body:
+            raise ValueError(f"unexpected grouped byte-sequence filter near {token!r}")
+    assembly = """\
+\t.frame\t$sp,8,$31
+\t.mask\t0x00030000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-8
+\tsw\t$17,4($sp)
+\tmove\t$17,$4
+\tsw\t$16,0($sp)
+\tmove\t$16,$5
+\tli\t$5,1
+\tmove\t$24,$0
+.Lgrouped_filter_pass_test:
+\tslti\t$2,$24,2
+\tbeqz\t$2,.Lgrouped_filter_return
+\tnop
+\tbeqz\t$5,.Lgrouped_filter_return
+\tmove\t$4,$0
+\tmove\t$25,$4
+.Lgrouped_filter_group:
+\tlhu\t$2,0($17)
+\tslt\t$2,$4,$2
+\tbeql\t$2,$0,.Lgrouped_filter_pass_test
+\taddiu\t$24,$24,1
+\tlw\t$2,32($17)
+\taddu\t$11,$2,$25
+\tlw\t$6,8($11)
+\tbeqz\t$6,.Lgrouped_filter_next_group
+\tmove\t$13,$0
+.Lgrouped_filter_path:
+\tlw\t$2,16($11)
+\tsll\t$3,$13,1
+\taddu\t$3,$3,$2
+\taddiu\t$2,$6,-1
+\tsltu\t$2,$13,$2
+\tlhu\t$6,0($3)
+\tbeqz\t$2,.Lgrouped_filter_final_end
+\tmove\t$12,$6
+\tlhu\t$14,2($3)
+\tj\t.Lgrouped_filter_have_end
+\tnop
+.Lgrouped_filter_final_end:
+\tlw\t$14,0($11)
+.Lgrouped_filter_have_end:
+\tlw\t$2,4($11)
+\tsll\t$6,$12,5
+\taddu\t$3,$2,$6
+\tsltu\t$2,$12,$14
+\tbeqz\t$2,.Lgrouped_filter_next_path
+\tnop
+\taddiu\t$10,$3,4
+\tmove\t$9,$6
+.Lgrouped_filter_sequence:
+\tbnez\t$24,.Lgrouped_filter_mutate
+\tnop
+\tlw\t$2,0($10)
+\tlbu\t$3,0($2)
+\tlh\t$2,24($16)
+\tslt\t$3,$3,$2
+\tbnel\t$3,$0,.Lgrouped_filter_next_sequence_index
+\taddiu\t$9,$9,32
+\tj\t.Lgrouped_filter_next_path
+\tmove\t$5,$0
+.Lgrouped_filter_mutate:
+\tlw\t$8,4($11)
+\taddu\t$2,$9,$8
+\tlw\t$2,0($2)
+\tbeqz\t$2,.Lgrouped_filter_next_sequence
+\tmove\t$7,$0
+\tmove\t$15,$9
+.Lgrouped_filter_value:
+\tlw\t$2,0($10)
+\taddu\t$2,$2,$7
+\tlbu\t$3,0($2)
+\tlh\t$2,24($16)
+\tslt\t$3,$3,$2
+\tbnez\t$3,.Lgrouped_filter_value_test
+\taddu\t$2,$9,$8
+\tmove\t$6,$7
+\tlw\t$2,0($2)
+\tsltu\t$2,$7,$2
+\tbeqz\t$2,.Lgrouped_filter_remove
+\tmove\t$8,$9
+.Lgrouped_filter_shift:
+\tlw\t$2,0($10)
+\taddu\t$2,$2,$6
+\tlbu\t$3,1($2)
+\tsb\t$3,0($2)
+\tlw\t$2,4($11)
+\taddu\t$2,$8,$2
+\tlw\t$2,0($2)
+\taddiu\t$6,$6,1
+\tsltu\t$2,$6,$2
+\tbnez\t$2,.Lgrouped_filter_shift
+\tnop
+.Lgrouped_filter_remove:
+\tlw\t$3,4($11)
+\taddu\t$3,$15,$3
+\tlw\t$2,0($3)
+\taddiu\t$7,$7,-1
+\taddiu\t$2,$2,-1
+\tsw\t$2,0($3)
+.Lgrouped_filter_value_test:
+\tlw\t$8,4($11)
+\tsll\t$2,$12,5
+\taddu\t$2,$2,$8
+\tlw\t$2,0($2)
+\taddiu\t$7,$7,1
+\tsltu\t$2,$7,$2
+\tbnez\t$2,.Lgrouped_filter_value
+\tnop
+.Lgrouped_filter_next_sequence:
+\taddiu\t$9,$9,32
+.Lgrouped_filter_next_sequence_index:
+\taddiu\t$12,$12,1
+\tsltu\t$2,$12,$14
+\tbnez\t$2,.Lgrouped_filter_sequence
+\taddiu\t$10,$10,32
+.Lgrouped_filter_next_path:
+\tlw\t$6,8($11)
+\taddiu\t$13,$13,1
+\tsltu\t$2,$13,$6
+\tbnez\t$2,.Lgrouped_filter_path
+\tnop
+.Lgrouped_filter_next_group:
+\taddiu\t$25,$25,24
+\tj\t.Lgrouped_filter_group
+\taddiu\t$4,$4,1
+.Lgrouped_filter_return:
+\tlw\t$17,4($sp)
+\tlw\t$16,0($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,8
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_named_record_data_load(lines: list[str]) -> list[str]:
+    function_name = "func_800056C0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one named record data loader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8000566C", "func_80037890", "func_80005610", "func_80005428",
+                  "func_8000551C", "func_800054B8", "func_800050BC", "func_800AA804",
+                  "func_80004F1C", "func_800055D0", "D_80043714"):
+        if token not in body:
+            raise ValueError(f"unexpected named record data loader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,312,$31
+\t.mask\t0x807f0000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-312
+\tsw\t$16,280($sp)
+\tmove\t$16,$4
+\tsw\t$19,292($sp)
+\tmove\t$19,$5
+\tsw\t$22,304($sp)
+\tmove\t$22,$6
+\tsw\t$17,284($sp)
+\taddiu\t$17,$sp,272
+\tmove\t$4,$17
+\tsw\t$20,296($sp)
+\tlui\t$20,%hi(D_80043714)
+\tsw\t$21,300($sp)
+\tli\t$21,1
+\tsw\t$31,308($sp)
+\tsw\t$18,288($sp)
+\tjal\tfunc_8000566C
+\tsw\t$21,%lo(D_80043714)($20)
+\taddiu\t$4,$sp,16
+\tjal\tfunc_80037890
+\tmove\t$5,$16
+\tmove\t$4,$17
+\taddiu\t$5,$sp,16
+\tjal\tfunc_80005610
+\tli\t$6,16
+\tmove\t$5,$2
+\t.word\t0x04a00038
+\tsw\t$2,276($sp)
+\tlw\t$2,0($19)
+\t.word\t0x1440002a
+\tnop
+\tjal\tfunc_80005428
+\tmove\t$4,$17
+\tbne\t$2,$21,.Lnamed_data_copy_record
+\tnop
+\tlw\t$5,276($sp)
+\tjal\tfunc_8000551C
+\tmove\t$4,$17
+\tj\t.Lnamed_data_size_ready
+\tmove\t$18,$2
+.Lnamed_data_copy_record:
+\tlw\t$5,276($sp)
+\tjal\tfunc_800054B8
+\tmove\t$4,$17
+\tmove\t$18,$2
+.Lnamed_data_size_ready:
+\tlw\t$5,276($sp)
+\taddiu\t$16,$sp,272
+\tjal\tfunc_80005428
+\tmove\t$4,$16
+\tli\t$3,1
+\tbne\t$2,$3,.Lnamed_data_allocate
+\tmove\t$4,$22
+\tmove\t$4,$16
+\tmove\t$6,$19
+\tlw\t$5,276($sp)
+\tlui\t$16,%hi(D_80043714)
+\tjal\tfunc_800050BC
+\tsw\t$0,%lo(D_80043714)($16)
+\tli\t$3,-1
+\tbne\t$2,$3,.Lnamed_data_cleanup
+\taddiu\t$4,$sp,272
+\tsw\t$0,%lo(D_80043714)($16)
+\tj\t.Lnamed_data_return
+\tmove\t$2,$0
+.Lnamed_data_allocate:
+\tmove\t$5,$19
+\tmove\t$6,$18
+\tlui\t$7,%hi(D_80000510)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000510)
+\tbnez\t$2,.Lnamed_data_return
+\tmove\t$2,$0
+\tlui\t$2,%hi(D_80043714)
+\tsw\t$0,%lo(D_80043714)($2)
+\tlw\t$5,276($sp)
+\tlw\t$6,0($19)
+\tjal\tfunc_80004F1C
+\taddiu\t$4,$sp,272
+\tli\t$3,-1
+\tbne\t$2,$3,.Lnamed_data_cleanup
+\taddiu\t$4,$sp,272
+\tlui\t$2,%hi(D_80043714)
+\tsw\t$0,%lo(D_80043714)($2)
+\tj\t.Lnamed_data_return
+\tmove\t$2,$0
+.Lnamed_data_missing:
+\tsw\t$0,%lo(D_80043714)($20)
+.Lnamed_data_return_zero:
+\tj\t.Lnamed_data_return
+\tmove\t$2,$0
+.Lnamed_data_cleanup:
+\tjal\tfunc_800055D0
+\taddiu\t$5,$sp,276
+\tlui\t$2,%hi(D_80043714)
+\tsw\t$0,%lo(D_80043714)($2)
+\tmove\t$2,$18
+.Lnamed_data_return:
+\tlw\t$31,308($sp)
+\tlw\t$22,304($sp)
+\tlw\t$21,300($sp)
+\tlw\t$20,296($sp)
+\tlw\t$19,292($sp)
+\tlw\t$18,288($sp)
+\tlw\t$17,284($sp)
+\tlw\t$16,280($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,312
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -11164,9 +11727,13 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-render-record-release", action="store_true")
     parser.add_argument("--schedule-runtime-render-record-creation", action="store_true")
     parser.add_argument("--schedule-indexed-render-record-update", action="store_true")
+    parser.add_argument("--schedule-indexed-resource-record-removal", action="store_true")
+    parser.add_argument("--schedule-grouped-byte-sequence-filter", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-reset", action="store_true")
     parser.add_argument("--schedule-resource-payload-load", action="store_true")
+    parser.add_argument("--schedule-named-record-data-load", action="store_true")
     parser.add_argument("--schedule-scaled-model-matrix-build", action="store_true")
+    parser.add_argument("--schedule-flagged-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -11312,9 +11879,13 @@ def main() -> None:
             args.schedule_runtime_render_record_release,
             args.schedule_runtime_render_record_creation,
             args.schedule_indexed_render_record_update,
+            args.schedule_indexed_resource_record_removal,
+            args.schedule_grouped_byte_sequence_filter,
             args.schedule_bitmap_render_object_reset,
             args.schedule_resource_payload_load,
+            args.schedule_named_record_data_load,
             args.schedule_scaled_model_matrix_build,
+            args.schedule_flagged_model_matrix_build,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -11556,12 +12127,20 @@ def main() -> None:
         lines = schedule_runtime_render_record_creation(lines)
     if args.schedule_indexed_render_record_update:
         lines = schedule_indexed_render_record_update(lines)
+    if args.schedule_indexed_resource_record_removal:
+        lines = schedule_indexed_resource_record_removal(lines)
+    if args.schedule_grouped_byte_sequence_filter:
+        lines = schedule_grouped_byte_sequence_filter(lines)
     if args.schedule_bitmap_render_object_reset:
         lines = schedule_bitmap_render_object_reset(lines)
     if args.schedule_resource_payload_load:
         lines = schedule_resource_payload_load(lines)
+    if args.schedule_named_record_data_load:
+        lines = schedule_named_record_data_load(lines)
     if args.schedule_scaled_model_matrix_build:
         lines = schedule_scaled_model_matrix_build(lines)
+    if args.schedule_flagged_model_matrix_build:
+        lines = schedule_flagged_model_matrix_build(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
