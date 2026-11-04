@@ -8124,6 +8124,108 @@ def schedule_framebuffer_rebuild(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_slot_entry_release(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80006A18:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80006A18"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one slot-entry release routine")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "lbu\t$6,0($16)", "andi\t$2,$6,0x0040", "and\t$2,$2,$8",
+        "lw\t$2,0($3)", "lw\t$2,0($5)", "lw\t$4,slotEntryState+168",
+        "jal\tfunc_800AA658", "li\t$2,-992",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected slot-entry release near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80030000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$16,16($sp)
+\tmove\t$16,$4
+\tsw\t$31,24($sp)
+\tsw\t$17,20($sp)
+\tlbu\t$3,0($16)
+\tandi\t$2,$3,0x40
+\tbnez\t$2,.Lslot_active
+\tandi\t$2,$3,0xbf
+\tj\t.Lslot_return
+\tli\t$2,-992
+.Lslot_active:
+\tsb\t$2,0($16)
+\tlui\t$2,%hi(slotEntryState)
+\taddiu\t$5,$2,%lo(slotEntryState)
+\tlw\t$2,4($5)
+\taddiu\t$2,$2,-1
+\tsw\t$2,4($5)
+\tlbu\t$3,0($16)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$5
+\tlw\t$2,72($2)
+\tbeqz\t$2,.Lslot_entries_done
+\tmove\t$4,$0
+\tli\t$6,-2
+\tsll\t$2,$3,2
+.Lslot_entry_loop:
+\taddu\t$2,$2,$5
+\tlw\t$2,136($2)
+\tsll\t$3,$4,5
+\taddu\t$3,$3,$2
+\tlw\t$2,0($3)
+\tand\t$2,$2,$6
+\tsw\t$2,0($3)
+\tlbu\t$3,0($16)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$5
+\tlw\t$2,72($2)
+\taddiu\t$4,$4,1
+\tsltu\t$2,$4,$2
+\tbnez\t$2,.Lslot_entry_loop
+\tsll\t$2,$3,2
+.Lslot_entries_done:
+\tlui\t$17,%hi(slotEntryState)
+\tlbu\t$2,0($16)
+\taddiu\t$5,$17,%lo(slotEntryState)
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$5
+\tsw\t$0,72($2)
+\tlbu\t$2,0($16)
+\tsll\t$3,$2,2
+\taddu\t$2,$3,$5
+\tlw\t$2,136($2)
+\tbeqz\t$2,.Lslot_update_first
+\tlui\t$2,%hi(slotEntryState)
+\taddiu\t$5,$5,136
+\tlw\t$4,%lo(slotEntryState+168)($2)
+\tjal\tfunc_800AA658
+\taddu\t$5,$3,$5
+.Lslot_update_first:
+\tlbu\t$4,0($16)
+\tlw\t$2,%lo(slotEntryState)($17)
+\tsltu\t$2,$4,$2
+\tbnel\t$2,$0,.Lslot_success
+\tsw\t$4,%lo(slotEntryState)($17)
+.Lslot_success:
+\tmove\t$2,$0
+.Lslot_return:
+\tlw\t$31,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -8241,6 +8343,7 @@ def main() -> None:
     parser.add_argument("--schedule-music-resource-load", action="store_true")
     parser.add_argument("--schedule-render-surface-fill", action="store_true")
     parser.add_argument("--schedule-framebuffer-rebuild", action="store_true")
+    parser.add_argument("--schedule-slot-entry-release", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -8365,6 +8468,7 @@ def main() -> None:
             args.schedule_music_resource_load,
             args.schedule_render_surface_fill,
             args.schedule_framebuffer_rebuild,
+            args.schedule_slot_entry_release,
         )
     )
     if selected != 1:
@@ -8603,6 +8707,8 @@ def main() -> None:
         lines = schedule_render_surface_fill(lines)
     if args.schedule_framebuffer_rebuild:
         lines = schedule_framebuffer_rebuild(lines)
+    if args.schedule_slot_entry_release:
+        lines = schedule_slot_entry_release(lines)
     args.output.write_text("".join(lines))
 
 
