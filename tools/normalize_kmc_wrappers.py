@@ -199,6 +199,170 @@ def reuse_global_base_after_load(lines: list[str]) -> list[str]:
     return lines
 
 
+def duplicate_nested_flag_returns(lines: list[str]) -> list[str]:
+    starts = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "lw\t$4,0($4)"
+    ]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one nested-object load; found {len(starts)}")
+    start = starts[0]
+    ends = [
+        index
+        for index in range(start + 1, len(lines))
+        if lines[index].lstrip().startswith(".end\t")
+    ]
+    if len(ends) != 1:
+        raise ValueError(f"expected exactly one function end; found {len(ends)}")
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith(".set")
+        and line.strip() != "#nop"
+    ]
+    if len(body) != 12 or not re.fullmatch(r"beq\t\$4,\$0,\.L[0-9]+", body[1]):
+        raise ValueError(f"unexpected nested-flag body: {body!r}")
+    fail = body[1].rsplit(",", 1)[1]
+    expected = [
+        "lw\t$4,0($4)",
+        f"beq\t$4,$0,{fail}",
+        "ori\t$5,$5,0x0008",
+        "lw\t$3,20($4)",
+        "move\t$2,$0",
+        "or\t$3,$3,$5",
+        "j\t.L3",
+        "sw\t$3,20($4)",
+        f"{fail}:",
+        "move\t$2,$0",
+        ".L3:",
+        "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected nested-flag body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlw\t$4,0($4)\n",
+        f"\tbeq\t$4,$0,{fail}\n",
+        "\tori\t$5,$5,0x0008\n",
+        "\tlw\t$3,20($4)\n",
+        "\tmove\t$2,$0\n",
+        "\tor\t$3,$3,$5\n",
+        "\tj\t$31\n",
+        "\tsw\t$3,20($4)\n",
+        f"{fail}:\n",
+        "\tj\t$31\n",
+        "\tmove\t$2,$0\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
+def _function_body(lines: list[str], start: int) -> tuple[int, list[str]]:
+    ends = [
+        index
+        for index in range(start + 1, len(lines))
+        if lines[index].lstrip().startswith(".end\t")
+    ]
+    if len(ends) != 1:
+        raise ValueError(f"expected exactly one function end; found {len(ends)}")
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith(".set")
+        and line.strip() != "#nop"
+    ]
+    return end, body
+
+
+def schedule_nested_float_pair(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one nested-object load; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if len(body) != 9 or not re.fullmatch(r"beq\t\$4,\$0,\.L[0-9]+", body[3]):
+        raise ValueError(f"unexpected nested float-pair body: {body!r}")
+    target = body[3].rsplit(",", 1)[1]
+    first_store = re.fullmatch(r"s\.s\t\$f0,([0-9]+)\(\$4\)", body[5])
+    if not first_store:
+        raise ValueError(f"unexpected first float store: {body[5]!r}")
+    offset = int(first_store.group(1))
+    expected = [
+        "lw\t$4,0($4)", "mtc1\t$5,$f0", "mtc1\t$6,$f2",
+        f"beq\t$4,$0,{target}", "move\t$2,$0",
+        f"s.s\t$f0,{offset}($4)", f"s.s\t$f2,{offset + 4}($4)",
+        f"{target}:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected nested float-pair body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tmtc1\t$5,$f0\n",
+        "\tlw\t$4,0($4)\n",
+        "\tmtc1\t$6,$f2\n",
+        f"\tbeq\t$4,$0,{target}\n",
+        "\tmove\t$2,$0\n",
+        f"\ts.s\t$f0,{offset}($4)\n",
+        "\tj\t$31\n",
+        f"\ts.s\t$f2,{offset + 4}($4)\n",
+        f"{target}:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
+def schedule_nested_float_quad(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one nested-object load; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if len(body) != 13 or not re.fullmatch(r"beq\t\$4,\$0,\.L[0-9]+", body[5]):
+        raise ValueError(f"unexpected nested float-quad body: {body!r}")
+    target = body[5].rsplit(",", 1)[1]
+    first_store = re.fullmatch(r"s\.s\t\$f0,([0-9]+)\(\$4\)", body[7])
+    if not first_store:
+        raise ValueError(f"unexpected first float store: {body[7]!r}")
+    offset = int(first_store.group(1))
+    expected = [
+        "lw\t$4,0($4)", "l.s\t$f6,16($sp)", "mtc1\t$5,$f0",
+        "mtc1\t$6,$f2", "mtc1\t$7,$f4", f"beq\t$4,$0,{target}",
+        "move\t$2,$0", f"s.s\t$f0,{offset}($4)",
+        f"s.s\t$f2,{offset + 4}($4)", f"s.s\t$f4,{offset + 8}($4)",
+        f"s.s\t$f6,{offset + 12}($4)", f"{target}:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected nested float-quad body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tmtc1\t$5,$f0\n",
+        "\tmtc1\t$6,$f2\n",
+        "\tlw\t$4,0($4)\n",
+        "\tmtc1\t$7,$f4\n",
+        f"\tbeq\t$4,$0,{target}\n",
+        "\tmove\t$2,$0\n",
+        f"\ts.s\t$f0,{offset}($4)\n",
+        f"\ts.s\t$f2,{offset + 4}($4)\n",
+        f"\ts.s\t$f4,{offset + 8}($4)\n",
+        "\tl.s\t$f0,16($sp)\n",
+        "\tj\t$31\n",
+        f"\ts.s\t$f0,{offset + 12}($4)\n",
+        f"{target}:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -209,6 +373,9 @@ def main() -> None:
     parser.add_argument("--schedule-status-result-returns", action="store_true")
     parser.add_argument("--load-global-halfword-through-v0", action="store_true")
     parser.add_argument("--reuse-global-base-after-load", action="store_true")
+    parser.add_argument("--duplicate-nested-flag-returns", action="store_true")
+    parser.add_argument("--schedule-nested-float-pair", action="store_true")
+    parser.add_argument("--schedule-nested-float-quad", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -220,6 +387,9 @@ def main() -> None:
             args.schedule_status_result_returns,
             args.load_global_halfword_through_v0,
             args.reuse_global_base_after_load,
+            args.duplicate_nested_flag_returns,
+            args.schedule_nested_float_pair,
+            args.schedule_nested_float_quad,
         )
     )
     if selected != 1:
@@ -236,6 +406,12 @@ def main() -> None:
         lines = load_global_halfword_through_v0(lines)
     if args.reuse_global_base_after_load:
         lines = reuse_global_base_after_load(lines)
+    if args.duplicate_nested_flag_returns:
+        lines = duplicate_nested_flag_returns(lines)
+    if args.schedule_nested_float_pair:
+        lines = schedule_nested_float_pair(lines)
+    if args.schedule_nested_float_quad:
+        lines = schedule_nested_float_quad(lines)
     args.output.write_text("".join(lines))
 
 
