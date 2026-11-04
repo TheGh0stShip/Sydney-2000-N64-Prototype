@@ -6234,6 +6234,125 @@ def schedule_indexed_pixel_decode(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_controller_input_read(lines: list[str]) -> list[str]:
+    function_name = "func_80008224"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one controller-input reader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002E2B0", "func_80032BB0", "func_8002E338", "func_80035200",
+                  "func_8000802C", "D_80044614", "D_8004462C", "D_80044644",
+                  "D_80044664", "D_80044820", "D_80068910"):
+        if token not in body:
+            raise ValueError(f"unexpected controller-input reader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,56,$31
+\t.mask\t0xc0ff0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-56
+\tsw\t$16,16($sp)
+\tlui\t$16,%hi(D_80044804)
+\taddiu\t$16,$16,%lo(D_80044804)
+\tmove\t$4,$16
+\tsw\t$31,52($sp)
+\tsw\t$30,48($sp)
+\tsw\t$23,44($sp)
+\tsw\t$22,40($sp)
+\tsw\t$21,36($sp)
+\tsw\t$20,32($sp)
+\tsw\t$19,28($sp)
+\tsw\t$18,24($sp)
+\tjal\tfunc_8002E2B0
+\tsw\t$17,20($sp)
+\tmove\t$4,$16
+\tmove\t$5,$0
+\tjal\tfunc_80032BB0
+\tli\t$6,1
+\tlui\t$16,%hi(D_80044614)
+\taddiu\t$16,$16,%lo(D_80044614)
+\tjal\tfunc_8002E338
+\tmove\t$4,$16
+\tmove\t$22,$0
+\tli\t$23,4
+\tlui\t$2,%hi(D_80044604)
+\taddiu\t$30,$2,%lo(D_80044604)
+\tlui\t$2,%hi(D_80068910)
+\taddiu\t$19,$2,%lo(D_80068910)
+\tlui\t$2,%hi(D_8004462C)
+\taddiu\t$21,$2,%lo(D_8004462C)
+\tmove\t$18,$16
+\tlui\t$2,%hi(D_80044644)
+\taddiu\t$20,$2,%lo(D_80044644)
+\tlui\t$2,%hi(D_80044664)
+\taddiu\t$17,$2,%lo(D_80044664)
+\tlui\t$2,%hi(D_80044820)
+\taddiu\t$16,$2,%lo(D_80044820)
+.Lcontroller_loop:
+\tlw\t$2,4($16)
+\tbeqzl\t$2,.Lcontroller_store_pointer
+\tsw\t$18,0($20)
+\tlw\t$2,8($16)
+\tblez\t$2,.Lcontroller_pointer_common
+\tmove\t$4,$17
+\tjal\tfunc_80035200
+\tli\t$5,1
+\tbne\t$2,$23,.Lcontroller_decrement
+\tnop
+\tjal\tfunc_8000802C
+\tli\t$4,4
+.Lcontroller_decrement:
+\tlw\t$2,8($16)
+\taddiu\t$2,$2,-1
+\tbgtz\t$2,.Lcontroller_pointer_common
+\tsw\t$2,8($16)
+\tmove\t$4,$17
+\tjal\tfunc_80035200
+\tmove\t$5,$0
+\tbnel\t$2,$23,.Lcontroller_store_pointer
+\tsw\t$18,0($20)
+\tjal\tfunc_8000802C
+\tli\t$4,4
+.Lcontroller_pointer_common:
+\tsw\t$18,0($20)
+.Lcontroller_store_pointer:
+\tlhu\t$4,0($18)
+\taddiu\t$18,$18,6
+\taddiu\t$20,$20,4
+\taddiu\t$17,$17,104
+\taddiu\t$16,$16,12
+\tlhu\t$3,0($19)
+\tlhu\t$2,2($30)
+\taddiu\t$22,$22,1
+\tand\t$2,$2,$3
+\tnor\t$2,$0,$2
+\tand\t$2,$4,$2
+\tsh\t$2,0($21)
+\tsh\t$4,0($19)
+\taddiu\t$19,$19,2
+\tslti\t$2,$22,4
+\tbnez\t$2,.Lcontroller_loop
+\taddiu\t$21,$21,6
+\tlw\t$31,52($sp)
+\tlw\t$30,48($sp)
+\tlw\t$23,44($sp)
+\tlw\t$22,40($sp)
+\tlw\t$21,36($sp)
+\tlw\t$20,32($sp)
+\tlw\t$19,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -9725,6 +9844,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
     parser.add_argument("--schedule-render-resource-release", action="store_true")
     parser.add_argument("--schedule-indexed-pixel-decode", action="store_true")
+    parser.add_argument("--schedule-controller-input-read", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -9862,6 +9982,7 @@ def main() -> None:
             args.schedule_runtime_render_resource,
             args.schedule_render_resource_release,
             args.schedule_indexed_pixel_decode,
+            args.schedule_controller_input_read,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10087,6 +10208,8 @@ def main() -> None:
         lines = schedule_render_resource_release(lines)
     if args.schedule_indexed_pixel_decode:
         lines = schedule_indexed_pixel_decode(lines)
+    if args.schedule_controller_input_read:
+        lines = schedule_controller_input_read(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
