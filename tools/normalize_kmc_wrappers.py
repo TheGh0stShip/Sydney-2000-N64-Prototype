@@ -628,6 +628,50 @@ def interleave_output_call_addresses(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_valid_handle_void(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "move\t$5,$4"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one argument move; found {len(starts)}")
+    start = starts[0]
+    ends = [
+        index
+        for index in range(start + 1, len(lines))
+        if lines[index].strip() == ".set\treorder"
+    ]
+    if not ends:
+        raise ValueError("missing reorder directive after handle branch")
+    end = ends[0] + 1
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith(".set")
+    ]
+    handle = re.fullmatch(r"lw\t\$4,([A-Za-z_][A-Za-z0-9_]*)", body[1]) if len(body) == 6 else None
+    branch = re.fullmatch(r"beq\t\$4,\$2,(\.L[0-9]+)", body[4]) if len(body) == 6 else None
+    expected = [
+        "move\t$5,$4", body[1] if len(body) == 6 else "",
+        "subu\t$sp,$sp,24", "li\t$2,-1",
+        body[4] if len(body) == 6 else "", "sw\t$31,16($sp)",
+    ]
+    if not handle or not branch or body != expected:
+        raise ValueError(f"unexpected valid-handle void prologue: {body!r}")
+    symbol = handle.group(1)
+    target = branch.group(1)
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tsw\t$31,16($sp)\n",
+        "\tmove\t$5,$4\n",
+        f"\tlui\t$4,%hi({symbol})\n",
+        f"\tlw\t$4,%lo({symbol})($4)\n",
+        "\tli\t$2,-1\n",
+        f"\tbeq\t$4,$2,{target}\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -648,6 +692,7 @@ def main() -> None:
     parser.add_argument("--split-aliased-boolean-stores", action="store_true")
     parser.add_argument("--schedule-message-queue-initializer", action="store_true")
     parser.add_argument("--interleave-output-call-addresses", action="store_true")
+    parser.add_argument("--schedule-valid-handle-void", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -669,6 +714,7 @@ def main() -> None:
             args.split_aliased_boolean_stores,
             args.schedule_message_queue_initializer,
             args.interleave_output_call_addresses,
+            args.schedule_valid_handle_void,
         )
     )
     if selected != 1:
@@ -705,6 +751,8 @@ def main() -> None:
         lines = schedule_message_queue_initializer(lines)
     if args.interleave_output_call_addresses:
         lines = interleave_output_call_addresses(lines)
+    if args.schedule_valid_handle_void:
+        lines = schedule_valid_handle_void(lines)
     args.output.write_text("".join(lines))
 
 
