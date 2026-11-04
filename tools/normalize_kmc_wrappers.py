@@ -6479,6 +6479,123 @@ def schedule_display_runtime_update(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_texture_display_list_build(lines: list[str]) -> list[str]:
+    function_name = "func_8001AD18"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one texture display-list builder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end]).lower()
+    for token in ("0xe300", "0xfd10", "0xf500", "0xe600", "0xf000", "0xdf00"):
+        if token not in body:
+            raise ValueError(f"unexpected texture display-list builder near {token!r}")
+    assembly = """\
+\t.frame\t$sp,24,$31
+\t.mask\t0x003f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-24
+\tsw\t$16,0($sp)
+\taddiu\t$16,$4,16
+\tmove\t$11,$0
+\tlui\t$25,0xe300
+\tori\t$25,$25,0x1001
+\tsw\t$21,20($sp)
+\tli\t$21,32768
+\tsw\t$20,16($sp)
+\tlui\t$20,0xfd10
+\tsw\t$19,12($sp)
+\tlui\t$19,0xe800
+\tlui\t$24,0xf500
+\tori\t$24,$24,0x0100
+\tsw\t$18,8($sp)
+\tlui\t$18,0x0700
+\tlui\t$13,0xe600
+\tsw\t$17,4($sp)
+\tlui\t$17,0xf000
+\tlui\t$15,0x0703
+\tori\t$15,$15,0xc000
+\tlui\t$12,0xe700
+\tlui\t$14,0xd700
+\tlw\t$2,0($4)
+\tori\t$14,$14,0x0002
+\taddu\t$8,$4,$2
+\taddiu\t$10,$8,192
+\taddiu\t$9,$8,120
+.Ltexture_list_test:
+\tlw\t$2,0($16)
+\tsltu\t$2,$11,$2
+\tbeqz\t$2,.Ltexture_list_done
+\tlui\t$3,0x0701
+\tori\t$3,$3,0x8060
+\tlui\t$4,0x073f
+\tori\t$4,$4,0xf200
+\tlui\t$6,0xf540
+\tori\t$6,$6,0x0800
+\tlui\t$5,0x0001
+\tori\t$5,$5,0x8060
+\tlui\t$7,0x000f
+\tori\t$7,$7,0xc0fc
+\tli\t$2,-1
+\tsw\t$25,0($8)
+\tsw\t$21,-116($9)
+\tsw\t$20,-112($9)
+\tsw\t$10,12($8)
+\tsw\t$19,-104($9)
+\tsw\t$0,20($8)
+\tsw\t$24,-96($9)
+\tsw\t$18,28($8)
+\tsw\t$13,-88($9)
+\tsw\t$0,36($8)
+\tsw\t$17,-80($9)
+\tsw\t$15,44($8)
+\tsw\t$12,-72($9)
+\tsw\t$0,52($8)
+\tsw\t$14,-64($9)
+\tsw\t$2,60($8)
+\tlui\t$2,0xfd50
+\tsw\t$2,-56($9)
+\taddiu\t$2,$10,32
+\tsw\t$2,68($8)
+\tlui\t$2,0xf550
+\tsw\t$2,-48($9)
+\tlui\t$2,0xf300
+\tsw\t$3,76($8)
+\tsw\t$13,-40($9)
+\tsw\t$0,84($8)
+\tsw\t$2,-32($9)
+\tlui\t$2,0xf200
+\tsw\t$4,92($8)
+\tsw\t$12,-24($9)
+\tsw\t$0,100($8)
+\tsw\t$6,-16($9)
+\tsw\t$5,108($8)
+\tsw\t$2,-8($9)
+\tlui\t$2,0xdf00
+\tsw\t$7,116($8)
+\tsw\t$2,0($9)
+\taddiu\t$9,$9,2272
+\tsw\t$0,124($8)
+\taddiu\t$8,$8,2272
+\taddiu\t$10,$10,2272
+\tj\t.Ltexture_list_test
+\taddiu\t$11,$11,1
+.Ltexture_list_done:
+\tlw\t$21,20($sp)
+\tlw\t$20,16($sp)
+\tlw\t$19,12($sp)
+\tlw\t$18,8($sp)
+\tlw\t$17,4($sp)
+\tlw\t$16,0($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,24
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -9972,6 +10089,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-pixel-decode", action="store_true")
     parser.add_argument("--schedule-controller-input-read", action="store_true")
     parser.add_argument("--schedule-display-runtime-update", action="store_true")
+    parser.add_argument("--schedule-texture-display-list-build", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -10111,6 +10229,7 @@ def main() -> None:
             args.schedule_indexed_pixel_decode,
             args.schedule_controller_input_read,
             args.schedule_display_runtime_update,
+            args.schedule_texture_display_list_build,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10340,6 +10459,8 @@ def main() -> None:
         lines = schedule_controller_input_read(lines)
     if args.schedule_display_runtime_update:
         lines = schedule_display_runtime_update(lines)
+    if args.schedule_texture_display_list_build:
+        lines = schedule_texture_display_list_build(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
