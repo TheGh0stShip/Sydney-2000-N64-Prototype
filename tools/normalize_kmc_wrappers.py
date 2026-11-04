@@ -6596,6 +6596,129 @@ def schedule_texture_display_list_build(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_offset_table_load(lines: list[str]) -> list[str]:
+    function_name = "func_8001DAC0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one audio offset-table loader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8000566C", "func_80005A3C", "func_800AA804", "func_80005610",
+                  "func_8000529C", "func_800055D0", "func_800AA658", "D_8006B800",
+                  "D_80065050", "D_800F271C"):
+        if token not in body:
+            raise ValueError(f"unexpected audio offset-table loader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,64,$31
+\t.mask\t0x801f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-64
+\tsw\t$18,48($sp)
+\taddiu\t$18,$sp,24
+\tmove\t$4,$18
+\tsw\t$31,60($sp)
+\tsw\t$20,56($sp)
+\tsw\t$19,52($sp)
+\tsw\t$17,44($sp)
+\tsw\t$16,40($sp)
+\tjal\tfunc_8000566C
+\tsw\t$0,28($sp)
+\taddiu\t$5,$sp,28
+\tlui\t$2,%hi(commandContext)
+\taddiu\t$16,$2,%lo(commandContext)
+\tmove\t$6,$16
+\tlui\t$3,%hi(D_8006502C)
+\tlui\t$20,%hi(D_800F271C)
+\tlw\t$2,%lo(D_800F271C)($20)
+\taddiu\t$3,$3,%lo(D_8006502C)
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$3
+\tlw\t$4,0($2)
+\tjal\tfunc_80005A3C
+\tli\t$7,1
+\tbnez\t$2,.Laudio_offsets_loaded
+\tmove\t$4,$16
+\tj\t.Laudio_offsets_done
+\tmove\t$2,$0
+.Laudio_offsets_loaded:
+\tlui\t$19,%hi(D_8006B800)
+\taddiu\t$5,$19,%lo(D_8006B800)
+\tlui\t$7,%hi(D_800015B0)
+\tlw\t$2,28($sp)
+\taddiu\t$7,$7,%lo(D_800015B0)
+\tsw\t$0,%lo(D_8006B800)($19)
+\taddiu\t$17,$2,64
+\tlui\t$2,%hi(D_80065050)
+\tlw\t$3,16($17)
+\tlw\t$16,24($17)
+\tsll\t$6,$3,2
+\tjal\tfunc_800AA804
+\tsw\t$3,%lo(D_80065050)($2)
+\tmove\t$4,$18
+\tlui\t$3,%hi(D_80065008)
+\tlw\t$2,%lo(D_800F271C)($20)
+\taddiu\t$3,$3,%lo(D_80065008)
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$3
+\tlw\t$5,0($2)
+\tjal\tfunc_80005610
+\tli\t$6,16
+\tmove\t$4,$18
+\tmove\t$5,$2
+\tjal\tfunc_8000529C
+\tsw\t$5,32($sp)
+\tmove\t$6,$0
+\tlw\t$3,16($17)
+\tblez\t$3,.Laudio_offsets_cleanup
+\tmove\t$7,$2
+\tmove\t$5,$19
+.Laudio_offsets_loop:
+\tsll\t$4,$6,2
+\taddiu\t$6,$6,1
+\tlw\t$2,28($sp)
+\tlw\t$3,%lo(D_8006B800)($5)
+\taddu\t$2,$2,$16
+\tlwl\t$8,0($2)
+\tlwr\t$8,3($2)
+\tlwl\t$9,4($2)
+\tlwr\t$9,7($2)
+\tswl\t$8,16($sp)
+\tswr\t$8,19($sp)
+\tswl\t$9,20($sp)
+\tswr\t$9,23($sp)
+\tlw\t$2,16($sp)
+\taddu\t$4,$4,$3
+\taddu\t$2,$2,$7
+\tsw\t$2,0($4)
+\tlw\t$2,16($17)
+\tslt\t$2,$6,$2
+\tbnez\t$2,.Laudio_offsets_loop
+\taddiu\t$16,$16,8
+.Laudio_offsets_cleanup:
+\taddiu\t$4,$sp,24
+\tjal\tfunc_800055D0
+\taddiu\t$5,$sp,32
+\tlui\t$4,%hi(commandContext)
+\taddiu\t$4,$4,%lo(commandContext)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$sp,28
+.Laudio_offsets_done:
+\tlw\t$31,60($sp)
+\tlw\t$20,56($sp)
+\tlw\t$19,52($sp)
+\tlw\t$18,48($sp)
+\tlw\t$17,44($sp)
+\tlw\t$16,40($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,64
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -10090,6 +10213,7 @@ def main() -> None:
     parser.add_argument("--schedule-controller-input-read", action="store_true")
     parser.add_argument("--schedule-display-runtime-update", action="store_true")
     parser.add_argument("--schedule-texture-display-list-build", action="store_true")
+    parser.add_argument("--schedule-audio-offset-table-load", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -10230,6 +10354,7 @@ def main() -> None:
             args.schedule_controller_input_read,
             args.schedule_display_runtime_update,
             args.schedule_texture_display_list_build,
+            args.schedule_audio_offset_table_load,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10461,6 +10586,8 @@ def main() -> None:
         lines = schedule_display_runtime_update(lines)
     if args.schedule_texture_display_list_build:
         lines = schedule_texture_display_list_build(lines)
+    if args.schedule_audio_offset_table_load:
+        lines = schedule_audio_offset_table_load(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
