@@ -4428,6 +4428,60 @@ def schedule_record_resource_release(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_double_arc_cosine(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800382A0"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one double arc-cosine body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "s.d\t$f20,24($sp)", "mov.d\t$f20,$f12",
+        "li.d\t$f12,1.00000000000000000000e0", "abs.d\t$f2,$f20",
+        "c.lt.d\t$f12,$f2", "bc1f\t.L2", "sw\t$31,16($sp)",
+        "mtc1\t$0,$f0", "mtc1\t$0,$f1", "j\t.L6", ".L2:",
+        "mul.d\t$f0,$f20,$f20", "sub.d\t$f12,$f12,$f0", "sqrt.d\t$f0,$f12",
+        "c.eq.d\t$f0,$f0", "bc1t\t.L3", "jal\tsqrt", ".L3:",
+        "mtc1\t$0,$f2", "mtc1\t$0,$f3", "mov.d\t$f14,$f0",
+        "c.eq.d\t$f14,$f2", "bc1t\t.L4", "jal\tfunc_80038380",
+        "mov.d\t$f12,$f20", "li.d\t$f2,1.57079632679489655800e0", "j\t.L6",
+        "sub.d\t$f0,$f2,$f0", ".L4:", "c.lt.d\t$f2,$f20", "bc1t\t.L6",
+        "mov.d\t$f0,$f2", "li.d\t$f0,3.14159265358979311600e0", ".L6:",
+        "lw\t$31,16($sp)", "l.d\t$f20,24($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected double arc-cosine body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\taddiu\t$sp,$sp,-32\n", "\tsw\t$31,16($sp)\n", "\ts.d\t$f20,24($sp)\n",
+        "\tmov.d\t$f20,$f12\n", "\tabs.d\t$f2,$f20\n",
+        "\tli.d\t$f0,1.00000000000000000000e0\n", "\tc.lt.d\t$f0,$f2\n",
+        "\tnop\n", "\tnop\n", "\tbc1fl\t.Lacos_domain_ok\n",
+        "\tmul.d\t$f2,$f20,$f20\n", "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n",
+        "\tj\t.Lacos_done\n", "\tnop\n", ".Lacos_domain_ok:\n",
+        "\tsub.d\t$f12,$f0,$f2\n", "\tsqrt.d\t$f14,$f12\n",
+        "\tc.eq.d\t$f14,$f14\n", "\tnop\n", "\tbc1t\t.Lacos_sqrt_ok\n", "\tnop\n",
+        "\tjal\tsqrt\n", "\tnop\n", "\tmov.d\t$f14,$f0\n",
+        ".Lacos_sqrt_ok:\n", "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n", "\tnop\n",
+        "\tc.eq.d\t$f14,$f0\n", "\tnop\n", "\tbc1t\t.Lacos_endpoint\n", "\tnop\n",
+        "\tjal\tfunc_80038380\n", "\tmov.d\t$f12,$f20\n",
+        "\tli.d\t$f2,1.57079632679489655800e0\n", "\tj\t.Lacos_done\n",
+        "\tsub.d\t$f0,$f2,$f0\n", ".Lacos_endpoint:\n",
+        "\tc.lt.d\t$f0,$f20\n", "\tnop\n", "\tbc1t\t.Lacos_done\n", "\tnop\n",
+        "\tli.d\t$f0,3.14159265358979311600e0\n", ".Lacos_done:\n",
+        "\tlw\t$31,16($sp)\n", "\tl.d\t$f20,24($sp)\n", "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,32\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4505,6 +4559,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-record-volume-initialization", action="store_true")
     parser.add_argument("--schedule-object-resource-cleanup", action="store_true")
     parser.add_argument("--schedule-record-resource-release", action="store_true")
+    parser.add_argument("--schedule-double-arc-cosine", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4583,6 +4638,7 @@ def main() -> None:
             args.schedule_audio_record_volume_initialization,
             args.schedule_object_resource_cleanup,
             args.schedule_record_resource_release,
+            args.schedule_double_arc_cosine,
         )
     )
     if selected != 1:
@@ -4733,6 +4789,8 @@ def main() -> None:
         lines = schedule_object_resource_cleanup(lines)
     if args.schedule_record_resource_release:
         lines = schedule_record_resource_release(lines)
+    if args.schedule_double_arc_cosine:
+        lines = schedule_double_arc_cosine(lines)
     args.output.write_text("".join(lines))
 
 
