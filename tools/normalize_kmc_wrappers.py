@@ -1657,6 +1657,86 @@ def schedule_zeroed_grid_allocation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_controller_motor_message_drain(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80017888"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one controller-motor message-drain body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$31,24($sp)", "jal\tfunc_8002E280",
+        "sw\t$0,16($sp)", ".L7:", "lw\t$2,controllerMotorState",
+        "beq\t$2,$0,.L3", "addu\t$5,$sp,16", "la\t$4,controllerMotorQueue",
+        "jal\tfunc_80032BB0", "move\t$6,$0", "bne\t$2,$0,.L7",
+        "lw\t$2,16($sp)", "lh\t$2,0($2)", "xori\t$3,$2,0x0001",
+        "sltu\t$3,$0,$3", "xori\t$2,$2,0x0002", "sltu\t$2,$2,1",
+        "and\t$3,$3,$2", "beq\t$3,$0,.L7", "lw\t$2,controllerMotorState",
+        "addu\t$2,$2,-1", "sw\t$2,controllerMotorState", "j\t.L7",
+        ".L3:", "jal\tfunc_8002E280", "lw\t$31,24($sp)",
+        "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected controller-motor message-drain body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,48\n",
+        "\tsw\t$31,40($sp)\n",
+        "\tsw\t$19,36($sp)\n",
+        "\tsw\t$18,32($sp)\n",
+        "\tsw\t$17,28($sp)\n",
+        "\tsw\t$16,24($sp)\n",
+        "\tjal\tfunc_8002E280\n",
+        "\tsw\t$0,16($sp)\n",
+        "\tlui\t$3,0x8006\n",
+        "\tlw\t$2,25044($3)\n",
+        "\tbeq\t$2,$0,.L3\n",
+        "\tlui\t$19,0x8004\n",
+        "\tli\t$18,1\n",
+        "\tli\t$17,2\n",
+        "\tmove\t$16,$3\n",
+        "\taddiu\t$4,$19,-27912\n",
+        ".L7:\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tjal\tfunc_80032BB0\n",
+        "\tmove\t$6,$0\n",
+        "\tbne\t$2,$0,.L6\n",
+        "\tnop\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tlh\t$2,0($2)\n",
+        "\tbeq\t$2,$18,.L6\n",
+        "\tnop\n",
+        "\tbne\t$2,$17,.L6\n",
+        "\tnop\n",
+        "\tlw\t$2,25044($16)\n",
+        "\taddiu\t$2,$2,-1\n",
+        "\tsw\t$2,25044($16)\n",
+        ".L6:\n",
+        "\tlw\t$2,25044($16)\n",
+        "\tbne\t$2,$0,.L7\n",
+        "\taddiu\t$4,$19,-27912\n",
+        ".L3:\n",
+        "\tjal\tfunc_8002E280\n",
+        "\tnop\n",
+        "\tlw\t$31,40($sp)\n",
+        "\tlw\t$19,36($sp)\n",
+        "\tlw\t$18,32($sp)\n",
+        "\tlw\t$17,28($sp)\n",
+        "\tlw\t$16,24($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3634,6 +3714,7 @@ def main() -> None:
     parser.add_argument("--schedule-formatted-command-dispatch", action="store_true")
     parser.add_argument("--schedule-shutdown-sequence", action="store_true")
     parser.add_argument("--schedule-zeroed-grid-allocation", action="store_true")
+    parser.add_argument("--schedule-controller-motor-message-drain", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3702,6 +3783,7 @@ def main() -> None:
             args.schedule_formatted_command_dispatch,
             args.schedule_shutdown_sequence,
             args.schedule_zeroed_grid_allocation,
+            args.schedule_controller_motor_message_drain,
         )
     )
     if selected != 1:
@@ -3832,6 +3914,8 @@ def main() -> None:
         lines = schedule_shutdown_sequence(lines)
     if args.schedule_zeroed_grid_allocation:
         lines = schedule_zeroed_grid_allocation(lines)
+    if args.schedule_controller_motor_message_drain:
+        lines = schedule_controller_motor_message_drain(lines)
     args.output.write_text("".join(lines))
 
 

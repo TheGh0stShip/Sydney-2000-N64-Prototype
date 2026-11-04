@@ -810,5 +810,6 @@ commandContext = 0x800F2758; // type:object
 commandFormat = 0x80000720; // type:object
 shutdownActive = 0x8004372C; // type:u32
 controllerMotorState = 0x800661D4; // type:u32
+controllerMotorQueue = 0x800392F8; // type:u8
 controllerRecords = 0x800445F0; // type:object
 memoryHandle = 0x80068460; // type:s32
