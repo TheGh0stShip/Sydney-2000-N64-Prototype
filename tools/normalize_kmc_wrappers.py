@@ -1909,6 +1909,43 @@ def schedule_indexed_record_copy(lines: list[str]) -> list[str]:
     return lines
 
 
+def truncate_nonreturning_thread(lines: list[str]) -> list[str]:
+    """Remove the compiler's unreachable epilogue after the permanent worker loop."""
+    labels = [index for index, line in enumerate(lines) if line.strip() == ".L4:"]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8000498C"
+    ]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError(
+            "expected one nonreturning worker tail; "
+            f"found {(len(labels), len(ends))}"
+        )
+    start = labels[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        ".L4:", "j\t.L4", "lw\t$31,32($sp)", "lw\t$17,28($sp)",
+        "lw\t$16,24($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected nonreturning worker tail: {body!r}")
+
+    lines[start:end] = [
+        ".L4:\n",
+        "\t.set\tnoreorder\n",
+        "\tj\t.L4\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1951,6 +1988,7 @@ def main() -> None:
     parser.add_argument("--schedule-stream-consumption", action="store_true")
     parser.add_argument("--schedule-work-buffer-call", action="store_true")
     parser.add_argument("--schedule-indexed-record-copy", action="store_true")
+    parser.add_argument("--truncate-nonreturning-thread", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1994,6 +2032,7 @@ def main() -> None:
             args.schedule_stream_consumption,
             args.schedule_work_buffer_call,
             args.schedule_indexed_record_copy,
+            args.truncate_nonreturning_thread,
         )
     )
     if selected != 1:
@@ -2074,6 +2113,8 @@ def main() -> None:
         lines = schedule_work_buffer_call(lines)
     if args.schedule_indexed_record_copy:
         lines = schedule_indexed_record_copy(lines)
+    if args.truncate_nonreturning_thread:
+        lines = truncate_nonreturning_thread(lines)
     args.output.write_text("".join(lines))
 
 
