@@ -4777,6 +4777,59 @@ def schedule_heap_block_allocation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_object_record_initialization(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "move\t$5,$4"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80017B50"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one indexed-object initializer body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "move\t$5,$4", "lw\t$3,0($5)", "subu\t$sp,$sp,24",
+        "sw\t$31,20($sp)", "sltu\t$2,$3,3", "beq\t$2,$0,.L2",
+        "sw\t$16,16($sp)", "sll\t$16,$3,5", "addu\t$16,$16,$3",
+        "sll\t$16,$16,2", "la\t$2,objectRecords", "addu\t$16,$16,$2",
+        "addu\t$4,$16,4", "jal\tfunc_800B3870", "li\t$6,0x00000020",
+        "move\t$2,$0", "li\t$3,0x00000001", "sw\t$3,0($16)",
+        "li\t$3,0x000000ff", "sw\t$0,112($16)", "sw\t$0,116($16)",
+        "j\t.L3", "sw\t$3,128($16)", ".L2:", "li\t$2,-998", ".L3:",
+        "lw\t$31,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected indexed-object initializer body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-32\n", "\tsw\t$17,20($sp)\n",
+        "\tmove\t$17,$4\n", "\tsw\t$31,24($sp)\n", "\tsw\t$16,16($sp)\n",
+        "\tlw\t$3,0($17)\n", "\tsltiu\t$2,$3,3\n",
+        "\tbeq\t$2,$0,.Lindexed_object_invalid\n", "\tsll\t$4,$3,5\n",
+        "\taddu\t$4,$4,$3\n", "\tsll\t$4,$4,2\n",
+        "\tlui\t$16,%hi(objectRecords+4)\n",
+        "\taddiu\t$16,$16,%lo(objectRecords+4)\n", "\taddu\t$4,$4,$16\n",
+        "\tmove\t$5,$17\n", "\tjal\tfunc_800B3870\n", "\tli\t$6,32\n",
+        "\tlw\t$3,0($17)\n", "\taddiu\t$16,$16,-4\n", "\tsll\t$2,$3,5\n",
+        "\taddu\t$2,$2,$3\n", "\tsll\t$2,$2,2\n", "\taddu\t$2,$2,$16\n",
+        "\tli\t$3,1\n", "\tsw\t$3,0($2)\n", "\tlw\t$3,0($17)\n",
+        "\tsll\t$2,$3,5\n", "\taddu\t$2,$2,$3\n", "\tsll\t$2,$2,2\n",
+        "\taddu\t$2,$2,$16\n", "\tsw\t$0,112($2)\n", "\tlw\t$3,0($17)\n",
+        "\tsll\t$2,$3,5\n", "\taddu\t$2,$2,$3\n", "\tsll\t$2,$2,2\n",
+        "\taddu\t$2,$2,$16\n", "\tsw\t$0,116($2)\n", "\tlw\t$4,0($17)\n",
+        "\tmove\t$2,$0\n", "\tsll\t$3,$4,5\n", "\taddu\t$3,$3,$4\n",
+        "\tsll\t$3,$3,2\n", "\taddu\t$3,$3,$16\n", "\tli\t$4,255\n",
+        "\tj\t.Lindexed_object_done\n", "\tsw\t$4,128($3)\n",
+        ".Lindexed_object_invalid:\n", "\tli\t$2,-998\n", ".Lindexed_object_done:\n",
+        "\tlw\t$31,24($sp)\n", "\tlw\t$17,20($sp)\n", "\tlw\t$16,16($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,32\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4860,6 +4913,7 @@ def main() -> None:
     parser.add_argument("--schedule-packed-display-record-update", action="store_true")
     parser.add_argument("--schedule-heap-block-release", action="store_true")
     parser.add_argument("--schedule-heap-block-allocation", action="store_true")
+    parser.add_argument("--schedule-indexed-object-record-initialization", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4944,6 +4998,7 @@ def main() -> None:
             args.schedule_packed_display_record_update,
             args.schedule_heap_block_release,
             args.schedule_heap_block_allocation,
+            args.schedule_indexed_object_record_initialization,
         )
     )
     if selected != 1:
@@ -5106,6 +5161,8 @@ def main() -> None:
         lines = schedule_heap_block_release(lines)
     if args.schedule_heap_block_allocation:
         lines = schedule_heap_block_allocation(lines)
+    if args.schedule_indexed_object_record_initialization:
+        lines = schedule_indexed_object_record_initialization(lines)
     args.output.write_text("".join(lines))
 
 
