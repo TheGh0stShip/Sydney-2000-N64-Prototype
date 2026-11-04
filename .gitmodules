@@ -1,3 +1,6 @@
 [submodule "tools/ultralib"]
 	path = tools/ultralib
 	url = https://github.com/decompals/ultralib.git
+[submodule "tools/battletanx_ga"]
+	path = tools/battletanx_ga
+	url = https://github.com/TheGh0stShip/BattleTanx-Global-Assault-PC-Port.git
