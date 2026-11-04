@@ -11686,6 +11686,78 @@ def schedule_display_system_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_debug_host_command_loop(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+    old = """\tsubu\t$sp,$sp,56
+\tsw\t$22,40($sp)
+\tli\t$22,0x00000002\t\t# 2
+\tsw\t$21,36($sp)
+\tli\t$21,-2147024896\t\t\t# 0x80070000
+\tsw\t$19,28($sp)
+\tli\t$19,-2147024896\t\t\t# 0x80070000
+\tsw\t$17,20($sp)
+\tli\t$17,-2147024896\t\t\t# 0x80070000
+\tsw\t$fp,48($sp)
+\tla\t$fp,.L27
+\tsw\t$20,32($sp)
+\tli\t$20,-2\t\t\t# 0xfffffffe
+"""
+    new = """\tsubu\t$sp,$sp,56
+\tsw\t$22,40($sp)
+\tli\t$22,0x00000002\t\t# 2
+\tsw\t$fp,48($sp)
+\tla\t$fp,.L27
+\tsw\t$21,36($sp)
+\tli\t$21,-2147024896\t\t\t# 0x80070000
+\tsw\t$20,32($sp)
+\tli\t$20,-2\t\t\t# 0xfffffffe
+\tsw\t$19,28($sp)
+\tli\t$19,-2147024896\t\t\t# 0x80070000
+\tsw\t$17,20($sp)
+\tli\t$17,-2147024896\t\t\t# 0x80070000
+"""
+    if text.count(old) != 1:
+        raise ValueError("debug host prologue pattern changed")
+    text = text.replace(old, new)
+    if text.count("\tbnel\t$2,$16,.L12") != 1:
+        raise ValueError("debug host wait branch pattern changed")
+    text = text.replace("\tbnel\t$2,$16,.L12", "\tbne\t$2,$16,.L12")
+    if text.count("\tla\t$fp,.L27") != 1:
+        raise ValueError("debug host jump-table address pattern changed")
+    text = text.replace(
+        "\tsw\t$fp,48($sp)\n\tla\t$fp,.L27",
+        "\t.set\tnoreorder\n\tlui\t$2,%hi(.L27)\n\tsw\t$fp,48($sp)\n"
+        "\taddiu\t$fp,$2,%lo(.L27)\n\t.set\treorder",
+    )
+    old = """.L23:
+\tlbu\t$2,-11358($17)
+\tlbu\t$5,-11360($19)
+\tli\t$4,-1308753920\t\t\t# 0xb1fe0000
+"""
+    new = """.L23:
+\tli\t$4,-1308753920\t\t\t# 0xb1fe0000
+\tlbu\t$2,-11358($17)
+\tlbu\t$5,-11360($19)
+"""
+    if text.count(old) != 1:
+        raise ValueError("debug host command pattern changed")
+    text = text.replace(old, new)
+    old = """\taddu\t$sp,$sp,56
+\tj\t$31
+\t.end\tfunc_800769B0
+"""
+    new = """\t.set\tnoreorder
+\taddu\t$sp,$sp,56
+\tj\t$31
+\tnop
+\t.set\treorder
+\t.end\tfunc_800769B0
+"""
+    if text.count(old) != 1:
+        raise ValueError("debug host epilogue pattern changed")
+    return text.replace(old, new).splitlines(keepends=True)
+
+
 def schedule_typed_object_processing(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_80017454:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80017454"]
@@ -19765,6 +19837,7 @@ def main() -> None:
     parser.add_argument("--schedule-bitmap-object-fill", action="store_true")
     parser.add_argument("--schedule-display-system-initialization", action="store_true")
     parser.add_argument("--schedule-typed-object-processing", action="store_true")
+    parser.add_argument("--schedule-debug-host-command-loop", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -19964,6 +20037,7 @@ def main() -> None:
             args.schedule_bitmap_object_fill,
             args.schedule_display_system_initialization,
             args.schedule_typed_object_processing,
+            args.schedule_debug_host_command_loop,
         )
     )
     if selected != 1:
@@ -20350,6 +20424,8 @@ def main() -> None:
         lines = schedule_bitmap_object_fill(lines)
     if args.schedule_display_system_initialization:
         lines = schedule_display_system_initialization(lines)
+    if args.schedule_debug_host_command_loop:
+        lines = schedule_debug_host_command_loop(lines)
     if args.schedule_typed_object_processing:
         lines = schedule_typed_object_processing(lines)
     args.output.write_text("".join(lines))
