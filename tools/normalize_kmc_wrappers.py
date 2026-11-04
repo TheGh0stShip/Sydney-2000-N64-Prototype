@@ -3647,6 +3647,90 @@ def schedule_scheduler_queue_return(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_display_pipeline_configuration(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$5,displayListHead"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001C298"]
+    candidates = [(start, ends[0]) for start in starts[:1]] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one display-pipeline configuration body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$5,displayListHead", "li\t$3,-2147483648", "ori\t$3,$3,0x8000",
+        "addu\t$2,$5,8", "sw\t$2,displayListHead", "li\t$2,-687865856",
+        "sw\t$2,0($5)", "sw\t$3,4($5)", "lw\t$5,displayListHead",
+        "li\t$3,-50397184", "ori\t$3,$3,0xffff", "addu\t$2,$5,8",
+        "sw\t$2,displayListHead", "sw\t$3,0($5)", "lhu\t$2,displayPipelineFlags",
+        "li\t$3,-131072", "ori\t$3,$3,0x793c", "andi\t$2,$2,0x0001",
+        "beq\t$2,$0,.L2", "sw\t$3,4($5)", "lw\t$5,displayListHead",
+        "li\t$4,-503316480", "ori\t$4,$4,0x001c", "li\t$3,0x0f0a0000",
+        "ori\t$3,$3,0x4000", "addu\t$2,$5,8", "sw\t$2,displayListHead",
+        "sw\t$4,0($5)", "sw\t$3,4($5)", ".L2:",
+        "lhu\t$2,displayPipelineFlags", "andi\t$2,$2,0x0002",
+        "beq\t$2,$0,.L3", "li\t$3,-503316480", "lw\t$5,displayListHead",
+        "ori\t$3,$3,0x1e01", "addu\t$2,$5,8", "sw\t$2,displayListHead",
+        "sw\t$3,0($5)", "sw\t$0,4($5)", ".L3:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected display-pipeline configuration body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$4,0x8000\n",
+        "\tori\t$4,$4,0x8000\n",
+        "\tlui\t$6,0xfcff\n",
+        "\tori\t$6,$6,0xffff\n",
+        "\tlui\t$5,0xfffe\n",
+        "\tlui\t$9,0x8006\n",
+        "\tori\t$5,$5,0x793c\n",
+        "\tlui\t$2,0xd700\n",
+        "\tlw\t$7,25564($9)\n",
+        "\tlui\t$10,0x8006\n",
+        "\tmove\t$3,$7\n",
+        "\taddiu\t$7,$7,8\n",
+        "\tsw\t$2,0($3)\n",
+        "\tlhu\t$2,13588($10)\n",
+        "\taddiu\t$8,$7,8\n",
+        "\tsw\t$7,25564($9)\n",
+        "\tsw\t$4,4($3)\n",
+        "\tsw\t$8,25564($9)\n",
+        "\tsw\t$6,0($7)\n",
+        "\tandi\t$2,$2,1\n",
+        "\tbeq\t$2,$0,.L2\n",
+        "\tsw\t$5,4($7)\n",
+        "\tlui\t$4,0xe200\n",
+        "\tori\t$4,$4,0x1c\n",
+        "\tlui\t$3,0x0f0a\n",
+        "\tori\t$3,$3,0x4000\n",
+        "\taddiu\t$2,$7,16\n",
+        "\tsw\t$2,25564($9)\n",
+        "\tsw\t$4,8($7)\n",
+        "\tsw\t$3,4($8)\n",
+        ".L2:\n",
+        "\tlhu\t$2,13588($10)\n",
+        "\tandi\t$2,$2,2\n",
+        "\tbeq\t$2,$0,.L3\n",
+        "\tlui\t$2,0xe200\n",
+        "\tlw\t$3,25564($9)\n",
+        "\tori\t$2,$2,0x1e01\n",
+        "\tmove\t$4,$3\n",
+        "\taddiu\t$3,$3,8\n",
+        "\tsw\t$3,25564($9)\n",
+        "\tsw\t$2,0($4)\n",
+        "\tsw\t$0,4($4)\n",
+        ".L3:\n",
+        "\tjr\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -3715,6 +3799,7 @@ def main() -> None:
     parser.add_argument("--schedule-shutdown-sequence", action="store_true")
     parser.add_argument("--schedule-zeroed-grid-allocation", action="store_true")
     parser.add_argument("--schedule-controller-motor-message-drain", action="store_true")
+    parser.add_argument("--schedule-display-pipeline-configuration", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3784,6 +3869,7 @@ def main() -> None:
             args.schedule_shutdown_sequence,
             args.schedule_zeroed_grid_allocation,
             args.schedule_controller_motor_message_drain,
+            args.schedule_display_pipeline_configuration,
         )
     )
     if selected != 1:
@@ -3916,6 +4002,8 @@ def main() -> None:
         lines = schedule_zeroed_grid_allocation(lines)
     if args.schedule_controller_motor_message_drain:
         lines = schedule_controller_motor_message_drain(lines)
+    if args.schedule_display_pipeline_configuration:
+        lines = schedule_display_pipeline_configuration(lines)
     args.output.write_text("".join(lines))
 
 
