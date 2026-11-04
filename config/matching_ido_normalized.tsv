@@ -1,0 +1,1 @@
+0x279C0	0xF00	src/game/decode_gsm_stream_frame.c	--ido-version=7.1 -O2 -mips2 -non_shared -Xcpluscomm -Wab,-r4300_mul -G 0 -DLEAF_NAME=func_80026DC0 -DSYNTHESIZE_NAME=func_80026A48 -DBZERO_NAME=func_8002F580	fdd3da568468bff837e9d622ff75ec018b587e4b71f42b88f8ef2d0f3a982776
