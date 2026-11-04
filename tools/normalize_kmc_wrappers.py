@@ -5476,6 +5476,104 @@ def schedule_runtime_display_commands(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_vertex_record_conversion(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_800122CC:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800122CC"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one vertex-record converter")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["lw\t$2,100($9)", "lw\t$7,80($9)", "li.d\t$f10,1.00000000000000000000e0",
+                "li.d\t$f6,1.50000000000000000000e1", "li.s\t$f8,2.04800000000000000000e3",
+                "sh\t$2,0($5)", "sh\t$2,8($5)", "sh\t$3,10($5)"]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected vertex-record converter near {instruction!r}")
+    assembly = """\
+\t.frame\t$sp,0,$31
+\t.mask\t0x00000000,0
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnomacro
+\tlw\t$2,100($4)
+\tlw\t$9,80($4)
+\tbeqz\t$2,.Lvertex_done
+\tmove\t$8,$0
+\taddiu\t$6,$9,32
+\tlui\t$2,%hi(D_8005A93C)
+\tl.d\t$f10,vertexOne
+\tl.d\t$f6,vertexLimitDouble
+\tlw\t$2,%lo(D_8005A93C)($2)
+\tl.s\t$f8,vertexScale
+\tsll\t$2,$2,2
+\taddu\t$7,$4,$2
+.Lvertex_loop:
+\tsll\t$5,$8,4
+\tlw\t$3,84($7)
+\tl.s\t$f0,0($9)
+\taddu\t$3,$5,$3
+\ttrunc.w.s $f12,$f0,$2
+\tmfc1\t$2,$f12
+\tsh\t$2,0($3)
+\tlw\t$3,84($7)
+\tl.s\t$f0,-28($6)
+\taddu\t$3,$5,$3
+\ttrunc.w.s $f12,$f0,$2
+\tmfc1\t$2,$f12
+\tsh\t$2,2($3)
+\tlw\t$3,84($7)
+\tl.s\t$f0,-24($6)
+\taddu\t$3,$5,$3
+\ttrunc.w.s $f12,$f0,$2
+\tmfc1\t$2,$f12
+\tsh\t$2,4($3)
+\tl.s\t$f2,0($6)
+\tl.s\t$f4,-4($6)
+\tcvt.d.s\t$f2,$f2
+\tsub.d\t$f2,$f10,$f2
+\tcvt.d.s\t$f0,$f4
+\tc.lt.d\t$f6,$f0
+\tnop
+\tbc1f\t.Lvertex_first_ok
+\tcvt.s.d\t$f2,$f2
+\tl.s\t$f4,vertexLimitFirst
+.Lvertex_first_ok:
+\tcvt.d.s\t$f0,$f2
+\tc.lt.d\t$f6,$f0
+\tnop
+\tbc1f\t.Lvertex_second_ok
+\tnop
+\tl.s\t$f2,vertexLimitSecond
+.Lvertex_second_ok:
+\t.word\t0x46082102
+\taddiu\t$8,$8,1
+\taddiu\t$6,$6,36
+\tlw\t$3,84($7)
+\tmul.s\t$f2,$f2,$f8
+\taddu\t$3,$5,$3
+\ttrunc.w.s $f12,$f4,$2
+\tmfc1\t$2,$f12
+\tsh\t$2,8($3)
+\tlw\t$3,84($7)
+\ttrunc.w.s $f12,$f2,$2
+\tmfc1\t$2,$f12
+\taddu\t$3,$5,$3
+\tsh\t$2,10($3)
+\tlw\t$2,100($4)
+\tsltu\t$2,$8,$2
+\tbnez\t$2,.Lvertex_loop
+\taddiu\t$9,$9,36
+.Lvertex_done:
+\tjr\t$31
+\tnop
+\t.set\tmacro
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_resource_display_lists(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_8000D77C:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_8000D77C"]
@@ -6922,6 +7020,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
+    parser.add_argument("--schedule-vertex-record-conversion", action="store_true")
     parser.add_argument("--schedule-compact-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
@@ -7037,6 +7136,7 @@ def main() -> None:
             args.schedule_runtime_render_resource,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
+            args.schedule_vertex_record_conversion,
             args.schedule_compact_video_mode_initialization,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
@@ -7240,6 +7340,8 @@ def main() -> None:
         lines = schedule_video_mode_initialization(lines)
     if args.schedule_resource_display_lists:
         lines = schedule_resource_display_lists(lines)
+    if args.schedule_vertex_record_conversion:
+        lines = schedule_vertex_record_conversion(lines)
     if args.schedule_compact_video_mode_initialization:
         lines = schedule_video_mode_initialization(
             lines, "func_80011150", screen_width=320, video_mode=1, video_offset=0,
