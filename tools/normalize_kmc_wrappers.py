@@ -457,6 +457,54 @@ def move_record_address_before_index(lines: list[str]) -> list[str]:
     return lines
 
 
+def reuse_configuration_limit(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "sw\t$31,16($sp)"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one return-address save; found {len(starts)}")
+    start = starts[0]
+    ends = [
+        index
+        for index in range(start + 1, len(lines))
+        if lines[index].strip() == ".set\treorder"
+    ]
+    if not ends:
+        raise ValueError("missing reorder directive after configuration call")
+    end = ends[0] + 1
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith(".set")
+    ]
+    if len(body) != 6:
+        raise ValueError(f"unexpected configuration-call prologue: {body!r}")
+    address = re.fullmatch(r"la\t\$4,([A-Za-z_][A-Za-z0-9_]*)", body[1])
+    call = re.fullmatch(r"jal\t([A-Za-z_][A-Za-z0-9_]*)", body[4])
+    expected_tail = [
+        "li\t$5,0x00007fff", "li\t$6,0x00007fff", "li\t$7,0x00007fff"
+    ]
+    if (
+        not address
+        or not call
+        or [body[2], body[3], body[5]] != expected_tail
+        or body[0] != "sw\t$31,16($sp)"
+    ):
+        raise ValueError(f"unexpected configuration-call prologue: {body!r}")
+    symbol = address.group(1)
+    helper = call.group(1)
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        f"\tlui\t$4,%hi({symbol})\n",
+        f"\taddiu\t$4,$4,%lo({symbol})\n",
+        "\tli\t$5,0x00007fff\n",
+        "\tmove\t$6,$5\n",
+        "\tsw\t$31,16($sp)\n",
+        f"\tjal\t{helper}\n",
+        "\tmove\t$7,$5\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -473,6 +521,7 @@ def main() -> None:
     parser.add_argument("--duplicate-nested-bit-returns", action="store_true")
     parser.add_argument("--schedule-copy-string", action="store_true")
     parser.add_argument("--move-record-address-before-index", action="store_true")
+    parser.add_argument("--reuse-configuration-limit", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -490,6 +539,7 @@ def main() -> None:
             args.duplicate_nested_bit_returns,
             args.schedule_copy_string,
             args.move_record_address_before_index,
+            args.reuse_configuration_limit,
         )
     )
     if selected != 1:
@@ -518,6 +568,8 @@ def main() -> None:
         lines = schedule_copy_string(lines)
     if args.move_record_address_before_index:
         lines = move_record_address_before_index(lines)
+    if args.reuse_configuration_limit:
+        lines = reuse_configuration_limit(lines)
     args.output.write_text("".join(lines))
 
 
