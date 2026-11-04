@@ -880,6 +880,79 @@ def schedule_object_collections(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_named_record_resolution(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,304"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80005C7C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one named-record resolution body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,304", "sw\t$16,280($sp)", "move\t$16,$4",
+        "sw\t$19,292($sp)", "move\t$19,$5", "sw\t$18,288($sp)",
+        "li\t$18,-2147221504", "ori\t$18,$18,0x3714", "li\t$2,0x00000001",
+        "sw\t$17,284($sp)", "addu\t$17,$sp,272", "move\t$4,$17",
+        "sw\t$31,296($sp)", "jal\tfunc_8000566C", "sw\t$2,0($18)",
+        "addu\t$4,$sp,16", "jal\tfunc_80037890", "move\t$5,$16",
+        "move\t$4,$17", "jal\tfunc_80005310", "addu\t$5,$sp,16",
+        "move\t$3,$2", "bne\t$3,$0,.L2", "move\t$2,$0", "j\t.L3",
+        "li\t$2,-1", ".L2:", "sw\t$3,0($19)", "sw\t$0,0($18)",
+        ".L3:", "lw\t$31,296($sp)", "lw\t$19,292($sp)",
+        "lw\t$18,288($sp)", "lw\t$17,284($sp)", "lw\t$16,280($sp)",
+        "addu\t$sp,$sp,304", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected named-record resolution body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,304\n",
+        "\tsw\t$16,280($sp)\n",
+        "\tmove\t$16,$4\n",
+        "\tsw\t$19,292($sp)\n",
+        "\tmove\t$19,$5\n",
+        "\tsw\t$18,288($sp)\n",
+        "\tlui\t$18,0x8004\n",
+        "\tli\t$2,1\n",
+        "\tsw\t$17,284($sp)\n",
+        "\taddiu\t$17,$sp,272\n",
+        "\tmove\t$4,$17\n",
+        "\tsw\t$31,296($sp)\n",
+        "\tjal\tfunc_8000566C\n",
+        "\tsw\t$2,14100($18)\n",
+        "\taddiu\t$4,$sp,16\n",
+        "\tjal\tfunc_80037890\n",
+        "\tmove\t$5,$16\n",
+        "\tmove\t$4,$17\n",
+        "\tjal\tfunc_80005310\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tmove\t$3,$2\n",
+        "\tbeq\t$3,$0,.L2\n",
+        "\tmove\t$2,$0\n",
+        "\tsw\t$3,0($19)\n",
+        "\tj\t.L3\n",
+        "\tsw\t$0,14100($18)\n",
+        ".L2:\n",
+        "\tli\t$2,-1\n",
+        ".L3:\n",
+        "\tlw\t$31,296($sp)\n",
+        "\tlw\t$19,292($sp)\n",
+        "\tlw\t$18,288($sp)\n",
+        "\tlw\t$17,284($sp)\n",
+        "\tlw\t$16,280($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,304\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2847,6 +2920,7 @@ def main() -> None:
     parser.add_argument("--schedule-handle-pair-allocation", action="store_true")
     parser.add_argument("--schedule-indexed-record-signature", action="store_true")
     parser.add_argument("--schedule-object-collections", action="store_true")
+    parser.add_argument("--schedule-named-record-resolution", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2905,6 +2979,7 @@ def main() -> None:
             args.schedule_handle_pair_allocation,
             args.schedule_indexed_record_signature,
             args.schedule_object_collections,
+            args.schedule_named_record_resolution,
         )
     )
     if selected != 1:
@@ -3015,6 +3090,8 @@ def main() -> None:
         lines = schedule_indexed_record_signature(lines)
     if args.schedule_object_collections:
         lines = schedule_object_collections(lines)
+    if args.schedule_named_record_resolution:
+        lines = schedule_named_record_resolution(lines)
     args.output.write_text("".join(lines))
 
 
