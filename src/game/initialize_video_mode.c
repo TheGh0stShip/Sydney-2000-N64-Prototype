@@ -2,6 +2,16 @@
 #define LEAF_NAME initializeVideoMode
 #endif
 
+#ifndef SCREEN_WIDTH
+#define SCREEN_WIDTH 640
+#endif
+#ifndef VIDEO_MODE
+#define VIDEO_MODE 3
+#endif
+#ifndef VIDEO_OFFSET
+#define VIDEO_OFFSET 320
+#endif
+
 typedef unsigned short u16;
 typedef unsigned int u32;
 
@@ -35,7 +45,7 @@ void LEAF_NAME(u32 value)
 
     D_8005A828 = 240;
     D_800661CC = value;
-    D_8005A824 = 640;
+    D_8005A824 = SCREEN_WIDTH;
     func_80010AA0();
     func_80034C30(D_80067480);
 
@@ -53,8 +63,8 @@ void LEAF_NAME(u32 value)
 
     D_8005A890 = (u32)D_80067480;
     func_8002F260(D_80068330, D_8005A840, 0x50);
-    D_8005A83C = 3;
-    D_8005A82C = 320;
+    D_8005A83C = VIDEO_MODE;
+    D_8005A82C = VIDEO_OFFSET;
     func_80010CE8();
     func_800351A0(1);
     D_800661C8 = 0;

@@ -5476,9 +5476,12 @@ def schedule_runtime_display_commands(lines: list[str]) -> list[str]:
     return lines
 
 
-def schedule_video_mode_initialization(lines: list[str]) -> list[str]:
-    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80011054:"]
-    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80011054"]
+def schedule_video_mode_initialization(
+    lines: list[str], function_name: str = "func_80011054", screen_width: int = 640,
+    video_mode: int = 3, video_offset: int = 320,
+) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
     if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
         raise ValueError("expected exactly one video-mode initializer")
     start, end = labels[0], ends[0]
@@ -5490,7 +5493,7 @@ def schedule_video_mode_initialization(lines: list[str]) -> list[str]:
     for instruction in required:
         if instruction not in body:
             raise ValueError(f"unexpected video-mode initializer near {instruction!r}")
-    assembly = """\
+    assembly = f"""\
 \t.frame\t$sp,24,$31
 \t.mask\t0x80010000,-4
 \t.fmask\t0x00000000,0
@@ -5502,7 +5505,7 @@ def schedule_video_mode_initialization(lines: list[str]) -> list[str]:
 \tlui\t$2,%hi(D_800661CC)
 \tlui\t$3,%hi(D_8005A824)
 \tsw\t$4,%lo(D_800661CC)($2)
-\tli\t$2,640
+\tli\t$2,{screen_width}
 \tsw\t$31,20($sp)
 \tsw\t$16,16($sp)
 \tjal\tfunc_80010AA0
@@ -5537,10 +5540,10 @@ def schedule_video_mode_initialization(lines: list[str]) -> list[str]:
 \tjal\tfunc_8002F260
 \tsw\t$2,%lo(D_8005A890)($3)
 \tlui\t$3,%hi(D_8005A83C)
-\tli\t$2,3
+\tli\t$2,{video_mode}
 \tsw\t$2,%lo(D_8005A83C)($3)
 \tlui\t$3,%hi(D_8005A82C)
-\tli\t$2,320
+\tli\t$2,{video_offset}
 \tjal\tfunc_80010CE8
 \tsw\t$2,%lo(D_8005A82C)($3)
 \tjal\tfunc_800351A0
@@ -5561,6 +5564,13 @@ def schedule_video_mode_initialization(lines: list[str]) -> list[str]:
 \taddiu\t$sp,$sp,24
 \t.set\treorder
 """
+    if video_offset == 0:
+        assembly = assembly.replace(
+            "\tlui\t$3,%hi(D_8005A82C)\n\tli\t$2,0\n\tjal\tfunc_80010CE8\n"
+            "\tsw\t$2,%lo(D_8005A82C)($3)\n",
+            "\tlui\t$2,%hi(D_8005A82C)\n\tjal\tfunc_80010CE8\n"
+            "\tsw\t$0,%lo(D_8005A82C)($2)\n",
+        )
     lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
     return lines
 
@@ -6815,6 +6825,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-display-commands", action="store_true")
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
+    parser.add_argument("--schedule-compact-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
@@ -6928,6 +6939,7 @@ def main() -> None:
             args.schedule_runtime_display_commands,
             args.schedule_runtime_render_resource,
             args.schedule_video_mode_initialization,
+            args.schedule_compact_video_mode_initialization,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
@@ -7128,6 +7140,10 @@ def main() -> None:
         lines = schedule_runtime_render_resource(lines)
     if args.schedule_video_mode_initialization:
         lines = schedule_video_mode_initialization(lines)
+    if args.schedule_compact_video_mode_initialization:
+        lines = schedule_video_mode_initialization(
+            lines, "func_80011150", screen_width=320, video_mode=1, video_offset=0,
+        )
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
