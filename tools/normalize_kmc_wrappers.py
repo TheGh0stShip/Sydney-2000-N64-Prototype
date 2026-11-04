@@ -4658,6 +4658,65 @@ def schedule_packed_display_record_update(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_heap_block_release(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "beq\t$5,$0,.L13"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037DE0"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one heap-block release body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "beq\t$5,$0,.L13", "li\t$2,0x00000001", "lw\t$2,-8($5)",
+        "beq\t$2,$0,.L2", "addu\t$7,$5,-16", "lw\t$8,-16($5)",
+        "lw\t$5,-12($5)", "beq\t$8,$0,.L12", "lw\t$2,8($8)",
+        "bne\t$2,$0,.L12", "addu\t$2,$5,16", "lw\t$3,4($8)",
+        "lw\t$8,0($8)", "j\t.L12", "addu\t$5,$2,$3", ".L9:",
+        "beq\t$6,$0,.L6", "move\t$4,$6", ".L12:", "lw\t$6,0($4)",
+        "sltu\t$3,$4,$7", "xor\t$2,$6,$7", "sltu\t$2,$0,$2",
+        "and\t$2,$2,$3", "bne\t$2,$0,.L9", ".L6:", "lw\t$2,0($4)",
+        "bne\t$2,$7,.L14", "move\t$2,$0", "lw\t$2,8($4)",
+        "bne\t$2,$0,.L14", "move\t$2,$0", "move\t$7,$4",
+        "lw\t$3,4($7)", "addu\t$2,$5,16", "addu\t$5,$2,$3",
+        "move\t$2,$0", ".L14:", "sw\t$8,0($7)", "sw\t$5,4($7)",
+        "j\t.L11", "sw\t$0,8($7)", ".L2:", "li\t$2,0x00000001",
+        ".L11:", ".L13:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected heap-block release body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\tbeq\t$5,$0,.Lheap_release_return_one\n",
+        "\taddiu\t$6,$5,-16\n", "\tlw\t$2,-8($5)\n",
+        "\tbne\t$2,$0,.Lheap_release_valid\n", "\tmove\t$7,$6\n",
+        ".Lheap_release_return_one:\n", "\tj\t.Lheap_release_done\n", "\tli\t$2,1\n",
+        ".Lheap_release_valid:\n",
+        "\tlw\t$5,0($6)\n", "\tlw\t$3,4($6)\n", "\tmove\t$6,$5\n",
+        "\tbeqzl\t$6,.Lheap_release_search\n", "\tmove\t$6,$4\n",
+        "\tlw\t$2,8($6)\n", "\tbnezl\t$2,.Lheap_release_search\n",
+        "\tmove\t$6,$4\n", "\taddiu\t$3,$3,16\n", "\tlw\t$2,4($6)\n",
+        "\taddu\t$3,$3,$2\n", "\tlw\t$5,0($6)\n", "\tmove\t$6,$4\n",
+        ".Lheap_release_search:\n", "\tlw\t$4,0($6)\n",
+        "\tbeq\t$4,$7,.Lheap_release_adjacent\n", "\tsltu\t$2,$7,$6\n",
+        "\tbnez\t$2,.Lheap_release_insert\n", "\tmove\t$6,$7\n",
+        "\tbeqzl\t$4,.Lheap_release_size\n", "\tsw\t$5,0($6)\n",
+        "\tj\t.Lheap_release_search\n", "\tmove\t$6,$4\n",
+        ".Lheap_release_adjacent:\n", "\tlw\t$2,8($6)\n",
+        "\tbnezl\t$2,.Lheap_release_insert\n", "\tmove\t$6,$7\n",
+        "\tmove\t$7,$6\n", "\taddiu\t$3,$3,16\n", "\tlw\t$2,4($6)\n",
+        "\taddu\t$3,$3,$2\n", "\tmove\t$6,$7\n", ".Lheap_release_insert:\n",
+        "\tsw\t$5,0($6)\n", ".Lheap_release_size:\n", "\tsw\t$3,4($6)\n",
+        "\tsw\t$0,8($6)\n", "\tmove\t$2,$0\n", ".Lheap_release_done:\n",
+        "\tjr\t$31\n", "\tnop\n", "\tnop\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4739,6 +4798,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-timing-configuration", action="store_true")
     parser.add_argument("--schedule-record-resource-resolution", action="store_true")
     parser.add_argument("--schedule-packed-display-record-update", action="store_true")
+    parser.add_argument("--schedule-heap-block-release", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4821,6 +4881,7 @@ def main() -> None:
             args.schedule_object_timing_configuration,
             args.schedule_record_resource_resolution,
             args.schedule_packed_display_record_update,
+            args.schedule_heap_block_release,
         )
     )
     if selected != 1:
@@ -4979,6 +5040,8 @@ def main() -> None:
         lines = schedule_record_resource_resolution(lines)
     if args.schedule_packed_display_record_update:
         lines = schedule_packed_display_record_update(lines)
+    if args.schedule_heap_block_release:
+        lines = schedule_heap_block_release(lines)
     args.output.write_text("".join(lines))
 
 
