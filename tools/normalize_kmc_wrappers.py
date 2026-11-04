@@ -765,6 +765,35 @@ def order_indexed_record_address_operands(lines: list[str]) -> list[str]:
     return lines
 
 
+def order_scaled_indexed_record_result(lines: list[str]) -> list[str]:
+    address_matches = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "addu\t$3,$4,$2"
+    ]
+    convert_matches = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "trunc.w.s $f2,$f0,$2"
+    ]
+    store_matches = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "s.s\t$f2,8($3)"
+    ]
+    counts = (len(address_matches), len(convert_matches), len(store_matches))
+    if counts != (1, 1, 1):
+        raise ValueError(
+            "expected one scaled indexed-record address, conversion, and store; "
+            f"found {counts}"
+        )
+
+    lines[address_matches[0]] = "\taddu\t$3,$2,$4\n"
+    lines[convert_matches[0]] = "\ttrunc.w.s $f4,$f0,$2\n"
+    lines[store_matches[0]] = "\ts.s\t$f4,8($3)\n"
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -789,6 +818,7 @@ def main() -> None:
     parser.add_argument("--schedule-valid-handle-result", action="store_true")
     parser.add_argument("--schedule-broadcast-message", action="store_true")
     parser.add_argument("--order-indexed-record-address-operands", action="store_true")
+    parser.add_argument("--order-scaled-indexed-record-result", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -814,6 +844,7 @@ def main() -> None:
             args.schedule_valid_handle_result,
             args.schedule_broadcast_message,
             args.order_indexed_record_address_operands,
+            args.order_scaled_indexed_record_result,
         )
     )
     if selected != 1:
@@ -858,6 +889,8 @@ def main() -> None:
         lines = schedule_broadcast_message(lines)
     if args.order_indexed_record_address_operands:
         lines = order_indexed_record_address_operands(lines)
+    if args.order_scaled_indexed_record_result:
+        lines = order_scaled_indexed_record_result(lines)
     args.output.write_text("".join(lines))
 
 
