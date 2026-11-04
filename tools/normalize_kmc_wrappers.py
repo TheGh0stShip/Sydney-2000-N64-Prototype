@@ -5100,6 +5100,89 @@ def schedule_double_cosine(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_double_sine(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80038060"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one double-sine body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "mtc1\t$0,$f0", "mtc1\t$0,$f1", "l.d\t$f2,sinePi",
+        "c.le.d\t$f0,$f12", "bc1f\t.L2", "div.d\t$f4,$f12,$f2",
+        "l.d\t$f0,sinePositiveHalf", "j\t.L7", "add.d\t$f4,$f4,$f0",
+        ".L2:", "l.d\t$f0,sineNegativeHalf", "add.d\t$f4,$f4,$f0", ".L7:",
+        "l.d\t$f2,sineReductionPi", "trunc.w.d $f0,$f4,$2", "mfc1\t$3,$f0",
+        "mtc1\t$3,$f0", "cvt.d.w\t$f0,$f0", "mul.d\t$f0,$f0,$f2",
+        "sub.d\t$f12,$f12,$f0", "l.d\t$f2,sineEpsilon", "abs.d\t$f0,$f12",
+        "c.lt.d\t$f2,$f0", "bc1f\t.L8", "andi\t$2,$3,0x0001",
+        "mul.d\t$f4,$f12,$f12", "l.d\t$f0,sineCoefficient0",
+        "mul.d\t$f0,$f0,$f4", "l.d\t$f2,sineCoefficient1",
+        "add.d\t$f0,$f0,$f2", "mul.d\t$f2,$f0,$f4",
+        "l.d\t$f0,sineCoefficient2", "add.d\t$f0,$f2,$f0",
+        "mul.d\t$f2,$f0,$f4", "l.d\t$f0,sineCoefficient3",
+        "add.d\t$f0,$f2,$f0", "mul.d\t$f2,$f0,$f4",
+        "l.d\t$f0,sineCoefficient4", "add.d\t$f0,$f2,$f0",
+        "mul.d\t$f2,$f0,$f4", "l.d\t$f0,sineCoefficient5",
+        "add.d\t$f0,$f2,$f0", "mul.d\t$f2,$f0,$f4",
+        "l.d\t$f0,sineCoefficient6", "add.d\t$f0,$f2,$f0",
+        "mul.d\t$f2,$f0,$f4", "l.d\t$f0,sineCoefficient7",
+        "add.d\t$f0,$f2,$f0", "mul.d\t$f4,$f4,$f0",
+        "mul.d\t$f4,$f12,$f4", "add.d\t$f12,$f12,$f4",
+        "andi\t$2,$3,0x0001", ".L8:", "bnel\t$2,$0,.L5",
+        "neg.d\t$f12,$f12", ".L5:", "j\t$31", "mov.d\t$f0,$f12",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected double-sine body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\tlui\t$1,%hi(sinePi)\n",
+        "\tldc1\t$f0,%lo(sinePi)($1)\n", "\tdiv.d\t$f2,$f12,$f0\n",
+        "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n", "\tnop\n",
+        "\tc.le.d\t$f0,$f12\n", "\tlui\t$1,%hi(sineNegativeHalf)\n",
+        "\tldc1\t$f0,%lo(sineNegativeHalf)($1)\n",
+        "\tbc1fl\t.Lsine_rounded\n", "\tadd.d\t$f0,$f2,$f0\n",
+        "\tlui\t$1,%hi(sinePositiveHalf)\n",
+        "\tldc1\t$f0,%lo(sinePositiveHalf)($1)\n", "\tadd.d\t$f0,$f2,$f0\n",
+        ".Lsine_rounded:\n", "\ttrunc.w.d\t$f2,$f0\n", "\tmfc1\t$3,$f2\n",
+        "\tnop\n", "\tmtc1\t$3,$f0\n", "\tnop\n", "\tcvt.d.w\t$f0,$f0\n",
+        "\tlui\t$1,%hi(sineReductionPi)\n",
+        "\tldc1\t$f2,%lo(sineReductionPi)($1)\n", "\tmul.d\t$f0,$f0,$f2\n",
+        "\tsub.d\t$f12,$f12,$f0\n", "\tabs.d\t$f2,$f12\n",
+        "\tlui\t$1,%hi(sineEpsilon)\n", "\tldc1\t$f0,%lo(sineEpsilon)($1)\n",
+        "\tc.lt.d\t$f0,$f2\n", "\tnop\n", "\tnop\n",
+        "\tbc1f\t.Lsine_polynomial_done\n", "\tandi\t$2,$3,1\n", "\tnop\n",
+        "\tmul.d\t$f4,$f12,$f12\n", "\tlui\t$1,%hi(sineCoefficient0)\n",
+        "\tldc1\t$f0,%lo(sineCoefficient0)($1)\n", "\tmul.d\t$f0,$f4,$f0\n",
+        "\tlui\t$1,%hi(sineCoefficient1)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient1)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(sineCoefficient2)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient2)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(sineCoefficient3)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient3)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(sineCoefficient4)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient4)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(sineCoefficient5)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient5)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(sineCoefficient6)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient6)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(sineCoefficient7)\n",
+        "\tldc1\t$f2,%lo(sineCoefficient7)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f4,$f4,$f0\n", "\tnop\n", "\tmul.d\t$f4,$f12,$f4\n",
+        "\tadd.d\t$f12,$f12,$f4\n", ".Lsine_polynomial_done:\n",
+        "\tbnezl\t$2,.Lsine_done\n", "\tneg.d\t$f0,$f12\n",
+        "\tmov.d\t$f0,$f12\n", ".Lsine_done:\n", "\tjr\t$31\n", "\tnop\n",
+        "\tnop\n", "\tnop\n", "\tnop\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5188,6 +5271,7 @@ def main() -> None:
     parser.add_argument("--schedule-startup-message-drain", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
+    parser.add_argument("--schedule-double-sine", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5277,6 +5361,7 @@ def main() -> None:
             args.schedule_startup_message_drain,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
+            args.schedule_double_sine,
         )
     )
     if selected != 1:
@@ -5449,6 +5534,8 @@ def main() -> None:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
         lines = schedule_double_cosine(lines)
+    if args.schedule_double_sine:
+        lines = schedule_double_sine(lines)
     args.output.write_text("".join(lines))
 
 
