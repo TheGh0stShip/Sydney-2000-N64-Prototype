@@ -1580,6 +1580,83 @@ def schedule_shutdown_sequence(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_zeroed_grid_allocation(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "move\t$2,$4"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037A90"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one zeroed-grid allocation body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "move\t$2,$4", "lw\t$4,memoryHandle", "subu\t$sp,$sp,32",
+        "sw\t$17,20($sp)", "li\t$17,-1", "sw\t$31,24($sp)",
+        "beq\t$4,$17,.L9", "sw\t$16,16($sp)", "mult\t$2,$5",
+        "mflo\t$16", "jal\tfunc_80037D10", "move\t$5,$16",
+        "bne\t$2,$0,.L3", "addu\t$4,$16,-1", ".L9:", "j\t.L8",
+        "move\t$2,$0", ".L3:", "beq\t$4,$17,.L8", "move\t$3,$2",
+        "li\t$5,-1", ".L6:", "sb\t$0,0($3)", "addu\t$4,$4,-1",
+        "bne\t$4,$5,.L6", "addu\t$3,$3,1", ".L8:", "lw\t$31,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected zeroed-grid allocation body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,32\n",
+        "\tsw\t$31,24($sp)\n",
+        "\tsw\t$17,20($sp)\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tmove\t$17,$4\n",
+        "\tlui\t$3,0x8007\n",
+        "\tlw\t$3,-31648($3)\n",
+        "\tli\t$2,-1\n",
+        "\tbeq\t$3,$2,.L9\n",
+        "\tmove\t$16,$5\n",
+        "\tlui\t$4,0x8007\n",
+        "\tlw\t$4,-31648($4)\n",
+        "\tmult\t$17,$16\n",
+        "\tmflo\t$5\n",
+        "\tjal\tfunc_80037D10\n",
+        "\tnop\n",
+        "\tmove\t$5,$2\n",
+        "\tbne\t$5,$0,.L3\n",
+        "\tli\t$2,-1\n",
+        ".L9:\n",
+        "\tj\t.L8\n",
+        "\tmove\t$2,$0\n",
+        ".L3:\n",
+        "\tnop\n",
+        "\tmult\t$17,$16\n",
+        "\tmflo\t$4\n",
+        "\taddiu\t$4,$4,-1\n",
+        "\tnop\n",
+        "\tbeq\t$4,$2,.L7\n",
+        "\tmove\t$3,$5\n",
+        ".L6:\n",
+        "\tsb\t$0,0($3)\n",
+        "\taddiu\t$4,$4,-1\n",
+        "\tbne\t$4,$2,.L6\n",
+        "\taddiu\t$3,$3,1\n",
+        ".L7:\n",
+        "\tmove\t$2,$5\n",
+        ".L8:\n",
+        "\tlw\t$31,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3556,6 +3633,7 @@ def main() -> None:
     parser.add_argument("--schedule-random-audio-selection", action="store_true")
     parser.add_argument("--schedule-formatted-command-dispatch", action="store_true")
     parser.add_argument("--schedule-shutdown-sequence", action="store_true")
+    parser.add_argument("--schedule-zeroed-grid-allocation", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3623,6 +3701,7 @@ def main() -> None:
             args.schedule_random_audio_selection,
             args.schedule_formatted_command_dispatch,
             args.schedule_shutdown_sequence,
+            args.schedule_zeroed_grid_allocation,
         )
     )
     if selected != 1:
@@ -3751,6 +3830,8 @@ def main() -> None:
         lines = schedule_formatted_command_dispatch(lines)
     if args.schedule_shutdown_sequence:
         lines = schedule_shutdown_sequence(lines)
+    if args.schedule_zeroed_grid_allocation:
+        lines = schedule_zeroed_grid_allocation(lines)
     args.output.write_text("".join(lines))
 
 
