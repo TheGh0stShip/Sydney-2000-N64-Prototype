@@ -382,6 +382,70 @@ def schedule_audio_record_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def normalize_vector_plane_test(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "la\t$2,vectorPlanes"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one vector-plane base load; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    body = [item for item in body if item]
+    labels = [item[:-1] for item in body if re.fullmatch(r"\.L[0-9]+:", item)]
+    if len(labels) != 2:
+        raise ValueError(f"expected two vector-plane result labels; found {len(labels)}")
+    first, done = labels
+    expected = [
+        "la\t$2,vectorPlanes", "sll\t$6,$6,4", "addu\t$6,$6,$2",
+        "l.s\t$f6,0($4)", "l.s\t$f0,0($6)", "mul.s\t$f6,$f6,$f0",
+        "l.s\t$f4,4($4)", "l.s\t$f0,4($6)", "mul.s\t$f4,$f4,$f0",
+        "l.s\t$f2,8($6)", "l.s\t$f0,8($4)", "mul.s\t$f0,$f0,$f2",
+        "add.s\t$f6,$f6,$f4", "add.s\t$f6,$f6,$f0", "mtc1\t$5,$f8",
+        "add.s\t$f0,$f6,$f8", "l.s\t$f2,12($6)", "c.le.s\t$f2,$f0",
+        f"bc1f\t{first}", "move\t$2,$0", "li\t$2,0x00000001", f"{first}:",
+        "sub.s\t$f0,$f6,$f8", "c.le.s\t$f2,$f0", f"bc1tl\t{done}",
+        "ori\t$2,$2,0x0002", f"{done}:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected vector-plane test body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsll\t$6,$6,4\n",
+        "\tlui\t$3,%hi(vectorPlanes)\n",
+        "\taddiu\t$3,$3,%lo(vectorPlanes)\n",
+        "\taddu\t$2,$6,$3\n",
+        "\tl.s\t$f4,0($4)\n",
+        "\tl.s\t$f0,0($2)\n",
+        "\tmul.s\t$f4,$f4,$f0\n",
+        "\tl.s\t$f6,4($4)\n",
+        "\tl.s\t$f0,4($2)\n",
+        "\tmul.s\t$f6,$f6,$f0\n",
+        "\tl.s\t$f2,8($2)\n",
+        "\tl.s\t$f0,8($4)\n",
+        "\tmul.s\t$f0,$f0,$f2\n",
+        "\tadd.s\t$f4,$f4,$f6\n",
+        "\tadd.s\t$f4,$f4,$f0\n",
+        "\tmtc1\t$5,$f8\n",
+        "\taddu\t$3,$3,$6\n",
+        "\tadd.s\t$f0,$f4,$f8\n",
+        "\tl.s\t$f2,12($3)\n",
+        "\tc.le.s\t$f2,$f0\n",
+        "\tnop\n",
+        f"\tbc1f\t{first}\n",
+        "\tmove\t$2,$0\n",
+        "\tli\t$2,0x00000001\n",
+        f"{first}:\n",
+        "\tsub.s\t$f0,$f4,$f8\n",
+        "\tc.le.s\t$f2,$f0\n",
+        "\tnop\n",
+        f"\tbc1tl\t{done}\n",
+        "\tori\t$2,$2,0x0002\n",
+        f"{done}:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2342,6 +2406,7 @@ def main() -> None:
     parser.add_argument("--schedule-scheduler-queue-return", action="store_true")
     parser.add_argument("--schedule-render-record-bytes", action="store_true")
     parser.add_argument("--schedule-audio-record-reset", action="store_true")
+    parser.add_argument("--normalize-vector-plane-test", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2393,6 +2458,7 @@ def main() -> None:
             args.schedule_scheduler_queue_return,
             args.schedule_render_record_bytes,
             args.schedule_audio_record_reset,
+            args.normalize_vector_plane_test,
         )
     )
     if selected != 1:
@@ -2489,6 +2555,8 @@ def main() -> None:
         lines = schedule_render_record_bytes(lines)
     if args.schedule_audio_record_reset:
         lines = schedule_audio_record_reset(lines)
+    if args.normalize_vector_plane_test:
+        lines = normalize_vector_plane_test(lines)
     args.output.write_text("".join(lines))
 
 
