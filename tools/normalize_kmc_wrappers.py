@@ -4482,6 +4482,69 @@ def schedule_double_arc_cosine(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_timing_configuration(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "l.d\t$f2,objectDurationScale"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001A3B8"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one object-timing configuration body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "l.d\t$f2,objectDurationScale", "mtc1\t$7,$f4", "cvt.d.s\t$f0,$f4",
+        "mul.d\t$f0,$f0,$f2", "cvt.s.d\t$f2,$f0",
+        "l.s\t$f0,objectDurationQuarter", "lw\t$3,0($4)", "addu\t$5,$5,-1",
+        "mul.s\t$f2,$f2,$f0", "sb\t$6,46($3)", "sb\t$5,44($3)",
+        "sb\t$0,45($3)", "move\t$8,$0", "move\t$9,$0",
+        "sw\t$8,objectTimerBase", "sw\t$9,objectTimerBase+4", "lw\t$2,128($3)",
+        "l.s\t$f0,objectDurationTriple", "andi\t$6,$6,0x00ff", "sh\t$6,40($3)",
+        "mul.s\t$f2,$f2,$f0", "ori\t$2,$2,0x0020", "sw\t$2,128($3)",
+        "l.s\t$f0,objectDurationFraction", "mul.s\t$f2,$f2,$f0",
+        "li.s\t$f0,2.14748364800000000000e9", "c.le.s\t$f0,$f2",
+        "bc1tl\t.L2", "sub.s\t$f0,$f2,$f0", "trunc.w.s $f0,$f2,$2",
+        "mfc1\t$3,$f0", "j\t.L3", ".L2:", "trunc.w.s $f2,$f0,$2",
+        "mfc1\t$3,$f2", "li\t$2,-2147483648", "or\t$3,$3,$2", ".L3:",
+        "sw\t$3,objectTimerValue", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected object-timing configuration body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tmtc1\t$7,$f6\n", "\tlui\t$1,%hi(objectDurationScale)\n",
+        "\tldc1\t$f2,%lo(objectDurationScale)($1)\n", "\tcvt.d.s\t$f0,$f6\n",
+        "\tmul.d\t$f0,$f0,$f2\n", "\tlw\t$3,0($4)\n",
+        "\tlui\t$1,%hi(objectDurationQuarter)\n",
+        "\tlwc1\t$f2,%lo(objectDurationQuarter)($1)\n", "\taddiu\t$5,$5,-1\n",
+        "\tsb\t$6,46($3)\n", "\tandi\t$4,$6,0xff\n", "\tsb\t$5,44($3)\n",
+        "\tcvt.s.d\t$f4,$f0\n", "\tmul.s\t$f4,$f4,$f2\n", "\tsb\t$0,45($3)\n",
+        "\tmove\t$8,$0\n", "\tmove\t$9,$0\n",
+        "\tlui\t$1,%hi(objectDurationTriple)\n",
+        "\tlwc1\t$f0,%lo(objectDurationTriple)($1)\n", "\tlw\t$2,128($3)\n",
+        "\tmul.s\t$f4,$f4,$f0\n", "\tlui\t$1,%hi(objectTimerBase)\n",
+        "\tsw\t$8,%lo(objectTimerBase)($1)\n", "\tlui\t$1,%hi(objectTimerBase+4)\n",
+        "\tsw\t$9,%lo(objectTimerBase+4)($1)\n", "\tsh\t$4,40($3)\n",
+        "\tlui\t$1,%hi(objectDurationFraction)\n",
+        "\tlwc1\t$f0,%lo(objectDurationFraction)($1)\n", "\tori\t$2,$2,0x20\n",
+        "\tmul.s\t$f4,$f4,$f0\n", "\tsw\t$2,128($3)\n",
+        "\tlui\t$2,%hi(objectTimerValue)\n",
+        "\tlui\t$1,%hi(objectDurationUnsignedThreshold)\n",
+        "\tlwc1\t$f0,%lo(objectDurationUnsignedThreshold)($1)\n",
+        "\tc.le.s\t$f0,$f4\n", "\tnop\n", "\tbc1t\t.Lobject_timing_unsigned\n",
+        "\taddiu\t$4,$2,%lo(objectTimerValue)\n", "\ttrunc.w.s\t$f6,$f4\n",
+        "\tmfc1\t$3,$f6\n", "\tjr\t$31\n", "\tsw\t$3,0($4)\n",
+        ".Lobject_timing_unsigned:\n", "\tsub.s\t$f0,$f4,$f0\n", "\tlui\t$2,0x8000\n",
+        "\ttrunc.w.s\t$f6,$f0\n", "\tmfc1\t$3,$f6\n", "\tor\t$3,$3,$2\n",
+        "\tsw\t$3,0($4)\n", "\tjr\t$31\n", "\tnop\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4560,6 +4623,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-resource-cleanup", action="store_true")
     parser.add_argument("--schedule-record-resource-release", action="store_true")
     parser.add_argument("--schedule-double-arc-cosine", action="store_true")
+    parser.add_argument("--schedule-object-timing-configuration", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4639,6 +4703,7 @@ def main() -> None:
             args.schedule_object_resource_cleanup,
             args.schedule_record_resource_release,
             args.schedule_double_arc_cosine,
+            args.schedule_object_timing_configuration,
         )
     )
     if selected != 1:
@@ -4791,6 +4856,8 @@ def main() -> None:
         lines = schedule_record_resource_release(lines)
     if args.schedule_double_arc_cosine:
         lines = schedule_double_arc_cosine(lines)
+    if args.schedule_object_timing_configuration:
+        lines = schedule_object_timing_configuration(lines)
     args.output.write_text("".join(lines))
 
 
