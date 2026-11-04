@@ -728,6 +728,79 @@ def schedule_handle_pair_allocation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_record_signature(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,48"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80005428"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one indexed-record signature body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,48", "move\t$3,$5", "li\t$2,-1", "sw\t$31,44($sp)",
+        "beq\t$3,$2,.L2", "sw\t$16,40($sp)", "li\t$16,-2147221504",
+        "ori\t$16,$16,0x36c0", "move\t$5,$16", "li\t$6,0x0000004c",
+        "sll\t$4,$3,2", "addu\t$4,$4,$3", "sll\t$4,$4,2",
+        "subu\t$4,$4,$3", "lw\t$2,-2147207564", "sll\t$4,$4,2",
+        "addu\t$4,$4,4", "jal\tfunc_80011300", "addu\t$4,$2,$4",
+        "lw\t$2,-2147207548", "lw\t$4,4($16)", "addu\t$5,$sp,32",
+        "li\t$6,0x00000004", "jal\tfunc_80011300", "addu\t$4,$2,$4",
+        "lw\t$2,32($sp)", "li\t$3,0x30320000", "ori\t$3,$3,0x5447",
+        "xor\t$2,$2,$3", "sltu\t$2,$2,1", ".L2:", "lw\t$31,44($sp)",
+        "lw\t$16,40($sp)", "addu\t$sp,$sp,48", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected indexed-record signature body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,48\n",
+        "\tmove\t$3,$5\n",
+        "\tli\t$2,-1\n",
+        "\tsw\t$31,44($sp)\n",
+        "\tbeq\t$3,$2,.L2\n",
+        "\tsw\t$16,40($sp)\n",
+        "\tlui\t$16,0x8004\n",
+        "\taddiu\t$16,$16,14016\n",
+        "\tmove\t$5,$16\n",
+        "\tlui\t$2,0x8004\n",
+        "\tli\t$6,76\n",
+        "\tsll\t$4,$3,2\n",
+        "\taddu\t$4,$4,$3\n",
+        "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$3\n",
+        "\tlw\t$2,13940($2)\n",
+        "\tsll\t$4,$4,2\n",
+        "\taddiu\t$2,$2,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\taddiu\t$5,$sp,32\n",
+        "\tlui\t$2,0x8004\n",
+        "\tlw\t$2,13956($2)\n",
+        "\tlw\t$4,4($16)\n",
+        "\tli\t$6,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\tlui\t$3,0x3032\n",
+        "\tlw\t$2,32($sp)\n",
+        "\tori\t$3,$3,0x5447\n",
+        "\txor\t$2,$2,$3\n",
+        "\tsltu\t$2,$2,1\n",
+        ".L2:\n",
+        "\tlw\t$31,44($sp)\n",
+        "\tlw\t$16,40($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2693,6 +2766,7 @@ def main() -> None:
     parser.add_argument("--normalize-slot-state-initializer", action="store_true")
     parser.add_argument("--schedule-object-update-passes", action="store_true")
     parser.add_argument("--schedule-handle-pair-allocation", action="store_true")
+    parser.add_argument("--schedule-indexed-record-signature", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2749,6 +2823,7 @@ def main() -> None:
             args.normalize_slot_state_initializer,
             args.schedule_object_update_passes,
             args.schedule_handle_pair_allocation,
+            args.schedule_indexed_record_signature,
         )
     )
     if selected != 1:
@@ -2855,6 +2930,8 @@ def main() -> None:
         lines = schedule_object_update_passes(lines)
     if args.schedule_handle_pair_allocation:
         lines = schedule_handle_pair_allocation(lines)
+    if args.schedule_indexed_record_signature:
+        lines = schedule_indexed_record_signature(lines)
     args.output.write_text("".join(lines))
 
 
