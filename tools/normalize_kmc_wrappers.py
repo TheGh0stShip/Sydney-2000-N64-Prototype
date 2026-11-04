@@ -5355,6 +5355,72 @@ def schedule_runtime_collection_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_runtime_node_unlink(lines: list[str]) -> list[str]:
+    labels = [index for index, line in enumerate(lines) if line.strip() == "func_80014480:"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80014480"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime-node unlink")
+    start = labels[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start + 1 : end]
+        if line.strip() and not line.lstrip().startswith((".", "#"))
+    ]
+    body = [item for item in body if item]
+    required = [
+        "lw\t$5,184($4)", "lw\t$3,188($4)", "sw\t$3,188($5)",
+        "lw\t$2,D_8005AAB0", "sw\t$3,D_8005AAB0", "lw\t$2,D_8005AAAC",
+        "sw\t$3,D_8005AAAC", "lw\t$2,D_8005AAB4", "sw\t$3,D_8005AAB4",
+        "sw\t$0,188($4)", "sw\t$0,184($4)", "lw\t$2,204($4)",
+    ]
+    cursor = 0
+    for instruction in required:
+        try:
+            cursor = body.index(instruction, cursor) + 1
+        except ValueError as exc:
+            raise ValueError(f"unexpected runtime-node unlink near {instruction!r}") from exc
+
+    lines[start + 1 : end] = [
+        "\t.frame\t$sp,0,$31\n", "\t.mask\t0x00000000,0\n",
+        "\t.fmask\t0x00000000,0\n", "\t.set\tnoreorder\n",
+        "\tlw\t$5,184($4)\n", "\tlw\t$3,188($4)\n",
+        "\tbeqz\t$5,.Lunlink_done\n", "\tnop\n",
+        "\tbnel\t$4,$5,.Lunlink_previous\n", "\tsw\t$3,188($5)\n",
+        "\tlui\t$6,%hi(D_8005AAB0)\n", "\tlw\t$2,%lo(D_8005AAB0)($6)\n",
+        "\tbnel\t$4,$2,.Lunlink_check_first\n", "\tlui\t$6,%hi(D_8005AAAC)\n",
+        "\tsw\t$3,%lo(D_8005AAB0)($6)\n", "\tj\t.Lunlink_next\n",
+        "\tmove\t$5,$3\n", ".Lunlink_check_first:\n",
+        "\tlw\t$2,%lo(D_8005AAAC)($6)\n",
+        "\tbnel\t$4,$2,.Lunlink_check_third\n", "\tlui\t$6,%hi(D_8005AAB4)\n",
+        "\tsw\t$3,%lo(D_8005AAAC)($6)\n", "\tj\t.Lunlink_next\n",
+        "\tmove\t$5,$3\n", ".Lunlink_check_third:\n",
+        "\tlw\t$2,%lo(D_8005AAB4)($6)\n", "\tbne\t$4,$2,.Lunlink_next\n",
+        "\tnop\n", "\tsw\t$3,%lo(D_8005AAB4)($6)\n", "\tmove\t$5,$3\n",
+        ".Lunlink_previous:\n", ".Lunlink_next:\n",
+        "\tbnezl\t$3,.Lunlink_clear\n", "\tsw\t$5,184($3)\n",
+        ".Lunlink_clear:\n", "\tmove\t$6,$0\n", "\tli\t$9,1\n",
+        "\tlui\t$7,0x8000\n", "\tori\t$7,$7,0x78\n", "\tlui\t$8,0x4\n",
+        "\tlui\t$2,%hi(D_8005AAF0)\n", "\taddiu\t$5,$2,%lo(D_8005AAF0)\n",
+        "\tsw\t$0,188($4)\n", "\tsw\t$0,184($4)\n", ".Lunlink_group_loop:\n",
+        "\tlw\t$2,204($4)\n", "\tsllv\t$3,$9,$6\n", "\tand\t$2,$2,$3\n",
+        "\tbeqzl\t$2,.Lunlink_group_test\n", "\taddiu\t$6,$6,1\n",
+        "\tlw\t$3,192($4)\n", "\tand\t$2,$3,$7\n",
+        "\tbeqz\t$2,.Lunlink_secondary\n", "\tand\t$2,$3,$8\n",
+        "\tlw\t$2,120($5)\n", "\taddiu\t$2,$2,-1\n", "\tj\t.Lunlink_group_increment\n",
+        "\tsw\t$2,120($5)\n", ".Lunlink_secondary:\n",
+        "\tbeqz\t$2,.Lunlink_default\n", "\tnop\n",
+        "\tlw\t$2,112($5)\n", "\taddiu\t$2,$2,-1\n", "\tj\t.Lunlink_group_increment\n",
+        "\tsw\t$2,112($5)\n", ".Lunlink_default:\n",
+        "\tlw\t$2,116($5)\n", "\taddiu\t$2,$2,-1\n", "\tsw\t$2,116($5)\n",
+        ".Lunlink_group_increment:\n", "\taddiu\t$6,$6,1\n", ".Lunlink_group_test:\n",
+        "\tsltiu\t$2,$6,3\n", "\tbnez\t$2,.Lunlink_group_loop\n",
+        "\taddiu\t$5,$5,132\n", ".Lunlink_done:\n", "\tjr\t$31\n", "\tnop\n",
+        "\t.set\treorder\n", "\n",
+    ]
+    return lines
+
+
 def schedule_double_tangent(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
     ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037F70"]
@@ -6489,6 +6555,7 @@ def main() -> None:
     parser.add_argument("--schedule-startup-message-drain", action="store_true")
     parser.add_argument("--schedule-packed-coordinate-wrap", action="store_true")
     parser.add_argument("--schedule-runtime-collection-reset", action="store_true")
+    parser.add_argument("--schedule-runtime-node-unlink", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
@@ -6598,6 +6665,7 @@ def main() -> None:
             args.schedule_startup_message_drain,
             args.schedule_packed_coordinate_wrap,
             args.schedule_runtime_collection_reset,
+            args.schedule_runtime_node_unlink,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
@@ -6790,6 +6858,8 @@ def main() -> None:
         lines = schedule_packed_coordinate_wrap(lines)
     if args.schedule_runtime_collection_reset:
         lines = schedule_runtime_collection_reset(lines)
+    if args.schedule_runtime_node_unlink:
+        lines = schedule_runtime_node_unlink(lines)
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
