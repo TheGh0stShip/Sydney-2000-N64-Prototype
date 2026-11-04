@@ -4892,6 +4892,69 @@ def schedule_nested_render_object_creation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_startup_message_drain(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800047E0"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one startup-message drain body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "li\t$4,-1", "sw\t$31,32($sp)",
+        "sw\t$17,28($sp)", "jal\tfunc_80014A2C", "sw\t$16,24($sp)",
+        "beq\t$2,$0,.L3", "sltu\t$16,$0,$2", "li\t$17,0x00000001",
+        ".L4:", "la\t$4,startupMessageQueue", "la\t$5,startupMessage",
+        "jal\tfunc_80032BB0", "li\t$6,0x00000001", "bne\t$2,$0,.L2",
+        "lw\t$2,startupMessage", "lh\t$2,0($2)", "xori\t$3,$2,0x0001",
+        "sltu\t$3,$0,$3", "xori\t$2,$2,0x0002", "sltu\t$2,$2,1",
+        "and\t$3,$3,$2", "beq\t$3,$0,.L2", "lw\t$2,pendingControllerMessages",
+        "lw\t$3,completedControllerMessages", "move\t$16,$0", "addu\t$2,$2,-1",
+        "addu\t$3,$3,1", "sw\t$2,pendingControllerMessages",
+        "sw\t$3,completedControllerMessages", ".L2:", "beq\t$16,$17,.L4",
+        ".L3:", "jal\tfunc_80017888", "lw\t$31,32($sp)",
+        "lw\t$17,28($sp)", "lw\t$16,24($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected startup-message drain body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-48\n", "\tli\t$4,-1\n",
+        "\tsw\t$31,44($sp)\n", "\tsw\t$22,40($sp)\n", "\tsw\t$21,36($sp)\n",
+        "\tsw\t$20,32($sp)\n", "\tsw\t$19,28($sp)\n", "\tsw\t$18,24($sp)\n",
+        "\tsw\t$17,20($sp)\n", "\tjal\tfunc_80014A2C\n", "\tsw\t$16,16($sp)\n",
+        "\tbeq\t$2,$0,.Lstartup_drain_done\n", "\tsltu\t$16,$0,$2\n",
+        "\tlui\t$22,%hi(startupMessageQueue)\n", "\tlui\t$20,%hi(startupMessage)\n",
+        "\tli\t$19,1\n", "\tli\t$21,2\n",
+        "\tlui\t$18,%hi(pendingControllerMessages)\n",
+        "\tlui\t$17,%hi(completedControllerMessages)\n",
+        "\taddiu\t$4,$22,%lo(startupMessageQueue)\n", ".Lstartup_drain_loop:\n",
+        "\taddiu\t$5,$20,%lo(startupMessage)\n", "\tjal\tfunc_80032BB0\n",
+        "\tli\t$6,1\n", "\tbnez\t$2,.Lstartup_drain_continue\n", "\tnop\n",
+        "\tlw\t$2,%lo(startupMessage)($20)\n", "\tlh\t$2,0($2)\n",
+        "\tbeq\t$2,$19,.Lstartup_drain_continue\n", "\tnop\n",
+        "\tbne\t$2,$21,.Lstartup_drain_continue\n", "\tnop\n", "\tmove\t$16,$0\n",
+        "\tlw\t$2,%lo(pendingControllerMessages)($18)\n",
+        "\tlw\t$3,%lo(completedControllerMessages)($17)\n",
+        "\taddiu\t$2,$2,-1\n", "\taddiu\t$3,$3,1\n",
+        "\tsw\t$2,%lo(pendingControllerMessages)($18)\n",
+        "\tsw\t$3,%lo(completedControllerMessages)($17)\n",
+        ".Lstartup_drain_continue:\n", "\tbeq\t$16,$19,.Lstartup_drain_loop\n",
+        "\taddiu\t$4,$22,%lo(startupMessageQueue)\n", ".Lstartup_drain_done:\n",
+        "\tjal\tfunc_80017888\n", "\tnop\n", "\tlw\t$31,44($sp)\n",
+        "\tlw\t$22,40($sp)\n", "\tlw\t$21,36($sp)\n", "\tlw\t$20,32($sp)\n",
+        "\tlw\t$19,28($sp)\n", "\tlw\t$18,24($sp)\n", "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4977,6 +5040,7 @@ def main() -> None:
     parser.add_argument("--schedule-heap-block-allocation", action="store_true")
     parser.add_argument("--schedule-indexed-object-record-initialization", action="store_true")
     parser.add_argument("--schedule-nested-render-object-creation", action="store_true")
+    parser.add_argument("--schedule-startup-message-drain", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5063,6 +5127,7 @@ def main() -> None:
             args.schedule_heap_block_allocation,
             args.schedule_indexed_object_record_initialization,
             args.schedule_nested_render_object_creation,
+            args.schedule_startup_message_drain,
         )
     )
     if selected != 1:
@@ -5229,6 +5294,8 @@ def main() -> None:
         lines = schedule_indexed_object_record_initialization(lines)
     if args.schedule_nested_render_object_creation:
         lines = schedule_nested_render_object_creation(lines)
+    if args.schedule_startup_message_drain:
+        lines = schedule_startup_message_drain(lines)
     args.output.write_text("".join(lines))
 
 
