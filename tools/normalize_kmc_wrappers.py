@@ -1946,6 +1946,79 @@ def truncate_nonreturning_thread(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_record_value(lines: list[str]) -> list[str]:
+    """Interleave record/buffer addresses and restore the shared return schedule."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "subu\t$sp,$sp,24"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8000529C"
+    ]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one indexed-record value body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "subu\t$sp,$sp,24", "li\t$2,-1", "sw\t$31,20($sp)",
+        "beq\t$5,$2,.L2", "sw\t$16,16($sp)", "la\t$16,buffer",
+        "sll\t$4,$5,2", "addu\t$4,$4,$5", "sll\t$4,$4,2",
+        "subu\t$4,$4,$5", "sll\t$4,$4,2", "lw\t$2,records",
+        "move\t$5,$16", "li\t$6,0x0000004c", "addu\t$2,$2,4",
+        "jal\tfunc_80011300", "addu\t$4,$2,$4", "lw\t$2,4($16)",
+        "lw\t$3,baseValue", "j\t.L3", "addu\t$2,$3,$2", ".L2:",
+        "move\t$2,$0", ".L3:", "lw\t$31,20($sp)",
+        "lw\t$16,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected indexed-record value compiler body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tli\t$2,-1\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tbeq\t$5,$2,.L2\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tlui\t$16,%hi(buffer)\n",
+        "\tlui\t$2,%hi(records)\n",
+        "\taddiu\t$16,$16,%lo(buffer)\n",
+        "\tsll\t$4,$5,2\n",
+        "\taddu\t$4,$4,$5\n",
+        "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$5\n",
+        "\tsll\t$4,$4,2\n",
+        "\tmove\t$5,$16\n",
+        "\tlw\t$2,%lo(records)($2)\n",
+        "\tli\t$6,0x0000004c\n",
+        "\taddiu\t$2,$2,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\tlui\t$2,%hi(baseValue)\n",
+        "\tlw\t$3,%lo(baseValue)($2)\n",
+        "\tlw\t$2,4($16)\n",
+        "\tj\t.L3\n",
+        "\taddu\t$2,$3,$2\n",
+        ".L2:\n",
+        "\tmove\t$2,$0\n",
+        ".L3:\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1989,6 +2062,7 @@ def main() -> None:
     parser.add_argument("--schedule-work-buffer-call", action="store_true")
     parser.add_argument("--schedule-indexed-record-copy", action="store_true")
     parser.add_argument("--truncate-nonreturning-thread", action="store_true")
+    parser.add_argument("--schedule-indexed-record-value", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2033,6 +2107,7 @@ def main() -> None:
             args.schedule_work_buffer_call,
             args.schedule_indexed_record_copy,
             args.truncate_nonreturning_thread,
+            args.schedule_indexed_record_value,
         )
     )
     if selected != 1:
@@ -2115,6 +2190,8 @@ def main() -> None:
         lines = schedule_indexed_record_copy(lines)
     if args.truncate_nonreturning_thread:
         lines = truncate_nonreturning_thread(lines)
+    if args.schedule_indexed_record_value:
+        lines = schedule_indexed_record_value(lines)
     args.output.write_text("".join(lines))
 
 
