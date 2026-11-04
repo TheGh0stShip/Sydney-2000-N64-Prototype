@@ -841,6 +841,104 @@ def expand_controller_motor_reset_addresses(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_double_buffer_allocations(lines: list[str]) -> list[str]:
+    branches: list[tuple[int, str]] = []
+    tags: list[str] = []
+    helpers: list[str] = []
+    for index, line in enumerate(lines):
+        branch = re.fullmatch(r"\s*bne\s+\$2,\$0,(\.L[0-9]+)\s*", line)
+        tag = re.fullmatch(r"\s*la\s+\$16,([A-Za-z_][A-Za-z0-9_]*)\s*", line)
+        helper = re.fullmatch(
+            r"\s*jal\s+([A-Za-z_][A-Za-z0-9_]*)\s*", line
+        )
+        if branch:
+            branches.append((index, branch.group(1)))
+        if tag:
+            tags.append(tag.group(1))
+        if helper:
+            helpers.append(helper.group(1))
+    if len(branches) != 1 or len(tags) != 1 or len(helpers) < 2:
+        raise ValueError(
+            "expected one guard, one tag address, and two allocator calls; "
+            f"found {(len(branches), len(tags), len(helpers))}"
+        )
+    if helpers[0] != helpers[1]:
+        raise ValueError(f"allocator calls differ: {helpers[:2]!r}")
+
+    start = branches[0][0] - 2
+    second_call = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == f"jal\t{helpers[0]}"
+    ][1]
+    ends = [
+        index
+        for index in range(second_call + 1, len(lines))
+        if lines[index].strip() == ".set\treorder"
+    ]
+    if not ends:
+        raise ValueError("missing reorder directive after second allocator call")
+    end = ends[0] + 1
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith(".set")
+        and line.strip() not in ("#APP", "#NO_APP")
+    ]
+    target = branches[0][1]
+    expected = [
+        f"bne\t$2,$0,{target}",
+        "li\t$17,-2147221504",
+        "lw\t$4,22192($17)",
+        "addu\t$5,$18,12",
+        "lhu\t$6,20($18)",
+        f"la\t$16,{tags[0]}",
+        "move\t$7,$16",
+        f"jal\t{helpers[0]}",
+        "sll\t$6,$6,4",
+        "lw\t$4,22192($17)",
+        "lhu\t$6,20($18)",
+        "addu\t$5,$18,16",
+        "move\t$7,$16",
+        f"jal\t{helpers[0]}",
+        "sll\t$6,$6,4",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected double-buffer allocation body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\t.set\tnomacro\n",
+        f"\tbne\t$2,$0,{target}\n",
+        "\taddu\t$5,$18,12\n",
+        "\t.set\tmacro\n",
+        "\t.set\treorder\n",
+        f"\tla\t$16,{tags[0]}\n",
+        "\tmove\t$7,$16\n",
+        "\tli\t$17,-2147221504\n",
+        "\tlhu\t$6,20($18)\n",
+        "\tlw\t$4,22192($17)\n",
+        "\t.set\tnoreorder\n",
+        "\t.set\tnomacro\n",
+        f"\tjal\t{helpers[0]}\n",
+        "\tsll\t$6,$6,4\n",
+        "\t.set\tmacro\n",
+        "\t.set\treorder\n",
+        "\taddu\t$5,$18,16\n",
+        "\tmove\t$7,$16\n",
+        "\tlhu\t$6,20($18)\n",
+        "\tlw\t$4,22192($17)\n",
+        "\t.set\tnoreorder\n",
+        "\t.set\tnomacro\n",
+        f"\tjal\t{helpers[0]}\n",
+        "\tsll\t$6,$6,4\n",
+        "\t.set\tmacro\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -867,6 +965,7 @@ def main() -> None:
     parser.add_argument("--order-indexed-record-address-operands", action="store_true")
     parser.add_argument("--order-scaled-indexed-record-result", action="store_true")
     parser.add_argument("--expand-controller-motor-reset-addresses", action="store_true")
+    parser.add_argument("--schedule-double-buffer-allocations", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -894,6 +993,7 @@ def main() -> None:
             args.order_indexed_record_address_operands,
             args.order_scaled_indexed_record_result,
             args.expand_controller_motor_reset_addresses,
+            args.schedule_double_buffer_allocations,
         )
     )
     if selected != 1:
@@ -942,6 +1042,8 @@ def main() -> None:
         lines = order_scaled_indexed_record_result(lines)
     if args.expand_controller_motor_reset_addresses:
         lines = expand_controller_motor_reset_addresses(lines)
+    if args.schedule_double_buffer_allocations:
+        lines = schedule_double_buffer_allocations(lines)
     args.output.write_text("".join(lines))
 
 
