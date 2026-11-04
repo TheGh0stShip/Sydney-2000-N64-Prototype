@@ -1249,6 +1249,67 @@ def schedule_append_string(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_two_optional_handles(lines: list[str]) -> list[str]:
+    """Reorder the shared handle address around the saved-register prologue."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "subu\t$sp,$sp,24"
+    ]
+    branches = [
+        (index, match.group(1))
+        for index, line in enumerate(lines)
+        if (match := re.fullmatch(r"\s*beq\s+\$3,\$0,(\.L[0-9]+)\s*", line))
+    ]
+    if len(starts) != 1 or len(branches) != 1:
+        raise ValueError(
+            "expected one optional-handle prologue and first guard; "
+            f"found {(len(starts), len(branches))}"
+        )
+
+    start = starts[0]
+    branch_index, target = branches[0]
+    end_directives = [
+        index
+        for index in range(branch_index + 1, min(len(lines), branch_index + 8))
+        if lines[index].strip() == ".set\treorder"
+    ]
+    if len(end_directives) != 1:
+        raise ValueError("missing reorder directive after first handle guard")
+    end = end_directives[0] + 1
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "subu\t$sp,$sp,24",
+        "li\t$2,-2147090432",
+        "sw\t$31,20($sp)",
+        "sw\t$16,16($sp)",
+        "lw\t$3,-21872($2)",
+        "addu\t$16,$2,-21872",
+        f"beq\t$3,$0,{target}",
+        "li\t$2,-2147090432",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected optional-handle prologue: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$3,-21872($2)\n",
+        "\taddiu\t$sp,$sp,-24\n",
+        "\tsw\t$16,16($sp)\n",
+        "\taddiu\t$16,$2,-21872\n",
+        f"\tbeq\t$3,$0,{target}\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tlui\t$2,0x8006\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1280,6 +1341,7 @@ def main() -> None:
     parser.add_argument("--schedule-save-eeprom-transfer", action="store_true")
     parser.add_argument("--schedule-free-global-slot", action="store_true")
     parser.add_argument("--schedule-append-string", action="store_true")
+    parser.add_argument("--schedule-two-optional-handles", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1312,6 +1374,7 @@ def main() -> None:
             args.schedule_save_eeprom_transfer,
             args.schedule_free_global_slot,
             args.schedule_append_string,
+            args.schedule_two_optional_handles,
         )
     )
     if selected != 1:
@@ -1370,6 +1433,8 @@ def main() -> None:
         lines = schedule_free_global_slot(lines)
     if args.schedule_append_string:
         lines = schedule_append_string(lines)
+    if args.schedule_two_optional_handles:
+        lines = schedule_two_optional_handles(lines)
     args.output.write_text("".join(lines))
 
 
