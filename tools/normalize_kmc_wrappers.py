@@ -4192,6 +4192,91 @@ def schedule_indexed_record_payload(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_record_volume_initialization(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$3,audioConfiguration+108"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001D770"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one audio volume-initialization body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$3,audioConfiguration+108", "subu\t$sp,$sp,32",
+        "la\t$4,audioInitializationObject", "sw\t$18,24($sp)",
+        "la\t$18,audioRecordVolumes", "sw\t$17,20($sp)", "sw\t$16,16($sp)",
+        "la\t$16,audioRecords+52", "li\t$2,0x00000001", "sw\t$31,28($sp)",
+        "sw\t$2,audioRecordLock", "sw\t$2,audioUpdatePending", "sw\t$3,audioMasterVolume",
+        "jal\tfunc_8001E120", "move\t$17,$0", "li\t$4,0x00000002",
+        "jal\tfunc_8001E994", "move\t$5,$0", ".L5:", "lw\t$2,-48($16)",
+        "beql\t$2,$0,.L8", "addu\t$17,$17,1", "lw\t$2,-32($16)",
+        "sw\t$2,0($18)", "lw\t$4,0($16)", "jal\tfunc_8001EDE0",
+        "move\t$5,$0", "addu\t$17,$17,1", ".L8:", "addu\t$16,$16,64",
+        "slt\t$2,$17,20", "bne\t$2,$0,.L5", "addu\t$18,$18,4",
+        "lw\t$31,28($sp)", "lw\t$18,24($sp)", "lw\t$17,20($sp)",
+        "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected audio volume-initialization body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,32\n",
+        "\tlui\t$4,0x8004\n",
+        "\taddiu\t$4,$4,-29632\n",
+        "\tsw\t$18,24($sp)\n",
+        "\tmove\t$18,$0\n",
+        "\tlui\t$2,0x8006\n",
+        "\tli\t$3,1\n",
+        "\tsw\t$3,20324($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$3,20484($2)\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,6880\n",
+        "\tsw\t$31,28($sp)\n",
+        "\tsw\t$17,20($sp)\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tlw\t$3,108($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tjal\tfunc_8001E120\n",
+        "\tsw\t$3,20356($2)\n",
+        "\tli\t$4,2\n",
+        "\tjal\tfunc_8001E994\n",
+        "\tmove\t$5,$18\n",
+        "\tlui\t$2,0x8007\n",
+        "\taddiu\t$17,$2,-18512\n",
+        "\tlui\t$2,0x8007\n",
+        "\taddiu\t$16,$2,-19792\n",
+        ".L5:\n",
+        "\tlw\t$2,4($16)\n",
+        "\tbeql\t$2,$0,.L8\n",
+        "\taddiu\t$17,$17,4\n",
+        "\tlw\t$2,24($16)\n",
+        "\tsw\t$2,0($17)\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001EDE0\n",
+        "\tmove\t$5,$0\n",
+        "\taddiu\t$17,$17,4\n",
+        ".L8:\n",
+        "\taddiu\t$18,$18,1\n",
+        "\tslti\t$2,$18,20\n",
+        "\tbne\t$2,$0,.L5\n",
+        "\taddiu\t$16,$16,64\n",
+        "\tlw\t$31,28($sp)\n",
+        "\tlw\t$18,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4266,6 +4351,7 @@ def main() -> None:
     parser.add_argument("--schedule-chunked-rom-read", action="store_true")
     parser.add_argument("--schedule-chunked-writeback-rom-read", action="store_true")
     parser.add_argument("--schedule-indexed-record-payload", action="store_true")
+    parser.add_argument("--schedule-audio-record-volume-initialization", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4341,6 +4427,7 @@ def main() -> None:
             args.schedule_chunked_rom_read,
             args.schedule_chunked_writeback_rom_read,
             args.schedule_indexed_record_payload,
+            args.schedule_audio_record_volume_initialization,
         )
     )
     if selected != 1:
@@ -4485,6 +4572,8 @@ def main() -> None:
         lines = schedule_chunked_writeback_rom_read(lines)
     if args.schedule_indexed_record_payload:
         lines = schedule_indexed_record_payload(lines)
+    if args.schedule_audio_record_volume_initialization:
+        lines = schedule_audio_record_volume_initialization(lines)
     args.output.write_text("".join(lines))
 
 

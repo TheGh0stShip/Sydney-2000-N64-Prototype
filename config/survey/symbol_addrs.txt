@@ -827,3 +827,5 @@ osWritebackDCacheAll = 0x8002E280; // type:func
 records = 0x80043674; // type:object
 buffer = 0x800436C0; // type:object
 baseValue = 0x80043684; // type:u32
+audioConfiguration = 0x800F1AE0; // type:object
+audioInitializationObject = 0x80038C40; // type:object
