@@ -6848,6 +6848,154 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_triangle_command_build(lines: list[str]) -> list[str]:
+    function_name = "func_800123EC"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one indexed triangle-command builder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("D_8005A93C", "84($", "92($", "106($", "108($"):
+        if token not in body:
+            raise ValueError(f"unexpected indexed triangle-command builder near {token!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x007f0000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tmove\t$14,$0
+\tsw\t$22,24($sp)
+\tlui\t$22,0x0100
+\tori\t$22,$22,0x1002
+\tsw\t$21,20($sp)
+\tlui\t$21,0x0100
+\tori\t$21,$21,0x1004
+\tsw\t$20,16($sp)
+\tlui\t$20,0x0100
+\tori\t$20,$20,0x1006
+\tsw\t$19,12($sp)
+\tlui\t$19,0x0100
+\tori\t$19,$19,0x1008
+\tsw\t$18,8($sp)
+\tlui\t$18,0x0100
+\tori\t$18,$18,0x100a
+\tsw\t$17,4($sp)
+\tlui\t$17,0x0100
+\tori\t$17,$17,0x100c
+\tsw\t$16,0($sp)
+\tlui\t$16,0x0604
+\tori\t$16,$16,0x0200
+\tlui\t$25,0x000a
+\tori\t$25,$25,0x0806
+\tlui\t$2,%hi(D_8005A93C)
+\tlw\t$8,108($4)
+\tlhu\t$24,106($4)
+\tlw\t$2,%lo(D_8005A93C)($2)
+\tsrl\t$15,$24,1
+\tsll\t$2,$2,2
+\taddu\t$4,$4,$2
+\tlw\t$9,92($4)
+\tmove\t$10,$4
+\taddiu\t$7,$9,-4
+.Lindexed_triangle_pair_test:
+\tsltu\t$2,$14,$15
+\tbeqz\t$2,.Lindexed_triangle_odd
+\taddiu\t$7,$7,8
+\tlhu\t$13,0($8)
+\taddiu\t$8,$8,2
+\tlhu\t$11,0($8)
+\taddiu\t$8,$8,2
+\tlhu\t$12,0($8)
+\taddiu\t$8,$8,2
+\tlhu\t$4,0($8)
+\taddiu\t$8,$8,2
+\tlhu\t$5,0($8)
+\taddiu\t$8,$8,2
+\tlhu\t$6,0($8)
+\taddiu\t$8,$8,2
+\taddiu\t$9,$9,56
+\taddiu\t$14,$14,1
+\tsw\t$22,-4($7)
+\tlw\t$2,84($10)
+\tsll\t$3,$13,4
+\taddu\t$2,$2,$3
+\tsw\t$2,0($7)
+\taddiu\t$7,$7,8
+\tsw\t$21,-4($7)
+\tlw\t$2,84($10)
+\tsll\t$3,$11,4
+\taddu\t$2,$2,$3
+\tsw\t$2,0($7)
+\taddiu\t$7,$7,8
+\tsw\t$20,-4($7)
+\tlw\t$2,84($10)
+\tsll\t$3,$12,4
+\taddu\t$2,$2,$3
+\tsw\t$2,0($7)
+\taddiu\t$7,$7,8
+\tsw\t$19,-4($7)
+\tlw\t$2,84($10)
+\tsll\t$4,$4,4
+\taddu\t$2,$2,$4
+\tsw\t$2,0($7)
+\taddiu\t$7,$7,8
+\tsw\t$18,-4($7)
+\tlw\t$2,84($10)
+\tsll\t$5,$5,4
+\taddu\t$2,$2,$5
+\tsw\t$2,0($7)
+\taddiu\t$7,$7,8
+\tsw\t$17,-4($7)
+\tlw\t$2,84($10)
+\tsll\t$6,$6,4
+\taddu\t$2,$2,$6
+\tsw\t$2,0($7)
+\taddiu\t$7,$7,8
+\tsw\t$16,-4($7)
+\tj\t.Lindexed_triangle_pair_test
+\tsw\t$25,0($7)
+.Lindexed_triangle_odd:
+\tandi\t$2,$24,1
+\tbeqz\t$2,.Lindexed_triangle_end
+\tmove\t$4,$9
+\tlhu\t$13,0($8)
+\taddiu\t$8,$8,2
+\tlhu\t$11,0($8)
+\tlhu\t$12,2($8)
+\taddiu\t$9,$9,8
+\tsw\t$0,4($4)
+\tsll\t$3,$12,1
+\tandi\t$3,$3,0xff
+\tsll\t$3,$3,16
+\tsll\t$2,$11,9
+\tandi\t$2,$2,0xfe00
+\tor\t$3,$3,$2
+\tsll\t$2,$13,1
+\tandi\t$2,$2,0xff
+\tor\t$3,$3,$2
+\tlui\t$2,0x0500
+\tor\t$3,$3,$2
+\tsw\t$3,0($4)
+.Lindexed_triangle_end:
+\tlui\t$2,0xdf00
+\tsw\t$2,0($9)
+\tsw\t$0,4($9)
+\tlw\t$22,24($sp)
+\tlw\t$21,20($sp)
+\tlw\t$20,16($sp)
+\tlw\t$19,12($sp)
+\tlw\t$18,8($sp)
+\tlw\t$17,4($sp)
+\tlw\t$16,0($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_named_archive_initialization(lines: list[str]) -> list[str]:
     function_name = "func_8000E95C"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -11340,6 +11488,168 @@ def schedule_bitmap_render_object_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_video_runtime_configuration(lines: list[str]) -> list[str]:
+    function_name = "func_80010CE8"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one video runtime configurator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80034C30", "func_80010BF4", "func_80034C80", "D_8005A820",
+                  "D_8005A840", "D_8005A890", "D_8005A894", "D_8005A8B0"):
+        if token not in body:
+            raise ValueError(f"unexpected video runtime configurator near {token!r}")
+    assembly = """\
+\t.frame\t$sp,24,$31
+\t.mask\t0x80010000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-24
+\tlui\t$2,%hi(D_8005A820)
+\tlui\t$3,%hi(D_8005A820)
+\tlw\t$3,%lo(D_8005A820)($3)
+\taddiu\t$4,$2,%lo(D_8005A824)
+\tsw\t$31,20($sp)
+\tbeqz\t$3,.Lvideo_runtime_default_width
+\tsw\t$16,16($sp)
+\tlui\t$2,%hi(D_8005A82C)
+\tlw\t$2,%lo(D_8005A82C)($2)
+\tj\t.Lvideo_runtime_store_width
+\taddiu\t$2,$2,320
+.Lvideo_runtime_default_width:
+\tli\t$2,320
+.Lvideo_runtime_store_width:
+\tsw\t$2,0($4)
+\tlui\t$4,%hi(D_8005A824)
+\tlw\t$2,%lo(D_8005A824)($4)
+\tslti\t$2,$2,320
+\tbeqz\t$2,.Lvideo_runtime_upper_bound
+\tli\t$2,320
+\tsw\t$2,%lo(D_8005A824)($4)
+.Lvideo_runtime_upper_bound:
+\tlw\t$2,%lo(D_8005A824)($4)
+\tslti\t$2,$2,641
+\tbnez\t$2,.Lvideo_runtime_dimensions
+\tlui\t$2,%hi(D_8005A894)
+\tli\t$2,640
+\tsw\t$2,%lo(D_8005A824)($4)
+\tlui\t$2,%hi(D_8005A894)
+.Lvideo_runtime_dimensions:
+\taddiu\t$5,$2,%lo(D_8005A894)
+\tlui\t$3,%hi(D_8005A838)
+\tlw\t$2,%lo(D_8005A824)($4)
+\tlw\t$3,%lo(D_8005A838)($3)
+\tmult\t$2,$3
+\taddiu\t$7,$5,80
+\tlui\t$4,%hi(D_8005A890)
+\tlw\t$6,%lo(D_8005A890)($4)
+\tlui\t$4,0xcccc
+\tori\t$4,$4,0xcccd
+\tmflo\t$8
+\tlui\t$3,%hi(D_8005A840)
+\taddiu\t$3,$3,%lo(D_8005A840)
+\tmultu\t$8,$4
+\tsw\t$2,8($3)
+\tsll\t$2,$2,1
+\tsw\t$2,40($3)
+\tsw\t$2,60($3)
+\tmfhi\t$8
+\tsrl\t$2,$8,9
+\tsw\t$2,32($3)
+.Lvideo_runtime_copy_template:
+\tlw\t$9,0($5)
+\tlw\t$10,4($5)
+\tlw\t$11,8($5)
+\tlw\t$12,12($5)
+\tsw\t$9,0($6)
+\tsw\t$10,4($6)
+\tsw\t$11,8($6)
+\tsw\t$12,12($6)
+\taddiu\t$5,$5,16
+\tbne\t$5,$7,.Lvideo_runtime_copy_template
+\taddiu\t$6,$6,16
+\tlui\t$16,%hi(D_8005A840)
+\taddiu\t$16,$16,%lo(D_8005A840)
+\tjal\tfunc_80034C30
+\tmove\t$4,$16
+\tlui\t$2,%hi(D_8005A894)
+\taddiu\t$2,$2,%lo(D_8005A894)
+\taddiu\t$3,$16,80
+.Lvideo_runtime_copy_result:
+\tlw\t$9,0($16)
+\tlw\t$10,4($16)
+\tlw\t$11,8($16)
+\tlw\t$12,12($16)
+\tsw\t$9,0($2)
+\tsw\t$10,4($2)
+\tsw\t$11,8($2)
+\tsw\t$12,12($2)
+\taddiu\t$16,$16,16
+\tbne\t$16,$3,.Lvideo_runtime_copy_result
+\taddiu\t$2,$2,16
+\tlui\t$4,%hi(D_8005A890)
+\tlui\t$3,%hi(D_8005A840)
+\tlui\t$2,%hi(D_8005A830)
+\tlw\t$7,%lo(D_8005A830)($2)
+\taddiu\t$8,$3,%lo(D_8005A840)
+\tbeqz\t$7,.Lvideo_runtime_wrap_test
+\tsw\t$8,%lo(D_8005A890)($4)
+\tlui\t$6,0x8000
+\tlui\t$2,%hi(D_8005A8B0)
+\tlw\t$5,%lo(D_8005A8B0)($2)
+\tori\t$6,$6,0x8001
+\tsrl\t$4,$5,16
+\taddu\t$4,$4,$7
+\tmult\t$4,$6
+\tsra\t$2,$4,31
+\tandi\t$5,$5,0xffff
+\taddu\t$5,$5,$7
+\tmfhi\t$9
+\taddu\t$3,$9,$4
+\tsra\t$3,$3,15
+\tsubu\t$3,$3,$2
+\tsll\t$2,$3,16
+\tmult\t$5,$6
+\tsubu\t$2,$2,$3
+\tsubu\t$4,$4,$2
+\tsll\t$4,$4,16
+\tsra\t$2,$5,31
+\tmfhi\t$9
+\taddu\t$3,$9,$5
+\tsra\t$3,$3,15
+\tsubu\t$3,$3,$2
+\tsll\t$2,$3,16
+\tsubu\t$2,$2,$3
+\tsubu\t$5,$5,$2
+\tor\t$4,$4,$5
+\tsw\t$4,28($8)
+.Lvideo_runtime_wrap_test:
+\tlui\t$2,%hi(D_8005A834)
+\tlw\t$2,%lo(D_8005A834)($2)
+\tbeqz\t$2,.Lvideo_runtime_set_value
+\tlui\t$2,%hi(D_8005A83C)
+\tjal\tfunc_80010BF4
+\tnop
+\tlui\t$2,%hi(D_8005A83C)
+.Lvideo_runtime_set_value:
+\tlw\t$3,%lo(D_8005A83C)($2)
+\tli\t$2,1
+\tbne\t$3,$2,.Lvideo_runtime_standard_value
+\tli\t$4,90
+\tli\t$4,106
+.Lvideo_runtime_standard_value:
+\tjal\tfunc_80034C80
+\tnop
+\tlw\t$31,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,24
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_packed_color_update(lines: list[str]) -> list[str]:
     function_name = "func_80006B24"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -11630,6 +11940,175 @@ def schedule_indexed_resource_record_removal(lines: list[str]) -> list[str]:
 \tlw\t$18,24($sp)
 \tlw\t$17,20($sp)
 \tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_runtime_object_batch_render(lines: list[str]) -> list[str]:
+    function_name = "func_80017E60"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime object batch renderer")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80012834", "func_80017A1C", "func_80012BD8", "func_80017DFC",
+                  "func_8000D41C", "func_8000F2BC", "func_8000D880", "func_8000D77C",
+                  "D_8005FCCC", "D_8005FEDC", "D_800663DC"):
+        if token not in body:
+            raise ValueError(f"unexpected runtime object batch renderer near {token!r}")
+    assembly = """\
+\t.frame\t$sp,56,$31
+\t.mask\t0x80ff0000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-56
+\tsw\t$23,44($sp)
+\tmove\t$23,$5
+\tsw\t$21,36($sp)
+\tmove\t$21,$0
+\tsw\t$19,28($sp)
+\tlui\t$19,%hi(D_800663DC)
+\tsw\t$22,40($sp)
+\taddiu\t$22,$19,%lo(D_800663DC)
+\tlui\t$2,%hi(D_8005FCCC)
+\tsw\t$20,32($sp)
+\taddiu\t$20,$2,%lo(D_8005FCCC)
+\tsw\t$31,48($sp)
+\tsw\t$18,24($sp)
+\tsw\t$17,20($sp)
+\tsw\t$16,16($sp)
+.Lruntime_batch_test:
+\tlui\t$2,%hi(D_8005FEDC)
+\tlw\t$2,%lo(D_8005FEDC)($2)
+\tsltu\t$2,$21,$2
+\tbeqz\t$2,.Lruntime_batch_done
+\tlui\t$2,%hi(D_8005FEDC)
+\tlw\t$18,0($20)
+\tlw\t$16,196($18)
+\tlw\t$2,0($16)
+\tandi\t$2,$2,2
+\tbeqz\t$2,.Lruntime_batch_default
+\tnop
+\tjal\tfunc_80012834
+\tmove\t$4,$16
+\tlw\t$5,120($16)
+\tjal\tfunc_80017A1C
+\taddiu\t$4,$18,84
+\tbeqz\t$2,.Lruntime_batch_next
+\tmove\t$4,$16
+\tjal\tfunc_80012BD8
+\tmove\t$5,$0
+\tlw\t$2,0($16)
+\tandi\t$2,$2,8
+\tbeqz\t$2,.Lruntime_batch_first_matrix
+\tnop
+\tjal\tfunc_80017DFC
+\tnop
+\taddiu\t$4,$19,%lo(D_800663DC)
+\taddiu\t$5,$18,20
+\tmove\t$6,$2
+\tj\t.Lruntime_batch_build_first
+\tli\t$7,2
+.Lruntime_batch_first_matrix:
+\tjal\tfunc_80017DFC
+\tnop
+\taddiu\t$4,$19,%lo(D_800663DC)
+\taddiu\t$5,$18,20
+\tmove\t$6,$2
+\tli\t$7,1
+.Lruntime_batch_build_first:
+\tjal\tfunc_8000D41C
+\tnop
+\tlw\t$2,0($16)
+\tandi\t$2,$2,0x100
+\tbeqz\t$2,.Lruntime_batch_special_display_list
+\tlui\t$4,0xfc11
+\tori\t$4,$4,0x9623
+\tlui\t$3,0xff2f
+\tlw\t$5,%lo(D_800663DC)($19)
+\tori\t$3,$3,0xffff
+\tmove\t$2,$5
+\taddiu\t$5,$5,8
+\tsw\t$4,0($2)
+\tsw\t$3,4($2)
+\taddiu\t$2,$5,8
+\tsw\t$5,%lo(D_800663DC)($19)
+\tsw\t$2,%lo(D_800663DC)($19)
+\tlui\t$2,0xfa00
+\tsw\t$2,0($5)
+\tlbu\t$2,68($16)
+\tlbu\t$3,69($16)
+\tlbu\t$4,70($16)
+\tsll\t$2,$2,24
+\tsll\t$3,$3,16
+\tor\t$2,$2,$3
+\tsll\t$4,$4,8
+\tlbu\t$3,71($16)
+\tor\t$2,$2,$4
+\tor\t$2,$2,$3
+\tsw\t$2,4($5)
+.Lruntime_batch_special_display_list:
+\tlui\t$2,%hi(D_8005A93C)
+\tlw\t$4,%lo(D_800663DC)($19)
+\tlw\t$3,%lo(D_8005A93C)($2)
+\tlui\t$2,0xde00
+\tmove\t$5,$4
+\taddiu\t$4,$4,8
+\tsll\t$3,$3,2
+\taddu\t$3,$16,$3
+\tsw\t$2,0($5)
+\tlw\t$3,92($3)
+\taddiu\t$2,$4,8
+\tsw\t$4,%lo(D_800663DC)($19)
+\tsw\t$2,%lo(D_800663DC)($19)
+\tlui\t$2,0xe700
+\tsw\t$3,4($5)
+\tsw\t$2,0($4)
+\tj\t.Lruntime_batch_next
+\tsw\t$0,4($4)
+.Lruntime_batch_default:
+\tlw\t$2,40($16)
+\tandi\t$2,$2,4
+\tbeqz\t$2,.Lruntime_batch_default_mode
+\tli\t$17,1
+\tli\t$17,4
+.Lruntime_batch_default_mode:
+\tjal\tfunc_80017DFC
+\tnop
+\tmove\t$4,$22
+\taddiu\t$5,$18,20
+\tmove\t$6,$2
+\tjal\tfunc_8000D41C
+\tmove\t$7,$17
+\tjal\tfunc_8000F2BC
+\tnop
+\tmove\t$4,$16
+\tli\t$5,-1
+\tmove\t$6,$0
+\tjal\tfunc_8000D880
+\tmove\t$7,$23
+\tmove\t$4,$22
+\tjal\tfunc_8000D77C
+\tmove\t$5,$0
+.Lruntime_batch_next:
+\taddiu\t$20,$20,4
+\tj\t.Lruntime_batch_test
+\taddiu\t$21,$21,1
+.Lruntime_batch_done:
+\tlw\t$31,48($sp)
+\tlw\t$23,44($sp)
+\tlw\t$22,40($sp)
+\tlw\t$21,36($sp)
+\tlw\t$20,32($sp)
+\tlw\t$19,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tsw\t$0,%lo(D_8005FEDC)($2)
 \tjr\t$31
 \taddiu\t$sp,$sp,56
 \t.set\treorder
@@ -12221,6 +12700,165 @@ def schedule_special_record_load(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_runtime_record_selection(lines: list[str]) -> list[str]:
+    function_name = "func_8001DD58"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one audio runtime record selector")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80025B34", "func_800259D4", "D_80065000", "D_80065002",
+                  "D_80065004", "D_80065054", "D_800651BC", "D_800651C0",
+                  "D_800651D0", "D_800651E4", "D_8006B800", "D_800F1AE0"):
+        if token not in body:
+            raise ValueError(f"unexpected audio runtime record selector near {token!r}")
+    assembly = """\
+\t.frame\t$sp,64,$31
+\t.mask\t0x80010000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-64
+\tsw\t$16,56($sp)
+\tmove\t$16,$5
+\tlui\t$2,%hi(D_800651D0)
+\tlw\t$3,%lo(D_800651D0)($2)
+\tlui\t$2,%hi(D_800651E4)
+\tsw\t$31,60($sp)
+\tsw\t$16,%lo(D_800651E4)($2)
+\tbnez\t$3,.Laudio_select_return_one
+\tli\t$2,1
+\tlui\t$2,%hi(D_80065002)
+\tlhu\t$4,%lo(D_80065002)($2)
+\tjal\tfunc_80025B34
+\tnop
+\tbnez\t$2,.Laudio_select_return_one
+\tli\t$2,1
+\tlui\t$3,%hi(D_800651BC)
+\tlw\t$2,%lo(D_800651BC)($3)
+\tbeqz\t$2,.Laudio_select_collect_start
+\tmove\t$9,$0
+\tsw\t$0,0($2)
+\tlui\t$2,%hi(D_800651C0)
+\tsw\t$0,%lo(D_800651BC)($3)
+\tsw\t$0,%lo(D_800651C0)($2)
+.Laudio_select_collect_start:
+\tmove\t$7,$9
+\tli\t$5,2
+\tlui\t$2,%hi(D_80065054)
+\taddiu\t$3,$2,%lo(D_80065054)
+\taddiu\t$4,$sp,16
+.Laudio_select_collect:
+\tlw\t$2,0($3)
+\t.word\t0x54450009
+\taddiu\t$7,$7,1
+\tlw\t$2,16($3)
+\tslt\t$2,$16,$2
+\t.word\t0x54400005
+\taddiu\t$7,$7,1
+\tsw\t$7,0($4)
+\taddiu\t$4,$4,4
+\taddiu\t$9,$9,1
+.Laudio_select_collect_next:
+\taddiu\t$7,$7,1
+\tslti\t$2,$7,10
+\tbnez\t$2,.Laudio_select_collect
+\taddiu\t$3,$3,36
+\tblez\t$9,.Laudio_select_after_candidates
+\tlui\t$5,%hi(D_800651BC)
+\tli\t$7,1
+\tlw\t$3,16($sp)
+\tsll\t$2,$3,3
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\tlui\t$3,%hi(D_80065054)
+\taddiu\t$3,$3,%lo(D_80065054)
+\taddu\t$2,$2,$3
+\tsw\t$2,%lo(D_800651BC)($5)
+\tlw\t$2,32($2)
+\tlui\t$4,%hi(D_800651C0)
+\tsw\t$2,%lo(D_800651C0)($4)
+\tslt\t$2,$7,$9
+\t.word\t0x1040002b
+\tlui\t$2,0x8006
+\tmove\t$12,$3
+\tmove\t$11,$4
+\tmove\t$10,$5
+\taddiu\t$8,$sp,20
+.Laudio_select_choose:
+\tlw\t$2,0($8)
+\tsll\t$3,$2,3
+\taddu\t$3,$3,$2
+\tsll\t$3,$3,2
+\taddu\t$6,$3,$12
+\tlw\t$4,32($6)
+\tlw\t$3,%lo(D_800651C0)($11)
+\tslt\t$2,$3,$4
+\tbnez\t$2,.Laudio_select_replace
+\tnop
+\t.word\t0x54830017
+\taddiu\t$7,$7,1
+\tlw\t$5,%lo(D_800651BC)($10)
+\tlw\t$4,16($6)
+\tlw\t$3,16($5)
+\tslt\t$2,$4,$3
+\tbnez\t$2,.Laudio_select_replace
+\tnop
+\t.word\t0x5483000f
+\taddiu\t$7,$7,1
+\tlw\t$2,24($6)
+\tlw\t$3,24($5)
+\tslt\t$2,$2,$3
+\t.word\t0x5040000a
+\taddiu\t$7,$7,1
+.Laudio_select_replace:
+\tlw\t$2,0($8)
+\tsll\t$3,$2,3
+\taddu\t$3,$3,$2
+\tsll\t$3,$3,2
+\taddu\t$3,$3,$12
+\tlw\t$2,32($3)
+\tsw\t$6,%lo(D_800651BC)($10)
+\tsw\t$2,%lo(D_800651C0)($11)
+.Laudio_select_choose_next:
+\taddiu\t$7,$7,1
+\tslt\t$2,$7,$9
+\tbnez\t$2,.Laudio_select_choose
+\taddiu\t$8,$8,4
+.Laudio_select_after_candidates:
+\tlui\t$2,%hi(D_800651BC)
+\tlw\t$4,%lo(D_800651BC)($2)
+\t.word\t0x10800013
+\tlui\t$2,%hi(D_800F1AE0)
+\taddiu\t$2,$2,%lo(D_800F1AE0)
+\tlui\t$3,%hi(D_80065004)
+\tlw\t$6,112($2)
+\tlw\t$2,%lo(D_80065004)($3)
+\tlhu\t$4,10($4)
+\tbnez\t$2,.Laudio_select_return_one
+\tli\t$2,1
+\tlui\t$2,%hi(D_8006B800)
+\tlw\t$3,%lo(D_8006B800)($2)
+\tsll\t$2,$4,2
+\tli\t$5,64
+\taddu\t$2,$2,$3
+\tlw\t$4,0($2)
+\tjal\tfunc_800259D4
+\tandi\t$6,$6,0xffff
+\tlui\t$3,%hi(D_80065000)
+\tandi\t$2,$2,0xffff
+\tsw\t$2,%lo(D_80065000)($3)
+\tli\t$2,1
+.Laudio_select_return_one:
+\tlw\t$31,60($sp)
+\tlw\t$16,56($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,64
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -12324,15 +12962,19 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-render-record-update", action="store_true")
     parser.add_argument("--schedule-indexed-resource-record-removal", action="store_true")
     parser.add_argument("--schedule-packed-color-update", action="store_true")
+    parser.add_argument("--schedule-video-runtime-configuration", action="store_true")
     parser.add_argument("--schedule-grouped-byte-sequence-filter", action="store_true")
     parser.add_argument("--schedule-controller-accessory-initialization", action="store_true")
+    parser.add_argument("--schedule-runtime-object-batch-render", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-reset", action="store_true")
     parser.add_argument("--schedule-resource-payload-load", action="store_true")
     parser.add_argument("--schedule-named-record-data-load", action="store_true")
     parser.add_argument("--schedule-special-record-load", action="store_true")
+    parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
     parser.add_argument("--schedule-scaled-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-flagged-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-named-archive-initialization", action="store_true")
+    parser.add_argument("--schedule-indexed-triangle-command-build", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -12480,15 +13122,19 @@ def main() -> None:
             args.schedule_indexed_render_record_update,
             args.schedule_indexed_resource_record_removal,
             args.schedule_packed_color_update,
+            args.schedule_video_runtime_configuration,
             args.schedule_grouped_byte_sequence_filter,
             args.schedule_controller_accessory_initialization,
+            args.schedule_runtime_object_batch_render,
             args.schedule_bitmap_render_object_reset,
             args.schedule_resource_payload_load,
             args.schedule_named_record_data_load,
             args.schedule_special_record_load,
+            args.schedule_audio_runtime_record_selection,
             args.schedule_scaled_model_matrix_build,
             args.schedule_flagged_model_matrix_build,
             args.schedule_named_archive_initialization,
+            args.schedule_indexed_triangle_command_build,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -12734,10 +13380,14 @@ def main() -> None:
         lines = schedule_indexed_resource_record_removal(lines)
     if args.schedule_packed_color_update:
         lines = schedule_packed_color_update(lines)
+    if args.schedule_video_runtime_configuration:
+        lines = schedule_video_runtime_configuration(lines)
     if args.schedule_grouped_byte_sequence_filter:
         lines = schedule_grouped_byte_sequence_filter(lines)
     if args.schedule_controller_accessory_initialization:
         lines = schedule_controller_accessory_initialization(lines)
+    if args.schedule_runtime_object_batch_render:
+        lines = schedule_runtime_object_batch_render(lines)
     if args.schedule_bitmap_render_object_reset:
         lines = schedule_bitmap_render_object_reset(lines)
     if args.schedule_resource_payload_load:
@@ -12746,12 +13396,16 @@ def main() -> None:
         lines = schedule_named_record_data_load(lines)
     if args.schedule_special_record_load:
         lines = schedule_special_record_load(lines)
+    if args.schedule_audio_runtime_record_selection:
+        lines = schedule_audio_runtime_record_selection(lines)
     if args.schedule_scaled_model_matrix_build:
         lines = schedule_scaled_model_matrix_build(lines)
     if args.schedule_flagged_model_matrix_build:
         lines = schedule_flagged_model_matrix_build(lines)
     if args.schedule_named_archive_initialization:
         lines = schedule_named_archive_initialization(lines)
+    if args.schedule_indexed_triangle_command_build:
+        lines = schedule_indexed_triangle_command_build(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
