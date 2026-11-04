@@ -1,5 +1,5 @@
 # Function boundaries for Syd2k USA: main segment
-# text 0x80000400..0x80038568, 761 functions
+# text 0x80000400..0x80038568, 752 functions
 [[section]]
 name = ".main"
 rom = 0x00001000
@@ -8,15 +8,7 @@ size = 0x38168
 
 functions = [
     { name = "func_80000400", vram = 0x80000400, size = 0x40 }, # c
-    { name = "func_800017C4", vram = 0x800017c4, size = 0x8 }, # stub
-    { name = "func_800017CC", vram = 0x800017cc, size = 0x8 }, # stub
-    { name = "func_800017D4", vram = 0x800017d4, size = 0x8 }, # stub
-    { name = "func_800017DC", vram = 0x800017dc, size = 0x8 }, # stub
-    { name = "func_800017E4", vram = 0x800017e4, size = 0x8 }, # stub
-    { name = "func_800017EC", vram = 0x800017ec, size = 0x8 }, # stub
-    { name = "func_800017F4", vram = 0x800017f4, size = 0x8 }, # stub
-    { name = "func_800017FC", vram = 0x800017fc, size = 0x8 }, # stub
-    { name = "func_80001804", vram = 0x80001804, size = 0x8 }, # stub
+    # 0x800017C4..0x8000180C is byte-valued lookup-table data, not nine stubs.
     { name = "func_80001FD8", vram = 0x80001fd8, size = 0x60 }, # asm invalid
     { name = "func_800032BC", vram = 0x800032bc, size = 0x30 }, # asm
     { name = "func_800032F0", vram = 0x800032f0, size = 0x20 }, # asm

@@ -14781,6 +14781,4798 @@ def schedule_quad_render_record_creation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_pending_settings_store(lines: list[str]) -> list[str]:
+    function_name = "func_80007880"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one pending settings store")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8001D89C", "func_80017888", "func_8002A480", "func_8002A3E0",
+                  "func_8002A280", "D_80044608", "D_80043724", "D_80044804",
+                  "D_80044850", "D_800445FC", "D_80039318", "D_8000031C",
+                  "D_800FC270"):
+        if body.count(token) == 0:
+            raise ValueError(f"unexpected pending settings store near {token!r}")
+    assembly = """\
+\t.frame\t$sp,24,$31
+\t.mask\t0x80010000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-24
+\tsw\t$16,16($sp)
+\tlui\t$16,%hi(D_800FC270)
+\tlw\t$6,%lo(D_800FC270)($16)
+\tsw\t$31,20($sp)
+\tlhu\t$2,3408($6)
+\tandi\t$2,$2,0x20
+\tbeqz\t$2,.Lpending_settings_check_40
+\tlui\t$4,%hi(D_80039318)
+\taddiu\t$4,$4,%lo(D_80039318)
+\tlui\t$3,%hi(D_8000031C)
+\tli\t$2,22
+\tsw\t$2,%lo(D_8000031C)($3)
+\tlhu\t$2,3408($6)
+\tli\t$5,220
+\tandi\t$2,$2,0xffdf
+\tjal\tfunc_8001D89C
+\tsh\t$2,3408($6)
+.Lpending_settings_check_40:
+\tlw\t$6,%lo(D_800FC270)($16)
+.Lpending_settings_test_40:
+\tlhu\t$2,3408($6)
+\tandi\t$2,$2,0x40
+\tbeqz\t$2,.Lpending_settings_test_80
+\tlui\t$4,%hi(D_80039318)
+\taddiu\t$4,$4,%lo(D_80039318)
+\tlui\t$3,%hi(D_8000031C)
+\tli\t$2,23
+\tsw\t$2,%lo(D_8000031C)($3)
+\tlhu\t$2,3408($6)
+\tli\t$5,220
+\tandi\t$2,$2,0xffbf
+\tjal\tfunc_8001D89C
+\tsh\t$2,3408($6)
+\tlw\t$6,%lo(D_800FC270)($16)
+.Lpending_settings_test_80:
+\tlhu\t$2,3408($6)
+\tandi\t$2,$2,0x80
+\tbeqz\t$2,.Lpending_settings_check_100
+\tlui\t$4,%hi(D_80039318)
+\taddiu\t$4,$4,%lo(D_80039318)
+\tlui\t$3,%hi(D_8000031C)
+\tli\t$2,24
+\tsw\t$2,%lo(D_8000031C)($3)
+\tlhu\t$2,3408($6)
+\tli\t$5,220
+\tandi\t$2,$2,0xff7f
+\tjal\tfunc_8001D89C
+\tsh\t$2,3408($6)
+.Lpending_settings_check_100:
+\tlw\t$6,%lo(D_800FC270)($16)
+\tlhu\t$2,3408($6)
+\tandi\t$2,$2,0x100
+\tbeqz\t$2,.Lpending_settings_test_8
+\tlui\t$4,%hi(D_80039318)
+\taddiu\t$4,$4,%lo(D_80039318)
+\tlui\t$3,%hi(D_8000031C)
+\tli\t$2,25
+\tsw\t$2,%lo(D_8000031C)($3)
+\tlhu\t$2,3408($6)
+\tli\t$5,220
+\tandi\t$2,$2,0xfeff
+\tjal\tfunc_8001D89C
+\tsh\t$2,3408($6)
+\tlw\t$6,%lo(D_800FC270)($16)
+.Lpending_settings_test_8:
+\tlhu\t$2,3408($6)
+\tandi\t$2,$2,0x8
+\tbeqz\t$2,.Lpending_settings_check_size
+\tlui\t$4,%hi(D_80039318)
+\taddiu\t$4,$4,%lo(D_80039318)
+\tlui\t$3,%hi(D_8000031C)
+\tli\t$2,26
+\tsw\t$2,%lo(D_8000031C)($3)
+\tlhu\t$2,3408($6)
+\tli\t$5,220
+\tandi\t$2,$2,0xfff7
+\tjal\tfunc_8001D89C
+\tsh\t$2,3408($6)
+.Lpending_settings_check_size:
+\tlui\t$2,%hi(D_80044608)
+\tlw\t$3,%lo(D_80044608)($2)
+\tli\t$2,2048
+\tbne\t$3,$2,.Lpending_settings_done
+\tnop
+\tjal\tfunc_80017888
+\tnop
+\tlui\t$3,%hi(D_80044850)
+\tli\t$2,72
+\tsb\t$2,%lo(D_80044850)($3)
+\tlui\t$2,%hi(D_800445FC)
+\taddiu\t$4,$2,%lo(D_800445FC)
+\tlbu\t$2,%lo(D_800445FC)($2)
+\tlbu\t$5,1($4)
+\tlbu\t$6,2($4)
+\tlw\t$4,%lo(D_800FC270)($16)
+\taddiu\t$3,$3,%lo(D_80044850)
+\tsb\t$2,1($3)
+\tsb\t$5,2($3)
+\tsb\t$6,3($3)
+\tlbu\t$2,3410($4)
+\tsb\t$2,4($3)
+\tlbu\t$2,3411($4)
+\tsb\t$2,6($3)
+\tlbu\t$2,3418($4)
+\tsb\t$2,7($3)
+\tlbu\t$2,3419($4)
+\tmove\t$5,$0
+\tsb\t$2,8($3)
+\tlbu\t$2,3420($4)
+\tmove\t$6,$3
+\tsb\t$2,9($3)
+\tlhu\t$2,3408($4)
+\tmove\t$4,$16
+\tsh\t$2,18($6)
+.Lpending_settings_copy_names:
+\tlw\t$2,%lo(D_800FC270)($4)
+\taddu\t$3,$5,$6
+\taddu\t$2,$2,$5
+\tlbu\t$2,3421($2)
+\taddiu\t$5,$5,1
+\tsb\t$2,10($3)
+\tslti\t$2,$5,8
+\tbnez\t$2,.Lpending_settings_copy_names
+\tlui\t$3,%hi(D_80043724)
+\tli\t$2,1
+\tsw\t$2,%lo(D_80043724)($3)
+\tjal\tfunc_8002A480
+\tnop
+\tli\t$4,1
+\tjal\tfunc_8002A3E0
+\tmove\t$16,$2
+\tlui\t$4,0x2
+\tjal\tfunc_8002A3E0
+\tori\t$4,$4,0x401
+\tmove\t$5,$0
+\tlui\t$3,0x1
+\tori\t$3,$3,0x869f
+\taddiu\t$5,$5,1
+.Lpending_settings_delay:
+\tslt\t$2,$3,$5
+\tbeqz\t$2,.Lpending_settings_delay
+\taddiu\t$5,$5,1
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tlui\t$4,%hi(D_80044804)
+\taddiu\t$4,$4,%lo(D_80044804)
+\tmove\t$5,$0
+\tlui\t$6,%hi(D_80044850)
+\taddiu\t$6,$6,%lo(D_80044850)
+\tjal\tfunc_8002A280
+\tli\t$7,24
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tjal\tfunc_8002A3E0
+\tmove\t$4,$16
+\tlui\t$2,%hi(D_80043724)
+\tsw\t$0,%lo(D_80043724)($2)
+.Lpending_settings_done:
+\tlw\t$31,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,24
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_eeprom_settings_load(lines: list[str]) -> list[str]:
+    function_name = "func_80007B18"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one EEPROM settings loader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80017888", "func_8002A480", "func_8002A3E0", "func_8002A370",
+                  "func_80007880", "D_80044608", "D_80044610", "D_80043724",
+                  "D_80044804", "D_80044850", "D_800445FC", "D_80045040",
+                  "D_800FC270"):
+        if body.count(token) < 1:
+            raise ValueError(f"unexpected EEPROM settings loader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80070000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tlui\t$2,%hi(D_80044608)
+\tlw\t$3,%lo(D_80044608)($2)
+\tli\t$2,2048
+\tsw\t$31,28($sp)
+\tsw\t$18,24($sp)
+\tsw\t$17,20($sp)
+\tbne\t$3,$2,.Lsettings_load_done
+\tsw\t$16,16($sp)
+\tlui\t$2,%hi(D_80044610)
+\tlw\t$2,%lo(D_80044610)($2)
+\tbnez\t$2,.Lsettings_load_read
+\tlui\t$2,%hi(D_80045040)
+\tlui\t$3,%hi(D_800FC270)
+\tlw\t$3,%lo(D_800FC270)($3)
+\taddiu\t$5,$2,%lo(D_80045040)
+\taddiu\t$4,$3,3404
+\taddiu\t$3,$3,4748
+.Lsettings_load_backup:
+\tlw\t$8,0($4)
+\tlw\t$9,4($4)
+\tlw\t$10,8($4)
+\tlw\t$11,12($4)
+\tsw\t$8,0($5)
+\tsw\t$9,4($5)
+\tsw\t$10,8($5)
+\tsw\t$11,12($5)
+\taddiu\t$4,$4,16
+\tbne\t$4,$3,.Lsettings_load_backup
+\taddiu\t$5,$5,16
+\tlui\t$3,%hi(D_80044610)
+\tlw\t$2,%lo(D_80044610)($3)
+\tlw\t$8,0($4)
+\tsw\t$8,0($5)
+\taddiu\t$2,$2,1
+\tsw\t$2,%lo(D_80044610)($3)
+.Lsettings_load_read:
+\tjal\tfunc_80017888
+\tnop
+\tlui\t$3,%hi(D_80043724)
+\tli\t$2,1
+\tsw\t$2,%lo(D_80043724)($3)
+\tjal\tfunc_8002A480
+\tnop
+\tli\t$4,1
+\tjal\tfunc_8002A3E0
+\tmove\t$18,$2
+\tlui\t$4,0x2
+\tjal\tfunc_8002A3E0
+\tori\t$4,$4,0x401
+\tmove\t$5,$0
+\tlui\t$3,0x1
+\tori\t$3,$3,0x869f
+\taddiu\t$5,$5,1
+.Lsettings_load_delay:
+\tslt\t$2,$3,$5
+\tbeqz\t$2,.Lsettings_load_delay
+\taddiu\t$5,$5,1
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tlui\t$4,%hi(D_80044804)
+\taddiu\t$4,$4,%lo(D_80044804)
+\tmove\t$5,$0
+\tlui\t$16,%hi(D_80044850)
+\taddiu\t$17,$16,%lo(D_80044850)
+\tmove\t$6,$17
+\tjal\tfunc_8002A370
+\tli\t$7,24
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tnop
+\tjal\tfunc_8002A3E0
+\tmove\t$4,$18
+\tlbu\t$3,%lo(D_80044850)($16)
+\tlui\t$2,%hi(D_80043724)
+\tsw\t$0,%lo(D_80043724)($2)
+\tli\t$2,72
+\tbeq\t$3,$2,.Lsettings_load_check_signature
+\tlui\t$2,%hi(D_80045040)
+\taddiu\t$3,$2,%lo(D_80045040)
+\tlui\t$2,%hi(D_800FC270)
+\tlw\t$2,%lo(D_800FC270)($2)
+\taddiu\t$4,$3,1344
+\taddiu\t$2,$2,3404
+.Lsettings_load_restore_tag:
+\tlw\t$8,0($3)
+\tlw\t$9,4($3)
+\tlw\t$10,8($3)
+\tlw\t$11,12($3)
+\tsw\t$8,0($2)
+\tsw\t$9,4($2)
+\tsw\t$10,8($2)
+\tsw\t$11,12($2)
+\taddiu\t$3,$3,16
+\tbne\t$3,$4,.Lsettings_load_restore_tag
+\taddiu\t$2,$2,16
+\tj\t.Lsettings_load_restore_tail
+\tnop
+.Lsettings_load_check_signature:
+\tlui\t$2,%hi(D_800445FC)
+\tlbu\t$4,1($17)
+\tlbu\t$3,%lo(D_800445FC)($2)
+\tbne\t$4,$3,.Lsettings_load_restore
+\taddiu\t$5,$2,%lo(D_800445FC)
+\tlbu\t$3,2($17)
+\tlbu\t$2,1($5)
+\tbne\t$3,$2,.Lsettings_load_restore_after_high
+\tlui\t$2,%hi(D_80045040)
+\tlbu\t$3,3($17)
+\tlbu\t$2,2($5)
+\tbeq\t$3,$2,.Lsettings_load_apply
+\tlui\t$4,%hi(D_800FC270)
+.Lsettings_load_restore:
+\tlui\t$2,%hi(D_80045040)
+.Lsettings_load_restore_after_high:
+\taddiu\t$3,$2,%lo(D_80045040)
+\tlui\t$2,%hi(D_800FC270)
+\tlw\t$2,%lo(D_800FC270)($2)
+\taddiu\t$4,$3,1344
+\taddiu\t$2,$2,3404
+.Lsettings_load_restore_signature:
+\tlw\t$8,0($3)
+\tlw\t$9,4($3)
+\tlw\t$10,8($3)
+\tlw\t$11,12($3)
+\tsw\t$8,0($2)
+\tsw\t$9,4($2)
+\tsw\t$10,8($2)
+\tsw\t$11,12($2)
+\taddiu\t$3,$3,16
+\tbne\t$3,$4,.Lsettings_load_restore_signature
+\taddiu\t$2,$2,16
+.Lsettings_load_restore_tail:
+\tlw\t$8,0($3)
+\tsw\t$8,0($2)
+\tmove\t$4,$0
+\tmove\t$5,$4
+\tjal\tfunc_80007880
+\tmove\t$6,$4
+\tj\t.Lsettings_load_done
+\tnop
+.Lsettings_load_apply:
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlbu\t$2,4($17)
+\tsb\t$2,3410($3)
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlbu\t$2,6($17)
+\tsb\t$2,3411($3)
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlbu\t$2,7($17)
+\tsb\t$2,3418($3)
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlbu\t$2,8($17)
+\tsb\t$2,3419($3)
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlbu\t$2,9($17)
+\tmove\t$5,$0
+\tsb\t$2,3420($3)
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlhu\t$2,18($17)
+\tmove\t$6,$17
+\tsh\t$2,3408($3)
+\taddu\t$2,$5,$6
+.Lsettings_load_values:
+\tlw\t$3,%lo(D_800FC270)($4)
+\tlbu\t$2,10($2)
+\taddu\t$3,$3,$5
+\taddiu\t$5,$5,1
+\tsb\t$2,3421($3)
+\tslti\t$2,$5,8
+\tbnez\t$2,.Lsettings_load_values
+\taddu\t$2,$5,$6
+.Lsettings_load_done:
+\tlw\t$31,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_game_main_loop(lines: list[str]) -> list[str]:
+    """Split hoisted address halves and drop the unreachable return of the main loop."""
+    labels = [index for index, line in enumerate(lines) if line.strip() == "func_800043E0:"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_800043E0"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one game main loop")
+    start = labels[0] + 1
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".", "#"))
+    ]
+    body = [item for item in body if item]
+    calls = [item.split("\t", 1)[1] for item in body if item.startswith("jal\t")]
+    expected_calls = [
+        "func_800B4470", "func_800AA804", "func_800AA804", "func_800AA804",
+        "func_800AA804", "func_8001C9F0", "func_8000F3B0", "func_80011054",
+        "func_800320D0", "func_800062F0", "func_80006420", "func_80004A00",
+        "func_80005BA8", "func_80005A3C", "func_800AA658", "func_800D93C0",
+        "func_800D9A18", "func_8001E170", "func_8001CFD4", "func_8001DAC0",
+        "func_800177CC", "func_80017888", "func_80032BB0", "func_800B4578",
+        "func_8001DD58", "func_80014A2C",
+    ]
+    if calls != expected_calls:
+        raise ValueError(f"unexpected game main loop calls: {calls!r}")
+    required = [
+        "subu\t$sp,$sp,48", "sw\t$0,16($sp)", "la\t$16,D_80039310",
+        "li\t$6,0x0000c000", "li\t$6,0x00010000", "ori\t$6,$6,0x4000",
+        "li\t$5,-1340473344", "ori\t$5,$5,0x3ab0", "sltu\t$2,$2,8",
+        "lbu\t$2,D_800F2750($2)", "sb\t$2,D_800F274C", "andi\t$2,$2,0x0020",
+        "lhu\t$2,D_8004462C", "sw\t$0,D_80044604", "lh\t$2,0($2)",
+        "sw\t$2,D_800663D8",
+    ]
+    for item in required:
+        if body.count(item) != 1:
+            raise ValueError(f"unexpected game main loop token {item!r}")
+    replacement = """\
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-72
+\tsw\t$18,40($sp)
+\taddu\t$18,$0,$0
+\tsw\t$31,68($sp)
+\tsw\t$30,64($sp)
+\tsw\t$23,60($sp)
+\tsw\t$22,56($sp)
+\tsw\t$21,52($sp)
+\tsw\t$20,48($sp)
+\tsw\t$19,44($sp)
+\tsw\t$17,36($sp)
+\tsw\t$16,32($sp)
+\tjal\tfunc_800B4470
+\tsw\t$0,24($sp)
+\taddu\t$17,$18,$0
+\tlui\t$20,%hi(D_800F2758)
+\tlui\t$19,%hi(D_80000450)
+\tlui\t$2,%hi(D_80039310)
+\taddiu\t$16,$2,%lo(D_80039310)
+.Lmain_allocate:
+\tsw\t$0,0($16)
+\taddiu\t$4,$20,%lo(D_800F2758)
+\taddu\t$5,$16,$0
+\tori\t$6,$0,0xC000
+\tjal\tfunc_800AA804
+\taddiu\t$7,$19,%lo(D_80000450)
+\taddiu\t$17,$17,1
+\tslti\t$2,$17,2
+\tbnez\t$2,.Lmain_allocate
+\taddiu\t$16,$16,4
+\tlui\t$2,%hi(D_800F2758)
+\taddiu\t$19,$2,%lo(D_800F2758)
+\taddu\t$4,$19,$0
+\tlui\t$5,%hi(D_80038C64)
+\taddiu\t$5,$5,%lo(D_80038C64)
+\tlui\t$6,0x1
+\tori\t$6,$6,0x4000
+\tlui\t$7,%hi(D_8000045C)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_8000045C)
+\taddu\t$4,$19,$0
+\tlui\t$5,%hi(D_80038C68)
+\taddiu\t$5,$5,%lo(D_80038C68)
+\taddiu\t$6,$0,0x400
+\tlui\t$7,%hi(D_80000468)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000468)
+\taddu\t$4,$19,$0
+\tlui\t$5,%hi(D_80038C6C)
+\taddiu\t$5,$5,%lo(D_80038C6C)
+\taddiu\t$6,$0,0xC00
+\tlui\t$7,%hi(D_80000474)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000474)
+\tjal\tfunc_8001C9F0
+\tlui\t$17,%hi(D_800392F8)
+\tjal\tfunc_8000F3B0
+\taddiu\t$17,$17,%lo(D_800392F8)
+\tjal\tfunc_80011054
+\taddiu\t$4,$0,2
+\taddu\t$4,$17,$0
+\tlui\t$5,%hi(D_80039428)
+\taddiu\t$5,$5,%lo(D_80039428)
+\tjal\tfunc_800320D0
+\taddiu\t$6,$0,2
+\tlui\t$16,%hi(D_80038C78)
+\taddiu\t$16,$16,%lo(D_80038C78)
+\taddu\t$4,$16,$0
+\tlui\t$5,%hi(D_80039430)
+\taddiu\t$5,$5,%lo(D_80039430)
+\tjal\tfunc_800062F0
+\taddu\t$6,$17,$0
+\tjal\tfunc_80006420
+\taddu\t$4,$16,$0
+\tlui\t$3,%hi(D_800663D8)
+\tsw\t$2,%lo(D_800663D8)($3)
+\tlui\t$4,%hi(D_80038C4C)
+\taddiu\t$4,$4,%lo(D_80038C4C)
+\tlui\t$5,0xB01A
+\taddiu\t$5,$5,0x3AB0
+\tjal\tfunc_80004A00
+\taddu\t$6,$0,$0
+\tlui\t$4,%hi(D_80000480)
+\taddiu\t$4,$4,%lo(D_80000480)
+\taddiu\t$5,$0,16
+\tjal\tfunc_80005BA8
+\taddu\t$6,$19,$0
+\tlui\t$4,%hi(D_8000048C)
+\taddiu\t$4,$4,%lo(D_8000048C)
+\taddiu\t$16,$sp,24
+\taddu\t$5,$16,$0
+\taddu\t$6,$19,$0
+\tjal\tfunc_80005A3C
+\taddiu\t$7,$0,1
+\tbnez\t$2,.Lmain_language_loaded
+\tlui\t$3,%hi(D_800F271C)
+\taddiu\t$2,$0,1
+\tj\t.Lmain_language_done
+\tsw\t$2,%lo(D_800F271C)($3)
+.Lmain_language_loaded:
+\tlw\t$2,24($sp)
+\tlbu\t$2,0($2)
+\tsw\t$2,%lo(D_800F271C)($3)
+\tsltiu\t$2,$2,8
+\tbnez\t$2,.Lmain_language_free
+\taddu\t$4,$19,$0
+\taddiu\t$2,$0,1
+\tsw\t$2,%lo(D_800F271C)($3)
+.Lmain_language_free:
+\tjal\tfunc_800AA658
+\taddu\t$5,$16,$0
+.Lmain_language_done:
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\taddu\t$5,$0,$0
+\tlui\t$30,%hi(D_8004462C)
+\tlui\t$21,%hi(D_800F2620)
+\taddiu\t$17,$0,1
+\tlui\t$23,%hi(D_800392F8)
+\tlui\t$20,%hi(D_80038C70)
+\taddiu\t$22,$0,2
+\tlui\t$16,%hi(D_800F271C)
+\tlw\t$6,%lo(D_800F271C)($16)
+\tjal\tfunc_800D93C0
+\tlui\t$19,%hi(D_800661D4)
+\tlui\t$2,%hi(D_800F2750)
+\tlw\t$3,%lo(D_800F271C)($16)
+\taddiu\t$2,$2,%lo(D_800F2750)
+\taddu\t$3,$3,$2
+\tlbu\t$3,0($3)
+\tlui\t$2,%hi(D_800F274C)
+\tjal\tfunc_800D9A18
+\tsb\t$3,%lo(D_800F274C)($2)
+\tjal\tfunc_8001E170
+\tnop
+\tlui\t$4,%hi(D_80039318)
+\taddiu\t$4,$4,%lo(D_80039318)
+\tjal\tfunc_8001CFD4
+\taddiu\t$5,$0,12
+\tlui\t$4,%hi(D_80038C40)
+\tjal\tfunc_8001DAC0
+\taddiu\t$4,$4,%lo(D_80038C40)
+\tjal\tfunc_800177CC
+\tnop
+\tjal\tfunc_80017888
+\tnop
+.Lmain_loop:
+\tlhu\t$2,%lo(D_8004462C)($30)
+\tlui\t$8,%hi(D_80044604)
+\tandi\t$2,$2,0x20
+\tbeqz\t$2,.Lmain_debug_clear
+\tsw\t$0,%lo(D_80044604)($8)
+\tj\t.Lmain_debug_done
+\tsw\t$17,%lo(D_800F2620)($21)
+.Lmain_debug_clear:
+\tsw\t$0,%lo(D_800F2620)($21)
+.Lmain_debug_done:
+\tbne\t$18,$17,.Lmain_frame
+\tlui\t$16,%hi(D_80038C50)
+\taddiu\t$4,$23,%lo(D_800392F8)
+.Lmain_wait:
+\taddiu\t$5,$20,%lo(D_80038C70)
+\tjal\tfunc_80032BB0
+\taddiu\t$6,$0,1
+\tbnez\t$2,.Lmain_wait_next
+\tnop
+\tlw\t$2,%lo(D_80038C70)($20)
+\tlh\t$2,0($2)
+\tbeq\t$2,$17,.Lmain_wait_next
+\tnop
+\tbne\t$2,$22,.Lmain_wait_next
+\tnop
+\taddu\t$18,$0,$0
+\tlw\t$2,%lo(D_800661D4)($19)
+\tlw\t$3,%lo(D_80038C50)($16)
+\taddiu\t$2,$2,-1
+\taddiu\t$3,$3,1
+\tsw\t$2,%lo(D_800661D4)($19)
+\tsw\t$3,%lo(D_80038C50)($16)
+.Lmain_wait_next:
+\tbeq\t$18,$17,.Lmain_wait
+\taddiu\t$4,$23,%lo(D_800392F8)
+.Lmain_frame:
+\tjal\tfunc_800B4578
+\taddiu\t$4,$0,1
+\tlui\t$2,%hi(D_800F2774)
+\tlw\t$5,%lo(D_800F2774)($2)
+\tlui\t$4,%hi(D_800F1B84)
+\tjal\tfunc_8001DD58
+\taddiu\t$4,$4,%lo(D_800F1B84)
+\tjal\tfunc_80014A2C
+\taddiu\t$4,$0,-1
+\tj\t.Lmain_loop
+\tsltu\t$18,$0,$2
+\t.set\treorder
+"""
+    lines[start:end] = [line + "\n" for line in replacement.splitlines()]
+    return lines
+
+
+def schedule_directional_light_registration(lines: list[str]) -> list[str]:
+    function_name = "func_8000673C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one directional light registration")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80006E2C", "func_800AD6D0", "func_800AA804", "D_80043D48",
+                  "D_80043DF0", "D_80043D20", "D_80000540", "D_80000550"):
+        if body.count(token) < 1:
+            raise ValueError(f"unexpected directional light registration near {token!r}")
+    for token in ("func_80006E2C", "func_800AD6D0", "func_800AA804"):
+        if body.count(f"jal\t{token}") != 1:
+            raise ValueError(f"expected one call to {token!r} in directional light registration")
+    assembly = """\
+\t.frame\t$sp,312,$31
+\t.mask\t0x800f0000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-312
+\tsw\t$16,288($sp)
+\tmove\t$16,$4
+\tsw\t$31,304($sp)
+\tsw\t$19,300($sp)
+\tsw\t$18,296($sp)
+\tsw\t$17,292($sp)
+\tlbu\t$2,0($16)
+\tandi\t$2,$2,0x40
+\tbnez\t$2,.Llight_register_return
+\tli\t$2,-991
+\tlw\t$3,4($16)
+\tli\t$2,2
+\tbne\t$3,$2,.Llight_register_check_skip
+\tli\t$2,16
+\tmove\t$7,$0
+\tlui\t$6,0xff00
+\tlui\t$2,%hi(D_80043D48)
+\taddiu\t$5,$2,%lo(D_80043D48)
+.Llight_register_ambient_loop:
+\taddiu\t$7,$7,1
+\tlbu\t$4,2($16)
+\tlbu\t$2,3($16)
+\tlbu\t$3,1($16)
+\tsll\t$4,$4,8
+\tor\t$2,$2,$4
+\tsll\t$3,$3,16
+\tor\t$2,$2,$3
+\tor\t$2,$2,$6
+\tsw\t$2,8($5)
+\tsltiu\t$2,$7,3
+\tbnez\t$2,.Llight_register_ambient_loop
+\taddiu\t$5,$5,4
+\tj\t.Llight_register_return
+\tmove\t$2,$0
+.Llight_register_check_skip:
+\tbeq\t$3,$2,.Llight_register_return
+\tmove\t$2,$0
+\tjal\tfunc_80006E2C
+\tnop
+\tsb\t$2,0($16)
+\tandi\t$2,$2,0xff
+\tsltiu\t$2,$2,8
+\tbnez\t$2,.Llight_register_transform
+\taddiu\t$4,$16,20
+\tj\t.Llight_register_return
+\tli\t$2,-991
+.Llight_register_transform:
+\tjal\tfunc_800AD6D0
+\taddiu\t$5,$sp,16
+\tlwc1\t$f4,16($sp)
+\tlui\t$1,%hi(D_80000550)
+\tldc1\t$f6,%lo(D_80000550)($1)
+\tcvt.d.s\t$f4,$f4
+\tmul.d\t$f4,$f4,$f6
+\tlwc1\t$f2,20($sp)
+\tcvt.d.s\t$f2,$f2
+\tmul.d\t$f2,$f2,$f6
+\tlwc1\t$f0,24($sp)
+\tcvt.d.s\t$f0,$f0
+\tmul.d\t$f0,$f0,$f6
+\tmove\t$17,$0
+\tmove\t$7,$17
+\tli\t$4,1
+\tcvt.s.d\t$f4,$f4
+\tcvt.s.d\t$f2,$f2
+\tcvt.s.d\t$f0,$f0
+\tswc1\t$f4,16($sp)
+\tswc1\t$f2,20($sp)
+\tswc1\t$f0,24($sp)
+\tlbu\t$2,0($16)
+\tlw\t$3,40($16)
+\tandi\t$19,$2,0xbf
+\tsllv\t$2,$4,$7
+.Llight_register_count_loop:
+\tand\t$2,$3,$2
+\tbnel\t$2,$0,.Llight_register_count_next
+\taddiu\t$17,$17,1
+.Llight_register_count_next:
+\taddiu\t$7,$7,1
+\tsltiu\t$2,$7,3
+\tbnez\t$2,.Llight_register_count_loop
+\tsllv\t$2,$4,$7
+\tlui\t$3,%hi(D_80043D48)
+\taddiu\t$3,$3,%lo(D_80043D48)
+\tsll\t$6,$19,2
+\taddiu\t$5,$3,136
+\taddu\t$5,$6,$5
+\tlui\t$2,%hi(D_80043DF0)
+\taddu\t$18,$6,$3
+\tlui\t$7,%hi(D_80000540)
+\tsll\t$6,$17,5
+\tlw\t$4,%lo(D_80043DF0)($2)
+\taddiu\t$7,$7,%lo(D_80000540)
+\tjal\tfunc_800AA804
+\tsw\t$17,72($18)
+\tli\t$8,1
+\tmove\t$5,$0
+\tbeqz\t$17,.Llight_register_finish
+\tmove\t$7,$5
+\tmove\t$6,$18
+.Llight_register_entry_loop:
+\tbnez\t$5,.Llight_register_entry_fill
+\tsll\t$4,$7,5
+\tlw\t$3,40($16)
+\tand\t$2,$8,$3
+.Llight_register_find_bit:
+\tbeql\t$2,$0,.Llight_register_check_found
+\tsll\t$8,$8,1
+\tli\t$5,1
+.Llight_register_check_found:
+\tbeqz\t$5,.Llight_register_find_bit
+\tand\t$2,$8,$3
+\tsll\t$4,$7,5
+.Llight_register_entry_fill:
+\tlw\t$2,136($6)
+\tlbu\t$3,1($16)
+\taddu\t$2,$4,$2
+\tsb\t$3,8($2)
+\tlw\t$2,136($6)
+\tlbu\t$3,2($16)
+\taddu\t$2,$4,$2
+\tsb\t$3,9($2)
+\tlw\t$2,136($6)
+\tlbu\t$3,3($16)
+\taddu\t$2,$4,$2
+\tsb\t$3,10($2)
+\tlw\t$2,136($6)
+\tlbu\t$3,1($16)
+\taddu\t$2,$4,$2
+\tsb\t$3,12($2)
+\tlw\t$2,136($6)
+\tlbu\t$3,2($16)
+\taddu\t$2,$4,$2
+\tsb\t$3,13($2)
+\tlw\t$2,136($6)
+\tlbu\t$3,3($16)
+\taddu\t$2,$4,$2
+\tsb\t$3,14($2)
+\tlw\t$3,136($6)
+\tlwc1\t$f0,16($sp)
+\taddu\t$3,$4,$3
+\ttrunc.w.s\t$f8,$f0
+\tmfc1\t$2,$f8
+\tsb\t$2,16($3)
+\tlw\t$3,136($6)
+\tlwc1\t$f0,20($sp)
+\taddu\t$3,$4,$3
+\ttrunc.w.s\t$f8,$f0
+\tmfc1\t$2,$f8
+\tsb\t$2,17($3)
+\tlw\t$3,136($6)
+\tlwc1\t$f0,24($sp)
+\taddu\t$3,$4,$3
+\ttrunc.w.s\t$f8,$f0
+\tmfc1\t$2,$f8
+\tsb\t$2,18($3)
+\tlw\t$2,136($6)
+\tmove\t$5,$0
+\taddu\t$2,$4,$2
+\tsw\t$8,24($2)
+\tlw\t$2,136($6)
+\taddiu\t$7,$7,1
+\taddu\t$4,$4,$2
+\tlw\t$2,0($4)
+\tori\t$2,$2,0x1
+\tsw\t$2,0($4)
+\tsltu\t$2,$7,$17
+\tbnez\t$2,.Llight_register_entry_loop
+\tsll\t$8,$8,1
+.Llight_register_finish:
+\tlui\t$4,%hi(D_80043D48)
+\taddiu\t$4,$4,%lo(D_80043D48)
+\tsll\t$2,$19,2
+\tlw\t$3,40($16)
+\taddu\t$2,$2,$4
+\tsw\t$3,104($2)
+\tlbu\t$2,0($16)
+\tori\t$2,$2,0x40
+\tsb\t$2,0($16)
+\tlw\t$3,4($4)
+\tmove\t$2,$0
+\taddiu\t$3,$3,1
+\tsw\t$3,4($4)
+\tlui\t$4,%hi(D_80043D20)
+\tsw\t$3,%lo(D_80043D20)($4)
+.Llight_register_return:
+\tlw\t$31,304($sp)
+\tlw\t$19,300($sp)
+\tlw\t$18,296($sp)
+\tlw\t$17,292($sp)
+\tlw\t$16,288($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,312
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_numbered_sound_resource_load(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+    if text.count("func_8001CCF0:\n") != 1 or text.count(".end\tfunc_8001CCF0\n") != 1:
+        raise ValueError("expected exactly one numbered sound resource loader")
+
+    def replace_once(old: str, new: str, label: str) -> None:
+        nonlocal text
+        count = text.count(old)
+        if count != 1:
+            raise ValueError(f"expected one {label} pattern; found {count}")
+        text = text.replace(old, new, 1)
+
+    dispatch = re.compile(
+        r"\tsll\t\$2,\$4,2\n\tlw\t\$2,(\.L\d+)\(\$2\)\n\t#nop\n\tj\t\$2\n")
+    found = dispatch.findall(text)
+    if len(found) != 1:
+        raise ValueError(f"expected one sound name dispatch; found {len(found)}")
+    text = dispatch.sub(
+        lambda m: f"\tla\t$2,{m.group(1)}\n\tsll\t$3,$4,2\n\taddu\t$3,$3,$2\n"
+        "\tlw\t$2,0($3)\n\tj\t$2\n", text, count=1)
+
+    case = re.compile(
+        r"\tla\t\$5,(D_800011[0-9A-F]{2}|D_800012[0-9A-F]{2})\n"
+        r"\t\.set\tnoreorder\n\t\.set\tnomacro\n"
+        r"\tj\t(\.L\d+)\n\taddu\t\$4,\$sp,16\n")
+    cases = case.findall(text)
+    if len(cases) != 31 or len({target for _, target in cases}) != 1:
+        raise ValueError(f"expected 31 sound name cases; found {len(cases)}")
+    text = case.sub(
+        lambda m: "\t.set\tnoreorder\n\t.set\tnomacro\n"
+        f"\taddu\t$4,$sp,16\n\tlui\t$5,%hi({m.group(1)})\n"
+        f"\tj\t{m.group(2)}\n\taddiu\t$5,$5,%lo({m.group(1)})\n", text)
+
+    tail = re.compile(
+        r"\tbne\t\$2,\$0,(\.L\d+)\n\tla\t\$16,D_80064F9C\n.*?"
+        r"\taddu\t\$sp,\$sp,536\n\tj\t\$31\n", re.S)
+    found = tail.findall(text)
+    if len(found) != 1:
+        raise ValueError(f"expected one sound resource load tail; found {len(found)}")
+    required = [
+        "jal\tfunc_800AA658", "jal\tfunc_80005A3C", "jal\tfunc_8001E994",
+        "li\t$5,0x00007530", "jal\tfunc_8001EEA4", "lw\t$3,audioConfiguration+108",
+        "sw\t$2,D_80064F7C", "sw\t$2,D_80064F98", "sw\t$3,D_80064F80",
+    ]
+    body = tail.search(text).group(0)
+    for instruction in required:
+        if body.count(instruction) != 1:
+            raise ValueError(f"unexpected sound resource load near {instruction!r}")
+    text = tail.sub(
+        lambda m: "\t.set\tnoreorder\n\t.set\tnomacro\n"
+        f"\tbnez\t$2,{m.group(1)}\n"
+        "\tlui\t$2,%hi(D_80064F9C)\n"
+        "\tlw\t$3,%lo(D_80064F9C)($2)\n"
+        "\tbeqz\t$3,.Lsound_resource_load\n"
+        "\taddiu\t$16,$2,%lo(D_80064F9C)\n"
+        "\tlui\t$4,%hi(D_800F2758)\n"
+        "\taddiu\t$4,$4,%lo(D_800F2758)\n"
+        "\tjal\tfunc_800AA658\n"
+        "\tmove\t$5,$16\n"
+        ".Lsound_resource_load:\n"
+        "\taddiu\t$4,$sp,272\n"
+        "\tmove\t$5,$16\n"
+        "\tlui\t$6,%hi(D_800F2758)\n"
+        "\taddiu\t$6,$6,%lo(D_800F2758)\n"
+        "\tjal\tfunc_80005A3C\n"
+        "\tli\t$7,1\n"
+        "\tli\t$4,2\n"
+        "\tjal\tfunc_8001E994\n"
+        "\tli\t$5,30000\n"
+        "\tjal\tfunc_8001EEA4\n"
+        "\tli\t$4,1\n"
+        "\tlui\t$2,%hi(D_80064F7C)\n"
+        "\tli\t$3,1\n"
+        "\tsw\t$3,%lo(D_80064F7C)($2)\n"
+        "\tlui\t$2,%hi(D_80064F98)\n"
+        "\tsw\t$3,%lo(D_80064F98)($2)\n"
+        "\tlui\t$2,%hi(audioConfiguration)\n"
+        "\taddiu\t$2,$2,%lo(audioConfiguration)\n"
+        "\tlw\t$3,108($2)\n"
+        "\tlw\t$31,532($sp)\n"
+        "\tlw\t$16,528($sp)\n"
+        "\tlui\t$2,%hi(D_80064F80)\n"
+        "\tsw\t$3,%lo(D_80064F80)($2)\n"
+        "\tj\t$31\n"
+        "\taddu\t$sp,$sp,536\n"
+        "\t.set\tmacro\n\t.set\treorder\n", text)
+    return text.splitlines(keepends=True)
+
+
+def schedule_skeleton_render_record_creation(lines: list[str]) -> list[str]:
+    function_name = "func_800140A0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one skeleton render-record creator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002F660", "func_80037890", "func_80037900", "func_80005A3C",
+                  "func_800AA804", "func_800AA658", "func_80008864", "func_800AAA60",
+                  "D_8005AC7C", "D_8005ACAC", "D_8005ACD0", "D_8005A968", "D_8005A9E8",
+                  "D_8005AC88", "D_8006A450", "D_80000B78"):
+        if body.count(token) < 1:
+            raise ValueError(f"unexpected skeleton render-record creator near {token!r}")
+    if body.count(".section\t.rodata") != 1 or body.count("\t.word\t") != 30:
+        raise ValueError("expected one 30-entry skeleton type jump table")
+    assembly = """\
+\t.frame\t$29,64,$31
+\t.mask\t0x807f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnomacro
+\taddiu\t$29,$29,-64
+\tsw\t$18,40($29)
+\tmove\t$18,$4
+\tsw\t$17,36($29)
+\tmove\t$17,$5
+\tsw\t$22,56($29)
+\tmove\t$22,$6
+\tsw\t$16,32($29)
+\tlui\t$16,%hi(D_8005AC7C)
+\tlw\t$3,%lo(D_8005AC7C)($16)
+\tli\t$2,128
+\tsw\t$31,60($29)
+\tsw\t$21,52($29)
+\tsw\t$20,48($29)
+\tsw\t$19,44($29)
+\tsw\t$0,24($29)
+\tsw\t$0,16($29)
+\tbne\t$3,$2,.Lskeleton_find_slot
+\tsw\t$0,20($29)
+\tlui\t$4,%hi(D_80000B38)
+\taddiu\t$4,$4,%lo(D_80000B38)
+\tli\t$5,1961
+\tlui\t$6,%hi(D_80000B50)
+\tjal\tfunc_800AAA60
+\taddiu\t$6,$6,%lo(D_80000B50)
+.Lskeleton_find_slot:
+\tlw\t$16,%lo(D_8005AC7C)($16)
+\tbeq\t$16,$0,.Lskeleton_slot_found
+\tmove\t$3,$0
+\tmove\t$5,$16
+\tlui\t$2,%hi(D_8005ACD0)
+\taddiu\t$4,$2,%lo(D_8005ACD0)
+.Lskeleton_scan_slot:
+\tlw\t$2,4($4)
+\tbeql\t$2,$0,.Lskeleton_next_slot
+\tmove\t$16,$3
+.Lskeleton_next_slot:
+\taddiu\t$3,$3,1
+\tsltu\t$2,$3,$5
+\tbne\t$2,$0,.Lskeleton_scan_slot
+\taddiu\t$4,$4,20
+.Lskeleton_slot_found:
+\tlui\t$3,%hi(D_8005AC7C)
+\tlw\t$2,%lo(D_8005AC7C)($3)
+\tbne\t$16,$2,.Lskeleton_store_type
+\tlui\t$2,%hi(D_8005ACAC)
+\taddiu\t$2,$16,1
+\tsw\t$2,%lo(D_8005AC7C)($3)
+\tlui\t$2,%hi(D_8005ACAC)
+.Lskeleton_store_type:
+\tsw\t$17,%lo(D_8005ACAC)($2)
+\tbltz\t$17,.Lskeleton_copy_name
+\tmove\t$19,$16
+\taddiu\t$3,$17,-1
+\tsltiu\t$2,$3,30
+\tbeq\t$2,$0,.Lskeleton_plain_type
+\tlui\t$2,%hi(.Lskeleton_type_table)
+\taddiu\t$2,$2,%lo(.Lskeleton_type_table)
+\tsll\t$3,$3,2
+\taddu\t$3,$3,$2
+\tlw\t$2,0($3)
+\tjr\t$2
+\tnop
+\t.section\t.rodata
+\t.align\t2
+.Lskeleton_type_table:
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_plain_type
+\t.word\t.Lskeleton_suffixed_type
+\t.word\t.Lskeleton_suffixed_type
+\t.text
+.Lskeleton_suffixed_type:
+\tj\t.Lskeleton_test_suffix
+\tli\t$2,1
+.Lskeleton_truncate_name:
+\tlui\t$3,%hi(D_8005A968)
+\tlui\t$2,%hi(D_8005ACAC)
+\tsb\t$0,0($4)
+\tlw\t$2,%lo(D_8005ACAC)($2)
+\taddiu\t$3,$3,%lo(D_8005A968)
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$3
+\tlw\t$5,0($2)
+\tjal\tfunc_80037900
+\tmove\t$4,$18
+\tj\t.Lskeleton_copy_name_low
+\tlui\t$16,%hi(D_8006A450)
+.Lskeleton_plain_type:
+\tmove\t$2,$0
+.Lskeleton_test_suffix:
+\tbeq\t$2,$0,.Lskeleton_copy_name
+\tmove\t$16,$0
+\tjal\tfunc_8002F660
+\tmove\t$4,$18
+\taddiu\t$3,$2,-1
+\tbeq\t$3,$0,.Lskeleton_copy_name
+\tli\t$6,95
+\tli\t$5,3
+\taddu\t$4,$18,$3
+.Lskeleton_scan_name:
+\tlbu\t$2,0($4)
+\tbeql\t$2,$6,.Lskeleton_check_separators
+\taddiu\t$16,$16,1
+.Lskeleton_check_separators:
+\tbeq\t$16,$5,.Lskeleton_truncate_name
+\taddiu\t$3,$3,-1
+\tbnel\t$3,$0,.Lskeleton_scan_name
+\taddu\t$4,$18,$3
+.Lskeleton_copy_name:
+\tlui\t$16,%hi(D_8006A450)
+.Lskeleton_copy_name_low:
+\taddiu\t$16,$16,%lo(D_8006A450)
+\tmove\t$4,$16
+\tjal\tfunc_80037890
+\tmove\t$5,$18
+\tjal\tfunc_8002F660
+\tmove\t$4,$16
+\taddu\t$2,$2,$16
+\tmove\t$4,$16
+\taddiu\t$21,$29,16
+\tmove\t$5,$21
+\tlui\t$3,%hi(D_80000B78)
+\tlui\t$17,%hi(D_8005AC88)
+\taddiu\t$11,$3,%lo(D_80000B78)
+\tlwl\t$8,0($11)
+\tlwr\t$8,3($11)
+\tswl\t$8,-3($2)
+\tswr\t$8,0($2)
+\tlw\t$6,%lo(D_8005AC88)($17)
+\tjal\tfunc_80005A3C
+\tli\t$7,1
+\tbeql\t$2,$0,.Lskeleton_allocate_placeholder
+\tsw\t$0,16($29)
+.Lskeleton_allocate_placeholder:
+\taddiu\t$16,$29,20
+\tmove\t$5,$16
+\tlui\t$6,0x1
+\tlui\t$20,%hi(D_8005A9E8)
+\tlui\t$7,%hi(D_80000B7C)
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000B7C)
+\tmove\t$4,$18
+\taddiu\t$5,$29,24
+\tlw\t$6,%lo(D_8005AC88)($17)
+\tjal\tfunc_80005A3C
+\tli\t$7,1
+\tbne\t$2,$0,.Lskeleton_release_placeholder
+\tlui\t$4,%hi(D_80000B38)
+\taddiu\t$4,$4,%lo(D_80000B38)
+\tli\t$5,2185
+\tlui\t$6,%hi(D_80000B84)
+\tjal\tfunc_800AAA60
+\taddiu\t$6,$6,%lo(D_80000B84)
+.Lskeleton_release_placeholder:
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\tmove\t$5,$16
+\tlui\t$17,%hi(D_8005ACD0)
+\taddiu\t$17,$17,%lo(D_8005ACD0)
+\tsll\t$16,$19,2
+\taddu\t$16,$16,$19
+\tsll\t$16,$16,2
+\taddiu\t$5,$17,12
+\taddu\t$5,$16,$5
+\tli\t$6,4
+\tlui\t$18,%hi(D_80000ADC)
+\taddiu\t$18,$18,%lo(D_80000ADC)
+\tmove\t$7,$18
+\taddu\t$19,$16,$17
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tli\t$2,1
+\tsw\t$2,8($19)
+\tsw\t$0,12($19)
+\tjal\tfunc_800AA804
+\tsw\t$0,16($19)
+\taddiu\t$17,$17,16
+\taddu\t$5,$16,$17
+\tli\t$6,4
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA804
+\tmove\t$7,$18
+\tlw\t$4,24($29)
+\tlw\t$6,16($29)
+\tjal\tfunc_80008864
+\tmove\t$5,$22
+\tlw\t$3,16($29)
+\tbeq\t$3,$0,.Lskeleton_store_record
+\tmove\t$16,$2
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\tmove\t$5,$21
+.Lskeleton_store_record:
+\tlw\t$3,12($19)
+\tmove\t$2,$16
+\tsw\t$2,4($19)
+\tsw\t$2,0($3)
+\tli\t$3,90
+\tsw\t$3,0($19)
+\tlw\t$31,60($29)
+\tlw\t$22,56($29)
+\tlw\t$21,52($29)
+\tlw\t$20,48($29)
+\tlw\t$19,44($29)
+\tlw\t$18,40($29)
+\tlw\t$17,36($29)
+\tlw\t$16,32($29)
+\tjr\t$31
+\taddiu\t$29,$29,64
+\t.set\tmacro
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_sprite_render_object_load(lines: list[str]) -> list[str]:
+    function_name = "func_80019680"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one sprite render-object load")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002F6B0", "func_800AA658", "func_8001A480",
+                  "func_80004380", "func_800AA804", "func_80018940",
+                  "func_800351A0", "func_80037950", "func_8001A044",
+                  "func_8001C644", "D_800620DC", "D_800F2758",
+                  "D_80000E80", "D_80000F0C", "D_80000F18", "D_80000F28",
+                  "D_80000F34", "D_80000F40", "D_80000F4C", "D_80000F50",
+                  "D_80000F54", "D_80000F58"):
+        if body.count(token) < 1:
+            raise ValueError(f"unexpected sprite render-object load near {token!r}")
+    assembly = """\
+\t.frame\t$sp,544,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-544
+\tsw\t$17,532($sp)
+\tmove\t$17,$4
+\tsw\t$18,536($sp)
+\tmove\t$18,$5
+\taddiu\t$4,$sp,16
+\tlui\t$5,%hi(D_80000E80)
+\taddiu\t$5,$5,%lo(D_80000E80)
+\tmove\t$6,$18
+\tsw\t$31,540($sp)
+\tjal\tfunc_8002F6B0
+\tsw\t$16,528($sp)
+\tlw\t$16,0($17)
+\tbeqz\t$16,.Lsprite_load_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tlw\t$2,128($16)
+\tandi\t$2,$2,4
+\tbeqz\t$2,.Lsprite_load_allocate
+\tlui\t$2,%hi(D_800620DC)
+\tlw\t$2,%lo(D_800620DC)($2)
+\tbnez\t$2,.Lsprite_load_allocate_call
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tlw\t$2,80($16)
+\tbeqz\t$2,.Lsprite_load_first_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,80
+.Lsprite_load_first_handle:
+\tlw\t$2,72($16)
+\tbeqz\t$2,.Lsprite_load_second_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,72
+.Lsprite_load_second_handle:
+\tlw\t$2,76($16)
+\tbeqz\t$2,.Lsprite_load_fourth_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,76
+.Lsprite_load_fourth_handle:
+\tlw\t$2,84($16)
+\tbeqz\t$2,.Lsprite_load_child
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,84
+.Lsprite_load_child:
+\tlw\t$4,56($16)
+\tbeql\t$4,$0,.Lsprite_load_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tjal\tfunc_8001A480
+\tnop
+\tlw\t$16,56($16)
+\tbeqz\t$16,.Lsprite_load_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tjal\tfunc_8001A480
+\tmove\t$4,$16
+\tjal\tfunc_80004380
+\tmove\t$4,$16
+\tlui\t$4,%hi(D_800F2758)
+.Lsprite_load_allocate:
+\taddiu\t$4,$4,%lo(D_800F2758)
+.Lsprite_load_allocate_call:
+\tmove\t$5,$17
+\tli\t$6,132
+\tlui\t$7,%hi(D_80000F0C)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000F0C)
+\tbeqz\t$2,.Lsprite_load_initialize
+\tli\t$2,-999
+\tj\t.Lsprite_load_return
+\tsw\t$0,0($17)
+.Lsprite_load_initialize:
+\taddiu\t$5,$sp,16
+\tmove\t$6,$0
+\tmove\t$7,$6
+\tli\t$2,255
+\tlw\t$16,0($17)
+\tlui\t$1,%hi(D_80000F4C)
+\tlwc1\t$f0,%lo(D_80000F4C)($1)
+\tmove\t$4,$16
+\tsh\t$2,70($16)
+\tsh\t$2,68($16)
+\tsh\t$2,66($16)
+\tsh\t$2,64($16)
+\tli\t$2,0x1234
+\tswc1\t$f0,32($16)
+\tswc1\t$f0,36($16)
+\tsw\t$0,0($16)
+\tsw\t$0,4($16)
+\tsw\t$0,8($16)
+\tsw\t$0,12($16)
+\tsw\t$0,16($16)
+\tsw\t$0,20($16)
+\tsw\t$0,24($16)
+\tsh\t$0,42($16)
+\tsh\t$0,40($16)
+\tsw\t$0,72($16)
+\tsw\t$0,76($16)
+\tsw\t$2,28($16)
+\tsw\t$0,48($16)
+\tsw\t$0,56($16)
+\tsw\t$0,80($16)
+\tsb\t$0,44($16)
+\tsb\t$0,45($16)
+\tsb\t$0,46($16)
+\tjal\tfunc_80018940
+\tsw\t$0,128($16)
+\tbgtz\t$2,.Lsprite_load_configured
+\tli\t$2,255
+.Lsprite_load_halt:
+\tjal\tfunc_800351A0
+\tli\t$4,1
+\tjal\tfunc_800351A0
+\tmove\t$4,$0
+\tj\t.Lsprite_load_halt
+\tnop
+.Lsprite_load_configured:
+\tlui\t$1,%hi(D_80000F50)
+\tlwc1\t$f2,%lo(D_80000F50)($1)
+\tmtc1\t$0,$f4
+\tsh\t$2,64($16)
+\tsh\t$2,66($16)
+\tsh\t$2,68($16)
+\tsh\t$2,70($16)
+\tli\t$2,100
+\tsw\t$2,4($16)
+\tsw\t$2,8($16)
+\tswc1\t$f2,32($16)
+\tmov.s\t$f0,$f2
+\tc.le.s\t$f0,$f4
+\tnop
+\tbc1f\t.Lsprite_load_second_scale
+\tswc1\t$f2,36($16)
+\tlui\t$1,%hi(D_80000F54)
+\tlwc1\t$f0,%lo(D_80000F54)($1)
+\tswc1\t$f0,32($16)
+.Lsprite_load_second_scale:
+\tlwc1\t$f0,36($16)
+\tc.le.s\t$f0,$f4
+\tnop
+\tbc1f\t.Lsprite_load_clear_values
+\tmove\t$4,$18
+\tlui\t$1,%hi(D_80000F58)
+\tlwc1\t$f0,%lo(D_80000F58)($1)
+\tswc1\t$f0,36($16)
+.Lsprite_load_clear_values:
+\tlui\t$5,%hi(D_80000F18)
+\taddiu\t$5,$5,%lo(D_80000F18)
+\tswc1\t$f4,116($16)
+\tswc1\t$f4,112($16)
+\tswc1\t$f4,108($16)
+\tswc1\t$f4,104($16)
+\tswc1\t$f4,100($16)
+\tswc1\t$f4,96($16)
+\tswc1\t$f4,92($16)
+\tjal\tfunc_80037950
+\tswc1\t$f4,88($16)
+\tbeqz\t$2,.Lsprite_load_power_bar_eight
+\tmove\t$4,$16
+\tjal\tfunc_8001A044
+\tli\t$5,3
+\tj\t.Lsprite_load_return
+\tmove\t$2,$0
+.Lsprite_load_power_bar_eight:
+\tmove\t$4,$18
+\tlui\t$5,%hi(D_80000F28)
+\tjal\tfunc_80037950
+\taddiu\t$5,$5,%lo(D_80000F28)
+\tbeqz\t$2,.Lsprite_load_power_bar
+\tmove\t$4,$16
+\tjal\tfunc_8001A044
+\tli\t$5,1
+\tj\t.Lsprite_load_return
+\tmove\t$2,$0
+.Lsprite_load_power_bar:
+\tmove\t$4,$18
+\tlui\t$5,%hi(D_80000F34)
+\tjal\tfunc_80037950
+\taddiu\t$5,$5,%lo(D_80000F34)
+\tbeqz\t$2,.Lsprite_load_fire
+\tmove\t$4,$16
+\tjal\tfunc_8001A044
+\tli\t$5,2
+\tj\t.Lsprite_load_return
+\tmove\t$2,$0
+.Lsprite_load_fire:
+\tmove\t$4,$18
+\tlui\t$5,%hi(D_80000F40)
+\tjal\tfunc_80037950
+\taddiu\t$5,$5,%lo(D_80000F40)
+\tbeqz\t$2,.Lsprite_load_return
+\tmove\t$2,$0
+\tjal\tfunc_8001C644
+\tnop
+\tlw\t$2,128($16)
+\tori\t$2,$2,16
+\tsw\t$2,128($16)
+\tmove\t$2,$0
+.Lsprite_load_return:
+\tlw\t$31,540($sp)
+\tlw\t$18,536($sp)
+\tlw\t$17,532($sp)
+\tlw\t$16,528($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,544
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_bitmap_sheet_object_load(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80018940:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80018940"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one bitmap-sheet object loader")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "jal\tfunc_80005A3C", "jal\tfunc_800AA804", "jal\tfunc_800AA100",
+        "l.s\t$f0,bitmapUnitScale", "sw\t$0,sheetLoaded",
+        "sw\t$2,objectTimerValue",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected bitmap-sheet object loader near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,40,$31
+\t.mask\t0x800f0000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnomacro
+\taddiu\t$29,$29,-40
+\tsw\t$17,20($29)
+\taddu\t$17,$4,$0
+\taddu\t$4,$5,$0
+\tsw\t$16,16($29)
+\taddiu\t$16,$17,80
+\taddu\t$5,$16,$0
+\tlui\t$2,%hi(memoryContext)
+\tsw\t$18,24($29)
+\taddiu\t$18,$2,%lo(memoryContext)
+\tsw\t$31,32($29)
+\tsw\t$19,28($29)
+\tsw\t$6,4($17)
+\taddu\t$6,$18,$0
+\tsw\t$7,8($17)
+\taddu\t$7,$0,$0
+\tlui\t$1,%hi(bitmapUnitScale)
+\tlwc1\t$f0,%lo(bitmapUnitScale)($1)
+\tlui\t$19,%hi(sheetLoaded)
+\tsw\t$0,80($17)
+\tsw\t$0,80($17)
+\tsw\t$0,%lo(sheetLoaded)($19)
+\tswc1\t$f0,32($17)
+\tjal\tfunc_80005A3C
+\tswc1\t$f0,36($17)
+\tbnez\t$2,.Lbso0
+\tlui\t$4,%hi(fallbackSheetName)
+\taddiu\t$4,$4,%lo(fallbackSheetName)
+\taddu\t$5,$16,$0
+\taddu\t$6,$18,$0
+\tjal\tfunc_80005A3C
+\taddu\t$7,$0,$0
+.Lbso0:
+\tlw\t$3,80($17)
+\tlw\t$2,0($3)
+\tsw\t$2,0($17)
+\tlw\t$2,4($3)
+\tsw\t$2,20($17)
+\tlw\t$2,8($3)
+\tsw\t$2,24($17)
+\tlhu\t$2,18($3)
+\tsh\t$2,40($17)
+\tlhu\t$2,22($3)
+\tsh\t$2,42($17)
+\tlw\t$2,24($3)
+\tsw\t$2,60($17)
+\tlw\t$4,12($3)
+\taddiu\t$2,$0,1
+\tbeqz\t$4,.Lbso2
+\tsw\t$2,%lo(sheetLoaded)($19)
+\tlw\t$3,0($17)
+\tdivu\t$0,$3,$4
+\tbnez\t$4,.Lbso1
+\tnop
+\tbreak\t7
+.Lbso1:
+\tmflo\t$3
+\tsb\t$0,45($17)
+\tsb\t$4,46($17)
+\tlw\t$2,128($17)
+\tandi\t$4,$4,255
+\tsh\t$4,40($17)
+\tori\t$2,$2,32
+\tsw\t$2,128($17)
+\taddiu\t$2,$0,18310
+\taddiu\t$3,$3,-1
+\tsb\t$3,44($17)
+\taddu\t$10,$0,$0
+\taddu\t$11,$0,$0
+\tlui\t$3,%hi(objectTimerValue)
+\tlui\t$1,%hi(objectTimerBase)
+\tsw\t$10,%lo(objectTimerBase)($1)
+\tlui\t$1,%hi(objectTimerBase+4)
+\tsw\t$11,%lo(objectTimerBase+4)($1)
+\tsw\t$2,%lo(objectTimerValue)($3)
+.Lbso2:
+\taddu\t$4,$18,$0
+\taddiu\t$5,$17,72
+\tlui\t$7,%hi(bitDataName)
+\tlw\t$6,0($17)
+\tlw\t$2,20($17)
+\taddiu\t$7,$7,%lo(bitDataName)
+\tsw\t$0,84($17)
+\tsw\t$0,72($17)
+\tsw\t$0,76($17)
+\taddiu\t$6,$6,1
+\tsll\t$6,$6,2
+\tori\t$2,$2,8
+\tjal\tfunc_800AA804
+\tsw\t$2,20($17)
+\taddu\t$4,$18,$0
+\taddiu\t$5,$17,76
+\tlui\t$7,%hi(bitmapsName)
+\tlw\t$6,0($17)
+\taddiu\t$7,$7,%lo(bitmapsName)
+\taddiu\t$6,$6,1
+\tjal\tfunc_800AA804
+\tsll\t$6,$6,4
+\taddu\t$6,$0,$0
+\tlw\t$2,80($17)
+\tlw\t$3,0($17)
+\tbeqz\t$3,.Lbso6
+\taddiu\t$16,$2,28
+\taddiu\t$8,$0,16
+.Lbso3:
+\tlw\t$5,0($16)
+\tlw\t$7,4($16)
+\tsw\t$5,12($17)
+\tlw\t$2,4($16)
+\tsll\t$3,$6,2
+\tsw\t$2,16($17)
+\tlw\t$2,72($17)
+\taddiu\t$16,$16,16
+\taddu\t$2,$3,$2
+\tsw\t$16,0($2)
+\tlw\t$2,76($17)
+\tsll\t$4,$6,4
+\taddu\t$2,$4,$2
+\tsh\t$5,2($2)
+\tsh\t$5,0($2)
+\tlw\t$2,76($17)
+\taddu\t$2,$4,$2
+\tsh\t$0,6($2)
+\tsh\t$0,4($2)
+\tlw\t$2,72($17)
+\taddu\t$3,$3,$2
+\tlw\t$2,76($17)
+\tlw\t$3,0($3)
+\taddu\t$2,$4,$2
+\tsw\t$3,8($2)
+\tlw\t$2,76($17)
+\taddu\t$2,$4,$2
+\tsh\t$7,12($2)
+\tlw\t$2,76($17)
+\taddu\t$4,$4,$2
+\tsh\t$0,14($4)
+\tlw\t$2,60($17)
+\tmult\t$5,$7
+\tbne\t$2,$8,.Lbso4
+\tnop
+\tmflo\t$9
+\tsll\t$2,$9,1
+\tj\t.Lbso5
+\taddu\t$16,$16,$2
+.Lbso4:
+\tmflo\t$9
+\taddu\t$16,$16,$9
+.Lbso5:
+\tlw\t$2,0($17)
+\taddiu\t$6,$6,1
+\tsltu\t$2,$6,$2
+\tbnez\t$2,.Lbso3
+\tnop
+.Lbso6:
+\tlw\t$3,60($17)
+\taddiu\t$2,$0,8
+\tbne\t$3,$2,.Lbso13
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\taddiu\t$5,$17,84
+\taddiu\t$6,$0,512
+\tlui\t$7,%hi(paletteName)
+\tjal\tfunc_800AA100
+\taddiu\t$7,$7,%lo(paletteName)
+\tlui\t$2,%hi(sheetPalette)
+\taddiu\t$4,$2,%lo(sheetPalette)
+\taddu\t$3,$16,$0
+\tor\t$2,$3,$4
+\tandi\t$2,$2,3
+\tbeqz\t$2,.Lbso8
+\taddiu\t$2,$3,768
+.Lbso7:
+\tlwl\t$10,0($3)
+\tlwr\t$10,3($3)
+\tlwl\t$11,4($3)
+\tlwr\t$11,7($3)
+\tlwl\t$12,8($3)
+\tlwr\t$12,11($3)
+\tlwl\t$9,12($3)
+\tlwr\t$9,15($3)
+\tswl\t$10,0($4)
+\tswr\t$10,3($4)
+\tswl\t$11,4($4)
+\tswr\t$11,7($4)
+\tswl\t$12,8($4)
+\tswr\t$12,11($4)
+\tswl\t$9,12($4)
+\tswr\t$9,15($4)
+\taddiu\t$3,$3,16
+\tbne\t$3,$2,.Lbso7
+\taddiu\t$4,$4,16
+\tj\t.Lbso9
+\tlui\t$2,%hi(sheetPalette)
+.Lbso8:
+\tlw\t$10,0($3)
+\tlw\t$11,4($3)
+\tlw\t$12,8($3)
+\tlw\t$9,12($3)
+\tsw\t$10,0($4)
+\tsw\t$11,4($4)
+\tsw\t$12,8($4)
+\tsw\t$9,12($4)
+\taddiu\t$3,$3,16
+\tbne\t$3,$2,.Lbso8
+\taddiu\t$4,$4,16
+\tlui\t$2,%hi(sheetPalette)
+.Lbso9:
+\taddiu\t$6,$2,%lo(sheetPalette)
+\taddu\t$7,$0,$0
+\taddiu\t$8,$6,768
+.Lbso10:
+\tlbu\t$2,0($6)
+\tbnez\t$2,.Lbso11
+\tnop
+\tlbu\t$2,1($6)
+\tbnez\t$2,.Lbso11
+\tnop
+\tlbu\t$2,2($6)
+\tbnez\t$2,.Lbso11
+\tnop
+\tlw\t$4,84($17)
+\tlbu\t$3,0($6)
+\tlbu\t$2,1($6)
+\taddu\t$4,$7,$4
+\tsll\t$3,$3,8
+\tandi\t$3,$3,63488
+\tsll\t$2,$2,3
+\tandi\t$2,$2,1984
+\tor\t$3,$3,$2
+\tj\t.Lbso12
+\tsh\t$3,0($4)
+.Lbso11:
+\tlw\t$5,84($17)
+\tlbu\t$4,0($6)
+\tlbu\t$3,1($6)
+\tlbu\t$2,2($6)
+\taddu\t$5,$7,$5
+\tsll\t$4,$4,8
+\tandi\t$4,$4,63488
+\tsll\t$3,$3,3
+\tandi\t$3,$3,1984
+\tor\t$4,$4,$3
+\tsrl\t$2,$2,2
+\tandi\t$2,$2,62
+\tor\t$2,$2,$4
+\tori\t$2,$2,1
+\tsh\t$2,0($5)
+.Lbso12:
+\taddiu\t$6,$6,3
+\tslt\t$2,$6,$8
+\tbnez\t$2,.Lbso10
+\taddiu\t$7,$7,2
+.Lbso13:
+\tlw\t$3,128($17)
+\tlw\t$2,0($17)
+\tori\t$3,$3,70
+\tsw\t$3,128($17)
+\tlw\t$31,32($29)
+\tlw\t$19,28($29)
+\tlw\t$18,24($29)
+\tlw\t$17,20($29)
+\tlw\t$16,16($29)
+\tjr\t$31
+\taddiu\t$29,$29,40
+
+\t.set\tmacro
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_texture_sheet_record_loading(lines: list[str]) -> list[str]:
+    function_name = "func_8001AE8C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one texture sheet record loader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in (
+        "jal\tfunc_8001B1D4", "jal\tfunc_80037890", "jal\tfunc_80005A3C",
+        "jal\tfunc_8001AD18", "jal\tfunc_80037F30", "jal\tfunc_80037A50",
+        "jal\tfunc_80037A90", "D_8005A83C", "D_80062434", "D_80062474",
+        "D_800624B4", "D_800624CC", "D_800624D0", "D_800FCB44", "D_800F2758",
+        "li.s\t$f4,2.14748364800000000000e9",
+    ):
+        if body.count(token) < 1:
+            raise ValueError(f"unexpected texture sheet record loader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,304,$31
+\t.mask\t0x803f0000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnomacro
+	addiu	$29,$29,-0x130
+	sw	$31,0x128($29)
+	sw	$21,0x124($29)
+	sw	$20,0x120($29)
+	sw	$19,0x11C($29)
+	sw	$18,0x118($29)
+	sw	$17,0x114($29)
+	jal	func_8001B1D4
+	sw	$16,0x110($29)
+	lui	$2,%hi(D_8005A83C)
+	lw	$3,%lo(D_8005A83C)($2)
+	addiu	$2,$0,0x1
+	bne	$3,$2,.Lt_8001AED0
+	lui	$2,%hi(D_80062434)
+	lui	$2,%hi(D_80062474)
+	j	.Lt_8001AED4
+	addiu	$21,$2,%lo(D_80062474)
+.Lt_8001AED0:
+	addiu	$21,$2,%lo(D_80062434)
+.Lt_8001AED4:
+	addu	$18,$0,$0
+	lui	$19,%hi(D_800F2758)
+	lui	$2,%hi(D_800624B4)
+	addiu	$16,$2,%lo(D_800624B4)
+	addu	$17,$21,$0
+	slti	$2,$18,0x4
+.Lt_8001AEEC:
+	beqz	$2,.Lt_8001AF38
+	lui	$3,%hi(D_800624CC)
+	sw	$0,0x0($16)
+	lw	$5,0x0($17)
+	jal	func_80037890
+	addiu	$4,$29,0x10
+	addiu	$4,$29,0x10
+	addu	$5,$16,$0
+	addiu	$6,$19,%lo(D_800F2758)
+	jal	func_80005A3C
+	addiu	$7,$0,0x1
+	beqz	$2,.Lt_8001B1B0
+	addiu	$17,$17,0x10
+	lw	$4,0x0($16)
+	addiu	$16,$16,0x4
+	jal	func_8001AD18
+	addiu	$18,$18,0x1
+	j	.Lt_8001AEEC
+	slti	$2,$18,0x4
+.Lt_8001AF38:
+	lw	$2,%lo(D_800624CC)($3)
+	bnez	$2,.Lt_8001AF80
+	addu	$17,$0,$0
+	addu	$18,$3,$0
+	lui	$2,%hi(D_800624D0)
+	addiu	$16,$2,%lo(D_800624D0)
+.Lt_8001AF50:
+	addu	$4,$16,$0
+	addu	$5,$0,$0
+	jal	func_80037F30
+	addiu	$6,$0,0xC
+	lw	$2,%lo(D_800624CC)($18)
+	addiu	$17,$17,0x1
+	addiu	$2,$2,0x1
+	sw	$2,%lo(D_800624CC)($18)
+	sltiu	$2,$17,0x3
+	bnez	$2,.Lt_8001AF50
+	addiu	$16,$16,0xC
+	addu	$17,$0,$0
+.Lt_8001AF80:
+	lui	$2,%hi(D_800FCB44)
+	addiu	$20,$2,%lo(D_800FCB44)
+	addu	$19,$21,$0
+	lui	$2,%hi(D_800624D0)
+	addiu	$16,$2,%lo(D_800624D0)
+	lui	$2,%hi(D_800624B4)
+	addiu	$18,$2,%lo(D_800624B4)
+.Lt_8001AF9C:
+	addiu	$2,$0,0x4
+	sh	$2,0x0($16)
+	lw	$2,0x0($18)
+	addiu	$4,$2,0x20
+	lhu	$3,0x20($2)
+	ori	$2,$0,0xFFFF
+	beq	$3,$2,.Lt_8001AFDC
+	addu	$3,$16,$0
+	addu	$5,$2,$0
+.Lt_8001AFC0:
+	lhu	$2,0x0($3)
+	addiu	$4,$4,0x14
+	addiu	$2,$2,0x1
+	sh	$2,0x0($3)
+	lhu	$2,0x0($4)
+	bne	$2,$5,.Lt_8001AFC0
+	nop
+.Lt_8001AFDC:
+	lhu	$2,0x6($19)
+	lw	$4,0x8($16)
+	sh	$0,0x2($16)
+	beqz	$4,.Lt_8001AFF8
+	sh	$2,0x4($16)
+	jal	func_80037A50
+	nop
+.Lt_8001AFF8:
+	addiu	$5,$0,0x10
+	addu	$19,$19,$5
+	addiu	$18,$18,0x4
+	lhu	$4,0x0($16)
+	addiu	$17,$17,0x1
+	jal	func_80037A90
+	sw	$0,0x8($16)
+	sw	$2,0x8($16)
+	sw	$16,0x0($20)
+	addiu	$20,$20,0x4
+	sltiu	$2,$17,0x4
+	bnez	$2,.Lt_8001AF9C
+	addiu	$16,$16,0xC
+	addu	$17,$0,$0
+	lui	$1,%hi(unsignedThreshold)
+	lwc1	$f2,%lo(unsignedThreshold)($1)
+	lui	$12,0x8000
+	addiu	$13,$0,0x3
+	lui	$2,%hi(D_800624D0)
+	addiu	$8,$2,%lo(D_800624D0)
+	addu	$10,$21,$0
+	lui	$2,%hi(D_800624B4)
+	addiu	$9,$2,%lo(D_800624B4)
+.Lt_8001B054:
+	sltiu	$2,$17,0x4
+	beqz	$2,.Lt_8001B1B0
+	nop
+	lhu	$2,0x0($8)
+	lw	$3,0x0($9)
+	beqz	$2,.Lt_8001B19C
+	addu	$6,$0,$0
+	addu	$5,$8,$0
+	addu	$11,$10,$0
+	addu	$4,$6,$0
+	addiu	$7,$3,0x27
+.Lt_8001B080:
+	lbu	$2,-0x1($7)
+	mtc1	$2,$f0
+	cvt.s.w	$f0,$f0
+	lw	$2,0x8($8)
+	c.le.s	$f2,$f0
+	nop
+	bc1t	.Lt_8001B0B0
+	addu	$3,$4,$2
+	trunc.w.s	$f4,$f0
+	mfc1	$2,$f4
+	j	.Lt_8001B0C4
+	sh	$2,0x0($3)
+.Lt_8001B0B0:
+	sub.s	$f0,$f0,$f2
+	trunc.w.s	$f4,$f0
+	mfc1	$2,$f4
+	or	$2,$2,$12
+	sh	$2,0x0($3)
+.Lt_8001B0C4:
+	lbu	$2,0x0($7)
+	mtc1	$2,$f0
+	cvt.s.w	$f0,$f0
+	lw	$2,0x8($5)
+	c.le.s	$f2,$f0
+	nop
+	bc1t	.Lt_8001B0F4
+	addu	$3,$4,$2
+	trunc.w.s	$f4,$f0
+	mfc1	$2,$f4
+	j	.Lt_8001B108
+	sh	$2,0x2($3)
+.Lt_8001B0F4:
+	sub.s	$f0,$f0,$f2
+	trunc.w.s	$f4,$f0
+	mfc1	$2,$f4
+	or	$2,$2,$12
+	sh	$2,0x2($3)
+.Lt_8001B108:
+	bne	$6,$13,.Lt_8001B11C
+	nop
+	lw	$3,0x8($5)
+	lhu	$2,0xA($11)
+	sh	$2,0x30($3)
+.Lt_8001B11C:
+	lw	$3,0x8($5)
+	addu	$3,$4,$3
+	lhu	$2,0x0($3)
+	addiu	$2,$2,0x2
+	sh	$2,0x0($3)
+	lw	$3,0x8($5)
+	addu	$3,$4,$3
+	lhu	$2,0x2($3)
+	addiu	$2,$2,0x2
+	sh	$2,0x2($3)
+	lw	$2,0x8($5)
+	addu	$2,$4,$2
+	sw	$6,0x8($2)
+	lw	$2,0x8($5)
+	addu	$2,$4,$2
+	sh	$0,0x4($2)
+	lw	$2,0x8($5)
+	addu	$2,$4,$2
+	sh	$0,0x6($2)
+	sll	$2,$17,8
+	lw	$3,0x8($5)
+	addu	$2,$2,$6
+	addu	$3,$4,$3
+	sw	$2,0xC($3)
+	slti	$2,$6,0x3
+	beql	$2,$0,.Lt_8001B188
+	addiu	$7,$7,0x14
+.Lt_8001B188:
+	lhu	$2,0x0($5)
+	addiu	$6,$6,0x1
+	slt	$2,$6,$2
+	bnez	$2,.Lt_8001B080
+	addiu	$4,$4,0x10
+.Lt_8001B19C:
+	addiu	$8,$8,0xC
+	addiu	$10,$10,0x10
+	addiu	$9,$9,0x4
+	j	.Lt_8001B054
+	addiu	$17,$17,0x1
+.Lt_8001B1B0:
+	lw	$31,0x128($29)
+	lw	$21,0x124($29)
+	lw	$20,0x120($29)
+	lw	$19,0x11C($29)
+	lw	$18,0x118($29)
+	lw	$17,0x114($29)
+	lw	$16,0x110($29)
+	jr	$31
+	addiu	$29,$29,0x130
+\t.set\tmacro
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_animated_sprite_draw(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80018E68:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80018E68"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one animated sprite draw")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["jal\tfunc_8001C344", "jal\tfunc_800341E0", "jal\tfunc_8001B414",
+                ]
+    for instruction in required:
+        if body.count(instruction) != 1:
+            raise ValueError(f"unexpected animated sprite draw near {instruction!r}")
+    for symbol in ("D_800620EC", "D_800663DC", "D_80000EF8", "D_800620E8", "D_80047818"):
+        if not any(symbol in item for item in body):
+            raise ValueError(f"animated sprite draw is missing {symbol}")
+    assembly = """\
+\t.frame\t$sp,48,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnoat
+\taddiu\t$sp,$sp,-0x30
+\tsw\t$s2,0x28($sp)
+\taddu\t$s2,$a0,$zero
+\tsw\t$s0,0x20($sp)
+\taddu\t$s0,$a1,$zero
+\tsw\t$ra,0x2C($sp)
+\tsw\t$s1,0x24($sp)
+\tlw\t$v1,0x80($s2)
+\tandi\t$v0,$v1,0x4
+\tbeqz\t$v0,.L800191C8
+\taddu\t$s1,$a2,$zero
+\tandi\t$v0,$v1,0x10
+\tbeqz\t$v0,.L80018EAC
+\tlui\t$v0,%hi(D_800620D8)
+\tlw\t$v0,%lo(D_800620D8)($v0)
+\tbeqz\t$v0,.L800191C8
+\tnop
+.L80018EAC:
+\tandi\t$v0,$v1,0x80
+\tbeqz\t$v0,.L80018EC8
+\taddu\t$a0,$zero,$zero
+\tlui\t$at,%hi(D_80000EF8)
+\tlwc1\t$f0,%lo(D_80000EF8)($at)
+\tswc1\t$f0,0x20($s2)
+\tswc1\t$f0,0x24($s2)
+.L80018EC8:
+\taddu\t$a2,$a0,$zero
+\tlui\t$v0,%hi(D_8005A824)
+\tlui\t$v1,%hi(D_8005A828)
+\tlw\t$a1,%lo(D_8005A824)($v0)
+\tlw\t$a3,%lo(D_8005A828)($v1)
+\taddiu\t$a1,$a1,-0x1
+\tjal\tfunc_8001C344
+\taddiu\t$a3,$a3,-0x1
+\tlw\t$v1,0x3C($s2)
+\taddiu\t$v0,$zero,0x8
+\tbne\t$v1,$v0,.L80018F1C
+\tlui\t$v0,%hi(D_800620EC)
+\tlui\t$v1,%hi(D_800620EC)
+\taddiu\t$v1,$v1,%lo(D_800620EC)
+\taddiu\t$v0,$zero,0x2
+\tsb\t$v0,0x30($v1)
+\taddiu\t$v0,$zero,0x1
+\tsb\t$v0,0x31($v1)
+\tlw\t$v0,0x54($s2)
+\tj\t.L80018F2C
+\tsw\t$v0,0x20($v1)
+.L80018F1C:
+\taddiu\t$v0,$v0,%lo(D_800620EC)
+\taddiu\t$v1,$zero,0x2
+\tsb\t$zero,0x30($v0)
+\tsb\t$v1,0x31($v0)
+.L80018F2C:
+\tlui\t$v0,%hi(D_8005A83C)
+\tlw\t$v1,%lo(D_8005A83C)($v0)
+\taddiu\t$v0,$zero,0x1
+\tbne\t$v1,$v0,.L80018F74
+\taddiu\t$v0,$zero,0x3
+\tlwc1\t$f2,0x20($s2)
+\tlui\t$at,%hi(D_80000EFC)
+\tlwc1\t$f0,%lo(D_80000EFC)($at)
+\tmul.s\t$f2,$f2,$f0
+\tlui\t$v1,%hi(D_800620EC)
+\taddiu\t$v1,$v1,%lo(D_800620EC)
+\tsrl\t$v0,$s0,31
+\taddu\t$v0,$s0,$v0
+\tswc1\t$f2,0x8($v1)
+\tlwc1\t$f0,0x24($s2)
+\tsra\t$s0,$v0,1
+\tj\t.L80018FBC
+\tswc1\t$f0,0xC($v1)
+.L80018F74:
+\tbne\t$v1,$v0,.L80018F98
+\taddiu\t$v0,$zero,0x2
+\tlui\t$v0,%hi(D_800620EC)
+\tlwc1\t$f0,0x20($s2)
+\taddiu\t$v0,$v0,%lo(D_800620EC)
+\tswc1\t$f0,0x8($v0)
+\tlwc1\t$f0,0x24($s2)
+\tj\t.L80018FBC
+\tswc1\t$f0,0xC($v0)
+.L80018F98:
+\tbne\t$v1,$v0,.L80018FC0
+\tlui\t$v0,%hi(D_800620EC)
+\tlwc1\t$f0,0x20($s2)
+\taddiu\t$v0,$v0,%lo(D_800620EC)
+\tswc1\t$f0,0x8($v0)
+\tlwc1\t$f0,0x24($s2)
+\tadd.s\t$f0,$f0,$f0
+\tsll\t$s1,$s1,1
+\tswc1\t$f0,0xC($v0)
+.L80018FBC:
+\tlui\t$v0,%hi(D_800620EC)
+.L80018FC0:
+\taddiu\t$a0,$v0,%lo(D_800620EC)
+\tlwc1\t$f0,0x8($a0)
+\tmtc1\t$zero,$f2
+\tc.le.s\t$f0,$f2
+\tnop
+\tbc1f\t.L80018FE8
+\tnop
+\tlui\t$at,%hi(D_80000F00)
+\tlwc1\t$f0,%lo(D_80000F00)($at)
+\tswc1\t$f0,0x8($a0)
+.L80018FE8:
+\tlwc1\t$f0,0xC($a0)
+\tc.le.s\t$f0,$f2
+\tnop
+\tbc1fl\t.L8001900C
+\tsh\t$s0,%lo(D_800620EC)($v0)
+\tlui\t$at,%hi(D_80000F04)
+\tlwc1\t$f0,%lo(D_80000F04)($at)
+\tswc1\t$f0,0xC($a0)
+\tsh\t$s0,%lo(D_800620EC)($v0)
+.L8001900C:
+\tsh\t$s1,0x2($a0)
+\tlhu\t$v1,0x28($s2)
+\tlw\t$v0,0xC($s2)
+\tmult\t$v0,$v1
+\tmflo\t$t1
+\tsh\t$t1,0x4($a0)
+\tlhu\t$v1,0x2A($s2)
+\tlw\t$v0,0x10($s2)
+\tmult\t$v0,$v1
+\tmflo\t$t1
+\tsh\t$t1,0x6($a0)
+\tlhu\t$v0,0x12($s2)
+\tsh\t$v0,0x2C($a0)
+\tlhu\t$v0,0x12($s2)
+\tsh\t$v0,0x2E($a0)
+\tlw\t$v0,0x80($s2)
+\tandi\t$v0,$v0,0x20
+\tbeqz\t$v0,.L80019110
+\tlui\t$v0,%hi(D_80047818)
+\tlw\t$v0,%lo(D_80047818)($v0)
+\tbnez\t$v0,.L800190E8
+\tnop
+\tjal\tfunc_800341E0
+\tnop
+\tlui\t$a0,%hi(D_800620E0)
+\tlw\t$a0,%lo(D_800620E0)($a0)
+\tlui\t$a1,%hi(D_800620E0+4)
+\tlw\t$a1,%lo(D_800620E0+4)($a1)
+\taddu\t$a2,$v0,$zero
+\taddu\t$a3,$v1,$zero
+\tsltu\t$v0,$a3,$a1
+\tsubu\t$a1,$a3,$a1
+\tsubu\t$a0,$a2,$a0
+\tsubu\t$a0,$a0,$v0
+\tlui\t$v0,%hi(D_800620E8)
+\tlw\t$v0,%lo(D_800620E8)($v0)
+\tsrl\t$a1,$a1,8
+\tsll\t$v1,$a0,24
+\tor\t$a1,$a1,$v1
+\tsrl\t$a0,$a0,8
+\tsltu\t$v0,$v0,$a1
+\tbeqz\t$v0,.L800190E8
+\tnop
+\tlbu\t$v0,0x2D($s2)
+\tlbu\t$v1,0x2C($s2)
+\taddiu\t$v0,$v0,0x1
+\tsb\t$v0,0x2D($s2)
+\tandi\t$v0,$v0,0xFF
+\tsltu\t$v1,$v1,$v0
+\tbnel\t$v1,$zero,.L800190D8
+\tsb\t$zero,0x2D($s2)
+.L800190D8:
+\tlui\t$at,%hi(D_800620E0)
+\tsw\t$a2,%lo(D_800620E0)($at)
+\tlui\t$at,%hi(D_800620E0+4)
+\tsw\t$a3,%lo(D_800620E0+4)($at)
+.L800190E8:
+\tlbu\t$v1,0x2D($s2)
+\tlbu\t$v0,0x2E($s2)
+\tmult\t$v1,$v0
+\tlui\t$a0,%hi(D_800620EC+52)
+\tlw\t$v0,0x4C($s2)
+\tmflo\t$t1
+\tsll\t$v1,$t1,4
+\taddu\t$v0,$v0,$v1
+\tj\t.L80019118
+\tsw\t$v0,%lo(D_800620EC+52)($a0)
+.L80019110:
+\tlw\t$v0,0x4C($s2)
+\tsw\t$v0,0x34($a0)
+.L80019118:
+\tlui\t$s0,%hi(D_800663DC)
+\tlui\t$a0,%hi(D_800620EC)
+\taddiu\t$a0,$a0,%lo(D_800620EC)
+\tlui\t$s1,0xE200
+\tlhu\t$v0,0x16($s2)
+\tlw\t$v1,%lo(D_800663DC)($s0)
+\tori\t$v0,$v0,0x10
+\tsh\t$v0,0x14($a0)
+\tlw\t$v0,0x1C($s2)
+\tori\t$s1,$s1,0x1D00
+\tsh\t$zero,0x24($a0)
+\tsll\t$v0,$v0,1
+\tsh\t$v0,0x16($a0)
+\tlhu\t$v0,0x2($s2)
+\taddu\t$a1,$zero,$zero
+\tsh\t$v0,0x28($a0)
+\tlbu\t$v0,0x41($s2)
+\taddu\t$a2,$a1,$zero
+\tsb\t$v0,0x18($a0)
+\tlbu\t$v0,0x43($s2)
+\taddu\t$t0,$v1,$zero
+\tsb\t$v0,0x19($a0)
+\tlbu\t$v0,0x45($s2)
+\taddiu\t$v1,$v1,0x8
+\tsb\t$v0,0x1A($a0)
+\tlbu\t$a3,0x47($s2)
+\taddiu\t$v0,$v1,0x8
+\tsw\t$v1,%lo(D_800663DC)($s0)
+\tsw\t$v0,%lo(D_800663DC)($s0)
+\taddiu\t$v0,$zero,0x4
+\tsb\t$a3,0x1B($a0)
+\tsw\t$v0,0x4($t0)
+\tlui\t$v0,0xEE00
+\tsw\t$s1,0x0($t0)
+\tsw\t$v0,0x0($v1)
+\tlui\t$v0,0x7FF0
+\tjal\tfunc_8001B414
+\tsw\t$v0,0x4($v1)
+\tlw\t$v0,%lo(D_800663DC)($s0)
+\taddu\t$v1,$v0,$zero
+\taddiu\t$v0,$v0,0x8
+\tsw\t$v0,%lo(D_800663DC)($s0)
+\tsw\t$s1,0x0($v1)
+\tsw\t$zero,0x4($v1)
+.L800191C8:
+\tlw\t$ra,0x2C($sp)
+\tlw\t$s2,0x28($sp)
+\tlw\t$s1,0x24($sp)
+\tlw\t$s0,0x20($sp)
+\tjr\t$ra
+\taddiu\t$sp,$sp,0x30
+\t.set\tat
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True)
+    return lines
+
+
+def schedule_runtime_render_record_teardown(lines: list[str]) -> list[str]:
+    function_name = "func_800137FC"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one runtime render-record teardown")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002E280", "func_80032BB0", "func_80014384", "func_8001891C",
+                  "func_80018910", "func_80018904", "func_80006D14", "func_80017724",
+                  "func_80017860", "func_8000F1D4", "func_8001A140", "func_8001369C",
+                  "func_800AA658", "D_800F1258", "D_800661D4", "D_800392F8", "D_8005A934",
+                  "D_8005AAF0", "D_8005AC7C", "D_8005ACD0", "D_8005A9E8", "D_8005AAC4",
+                  "D_8005AAEC"):
+        if token not in body:
+            raise ValueError(f"unexpected runtime render-record teardown near {token!r}")
+    assembly = """\
+\t.frame\t$sp,64,$31
+\t.mask\t0xc0ff0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$29,$29,-64
+\tlui\t$4,%hi(D_800F1258)
+\tlw\t$3,%lo(D_800F1258)($4)
+\taddiu\t$2,$0,1
+\tsw\t$31,60($29)
+\tsw\t$30,56($29)
+\tsw\t$23,52($29)
+\tsw\t$22,48($29)
+\tsw\t$21,44($29)
+\tsw\t$20,40($29)
+\tsw\t$19,36($29)
+\tsw\t$18,32($29)
+\tsw\t$17,28($29)
+\tbne\t$3,$2,.L8001383C
+\tsw\t$16,24($29)
+\tsw\t$0,%lo(D_800F1258)($4)
+.L8001383C:
+\tjal\tfunc_8002E280
+\tsw\t$0,16($29)
+\tlui\t$3,%hi(D_800661D4)
+\tlw\t$2,%lo(D_800661D4)($3)
+\tbeqz\t$2,.L800138AC
+\tnop
+\tlui\t$19,%hi(D_800392F8)
+\taddiu\t$18,$0,1
+\taddiu\t$17,$0,2
+\taddu\t$16,$3,$0
+\taddiu\t$4,$19,%lo(D_800392F8)
+.L80013868:
+\taddiu\t$5,$29,16
+\tjal\tfunc_80032BB0
+\taddu\t$6,$0,$0
+\tbnez\t$2,.L800138A0
+\tnop
+\tlw\t$2,16($29)
+\tlh\t$2,0($2)
+\tbeq\t$2,$18,.L800138A0
+\tnop
+\tbne\t$2,$17,.L800138A0
+\tnop
+\tlw\t$2,%lo(D_800661D4)($16)
+\taddiu\t$2,$2,-1
+\tsw\t$2,%lo(D_800661D4)($16)
+.L800138A0:
+\tlw\t$2,%lo(D_800661D4)($16)
+\tbnez\t$2,.L80013868
+\taddiu\t$4,$19,%lo(D_800392F8)
+.L800138AC:
+\tjal\tfunc_8002E280
+\tnop
+\tjal\tfunc_80014384
+\tnop
+\tjal\tfunc_8001891C
+\tnop
+\tjal\tfunc_80018910
+\tnop
+\tjal\tfunc_80018904
+\tnop
+\tjal\tfunc_80006D14
+\tnop
+\tjal\tfunc_80017724
+\tnop
+\tlui\t$2,%hi(D_8005A934)
+\tsw\t$0,%lo(D_8005A934)($2)
+\taddu\t$4,$0,$0
+\tlui\t$2,%hi(D_8005AAF0)
+\taddiu\t$3,$2,%lo(D_8005AAF0)
+.L800138F8:
+\tsltiu\t$2,$4,3
+\tbeqz\t$2,.L8001391C
+\tnop
+\tlw\t$2,0($3)
+\tbnel\t$2,$0,.L80013910
+\tsw\t$0,0($3)
+.L80013910:
+\taddiu\t$3,$3,132
+\tj\t.L800138F8
+\taddiu\t$4,$4,1
+.L8001391C:
+\tjal\tfunc_80017860
+\taddu\t$4,$0,$0
+\tjal\tfunc_8000F1D4
+\tnop
+\tjal\tfunc_8001A140
+\tnop
+\tlui\t$4,%hi(D_8005AC7C)
+\tlw\t$2,%lo(D_8005AC7C)($4)
+\taddu\t$3,$2,$0
+\taddiu\t$2,$2,-1
+\tbeqz\t$3,.L80013BA0
+\tsw\t$2,%lo(D_8005AC7C)($4)
+\taddu\t$22,$4,$0
+\tlui\t$20,%hi(D_8005A9E8)
+\tlui\t$2,%hi(D_8005ACD0)
+\taddiu\t$21,$2,%lo(D_8005ACD0)
+\taddiu\t$30,$21,12
+\taddiu\t$23,$21,16
+.L80013964:
+\tlw\t$3,%lo(D_8005AC7C)($22)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$21
+\tlw\t$4,4($2)
+\tbeql\t$4,$0,.L80013B8C
+\tlui\t$4,%hi(D_8005AC7C)
+\tlw\t$3,0($2)
+\taddiu\t$2,$0,60
+\tbne\t$3,$2,.L80013A24
+\taddu\t$16,$4,$0
+\tjal\tfunc_8001369C
+\taddu\t$5,$0,$0
+\tlw\t$3,%lo(D_8005AC7C)($22)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$5,$2,2
+\taddu\t$2,$5,$21
+\tlw\t$2,4($2)
+\tbeqz\t$2,.L800139D0
+\tlui\t$7,%hi(D_8005ACD0+4)
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\taddiu\t$7,$7,%lo(D_8005ACD0+4)
+\tjal\tfunc_800AA658
+\taddu\t$5,$5,$7
+\tlw\t$3,%lo(D_8005AC7C)($22)
+.L800139D0:
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$5,$2,2
+\taddu\t$2,$5,$21
+\tlw\t$2,12($2)
+\tbeqz\t$2,.L80013A00
+\tsll\t$2,$3,2
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddu\t$5,$5,$30
+\tlw\t$3,%lo(D_8005AC7C)($22)
+\tsll\t$2,$3,2
+.L80013A00:
+\taddu\t$2,$2,$3
+\tsll\t$5,$2,2
+\taddu\t$2,$5,$21
+\tlw\t$2,16($2)
+\tbeqz\t$2,.L80013B8C
+\tlui\t$4,%hi(D_8005AC7C)
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tj\t.L80013B80
+\taddu\t$5,$5,$23
+.L80013A24:
+\tlhu\t$2,0($16)
+\tbeqz\t$2,.L80013A68
+\taddu\t$18,$0,$0
+\taddiu\t$19,$0,68
+\taddu\t$17,$16,$0
+.L80013A38:
+\tlw\t$2,68($17)
+\tbeql\t$2,$0,.L80013A54
+\taddiu\t$19,$19,4
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddu\t$5,$16,$19
+\taddiu\t$19,$19,4
+.L80013A54:
+\tlhu\t$2,0($16)
+\taddiu\t$18,$18,1
+\tsltu\t$2,$18,$2
+\tbnez\t$2,.L80013A38
+\taddiu\t$17,$17,4
+.L80013A68:
+\tlhu\t$2,22($16)
+\tandi\t$2,$2,1
+\tbeqz\t$2,.L80013A90
+\tnop
+\tlw\t$2,4($16)
+\tbeqz\t$2,.L80013A90
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,4
+.L80013A90:
+\tlhu\t$2,22($16)
+\tandi\t$2,$2,2
+\tbeqz\t$2,.L80013AB8
+\tnop
+\tlw\t$2,8($16)
+\tbeqz\t$2,.L80013AB8
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,8
+.L80013AB8:
+\tlhu\t$2,22($16)
+\tandi\t$2,$2,16
+\tbeqz\t$2,.L80013AF8
+\tnop
+\tlw\t$2,12($16)
+\tbeqz\t$2,.L80013AE0
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,12
+.L80013AE0:
+\tlw\t$2,16($16)
+\tbeqz\t$2,.L80013AF8
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,16
+.L80013AF8:
+\tlw\t$3,%lo(D_8005AC7C)($22)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$5,$2,2
+\taddu\t$2,$5,$21
+\tlw\t$2,12($2)
+\tbeqz\t$2,.L80013B2C
+\tsll\t$2,$3,2
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddu\t$5,$5,$30
+\tlw\t$3,%lo(D_8005AC7C)($22)
+\tsll\t$2,$3,2
+.L80013B2C:
+\taddu\t$2,$2,$3
+\tsll\t$5,$2,2
+\taddu\t$2,$5,$21
+\tlw\t$2,16($2)
+\tbeqz\t$2,.L80013B50
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA658
+\taddu\t$5,$5,$23
+.L80013B50:
+\tlw\t$3,%lo(D_8005AC7C)($22)
+\tsll\t$2,$3,2
+\taddu\t$2,$2,$3
+\tsll\t$5,$2,2
+\taddu\t$2,$5,$21
+\tlw\t$2,4($2)
+\tbeqz\t$2,.L80013B8C
+\tlui\t$4,%hi(D_8005AC7C)
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tlui\t$7,%hi(D_8005ACD0+4)
+\taddiu\t$7,$7,%lo(D_8005ACD0+4)
+\taddu\t$5,$5,$7
+.L80013B80:
+\tjal\tfunc_800AA658
+\tnop
+\tlui\t$4,%hi(D_8005AC7C)
+.L80013B8C:
+\tlw\t$2,%lo(D_8005AC7C)($4)
+\taddu\t$3,$2,$0
+\taddiu\t$2,$2,-1
+\tbnez\t$3,.L80013964
+\tsw\t$2,%lo(D_8005AC7C)($4)
+.L80013BA0:
+\taddu\t$4,$0,$0
+\tlui\t$2,%hi(D_8005AAC4)
+\taddiu\t$3,$2,%lo(D_8005AAC4)
+.L80013BAC:
+\tlw\t$2,0($3)
+\tbnel\t$2,$0,.L80013BB8
+\tsw\t$0,0($3)
+.L80013BB8:
+\taddiu\t$4,$4,1
+\tsltiu\t$2,$4,10
+\tbnez\t$2,.L80013BAC
+\taddiu\t$3,$3,4
+\taddu\t$2,$0,$0
+\tlw\t$31,60($29)
+\tlw\t$30,56($29)
+\tlw\t$23,52($29)
+\tlw\t$22,48($29)
+\tlw\t$21,44($29)
+\tlw\t$20,40($29)
+\tlw\t$19,36($29)
+\tlw\t$18,32($29)
+\tlw\t$17,28($29)
+\tlw\t$16,24($29)
+\tlui\t$3,%hi(D_8005AAEC)
+\tsw\t$0,%lo(D_8005AAEC)($3)
+\tlui\t$3,%hi(D_8005AC7C)
+\tsw\t$0,%lo(D_8005AC7C)($3)
+\tjr\t$31
+\taddiu\t$29,$29,64
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_camera_projection_setup(lines: list[str]) -> list[str]:
+    function_name = "func_8000E53C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one camera projection setup")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002F190", "func_8002E960", "func_8002EF10", "func_8002EAC0",
+                  "func_8002E810", "func_8002EFF0", "func_8002ED40", "func_8000EC54",
+                  "func_8002EB58", "func_8002F1E4", "D_80069050", "D_80069040",
+                  "D_8005A93C", "D_800663DC", "D_80065F38"):
+        if token not in body:
+            raise ValueError(f"unexpected camera projection setup near {token!r}")
+    assembly = """\
+\t.frame\t$sp,112,$31
+\t.mask\t0xc0ff0000,-44
+\t.fmask\t0x3ff00000,-8
+\t.set\tnoreorder
+\t.set\tnoat
+\taddiu\t$29,$29,-112
+\tsdc1\t$f26,96($29)
+\tmtc1\t$7,$f26
+\tsw\t$18,40($29)
+\taddu\t$18,$6,$0
+\tsw\t$31,68($29)
+\tsw\t$30,64($29)
+\tsw\t$23,60($29)
+\tsw\t$22,56($29)
+\tsw\t$21,52($29)
+\tsw\t$20,48($29)
+\tsw\t$19,44($29)
+\tsw\t$17,36($29)
+\tsw\t$16,32($29)
+\tsdc1\t$f28,104($29)
+\tsdc1\t$f24,88($29)
+\tsdc1\t$f22,80($29)
+\tsdc1\t$f20,72($29)
+\tlwc1\t$f0,0($18)
+\tmtc1\t$0,$f28
+\tlui\t$1,%hi(D_800006B8)
+\tlwc1\t$f24,%lo(D_800006B8)($1)
+\tlui\t$2,%hi(D_80069050)
+\tswc1\t$f0,%lo(D_80069050)($2)
+\tlwc1\t$f0,16($18)
+\taddiu\t$20,$2,%lo(D_80069050)
+\tswc1\t$f0,4($20)
+\tlwc1\t$f0,32($18)
+\tswc1\t$f0,8($20)
+\tlwc1\t$f0,4($18)
+\tswc1\t$f0,16($20)
+\tlwc1\t$f0,20($18)
+\tswc1\t$f0,20($20)
+\tlwc1\t$f0,36($18)
+\tswc1\t$f0,24($20)
+\tlwc1\t$f0,8($18)
+\tswc1\t$f0,32($20)
+\tlwc1\t$f0,24($18)
+\tlui\t$2,%hi(D_80069090)
+\tswc1\t$f0,36($20)
+\tlwc1\t$f0,40($18)
+\taddiu\t$30,$2,%lo(D_80069090)
+\tswc1\t$f28,44($20)
+\tswc1\t$f28,28($20)
+\tswc1\t$f28,12($20)
+\tswc1\t$f28,48($20)
+\tswc1\t$f28,52($20)
+\tswc1\t$f28,56($20)
+\tswc1\t$f24,60($20)
+\tswc1\t$f0,40($20)
+\tlwc1\t$f0,64($18)
+\tlwc1\t$f2,72($18)
+\tneg.s\t$f0,$f0
+\tneg.s\t$f2,$f2
+\tmfc1\t$5,$f0
+\tlwc1\t$f0,68($18)
+\tmfc1\t$7,$f2
+\tneg.s\t$f0,$f0
+\tmfc1\t$6,$f0
+\tjal\tfunc_8002F190
+\taddu\t$4,$30,$0
+\taddu\t$4,$30,$0
+\taddu\t$5,$20,$0
+\tlui\t$17,%hi(D_800690D0)
+\taddiu\t$17,$17,%lo(D_800690D0)
+\tjal\tfunc_8002E960
+\taddu\t$6,$17,$0
+\tlui\t$16,%hi(D_80069110)
+\taddiu\t$16,$16,%lo(D_80069110)
+\tmfc1\t$5,$f24
+\tmfc1\t$6,$f24
+\tlui\t$7,49024
+\tjal\tfunc_8002EF10
+\taddu\t$4,$16,$0
+\taddu\t$4,$17,$0
+\taddu\t$5,$16,$0
+\tjal\tfunc_8002E960
+\taddu\t$6,$20,$0
+\tlui\t$22,%hi(D_8005A93C)
+\taddu\t$4,$20,$0
+\tlw\t$2,%lo(D_8005A93C)($22)
+\tlw\t$12,128($29)
+\tsll\t$5,$2,1
+\taddu\t$5,$5,$2
+\tsll\t$5,$5,6
+\tsll\t$21,$12,6
+\tlui\t$2,%hi(D_80068DC0)
+\taddiu\t$2,$2,%lo(D_80068DC0)
+\taddu\t$23,$21,$2
+\tjal\tfunc_8002EAC0
+\taddu\t$5,$5,$23
+\tlui\t$1,%hi(D_800006C0)
+\tldc1\t$f2,%lo(D_800006C0)($1)
+\tcvt.d.s\t$f0,$f26
+\tadd.d\t$f0,$f0,$f2
+\tlui\t$1,%hi(D_800006C8)
+\tlwc1\t$f20,%lo(D_800006C8)($1)
+\tcvt.s.d\t$f26,$f0
+\tmul.s\t$f20,$f26,$f20
+\tjal\tfunc_8002E810
+\tmov.s\t$f12,$f20
+\tadd.s\t$f22,$f0,$f0
+\tjal\tfunc_8002EFF0
+\tmov.s\t$f12,$f20
+\tdiv.s\t$f22,$f22,$f0
+\tc.lt.s\t$f22,$f24
+\tnop
+\tbc1tl\t.Lcamera_near_floor
+\tmov.s\t$f22,$f24
+.Lcamera_near_floor:
+\tlui\t$19,%hi(D_80069040)
+\taddiu\t$5,$19,%lo(D_80069040)
+\tlui\t$17,%hi(D_80068C40)
+\taddiu\t$17,$17,%lo(D_80068C40)
+\tlui\t$7,16268
+\tori\t$7,$7,52429
+\tlui\t$1,%hi(D_800006CC)
+\tlwc1\t$f0,%lo(D_800006CC)($1)
+\tlw\t$2,%lo(D_8005A93C)($22)
+\taddu\t$17,$21,$17
+\tswc1\t$f22,16($29)
+\tswc1\t$f24,24($29)
+\tmul.s\t$f26,$f26,$f0
+\tsll\t$4,$2,1
+\taddu\t$4,$4,$2
+\tsll\t$4,$4,6
+\tlui\t$1,%hi(D_800006D0)
+\tlwc1\t$f0,%lo(D_800006D0)($1)
+\tmfc1\t$6,$f26
+\taddu\t$4,$4,$17
+\tjal\tfunc_8002ED40
+\tswc1\t$f0,20($29)
+\tmfc1\t$6,$f28
+\tmfc1\t$7,$f24
+\tlw\t$2,%lo(D_8005A93C)($22)
+\tlw\t$12,128($29)
+\tlhu\t$3,%lo(D_80069040)($19)
+\taddu\t$4,$18,$0
+\tswc1\t$f28,16($29)
+\tsll\t$5,$2,1
+\taddu\t$5,$5,$2
+\tsll\t$5,$5,5
+\tsll\t$18,$12,5
+\tlui\t$2,%hi(D_80068F80)
+\taddiu\t$2,$2,%lo(D_80068F80)
+\taddu\t$18,$18,$2
+\taddu\t$5,$5,$18
+\tsll\t$2,$3,1
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,3
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\tjal\tfunc_8000EC54
+\tsh\t$2,%lo(D_80069040)($19)
+\tlui\t$8,56328
+\tori\t$8,$8,10
+\tlui\t$9,56328
+\tori\t$9,$9,778
+\tlui\t$10,55864
+\tori\t$10,$10,7
+\tlui\t$11,55864
+\tori\t$11,$11,5
+\tlui\t$16,%hi(D_800663DC)
+\taddu\t$4,$20,$0
+\tlw\t$3,%lo(D_800663DC)($16)
+\tlw\t$5,%lo(D_8005A93C)($22)
+\taddu\t$6,$3,$0
+\taddiu\t$3,$3,8
+\tsll\t$2,$5,1
+\taddu\t$2,$2,$5
+\tsll\t$7,$2,6
+\taddu\t$5,$7,$23
+\tsll\t$2,$2,5
+\taddu\t$2,$2,$18
+\tsw\t$8,0($6)
+\taddiu\t$8,$3,8
+\tsw\t$2,4($6)
+\taddiu\t$2,$2,16
+\tsw\t$9,0($3)
+\taddiu\t$9,$3,16
+\tsw\t$2,4($3)
+\tlui\t$2,56078
+\tlhu\t$6,%lo(D_80069040)($19)
+\taddu\t$7,$7,$17
+\tsw\t$2,8($3)
+\taddiu\t$2,$3,32
+\tsw\t$3,%lo(D_800663DC)($16)
+\tsw\t$8,%lo(D_800663DC)($16)
+\tsw\t$9,%lo(D_800663DC)($16)
+\tsw\t$6,4($8)
+\taddiu\t$6,$3,24
+\tsw\t$6,%lo(D_800663DC)($16)
+\tsw\t$10,16($3)
+\tsw\t$7,4($9)
+\tsw\t$2,%lo(D_800663DC)($16)
+\tsw\t$11,24($3)
+\tjal\tfunc_8002EB58
+\tsw\t$5,4($6)
+\tlw\t$2,%lo(D_8005A93C)($22)
+\taddu\t$4,$30,$0
+\tsll\t$5,$2,1
+\taddu\t$5,$5,$2
+\tsll\t$5,$5,6
+\tjal\tfunc_8002EB58
+\taddu\t$5,$5,$17
+\taddu\t$4,$20,$0
+\taddu\t$5,$30,$0
+\tlui\t$6,%hi(D_8005A538)
+\taddiu\t$6,$6,%lo(D_8005A538)
+\tjal\tfunc_8002E960
+\taddu\t$6,$21,$6
+\tlui\t$17,%hi(D_80068F40)
+\taddiu\t$17,$17,%lo(D_80068F40)
+\taddu\t$4,$17,$0
+\tmfc1\t$5,$f28
+\tlw\t$2,%lo(D_800663DC)($16)
+\taddu\t$6,$5,$0
+\taddu\t$7,$5,$0
+\taddu\t$3,$2,$0
+\taddiu\t$2,$2,8
+\tsw\t$2,%lo(D_800663DC)($16)
+\tlui\t$2,59136
+\tsw\t$2,0($3)
+\tjal\tfunc_8002F1E4
+\tsw\t$0,4($3)
+\tlui\t$4,55864
+\tori\t$4,$4,3
+\tlui\t$6,57856
+\tori\t$6,$6,28
+\tlui\t$5,85
+\tlw\t$3,%lo(D_800663DC)($16)
+\tori\t$5,$5,8312
+\taddu\t$2,$3,$0
+\taddiu\t$3,$3,8
+\tsw\t$4,0($2)
+\taddiu\t$4,$3,8
+\tsw\t$17,4($2)
+\tlui\t$2,56832
+\tsw\t$2,0($3)
+\tlui\t$2,%hi(D_80065F38)
+\taddiu\t$2,$2,%lo(D_80065F38)
+\tsw\t$2,4($3)
+\tsw\t$6,8($3)
+\tsw\t$5,4($4)
+\tlw\t$31,68($29)
+\tlw\t$30,64($29)
+\tlw\t$23,60($29)
+\tlw\t$22,56($29)
+\tlw\t$21,52($29)
+\tlw\t$20,48($29)
+\tlw\t$19,44($29)
+\tlw\t$18,40($29)
+\tlw\t$17,36($29)
+\taddiu\t$2,$3,16
+\tsw\t$3,%lo(D_800663DC)($16)
+\tsw\t$4,%lo(D_800663DC)($16)
+\tsw\t$2,%lo(D_800663DC)($16)
+\tlw\t$16,32($29)
+\tldc1\t$f28,104($29)
+\tldc1\t$f26,96($29)
+\tldc1\t$f24,88($29)
+\tldc1\t$f22,80($29)
+\tldc1\t$f20,72($29)
+\tjr\t$31
+\taddiu\t$29,$29,112
+\t.set\tat
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+
+def schedule_texture_material_record_registration(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_8000C394:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_8000C394"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one texture material registration routine")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "sw\t$2,D_8004781C", "li\t$2,0x00001020", "sltu\t$2,$3,300",
+        "sltu\t$2,$6,5297",
+    ]
+    for instruction in required:
+        if body.count(instruction) < 1:
+            raise ValueError(f"unexpected texture material registration near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,8,$31
+\t.mask\t0x00030000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+	addiu	$29,$29,-0x8
+	addu	$24,$4,$0
+	addu	$25,$0,$0
+	lui	$2,%hi(D_8004781C)
+	addiu	$3,$0,0x1
+	sw	$3,%lo(D_8004781C)($2)
+	addiu	$2,$0,0x1020
+	sw	$17,0x4($29)
+	beq	$24,$2,.Ltex_8000C498
+	sw	$16,0x0($29)
+	sltiu	$2,$24,0x1021
+	beqz	$2,.Ltex_8000C41C
+	addiu	$2,$0,0xEE2
+	beq	$24,$2,.Ltex_8000C498
+	sltiu	$2,$24,0xEE3
+	beqz	$2,.Ltex_8000C3F8
+	addiu	$2,$0,0xEE0
+	beq	$24,$2,.Ltex_8000C4A4
+	sltiu	$2,$24,0xEE1
+	beqz	$2,.Ltex_8000C4A0
+	addiu	$2,$0,0xEDF
+	beq	$24,$2,.Ltex_8000C490
+	lui	$2,%hi(D_80047984)
+	j	.Ltex_8000C4A8
+	nop
+.Ltex_8000C3F8:
+	addiu	$2,$0,0x101E
+	beq	$24,$2,.Ltex_8000C4A4
+	sltiu	$2,$24,0x101F
+	beqz	$2,.Ltex_8000C4A0
+	addiu	$2,$0,0x101D
+	beq	$24,$2,.Ltex_8000C490
+	lui	$2,%hi(D_80047984)
+	j	.Ltex_8000C4A8
+	nop
+.Ltex_8000C41C:
+	addiu	$2,$0,0x10B6
+	beq	$24,$2,.Ltex_8000C498
+	sltiu	$2,$24,0x10B7
+	beqz	$2,.Ltex_8000C450
+	addiu	$2,$0,0x10B4
+	beq	$24,$2,.Ltex_8000C4A4
+	sltiu	$2,$24,0x10B5
+	beqz	$2,.Ltex_8000C4A0
+	addiu	$2,$0,0x10B3
+	beq	$24,$2,.Ltex_8000C490
+	lui	$2,%hi(D_80047984)
+	j	.Ltex_8000C4A8
+	nop
+.Ltex_8000C450:
+	addiu	$2,$0,0x14B0
+	beq	$24,$2,.Ltex_8000C4A4
+	sltiu	$2,$24,0x14B1
+	beqz	$2,.Ltex_8000C474
+	addiu	$2,$0,0x14AF
+	beq	$24,$2,.Ltex_8000C490
+	lui	$2,%hi(D_80047984)
+	j	.Ltex_8000C4A8
+	nop
+.Ltex_8000C474:
+	addiu	$2,$0,0x14B1
+	beq	$24,$2,.Ltex_8000C4A0
+	addiu	$2,$0,0x14B2
+	bne	$24,$2,.Ltex_8000C4A8
+	lui	$2,%hi(D_80047984)
+	j	.Ltex_8000C4A8
+	addiu	$25,$0,0x2
+.Ltex_8000C490:
+	j	.Ltex_8000C4A4
+	addiu	$25,$0,0x1
+.Ltex_8000C498:
+	j	.Ltex_8000C4A4
+	addiu	$25,$0,0x2
+.Ltex_8000C4A0:
+	addiu	$25,$0,0x3
+.Ltex_8000C4A4:
+	lui	$2,%hi(D_80047984)
+.Ltex_8000C4A8:
+	lw	$2,%lo(D_80047984)($2)
+	beqz	$2,.Ltex_8000C4DC
+	addu	$3,$0,$0
+	addu	$5,$2,$0
+	lui	$2,%hi(D_80049A28)
+	addiu	$4,$2,%lo(D_80049A28)
+.Ltex_8000C4C0:
+	lw	$2,0x0($4)
+	beq	$24,$2,.Ltex_8000C67C
+	addu	$2,$3,$0
+	addiu	$3,$3,0x1
+	sltu	$2,$3,$5
+	bnez	$2,.Ltex_8000C4C0
+	addiu	$4,$4,0xE0
+.Ltex_8000C4DC:
+	lui	$2,%hi(D_80047984)
+	lw	$5,%lo(D_80047984)($2)
+	sltiu	$2,$5,0x12C
+	bnez	$2,.Ltex_8000C4F8
+	lui	$4,%hi(D_80049A28)
+	j	.Ltex_8000C67C
+	addu	$2,$0,$0
+.Ltex_8000C4F8:
+	addiu	$4,$4,%lo(D_80049A28)
+	sll	$3,$5,3
+	subu	$3,$3,$5
+	sll	$3,$3,5
+	addiu	$2,$4,0x10
+	addu	$15,$3,$2
+	addu	$8,$15,$0
+	addiu	$15,$15,0x8
+	addu	$9,$15,$0
+	addiu	$15,$15,0x8
+	lui	$13,0xE300
+	ori	$13,$13,0x1001
+	addu	$5,$15,$0
+	addiu	$15,$15,0x8
+	lui	$12,0xD700
+	ori	$12,$12,0x2
+	lui	$11,0x7C00
+	ori	$11,$11,0x7C00
+	addu	$6,$15,$0
+	addiu	$15,$15,0x8
+	addu	$10,$15,$0
+	addiu	$15,$15,0x8
+	lui	$14,0x701
+	ori	$14,$14,0x4050
+	addu	$7,$15,$0
+	addiu	$15,$15,0x8
+	addu	$16,$15,$0
+	addiu	$15,$15,0x8
+	lui	$17,0x73F
+	ori	$17,$17,0xF100
+	addu	$3,$3,$4
+	lui	$2,0xE700
+	sw	$24,0x0($3)
+	sw	$0,0xD8($3)
+	sw	$2,0x0($8)
+	lui	$2,0xFD10
+	sll	$3,$25,11
+	sw	$0,0x4($8)
+	sw	$13,0x0($9)
+	sw	$0,0x4($9)
+	sw	$12,0x0($5)
+	sw	$11,0x4($5)
+	sw	$2,0x0($6)
+	lui	$2,%hi(D_800479E0)
+	addiu	$2,$2,%lo(D_800479E0)
+	addu	$3,$3,$2
+	lui	$2,0xF510
+	sw	$3,0x4($6)
+	sw	$2,0x0($10)
+	lui	$2,0xE600
+	sw	$14,0x4($10)
+	sw	$2,0x0($7)
+	lui	$2,0xF300
+	addiu	$5,$0,0x20
+	sw	$0,0x4($7)
+	sw	$2,0x0($16)
+	addu	$3,$15,$0
+	addiu	$15,$15,0x8
+	addu	$4,$15,$0
+	addiu	$15,$15,0x8
+	lui	$2,0xE700
+	sw	$17,0x4($16)
+	sw	$2,0x0($3)
+	sll	$2,$5,1
+	addiu	$2,$2,0x7
+	srl	$2,$2,3
+	sll	$2,$2,9
+	sw	$0,0x4($3)
+	lui	$3,0xF510
+	or	$2,$2,$3
+	addiu	$3,$0,0x5
+	sll	$3,$3,14
+	sw	$2,0x0($4)
+	addiu	$2,$0,0x5
+	sll	$2,$2,4
+	or	$3,$3,$2
+	sw	$3,0x4($4)
+	addu	$4,$15,$0
+	lui	$2,0xF200
+	addiu	$3,$5,-0x1
+	sll	$3,$3,2
+	andi	$3,$3,0xFFF
+	sll	$3,$3,12
+	sw	$2,0x0($4)
+	addiu	$2,$0,0x1F
+	sll	$2,$2,2
+	andi	$2,$2,0xFFF
+	or	$3,$3,$2
+	sw	$3,0x4($4)
+	addiu	$4,$4,0x8
+	lui	$5,%hi(D_80047984)
+	lw	$2,%lo(D_80047984)($5)
+	lui	$3,0xDF00
+	sw	$3,0x0($4)
+	sw	$0,0x4($4)
+	addiu	$3,$2,0x1
+	sw	$3,%lo(D_80047984)($5)
+.Ltex_8000C67C:
+	lw	$17,0x4($29)
+	lw	$16,0x0($29)
+	jr	$31
+	addiu	$29,$29,0x8
+\t.set\treorder
+"""
+    return lines[:start + 1] + assembly.splitlines(keepends=True) + lines[end:]
+
+
+def schedule_skinned_mesh_vertex_transform(lines: list[str]) -> list[str]:
+    function_name = "func_8000A650"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one skinned mesh vertex transform")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("D_80000600", "D_80000604", "352($", "196($", "trunc.w.s"):
+        if body.count(token) < 1:
+            raise ValueError(f"unexpected skinned mesh vertex transform near {token!r}")
+    assembly = """\
+\t.frame\t$sp,16,$31
+\t.mask\t0x00000000,0
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnoat
+\taddiu\t$sp,$sp,-0x10
+\taddu\t$t5,$a0,$zero
+\taddu\t$t3,$zero,$zero
+\taddu\t$t4,$t3,$zero
+\tsll\t$v0,$a1,1
+\taddu\t$v0,$v0,$a1
+\tsll\t$v0,$v0,3
+\tsll\t$a2,$a2,2
+\tlw\t$v1,0xC4($t5)
+\tlui\t$at,%hi(D_80000600)
+\tlwc1\t$f12,%lo(D_80000600)($at)
+\tlw\t$a0,0x20($v1)
+\taddu\t$v1,$v1,$a2
+\tlw\t$a1,0x4($v1)
+\taddu\t$t2,$a0,$v0
+\tlw\t$v0,0x8($t2)
+\tlw\t$a0,0xC($a0)
+\taddiu\t$t6,$v0,-0x1
+\tlw\t$v1,0x8($a0)
+\tlw\t$v0,0x10($t2)
+\tsubu\t$a1,$a1,$v1
+\tlhu\t$t1,0x0($v0)
+.Lskin_group_test:
+\tsltu\t$v0,$t3,$t6
+\tbeqz\t$v0,.Lskin_final_group
+\taddu\t$a2,$t1,$zero
+\tlw\t$v1,0x4($t2)
+\tsll\t$v0,$a2,5
+\taddu\t$a0,$v1,$v0
+\taddiu\t$t0,$a0,0x8
+\tsll\t$v1,$t3,1
+\tlw\t$a0,0x10($t2)
+\tlw\t$v0,0xC($t2)
+\taddu\t$v1,$v1,$a0
+\taddu\t$v0,$t4,$v0
+\tlw\t$v0,0x8($v0)
+\tlhu\t$t1,0x2($v1)
+\taddu\t$a3,$a1,$v0
+\tsubu\t$a2,$t1,$a2
+\taddiu\t$a0,$a3,0x4
+.Lskin_group_vertex:
+\tlw\t$v0,-0x4($t0)
+\tlbu\t$v0,0x0($v0)
+\tsll\t$v1,$v0,2
+\taddu\t$v1,$v1,$v0
+\tsll\t$v1,$v1,2
+\tsubu\t$v1,$v1,$v0
+\tlw\t$v0,0x160($t5)
+\tsll\t$v1,$v1,2
+\taddu\t$v1,$v1,$v0
+\tlwc1\t$f10,0x40($v1)
+\tlw\t$v0,0x0($t0)
+\tswc1\t$f10,0x0($sp)
+\tlwc1\t$f4,0x0($v0)
+\tlwc1\t$f0,0x0($v1)
+\tmul.s\t$f4,$f4,$f0
+\tlwc1\t$f6,0x4($v0)
+\tlwc1\t$f0,0x10($v1)
+\tmul.s\t$f6,$f6,$f0
+\tlwc1\t$f2,0x8($v0)
+\tlwc1\t$f0,0x20($v1)
+\tmul.s\t$f2,$f2,$f0
+\tadd.s\t$f4,$f4,$f6
+\tadd.s\t$f4,$f4,$f2
+\tadd.s\t$f10,$f10,$f4
+\tswc1\t$f10,0x0($sp)
+\tlwc1\t$f8,0x44($v1)
+\tswc1\t$f8,0x4($sp)
+\tlwc1\t$f4,0x0($v0)
+\tlwc1\t$f0,0x4($v1)
+\tmul.s\t$f4,$f4,$f0
+\tlwc1\t$f6,0x4($v0)
+\tlwc1\t$f0,0x14($v1)
+\tmul.s\t$f6,$f6,$f0
+\tlwc1\t$f2,0x8($v0)
+\tlwc1\t$f0,0x24($v1)
+\tmul.s\t$f2,$f2,$f0
+\tadd.s\t$f4,$f4,$f6
+\tadd.s\t$f4,$f4,$f2
+\tadd.s\t$f8,$f8,$f4
+\tswc1\t$f8,0x4($sp)
+\tlwc1\t$f8,0x48($v1)
+\tmul.s\t$f10,$f10,$f12
+\tswc1\t$f8,0x8($sp)
+\tlwc1\t$f2,0x0($v0)
+\tlwc1\t$f0,0x8($v1)
+\tmul.s\t$f2,$f2,$f0
+\tlwc1\t$f6,0x4($v0)
+\tlwc1\t$f0,0x18($v1)
+\tmul.s\t$f6,$f6,$f0
+\tlwc1\t$f4,0x8($v0)
+\tlwc1\t$f0,0x28($v1)
+\tmul.s\t$f4,$f4,$f0
+\tadd.s\t$f2,$f2,$f6
+\tadd.s\t$f2,$f2,$f4
+\tadd.s\t$f8,$f8,$f2
+\ttrunc.w.s\t$f14,$f10
+\tmfc1\t$v0,$f14
+\tswc1\t$f8,0x8($sp)
+\tsh\t$v0,0x0($a3)
+\tlwc1\t$f0,0x4($sp)
+\tmul.s\t$f0,$f0,$f12
+\ttrunc.w.s\t$f14,$f0
+\tmfc1\t$v0,$f14
+\tsh\t$v0,-0x2($a0)
+\tlwc1\t$f0,0x8($sp)
+\tmul.s\t$f0,$f0,$f12
+\taddiu\t$a2,$a2,-0x1
+\taddiu\t$t0,$t0,0x20
+\taddiu\t$a3,$a3,0x10
+\ttrunc.w.s\t$f14,$f0
+\tmfc1\t$v0,$f14
+\tsh\t$v0,0x0($a0)
+\tbnez\t$a2,.Lskin_group_vertex
+\taddiu\t$a0,$a0,0x10
+\taddiu\t$t4,$t4,0x14
+\tj\t.Lskin_group_test
+\taddiu\t$t3,$t3,0x1
+.Lskin_final_group:
+\tsll\t$v0,$a2,5
+\tlw\t$t1,0x0($t2)
+\tlw\t$v1,0x4($t2)
+\tlui\t$at,%hi(D_80000604)
+\tlwc1\t$f12,%lo(D_80000604)($at)
+\taddu\t$a0,$v1,$v0
+\tsubu\t$a2,$t1,$a2
+\tsll\t$v0,$t3,2
+\taddu\t$v0,$v0,$t3
+\tlw\t$v1,0xC($t2)
+\tsll\t$v0,$v0,2
+\taddu\t$v0,$v0,$v1
+\tlw\t$v0,0x8($v0)
+\taddiu\t$t0,$a0,0x8
+\taddu\t$a3,$a1,$v0
+\taddiu\t$a0,$a3,0x4
+.Lskin_final_vertex:
+\tlw\t$v0,-0x4($t0)
+\tlbu\t$v0,0x0($v0)
+\tsll\t$v1,$v0,2
+\taddu\t$v1,$v1,$v0
+\tsll\t$v1,$v1,2
+\tsubu\t$v1,$v1,$v0
+\tlw\t$v0,0x160($t5)
+\tsll\t$v1,$v1,2
+\taddu\t$v1,$v1,$v0
+\tlwc1\t$f10,0x40($v1)
+\tlw\t$v0,0x0($t0)
+\tswc1\t$f10,0x0($sp)
+\tlwc1\t$f4,0x0($v0)
+\tlwc1\t$f0,0x0($v1)
+\tmul.s\t$f4,$f4,$f0
+\tlwc1\t$f6,0x4($v0)
+\tlwc1\t$f0,0x10($v1)
+\tmul.s\t$f6,$f6,$f0
+\tlwc1\t$f2,0x8($v0)
+\tlwc1\t$f0,0x20($v1)
+\tmul.s\t$f2,$f2,$f0
+\tadd.s\t$f4,$f4,$f6
+\tadd.s\t$f4,$f4,$f2
+\tadd.s\t$f10,$f10,$f4
+\tswc1\t$f10,0x0($sp)
+\tlwc1\t$f8,0x44($v1)
+\tswc1\t$f8,0x4($sp)
+\tlwc1\t$f4,0x0($v0)
+\tlwc1\t$f0,0x4($v1)
+\tmul.s\t$f4,$f4,$f0
+\tlwc1\t$f6,0x4($v0)
+\tlwc1\t$f0,0x14($v1)
+\tmul.s\t$f6,$f6,$f0
+\tlwc1\t$f2,0x8($v0)
+\tlwc1\t$f0,0x24($v1)
+\tmul.s\t$f2,$f2,$f0
+\tadd.s\t$f4,$f4,$f6
+\tadd.s\t$f4,$f4,$f2
+\tadd.s\t$f8,$f8,$f4
+\tswc1\t$f8,0x4($sp)
+\tlwc1\t$f8,0x48($v1)
+\tmul.s\t$f10,$f10,$f12
+\tswc1\t$f8,0x8($sp)
+\tlwc1\t$f2,0x0($v0)
+\tlwc1\t$f0,0x8($v1)
+\tmul.s\t$f2,$f2,$f0
+\tlwc1\t$f6,0x4($v0)
+\tlwc1\t$f0,0x18($v1)
+\tmul.s\t$f6,$f6,$f0
+\tlwc1\t$f4,0x8($v0)
+\tlwc1\t$f0,0x28($v1)
+\tmul.s\t$f4,$f4,$f0
+\tadd.s\t$f2,$f2,$f6
+\tadd.s\t$f2,$f2,$f4
+\tadd.s\t$f8,$f8,$f2
+\ttrunc.w.s\t$f14,$f10
+\tmfc1\t$v0,$f14
+\tswc1\t$f8,0x8($sp)
+\tsh\t$v0,0x0($a3)
+\tlwc1\t$f0,0x4($sp)
+\tmul.s\t$f0,$f0,$f12
+\ttrunc.w.s\t$f14,$f0
+\tmfc1\t$v0,$f14
+\tsh\t$v0,-0x2($a0)
+\tlwc1\t$f0,0x8($sp)
+\tmul.s\t$f0,$f0,$f12
+\taddiu\t$a2,$a2,-0x1
+\taddiu\t$t0,$t0,0x20
+\taddiu\t$a3,$a3,0x10
+\ttrunc.w.s\t$f14,$f0
+\tmfc1\t$v0,$f14
+\tsh\t$v0,0x0($a0)
+\tbnez\t$a2,.Lskin_final_vertex
+\taddiu\t$a0,$a0,0x10
+\taddu\t$v0,$zero,$zero
+\tjr\t$ra
+\taddiu\t$sp,$sp,0x10
+\t.set\tat
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True)
+    return lines
+
+
+def schedule_audio_playback_update(lines: list[str]) -> list[str]:
+    labels = [index for index, line in enumerate(lines) if line.strip() == "func_8001D10C:"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001D10C"]
+    if len(labels) != 1 or len(ends) != 1:
+        raise ValueError(f"expected one audio playback update function; found {len(labels)} labels, {len(ends)} ends")
+    starts = [
+        index
+        for index in range(labels[0] + 1, ends[0])
+        if lines[index].strip() and not lines[index].strip().startswith(".")
+    ]
+    if not starts or not any(lines[index].strip() == "subu\t$sp,$sp,48" for index in starts):
+        raise ValueError("expected a 48-byte audio playback update frame")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if end != ends[0]:
+        raise ValueError("audio playback update end mismatch")
+    text = "\n".join(body)
+    expected = {
+        "jal\tfunc_8001E9C0": 1, "jal\tfunc_8001E994": 3, "jal\tfunc_8001EC54": 1,
+        "jal\tfunc_8001EB88": 2, "jal\tfunc_800AA658": 2, "jal\tfunc_800A3218": 1,
+        "jal\tfunc_8001EA70": 3, "jal\tfunc_8001EDE0": 1, "jal\tfunc_8001ECD4": 1,
+        "jal\tfunc_8001ED88": 1, "jal\tfunc_80037F30": 2, "D_8006B2B0": 1,
+        "D_80064F64": 2, "D_80064F90": 8, "D_80043714": 1,
+    }
+    for token, count in expected.items():
+        if text.count(token) != count:
+            raise ValueError(f"expected {count} {token!r} in audio playback update; found {text.count(token)}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\taddiu\t$29,$29,-40\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$3,%lo(D_80064F64)($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$31,36($29)\n",
+        "\tsw\t$18,32($29)\n",
+        "\tsw\t$17,28($29)\n",
+        "\tsw\t$16,24($29)\n",
+        "\tbnez\t$3,.Laudio_8001D430\n",
+        "\tsw\t$0,%lo(D_80064F88)($2)\n",
+        "\tlui\t$16,0x8006\n",
+        "\tlw\t$2,%lo(D_80064F98)($16)\n",
+        "\tbeqz\t$2,.Laudio_8001D154\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$4,%lo(D_80064F9C)($2)\n",
+        "\tjal\tfunc_8001E9C0\n",
+        "\tnop\n",
+        "\tsw\t$0,%lo(D_80064F98)($16)\n",
+        ".Laudio_8001D154:\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$3,%lo(D_80064F7C)($2)\n",
+        "\taddiu\t$2,$0,1\n",
+        "\tbne\t$3,$2,.Laudio_8001D2B4\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlui\t$6,0x8006\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$4,$2,%lo(D_800F1AE0)\n",
+        "\tlw\t$3,108($4)\n",
+        "\tlw\t$2,%lo(D_80064F80)($6)\n",
+        "\tbeq\t$2,$3,.Laudio_8001D1A0\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$2,%lo(D_80064F60)($2)\n",
+        "\tbnez\t$2,.Laudio_8001D1A0\n",
+        "\tnop\n",
+        "\tlw\t$5,108($4)\n",
+        "\taddiu\t$4,$0,2\n",
+        "\tjal\tfunc_8001E994\n",
+        "\tsw\t$5,%lo(D_80064F80)($6)\n",
+        ".Laudio_8001D1A0:\n",
+        "\tjal\tfunc_8001EC54\n",
+        "\taddiu\t$4,$0,2\n",
+        "\tbnez\t$2,.Laudio_8001D1E4\n",
+        "\tlui\t$17,0x8006\n",
+        "\taddiu\t$4,$0,2\n",
+        "\tjal\tfunc_8001EB88\n",
+        "\taddu\t$5,$0,$0\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$3,%lo(D_80064F9C)($2)\n",
+        "\tbeqz\t$3,.Laudio_8001D1D8\n",
+        "\taddiu\t$5,$2,%lo(D_80064F9C)\n",
+        "\tlui\t$4,0x800f\n",
+        "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$4,$4,%lo(D_800F2758)\n",
+        ".Laudio_8001D1D8:\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,%lo(D_80064F7C)($2)\n",
+        "\tlui\t$17,0x8006\n",
+        ".Laudio_8001D1E4:\n",
+        "\tlw\t$2,%lo(D_80064F6C)($17)\n",
+        "\tbeqz\t$2,.Laudio_8001D228\n",
+        "\tlui\t$16,0x8006\n",
+        "\tlw\t$5,%lo(D_80064F74)($16)\n",
+        "\tjal\tfunc_8001E994\n",
+        "\taddiu\t$4,$0,2\n",
+        "\tlui\t$3,0x8006\n",
+        "\tlw\t$2,%lo(D_80064F74)($16)\n",
+        "\tlw\t$3,%lo(D_80064F78)($3)\n",
+        "\taddiu\t$2,$2,200\n",
+        "\tsw\t$2,%lo(D_80064F74)($16)\n",
+        "\tslt\t$2,$2,$3\n",
+        "\tbnez\t$2,.Laudio_8001D22C\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,%lo(D_80064F6C)($17)\n",
+        "\tsw\t$0,%lo(D_80064F60)($2)\n",
+        ".Laudio_8001D228:\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D22C:\n",
+        "\tlw\t$2,%lo(D_80064F70)($2)\n",
+        "\tbeqz\t$2,.Laudio_8001D2B0\n",
+        "\tlui\t$16,0x8006\n",
+        "\tlw\t$5,%lo(D_80064F74)($16)\n",
+        "\tjal\tfunc_8001E994\n",
+        "\taddiu\t$4,$0,2\n",
+        "\tlui\t$3,0x8006\n",
+        "\tlw\t$2,%lo(D_80064F74)($16)\n",
+        "\tlw\t$3,%lo(D_80064F78)($3)\n",
+        "\taddiu\t$2,$2,-200\n",
+        "\tsw\t$2,%lo(D_80064F74)($16)\n",
+        "\tslt\t$2,$3,$2\n",
+        "\tbnez\t$2,.Laudio_8001D2B4\n",
+        "\tlui\t$2,0x8006\n",
+        "\tbgtz\t$3,.Laudio_8001D2A4\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlui\t$4,0x800f\n",
+        "\tjal\tfunc_800A3218\n",
+        "\taddiu\t$4,$4,%lo(D_800F1AE0)\n",
+        "\taddiu\t$4,$0,2\n",
+        "\tjal\tfunc_8001EB88\n",
+        "\taddu\t$5,$0,$0\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$3,%lo(D_80064F9C)($2)\n",
+        "\tbeqz\t$3,.Laudio_8001D2A0\n",
+        "\taddiu\t$5,$2,%lo(D_80064F9C)\n",
+        "\tlui\t$4,0x800f\n",
+        "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$4,$4,%lo(D_800F2758)\n",
+        ".Laudio_8001D2A0:\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D2A4:\n",
+        "\tsw\t$0,%lo(D_80064F70)($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$0,%lo(D_80064F60)($2)\n",
+        ".Laudio_8001D2B0:\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D2B4:\n",
+        "\tlw\t$4,%lo(D_80064F90)($2)\n",
+        "\tbeqz\t$4,.Laudio_8001D304\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$2,%lo(D_80064F5C)($2)\n",
+        "\tsltu\t$2,$2,$4\n",
+        "\tbnez\t$2,.Laudio_8001D300\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,%lo(D_800F1AE0)\n",
+        "\tlw\t$5,104($2)\n",
+        "\tbltzl\t$5,.Laudio_8001D2E4\n",
+        "\taddiu\t$5,$5,127\n",
+        ".Laudio_8001D2E4:\n",
+        "\taddiu\t$2,$0,-1\n",
+        "\tsw\t$2,16($29)\n",
+        "\tsra\t$5,$5,7\n",
+        "\taddiu\t$6,$0,80\n",
+        "\tjal\tfunc_8001EA70\n",
+        "\taddu\t$7,$0,$0\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D300:\n",
+        "\tsw\t$0,%lo(D_80064F90)($2)\n",
+        ".Laudio_8001D304:\n",
+        "\taddu\t$17,$0,$0\n",
+        "\tlui\t$18,0x8006\n",
+        "\tlui\t$2,0x8007\n",
+        "\taddiu\t$16,$2,%lo(D_8006B2B0)\n",
+        ".Laudio_8001D314:\n",
+        "\tslti\t$2,$17,20\n",
+        "\tbeqz\t$2,.Laudio_8001D488\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$2,4($16)\n",
+        "\tbeql\t$2,$0,.Laudio_8001D428\n",
+        "\taddiu\t$16,$16,64\n",
+        "\tlw\t$2,12($16)\n",
+        "\tbeqz\t$2,.Laudio_8001D374\n",
+        "\tlui\t$2,0x8004\n",
+        "\tlw\t$2,%lo(D_80043714)($2)\n",
+        "\tbnez\t$2,.Laudio_8001D378\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$5,24($16)\n",
+        "\tbgez\t$5,.Laudio_8001D354\n",
+        "\tsw\t$0,12($16)\n",
+        "\taddiu\t$5,$5,127\n",
+        ".Laudio_8001D354:\n",
+        "\tsra\t$5,$5,7\n",
+        "\taddiu\t$2,$0,-1\n",
+        "\tsw\t$2,16($29)\n",
+        "\tlw\t$4,16($16)\n",
+        "\tlw\t$6,20($16)\n",
+        "\tjal\tfunc_8001EA70\n",
+        "\taddu\t$7,$0,$0\n",
+        "\tsw\t$2,52($16)\n",
+        ".Laudio_8001D374:\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D378:\n",
+        "\tlw\t$2,%lo(D_80064F64)($2)\n",
+        "\tbnez\t$2,.Laudio_8001D3F0\n",
+        "\tnop\n",
+        "\tlh\t$2,58($16)\n",
+        "\tlhu\t$3,58($16)\n",
+        "\tbeqz\t$2,.Laudio_8001D3F0\n",
+        "\taddiu\t$3,$3,-1\n",
+        "\tlw\t$2,24($16)\n",
+        "\tlw\t$4,60($16)\n",
+        "\tsh\t$3,58($16)\n",
+        "\taddu\t$2,$2,$4\n",
+        "\tbgez\t$2,.Laudio_8001D3B0\n",
+        "\tsw\t$2,24($16)\n",
+        "\taddiu\t$2,$2,127\n",
+        ".Laudio_8001D3B0:\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001EDE0\n",
+        "\tsra\t$5,$2,7\n",
+        "\tlh\t$2,58($16)\n",
+        "\tbgtz\t$2,.Laudio_8001D3F0\n",
+        "\tnop\n",
+        "\tlbu\t$2,56($16)\n",
+        "\tbeqz\t$2,.Laudio_8001D3F0\n",
+        "\tnop\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001ECD4\n",
+        "\taddu\t$5,$0,$0\n",
+        "\taddu\t$4,$16,$0\n",
+        "\taddu\t$5,$0,$0\n",
+        "\tjal\tfunc_80037F30\n",
+        "\taddiu\t$6,$0,64\n",
+        ".Laudio_8001D3F0:\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001ED88\n",
+        "\tnop\n",
+        "\tbnel\t$2,$0,.Laudio_8001D41C\n",
+        "\taddiu\t$16,$16,64\n",
+        "\taddu\t$4,$16,$0\n",
+        "\taddu\t$5,$0,$0\n",
+        "\tjal\tfunc_80037F30\n",
+        "\taddiu\t$6,$0,64\n",
+        "\tj\t.Laudio_8001D428\n",
+        "\taddiu\t$16,$16,64\n",
+        ".Laudio_8001D41C:\n",
+        "\tlw\t$2,%lo(D_80064F88)($18)\n",
+        "\taddiu\t$2,$2,1\n",
+        "\tsw\t$2,%lo(D_80064F88)($18)\n",
+        ".Laudio_8001D428:\n",
+        "\tj\t.Laudio_8001D314\n",
+        "\taddiu\t$17,$17,1\n",
+        ".Laudio_8001D430:\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$4,%lo(D_80064F90)($2)\n",
+        "\tbeqz\t$4,.Laudio_8001D484\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$2,%lo(D_80064F5C)($2)\n",
+        "\tsltu\t$2,$2,$4\n",
+        "\tbnez\t$2,.Laudio_8001D480\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,%lo(D_800F1AE0)\n",
+        "\tlw\t$5,104($2)\n",
+        "\tbltzl\t$5,.Laudio_8001D464\n",
+        "\taddiu\t$5,$5,127\n",
+        ".Laudio_8001D464:\n",
+        "\taddiu\t$2,$0,-1\n",
+        "\tsw\t$2,16($29)\n",
+        "\tsra\t$5,$5,7\n",
+        "\taddiu\t$6,$0,80\n",
+        "\tjal\tfunc_8001EA70\n",
+        "\taddu\t$7,$0,$0\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D480:\n",
+        "\tsw\t$0,%lo(D_80064F90)($2)\n",
+        ".Laudio_8001D484:\n",
+        "\tlui\t$2,0x8006\n",
+        ".Laudio_8001D488:\n",
+        "\tlui\t$4,0x8006\n",
+        "\tlw\t$3,%lo(D_80064F88)($2)\n",
+        "\tlw\t$2,%lo(D_80064F8C)($4)\n",
+        "\tsltu\t$2,$2,$3\n",
+        "\tbnel\t$2,$0,.Laudio_8001D4A0\n",
+        "\tsw\t$3,%lo(D_80064F8C)($4)\n",
+        ".Laudio_8001D4A0:\n",
+        "\tlw\t$31,36($29)\n",
+        "\tlw\t$18,32($29)\n",
+        "\tlw\t$17,28($29)\n",
+        "\tlw\t$16,24($29)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$29,$29,40\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
+def schedule_mesh_display_list_build(lines: list[str]) -> list[str]:
+    function_name = "func_80012BD8"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one mesh display-list builder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("D_8005A93C", "D_8005A9E8", "D_80049A28", "displayListTag", "func_800AA658",
+                  "func_800AA804", "func_8000C68C", "92($", "106($", "108($", "118($"):
+        if token not in body:
+            raise ValueError(f"unexpected mesh display-list builder near {token!r}")
+    assembly = """\
+\t.frame\t$sp,56,$31
+\t.mask\t0x801f0000,-4
+\t.set\tnoreorder
+\taddiu\t$29,$29,-0x38
+\tsw\t$19,0x2C($29)
+\taddu\t$19,$4,$0
+\tsw\t$31,0x34($29)
+\tsw\t$20,0x30($29)
+\tsw\t$18,0x28($29)
+\tsw\t$17,0x24($29)
+\tsw\t$16,0x20($29)
+\tlw\t$2,0x6C($19)
+\tbeqz\t$2,.L80013024
+\taddu\t$20,$5,$0
+\tlhu\t$4,0x76($19)
+\tbeqz\t$4,.L80013024
+\tlui\t$17,%hi(D_8005A93C)
+\tlw\t$3,%lo(D_8005A93C)($17)
+\taddiu\t$2,$0,0x1
+\tsllv\t$2,$2,$3
+\tnor\t$2,$0,$2
+\tand\t$2,$4,$2
+\tsll\t$3,$3,2
+\tsh\t$2,0x76($19)
+\taddu\t$2,$19,$3
+\tlw\t$2,0x5C($2)
+\tbeqz\t$2,.L80012C5C
+\tlui\t$2,%hi(D_8005A9E8)
+\taddiu\t$5,$3,0x5C
+\tlw\t$4,%lo(D_8005A9E8)($2)
+\tjal\tfunc_800AA658
+\taddu\t$5,$19,$5
+\tlw\t$2,%lo(D_8005A93C)($17)
+\tsll\t$2,$2,2
+\taddu\t$2,$19,$2
+\tsw\t$0,0x5C($2)
+.L80012C5C:
+\tlw\t$16,0x6C($19)
+\tlhu\t$2,0x68($19)
+\tlhu\t$18,0x6A($19)
+\tbeqz\t$2,.L80012C78
+\tnop\t
+.L80012C70:
+\tj\t.L80013028
+\taddiu\t$2,$0,-0x3E8
+.L80012C78:
+\tlw\t$2,%lo(D_8005A93C)($17)
+\tsll\t$2,$2,2
+\taddu\t$2,$19,$2
+\tlw\t$2,0x5C($2)
+\tbnel\t$2,$0,.L80012D04
+\tlui\t$2,%hi(D_8005A93C)
+\tbeqz\t$20,.L80012CAC
+\tsrl\t$2,$18,1
+\tsll\t$3,$2,3
+\tsubu\t$3,$3,$2
+\tandi\t$2,$18,0x1
+\tj\t.L80012CCC
+\tsll\t$2,$2,2
+.L80012CAC:
+\tlw\t$2,0x64($19)
+\tsltiu\t$2,$2,0x21
+\tbnez\t$2,.L80012CC8
+\tsrl\t$3,$18,1
+\tsll\t$2,$18,2
+\tj\t.L80012CD4
+\taddiu\t$2,$2,0x5
+.L80012CC8:
+\tandi\t$2,$18,0x1
+.L80012CCC:
+\taddiu\t$2,$2,0x6
+\taddu\t$2,$3,$2
+.L80012CD4:
+\tsll\t$6,$2,3
+\tlui\t$7,%hi(displayListTag)
+\taddiu\t$7,$7,%lo(displayListTag)
+\tlui\t$3,%hi(D_8005A9E8)
+\tlui\t$2,%hi(D_8005A93C)
+\tlw\t$5,%lo(D_8005A93C)($2)
+\tlw\t$4,%lo(D_8005A9E8)($3)
+\tsll\t$5,$5,2
+\taddiu\t$5,$5,0x5C
+\tjal\tfunc_800AA804
+\taddu\t$5,$19,$5
+\tlui\t$2,%hi(D_8005A93C)
+.L80012D04:
+\tlw\t$2,%lo(D_8005A93C)($2)
+\tsll\t$2,$2,2
+\taddu\t$5,$19,$2
+\tlw\t$17,0x5C($5)
+\tbeqz\t$17,.L80012C70
+\taddiu\t$17,$17,0x8
+\taddu\t$4,$17,$0
+\taddiu\t$17,$17,0x8
+\tlui\t$2,0xD9FF
+\tori\t$2,$2,0xFFFF
+\taddu\t$3,$17,$0
+\taddiu\t$17,$17,0x8
+\tsw\t$2,0x0($4)
+\tlui\t$2,0x2
+\tsw\t$2,0x4($4)
+\tlui\t$2,0xE700
+\tsw\t$2,0x0($3)
+\tbnez\t$20,.L80012F50
+\tsw\t$0,0x4($3)
+\tlw\t$2,0x64($19)
+\tsltiu\t$2,$2,0x21
+\tbnel\t$2,$0,.L80012E0C
+\taddu\t$5,$17,$0
+\taddu\t$11,$0,$0
+\tandi\t$14,$18,0xFFFF
+\tlui\t$13,0x100
+\tori\t$13,$13,0x1002
+\tlui\t$12,0x100
+\tori\t$12,$12,0x1004
+\tlui\t$9,0x100
+\tori\t$9,$9,0x1006
+\tlui\t$6,0x504
+\tori\t$6,$6,0x200
+\taddiu\t$4,$17,-0x4
+.L80012D8C:
+\tsltu\t$2,$11,$14
+\tbeqz\t$2,.L80012F50
+\taddiu\t$4,$4,0x8
+\tlhu\t$10,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$8,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$7,0x0($16)
+\taddiu\t$16,$16,0x2
+\taddiu\t$17,$17,0x20
+\taddiu\t$11,$11,0x1
+\tsw\t$13,-0x4($4)
+\tlw\t$2,0x54($5)
+\tsll\t$3,$10,4
+\taddu\t$2,$2,$3
+\tsw\t$2,0x0($4)
+\taddiu\t$4,$4,0x8
+\tsw\t$12,-0x4($4)
+\tlw\t$2,0x54($5)
+\tsll\t$3,$8,4
+\taddu\t$2,$2,$3
+\tsw\t$2,0x0($4)
+\taddiu\t$4,$4,0x8
+\tsw\t$9,-0x4($4)
+\tlw\t$2,0x54($5)
+\tsll\t$3,$7,4
+\taddu\t$2,$2,$3
+\tsw\t$2,0x0($4)
+\taddiu\t$4,$4,0x8
+\tsw\t$6,-0x4($4)
+\tj\t.L80012D8C
+\tsw\t$0,0x0($4)
+.L80012E0C:
+\taddiu\t$17,$17,0x8
+\taddu\t$11,$0,$0
+\tandi\t$2,$18,0xFFFF
+\tsrl\t$12,$2,1
+\tlui\t$13,0x600
+\tlw\t$2,0x64($19)
+\tlui\t$3,0x100
+\tandi\t$4,$2,0xFF
+\tsll\t$4,$4,12
+\tandi\t$2,$2,0x7F
+\tsll\t$2,$2,1
+\tor\t$2,$2,$3
+\tlui\t$3,%hi(D_8005A93C)
+\tlw\t$3,%lo(D_8005A93C)($3)
+\tor\t$4,$4,$2
+\tsw\t$4,0x0($5)
+\tsll\t$3,$3,2
+\taddu\t$3,$19,$3
+\tlw\t$2,0x54($3)
+\taddiu\t$9,$17,-0x4
+\tsw\t$2,0x4($5)
+.L80012E60:
+\tsltu\t$2,$11,$12
+\tbeqz\t$2,.L80012EFC
+\taddiu\t$9,$9,0x8
+\tlhu\t$10,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$8,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$7,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$6,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$5,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$4,0x0($16)
+\taddiu\t$16,$16,0x2
+\taddiu\t$17,$17,0x8
+\taddiu\t$11,$11,0x1
+\tsll\t$3,$7,1
+\tandi\t$3,$3,0xFF
+\tsll\t$3,$3,16
+\tsll\t$2,$8,9
+\tandi\t$2,$2,0xFE00
+\tor\t$3,$3,$2
+\tsll\t$2,$10,1
+\tandi\t$2,$2,0xFF
+\tor\t$3,$3,$2
+\tor\t$3,$3,$13
+\tsll\t$4,$4,1
+\tandi\t$4,$4,0xFF
+\tsll\t$4,$4,16
+\tsll\t$5,$5,9
+\tandi\t$5,$5,0xFE00
+\tor\t$4,$4,$5
+\tsll\t$6,$6,1
+\tandi\t$6,$6,0xFF
+\tor\t$4,$4,$6
+\tsw\t$3,-0x4($9)
+\tj\t.L80012E60
+\tsw\t$4,0x0($9)
+.L80012EFC:
+\tandi\t$2,$18,0x1
+\tbeqz\t$2,.L80012F50
+\taddu\t$4,$17,$0
+\tlhu\t$10,0x0($16)
+\taddiu\t$16,$16,0x2
+\tlhu\t$8,0x0($16)
+\tlhu\t$7,0x2($16)
+\taddiu\t$17,$17,0x8
+\tsw\t$0,0x4($4)
+\tsll\t$3,$7,1
+\tandi\t$3,$3,0xFF
+\tsll\t$3,$3,16
+\tsll\t$2,$8,9
+\tandi\t$2,$2,0xFE00
+\tor\t$3,$3,$2
+\tsll\t$2,$10,1
+\tandi\t$2,$2,0xFF
+\tor\t$3,$3,$2
+\tlui\t$2,0x500
+\tor\t$3,$3,$2
+\tsw\t$3,0x0($4)
+.L80012F50:
+\tlw\t$2,0x0($19)
+\tandi\t$2,$2,0x20
+\tbeqz\t$2,.L80012FAC
+\tlui\t$16,%hi(D_8005A93C)
+\tlw\t$3,0x5C($19)
+\tbeqz\t$3,.L80012F78
+\tlui\t$2,0xDE00
+\tsw\t$2,0x0($3)
+\tlw\t$2,0x14($19)
+\tsw\t$2,0x4($3)
+.L80012F78:
+\tlw\t$3,0x60($19)
+\tbeqz\t$3,.L80012F90
+\tlui\t$2,0xDE00
+\tsw\t$2,0x0($3)
+\tlw\t$2,0x14($19)
+\tsw\t$2,0x4($3)
+.L80012F90:
+\taddu\t$3,$17,$0
+\taddiu\t$17,$17,0x8
+\tlui\t$2,0xD9FB
+\tori\t$2,$2,0xFFFF
+\tsw\t$2,0x0($3)
+\tj\t.L80013010
+\tsw\t$0,0x4($3)
+.L80012FAC:
+\tlw\t$2,%lo(D_8005A93C)($16)
+\tsll\t$2,$2,2
+\taddu\t$2,$19,$2
+\tlw\t$2,0x5C($2)
+\tlhu\t$4,0x70($19)
+\tbeqz\t$2,.L80013010
+\tandi\t$4,$4,0xFFFF
+\taddu\t$5,$0,$0
+\taddu\t$6,$5,$0
+\taddu\t$7,$5,$0
+\tjal\tfunc_8000C68C
+\tsw\t$0,0x10($29)
+\tlw\t$3,%lo(D_8005A93C)($16)
+\tsll\t$3,$3,2
+\taddu\t$3,$19,$3
+\tlw\t$4,0x5C($3)
+\tlui\t$3,0xDE00
+\tsw\t$3,0x0($4)
+\tsll\t$3,$2,3
+\tsubu\t$3,$3,$2
+\tsll\t$3,$3,5
+\tlui\t$2,%hi(D_80049A28+16)
+\taddiu\t$2,$2,%lo(D_80049A28+16)
+\taddu\t$3,$3,$2
+\tsw\t$3,0x4($4)
+.L80013010:
+\tbnez\t$20,.L80013028
+\taddu\t$2,$0,$0
+\tlui\t$2,0xDF00
+\tsw\t$2,0x0($17)
+\tsw\t$0,0x4($17)
+.L80013024:
+\taddu\t$2,$0,$0
+.L80013028:
+\tlw\t$31,0x34($29)
+\tlw\t$20,0x30($29)
+\tlw\t$19,0x2C($29)
+\tlw\t$18,0x28($29)
+\tlw\t$17,0x24($29)
+\tlw\t$16,0x20($29)
+\tjr\t$31
+\taddiu\t$29,$29,0x38
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+
+def schedule_sprite_object_layout(lines: list[str]) -> list[str]:
+    function_name = "func_80019BA0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one sprite object layout")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    if body.count("jal\tfunc_8001C784") != 1 or body.count("jal\tfunc_80018E68") != 2:
+        raise ValueError("unexpected sprite object layout calls")
+    for token in ("D_800620D8", "D_80064740", "D_80000FB0", "D_80000FB4"):
+        if token not in body:
+            raise ValueError(f"sprite object layout is missing {token}")
+    if body.count(".section\t.rodata") != 1 or body.count("\t.word\t") != 10:
+        raise ValueError("expected one 10-entry sprite layer jump table")
+    assembly = """\
+\t.frame\t$sp,48,$31
+\t.mask\t0x80010000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\t.set\tnoat
+\taddiu\t$sp,$sp,-0x30
+\tsw\t$s0,0x28($sp)
+\taddu\t$s0,$a0,$zero
+\tbeqz\t$a1,.L8001A014
+\tsw\t$ra,0x2C($sp)
+\tlw\t$v1,0x80($s0)
+\tandi\t$v0,$v1,0x2
+\tbeqz\t$v0,.L8001A014
+\tandi\t$v0,$v1,0x4
+\tbeqz\t$v0,.L8001A014
+\tandi\t$v0,$v1,0x10
+\tbeqz\t$v0,.L80019BE0
+\tlui\t$v0,%hi(D_800620D8)
+\tlw\t$v0,%lo(D_800620D8)($v0)
+\tbeqz\t$v0,.L8001A014
+\tnop
+.L80019BE0:
+\tlbu\t$v1,0xC9($a1)
+\tsltiu\t$v0,$v1,0xA
+\tbeqz\t$v0,.L80019C50
+\tlui\t$v0,%hi(.Llayout_jump_table)
+\taddiu\t$v0,$v0,%lo(.Llayout_jump_table)
+\tsll\t$v1,$v1,2
+\taddu\t$v1,$v1,$v0
+\tlw\t$v0,0x0($v1)
+\tjr\t$v0
+\tnop
+\t.section\t.rodata
+\t.align\t3
+.Llayout_jump_table:
+\t.word\t.L80019C50
+\t.word\t.L80019C08
+\t.word\t.L80019C10
+\t.word\t.L80019C18
+\t.word\t.L80019C20
+\t.word\t.L80019C28
+\t.word\t.L80019C30
+\t.word\t.L80019C38
+\t.word\t.L80019C40
+\t.word\t.L80019C48
+.Llayout_unsigned_bias_a:
+\t.word\t0x4f000000
+.Llayout_unsigned_bias_b:
+\t.word\t0x4f000000
+.Llayout_unsigned_bias_c:
+\t.word\t0x4f000000
+.Llayout_unsigned_bias_d:
+\t.word\t0x4f000000
+.Llayout_unsigned_range_a:
+\t.word\t0x41f00000
+\t.word\t0x00000000
+.Llayout_unsigned_range_b:
+\t.word\t0x41f00000
+\t.word\t0x00000000
+\t.text
+.L80019C08:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x18
+.L80019C10:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x16
+.L80019C18:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x14
+.L80019C20:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x12
+.L80019C28:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x10
+.L80019C30:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x8
+.L80019C38:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x6
+.L80019C40:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x4
+.L80019C48:
+\tj\t.L80019C54
+\taddiu\t$v0,$zero,0x2
+.L80019C50:
+\taddiu\t$v0,$zero,0x20
+.L80019C54:
+\tsw\t$v0,0x1C($s0)
+\tlhu\t$t0,0xE($s0)
+\tlw\t$v0,0x1C($s0)
+\tlwc1\t$f0,0x68($s0)
+\tlw\t$v1,0x30($s0)
+\tlhu\t$a3,0x12($s0)
+\taddu\t$t2,$t0,$zero
+\tmtc1\t$t2,$f2
+\tcvt.s.w\t$f2,$f2
+\taddu\t$v0,$v0,$v1
+\tmul.s\t$f0,$f2,$f0
+\tlui\t$at,%hi(.Llayout_unsigned_bias_a)
+\tlwc1\t$f2,%lo(.Llayout_unsigned_bias_a)($at)
+\tsw\t$v0,0x1C($s0)
+\tlwc1\t$f8,0x54($a1)
+\tlwc1\t$f10,0x58($a1)
+\tc.le.s\t$f2,$f0
+\tnop
+\tbc1t\t.L80019CB4
+\taddu\t$t3,$a3,$zero
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$a1,$f12
+\tj\t.L80019CC8
+\tnop
+.L80019CB4:
+\tsub.s\t$f0,$f0,$f2
+\tlui\t$v0,0x8000
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$a1,$f12
+\tor\t$a1,$a1,$v0
+.L80019CC8:
+\tlwc1\t$f2,0x6C($s0)
+\tmtc1\t$a3,$f0
+\tcvt.s.w\t$f0,$f0
+\tmul.s\t$f0,$f0,$f2
+\tlui\t$at,%hi(.Llayout_unsigned_bias_b)
+\tlwc1\t$f2,%lo(.Llayout_unsigned_bias_b)($at)
+\tc.le.s\t$f2,$f0
+\tnop
+\tbc1tl\t.L80019D00
+\tsub.s\t$f0,$f0,$f2
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$a0,$f12
+\tj\t.L80019D10
+\tnop
+.L80019D00:
+\tlui\t$v0,0x8000
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$a0,$f12
+\tor\t$a0,$a0,$v0
+.L80019D10:
+\tlwc1\t$f2,0x70($s0)
+\tmtc1\t$t0,$f0
+\tcvt.s.w\t$f0,$f0
+\tmul.s\t$f0,$f0,$f2
+\tlui\t$at,%hi(.Llayout_unsigned_bias_c)
+\tlwc1\t$f2,%lo(.Llayout_unsigned_bias_c)($at)
+\tc.le.s\t$f2,$f0
+\tnop
+\tbc1tl\t.L80019D48
+\tsub.s\t$f0,$f0,$f2
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$v1,$f12
+\tj\t.L80019D58
+\tnop
+.L80019D48:
+\tlui\t$v0,0x8000
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$v1,$f12
+\tor\t$v1,$v1,$v0
+.L80019D58:
+\tlwc1\t$f2,0x74($s0)
+\tmtc1\t$a3,$f0
+\tcvt.s.w\t$f0,$f0
+\tmul.s\t$f0,$f0,$f2
+\tlui\t$at,%hi(.Llayout_unsigned_bias_d)
+\tlwc1\t$f2,%lo(.Llayout_unsigned_bias_d)($at)
+\tc.le.s\t$f2,$f0
+\tnop
+\tbc1t\t.L80019D90
+\taddu\t$a2,$v1,$zero
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$v1,$f12
+\tj\t.L80019DA8
+\taddu\t$t1,$v1,$zero
+.L80019D90:
+\tsub.s\t$f0,$f0,$f2
+\tlui\t$v0,0x8000
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$v1,$f12
+\tor\t$v1,$v1,$v0
+\taddu\t$t1,$v1,$zero
+.L80019DA8:
+\tsll\t$v0,$a1,16
+\tbltzl\t$v0,.L80019DB4
+\taddu\t$a1,$zero,$zero
+.L80019DB4:
+\tsll\t$v0,$a0,16
+\tbltzl\t$v0,.L80019DC0
+\taddu\t$a0,$zero,$zero
+.L80019DC0:
+\tsll\t$v0,$a2,16
+\tsra\t$v0,$v0,16
+\tslt\t$v0,$v0,$t0
+\tbeql\t$v0,$zero,.L80019DD4
+\taddiu\t$a2,$t0,-0x1
+.L80019DD4:
+\tsll\t$v0,$v1,16
+\tsra\t$v0,$v0,16
+\tslt\t$v0,$v0,$a3
+\tbeql\t$v0,$zero,.L80019DE8
+\taddiu\t$t1,$a3,-0x1
+.L80019DE8:
+\taddu\t$v1,$t2,$zero
+\taddu\t$a1,$a1,$v1
+\taddu\t$v0,$t3,$zero
+\taddu\t$a0,$a0,$v0
+\taddu\t$v1,$a2,$v1
+\taddu\t$v0,$t1,$v0
+\tsb\t$a1,0x20($sp)
+\tsb\t$a0,0x24($sp)
+\tsb\t$v1,0x21($sp)
+\tsb\t$a0,0x25($sp)
+\tsb\t$a1,0x22($sp)
+\tsb\t$v0,0x26($sp)
+\tsb\t$v1,0x23($sp)
+\tsb\t$v0,0x27($sp)
+\tlwc1\t$f0,0x58($s0)
+\tadd.s\t$f0,$f8,$f0
+\tlwc1\t$f2,0x5C($s0)
+\tadd.s\t$f2,$f10,$f2
+\tlwc1\t$f4,0x60($s0)
+\tadd.s\t$f4,$f8,$f4
+\tlwc1\t$f6,0x64($s0)
+\tadd.s\t$f6,$f10,$f6
+\ttrunc.w.s\t$f12,$f0
+\tmfc1\t$v1,$f12
+\ttrunc.w.s\t$f12,$f2
+\tmfc1\t$v0,$f12
+\tsh\t$v0,0x18($sp)
+\ttrunc.w.s\t$f12,$f4
+\tmfc1\t$v0,$f12
+\tsh\t$v0,0x12($sp)
+\ttrunc.w.s\t$f12,$f6
+\tmfc1\t$v0,$f12
+\tsh\t$v1,0x10($sp)
+\tsll\t$v1,$v1,16
+\tsra\t$v1,$v1,16
+\tsh\t$v0,0x1A($sp)
+\tsw\t$v1,0x4($s0)
+\tlh\t$v0,0x18($sp)
+\tsw\t$v0,0x8($s0)
+\tlh\t$a0,0x12($sp)
+\tlh\t$v1,0x10($sp)
+\tslt\t$v0,$v1,$a0
+\tbnez\t$v0,.L80019E9C
+\tsubu\t$v0,$a0,$v1
+\tsubu\t$v0,$v1,$a0
+.L80019E9C:
+\tmtc1\t$v0,$f8
+\tcvt.s.w\t$f8,$f8
+\tlh\t$a0,0x1A($sp)
+\tlh\t$v1,0x18($sp)
+\tslt\t$v0,$v1,$a0
+\tbnez\t$v0,.L80019EBC
+\tsubu\t$v0,$a0,$v1
+\tsubu\t$v0,$v1,$a0
+.L80019EBC:
+\tmtc1\t$v0,$f6
+\tcvt.s.w\t$f6,$f6
+\tlhu\t$v1,0x28($s0)
+\tlw\t$v0,0xC($s0)
+\tmult\t$v0,$v1
+\tmflo\t$v0
+\tmtc1\t$v0,$f4
+\tcvt.d.w\t$f4,$f4
+\tbgez\t$v0,.L80019EF0
+\tnop
+\tlui\t$at,%hi(.Llayout_unsigned_range_a)
+\tldc1\t$f0,%lo(.Llayout_unsigned_range_a)($at)
+\tadd.d\t$f4,$f4,$f0
+.L80019EF0:
+\tlhu\t$v1,0x2A($s0)
+\tlw\t$v0,0x10($s0)
+\tmult\t$v0,$v1
+\tmflo\t$v0
+\tmtc1\t$v0,$f2
+\tcvt.d.w\t$f2,$f2
+\tbgez\t$v0,.L80019F1C
+\tcvt.s.d\t$f4,$f4
+\tlui\t$at,%hi(.Llayout_unsigned_range_b)
+\tldc1\t$f0,%lo(.Llayout_unsigned_range_b)($at)
+\tadd.d\t$f2,$f2,$f0
+.L80019F1C:
+\tdiv.s\t$f0,$f8,$f4
+\tswc1\t$f0,0x20($s0)
+\tcvt.s.d\t$f0,$f2
+\tlw\t$v0,0x80($s0)
+\tdiv.s\t$f0,$f6,$f0
+\tandi\t$v0,$v0,0x10
+\tbeqz\t$v0,.L80019F6C
+\tswc1\t$f0,0x24($s0)
+\tlui\t$v0,%hi(D_800620D8)
+\tlw\t$v0,%lo(D_800620D8)($v0)
+\tbeqz\t$v0,.L80019F6C
+\tnop
+\tjal\tfunc_8001C784
+\tnop
+\tlui\t$v0,%hi(D_80064740)
+\tlw\t$v1,0x48($s0)
+\taddiu\t$v0,$v0,%lo(D_80064740)
+\tsw\t$v0,0x0($v1)
+\tlw\t$v1,0x4C($s0)
+\tsw\t$v0,0x8($v1)
+.L80019F6C:
+\tlw\t$a1,0x4($s0)
+\tlw\t$a2,0x8($s0)
+\tjal\tfunc_80018E68
+\taddu\t$a0,$s0,$zero
+\tlw\t$v1,0x38($s0)
+\tbeqz\t$v1,.L8001A014
+\tnop
+\tlhu\t$v0,0x28($s0)
+\tlwc1\t$f2,0x20($s0)
+\tmtc1\t$v0,$f0
+\tcvt.s.w\t$f0,$f0
+\tmul.s\t$f2,$f2,$f0
+\tlwc1\t$f4,0x24($s0)
+\tlwc1\t$f0,0x34($s0)
+\tlhu\t$v0,0x2A($s0)
+\tdiv.s\t$f2,$f2,$f0
+\tmtc1\t$v0,$f0
+\tcvt.s.w\t$f0,$f0
+\tmul.s\t$f4,$f4,$f0
+\tswc1\t$f2,0x20($v1)
+\tmov.s\t$f0,$f2
+\tmtc1\t$zero,$f2
+\tc.le.s\t$f0,$f2
+\tnop
+\tbc1f\t.L80019FE0
+\tswc1\t$f4,0x24($v1)
+\tlui\t$at,%hi(D_80000FB0)
+\tlwc1\t$f0,%lo(D_80000FB0)($at)
+\tswc1\t$f0,0x20($v1)
+.L80019FE0:
+\tlwc1\t$f0,0x24($v1)
+\tc.le.s\t$f0,$f2
+\tnop
+\tbc1f\t.L8001A000
+\tnop
+\tlui\t$at,%hi(D_80000FB4)
+\tlwc1\t$f0,%lo(D_80000FB4)($at)
+\tswc1\t$f0,0x24($v1)
+.L8001A000:
+\tlw\t$a0,0x38($s0)
+\tlw\t$a1,0x4($s0)
+\tlw\t$a2,0x8($s0)
+\tjal\tfunc_80018E68
+\tnop
+.L8001A014:
+\tlw\t$ra,0x2C($sp)
+\tlw\t$s0,0x28($sp)
+\tjr\t$ra
+\taddiu\t$sp,$sp,0x30
+\t.set\tat
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True)
+    return lines
+
+def schedule_view_lookat_reflection(lines: list[str]) -> list[str]:
+    function_name = "func_8000EC54"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    sections = [i for i, line in enumerate(lines) if line.strip() == ".section\t.rodata"]
+    if len(labels) != 1 or len(ends) != 1 or len(sections) != 1 or not sections[0] < labels[0] < ends[0]:
+        raise ValueError("expected exactly one view look-at reflection builder")
+    start, end = sections[0], ends[0]
+    body = "".join(lines[start:end])
+    for token in ("func_800AD2A8", "sqrtf", "sqrt.s", "trunc.w.s", ".LC0", ".LC1", "sb\t$0,23($16)"):
+        if token not in body:
+            raise ValueError(f"unexpected view look-at reflection builder near {token!r}")
+    assembly = """\
+.section	.rodata
+	.align	3
+.Llookat_rodata:
+	.word	0x00000000
+	.word	0x00000000
+	.word	0x3f800000
+	.word	0x00000000
+	.word	0x3f800000
+	.word	0x00000000
+	.word	0x3f800000
+	.word	0x00000000
+	.word	0x3ff00000
+	.word	0x00000000
+	.word	0x3f800000
+	.word	0x00000000
+	.word	0x3ff00000
+	.word	0x00000000
+	.word	0x3f800000
+	.word	0x00000000
+	.word	0x3ff00000
+	.word	0x00000000
+	.word	0x43000000
+	.word	0x42fe0000
+	.word	0x43000000
+	.word	0x42fe0000
+	.word	0x43000000
+	.word	0x42fe0000
+	.word	0x43000000
+	.word	0x42fe0000
+	.word	0x43000000
+	.word	0x42fe0000
+	.word	0x43000000
+	.word	0x42fe0000
+	.text
+	.align	2
+	.globl	func_8000EC54
+	.type	 func_8000EC54,@function
+	.ent	func_8000EC54
+func_8000EC54:
+	.frame	$sp,136,$31
+	.mask	0x80010000,-52
+	.fmask	0xfff00000,-4
+	.set	noreorder
+	.set	noat
+	addiu	$29,$29,-0x88
+	sw	$16,0x50($29)
+	addu	$16,$5,$0
+	lui	$2,%hi(.Llookat_rodata)
+	sw	$31,0x54($29)
+	sdc1	$f30,0x80($29)
+	sdc1	$f28,0x78($29)
+	sdc1	$f26,0x70($29)
+	sdc1	$f24,0x68($29)
+	sdc1	$f22,0x60($29)
+	sdc1	$f20,0x58($29)
+	sw	$6,0x90($29)
+	sw	$7,0x94($29)
+	addiu	$10,$2,%lo(.Llookat_rodata+0)
+	lw	$3,0x0($10)
+	lw	$8,0x4($10)
+	lw	$9,0x8($10)
+	sw	$3,0x10($29)
+	sw	$8,0x14($29)
+	sw	$9,0x18($29)
+	lui	$2,%hi(.Llookat_rodata)
+	addiu	$5,$29,0x10
+	addiu	$6,$29,0x30
+	addiu	$10,$2,%lo(.Llookat_rodata+12)
+	lw	$3,0x0($10)
+	lw	$8,0x4($10)
+	lw	$9,0x8($10)
+	sw	$3,0x20($29)
+	sw	$8,0x24($29)
+	sw	$9,0x28($29)
+	jal	func_800AD2A8
+	addu	$7,$0,$0
+	lwc1	$f22,0x30($29)
+	lwc1	$f24,0x34($29)
+	mtc1	$0,$f0
+	lwc1	$f20,0x38($29)
+	c.eq.s	$f22,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000ED0C+12
+	nop
+\x09
+	c.eq.s	$f24,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000ED0C+12
+	nop
+\x09
+	c.eq.s	$f20,$f0
+	lui	$1,%hi(.Llookat_rodata)
+.Llookat_8000ED0C:
+	lwc1	$f0,%lo(.Llookat_rodata+24)($1)
+	bc1t	.Llookat_8000ED64+4
+	nop
+\x09
+	mul.s	$f0,$f22,$f22
+	nop
+\x09
+	mul.s	$f2,$f24,$f24
+	nop
+\x09
+	mul.s	$f4,$f20,$f20
+	add.s	$f0,$f0,$f2
+	add.s	$f12,$f0,$f4
+	sqrt.s	$f2,$f12
+	c.eq.s	$f2,$f2
+	nop
+\x09
+	bc1t	.Llookat_8000ED54
+	nop
+\x09
+	jal	sqrtf
+	nop
+\x09
+	mov.s	$f2,$f0
+.Llookat_8000ED54:
+	lui	$1,%hi(.Llookat_rodata)
+	ldc1	$f0,%lo(.Llookat_rodata+32)($1)
+	cvt.d.s	$f2,$f2
+	div.d	$f0,$f0,$f2
+.Llookat_8000ED64:
+	cvt.s.d	$f0,$f0
+	mul.s	$f22,$f22,$f0
+	nop
+\x09
+	mul.s	$f20,$f20,$f0
+	nop
+\x09
+	mul.s	$f24,$f24,$f0
+	lwc1	$f14,0x94($29)
+	mul.s	$f10,$f14,$f20
+	lwc1	$f16,0x98($29)
+	mul.s	$f6,$f16,$f24
+	nop
+\x09
+	mul.s	$f8,$f16,$f22
+	lwc1	$f14,0x90($29)
+	mul.s	$f2,$f14,$f20
+	nop
+\x09
+	mul.s	$f4,$f14,$f24
+	lwc1	$f16,0x94($29)
+	mul.s	$f0,$f16,$f22
+	sub.s	$f26,$f10,$f6
+	sub.s	$f30,$f4,$f0
+	mtc1	$0,$f0
+	c.eq.s	$f26,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EDE0+12
+	sub.s	$f28,$f8,$f2
+	c.eq.s	$f28,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EDE0+12
+	nop
+\x09
+	c.eq.s	$f30,$f0
+	lui	$1,%hi(.Llookat_rodata)
+.Llookat_8000EDE0:
+	lwc1	$f0,%lo(.Llookat_rodata+40)($1)
+	bc1t	.Llookat_8000EE38+4
+	nop
+\x09
+	mul.s	$f0,$f26,$f26
+	nop
+\x09
+	mul.s	$f2,$f28,$f28
+	nop
+\x09
+	mul.s	$f4,$f30,$f30
+	add.s	$f0,$f0,$f2
+	add.s	$f12,$f0,$f4
+	sqrt.s	$f2,$f12
+	c.eq.s	$f2,$f2
+	nop
+\x09
+	bc1t	.Llookat_8000EE28
+	nop
+\x09
+	jal	sqrtf
+	nop
+\x09
+	mov.s	$f2,$f0
+.Llookat_8000EE28:
+	lui	$1,%hi(.Llookat_rodata)
+	ldc1	$f0,%lo(.Llookat_rodata+48)($1)
+	cvt.d.s	$f2,$f2
+	div.d	$f0,$f0,$f2
+.Llookat_8000EE38:
+	cvt.s.d	$f0,$f0
+	mul.s	$f26,$f26,$f0
+	nop
+\x09
+	mul.s	$f30,$f30,$f0
+	nop
+\x09
+	mul.s	$f28,$f28,$f0
+	nop
+\x09
+	mul.s	$f10,$f24,$f30
+	nop
+\x09
+	mul.s	$f6,$f20,$f28
+	nop
+\x09
+	mul.s	$f8,$f20,$f26
+	nop
+\x09
+	mul.s	$f2,$f22,$f30
+	nop
+\x09
+	mul.s	$f4,$f22,$f28
+	nop
+\x09
+	mul.s	$f0,$f24,$f26
+	sub.s	$f10,$f10,$f6
+	sub.s	$f4,$f4,$f0
+	mtc1	$0,$f0
+	sub.s	$f8,$f8,$f2
+	swc1	$f10,0x90($29)
+	swc1	$f8,0x94($29)
+	c.eq.s	$f10,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EED8
+	swc1	$f4,0x98($29)
+	c.eq.s	$f8,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EED8
+	nop
+\x09
+	c.eq.s	$f4,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EED8
+	nop
+\x09
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+56)($1)
+	j	.Llookat_8000EF38
+	nop
+\x09
+.Llookat_8000EED8:
+	lwc1	$f14,0x90($29)
+	mov.s	$f16,$f14
+	mul.s	$f0,$f14,$f16
+	lwc1	$f14,0x94($29)
+	mov.s	$f16,$f14
+	mul.s	$f2,$f14,$f16
+	lwc1	$f14,0x98($29)
+	mov.s	$f16,$f14
+	mul.s	$f4,$f14,$f16
+	add.s	$f0,$f0,$f2
+	add.s	$f12,$f0,$f4
+	sqrt.s	$f2,$f12
+	c.eq.s	$f2,$f2
+	nop
+\x09
+	bc1t	.Llookat_8000EF24
+	nop
+\x09
+	jal	sqrtf
+	nop
+\x09
+	mov.s	$f2,$f0
+.Llookat_8000EF24:
+	lui	$1,%hi(.Llookat_rodata)
+	ldc1	$f0,%lo(.Llookat_rodata+64)($1)
+	cvt.d.s	$f2,$f2
+	div.d	$f0,$f0,$f2
+	cvt.s.d	$f0,$f0
+.Llookat_8000EF38:
+	lwc1	$f14,0x90($29)
+	mul.s	$f14,$f14,$f0
+	lwc1	$f16,0x94($29)
+	mul.s	$f16,$f16,$f0
+	swc1	$f14,0x90($29)
+	lwc1	$f14,0x98($29)
+	mul.s	$f14,$f14,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+72)($1)
+	mul.s	$f10,$f26,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+76)($1)
+	swc1	$f16,0x94($29)
+	c.lt.s	$f10,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EF8C
+	swc1	$f14,0x98($29)
+	trunc.w.s	$f16,$f10
+	mfc1	$2,$f16
+	j	.Llookat_8000EF94
+	sb	$2,0x8($16)
+.Llookat_8000EF8C:
+	addiu	$2,$0,0x7F
+	sb	$2,0x8($16)
+.Llookat_8000EF94:
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+80)($1)
+	mul.s	$f2,$f28,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+84)($1)
+	c.lt.s	$f2,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000EFC8
+	addiu	$2,$0,0x7F
+	trunc.w.s	$f14,$f2
+	mfc1	$2,$f14
+	j	.Llookat_8000EFCC
+	sb	$2,0x9($16)
+.Llookat_8000EFC8:
+	sb	$2,0x9($16)
+.Llookat_8000EFCC:
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+88)($1)
+	mul.s	$f4,$f30,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+92)($1)
+	c.lt.s	$f4,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000F000
+	addiu	$2,$0,0x7F
+	trunc.w.s	$f14,$f4
+	mfc1	$2,$f14
+	j	.Llookat_8000F004
+	sb	$2,0xA($16)
+.Llookat_8000F000:
+	sb	$2,0xA($16)
+.Llookat_8000F004:
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+96)($1)
+	lwc1	$f14,0x90($29)
+	mul.s	$f2,$f14,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+100)($1)
+	c.lt.s	$f2,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000F03C
+	addiu	$2,$0,0x7F
+	trunc.w.s	$f16,$f2
+	mfc1	$2,$f16
+	j	.Llookat_8000F040
+	sb	$2,0x18($16)
+.Llookat_8000F03C:
+	sb	$2,0x18($16)
+.Llookat_8000F040:
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+104)($1)
+	lwc1	$f14,0x94($29)
+	mul.s	$f2,$f14,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+108)($1)
+	c.lt.s	$f2,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000F078
+	addiu	$2,$0,0x7F
+	trunc.w.s	$f16,$f2
+	mfc1	$2,$f16
+	j	.Llookat_8000F07C
+	sb	$2,0x19($16)
+.Llookat_8000F078:
+	sb	$2,0x19($16)
+.Llookat_8000F07C:
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+112)($1)
+	lwc1	$f14,0x98($29)
+	mul.s	$f4,$f14,$f0
+	lui	$1,%hi(.Llookat_rodata)
+	lwc1	$f0,%lo(.Llookat_rodata+116)($1)
+	c.lt.s	$f4,$f0
+	nop
+\x09
+	bc1f	.Llookat_8000F0B4
+	addiu	$2,$0,0x7F
+	trunc.w.s	$f16,$f4
+	mfc1	$2,$f16
+	j	.Llookat_8000F0B8
+	sb	$2,0x1A($16)
+.Llookat_8000F0B4:
+	sb	$2,0x1A($16)
+.Llookat_8000F0B8:
+	addiu	$2,$0,0x80
+	sb	$0,0x0($16)
+	sb	$0,0x1($16)
+	sb	$0,0x2($16)
+	sb	$0,0x3($16)
+	sb	$0,0x4($16)
+	sb	$0,0x5($16)
+	sb	$0,0x6($16)
+	sb	$0,0x7($16)
+	sb	$0,0x10($16)
+	sb	$2,0x11($16)
+	sb	$0,0x12($16)
+	sb	$0,0x13($16)
+	sb	$0,0x14($16)
+	sb	$2,0x15($16)
+	sb	$0,0x16($16)
+	sb	$0,0x17($16)
+	lw	$31,0x54($29)
+	lw	$16,0x50($29)
+	ldc1	$f30,0x80($29)
+	ldc1	$f28,0x78($29)
+	ldc1	$f26,0x70($29)
+	ldc1	$f24,0x68($29)
+	ldc1	$f22,0x60($29)
+	ldc1	$f20,0x58($29)
+	jr	$31
+	addiu	$29,$29,0x88
+	.set	at
+	.set	reorder
+	.end	func_8000EC54
+"""
+    return lines[:start] + [line + "\n" for line in assembly.splitlines()] + lines[end + 1:]
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -14905,6 +19697,24 @@ def main() -> None:
     parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-creation", action="store_true")
     parser.add_argument("--schedule-early-memory-transfer-dispatch", action="store_true")
+    parser.add_argument("--schedule-pending-settings-store", action="store_true")
+    parser.add_argument("--schedule-eeprom-settings-load", action="store_true")
+    parser.add_argument("--schedule-game-main-loop", action="store_true")
+    parser.add_argument("--schedule-directional-light-registration", action="store_true")
+    parser.add_argument("--schedule-numbered-sound-resource-load", action="store_true")
+    parser.add_argument("--schedule-skeleton-render-record-creation", action="store_true")
+    parser.add_argument("--schedule-sprite-render-object-load", action="store_true")
+    parser.add_argument("--schedule-bitmap-sheet-object-load", action="store_true")
+    parser.add_argument("--schedule-texture-sheet-record-loading", action="store_true")
+    parser.add_argument("--schedule-animated-sprite-draw", action="store_true")
+    parser.add_argument("--schedule-runtime-render-record-teardown", action="store_true")
+    parser.add_argument("--schedule-camera-projection-setup", action="store_true")
+    parser.add_argument("--schedule-texture-material-record-registration", action="store_true")
+    parser.add_argument("--schedule-skinned-mesh-vertex-transform", action="store_true")
+    parser.add_argument("--schedule-audio-playback-update", action="store_true")
+    parser.add_argument("--schedule-mesh-display-list-build", action="store_true")
+    parser.add_argument("--schedule-sprite-object-layout", action="store_true")
+    parser.add_argument("--schedule-view-lookat-reflection", action="store_true")
     parser.add_argument("--schedule-exception-vector-installation", action="store_true")
     parser.add_argument("--schedule-double-arc-tangent", action="store_true")
     parser.add_argument("--schedule-archive-record-indexing", action="store_true")
@@ -15086,6 +19896,24 @@ def main() -> None:
             args.schedule_audio_runtime_record_selection,
             args.schedule_bitmap_render_object_creation,
             args.schedule_early_memory_transfer_dispatch,
+            args.schedule_pending_settings_store,
+            args.schedule_eeprom_settings_load,
+            args.schedule_game_main_loop,
+            args.schedule_directional_light_registration,
+            args.schedule_numbered_sound_resource_load,
+            args.schedule_skeleton_render_record_creation,
+            args.schedule_sprite_render_object_load,
+            args.schedule_bitmap_sheet_object_load,
+            args.schedule_texture_sheet_record_loading,
+            args.schedule_animated_sprite_draw,
+            args.schedule_runtime_render_record_teardown,
+            args.schedule_camera_projection_setup,
+            args.schedule_texture_material_record_registration,
+            args.schedule_skinned_mesh_vertex_transform,
+            args.schedule_audio_playback_update,
+            args.schedule_mesh_display_list_build,
+            args.schedule_sprite_object_layout,
+            args.schedule_view_lookat_reflection,
             args.schedule_exception_vector_installation,
             args.schedule_double_arc_tangent,
             args.schedule_archive_record_indexing,
@@ -15386,6 +20214,42 @@ def main() -> None:
         lines = schedule_bitmap_render_object_creation(lines)
     if args.schedule_early_memory_transfer_dispatch:
         lines = schedule_early_memory_transfer_dispatch(lines)
+    if args.schedule_pending_settings_store:
+        lines = schedule_pending_settings_store(lines)
+    if args.schedule_eeprom_settings_load:
+        lines = schedule_eeprom_settings_load(lines)
+    if args.schedule_game_main_loop:
+        lines = schedule_game_main_loop(lines)
+    if args.schedule_directional_light_registration:
+        lines = schedule_directional_light_registration(lines)
+    if args.schedule_numbered_sound_resource_load:
+        lines = schedule_numbered_sound_resource_load(lines)
+    if args.schedule_skeleton_render_record_creation:
+        lines = schedule_skeleton_render_record_creation(lines)
+    if args.schedule_sprite_render_object_load:
+        lines = schedule_sprite_render_object_load(lines)
+    if args.schedule_bitmap_sheet_object_load:
+        lines = schedule_bitmap_sheet_object_load(lines)
+    if args.schedule_texture_sheet_record_loading:
+        lines = schedule_texture_sheet_record_loading(lines)
+    if args.schedule_animated_sprite_draw:
+        lines = schedule_animated_sprite_draw(lines)
+    if args.schedule_runtime_render_record_teardown:
+        lines = schedule_runtime_render_record_teardown(lines)
+    if args.schedule_camera_projection_setup:
+        lines = schedule_camera_projection_setup(lines)
+    if args.schedule_texture_material_record_registration:
+        lines = schedule_texture_material_record_registration(lines)
+    if args.schedule_skinned_mesh_vertex_transform:
+        lines = schedule_skinned_mesh_vertex_transform(lines)
+    if args.schedule_audio_playback_update:
+        lines = schedule_audio_playback_update(lines)
+    if args.schedule_mesh_display_list_build:
+        lines = schedule_mesh_display_list_build(lines)
+    if args.schedule_sprite_object_layout:
+        lines = schedule_sprite_object_layout(lines)
+    if args.schedule_view_lookat_reflection:
+        lines = schedule_view_lookat_reflection(lines)
     if args.schedule_exception_vector_installation:
         lines = schedule_exception_vector_installation(lines)
     if args.schedule_double_arc_tangent:
