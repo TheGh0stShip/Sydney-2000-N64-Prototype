@@ -5,3 +5,4 @@
 0x2EC70	0x34	tools/ultralib/src/audio/copy.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	d811db31e000330b00e35d42a248823e8fb5685dd55afd818cf5f29c8b3f6a1f
 0x2EB80	0x50	src/libultra/audio_sl.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	344b3d2716ad710073155b6624a28631d72bb28b19a00b6694ac8724d1c0221f
 0x2F560	0xDC	src/libultra/gu_mtx_cat_f.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	88ecad609341cf1891c7945b0f69ee8d2428c176ac91a15a9129be818fbdcb7a
+0x1F594	0x2C	src/libmus/master_volume.c	--symbol=gMusMasterVolumeEffects:0x8006B8AC --symbol=gMusMasterVolumeSongs:0x8006B8AE -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	b6f20080d7f1db782d4833556c1bd2e2b14d009bcdcc3a5095f371a3a8becc5c
