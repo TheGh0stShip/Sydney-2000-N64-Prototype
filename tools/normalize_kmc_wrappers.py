@@ -1003,6 +1003,120 @@ def suppress_asset_relocation_load_hazards(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_save_eeprom_transfer(lines: list[str]) -> list[str]:
+    """Reproduce the original assembler schedule for the save-image transfer."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "subu\t$sp,$sp,24"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_80008570"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one save-transfer body; "
+            f"found {(len(starts), len(ends))}"
+        )
+
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    required = (
+        "bne\t$3,$2,.L2",
+        "jal\tfunc_8002A480",
+        "jal\tfunc_8002A280",
+        "lw\t$2,gameContext",
+        "la\t$3,saveData",
+        "la\t$4,saveQueue",
+        "la\t$6,eepromBuffer",
+    )
+    counts = tuple(body.count(instruction) for instruction in required)
+    if len(body) != 73 or counts != (1, 1, 1, 1, 1, 1, 1):
+        raise ValueError(
+            "unexpected save-transfer compiler body: "
+            f"length {len(body)}, markers {counts}"
+        )
+    if body.count("nop") != 15 or body.count("jal\tfunc_8002A3E0") != 3:
+        raise ValueError("unexpected save-transfer delay or interrupt-call count")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\taddiu\t$sp,$sp,-24\n",
+        "\tlui\t$2,%hi(saveSize)\n",
+        "\tlw\t$3,%lo(saveSize)($2)\n",
+        "\taddiu\t$2,$0,2048\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tbne\t$3,$2,.L2\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tlui\t$3,%hi(saveBusy)\n",
+        "\taddiu\t$2,$0,1\n",
+        "\tsw\t$2,%lo(saveBusy)($3)\n",
+        "\tjal\tfunc_8002A480\n",
+        "\tnop\n",
+        "\taddiu\t$4,$0,1\n",
+        "\tjal\tfunc_8002A3E0\n",
+        "\tmove\t$16,$2\n",
+        "\tlui\t$4,2\n",
+        "\tjal\tfunc_8002A3E0\n",
+        "\tori\t$4,$4,0x401\n",
+        "\tlui\t$3,%hi(saveData)\n",
+        "\tlui\t$2,%hi(gameContext)\n",
+        "\tlw\t$2,%lo(gameContext)($2)\n",
+        "\taddiu\t$3,$3,%lo(saveData)\n",
+        "\taddiu\t$4,$2,524\n",
+        "\taddiu\t$2,$2,2524\n",
+        ".L3:\n",
+        "\tlw\t$8,0($4)\n",
+        "\tlw\t$9,4($4)\n",
+        "\tlw\t$10,8($4)\n",
+        "\tlw\t$11,12($4)\n",
+        "\tsw\t$8,0($3)\n",
+        "\tsw\t$9,4($3)\n",
+        "\tsw\t$10,8($3)\n",
+        "\tsw\t$11,12($3)\n",
+        "\taddiu\t$4,$4,16\n",
+        "\tbne\t$4,$2,.L3\n",
+        "\taddiu\t$3,$3,16\n",
+        "\tlui\t$3,%hi(saveMarker)\n",
+        "\taddiu\t$2,$0,73\n",
+        "\tsw\t$2,%lo(saveMarker)($3)\n",
+        "\tmove\t$3,$0\n",
+        "\tlui\t$4,1\n",
+        "\tori\t$4,$4,0x869f\n",
+        "\taddiu\t$3,$3,1\n",
+        ".L12:\n",
+        "\tslt\t$2,$4,$3\n",
+        "\tbeq\t$2,$0,.L12\n",
+        "\taddiu\t$3,$3,1\n",
+        *("\tnop\n" for _ in range(8)),
+        "\tlui\t$4,%hi(saveQueue)\n",
+        "\taddiu\t$4,$4,%lo(saveQueue)\n",
+        "\tlui\t$6,%hi(eepromBuffer)\n",
+        "\tmove\t$5,$0\n",
+        "\taddiu\t$6,$6,%lo(eepromBuffer)\n",
+        "\tjal\tfunc_8002A280\n",
+        "\taddiu\t$7,$0,2032\n",
+        *("\tnop\n" for _ in range(8)),
+        "\tjal\tfunc_8002A3E0\n",
+        "\tmove\t$4,$16\n",
+        "\tlui\t$2,%hi(saveBusy)\n",
+        "\tsw\t$0,%lo(saveBusy)($2)\n",
+        ".L2:\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddiu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1031,6 +1145,7 @@ def main() -> None:
     parser.add_argument("--expand-controller-motor-reset-addresses", action="store_true")
     parser.add_argument("--schedule-double-buffer-allocations", action="store_true")
     parser.add_argument("--suppress-asset-relocation-load-hazards", action="store_true")
+    parser.add_argument("--schedule-save-eeprom-transfer", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1060,6 +1175,7 @@ def main() -> None:
             args.expand_controller_motor_reset_addresses,
             args.schedule_double_buffer_allocations,
             args.suppress_asset_relocation_load_hazards,
+            args.schedule_save_eeprom_transfer,
         )
     )
     if selected != 1:
@@ -1112,6 +1228,8 @@ def main() -> None:
         lines = schedule_double_buffer_allocations(lines)
     if args.suppress_asset_relocation_load_hazards:
         lines = suppress_asset_relocation_load_hazards(lines)
+    if args.schedule_save_eeprom_transfer:
+        lines = schedule_save_eeprom_transfer(lines)
     args.output.write_text("".join(lines))
 
 
