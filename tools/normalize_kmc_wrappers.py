@@ -3403,6 +3403,77 @@ def truncate_nonreturning_thread(lines: list[str]) -> list[str]:
     return lines
 
 
+def truncate_scheduler_task_loop(lines: list[str]) -> list[str]:
+    """Remove the unreachable return sequence after the permanent task loop."""
+    lines = schedule_scheduler_task_loop(lines)
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8000608C"
+    ]
+    if len(ends) != 1:
+        raise ValueError(
+            "expected one scheduler task-loop end; "
+            f"found {len(ends)}"
+        )
+
+    end = ends[0]
+    meaningful = [
+        (index, line.strip().split("#", 1)[0].rstrip())
+        for index, line in enumerate(lines[:end])
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "lw\t$31,32($sp)",
+        "lw\t$17,28($sp)",
+        "lw\t$16,24($sp)",
+        "addu\t$sp,$sp,40",
+        "j\t$31",
+    ]
+    tail = [body for _, body in meaningful[-5:]]
+    if tail != expected:
+        raise ValueError(f"unexpected scheduler task-loop tail: {tail!r}")
+
+    start = meaningful[-5][0]
+    del lines[start:end]
+    return lines
+
+
+def schedule_scheduler_task_loop(lines: list[str]) -> list[str]:
+    """Keep the framebuffer load out of a conditional-branch delay slot."""
+    matches: list[int] = []
+    for index in range(len(lines) - 2):
+        if (
+            re.fullmatch(r"\s*beq\s+\$2,\$0,\.L[0-9]+\s*", lines[index])
+            and lines[index + 1].strip() == "#.set\tvolatile"
+            and lines[index + 2].strip() == "lw\t$4,12($3)"
+        ):
+            matches.append(index)
+
+    if len(matches) != 1:
+        nearby = [
+            "".join(lines[max(0, index - 3) : index + 4])
+            for index, line in enumerate(lines)
+            if "12($3)" in line
+        ]
+        raise ValueError(
+            "expected one framebuffer load in a branch delay slot; "
+            f"found {len(matches)}; nearby {nearby!r}"
+        )
+
+    index = matches[0]
+    branch = lines[index]
+    lines[index : index + 3] = [
+        "\t.set\tnoreorder\n",
+        branch,
+        "\tnop\n",
+        "\t.set\treorder\n",
+        "\t#.set\tvolatile\n",
+        "\tlw\t$4,12($3)\n",
+    ]
+    return lines
+
+
 def schedule_indexed_record_value(lines: list[str]) -> list[str]:
     """Interleave record/buffer addresses and restore the shared return schedule."""
     starts = [
@@ -6101,6 +6172,7 @@ def main() -> None:
     parser.add_argument("--schedule-resource-record-processing", action="store_true")
     parser.add_argument("--schedule-named-resource-load", action="store_true")
     parser.add_argument("--schedule-active-slot-release", action="store_true")
+    parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -6145,6 +6217,7 @@ def main() -> None:
             args.schedule_work_buffer_call,
             args.schedule_indexed_record_copy,
             args.truncate_nonreturning_thread,
+            args.truncate_scheduler_task_loop,
             args.schedule_indexed_record_value,
             args.schedule_all_vector_planes,
             args.schedule_object_reference_return,
@@ -6284,6 +6357,8 @@ def main() -> None:
         lines = schedule_indexed_record_copy(lines)
     if args.truncate_nonreturning_thread:
         lines = truncate_nonreturning_thread(lines)
+    if args.truncate_scheduler_task_loop:
+        lines = truncate_scheduler_task_loop(lines)
     if args.schedule_indexed_record_value:
         lines = schedule_indexed_record_value(lines)
     if args.schedule_all_vector_planes:
