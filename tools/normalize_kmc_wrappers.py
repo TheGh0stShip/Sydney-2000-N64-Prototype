@@ -9022,6 +9022,136 @@ def schedule_display_system_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_typed_object_processing(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80017454:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80017454"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one typed-object processor")
+    start, end = labels[0], ends[0]
+    rodata = [i for i in range(start, end) if lines[i].strip() == ".section\t.rodata"]
+    text = [i for i in range(start, end) if lines[i].strip() == ".text"]
+    if len(rodata) != 1 or len(text) != 1 or not (start < rodata[0] < text[0] < end):
+        raise ValueError("expected one embedded typed-object jump table")
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "jal\tfunc_80018838", "jal\tfunc_80012834", "jal\tfunc_80012BD8",
+        "lhu\t$2,34($18)", "sh\t$2,106($18)", "sh\t$2,118($18)",
+        "sw\t$0,32($18)", "sw\t$19,objectProcessingMode",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected typed-object processor near {instruction!r}")
+
+    prefix = """\
+\t.frame\t$sp,40,$31
+\t.mask\t0x801f0000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-40
+\tsw\t$16,16($sp)
+\tmove\t$16,$4
+\tsw\t$31,36($sp)
+\tsw\t$20,32($sp)
+\tsw\t$19,28($sp)
+\tsw\t$18,24($sp)
+\tsw\t$17,20($sp)
+\tbeqz\t$16,.Ltyped_initial_result
+\tli\t$2,1
+\tlw\t$2,196($16)
+\tbnez\t$2,.Ltyped_test_flag
+\tlui\t$3,2
+\tj\t.Ltyped_initial_result
+\tli\t$2,1
+.Ltyped_test_flag:
+\tlw\t$2,192($16)
+\tand\t$2,$2,$3
+\tsltu\t$2,$0,$2
+.Ltyped_initial_result:
+\tbnez\t$2,.L1
+\tnop
+\tjal\tfunc_80018838
+\tmove\t$4,$16
+\tbnez\t$2,.L1
+\tlui\t$3,%hi(objectProcessingMode)
+\tlw\t$2,0($16)
+\tlw\t$20,%lo(objectProcessingMode)($3)
+\taddiu\t$4,$2,-8
+\tsltiu\t$2,$4,98
+\tbeqz\t$2,.L5
+\tlui\t$2,%hi(.L27)
+\taddiu\t$2,$2,%lo(.L27)
+\tsll\t$3,$4,2
+\taddu\t$3,$3,$2
+\tlw\t$2,0($3)
+\tjr\t$2
+\tnop
+"""
+    suffix = """\
+.L6:
+\tlw\t$19,196($16)
+\tlw\t$2,32($19)
+\tbeqz\t$2,.L5
+\tlui\t$16,%hi(objectProcessingMode)
+\tlw\t$18,%lo(objectProcessingMode)($16)
+\tlhu\t$17,106($19)
+\tlhu\t$2,34($19)
+\tmove\t$4,$19
+\tsw\t$0,%lo(objectProcessingMode)($16)
+\tjal\tfunc_80012834
+\tsh\t$2,106($19)
+\tmove\t$4,$19
+\tjal\tfunc_80012BD8
+\tli\t$5,1
+\tmove\t$4,$19
+\tli\t$2,1
+\tjal\tfunc_80012834
+\tsw\t$2,%lo(objectProcessingMode)($16)
+\tmove\t$4,$19
+\tjal\tfunc_80012BD8
+\tli\t$5,1
+\tsh\t$17,106($19)
+\tsw\t$18,%lo(objectProcessingMode)($16)
+\tj\t.L5
+\tsw\t$0,32($19)
+.L25:
+\tlw\t$19,196($16)
+\tlw\t$2,0($19)
+\tandi\t$2,$2,2
+\tbeqz\t$2,.L5
+\tmove\t$4,$19
+\tmove\t$5,$0
+\tlui\t$16,%hi(objectProcessingMode)
+\tjal\tfunc_80012BD8
+\tsw\t$0,%lo(objectProcessingMode)($16)
+\tmove\t$4,$19
+\tmove\t$5,$0
+\tli\t$2,1
+\tjal\tfunc_80012BD8
+\tsw\t$2,%lo(objectProcessingMode)($16)
+\tli\t$2,3
+\tsh\t$2,118($19)
+.L5:
+\tlui\t$2,%hi(objectProcessingMode)
+\tsw\t$20,%lo(objectProcessingMode)($2)
+.L1:
+\tlw\t$31,36($sp)
+\tlw\t$20,32($sp)
+\tlw\t$19,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,40
+\t.set\treorder
+"""
+    table = lines[rodata[0]:text[0] + 1]
+    lines[start + 1:end] = (prefix.splitlines(keepends=True) + table +
+                            suffix.splitlines(keepends=True) + ["\n"])
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -9147,6 +9277,7 @@ def main() -> None:
     parser.add_argument("--schedule-display-pipeline-state-initialization", action="store_true")
     parser.add_argument("--schedule-bitmap-object-fill", action="store_true")
     parser.add_argument("--schedule-display-system-initialization", action="store_true")
+    parser.add_argument("--schedule-typed-object-processing", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -9279,6 +9410,7 @@ def main() -> None:
             args.schedule_display_pipeline_state_initialization,
             args.schedule_bitmap_object_fill,
             args.schedule_display_system_initialization,
+            args.schedule_typed_object_processing,
         )
     )
     if selected != 1:
@@ -9533,6 +9665,8 @@ def main() -> None:
         lines = schedule_bitmap_object_fill(lines)
     if args.schedule_display_system_initialization:
         lines = schedule_display_system_initialization(lines)
+    if args.schedule_typed_object_processing:
+        lines = schedule_typed_object_processing(lines)
     args.output.write_text("".join(lines))
 
 
