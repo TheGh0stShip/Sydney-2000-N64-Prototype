@@ -34,3 +34,4 @@
 0x35230	0xB8	src/libultra/probe_tlb.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80034630	12b6f5b60134817aeedf2b981de4b804b3c6fa887e20414084efbbacb88b0052
 0x2B080	0x60	src/libultra/interrupt_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_GET_MASK -DLEAF_NAME=func_8002A480	29a12481303781d43273213c94b6b12aeedad29f06ab52d308923669eb86c7f0
 0x2B2E0	0x1C	src/libultra/interrupt_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8002A6E0	b6f58a0412d63a52440645623c5a49320459a39befc7ea4359a374051eceb105
+0x2AFE0	0xA0	src/libultra/interrupt_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_SET_MASK -DLEAF_NAME=func_8002A3E0	eaeb66e8cc8708fef1b040355bfbd420d43f8bf50bcd64f031bd7bb0aa849739
