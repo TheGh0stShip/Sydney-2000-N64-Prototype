@@ -7200,6 +7200,61 @@ def schedule_stream_channel_mixer(lines: list[str]) -> list[str]:
     return text.splitlines(keepends=True)
 
 
+def schedule_scaled_value_addition(lines: list[str]) -> list[str]:
+    constant = [
+        index for index, line in enumerate(lines)
+        if line.strip().startswith("li\t$2,0x00000008")
+    ]
+    if len(constant) != 1:
+        raise ValueError(f"expected one mode constant; found {len(constant)}")
+    constant_line = lines.pop(constant[0])
+    function = next(
+        index for index, line in enumerate(lines)
+        if line.strip() == "func_80010968:"
+    )
+    first_load = next(
+        index for index in range(function + 1, len(lines))
+        if lines[index].strip() == "lw\t$11,16($sp)"
+    )
+    lines.insert(first_load, constant_line)
+
+    swaps = 0
+    index = function
+    while index + 1 < len(lines):
+        if (lines[index].strip().startswith("l.s\t$f0,") and
+                lines[index + 1].strip().startswith("sll\t$2,")):
+            lines[index], lines[index + 1] = lines[index + 1], lines[index]
+            swaps += 1
+            index += 2
+        else:
+            index += 1
+    if swaps != 7:
+        raise ValueError(f"expected seven load/shift schedules; found {swaps}")
+
+    early_swaps = 0
+    index = function
+    while index + 1 < len(lines):
+        if (lines[index].strip().startswith("s.s\t$f0,") and
+                lines[index + 1].strip().startswith("sll\t$2,")):
+            lines[index], lines[index + 1] = lines[index + 1], lines[index]
+            early_swaps += 1
+            index += 2
+        else:
+            index += 1
+    if early_swaps != 6:
+        raise ValueError(
+            f"expected six early shift schedules; found {early_swaps}"
+        )
+
+    output = ["\t.set\tnoreorder\n"]
+    for line in lines:
+        if line.strip() == ".set\treorder":
+            output.append("\t.set\tnoreorder\n")
+        else:
+            output.append(line)
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -7311,6 +7366,7 @@ def main() -> None:
     parser.add_argument("--schedule-named-resource-load", action="store_true")
     parser.add_argument("--schedule-active-slot-release", action="store_true")
     parser.add_argument("--schedule-stream-channel-mixer", action="store_true")
+    parser.add_argument("--schedule-scaled-value-addition", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -7429,6 +7485,7 @@ def main() -> None:
             args.schedule_named_resource_load,
             args.schedule_active_slot_release,
             args.schedule_stream_channel_mixer,
+            args.schedule_scaled_value_addition,
         )
     )
     if selected != 1:
@@ -7655,6 +7712,8 @@ def main() -> None:
         lines = schedule_active_slot_release(lines)
     if args.schedule_stream_channel_mixer:
         lines = schedule_stream_channel_mixer(lines)
+    if args.schedule_scaled_value_addition:
+        lines = schedule_scaled_value_addition(lines)
     args.output.write_text("".join(lines))
 
 
