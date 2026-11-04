@@ -29,3 +29,5 @@
 0x2ED50	0xB0	src/libultra/cache_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_INVAL_DCACHE -DLEAF_NAME=func_8002E150	8ae1ab78f7b451eff125bd297f76cbcc5f2e3c7a54c6c1497d3f3c0b281f886f
 0x2EE00	0x74	src/libultra/cache_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_INVAL_ICACHE -DLEAF_NAME=func_8002E200	b868489aa115fdc2f51ebae88065f21a34d22bfd3e4c0f14ab431fe181859810
 0x2EE80	0x28	src/libultra/cache_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8002E280	394d3bf1ec1a51ef7eff9113ae1103280d0f09b29035cfd8630a0843d890c4f5
+0x383E0	0x58	src/libultra/tlb_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_MAP_RDB -DLEAF_NAME=func_800377E0	faf6c1366ff17c109e9fde902f3c1520ad4afa1d1c95ec9819b045cf211ddd60
+0x38440	0x44	src/libultra/tlb_runtime.c	--assembler=asn64 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80037840	768bdca0d47853c4ad2219d3a7ce67beb987cae59401d5a92eedfb9c4612f23b
