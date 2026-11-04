@@ -5183,6 +5183,78 @@ def schedule_double_sine(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_message_worker_loop(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80006348"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one message-worker loop body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "sw\t$16,24($sp)", "move\t$16,$4",
+        "sw\t$17,28($sp)", "move\t$17,$0", "li\t$2,-2147090432",
+        "ori\t$2,$2,0x61d4", "sw\t$18,32($sp)", "li\t$18,0x0000029a",
+        "sw\t$31,36($sp)", "sw\t$0,16($sp)", "sw\t$0,0($2)", ".L5:",
+        "addu\t$4,$16,116", ".L10:", "addu\t$5,$sp,16", ".L11:",
+        "jal\tfunc_80032BB0", "li\t$6,0x00000001", "lw\t$2,workerReceiveBlocked",
+        "bne\t$2,$0,.L10", "addu\t$4,$16,116", "lw\t$2,16($sp)",
+        "bne\t$2,$18,.L11", "addu\t$5,$sp,16", "move\t$4,$16",
+        "jal\tfunc_800062A4", "move\t$5,$16", "beql\t$17,$0,.L5",
+        "xori\t$17,$17,0x0001", "lw\t$2,workerUpdateRequested",
+        "bnel\t$2,$0,.L5", "xori\t$17,$17,0x0001", "li\t$2,0x00000001",
+        "sw\t$2,workerUpdateActive", "jal\tfunc_8000705C",
+        "lw\t$5,workerConfigurationValue", "lw\t$2,workerUpdateCount",
+        "la\t$4,workerConfiguration", "addu\t$2,$2,1", "sw\t$2,workerUpdateCount",
+        "jal\tfunc_800A30E8", "sra\t$5,$5,8", "sw\t$0,workerUpdateActive",
+        "j\t.L5", "xori\t$17,$17,0x0001", "lw\t$31,36($sp)",
+        "lw\t$18,32($sp)", "lw\t$17,28($sp)", "lw\t$16,24($sp)",
+        "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected message-worker loop body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-64\n", "\tsw\t$17,28($sp)\n",
+        "\tmove\t$17,$4\n", "\tsw\t$16,24($sp)\n", "\tmove\t$16,$0\n",
+        "\tsw\t$30,56($sp)\n", "\tli\t$30,666\n", "\tsw\t$23,52($sp)\n",
+        "\tlui\t$23,%hi(workerReceiveBlocked)\n", "\tsw\t$19,36($sp)\n",
+        "\tlui\t$19,%hi(workerUpdateActive)\n", "\tsw\t$22,48($sp)\n",
+        "\tli\t$22,1\n", "\tsw\t$18,32($sp)\n",
+        "\tlui\t$18,%hi(workerUpdateCount)\n", "\tsw\t$21,44($sp)\n",
+        "\tlui\t$21,%hi(workerConfiguration)\n", "\tsw\t$20,40($sp)\n",
+        "\tlui\t$20,%hi(workerConfigurationValue)\n", "\tlui\t$2,0x8006\n",
+        "\tsw\t$31,60($sp)\n", "\tsw\t$0,16($sp)\n", "\tsw\t$0,0x61d4($2)\n",
+        ".Lmessage_worker_start:\n", "\taddiu\t$4,$17,116\n",
+        ".Lmessage_worker_queue:\n",
+        "\taddiu\t$5,$sp,16\n", ".Lmessage_worker_message:\n",
+        "\tjal\tfunc_80032BB0\n", "\tli\t$6,1\n",
+        "\tlui\t$3,%hi(workerReceiveBlocked)\n",
+        "\tlw\t$2,%lo(workerReceiveBlocked)($3)\n",
+        "\tbnez\t$2,.Lmessage_worker_queue\n", "\taddiu\t$4,$17,116\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tbne\t$2,$30,.Lmessage_worker_message\n", "\taddiu\t$5,$sp,16\n",
+        "\tmove\t$4,$17\n", "\tjal\tfunc_800062A4\n", "\tmove\t$5,$17\n",
+        "\tbeqzl\t$16,.Lmessage_worker_start\n", "\txori\t$16,$16,1\n",
+        "\tlw\t$2,%lo(workerUpdateRequested)($23)\n",
+        "\tbnezl\t$2,.Lmessage_worker_start\n", "\txori\t$16,$16,1\n",
+        "\tjal\tfunc_8000705C\n", "\tsw\t$22,%lo(workerUpdateActive)($19)\n",
+        "\tlw\t$2,%lo(workerUpdateCount)($18)\n", "\taddiu\t$2,$2,1\n",
+        "\tsw\t$2,%lo(workerUpdateCount)($18)\n",
+        "\tlw\t$5,%lo(workerConfigurationValue)($20)\n",
+        "\taddiu\t$4,$21,%lo(workerConfiguration)\n", "\tjal\tfunc_800A30E8\n",
+        "\tsra\t$5,$5,8\n", "\tsw\t$0,%lo(workerUpdateActive)($19)\n",
+        "\tj\t.Lmessage_worker_start\n", "\txori\t$16,$16,1\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5272,6 +5344,7 @@ def main() -> None:
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
+    parser.add_argument("--schedule-message-worker-loop", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5362,6 +5435,7 @@ def main() -> None:
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
+            args.schedule_message_worker_loop,
         )
     )
     if selected != 1:
@@ -5536,6 +5610,8 @@ def main() -> None:
         lines = schedule_double_cosine(lines)
     if args.schedule_double_sine:
         lines = schedule_double_sine(lines)
+    if args.schedule_message_worker_loop:
+        lines = schedule_message_worker_loop(lines)
     args.output.write_text("".join(lines))
 
 
