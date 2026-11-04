@@ -88,6 +88,62 @@ def move_full_address_before_ra_save(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_status_result_returns(lines: list[str]) -> list[str]:
+    starts = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "andi\t$5,$5,0xffff"
+    ]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one status mask; found {len(starts)}")
+    start = starts[0]
+    ends = [
+        index
+        for index in range(start + 1, len(lines))
+        if lines[index].lstrip().startswith(".end\t")
+    ]
+    if len(ends) != 1:
+        raise ValueError(f"expected exactly one function end after status mask; found {len(ends)}")
+    end = ends[0]
+
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith(".set")
+    ]
+    if len(body) < 2 or not re.fullmatch(r"bne\t\$5,\$0,\.L[0-9]+", body[1]):
+        raise ValueError(f"unexpected status branch: {body[1:2]!r}")
+    target = body[1].rsplit(",", 1)[1]
+    expected = [
+        "andi\t$5,$5,0xffff",
+        f"bne\t$5,$0,{target}",
+        "li\t$2,-1000",
+        "lw\t$3,80($4)",
+        "move\t$2,$0",
+        "sw\t$3,0($6)",
+        f"{target}:",
+        "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected status-result body: {body!r}")
+
+    lines[start:end] = [
+        "\tandi\t$5,$5,0xffff\n",
+        "\t.set\tnoreorder\n",
+        f"\tbne\t$5,$0,{target}\n",
+        "\tmove\t$2,$0\n",
+        "\tlw\t$3,80($4)\n",
+        "\tj\t$31\n",
+        "\tsw\t$3,0($6)\n",
+        f"{target}:\n",
+        "\tj\t$31\n",
+        "\tli\t$2,-1000\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -95,6 +151,7 @@ def main() -> None:
     parser.add_argument("--move-first-address-before-ra-save", action="store_true")
     parser.add_argument("--move-stack-allocation-before-global-load", action="store_true")
     parser.add_argument("--move-full-address-before-ra-save", action="store_true")
+    parser.add_argument("--schedule-status-result-returns", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -103,6 +160,7 @@ def main() -> None:
             args.move_first_address_before_ra_save,
             args.move_stack_allocation_before_global_load,
             args.move_full_address_before_ra_save,
+            args.schedule_status_result_returns,
         )
     )
     if selected != 1:
@@ -113,6 +171,8 @@ def main() -> None:
         lines = move_stack_allocation_before_global_load(lines)
     if args.move_full_address_before_ra_save:
         lines = move_full_address_before_ra_save(lines)
+    if args.schedule_status_result_returns:
+        lines = schedule_status_result_returns(lines)
     args.output.write_text("".join(lines))
 
 
