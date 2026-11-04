@@ -749,6 +749,22 @@ def schedule_broadcast_message(lines: list[str]) -> list[str]:
     return lines
 
 
+def order_indexed_record_address_operands(lines: list[str]) -> list[str]:
+    matches = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == "addu\t$3,$4,$2"
+    ]
+    if len(matches) != 1:
+        raise ValueError(
+            "expected exactly one indexed-record address addition; "
+            f"found {len(matches)}"
+        )
+
+    lines[matches[0]] = "\taddu\t$3,$2,$4\n"
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -772,6 +788,7 @@ def main() -> None:
     parser.add_argument("--schedule-valid-handle-void", action="store_true")
     parser.add_argument("--schedule-valid-handle-result", action="store_true")
     parser.add_argument("--schedule-broadcast-message", action="store_true")
+    parser.add_argument("--order-indexed-record-address-operands", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -796,6 +813,7 @@ def main() -> None:
             args.schedule_valid_handle_void,
             args.schedule_valid_handle_result,
             args.schedule_broadcast_message,
+            args.order_indexed_record_address_operands,
         )
     )
     if selected != 1:
@@ -838,6 +856,8 @@ def main() -> None:
         lines = schedule_valid_handle_result(lines)
     if args.schedule_broadcast_message:
         lines = schedule_broadcast_message(lines)
+    if args.order_indexed_record_address_operands:
+        lines = order_indexed_record_address_operands(lines)
     args.output.write_text("".join(lines))
 
 
