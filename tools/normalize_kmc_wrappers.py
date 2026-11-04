@@ -4545,6 +4545,62 @@ def schedule_object_timing_configuration(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_record_resource_resolution(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8000F2E8"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one record-resource resolution body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "sw\t$16,24($sp)", "move\t$16,$4",
+        "sw\t$18,32($sp)", "move\t$18,$5", "sw\t$17,28($sp)",
+        "move\t$17,$0", "sw\t$31,36($sp)", "jal\tfunc_8000566C",
+        "addu\t$4,$sp,16", "addu\t$4,$sp,16", "move\t$5,$16",
+        "jal\tfunc_800055D8", "li\t$6,0x00000010", "bltz\t$2,.L2",
+        "sw\t$2,20($sp)", "la\t$16,recordBuffer", "move\t$5,$16",
+        "li\t$6,0x0000004c", "sll\t$4,$2,2", "addu\t$4,$4,$2",
+        "sll\t$4,$4,2", "subu\t$4,$4,$2", "lw\t$2,records",
+        "sll\t$4,$4,2", "addu\t$4,$4,4", "jal\tfunc_80011300",
+        "addu\t$4,$2,$4", "lw\t$4,baseValue", "lw\t$2,recordBuffer+4",
+        "lw\t$3,0($16)", "addu\t$17,$4,$2", "sw\t$3,0($18)", ".L2:",
+        "addu\t$4,$sp,16", "jal\tfunc_800055D0", "addu\t$5,$sp,20",
+        "move\t$2,$17", "lw\t$31,36($sp)", "lw\t$18,32($sp)",
+        "lw\t$17,28($sp)", "lw\t$16,24($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected record-resource resolution body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-48\n", "\tsw\t$16,24($sp)\n",
+        "\tmove\t$16,$4\n", "\tsw\t$19,36($sp)\n", "\tmove\t$19,$5\n",
+        "\tsw\t$18,32($sp)\n", "\taddiu\t$18,$sp,16\n", "\tmove\t$4,$18\n",
+        "\tsw\t$31,40($sp)\n", "\tjal\tfunc_8000566C\n", "\tsw\t$17,28($sp)\n",
+        "\tmove\t$17,$0\n", "\tmove\t$4,$18\n", "\tmove\t$5,$16\n",
+        "\tjal\tfunc_800055D8\n", "\tli\t$6,0x10\n", "\tmove\t$3,$2\n",
+        "\tbltz\t$3,.Lrecord_resource_cleanup\n", "\tsw\t$2,20($sp)\n",
+        "\tlui\t$17,%hi(recordBuffer)\n", "\taddiu\t$16,$17,%lo(recordBuffer)\n",
+        "\tmove\t$5,$16\n", "\tlui\t$2,%hi(records)\n", "\tli\t$6,0x4c\n",
+        "\tsll\t$4,$3,2\n", "\taddu\t$4,$4,$3\n", "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$3\n", "\tlw\t$2,%lo(records)($2)\n", "\tsll\t$4,$4,2\n",
+        "\taddiu\t$2,$2,4\n", "\tjal\tfunc_80011300\n", "\taddu\t$4,$2,$4\n",
+        "\tlui\t$2,%hi(baseValue)\n", "\tlw\t$4,%lo(baseValue)($2)\n",
+        "\tlw\t$2,4($16)\n", "\tlw\t$3,%lo(recordBuffer)($17)\n",
+        "\taddu\t$17,$4,$2\n", "\tsw\t$3,0($19)\n", ".Lrecord_resource_cleanup:\n",
+        "\tmove\t$4,$18\n", "\tjal\tfunc_800055D0\n", "\taddiu\t$5,$sp,20\n",
+        "\tmove\t$2,$17\n", "\tlw\t$31,40($sp)\n", "\tlw\t$19,36($sp)\n",
+        "\tlw\t$18,32($sp)\n", "\tlw\t$17,28($sp)\n", "\tlw\t$16,24($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,48\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4624,6 +4680,7 @@ def main() -> None:
     parser.add_argument("--schedule-record-resource-release", action="store_true")
     parser.add_argument("--schedule-double-arc-cosine", action="store_true")
     parser.add_argument("--schedule-object-timing-configuration", action="store_true")
+    parser.add_argument("--schedule-record-resource-resolution", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4704,6 +4761,7 @@ def main() -> None:
             args.schedule_record_resource_release,
             args.schedule_double_arc_cosine,
             args.schedule_object_timing_configuration,
+            args.schedule_record_resource_resolution,
         )
     )
     if selected != 1:
@@ -4858,6 +4916,8 @@ def main() -> None:
         lines = schedule_double_arc_cosine(lines)
     if args.schedule_object_timing_configuration:
         lines = schedule_object_timing_configuration(lines)
+    if args.schedule_record_resource_resolution:
+        lines = schedule_record_resource_resolution(lines)
     args.output.write_text("".join(lines))
 
 
