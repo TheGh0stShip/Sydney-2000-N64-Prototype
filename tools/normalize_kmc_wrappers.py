@@ -1794,6 +1794,52 @@ def schedule_stream_consumption(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_work_buffer_call(lines: list[str]) -> list[str]:
+    """Split the callback address across the call and restore epilogue slots."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if re.fullmatch(r"\s*la\s+\$7,[A-Za-z_][A-Za-z0-9_]*\s*", line)
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8000F3B0"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one work-buffer call tail; "
+            f"found {(len(starts), len(ends))}"
+        )
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    if len(body) != 5:
+        raise ValueError(f"unexpected work-buffer call tail: {body!r}")
+    callback = re.fullmatch(r"la\t\$7,([A-Za-z_][A-Za-z0-9_]*)", body[0])
+    helper = re.fullmatch(r"jal\t([A-Za-z_][A-Za-z0-9_]*)", body[1])
+    expected_rest = [
+        "lw\t$31,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if callback is None or helper is None or body[2:] != expected_rest:
+        raise ValueError(f"unexpected work-buffer call tail: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        f"\tlui\t$7,%hi({callback.group(1)})\n",
+        f"\tjal\t{helper.group(1)}\n",
+        f"\taddiu\t$7,$7,%lo({callback.group(1)})\n",
+        "\tlw\t$31,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1834,6 +1880,7 @@ def main() -> None:
     parser.add_argument("--schedule-record-transition", action="store_true")
     parser.add_argument("--reuse-initialized-address", action="store_true")
     parser.add_argument("--schedule-stream-consumption", action="store_true")
+    parser.add_argument("--schedule-work-buffer-call", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1875,6 +1922,7 @@ def main() -> None:
             args.schedule_record_transition,
             args.reuse_initialized_address,
             args.schedule_stream_consumption,
+            args.schedule_work_buffer_call,
         )
     )
     if selected != 1:
@@ -1951,6 +1999,8 @@ def main() -> None:
         lines = reuse_initialized_address(lines)
     if args.schedule_stream_consumption:
         lines = schedule_stream_consumption(lines)
+    if args.schedule_work_buffer_call:
+        lines = schedule_work_buffer_call(lines)
     args.output.write_text("".join(lines))
 
 
