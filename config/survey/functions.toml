@@ -1,5 +1,5 @@
 # Function boundaries for Syd2k USA: main segment
-# text 0x80000400..0x80038568, 752 functions
+# text 0x80000400..0x80038568, 751 functions
 [[section]]
 name = ".main"
 rom = 0x00001000
@@ -9,7 +9,8 @@ size = 0x38168
 functions = [
     { name = "func_80000400", vram = 0x80000400, size = 0x40 }, # c
     # 0x800017C4..0x8000180C is byte-valued lookup-table data, not nine stubs.
-    { name = "func_80001FD8", vram = 0x80001fd8, size = 0x60 }, # asm invalid
+    # 0x80001FD8..0x80002020 is an address table; the following CP0 words are
+    # an unterminated boot fragment, so this span is not a callable function.
     { name = "func_800032BC", vram = 0x800032bc, size = 0x30 }, # asm
     { name = "func_800032F0", vram = 0x800032f0, size = 0x20 }, # asm
     { name = "func_80003334", vram = 0x80003334, size = 0x3c }, # asm
