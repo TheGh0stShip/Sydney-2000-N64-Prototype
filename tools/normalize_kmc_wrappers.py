@@ -5476,6 +5476,102 @@ def schedule_runtime_display_commands(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_resource_display_lists(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_8000D77C:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_8000D77C"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one resource display-list emitter")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["li\t$9,-570425344", "li\t$11,-637730816", "li\t$10,-637599744",
+                "sw\t$9,0($2)", "sw\t$11,0($2)", "sw\t$10,0($2)",
+                "lw\t$2,-4($6)", "lw\t$2,0($6)"]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected resource display-list emitter near {instruction!r}")
+    assembly = """\
+\t.frame\t$sp,0,$31
+\t.mask\t0x00000000,0
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\tmove\t$8,$0
+\tlui\t$9,0xde00
+\tlui\t$11,0xd9fd
+\tori\t$11,$11,0xffff
+\tlui\t$10,0xd9ff
+\tori\t$10,$10,0xffff
+\tlui\t$12,0x2
+\tlui\t$2,%hi(D_80049A28)
+\taddiu\t$2,$2,%lo(D_80049A28)
+\taddiu\t$7,$2,16
+\tmove\t$6,$2
+.Lresource_test:
+\tsltiu\t$2,$8,300
+\tbeqz\t$2,.Lresource_done
+\tnop
+\tlw\t$2,208($6)
+\tbnez\t$2,.Lresource_active
+\tnop
+\tlw\t$2,212($6)
+\tbeql\t$2,$0,.Lresource_next
+\taddiu\t$7,$7,224
+.Lresource_active:
+\tbnez\t$5,.Lresource_first
+\tnop
+\tlw\t$2,0($4)
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($4)
+\tsw\t$9,0($3)
+\tsw\t$7,4($3)
+.Lresource_first:
+\tlw\t$2,208($6)
+\tbeqz\t$2,.Lresource_second
+\tnop
+\tlw\t$2,0($4)
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($4)
+\tsw\t$11,0($3)
+\tsw\t$0,4($3)
+\tlw\t$2,0($4)
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($4)
+\tsw\t$9,0($3)
+\tlw\t$2,208($6)
+\tsw\t$2,4($3)
+.Lresource_second:
+\tlw\t$2,212($6)
+\tbeqz\t$2,.Lresource_next
+\taddiu\t$7,$7,224
+\tlw\t$2,0($4)
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($4)
+\tsw\t$10,0($3)
+\tsw\t$12,4($3)
+\tlw\t$2,0($4)
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($4)
+\tsw\t$9,0($3)
+\tlw\t$2,212($6)
+\tsw\t$2,4($3)
+.Lresource_next:
+\taddiu\t$6,$6,224
+\tj\t.Lresource_test
+\taddiu\t$8,$8,1
+.Lresource_done:
+\tjr\t$31
+\tnop
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_video_mode_initialization(
     lines: list[str], function_name: str = "func_80011054", screen_width: int = 640,
     video_mode: int = 3, video_offset: int = 320,
@@ -6825,6 +6921,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-display-commands", action="store_true")
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
+    parser.add_argument("--schedule-resource-display-lists", action="store_true")
     parser.add_argument("--schedule-compact-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
@@ -6939,6 +7036,7 @@ def main() -> None:
             args.schedule_runtime_display_commands,
             args.schedule_runtime_render_resource,
             args.schedule_video_mode_initialization,
+            args.schedule_resource_display_lists,
             args.schedule_compact_video_mode_initialization,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
@@ -7140,6 +7238,8 @@ def main() -> None:
         lines = schedule_runtime_render_resource(lines)
     if args.schedule_video_mode_initialization:
         lines = schedule_video_mode_initialization(lines)
+    if args.schedule_resource_display_lists:
+        lines = schedule_resource_display_lists(lines)
     if args.schedule_compact_video_mode_initialization:
         lines = schedule_video_mode_initialization(
             lines, "func_80011150", screen_width=320, video_mode=1, video_offset=0,
