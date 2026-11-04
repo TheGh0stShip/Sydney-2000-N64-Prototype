@@ -2147,6 +2147,49 @@ def normalize_object_queue_entry(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_scheduler_queue_return(lines: list[str]) -> list[str]:
+    """Restore the queue initializer return slot and retained alignment words."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$31,20($sp)"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8001E3AC"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one scheduler-queue epilogue; "
+            f"found {(len(starts), len(ends))}"
+        )
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "lw\t$31,20($sp)", "lw\t$16,16($sp)",
+        "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected scheduler-queue epilogue: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\tnop\n",
+        "\tnop\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -2194,6 +2237,7 @@ def main() -> None:
     parser.add_argument("--schedule-all-vector-planes", action="store_true")
     parser.add_argument("--schedule-object-reference-return", action="store_true")
     parser.add_argument("--normalize-object-queue-entry", action="store_true")
+    parser.add_argument("--schedule-scheduler-queue-return", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2242,6 +2286,7 @@ def main() -> None:
             args.schedule_all_vector_planes,
             args.schedule_object_reference_return,
             args.normalize_object_queue_entry,
+            args.schedule_scheduler_queue_return,
         )
     )
     if selected != 1:
@@ -2332,6 +2377,8 @@ def main() -> None:
         lines = schedule_object_reference_return(lines)
     if args.normalize_object_queue_entry:
         lines = normalize_object_queue_entry(lines)
+    if args.schedule_scheduler_queue_return:
+        lines = schedule_scheduler_queue_return(lines)
     args.output.write_text("".join(lines))
 
 
