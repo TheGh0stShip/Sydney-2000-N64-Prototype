@@ -824,3 +824,6 @@ osInvalDCache = 0x8002E150; // type:func
 osPiStartDma = 0x8002B420; // type:func
 osRecvMesg = 0x80032BB0; // type:func
 osWritebackDCacheAll = 0x8002E280; // type:func
+records = 0x80043674; // type:object
+buffer = 0x800436C0; // type:object
+baseValue = 0x80043684; // type:u32

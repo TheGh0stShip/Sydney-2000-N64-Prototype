@@ -4107,6 +4107,91 @@ def schedule_chunked_writeback_rom_read(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_record_payload(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8000551C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one indexed-record payload body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "move\t$3,$5", "li\t$2,-1", "sw\t$31,36($sp)",
+        "bne\t$3,$2,.L2", "sw\t$16,32($sp)", "j\t.L4", "move\t$2,$0",
+        ".L2:", "la\t$16,buffer", "move\t$5,$16", "li\t$6,0x0000004c",
+        "sll\t$4,$3,2", "addu\t$4,$4,$3", "sll\t$4,$4,2",
+        "subu\t$4,$4,$3", "lw\t$2,records", "sll\t$4,$4,2",
+        "addu\t$4,$4,4", "jal\tfunc_80011300", "addu\t$4,$2,$4",
+        "lw\t$2,baseValue", "lw\t$4,buffer+4", "addu\t$5,$sp,16",
+        "li\t$6,0x00000010", "jal\tfunc_80011300", "addu\t$4,$2,$4",
+        "lw\t$3,16($sp)", "li\t$2,0x30320000", "ori\t$2,$2,0x5447",
+        "beq\t$3,$2,.L3", "lw\t$2,0($16)", "j\t.L4", ".L3:",
+        "lw\t$2,20($sp)", ".L4:", "lw\t$31,36($sp)", "lw\t$16,32($sp)",
+        "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected indexed-record payload body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,48\n",
+        "\tmove\t$3,$5\n",
+        "\tli\t$2,-1\n",
+        "\tsw\t$31,40($sp)\n",
+        "\tsw\t$17,36($sp)\n",
+        "\tbeq\t$3,$2,.L4\n",
+        "\tsw\t$16,32($sp)\n",
+        "\tlui\t$17,0x8004\n",
+        "\taddiu\t$16,$17,14016\n",
+        "\tmove\t$5,$16\n",
+        "\tlui\t$2,0x8004\n",
+        "\tli\t$6,76\n",
+        "\tsll\t$4,$3,2\n",
+        "\taddu\t$4,$4,$3\n",
+        "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$3\n",
+        "\tlw\t$2,13940($2)\n",
+        "\tsll\t$4,$4,2\n",
+        "\taddiu\t$2,$2,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tlui\t$2,0x8004\n",
+        "\tlw\t$2,13956($2)\n",
+        "\tlw\t$4,4($16)\n",
+        "\tli\t$6,16\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\tlui\t$3,0x3032\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tori\t$3,$3,0x5447\n",
+        "\tbne\t$2,$3,.L3\n",
+        "\tnop\n",
+        "\tlw\t$2,20($sp)\n",
+        "\tj\t.L5\n",
+        "\tnop\n",
+        ".L3:\n",
+        "\tlw\t$2,14016($17)\n",
+        "\tj\t.L5\n",
+        "\tnop\n",
+        ".L4:\n",
+        "\tmove\t$2,$0\n",
+        ".L5:\n",
+        "\tlw\t$31,40($sp)\n",
+        "\tlw\t$17,36($sp)\n",
+        "\tlw\t$16,32($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4180,6 +4265,7 @@ def main() -> None:
     parser.add_argument("--schedule-blocking-rom-read", action="store_true")
     parser.add_argument("--schedule-chunked-rom-read", action="store_true")
     parser.add_argument("--schedule-chunked-writeback-rom-read", action="store_true")
+    parser.add_argument("--schedule-indexed-record-payload", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4254,6 +4340,7 @@ def main() -> None:
             args.schedule_blocking_rom_read,
             args.schedule_chunked_rom_read,
             args.schedule_chunked_writeback_rom_read,
+            args.schedule_indexed_record_payload,
         )
     )
     if selected != 1:
@@ -4396,6 +4483,8 @@ def main() -> None:
         lines = schedule_chunked_rom_read(lines)
     if args.schedule_chunked_writeback_rom_read:
         lines = schedule_chunked_writeback_rom_read(lines)
+    if args.schedule_indexed_record_payload:
+        lines = schedule_indexed_record_payload(lines)
     args.output.write_text("".join(lines))
 
 
