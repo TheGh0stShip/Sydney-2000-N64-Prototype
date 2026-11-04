@@ -5255,6 +5255,73 @@ def schedule_message_worker_loop(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_worker_request_dispatch(lines: list[str]) -> list[str]:
+    entries = [line for line in lines if line.strip() == ".ent\tfunc_8001E27C"]
+    frames = [line for line in lines if line.strip().startswith(".frame")]
+    if len(entries) != 1 or [line.strip().split("#", 1)[0].rstrip() for line in frames] != [
+        ".frame\t$sp,120,$31"
+    ]:
+        raise ValueError("unexpected worker-request dispatch entry or frame")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,120"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001E27C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one worker-request dispatch body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,120", "li\t$3,-2147483648", "lw\t$5,8($4)",
+        "lw\t$6,12($4)", "lw\t$7,0($4)", "lw\t$8,4($4)",
+        "ori\t$3,$3,0x22c0", "la\t$4,workerRequestQueue",
+        "li\t$2,0x00000002", "sw\t$2,32($sp)", "li\t$2,0x000000d0",
+        "sw\t$2,44($sp)", "li\t$2,0x00001000", "sw\t$2,52($sp)",
+        "li\t$2,0x00000800", "sw\t$16,112($sp)",
+        "la\t$16,workerResponseQueue", "sw\t$2,60($sp)",
+        "addu\t$2,$sp,104", "sw\t$31,116($sp)", "sw\t$0,16($sp)",
+        "sw\t$0,36($sp)", "sw\t$3,40($sp)", "sw\t$0,64($sp)",
+        "sw\t$0,68($sp)", "sw\t$0,72($sp)", "sw\t$0,76($sp)",
+        "sw\t$0,88($sp)", "sw\t$0,92($sp)", "sw\t$16,96($sp)",
+        "sw\t$2,100($sp)", "sw\t$5,48($sp)", "sw\t$6,56($sp)",
+        "sw\t$7,80($sp)", "jal\tfunc_80006428", "sw\t$8,84($sp)",
+        "move\t$4,$2", "addu\t$5,$sp,16", "jal\tfunc_80032CE0",
+        "li\t$6,0x00000001", "move\t$4,$16", "move\t$5,$0",
+        "jal\tfunc_80032BB0", "li\t$6,0x00000001", "lw\t$31,116($sp)",
+        "lw\t$16,112($sp)", "addu\t$sp,$sp,120", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected worker-request dispatch body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-120\n",
+        "\tsw\t$16,112($sp)\n", "\tlui\t$16,%hi(workerResponseQueue)\n",
+        "\tsw\t$31,116($sp)\n", "\tlw\t$2,0($4)\n",
+        "\taddiu\t$16,$16,%lo(workerResponseQueue)\n", "\tsw\t$2,80($sp)\n",
+        "\tlw\t$2,4($4)\n", "\tlui\t$3,0x8000\n", "\tsw\t$2,84($sp)\n",
+        "\tlw\t$2,8($4)\n", "\taddiu\t$3,$3,0x22c0\n", "\tsw\t$2,48($sp)\n",
+        "\tlui\t$2,%hi(workerRequestQueue)\n", "\tlw\t$5,12($4)\n",
+        "\taddiu\t$4,$2,%lo(workerRequestQueue)\n", "\taddiu\t$2,$sp,104\n",
+        "\tsw\t$2,100($sp)\n", "\taddiu\t$2,$0,2\n", "\tsw\t$2,32($sp)\n",
+        "\tlui\t$2,0x8000\n", "\taddiu\t$2,$2,0x2390\n",
+        "\tsubu\t$2,$2,$3\n", "\tsw\t$2,44($sp)\n", "\taddiu\t$2,$0,4096\n",
+        "\tsw\t$2,52($sp)\n", "\taddiu\t$2,$0,2048\n", "\tsw\t$0,16($sp)\n",
+        "\tsw\t$16,96($sp)\n", "\tsw\t$3,40($sp)\n", "\tsw\t$0,36($sp)\n",
+        "\tsw\t$2,60($sp)\n", "\tsw\t$0,64($sp)\n", "\tsw\t$0,68($sp)\n",
+        "\tsw\t$0,72($sp)\n", "\tsw\t$0,76($sp)\n", "\tsw\t$0,88($sp)\n",
+        "\tsw\t$0,92($sp)\n", "\tjal\tfunc_80006428\n", "\tsw\t$5,56($sp)\n",
+        "\taddu\t$4,$2,$0\n", "\taddiu\t$5,$sp,16\n", "\tjal\tfunc_80032CE0\n",
+        "\taddiu\t$6,$0,1\n", "\taddu\t$4,$16,$0\n", "\taddu\t$5,$0,$0\n",
+        "\tjal\tfunc_80032BB0\n", "\taddiu\t$6,$0,1\n", "\tlw\t$31,116($sp)\n",
+        "\tlw\t$16,112($sp)\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,120\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5345,6 +5412,7 @@ def main() -> None:
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
     parser.add_argument("--schedule-message-worker-loop", action="store_true")
+    parser.add_argument("--schedule-worker-request-dispatch", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5436,6 +5504,7 @@ def main() -> None:
             args.schedule_double_cosine,
             args.schedule_double_sine,
             args.schedule_message_worker_loop,
+            args.schedule_worker_request_dispatch,
         )
     )
     if selected != 1:
@@ -5612,6 +5681,8 @@ def main() -> None:
         lines = schedule_double_sine(lines)
     if args.schedule_message_worker_loop:
         lines = schedule_message_worker_loop(lines)
+    if args.schedule_worker_request_dispatch:
+        lines = schedule_worker_request_dispatch(lines)
     args.output.write_text("".join(lines))
 
 
