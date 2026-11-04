@@ -1495,6 +1495,91 @@ def schedule_formatted_command_dispatch(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_shutdown_sequence(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80006430"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one shutdown-sequence body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "sw\t$16,24($sp)", "move\t$16,$4",
+        "sw\t$17,28($sp)", "li\t$17,0x0000029d", "sw\t$31,32($sp)",
+        "sw\t$0,16($sp)", "move\t$4,$16", ".L12:", "addu\t$5,$sp,16",
+        "jal\tfunc_80032BB0", "li\t$6,0x00000001", "lw\t$2,16($sp)",
+        "bne\t$2,$17,.L12", "move\t$4,$16",
+        "li.s\t$f12,1.00000000000000000000e0", "li\t$2,0x00000001",
+        "sw\t$2,shutdownActive", "jal\tfunc_80034DF0",
+        "jal\tfunc_800351A0", "li\t$4,0x00000001", ".L6:",
+        "jal\tfunc_80037320", "bne\t$2,$0,.L6", "sw\t$0,controllerMotorState",
+        "la\t$4,controllerRecords", "jal\tfunc_800083B8", ".L11:",
+        "j\t.L11", "lw\t$31,32($sp)", "lw\t$17,28($sp)",
+        "lw\t$16,24($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        mismatch = next(
+            (index for index, pair in enumerate(zip(body, expected)) if pair[0] != pair[1]),
+            min(len(body), len(expected)),
+        )
+        raise ValueError(
+            f"unexpected shutdown-sequence body at {mismatch}: "
+            f"{body[mismatch:mismatch + 4]!r}"
+        )
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,56\n",
+        "\tsw\t$18,32($sp)\n",
+        "\tmove\t$18,$4\n",
+        "\tsw\t$16,24($sp)\n",
+        "\tli\t$16,669\n",
+        "\tsw\t$19,36($sp)\n",
+        "\tlui\t$19,0x8004\n",
+        "\tsw\t$17,28($sp)\n",
+        "\tli\t$17,1\n",
+        "\tsw\t$20,40($sp)\n",
+        "\tlui\t$20,0x8006\n",
+        "\tsw\t$21,44($sp)\n",
+        "\tlui\t$21,0x8004\n",
+        "\tsw\t$31,48($sp)\n",
+        "\tsw\t$0,16($sp)\n",
+        "\tmove\t$4,$18\n",
+        ".L13:\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tjal\tfunc_80032BB0\n",
+        "\tli\t$6,1\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tbne\t$2,$16,.L13\n",
+        "\tmove\t$4,$18\n",
+        "\tlui\t$1,0x8000\n",
+        "\tlwc1\t$f12,1328($1)\n",
+        "\tsw\t$17,14124($19)\n",
+        "\tjal\tfunc_80034DF0\n",
+        "\tnop\n",
+        "\tjal\tfunc_800351A0\n",
+        "\tli\t$4,1\n",
+        ".L6:\n",
+        "\tjal\tfunc_80037320\n",
+        "\tnop\n",
+        "\tbne\t$2,$0,.L6\n",
+        "\tnop\n",
+        "\tsw\t$0,25044($20)\n",
+        "\tjal\tfunc_800083B8\n",
+        "\taddiu\t$4,$21,17904\n",
+        ".L12:\n",
+        "\tj\t.L12\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3470,6 +3555,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-transition-configuration", action="store_true")
     parser.add_argument("--schedule-random-audio-selection", action="store_true")
     parser.add_argument("--schedule-formatted-command-dispatch", action="store_true")
+    parser.add_argument("--schedule-shutdown-sequence", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3536,6 +3622,7 @@ def main() -> None:
             args.schedule_audio_transition_configuration,
             args.schedule_random_audio_selection,
             args.schedule_formatted_command_dispatch,
+            args.schedule_shutdown_sequence,
         )
     )
     if selected != 1:
@@ -3662,6 +3749,8 @@ def main() -> None:
         lines = schedule_random_audio_selection(lines)
     if args.schedule_formatted_command_dispatch:
         lines = schedule_formatted_command_dispatch(lines)
+    if args.schedule_shutdown_sequence:
+        lines = schedule_shutdown_sequence(lines)
     args.output.write_text("".join(lines))
 
 

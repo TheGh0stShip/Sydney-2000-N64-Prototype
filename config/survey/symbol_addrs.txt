@@ -808,3 +808,6 @@ commandBuffer = 0x800692A0; // type:object
 commandPrefix = 0x8005A5F8; // type:object
 commandContext = 0x800F2758; // type:object
 commandFormat = 0x80000720; // type:object
+shutdownActive = 0x8004372C; // type:u32
+controllerMotorState = 0x800661D4; // type:u32
+controllerRecords = 0x800445F0; // type:object
