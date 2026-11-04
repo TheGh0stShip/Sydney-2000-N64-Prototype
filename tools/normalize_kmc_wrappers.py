@@ -144,6 +144,27 @@ def schedule_status_result_returns(lines: list[str]) -> list[str]:
     return lines
 
 
+def load_global_halfword_through_v0(lines: list[str]) -> list[str]:
+    matches: list[tuple[int, str]] = []
+    for index, line in enumerate(lines):
+        match = re.fullmatch(
+            r"\s*lhu\s+\$4,([A-Za-z_][A-Za-z0-9_]*)\s*",
+            line,
+        )
+        if match:
+            matches.append((index, match.group(1)))
+
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one global halfword argument load; found {len(matches)}")
+
+    index, symbol = matches[0]
+    lines[index : index + 1] = [
+        f"\tlui\t$2,%hi({symbol})\n",
+        f"\tlhu\t$4,%lo({symbol})($2)\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -152,6 +173,7 @@ def main() -> None:
     parser.add_argument("--move-stack-allocation-before-global-load", action="store_true")
     parser.add_argument("--move-full-address-before-ra-save", action="store_true")
     parser.add_argument("--schedule-status-result-returns", action="store_true")
+    parser.add_argument("--load-global-halfword-through-v0", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -161,6 +183,7 @@ def main() -> None:
             args.move_stack_allocation_before_global_load,
             args.move_full_address_before_ra_save,
             args.schedule_status_result_returns,
+            args.load_global_halfword_through_v0,
         )
     )
     if selected != 1:
@@ -173,6 +196,8 @@ def main() -> None:
         lines = move_full_address_before_ra_save(lines)
     if args.schedule_status_result_returns:
         lines = schedule_status_result_returns(lines)
+    if args.load_global_halfword_through_v0:
+        lines = load_global_halfword_through_v0(lines)
     args.output.write_text("".join(lines))
 
 
