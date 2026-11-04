@@ -8900,6 +8900,128 @@ def schedule_bitmap_object_fill(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_display_system_initialization(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_80006F00:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_80006F00"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one display-system initializer")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "jal\tfunc_800BC3C4", "jal\tfunc_800BC378", "jal\tfunc_800BC420",
+        "jal\tfunc_800071D0", "sh\t$4,displaySystemRecords+8($3)",
+        "lwl\t$2,0($6)", "lwr\t$2,3($6)", "swl\t$2,0($7)",
+        "swr\t$2,3($7)",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected display-system initializer near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,24,$31
+\t.mask\t0x80000000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-24
+\tsw\t$31,16($sp)
+\tjal\tfunc_800BC3C4
+\tmove\t$4,$0
+\tjal\tfunc_800BC378
+\tnop
+\tmove\t$4,$0
+\tlui\t$2,%hi(displaySystemRecords)
+\taddiu\t$6,$2,%lo(displaySystemRecords)
+\tli\t$5,-1
+.Ldisplay_record_clear:
+\tandi\t$2,$4,0xff
+\taddiu\t$4,$4,1
+\tsll\t$3,$2,1
+\taddu\t$3,$3,$2
+\tsll\t$3,$3,2
+\taddu\t$3,$3,$6
+\tandi\t$2,$4,0xff
+\tsltiu\t$2,$2,4
+\tsw\t$0,0($3)
+\tsw\t$0,4($3)
+\tsh\t$5,8($3)
+\tbnez\t$2,.Ldisplay_record_clear
+\tsh\t$0,10($3)
+\tjal\tfunc_800BC420
+\tnop
+\tlui\t$2,%hi(displaySystemStates)
+\taddiu\t$5,$2,%lo(displaySystemStates)
+\tmove\t$6,$0
+\tlui\t$2,%hi(displaySystemTemplate)
+\taddiu\t$8,$2,%lo(displaySystemTemplate)
+\taddiu\t$7,$8,208
+.Ldisplay_state_copy:
+\tmove\t$3,$8
+\tor\t$2,$5,$3
+\tandi\t$2,$2,3
+\tbeqz\t$2,.Ldisplay_aligned_copy
+\tmove\t$4,$5
+.Ldisplay_unaligned_copy:
+\tlwl\t$9,0($3)
+\tlwr\t$9,3($3)
+\tlwl\t$10,4($3)
+\tlwr\t$10,7($3)
+\tlwl\t$11,8($3)
+\tlwr\t$11,11($3)
+\tlwl\t$12,12($3)
+\tlwr\t$12,15($3)
+\tswl\t$9,0($4)
+\tswr\t$9,3($4)
+\tswl\t$10,4($4)
+\tswr\t$10,7($4)
+\tswl\t$11,8($4)
+\tswr\t$11,11($4)
+\tswl\t$12,12($4)
+\tswr\t$12,15($4)
+\taddiu\t$3,$3,16
+\tbne\t$3,$7,.Ldisplay_unaligned_copy
+\taddiu\t$4,$4,16
+\tj\t.Ldisplay_copy_tail
+\tnop
+.Ldisplay_aligned_copy:
+\tlw\t$9,0($3)
+\tlw\t$10,4($3)
+\tlw\t$11,8($3)
+\tlw\t$12,12($3)
+\tsw\t$9,0($4)
+\tsw\t$10,4($4)
+\tsw\t$11,8($4)
+\tsw\t$12,12($4)
+\taddiu\t$3,$3,16
+\tbne\t$3,$7,.Ldisplay_aligned_copy
+\taddiu\t$4,$4,16
+.Ldisplay_copy_tail:
+\tlwl\t$9,0($3)
+\tlwr\t$9,3($3)
+\tlwl\t$10,4($3)
+\tlwr\t$10,7($3)
+\tswl\t$9,0($4)
+\tswr\t$9,3($4)
+\tswl\t$10,4($4)
+\tswr\t$10,7($4)
+\taddiu\t$6,$6,1
+\tandi\t$2,$6,0xff
+\tsltiu\t$2,$2,8
+\tbnez\t$2,.Ldisplay_state_copy
+\taddiu\t$5,$5,216
+\tjal\tfunc_800071D0
+\tnop
+\tlw\t$31,16($sp)
+\tli\t$2,1
+\tjr\t$31
+\taddiu\t$sp,$sp,24
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -9024,6 +9146,7 @@ def main() -> None:
     parser.add_argument("--schedule-color-palette-initialization", action="store_true")
     parser.add_argument("--schedule-display-pipeline-state-initialization", action="store_true")
     parser.add_argument("--schedule-bitmap-object-fill", action="store_true")
+    parser.add_argument("--schedule-display-system-initialization", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -9155,6 +9278,7 @@ def main() -> None:
             args.schedule_color_palette_initialization,
             args.schedule_display_pipeline_state_initialization,
             args.schedule_bitmap_object_fill,
+            args.schedule_display_system_initialization,
         )
     )
     if selected != 1:
@@ -9407,6 +9531,8 @@ def main() -> None:
         lines = schedule_display_pipeline_state_initialization(lines)
     if args.schedule_bitmap_object_fill:
         lines = schedule_bitmap_object_fill(lines)
+    if args.schedule_display_system_initialization:
+        lines = schedule_display_system_initialization(lines)
     args.output.write_text("".join(lines))
 
 
