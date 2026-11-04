@@ -1027,6 +1027,83 @@ def schedule_audio_runtime_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_resolved_record_signature(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,48"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80005390"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one resolved-record signature body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,48", "sw\t$16,40($sp)", "li\t$16,-1",
+        "sw\t$31,44($sp)", "jal\tfunc_80004CA4", "move\t$6,$0",
+        "beql\t$2,$16,.L3", "move\t$2,$16", "li\t$16,-2147221504",
+        "ori\t$16,$16,0x36c0", "move\t$5,$16", "li\t$6,0x0000004c",
+        "sll\t$4,$2,2", "addu\t$4,$4,$2", "sll\t$4,$4,2",
+        "subu\t$4,$4,$2", "lw\t$2,-2147207564", "sll\t$4,$4,2",
+        "addu\t$4,$4,4", "jal\tfunc_80011300", "addu\t$4,$2,$4",
+        "lw\t$2,-2147207548", "lw\t$4,4($16)", "addu\t$5,$sp,32",
+        "li\t$6,0x00000004", "jal\tfunc_80011300", "addu\t$4,$2,$4",
+        "lw\t$2,32($sp)", "li\t$3,0x30320000", "ori\t$3,$3,0x5447",
+        "xor\t$2,$2,$3", "sltu\t$16,$2,1", "move\t$2,$16", ".L3:",
+        "lw\t$31,44($sp)", "lw\t$16,40($sp)", "addu\t$sp,$sp,48",
+        "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected resolved-record signature body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,48\n",
+        "\tmove\t$6,$0\n",
+        "\tsw\t$31,44($sp)\n",
+        "\tjal\tfunc_80004CA4\n",
+        "\tsw\t$16,40($sp)\n",
+        "\tmove\t$3,$2\n",
+        "\tli\t$2,-1\n",
+        "\tbeq\t$3,$2,.L3\n",
+        "\tlui\t$16,0x8004\n",
+        "\taddiu\t$16,$16,14016\n",
+        "\tmove\t$5,$16\n",
+        "\tlui\t$2,0x8004\n",
+        "\tli\t$6,76\n",
+        "\tsll\t$4,$3,2\n",
+        "\taddu\t$4,$4,$3\n",
+        "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$3\n",
+        "\tlw\t$2,13940($2)\n",
+        "\tsll\t$4,$4,2\n",
+        "\taddiu\t$2,$2,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\taddiu\t$5,$sp,32\n",
+        "\tlui\t$2,0x8004\n",
+        "\tlw\t$2,13956($2)\n",
+        "\tlw\t$4,4($16)\n",
+        "\tli\t$6,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\tlui\t$3,0x3032\n",
+        "\tlw\t$2,32($sp)\n",
+        "\tori\t$3,$3,0x5447\n",
+        "\txor\t$2,$2,$3\n",
+        "\tsltu\t$2,$2,1\n",
+        ".L3:\n",
+        "\tlw\t$31,44($sp)\n",
+        "\tlw\t$16,40($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2996,6 +3073,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-collections", action="store_true")
     parser.add_argument("--schedule-named-record-resolution", action="store_true")
     parser.add_argument("--schedule-audio-runtime-initialization", action="store_true")
+    parser.add_argument("--schedule-resolved-record-signature", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3056,6 +3134,7 @@ def main() -> None:
             args.schedule_object_collections,
             args.schedule_named_record_resolution,
             args.schedule_audio_runtime_initialization,
+            args.schedule_resolved_record_signature,
         )
     )
     if selected != 1:
@@ -3170,6 +3249,8 @@ def main() -> None:
         lines = schedule_named_record_resolution(lines)
     if args.schedule_audio_runtime_initialization:
         lines = schedule_audio_runtime_initialization(lines)
+    if args.schedule_resolved_record_signature:
+        lines = schedule_resolved_record_signature(lines)
     args.output.write_text("".join(lines))
 
 

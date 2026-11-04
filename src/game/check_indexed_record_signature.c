@@ -11,10 +11,19 @@ typedef unsigned char u8;
 typedef unsigned int u32;
 
 extern void COPY_NAME(void *source, void *destination, u32 length);
+#ifdef RESOLVE_NAME
+extern s32 RESOLVE_NAME(void *first, void *second, u32 mode);
+#endif
 
-s32 LEAF_NAME(void *unused, s32 index) {
+s32 LEAF_NAME(void *first, void *second) {
+    s32 index;
     s32 result = -1;
 
+#ifdef RESOLVE_NAME
+    index = RESOLVE_NAME(first, second, 0);
+#else
+    index = (s32)second;
+#endif
     if (index != -1) {
         struct {
             u8 padding[16];
