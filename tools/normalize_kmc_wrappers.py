@@ -3585,6 +3585,102 @@ def normalize_framebuffer_wait(lines: list[str]) -> list[str]:
     return lines
 
 
+def normalize_render_shutdown(lines: list[str]) -> list[str]:
+    import hashlib
+
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    digest = hashlib.sha256("\n".join(body).encode()).hexdigest()
+    expected_digest = "0ee2bc6f071683dc74fdba02054301ec4144df77ba275b3841c494b1aa7552fc"
+    if len(body) != 70 or digest != expected_digest:
+        raise ValueError(
+            "unexpected render-shutdown compiler body: "
+            f"digest {digest}, count {len(body)}"
+        )
+
+    starts = [index for index, line in enumerate(lines) if line.strip() == "func_80015EAC:"]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_80015EAC"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one render-shutdown function body; "
+            f"found {(len(starts), len(ends))}"
+        )
+
+    lines[starts[0] + 1 : ends[0]] = [
+        "\t.set\tnoreorder\n",
+        "\taddiu\t$sp,$sp,-48\n",
+        "\tsw\t$20,40($sp)\n",
+        "\tmove\t$20,$4\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$3,-22028($2)\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$31,44($sp)\n",
+        "\tsw\t$19,36($sp)\n",
+        "\tsw\t$18,32($sp)\n",
+        "\tsw\t$17,28($sp)\n",
+        "\tsw\t$16,24($sp)\n",
+        "\tjal\tfunc_8001D9DC\n",
+        "\tsw\t$3,-1784($2)\n",
+        "\tjal\tfunc_8002E280\n",
+        "\tsw\t$0,16($sp)\n",
+        "\tlui\t$3,0x8006\n",
+        "\tlw\t$2,25044($3)\n",
+        "\tbeqz\t$2,.Lrender_shutdown_done\n",
+        "\tlui\t$19,0x8004\n",
+        "\tli\t$18,1\n",
+        "\tli\t$17,2\n",
+        "\tmove\t$16,$3\n",
+        "\taddiu\t$4,$19,-27912\n",
+        ".Lrender_shutdown_loop:\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tjal\tfunc_80032BB0\n",
+        "\tmove\t$6,$0\n",
+        "\tbnez\t$2,.Lrender_shutdown_check\n",
+        "\tnop\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tlh\t$2,0($2)\n",
+        "\tbeq\t$2,$18,.Lrender_shutdown_check\n",
+        "\tnop\n",
+        "\tbne\t$2,$17,.Lrender_shutdown_check\n",
+        "\tnop\n",
+        "\tlw\t$2,25044($16)\n",
+        "\taddiu\t$2,$2,-1\n",
+        "\tsw\t$2,25044($16)\n",
+        ".Lrender_shutdown_check:\n",
+        "\tlw\t$2,25044($16)\n",
+        "\tbnez\t$2,.Lrender_shutdown_loop\n",
+        "\taddiu\t$4,$19,-27912\n",
+        ".Lrender_shutdown_done:\n",
+        "\tjal\tfunc_8002E280\n",
+        "\tnop\n",
+        "\tlui\t$2,0x8004\n",
+        "\tjal\tfunc_8001AE8C\n",
+        "\tsw\t$0,-29616($2)\n",
+        "\tmove\t$4,$20\n",
+        "\tlui\t$3,0x8006\n",
+        "\tli\t$2,1\n",
+        "\tjal\tfunc_800F0980\n",
+        "\tsw\t$2,-22188($3)\n",
+        "\tlw\t$31,44($sp)\n",
+        "\tlw\t$20,40($sp)\n",
+        "\tlw\t$19,36($sp)\n",
+        "\tlw\t$18,32($sp)\n",
+        "\tlw\t$17,28($sp)\n",
+        "\tlw\t$16,24($sp)\n",
+        "\tmove\t$2,$0\n",
+        "\tj\t$31\n",
+        "\taddiu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_indexed_record_value(lines: list[str]) -> list[str]:
     """Interleave record/buffer addresses and restore the shared return schedule."""
     starts = [
@@ -6285,6 +6381,7 @@ def main() -> None:
     parser.add_argument("--schedule-active-slot-release", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
+    parser.add_argument("--normalize-render-shutdown", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -6331,6 +6428,7 @@ def main() -> None:
             args.truncate_nonreturning_thread,
             args.truncate_scheduler_task_loop,
             args.normalize_framebuffer_wait,
+            args.normalize_render_shutdown,
             args.schedule_indexed_record_value,
             args.schedule_all_vector_planes,
             args.schedule_object_reference_return,
@@ -6474,6 +6572,8 @@ def main() -> None:
         lines = truncate_scheduler_task_loop(lines)
     if args.normalize_framebuffer_wait:
         lines = normalize_framebuffer_wait(lines)
+    if args.normalize_render_shutdown:
+        lines = normalize_render_shutdown(lines)
     if args.schedule_indexed_record_value:
         lines = schedule_indexed_record_value(lines)
     if args.schedule_all_vector_planes:
