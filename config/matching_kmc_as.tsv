@@ -255,3 +255,4 @@
 0x384C0	0x34	src/game/compare_strings.c	-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_800378C0	a6757da8cd2a99b6b1aaf929cee7d2008817169e5bc8a8d95bbb6064ea0c8bc0
 0x29240	0x3C	src/game/write_byte_aligned_word.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80028640	227bd1989e239e03f11d1c614b5c09071dc0ae308e0e5c7fdb4f01c6fcf7838e
 0x29CF0	0x60	src/game/call_function_pointer_range.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_800290F0	65af64651761312cc04077fb2ce18d6be88b8c114fb849b7849e78aecd8e1408
+0x29E74	0x38	src/game/cache_sweeps.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DICACHE_NAME=func_80029274 -DDCACHE_NAME=func_80029290	10f1b7ea4584755a5f0020f01f7f7a517903baab60eaae5e8cc274731e9701b9
