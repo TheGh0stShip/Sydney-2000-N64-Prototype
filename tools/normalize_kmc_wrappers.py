@@ -13412,6 +13412,174 @@ def schedule_bitmap_render_object_creation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_quad_render_record_creation(lines: list[str]) -> list[str]:
+    function_name = "func_80013208"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one quad render-record creator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800125DC", "func_8000C68C", "D_80000B24", "D_80000B28",
+                  "D_80000B2C", "D_80000B30", "D_8005AC8C"):
+        if token not in body:
+            raise ValueError(f"unexpected quad render-record creator near {token!r}")
+    assembly = """\
+	.word	0x27bdffc0
+	.word	0xafb00020
+	.word	0x00808021
+	.word	0x24040001
+	.word	0xf7b60038
+	.word	0x4485b000
+	.word	0x27a50018
+	.word	0xf7b40030
+	.word	0x4486a000
+	.word	0x02003021
+	.word	0xafb10024
+	.word	0x00e08821
+	.word	0x2407ffff
+	.word	0x24020004
+	.word	0xafbf0028
+	.word	0x0c004977
+	.word	0xa7a20018
+	.word	0x1440007d
+	.word	0x00000000
+	.word	0x8e020000
+	.word	0x3c018000
+	.word	0xc4280b24
+	.word	0x8c430050
+	.word	0x2402ffff
+	.word	0x2467006c
+	.word	0x24660048
+	.word	0x24650024
+	.word	0x00602021
+	.word	0xafa3001c
+	.word	0xace20018
+	.word	0xacc20018
+	.word	0xaca20018
+	.word	0xac620018
+	.word	0xac60001c
+	.word	0xe4680020
+	.word	0xe4680040
+	.word	0xe4680044
+	.word	0xe4680064
+	.word	0xac600068
+	.word	0xac600088
+	.word	0xac80008c
+	.word	0x8fa20050
+	.word	0x30420004
+	.word	0x10400023
+	.word	0x24820030
+	.word	0x3c018000
+	.word	0xc4200b28
+	.word	0x4600b082
+	.word	0x00000000
+	.word	0x4600a002
+	.word	0x2483000c
+	.word	0x46001187
+	.word	0x46000107
+	.word	0xe486006c
+	.word	0xace00004
+	.word	0xe4e40008
+	.word	0xe4820048
+	.word	0xacc00004
+	.word	0xe4c40008
+	.word	0xe4820024
+	.word	0xaca00004
+	.word	0xe4a00008
+	.word	0xe4860000
+	.word	0xac800004
+	.word	0xe4800008
+	.word	0xac80000c
+	.word	0xe4680004
+	.word	0xac600008
+	.word	0xac800030
+	.word	0xe4480004
+	.word	0xac400008
+	.word	0x24820054
+	.word	0xac800054
+	.word	0xe4480004
+	.word	0xac400008
+	.word	0xac80000c
+	.word	0xe4680004
+	.word	0x08004cf6
+	.word	0xac600008
+	.word	0xc460008c
+	.word	0x3c018000
+	.word	0xc4260b2c
+	.word	0x3c018000
+	.word	0xc4240b30
+	.word	0x2462000c
+	.word	0xe460000c
+	.word	0xe4400004
+	.word	0xe4460008
+	.word	0x24620030
+	.word	0xe4600030
+	.word	0xe4400004
+	.word	0xe4460008
+	.word	0x24620054
+	.word	0x4604a082
+	.word	0xe4600054
+	.word	0xe4400004
+	.word	0xe4460008
+	.word	0x24620078
+	.word	0x4604b102
+	.word	0xe4600078
+	.word	0xe4400004
+	.word	0xe4460008
+	.word	0xe4600008
+	.word	0x46040181
+	.word	0xe4620004
+	.word	0xe4640024
+	.word	0xe4660000
+	.word	0xe4a20004
+	.word	0x46020081
+	.word	0xe4a00008
+	.word	0xe4640048
+	.word	0xe4c00008
+	.word	0xe4c20004
+	.word	0xe466006c
+	.word	0xe4e20004
+	.word	0xe4e00008
+	.word	0x8e020000
+	.word	0x24040003
+	.word	0xa4440074
+	.word	0x8e030000
+	.word	0x24020002
+	.word	0xa462006a
+	.word	0x3c028006
+	.word	0x2442ac8c
+	.word	0xa4600068
+	.word	0xac62006c
+	.word	0xa4640076
+	.word	0x8e100000
+	.word	0x8e020000
+	.word	0x30420002
+	.word	0x10400003
+	.word	0x3224ffff
+	.word	0x08004d0e
+	.word	0xa6110070
+	.word	0x00002821
+	.word	0x00a03021
+	.word	0x00a03821
+	.word	0x0c0031a3
+	.word	0xafa00010
+	.word	0xa6020070
+	.word	0x24020003
+	.word	0xa6020076
+	.word	0x00001021
+	.word	0x8fbf0028
+	.word	0x8fb10024
+	.word	0x8fb00020
+	.word	0xd7b60038
+	.word	0xd7b40030
+	.word	0x03e00008
+	.word	0x27bd0040
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -13527,6 +13695,7 @@ def main() -> None:
     parser.add_argument("--schedule-special-record-load", action="store_true")
     parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-creation", action="store_true")
+    parser.add_argument("--schedule-quad-render-record-creation", action="store_true")
     parser.add_argument("--schedule-scaled-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-flagged-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-named-archive-initialization", action="store_true")
@@ -13691,6 +13860,7 @@ def main() -> None:
             args.schedule_special_record_load,
             args.schedule_audio_runtime_record_selection,
             args.schedule_bitmap_render_object_creation,
+            args.schedule_quad_render_record_creation,
             args.schedule_scaled_model_matrix_build,
             args.schedule_flagged_model_matrix_build,
             args.schedule_named_archive_initialization,
@@ -13965,6 +14135,8 @@ def main() -> None:
         lines = schedule_audio_runtime_record_selection(lines)
     if args.schedule_bitmap_render_object_creation:
         lines = schedule_bitmap_render_object_creation(lines)
+    if args.schedule_quad_render_record_creation:
+        lines = schedule_quad_render_record_creation(lines)
     if args.schedule_scaled_model_matrix_build:
         lines = schedule_scaled_model_matrix_build(lines)
     if args.schedule_flagged_model_matrix_build:
