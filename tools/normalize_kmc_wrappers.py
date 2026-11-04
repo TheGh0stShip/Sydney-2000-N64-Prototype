@@ -6353,6 +6353,132 @@ def schedule_controller_input_read(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_display_runtime_update(lines: list[str]) -> list[str]:
+    function_name = "func_8000705C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one display-runtime updater")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800B4784", "func_800072C0", "func_80007384", "func_8000786C",
+                  "D_80043EF4", "D_80043EF8", "D_800F2774", "D_800F2C14",
+                  "D_800F3884"):
+        if token not in body:
+            raise ValueError(f"unexpected display-runtime updater near {token!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80030000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$31,24($sp)
+\tsw\t$17,20($sp)
+\tjal\tfunc_800B4784
+\tsw\t$16,16($sp)
+\tlui\t$16,%hi(D_80043EF4)
+\tlw\t$3,%lo(D_80043EF4)($16)
+\tbeq\t$2,$3,.Ldisplay_choose_configuration
+\tlui\t$2,%hi(D_80043EF8)
+\tjal\tfunc_800B4784
+\tnop
+\tbeqz\t$2,.Ldisplay_check_zero
+\tlui\t$3,%hi(D_80043EF8)
+\tli\t$2,1
+\tjal\tfunc_800B4784
+\tsw\t$2,%lo(D_80043EF8)($3)
+\tsw\t$2,%lo(D_80043EF4)($16)
+.Ldisplay_check_zero:
+\tjal\tfunc_800B4784
+\tnop
+\tbnez\t$2,.Ldisplay_choose_configuration
+\tlui\t$2,%hi(D_80043EF8)
+\tjal\tfunc_800B4784
+\tsw\t$0,%lo(D_80043EF8)($2)
+\tsw\t$2,%lo(D_80043EF4)($16)
+\tlui\t$2,%hi(D_80043EF8)
+.Ldisplay_choose_configuration:
+\tlw\t$2,%lo(D_80043EF8)($2)
+\tbnez\t$2,.Ldisplay_primary_configuration
+\tlui\t$2,%hi(D_800F2774)
+\tlw\t$3,%lo(D_800F2774)($2)
+\tlw\t$2,%lo(D_800F2774)($2)
+\tj\t.Ldisplay_configuration_ready
+\taddiu\t$16,$2,256
+.Ldisplay_primary_configuration:
+\tlw\t$16,%lo(D_800F2774)($2)
+.Ldisplay_configuration_ready:
+\tlui\t$3,%hi(D_800F2724)
+\tlw\t$2,%lo(D_800F2724)($3)
+\tli\t$17,1
+\tbne\t$2,$17,.Ldisplay_check_random
+\tlui\t$2,%hi(D_800F2724)
+\tlui\t$2,%hi(D_800F2778)
+\tsw\t$16,%lo(D_800F2778)($2)
+\tlui\t$2,%hi(D_800F2728)
+\tsw\t$17,%lo(D_800F2728)($2)
+\tlui\t$2,%hi(D_80043E04)
+\tsw\t$0,%lo(D_800F2724)($3)
+\tsw\t$0,%lo(D_80043E04)($2)
+\tlui\t$2,%hi(D_800F2728)
+.Ldisplay_check_random:
+\tlw\t$2,%lo(D_800F2728)($2)
+\tbnez\t$2,.Ldisplay_update_records
+\tlui\t$7,0x00ff
+\tori\t$7,$7,0xffff
+\tlui\t$6,0x7fff
+\tlui\t$5,%hi(D_800F2C14)
+\tlw\t$4,%lo(D_800F2C14)($5)
+\tori\t$6,$6,0xffff
+\tsll\t$3,$4,2
+\taddu\t$3,$3,$4
+\tsll\t$2,$3,4
+\tsubu\t$2,$2,$3
+\tsll\t$2,$2,5
+\taddu\t$2,$2,$4
+\tsll\t$3,$2,3
+\tsubu\t$3,$3,$2
+\tand\t$3,$3,$6
+\tsrl\t$2,$3,15
+\tmult\t$2,$7
+\tlui\t$2,%hi(D_800F3884)
+\tsw\t$3,%lo(D_800F2C14)($5)
+\tmflo\t$8
+\tsrl\t$3,$8,16
+\tsw\t$3,%lo(D_800F3884)($2)
+.Ldisplay_update_records:
+\tjal\tfunc_800072C0
+\tnop
+\tlui\t$2,%hi(D_800F2C10)
+\tlw\t$2,%lo(D_800F2C10)($2)
+\tbeqz\t$2,.Ldisplay_first_mode
+\tnop
+\tbeq\t$2,$17,.Ldisplay_second_mode
+\tnop
+\tj\t.Ldisplay_finish
+\tnop
+.Ldisplay_first_mode:
+\tjal\tfunc_80007384
+\tmove\t$4,$16
+\tj\t.Ldisplay_finish
+\tnop
+.Ldisplay_second_mode:
+\tjal\tfunc_8000786C
+\tnop
+.Ldisplay_finish:
+\tlw\t$31,24($sp)
+\tlw\t$17,20($sp)
+\tlui\t$2,%hi(D_800F2774)
+\tsw\t$16,%lo(D_800F2774)($2)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -9845,6 +9971,7 @@ def main() -> None:
     parser.add_argument("--schedule-render-resource-release", action="store_true")
     parser.add_argument("--schedule-indexed-pixel-decode", action="store_true")
     parser.add_argument("--schedule-controller-input-read", action="store_true")
+    parser.add_argument("--schedule-display-runtime-update", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -9983,6 +10110,7 @@ def main() -> None:
             args.schedule_render_resource_release,
             args.schedule_indexed_pixel_decode,
             args.schedule_controller_input_read,
+            args.schedule_display_runtime_update,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10210,6 +10338,8 @@ def main() -> None:
         lines = schedule_indexed_pixel_decode(lines)
     if args.schedule_controller_input_read:
         lines = schedule_controller_input_read(lines)
+    if args.schedule_display_runtime_update:
+        lines = schedule_display_runtime_update(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
