@@ -658,6 +658,76 @@ def schedule_object_update_passes(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_handle_pair_allocation(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,40"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001769C"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one handle-pair allocation body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,40", "move\t$3,$4", "sw\t$17,20($sp)",
+        "li\t$17,-2147155968", "ori\t$17,$17,0xaa90", "sw\t$19,28($sp)",
+        "li\t$19,-2147090432", "sw\t$16,16($sp)", "li\t$16,-2147483648",
+        "ori\t$16,$16,0x0c5c", "sw\t$18,24($sp)", "li\t$18,-2147090432",
+        "sw\t$31,32($sp)", "sw\t$0,4($17)", "sw\t$0,0($17)",
+        "sw\t$3,-21340($18)", "lw\t$4,-22040($19)", "addu\t$5,$17,4",
+        "sll\t$6,$3,3", "jal\tfunc_800AA804", "move\t$7,$16",
+        "lw\t$4,-22040($19)", "lw\t$6,-21340($18)", "move\t$5,$17",
+        "move\t$7,$16", "jal\tfunc_800AA804", "sll\t$6,$6,3",
+        "lw\t$31,32($sp)", "lw\t$19,28($sp)", "lw\t$18,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected handle-pair allocation body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,40\n",
+        "\tmove\t$3,$4\n",
+        "\tlui\t$2,0x8006\n",
+        "\tsw\t$17,20($sp)\n",
+        "\taddiu\t$17,$2,-21872\n",
+        "\taddiu\t$5,$17,4\n",
+        "\tsll\t$6,$3,3\n",
+        "\tsw\t$19,28($sp)\n",
+        "\tlui\t$19,0x8006\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tlui\t$16,0x8000\n",
+        "\taddiu\t$16,$16,3164\n",
+        "\tlw\t$4,-22040($19)\n",
+        "\tmove\t$7,$16\n",
+        "\tsw\t$18,24($sp)\n",
+        "\tlui\t$18,0x8006\n",
+        "\tsw\t$31,32($sp)\n",
+        "\tsw\t$0,4($17)\n",
+        "\tsw\t$0,-21872($2)\n",
+        "\tjal\tfunc_800AA804\n",
+        "\tsw\t$3,-21340($18)\n",
+        "\tmove\t$5,$17\n",
+        "\tmove\t$7,$16\n",
+        "\tlw\t$6,-21340($18)\n",
+        "\tlw\t$4,-22040($19)\n",
+        "\tjal\tfunc_800AA804\n",
+        "\tsll\t$6,$6,3\n",
+        "\tlw\t$31,32($sp)\n",
+        "\tlw\t$19,28($sp)\n",
+        "\tlw\t$18,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,40\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2622,6 +2692,7 @@ def main() -> None:
     parser.add_argument("--schedule-resolved-record-value", action="store_true")
     parser.add_argument("--normalize-slot-state-initializer", action="store_true")
     parser.add_argument("--schedule-object-update-passes", action="store_true")
+    parser.add_argument("--schedule-handle-pair-allocation", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2677,6 +2748,7 @@ def main() -> None:
             args.schedule_resolved_record_value,
             args.normalize_slot_state_initializer,
             args.schedule_object_update_passes,
+            args.schedule_handle_pair_allocation,
         )
     )
     if selected != 1:
@@ -2781,6 +2853,8 @@ def main() -> None:
         lines = normalize_slot_state_initializer(lines)
     if args.schedule_object_update_passes:
         lines = schedule_object_update_passes(lines)
+    if args.schedule_handle_pair_allocation:
+        lines = schedule_handle_pair_allocation(lines)
     args.output.write_text("".join(lines))
 
 
