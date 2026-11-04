@@ -1,5 +1,6 @@
 # KMC GCC 2.7.2 source matches using the original assembler scheduler
 # rom_start size source flags sha256
+0x6EF0	0x58	src/libultra/sched_add_client_legacy.c	--symbol=osSetIntMask:0x8002A3E0 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C	746e38dd8a06707af64a8fd047c9fb0179cc2caf60ab53949b7c223c5e4a7fd1
 0x352F0	0x38	tools/ultralib/src/io/vigetcurrframebuf.c	--symbol=__osDisableInt:0x8002A670 --symbol=__osViCurr:0x80067130 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	78a421ba6530590b649a0c54e0b22557c200f325c6686d880e616e2d9085c007
 0x35440	0x38	tools/ultralib/src/io/vigetnextframebuf.c	--symbol=__osDisableInt:0x8002A670 --symbol=__osViNext:0x80067134 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	c075c47cd23102f25c28b950e7be1d68bbc0e93595c76f76171c490bbb9820aa
 0x357D0	0x58	tools/ultralib/src/io/visetevent.c	--symbol=__osDisableInt:0x8002A670 --symbol=__osViNext:0x80067134 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C	5041a7ec8cb920181f395ca967cf55ac431b6156b1f0f9b285358ec705f4a143
