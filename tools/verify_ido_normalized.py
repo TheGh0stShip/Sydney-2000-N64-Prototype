@@ -63,6 +63,20 @@ def normalize_stream_decoder(elf: Elf) -> None:
     text.data = bytes(body)
 
 
+def normalize_stream_channel_update(elf: Elf) -> None:
+    text = elf.section(".text")
+    if text is None:
+        raise ValueError("object has no .text section")
+    first, second = struct.unpack_from(">II", text.data, 0x324)
+    if (first, second) != (0xAE0C11D8, 0x01808825):
+        raise ValueError("reviewed stream-channel scheduling words changed")
+    if any(offset in (0x324, 0x328) for offset, *_ in elf.relocations(text)):
+        raise ValueError("reviewed stream-channel scheduling words are relocations")
+    body = bytearray(text.data)
+    struct.pack_into(">II", body, 0x324, second, first)
+    text.data = bytes(body)
+
+
 def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
     config = load_config(project)
     symbol_map = load([symbols])
@@ -83,9 +97,12 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
             raw_flags = shlex.split(fields[3])
             flags: list[str] = []
             compiler = None
+            unit = None
             for flag in raw_flags:
                 if flag == "--ido-version=7.1":
                     compiler = config.toolchain("ido71")
+                elif flag.startswith("--normalizer-unit="):
+                    unit = flag.split("=", 1)[1]
                 else:
                     flags.append(flag)
             if compiler is None:
@@ -100,7 +117,12 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
             obj = work / f"unit_{checked}.o"
             run([str(compiler / "cc"), "-c", *flags, "-o", str(obj), str(source)], work)
             elf = Elf(obj.read_bytes())
-            normalize_stream_decoder(elf)
+            if unit == "stream-channel-update":
+                normalize_stream_channel_update(elf)
+            elif unit in (None, "stream-decoder"):
+                normalize_stream_decoder(elf)
+            else:
+                raise ValueError(f"unknown IDO normalization unit: {unit}")
             result = compare_object(
                 elf,
                 rom_data,

@@ -22,3 +22,4 @@
 0x38300	0x10	src/libultra/set_cp0_status.s	-O2 -G0 -mips3 -mgp32 -mfp32	8c9798aafb630c54a679991a2a686c3379687a94f8b3c8c14e5eafe1cd8cb961
 0x38310	0x10	src/libultra/set_cp0_watchlo.s	-O2 -G0 -mips3 -mgp32 -mfp32	57a60924b5ab6bcac4231c2f07f0716ee5d63495724303dbfa626ca0f4112708
 0x2A524	0x30C	src/libultra/save_crash_context.s	-mips3 -G0	28f37f3801fbd26d39d0415f74684e6fe38ceb83771b814ba5ac2d5012d48b22
+0x32E7C	0x550	src/libultra/exception_handler_body.s	-mips3 -G0	85f3e2929e2732b5c3908e6670d71641cddc1bc2dc776a6a39c1daae7568eb36
