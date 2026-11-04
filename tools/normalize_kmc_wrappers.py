@@ -1344,6 +1344,82 @@ def schedule_audio_transition_configuration(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_random_audio_selection(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001DF58"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one random-audio selection body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$31,24($sp)", "sw\t$17,20($sp)",
+        "jal\tfunc_80037E9C", "sw\t$16,16($sp)", "lw\t$3,audioChoiceCount",
+        "li\t$17,-2147090432", "remu\t$16,$2,$3", "lhu\t$4,20482($17)",
+        "jal\tfunc_80025AD8", "addu\t$16,$16,-1", "lw\t$2,audioUpdatePending",
+        "bne\t$2,$0,.L2", "andi\t$16,$16,0xffff", "lw\t$2,audioIdTable",
+        "sll\t$16,$16,2", "lw\t$6,audioIdConfiguration",
+        "addu\t$16,$16,$2", "lw\t$4,0($16)", "li\t$5,0x00000040",
+        "jal\tfunc_800259D4", "andi\t$6,$6,0xffff", "andi\t$2,$2,0xffff",
+        "sw\t$2,20480($17)", ".L2:", "lw\t$31,24($sp)", "lw\t$17,20($sp)",
+        "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected random-audio selection body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,32\n",
+        "\tsw\t$31,24($sp)\n",
+        "\tsw\t$17,20($sp)\n",
+        "\tjal\tfunc_80037E9C\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tlui\t$3,0x8006\n",
+        "\tlw\t$3,20560($3)\n",
+        "\tdivu\t$0,$2,$3\n",
+        "\tbne\t$3,$0,.Ldiv\n",
+        "\tnop\n",
+        "\tbreak\t7\n",
+        ".Ldiv:\n",
+        "\tmfhi\t$16\n",
+        "\tlui\t$17,0x8006\n",
+        "\taddiu\t$2,$17,20480\n",
+        "\tlhu\t$4,2($2)\n",
+        "\tjal\tfunc_80025AD8\n",
+        "\taddiu\t$16,$16,-1\n",
+        "\tlui\t$2,0x800f\n",
+        "\taddiu\t$2,$2,6880\n",
+        "\tlui\t$3,0x8006\n",
+        "\tlw\t$3,20484($3)\n",
+        "\tlw\t$6,112($2)\n",
+        "\tbne\t$3,$0,.L2\n",
+        "\tandi\t$2,$16,0xffff\n",
+        "\tlui\t$3,0x8007\n",
+        "\tsll\t$2,$2,2\n",
+        "\tlw\t$3,-18432($3)\n",
+        "\tli\t$5,64\n",
+        "\taddu\t$2,$2,$3\n",
+        "\tlw\t$4,0($2)\n",
+        "\tjal\tfunc_800259D4\n",
+        "\tandi\t$6,$6,0xffff\n",
+        "\tandi\t$2,$2,0xffff\n",
+        "\tsw\t$2,20480($17)\n",
+        ".L2:\n",
+        "\tlw\t$31,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -3317,6 +3393,7 @@ def main() -> None:
     parser.add_argument("--schedule-audio-record-allocation", action="store_true")
     parser.add_argument("--schedule-audio-record-volume-reset", action="store_true")
     parser.add_argument("--schedule-audio-transition-configuration", action="store_true")
+    parser.add_argument("--schedule-random-audio-selection", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3381,6 +3458,7 @@ def main() -> None:
             args.schedule_audio_record_allocation,
             args.schedule_audio_record_volume_reset,
             args.schedule_audio_transition_configuration,
+            args.schedule_random_audio_selection,
         )
     )
     if selected != 1:
@@ -3503,6 +3581,8 @@ def main() -> None:
         lines = schedule_audio_record_volume_reset(lines)
     if args.schedule_audio_transition_configuration:
         lines = schedule_audio_transition_configuration(lines)
+    if args.schedule_random_audio_selection:
+        lines = schedule_random_audio_selection(lines)
     args.output.write_text("".join(lines))
 
 
