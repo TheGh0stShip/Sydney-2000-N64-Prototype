@@ -5993,6 +5993,128 @@ def schedule_video_mode_selection(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_render_resource_release(lines: list[str]) -> list[str]:
+    function_name = "func_8001369C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one render-resource releaser")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["jal\tfunc_80017888", "jal\tfunc_8000C68C", "jal\tfunc_800AA658",
+                "lw\t$2,80($17)", "lw\t$2,84($17)", "lw\t$2,88($17)",
+                "lw\t$2,92($17)", "lw\t$2,96($17)"]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected render-resource releaser near {instruction!r}")
+    assembly = """\
+\t.frame\t$sp,40,$31
+\t.mask\t0x80030000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-40
+\tsw\t$17,28($sp)
+\tmove\t$17,$4
+\tsw\t$16,24($sp)
+\tsw\t$31,32($sp)
+\tjal\tfunc_80017888
+\tmove\t$16,$5
+\tlw\t$3,0($17)
+\tandi\t$2,$3,0x0001
+\tbeqz\t$2,.Lrelease_check_secondary
+\tandi\t$2,$3,0x0002
+\tlui\t$16,%hi(memoryContext)
+\taddiu\t$16,$16,%lo(memoryContext)
+\tmove\t$4,$16
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,12
+\tmove\t$4,$16
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,16
+\tmove\t$4,$16
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,24
+\tmove\t$4,$16
+\tj\t.Lrelease_last_call
+\taddiu\t$5,$17,28
+.Lrelease_check_secondary:
+\tbeqz\t$2,.Lrelease_done
+\tnop
+\tbeqz\t$16,.Lrelease_optional_handles
+\tnop
+\tmove\t$5,$0
+\tmove\t$6,$5
+\tlhu\t$4,112($17)
+\tmove\t$7,$5
+\tjal\tfunc_8000C68C
+\tsw\t$0,16($sp)
+\tmove\t$3,$2
+\tbeqz\t$3,.Lrelease_optional_handles
+\tlui\t$2,%hi(renderRecords)
+\taddiu\t$5,$2,%lo(renderRecords)
+\tsll\t$2,$3,3
+\tsubu\t$2,$2,$3
+\tsll\t$6,$2,5
+\taddu\t$3,$6,$5
+\tlw\t$4,216($3)
+\tli\t$2,65534
+\tbeqz\t$4,.Lrelease_optional_handles
+\tsw\t$2,0($3)
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\taddiu\t$5,$5,216
+\tjal\tfunc_800AA658
+\taddu\t$5,$6,$5
+.Lrelease_optional_handles:
+\tlw\t$2,80($17)
+\tbeqz\t$2,.Lrelease_handle_54
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,80
+.Lrelease_handle_54:
+\tlw\t$2,84($17)
+\tbeqz\t$2,.Lrelease_handle_5c
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,84
+.Lrelease_handle_5c:
+\tlw\t$2,92($17)
+\tbeqz\t$2,.Lrelease_handle_58
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,92
+.Lrelease_handle_58:
+\tlw\t$2,88($17)
+\tbeqz\t$2,.Lrelease_handle_60
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$17,88
+.Lrelease_handle_60:
+\tlw\t$2,96($17)
+\tbeqz\t$2,.Lrelease_done
+\tlui\t$4,%hi(memoryContext)
+\taddiu\t$4,$4,%lo(memoryContext)
+\taddiu\t$5,$17,96
+.Lrelease_last_call:
+\tjal\tfunc_800AA658
+\tnop
+.Lrelease_done:
+\tlw\t$31,32($sp)
+\tlw\t$17,28($sp)
+\tlw\t$16,24($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,40
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_resource(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800148F8:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800148F8"]
@@ -9362,6 +9484,7 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-node-unlink", action="store_true")
     parser.add_argument("--schedule-runtime-display-commands", action="store_true")
     parser.add_argument("--schedule-runtime-render-resource", action="store_true")
+    parser.add_argument("--schedule-render-resource-release", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -9496,6 +9619,7 @@ def main() -> None:
             args.schedule_runtime_node_unlink,
             args.schedule_runtime_display_commands,
             args.schedule_runtime_render_resource,
+            args.schedule_render_resource_release,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -9716,6 +9840,8 @@ def main() -> None:
         lines = schedule_runtime_display_commands(lines)
     if args.schedule_runtime_render_resource:
         lines = schedule_runtime_render_resource(lines)
+    if args.schedule_render_resource_release:
+        lines = schedule_render_resource_release(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
