@@ -5631,6 +5631,78 @@ def schedule_runtime_memory_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_render_object_release(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001A248"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one render-object release body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$17,20($sp)", "move\t$17,$4",
+        "sw\t$31,24($sp)", "sw\t$16,16($sp)", "lw\t$16,0($17)",
+        "la\t$2,rootRenderObject", "beq\t$16,$2,.L10", "move\t$2,$0",
+        "lw\t$2,objectCleanupBlocked", "bne\t$2,$0,.L3", "lw\t$2,80($16)",
+        "beq\t$2,$0,.L4", "la\t$4,memoryContext", "jal\tfunc_800AA658",
+        "addu\t$5,$16,80", ".L4:", "lw\t$2,72($16)",
+        "beq\t$2,$0,.L5", "la\t$4,memoryContext", "jal\tfunc_800AA658",
+        "addu\t$5,$16,72", ".L5:", "lw\t$2,76($16)",
+        "beq\t$2,$0,.L6", "la\t$4,memoryContext", "jal\tfunc_800AA658",
+        "addu\t$5,$16,76", ".L6:", "lw\t$2,84($16)",
+        "beq\t$2,$0,.L7", "la\t$4,memoryContext", "jal\tfunc_800AA658",
+        "addu\t$5,$16,84", ".L7:", "lw\t$4,56($16)",
+        "beq\t$4,$0,.L3", "jal\tfunc_8001A480", "lw\t$16,56($16)",
+        "beq\t$16,$0,.L3", "jal\tfunc_8001A480", "move\t$4,$16",
+        "jal\tfunc_80004380", "move\t$4,$16", ".L3:", "la\t$4,memoryContext",
+        "jal\tfunc_800AA658", "move\t$5,$17", "move\t$2,$0", ".L10:",
+        "lw\t$31,24($sp)", "lw\t$17,20($sp)", "lw\t$16,16($sp)",
+        "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected render-object release body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-32\n", "\tsw\t$17,20($sp)\n",
+        "\taddu\t$17,$4,$0\n", "\tlui\t$2,%hi(rootRenderObject)\n",
+        "\tsw\t$31,24($sp)\n", "\tsw\t$16,16($sp)\n", "\tlw\t$16,0($17)\n",
+        "\taddiu\t$2,$2,%lo(rootRenderObject)\n", "\tbeq\t$16,$2,.Lrelease_render_done\n",
+        "\tlui\t$2,%hi(objectCleanupBlocked)\n",
+        "\tlw\t$2,%lo(objectCleanupBlocked)($2)\n",
+        "\tbnez\t$2,.Lrelease_render_slot\n", "\tlui\t$4,%hi(memoryContext)\n",
+        "\tlw\t$2,80($16)\n", "\tbeqz\t$2,.Lrelease_render_handle48\n",
+        "\taddiu\t$4,$4,%lo(memoryContext)\n", "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$5,$16,80\n", ".Lrelease_render_handle48:\n",
+        "\tlw\t$2,72($16)\n", "\tbeqz\t$2,.Lrelease_render_handle4c\n",
+        "\tlui\t$4,%hi(memoryContext)\n", "\taddiu\t$4,$4,%lo(memoryContext)\n",
+        "\tjal\tfunc_800AA658\n", "\taddiu\t$5,$16,72\n",
+        ".Lrelease_render_handle4c:\n", "\tlw\t$2,76($16)\n",
+        "\tbeqz\t$2,.Lrelease_render_handle54\n", "\tlui\t$4,%hi(memoryContext)\n",
+        "\taddiu\t$4,$4,%lo(memoryContext)\n", "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$5,$16,76\n", ".Lrelease_render_handle54:\n",
+        "\tlw\t$2,84($16)\n", "\tbeqz\t$2,.Lrelease_render_child\n",
+        "\tlui\t$4,%hi(memoryContext)\n", "\taddiu\t$4,$4,%lo(memoryContext)\n",
+        "\tjal\tfunc_800AA658\n", "\taddiu\t$5,$16,84\n",
+        ".Lrelease_render_child:\n", "\tlw\t$4,56($16)\n",
+        "\tbeqzl\t$4,.Lrelease_render_slot\n", "\tlui\t$4,%hi(memoryContext)\n",
+        "\tjal\tfunc_8001A480\n", "\tnop\n", "\tlw\t$16,56($16)\n",
+        "\tbeqz\t$16,.Lrelease_render_slot\n", "\tlui\t$4,%hi(memoryContext)\n",
+        "\tjal\tfunc_8001A480\n", "\taddu\t$4,$16,$0\n",
+        "\tjal\tfunc_80004380\n", "\taddu\t$4,$16,$0\n",
+        "\tlui\t$4,%hi(memoryContext)\n", ".Lrelease_render_slot:\n",
+        "\taddiu\t$4,$4,%lo(memoryContext)\n", "\tjal\tfunc_800AA658\n",
+        "\taddu\t$5,$17,$0\n", ".Lrelease_render_done:\n", "\taddu\t$2,$0,$0\n",
+        "\tlw\t$31,24($sp)\n", "\tlw\t$17,20($sp)\n", "\tlw\t$16,16($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,32\n", "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5726,6 +5798,7 @@ def main() -> None:
     parser.add_argument("--schedule-render-task-submission", action="store_true")
     parser.add_argument("--schedule-pi-worker-startup", action="store_true")
     parser.add_argument("--schedule-runtime-memory-initialization", action="store_true")
+    parser.add_argument("--schedule-render-object-release", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5822,6 +5895,7 @@ def main() -> None:
             args.schedule_render_task_submission,
             args.schedule_pi_worker_startup,
             args.schedule_runtime_memory_initialization,
+            args.schedule_render_object_release,
         )
     )
     if selected != 1:
@@ -6008,6 +6082,8 @@ def main() -> None:
         lines = schedule_pi_worker_startup(lines)
     if args.schedule_runtime_memory_initialization:
         lines = schedule_runtime_memory_initialization(lines)
+    if args.schedule_render_object_release:
+        lines = schedule_render_object_release(lines)
     args.output.write_text("".join(lines))
 
 
