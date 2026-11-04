@@ -620,7 +620,8 @@ functions = [
     { name = "func_8002FCC0", vram = 0x8002fcc0, size = 0x4d0 }, # c
     { name = "func_80030190", vram = 0x80030190, size = 0x250 }, # c
     { name = "func_800303E0", vram = 0x800303e0, size = 0x590 }, # leaf
-    { name = "func_80030970", vram = 0x80030970, size = 0x500 }, # c
+    # The three words after __umoddi3 are alignment nops, not function code.
+    { name = "func_80030970", vram = 0x80030970, size = 0x4f4 }, # c
     { name = "func_80030E70", vram = 0x80030e70, size = 0x84 }, # leaf
     { name = "func_80030EF4", vram = 0x80030ef4, size = 0x13c }, # c
     { name = "func_80031030", vram = 0x80031030, size = 0x5f0 }, # leaf
