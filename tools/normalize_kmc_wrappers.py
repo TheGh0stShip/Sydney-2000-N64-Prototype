@@ -672,6 +672,48 @@ def schedule_valid_handle_void(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_valid_handle_result(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,24"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one stack allocation; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if len(body) != 14:
+        raise ValueError(f"unexpected valid-handle result body: {body!r}")
+    handle = re.fullmatch(r"lw\t\$4,([A-Za-z_][A-Za-z0-9_]*)", body[2])
+    branch = re.fullmatch(r"beq\t\$4,\$2,(\.L[0-9]+)", body[5])
+    helper = re.fullmatch(r"jal\t([A-Za-z_][A-Za-z0-9_]*)", body[7])
+    target = branch.group(1) if branch else ""
+    expected = [
+        "subu\t$sp,$sp,24", "move\t$5,$4", body[2], "move\t$3,$0",
+        "li\t$2,-1", body[5], "sw\t$31,16($sp)", body[7],
+        "move\t$3,$2", f"{target}:", "lw\t$31,16($sp)",
+        "move\t$2,$3", "j\t$31", "addu\t$sp,$sp,24",
+    ]
+    if not handle or not branch or not helper or body != expected:
+        raise ValueError(f"unexpected valid-handle result body: {body!r}")
+    symbol = handle.group(1)
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tsw\t$31,16($sp)\n",
+        "\tmove\t$5,$4\n",
+        f"\tlui\t$4,%hi({symbol})\n",
+        f"\tlw\t$4,%lo({symbol})($4)\n",
+        "\tli\t$2,-1\n",
+        f"\tbeq\t$4,$2,{target}\n",
+        "\tmove\t$2,$0\n",
+        f"\tjal\t{helper.group(1)}\n",
+        "\tnop\n",
+        f"{target}:\n",
+        "\tlw\t$31,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -693,6 +735,7 @@ def main() -> None:
     parser.add_argument("--schedule-message-queue-initializer", action="store_true")
     parser.add_argument("--interleave-output-call-addresses", action="store_true")
     parser.add_argument("--schedule-valid-handle-void", action="store_true")
+    parser.add_argument("--schedule-valid-handle-result", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -715,6 +758,7 @@ def main() -> None:
             args.schedule_message_queue_initializer,
             args.interleave_output_call_addresses,
             args.schedule_valid_handle_void,
+            args.schedule_valid_handle_result,
         )
     )
     if selected != 1:
@@ -753,6 +797,8 @@ def main() -> None:
         lines = interleave_output_call_addresses(lines)
     if args.schedule_valid_handle_void:
         lines = schedule_valid_handle_void(lines)
+    if args.schedule_valid_handle_result:
+        lines = schedule_valid_handle_result(lines)
     args.output.write_text("".join(lines))
 
 
