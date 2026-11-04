@@ -1,1 +1,4 @@
 0x26F70	0xC4	src/game/initialize_async_state.c	-O2 -G0 -mips2 -non_shared -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80026370 -DBZERO_NAME=func_8002F580 -DCREATE_QUEUE_NAME=func_800320D0	9c9c6b7ee2562e72d8f5b76d3bc25a734c9eee8b2dcc7b96c13aae3efe5c1328
+0x27450	0x1F8	src/game/gsm_decode_lar.c	-O2 -mips2 -non_shared -Xcpluscomm -Wab,-r4300_mul -G 0 -DLEAF_NAME=func_80026850 -DSYNTHESIZE_NAME=func_80028034	2dca9f72d00b8896ffb13000c3749b4f1e2737e5f4c907b0576605dc5744dc9c
+0x27648	0xE8	src/game/gsm_synthesis_driver.c	-O2 -mips2 -non_shared -Xcpluscomm -Wab,-r4300_mul -G 0 -DLEAF_NAME=func_80026A48 -DRPE_NAME=func_80027CC0 -DLONG_TERM_NAME=func_80027DB4 -DLAR_NAME=func_80026850	7e9cefda645671c5fdebe5839238ee485132f6d7eb097cb79879e03e0a924b27
+0x27730	0x290	src/game/gsm_frame_unpack.c	-O2 -mips2 -non_shared -Xcpluscomm -Wab,-r4300_mul -G 0 -DLEAF_NAME=func_80026B30 -DSYNTHESIZE_NAME=func_80026A48	a4b58967218afd361b544ef2788b6ce45b41fda504bfa4fd38269743b12506ce
