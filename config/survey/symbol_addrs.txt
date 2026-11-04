@@ -815,3 +815,4 @@ controllerRecords = 0x800445F0; // type:object
 memoryHandle = 0x80068460; // type:s32
 displayListHead = 0x800663DC; // type:object
 displayPipelineFlags = 0x80063514; // type:u16
+recordResolutionBusy = 0x80039450; // type:u32

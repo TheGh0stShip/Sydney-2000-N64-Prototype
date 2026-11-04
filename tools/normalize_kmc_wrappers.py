@@ -3731,6 +3731,92 @@ def schedule_display_pipeline_configuration(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_checked_named_record_resolution(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,304"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80005BCC"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one checked named-record resolution body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,304", "sw\t$16,280($sp)", "move\t$16,$4",
+        "sw\t$20,296($sp)", "move\t$20,$5", "sw\t$18,288($sp)",
+        "li\t$18,-2147221504", "ori\t$18,$18,0x3714", "sw\t$17,284($sp)",
+        "addu\t$17,$sp,272", "move\t$4,$17", "sw\t$19,292($sp)",
+        "li\t$19,0x00000001", "sw\t$31,300($sp)", "jal\tfunc_8000566C",
+        "sw\t$19,0($18)", "addu\t$4,$sp,16", "jal\tfunc_80037890",
+        "move\t$5,$16", "lw\t$2,recordResolutionBusy", "bne\t$2,$0,.L5",
+        "li\t$2,-1", "move\t$4,$17", "jal\tfunc_80005390",
+        "addu\t$5,$sp,16", "beq\t$2,$19,.L6", "move\t$4,$17",
+        "jal\tfunc_80005310", "addu\t$5,$sp,16", "move\t$3,$2",
+        "bne\t$3,$0,.L4", "move\t$2,$0", ".L6:", "j\t.L5",
+        "li\t$2,-1", ".L4:", "sw\t$3,0($20)", "sw\t$0,0($18)",
+        ".L5:", "lw\t$31,300($sp)", "lw\t$20,296($sp)",
+        "lw\t$19,292($sp)", "lw\t$18,288($sp)", "lw\t$17,284($sp)",
+        "lw\t$16,280($sp)", "addu\t$sp,$sp,304", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected checked named-record resolution body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,304\n",
+        "\tsw\t$16,280($sp)\n",
+        "\tmove\t$16,$4\n",
+        "\tsw\t$20,296($sp)\n",
+        "\tmove\t$20,$5\n",
+        "\tsw\t$17,284($sp)\n",
+        "\taddiu\t$17,$sp,272\n",
+        "\tmove\t$4,$17\n",
+        "\tsw\t$19,292($sp)\n",
+        "\tlui\t$19,0x8004\n",
+        "\tsw\t$18,288($sp)\n",
+        "\tli\t$18,1\n",
+        "\tsw\t$31,300($sp)\n",
+        "\tjal\tfunc_8000566C\n",
+        "\tsw\t$18,14100($19)\n",
+        "\taddiu\t$4,$sp,16\n",
+        "\tjal\tfunc_80037890\n",
+        "\tmove\t$5,$16\n",
+        "\tlui\t$2,0x8004\n",
+        "\tlw\t$2,-27568($2)\n",
+        "\tbne\t$2,$0,.L5\n",
+        "\tli\t$2,-1\n",
+        "\tmove\t$4,$17\n",
+        "\tjal\tfunc_80005390\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tbeq\t$2,$18,.L6\n",
+        "\tmove\t$4,$17\n",
+        "\tjal\tfunc_80005310\n",
+        "\taddiu\t$5,$sp,16\n",
+        "\tmove\t$3,$2\n",
+        "\tbeq\t$3,$0,.L6\n",
+        "\tmove\t$2,$0\n",
+        "\tsw\t$3,0($20)\n",
+        "\tj\t.L5\n",
+        "\tsw\t$0,14100($19)\n",
+        ".L6:\n",
+        "\tli\t$2,-1\n",
+        ".L5:\n",
+        "\tlw\t$31,300($sp)\n",
+        "\tlw\t$20,296($sp)\n",
+        "\tlw\t$19,292($sp)\n",
+        "\tlw\t$18,288($sp)\n",
+        "\tlw\t$17,284($sp)\n",
+        "\tlw\t$16,280($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,304\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -3800,6 +3886,7 @@ def main() -> None:
     parser.add_argument("--schedule-zeroed-grid-allocation", action="store_true")
     parser.add_argument("--schedule-controller-motor-message-drain", action="store_true")
     parser.add_argument("--schedule-display-pipeline-configuration", action="store_true")
+    parser.add_argument("--schedule-checked-named-record-resolution", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3870,6 +3957,7 @@ def main() -> None:
             args.schedule_zeroed_grid_allocation,
             args.schedule_controller_motor_message_drain,
             args.schedule_display_pipeline_configuration,
+            args.schedule_checked_named_record_resolution,
         )
     )
     if selected != 1:
@@ -4004,6 +4092,8 @@ def main() -> None:
         lines = schedule_controller_motor_message_drain(lines)
     if args.schedule_display_pipeline_configuration:
         lines = schedule_display_pipeline_configuration(lines)
+    if args.schedule_checked_named_record_resolution:
+        lines = schedule_checked_named_record_resolution(lines)
     args.output.write_text("".join(lines))
 
 
