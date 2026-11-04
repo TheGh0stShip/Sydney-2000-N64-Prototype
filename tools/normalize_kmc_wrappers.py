@@ -1496,6 +1496,58 @@ def schedule_player_scratch_allocator(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_handle_array_release(lines: list[str]) -> list[str]:
+    """Move the loop index save and initialization to the original prologue slots."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "subu\t$sp,$sp,32"
+    ]
+    labels = [
+        index for index, line in enumerate(lines)
+        if re.fullmatch(r"\.L[0-9]+:\s*", line)
+    ]
+    if len(starts) != 1 or not labels or starts[0] >= labels[0]:
+        raise ValueError(
+            "expected one handle-array prologue before its loop label; "
+            f"found {(len(starts), len(labels))}"
+        )
+    start = starts[0]
+    end = labels[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith("#")
+    ]
+    expected = [
+        "subu\t$sp,$sp,32",
+        "sw\t$18,24($sp)",
+        "li\t$18,-2146500608",
+        "li\t$2,-2147090432",
+        "sw\t$16,16($sp)",
+        "addu\t$16,$2,9396",
+        "sw\t$17,20($sp)",
+        "move\t$17,$0",
+        "sw\t$31,28($sp)",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected handle-array prologue: {body!r}")
+
+    indentation = "\t"
+    lines[start:end] = [
+        f"{indentation}subu\t$sp,$sp,32\n",
+        f"{indentation}sw\t$17,20($sp)\n",
+        f"{indentation}move\t$17,$0\n",
+        f"{indentation}sw\t$18,24($sp)\n",
+        f"{indentation}li\t$18,-2146500608\n",
+        f"{indentation}li\t$2,-2147090432\n",
+        f"{indentation}sw\t$16,16($sp)\n",
+        f"{indentation}addu\t$16,$2,9396\n",
+        f"{indentation}sw\t$31,28($sp)\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1531,6 +1583,7 @@ def main() -> None:
     parser.add_argument("--schedule-decode-path-string", action="store_true")
     parser.add_argument("--schedule-object-resource-value", action="store_true")
     parser.add_argument("--schedule-player-scratch-allocator", action="store_true")
+    parser.add_argument("--schedule-handle-array-release", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1567,6 +1620,7 @@ def main() -> None:
             args.schedule_decode_path_string,
             args.schedule_object_resource_value,
             args.schedule_player_scratch_allocator,
+            args.schedule_handle_array_release,
         )
     )
     if selected != 1:
@@ -1633,6 +1687,8 @@ def main() -> None:
         lines = schedule_object_resource_value(lines)
     if args.schedule_player_scratch_allocator:
         lines = schedule_player_scratch_allocator(lines)
+    if args.schedule_handle_array_release:
+        lines = schedule_handle_array_release(lines)
     args.output.write_text("".join(lines))
 
 
