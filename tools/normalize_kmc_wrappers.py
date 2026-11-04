@@ -1675,6 +1675,50 @@ def schedule_record_transition(lines: list[str]) -> list[str]:
     return lines
 
 
+def reuse_initialized_address(lines: list[str]) -> list[str]:
+    """Keep the guarded initialization address in the original base register."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$2,initialized"
+    ]
+    if len(starts) != 1:
+        raise ValueError(
+            "expected one initialized-word load; "
+            f"found {len(starts)}"
+        )
+    start = starts[0]
+    end = start + 1
+    while end < len(lines) and lines[end].strip() != ".L2:":
+        end += 1
+    if end >= len(lines):
+        raise ValueError("guarded initialization label was not found")
+    end += 1
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "lw\t$2,initialized", "bne\t$2,$0,.L2",
+        "li\t$2,0x00000001", "sw\t$2,initialized", ".L2:",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected initialized-word guard: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$3,%hi(initialized)\n",
+        "\tlw\t$2,%lo(initialized)($3)\n",
+        "\tbne\t$2,$0,.L2\n",
+        "\tli\t$2,0x00000001\n",
+        "\tsw\t$2,%lo(initialized)($3)\n",
+        "\t.set\treorder\n",
+        ".L2:\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1713,6 +1757,7 @@ def main() -> None:
     parser.add_argument("--schedule-handle-array-release", action="store_true")
     parser.add_argument("--schedule-masked-vector-copy", action="store_true")
     parser.add_argument("--schedule-record-transition", action="store_true")
+    parser.add_argument("--reuse-initialized-address", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1752,6 +1797,7 @@ def main() -> None:
             args.schedule_handle_array_release,
             args.schedule_masked_vector_copy,
             args.schedule_record_transition,
+            args.reuse_initialized_address,
         )
     )
     if selected != 1:
@@ -1824,6 +1870,8 @@ def main() -> None:
         lines = schedule_masked_vector_copy(lines)
     if args.schedule_record_transition:
         lines = schedule_record_transition(lines)
+    if args.reuse_initialized_address:
+        lines = reuse_initialized_address(lines)
     args.output.write_text("".join(lines))
 
 
