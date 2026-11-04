@@ -439,6 +439,24 @@ def schedule_copy_string(lines: list[str]) -> list[str]:
     return lines
 
 
+def move_record_address_before_index(lines: list[str]) -> list[str]:
+    matches: list[int] = []
+    for index in range(len(lines) - 1):
+        if (
+            re.fullmatch(r"sll\s+\$(?:3|16),\$5,6", lines[index].strip())
+            and re.fullmatch(
+                r"\s*la\s+\$2,[A-Za-z_][A-Za-z0-9_]*\s*",
+                lines[index + 1],
+            )
+        ):
+            matches.append(index)
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one record-base/index pair; found {len(matches)}")
+    index = matches[0]
+    lines[index], lines[index + 1] = lines[index + 1], lines[index]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -454,6 +472,7 @@ def main() -> None:
     parser.add_argument("--schedule-nested-float-quad", action="store_true")
     parser.add_argument("--duplicate-nested-bit-returns", action="store_true")
     parser.add_argument("--schedule-copy-string", action="store_true")
+    parser.add_argument("--move-record-address-before-index", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -470,6 +489,7 @@ def main() -> None:
             args.schedule_nested_float_quad,
             args.duplicate_nested_bit_returns,
             args.schedule_copy_string,
+            args.move_record_address_before_index,
         )
     )
     if selected != 1:
@@ -496,6 +516,8 @@ def main() -> None:
         lines = duplicate_nested_bit_returns(lines)
     if args.schedule_copy_string:
         lines = schedule_copy_string(lines)
+    if args.move_record_address_before_index:
+        lines = move_record_address_before_index(lines)
     args.output.write_text("".join(lines))
 
 
