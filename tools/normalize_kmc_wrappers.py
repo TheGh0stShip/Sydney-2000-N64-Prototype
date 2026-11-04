@@ -1384,6 +1384,54 @@ def schedule_decode_path_string(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_resource_value(lines: list[str]) -> list[str]:
+    """Place the masked resource argument and zero return in their original slots."""
+    masks = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "andi\t$4,$4,0xffff"
+    ]
+    zero_args = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "move\t$5,$0"
+    ]
+    zero_returns = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "move\t$2,$0"
+    ]
+    restores = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$16,24($sp)"
+    ]
+    counts = tuple(map(len, (masks, zero_args, zero_returns, restores)))
+    if counts != (1, 1, 1, 1):
+        raise ValueError(
+            "expected one resource mask, zero argument, zero return, and restore; "
+            f"found {counts}"
+        )
+    if not zero_args[0] < masks[0]:
+        raise ValueError("resource mask is not after the zero argument")
+    mask_line = lines.pop(masks[0])
+    lines.insert(zero_args[0], mask_line)
+
+    zero_return_index = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "move\t$2,$0"
+    ][0]
+    restore_index = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$16,24($sp)"
+    ][0]
+    if zero_return_index >= restore_index:
+        raise ValueError("zero return is not before saved-register restores")
+    zero_return_line = lines.pop(zero_return_index)
+    restore_index = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$16,24($sp)"
+    ][0]
+    lines.insert(restore_index + 1, zero_return_line)
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1417,6 +1465,7 @@ def main() -> None:
     parser.add_argument("--schedule-append-string", action="store_true")
     parser.add_argument("--schedule-two-optional-handles", action="store_true")
     parser.add_argument("--schedule-decode-path-string", action="store_true")
+    parser.add_argument("--schedule-object-resource-value", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1451,6 +1500,7 @@ def main() -> None:
             args.schedule_append_string,
             args.schedule_two_optional_handles,
             args.schedule_decode_path_string,
+            args.schedule_object_resource_value,
         )
     )
     if selected != 1:
@@ -1513,6 +1563,8 @@ def main() -> None:
         lines = schedule_two_optional_handles(lines)
     if args.schedule_decode_path_string:
         lines = schedule_decode_path_string(lines)
+    if args.schedule_object_resource_value:
+        lines = schedule_object_resource_value(lines)
     args.output.write_text("".join(lines))
 
 
