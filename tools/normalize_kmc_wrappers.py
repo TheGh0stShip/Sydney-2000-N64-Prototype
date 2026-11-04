@@ -714,6 +714,41 @@ def schedule_valid_handle_result(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_broadcast_message(lines: list[str]) -> list[str]:
+    labels = [
+        index
+        for index in range(len(lines) - 2)
+        if re.fullmatch(r"\.L[0-9]+:\s*", lines[index])
+        and lines[index + 1].strip() == "lw\t$4,4($16)"
+        and lines[index + 2].strip() == "move\t$5,$17"
+    ]
+    if len(labels) != 1:
+        raise ValueError(f"expected exactly one broadcast loop label; found {len(labels)}")
+    label_index = labels[0]
+    label = lines[label_index].strip()[:-1]
+    branches = [
+        index
+        for index, line in enumerate(lines)
+        if line.strip() == f"bne\t$16,$0,{label}"
+    ]
+    if len(branches) != 1:
+        raise ValueError(f"expected exactly one broadcast back edge; found {len(branches)}")
+    branch_index = branches[0]
+
+    lines[label_index : label_index + 3] = [
+        "\tmove\t$5,$17\n",
+        f"{label}:\n",
+        "\tlw\t$4,4($16)\n",
+    ]
+    lines[branch_index : branch_index + 1] = [
+        "\t.set\tnoreorder\n",
+        f"\tbne\t$16,$0,{label}\n",
+        "\tmove\t$5,$17\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -736,6 +771,7 @@ def main() -> None:
     parser.add_argument("--interleave-output-call-addresses", action="store_true")
     parser.add_argument("--schedule-valid-handle-void", action="store_true")
     parser.add_argument("--schedule-valid-handle-result", action="store_true")
+    parser.add_argument("--schedule-broadcast-message", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -759,6 +795,7 @@ def main() -> None:
             args.interleave_output_call_addresses,
             args.schedule_valid_handle_void,
             args.schedule_valid_handle_result,
+            args.schedule_broadcast_message,
         )
     )
     if selected != 1:
@@ -799,6 +836,8 @@ def main() -> None:
         lines = schedule_valid_handle_void(lines)
     if args.schedule_valid_handle_result:
         lines = schedule_valid_handle_result(lines)
+    if args.schedule_broadcast_message:
+        lines = schedule_broadcast_message(lines)
     args.output.write_text("".join(lines))
 
 
