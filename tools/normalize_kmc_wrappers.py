@@ -8780,6 +8780,126 @@ def schedule_display_pipeline_state_initialization(lines: list[str]) -> list[str
     return lines
 
 
+def schedule_bitmap_object_fill(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_800191E0:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800191E0"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one bitmap-object fill routine")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip()
+            for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = [
+        "sh\t$2,64($17)", "sh\t$2,66($17)", "sh\t$2,68($17)",
+        "sh\t$2,70($17)", "lw\t$3,128($17)", "jal\tfunc_80037F30",
+        "lw\t$3,72($17)", "lw\t$2,84($17)",
+    ]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected bitmap-object fill near {instruction!r}")
+
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$31,28($sp)
+\tsw\t$18,24($sp)
+\tsw\t$17,20($sp)
+\tsw\t$16,16($sp)
+\tlw\t$17,0($4)
+\tbnez\t$17,.Lbitmap_present
+\tsrl\t$3,$5,16
+\tj\t.Lbitmap_done
+\tmove\t$2,$0
+.Lbitmap_present:
+\tsrl\t$6,$5,8
+\tandi\t$9,$3,0xff
+\tandi\t$8,$6,0xff
+\tmove\t$4,$5
+\tandi\t$7,$4,0xff
+\tlw\t$2,128($17)
+\tsrl\t$5,$5,24
+\tsh\t$9,64($17)
+\tsh\t$8,66($17)
+\tsh\t$7,68($17)
+\tandi\t$2,$2,8
+\tbeqz\t$2,.Lbitmap_done
+\tsh\t$5,70($17)
+\tsll\t$3,$3,8
+\tandi\t$3,$3,0xf800
+\tsll\t$2,$6,3
+\tandi\t$2,$2,0x7c0
+\tor\t$3,$3,$2
+\tsrl\t$2,$4,2
+\tandi\t$2,$2,0x3e
+\tor\t$3,$3,$2
+\tori\t$18,$3,1
+\tlw\t$3,60($17)
+\tli\t$2,9
+\tsw\t$2,20($17)
+\tli\t$2,8
+\tbne\t$3,$2,.Lbitmap_solid
+\tnop
+\tlw\t$2,0($17)
+\tbeqz\t$2,.Lbitmap_done
+\tmove\t$16,$0
+.Lbitmap_clear_loop:
+\tlw\t$3,12($17)
+\tlw\t$2,16($17)
+\tmove\t$5,$0
+\tmult\t$3,$2
+\tlw\t$3,72($17)
+\tsll\t$2,$16,2
+\taddu\t$2,$2,$3
+\tlw\t$4,0($2)
+\tmflo\t$10
+\tjal\tfunc_80037F30
+\tsll\t$6,$10,1
+\tlw\t$2,84($17)
+\tsh\t$18,0($2)
+\tlw\t$2,0($17)
+\taddiu\t$16,$16,1
+\tsltu\t$2,$16,$2
+\tbeqz\t$2,.Lbitmap_done
+\tnop
+\tj\t.Lbitmap_clear_loop
+\tnop
+.Lbitmap_solid:
+\tlw\t$2,0($17)
+\tbeqz\t$2,.Lbitmap_done
+\tmove\t$16,$0
+.Lbitmap_solid_loop:
+\tlw\t$3,12($17)
+\tlw\t$2,16($17)
+\tandi\t$5,$18,0xffff
+\tmult\t$3,$2
+\tlw\t$3,72($17)
+\tsll\t$2,$16,2
+\taddu\t$2,$2,$3
+\tlw\t$4,0($2)
+\tmflo\t$10
+\tjal\tfunc_80037F30
+\tsll\t$6,$10,1
+\tlw\t$2,0($17)
+\taddiu\t$16,$16,1
+\tsltu\t$2,$16,$2
+\tbnez\t$2,.Lbitmap_solid_loop
+\tnop
+.Lbitmap_done:
+\tlw\t$31,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -8903,6 +9023,7 @@ def main() -> None:
     parser.add_argument("--schedule-bitmap-object-initialization", action="store_true")
     parser.add_argument("--schedule-color-palette-initialization", action="store_true")
     parser.add_argument("--schedule-display-pipeline-state-initialization", action="store_true")
+    parser.add_argument("--schedule-bitmap-object-fill", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -9033,6 +9154,7 @@ def main() -> None:
             args.schedule_bitmap_object_initialization,
             args.schedule_color_palette_initialization,
             args.schedule_display_pipeline_state_initialization,
+            args.schedule_bitmap_object_fill,
         )
     )
     if selected != 1:
@@ -9283,6 +9405,8 @@ def main() -> None:
         lines = schedule_color_palette_initialization(lines)
     if args.schedule_display_pipeline_state_initialization:
         lines = schedule_display_pipeline_state_initialization(lines)
+    if args.schedule_bitmap_object_fill:
+        lines = schedule_bitmap_object_fill(lines)
     args.output.write_text("".join(lines))
 
 
