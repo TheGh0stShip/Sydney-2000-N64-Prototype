@@ -14384,6 +14384,26 @@ def schedule_bitmap_render_object_creation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_exception_vector_installation(lines: list[str]) -> list[str]:
+    function_name = "func_800291C0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one exception vector installer")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80029150", "func_80029274", "func_80029290", "D_80029164",
+                  "D_80029188", "D_8002919C", "D_8006D3B8", "D_8006D3C0"):
+        if token not in body:
+            raise ValueError(f"unexpected exception vector installer near {token!r}")
+    words = (
+        "23bdfff8afbf00003c088003250891503c098003252991643c0a8000354a01803c0b8003256b91648d4c00008d0d000025080004ad2c000025290004ad4d0000150bfff9254a00043c088003250891883c0980032529919c3c0a80003c0b8003256b919c8d4c00008d0d000025080004ad2c000025290004ad4d0000150bfff9254a00040c00a49d000000000c00a4a4000000002408f7fe3c018007ac28d3b83c018007ac20d3c08fbf000003e0000823bd0008"
+    )
+    assembly = "".join(f"\t.word\t0x{words[i:i + 8]}\n" for i in range(0, len(words), 8))
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_double_arc_tangent(lines: list[str]) -> list[str]:
     function_name = "func_80038380"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -14735,6 +14755,7 @@ def main() -> None:
     parser.add_argument("--schedule-special-record-load", action="store_true")
     parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-creation", action="store_true")
+    parser.add_argument("--schedule-exception-vector-installation", action="store_true")
     parser.add_argument("--schedule-double-arc-tangent", action="store_true")
     parser.add_argument("--schedule-archive-record-indexing", action="store_true")
     parser.add_argument("--schedule-render-record-creation", action="store_true")
@@ -14912,6 +14933,7 @@ def main() -> None:
             args.schedule_special_record_load,
             args.schedule_audio_runtime_record_selection,
             args.schedule_bitmap_render_object_creation,
+            args.schedule_exception_vector_installation,
             args.schedule_double_arc_tangent,
             args.schedule_archive_record_indexing,
             args.schedule_render_record_creation,
@@ -15206,6 +15228,8 @@ def main() -> None:
         lines = schedule_audio_runtime_record_selection(lines)
     if args.schedule_bitmap_render_object_creation:
         lines = schedule_bitmap_render_object_creation(lines)
+    if args.schedule_exception_vector_installation:
+        lines = schedule_exception_vector_installation(lines)
     if args.schedule_double_arc_tangent:
         lines = schedule_double_arc_tangent(lines)
     if args.schedule_archive_record_indexing:
