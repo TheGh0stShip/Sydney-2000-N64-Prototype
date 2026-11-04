@@ -1,0 +1,46 @@
+{
+  "archive": {
+    "alignment_bytes": 2093,
+    "directory_end": "0x224B78",
+    "directory_start": "0x1A3AB0",
+    "duplicate_aliases": 909,
+    "kinds": {
+      "4nt": 7,
+      "anb": 45,
+      "bdn": 1,
+      "bfx": 1,
+      "bin": 57,
+      "bri": 1,
+      "bsn": 1,
+      "dat": 141,
+      "fws": 1,
+      "mlu": 381,
+      "obb": 296,
+      "ptb": 36,
+      "ptr": 1,
+      "skb": 386,
+      "spr": 160,
+      "sprite_texture": 5394,
+      "stt": 12,
+      "tst": 12,
+      "untyped": 1,
+      "vds": 20,
+      "wbk": 1
+    },
+    "named_files": 1560,
+    "payload_base": "0x224B78",
+    "payload_end": "0x1DC1CE2",
+    "records": 6955,
+    "texture_header_records": 1,
+    "texture_subresources": 5394
+  },
+  "regions": 10,
+  "rom": {
+    "coverage_bytes": 33554432,
+    "coverage_percent": 100.0,
+    "meaningful_end": "0x1DC1CE2",
+    "sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+    "size": 33554432,
+    "zero_fill_bytes": 2351902
+  }
+}

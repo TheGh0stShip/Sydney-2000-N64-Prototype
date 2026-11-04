@@ -1,0 +1,11 @@
+start	end	size	class	description
+0x0	0x40	64	rom_header	N64 cartridge header
+0x40	0x1000	4032	ipl3	CIC 6102 boot program
+0x1000	0x69070	426096	resident_program	resident MIPS/RSP code and initialized data
+0x69070	0x127640	779728	overlay_bank	dynamically loaded MIPS code and data banks
+0x127640	0x1A3AB0	509040	runtime_catalog	event runtime and ROM-load catalog
+0x1A3AB0	0x224B78	528584	file_directory	6955 fixed-size file records
+0x224B78	0x2596A0	215848	texture_header	sprite-texture catalog payload
+0x2596A0	0x55D554	3161780	texture_payload	sprite-texture subresources and alignment
+0x55D554	0x1DC1CE2	25577358	named_file_payload	named files and alignment
+0x1DC1CE2	0x2000000	2351902	zero_fill	unused cartridge capacity
