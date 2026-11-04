@@ -746,7 +746,7 @@ functions = [
     { name = "func_80037840", vram = 0x80037840, size = 0x50 }, # asm
     { name = "func_80037890", vram = 0x80037890, size = 0x30 }, # leaf
     { name = "func_800378C0", vram = 0x800378c0, size = 0x40 }, # leaf
-    { name = "func_80037900", vram = 0x80037900, size = 0x50 }, # leaf
+    { name = "func_80037900", vram = 0x80037900, size = 0x50 }, # c
     { name = "func_80037950", vram = 0x80037950, size = 0x50 }, # leaf
     { name = "func_800379A0", vram = 0x800379a0, size = 0x3c }, # leaf
     { name = "func_800379DC", vram = 0x800379dc, size = 0x34 }, # c
