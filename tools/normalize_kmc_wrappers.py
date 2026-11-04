@@ -165,6 +165,40 @@ def load_global_halfword_through_v0(lines: list[str]) -> list[str]:
     return lines
 
 
+def reuse_global_base_after_load(lines: list[str]) -> list[str]:
+    matches: list[tuple[int, str, str]] = []
+    for index in range(len(lines) - 3):
+        address = re.fullmatch(
+            r"\s*la\s+\$5,([A-Za-z_][A-Za-z0-9_]*\+[0-9]+)\s*",
+            lines[index],
+        )
+        branch = re.fullmatch(
+            r"\s*beq\s+\$2,\$0,(\.L[0-9]+)\s*",
+            lines[index + 3],
+        )
+        if (
+            address
+            and lines[index + 1].strip() == "lw\t$2,0($5)"
+            and lines[index + 2].strip() == "#nop"
+            and branch
+        ):
+            matches.append((index, address.group(1), branch.group(1)))
+
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one reusable global-base load; found {len(matches)}")
+
+    index, expression, target = matches[0]
+    lines[index : index + 4] = [
+        "\t.set\tnoreorder\n",
+        f"\tlui\t$2,%hi({expression})\n",
+        f"\tlw\t$3,%lo({expression})($2)\n",
+        f"\tbeq\t$3,$0,{target}\n",
+        f"\taddiu\t$5,$2,%lo({expression})\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -174,6 +208,7 @@ def main() -> None:
     parser.add_argument("--move-full-address-before-ra-save", action="store_true")
     parser.add_argument("--schedule-status-result-returns", action="store_true")
     parser.add_argument("--load-global-halfword-through-v0", action="store_true")
+    parser.add_argument("--reuse-global-base-after-load", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -184,6 +219,7 @@ def main() -> None:
             args.move_full_address_before_ra_save,
             args.schedule_status_result_returns,
             args.load_global_halfword_through_v0,
+            args.reuse_global_base_after_load,
         )
     )
     if selected != 1:
@@ -198,6 +234,8 @@ def main() -> None:
         lines = schedule_status_result_returns(lines)
     if args.load_global_halfword_through_v0:
         lines = load_global_halfword_through_v0(lines)
+    if args.reuse_global_base_after_load:
+        lines = reuse_global_base_after_load(lines)
     args.output.write_text("".join(lines))
 
 
