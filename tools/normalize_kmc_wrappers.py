@@ -5020,6 +5020,86 @@ def schedule_double_tangent(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_double_cosine(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80038190"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one double-cosine body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "mtc1\t$0,$f0", "mtc1\t$0,$f1", "l.d\t$f2,cosinePi",
+        "c.le.d\t$f0,$f12", "bc1f\t.L2", "div.d\t$f6,$f12,$f2",
+        "l.d\t$f0,cosinePositiveHalf", "j\t.L6", "add.d\t$f6,$f6,$f0",
+        ".L2:", "l.d\t$f0,cosineNegativeHalf", "add.d\t$f6,$f6,$f0",
+        ".L6:", "l.d\t$f2,cosineReductionPi", "trunc.w.d $f0,$f6,$3",
+        "mfc1\t$2,$f0", "mtc1\t$2,$f0", "cvt.d.w\t$f0,$f0",
+        "mul.d\t$f0,$f0,$f2", "sub.d\t$f12,$f12,$f0",
+        "mul.d\t$f4,$f12,$f12", "l.d\t$f0,cosineCoefficient0",
+        "mul.d\t$f0,$f0,$f4", "l.d\t$f2,cosineCoefficient1",
+        "add.d\t$f0,$f0,$f2", "mul.d\t$f2,$f0,$f4",
+        "l.d\t$f0,cosineCoefficient2", "add.d\t$f0,$f2,$f0",
+        "mul.d\t$f2,$f0,$f4", "l.d\t$f0,cosineCoefficient3",
+        "add.d\t$f0,$f2,$f0", "mul.d\t$f6,$f0,$f4",
+        "l.d\t$f0,cosineCoefficient4", "l.d\t$f8,cosineCoefficient5",
+        "l.d\t$f10,cosineCoefficient6", "l.d\t$f2,cosineTwo",
+        "div.d\t$f2,$f4,$f2", "add.d\t$f0,$f6,$f0",
+        "mul.d\t$f0,$f0,$f4", "add.d\t$f0,$f0,$f8",
+        "mul.d\t$f0,$f0,$f4", "mul.d\t$f4,$f4,$f4",
+        "add.d\t$f0,$f0,$f10", "mul.d\t$f4,$f4,$f0",
+        "l.d\t$f0,cosineOne", "sub.d\t$f0,$f0,$f2", "andi\t$2,$2,0x0001",
+        "beq\t$2,$0,.L4", "add.d\t$f0,$f0,$f4", "neg.d\t$f0,$f0",
+        ".L4:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected double-cosine body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\tlui\t$1,%hi(cosinePi)\n",
+        "\tldc1\t$f0,%lo(cosinePi)($1)\n", "\tdiv.d\t$f2,$f12,$f0\n",
+        "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n", "\tnop\n",
+        "\tc.le.d\t$f0,$f12\n", "\tlui\t$1,%hi(cosineNegativeHalf)\n",
+        "\tldc1\t$f0,%lo(cosineNegativeHalf)($1)\n",
+        "\tbc1fl\t.Lcosine_rounded\n", "\tadd.d\t$f0,$f2,$f0\n",
+        "\tlui\t$1,%hi(cosinePositiveHalf)\n",
+        "\tldc1\t$f0,%lo(cosinePositiveHalf)($1)\n", "\tadd.d\t$f0,$f2,$f0\n",
+        ".Lcosine_rounded:\n", "\ttrunc.w.d\t$f2,$f0\n", "\tmfc1\t$3,$f2\n",
+        "\tnop\n", "\tmtc1\t$3,$f0\n", "\tnop\n", "\tcvt.d.w\t$f0,$f0\n",
+        "\tlui\t$1,%hi(cosineReductionPi)\n",
+        "\tldc1\t$f2,%lo(cosineReductionPi)($1)\n", "\tmul.d\t$f0,$f0,$f2\n",
+        "\tsub.d\t$f12,$f12,$f0\n", "\tmul.d\t$f4,$f12,$f12\n", "\tnop\n",
+        "\tmul.d\t$f6,$f4,$f4\n", "\tlui\t$1,%hi(cosineCoefficient0)\n",
+        "\tldc1\t$f0,%lo(cosineCoefficient0)($1)\n", "\tmul.d\t$f0,$f4,$f0\n",
+        "\tlui\t$1,%hi(cosineCoefficient1)\n",
+        "\tldc1\t$f2,%lo(cosineCoefficient1)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(cosineCoefficient2)\n",
+        "\tldc1\t$f2,%lo(cosineCoefficient2)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(cosineCoefficient3)\n",
+        "\tldc1\t$f2,%lo(cosineCoefficient3)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(cosineCoefficient4)\n",
+        "\tldc1\t$f2,%lo(cosineCoefficient4)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(cosineCoefficient5)\n",
+        "\tldc1\t$f2,%lo(cosineCoefficient5)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f0,$f4,$f0\n", "\tlui\t$1,%hi(cosineCoefficient6)\n",
+        "\tldc1\t$f2,%lo(cosineCoefficient6)($1)\n", "\tadd.d\t$f0,$f0,$f2\n",
+        "\tmul.d\t$f6,$f6,$f0\n", "\tlui\t$1,%hi(cosineTwo)\n",
+        "\tldc1\t$f0,%lo(cosineTwo)($1)\n", "\tdiv.d\t$f4,$f4,$f0\n",
+        "\tlui\t$1,%hi(cosineOne)\n", "\tldc1\t$f0,%lo(cosineOne)($1)\n",
+        "\tsub.d\t$f12,$f0,$f4\n", "\tandi\t$2,$3,1\n",
+        "\tbnez\t$2,.Lcosine_negative\n", "\tadd.d\t$f12,$f12,$f6\n",
+        "\tj\t.Lcosine_done\n", "\tmov.d\t$f0,$f12\n", ".Lcosine_negative:\n",
+        "\tneg.d\t$f0,$f12\n", ".Lcosine_done:\n", "\tjr\t$31\n", "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5107,6 +5187,7 @@ def main() -> None:
     parser.add_argument("--schedule-nested-render-object-creation", action="store_true")
     parser.add_argument("--schedule-startup-message-drain", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
+    parser.add_argument("--schedule-double-cosine", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5195,6 +5276,7 @@ def main() -> None:
             args.schedule_nested_render_object_creation,
             args.schedule_startup_message_drain,
             args.schedule_double_tangent,
+            args.schedule_double_cosine,
         )
     )
     if selected != 1:
@@ -5365,6 +5447,8 @@ def main() -> None:
         lines = schedule_startup_message_drain(lines)
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
+    if args.schedule_double_cosine:
+        lines = schedule_double_cosine(lines)
     args.output.write_text("".join(lines))
 
 
