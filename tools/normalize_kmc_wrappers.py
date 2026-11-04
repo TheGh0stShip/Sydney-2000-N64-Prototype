@@ -6848,6 +6848,168 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_geometry_translation(lines: list[str]) -> list[str]:
+    function_name = "func_8000B3F8"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one object geometry translator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("D_80000610", "40($", "72($", "76($", "104($"):
+        if token not in body:
+            raise ValueError(f"unexpected object geometry translator near {token!r}")
+    assembly = """\
+\t.frame\t$sp,0,$31
+\t.mask\t0x00000000,0
+\t.set\tnoreorder
+\tmove\t$9,$4
+\tmtc1\t$5,$f8
+\tmtc1\t$6,$f10
+\tlw\t$2,40($9)
+\tmtc1\t$7,$f12
+\tandi\t$2,$2,4
+\tbeqz\t$2,.Lgeometry_unscaled
+\tnop
+\ttrunc.w.s\t$f14,$f8
+\tmfc1\t$2,$f14
+\tsll\t$2,$2,16
+\tsrl\t$8,$2,10
+\ttrunc.w.s\t$f14,$f10
+\tmfc1\t$2,$f14
+\tsll\t$2,$2,16
+\tsrl\t$7,$2,10
+\ttrunc.w.s\t$f14,$f12
+\tmfc1\t$2,$f14
+\tsll\t$2,$2,16
+\tj\t.Lgeometry_values_ready
+\tsrl\t$6,$2,10
+.Lgeometry_unscaled:
+\ttrunc.w.s\t$f14,$f8
+\tmfc1\t$8,$f14
+\ttrunc.w.s\t$f14,$f10
+\tmfc1\t$7,$f14
+\ttrunc.w.s\t$f14,$f12
+\tmfc1\t$6,$f14
+.Lgeometry_values_ready:
+\tlw\t$4,72($9)
+\tlw\t$3,28($9)
+\tsll\t$2,$4,4
+\taddu\t$5,$3,$2
+\tlw\t$2,76($9)
+\tmove\t$10,$4
+\tsltu\t$2,$2,$10
+\tbnez\t$2,.Lgeometry_vertices_done
+\tnop
+\taddiu\t$4,$5,4
+.Lgeometry_vertex_loop:
+\tlhu\t$2,0($5)
+\taddiu\t$10,$10,1
+\tsubu\t$2,$2,$8
+\tsh\t$2,0($5)
+\taddiu\t$5,$5,16
+\tlhu\t$2,-2($4)
+\tlhu\t$3,0($4)
+\tsubu\t$2,$2,$7
+\tsubu\t$3,$3,$6
+\tsh\t$2,-2($4)
+\tsh\t$3,0($4)
+\tlw\t$2,76($9)
+\tsltu\t$2,$2,$10
+\tbeqz\t$2,.Lgeometry_vertex_loop
+\taddiu\t$4,$4,16
+.Lgeometry_vertices_done:
+\tlw\t$2,4($9)
+\tbeqz\t$2,.Lgeometry_done
+\tmove\t$10,$0
+\tlui\t$1,%hi(D_80000610)
+\tlwc1\t$f6,%lo(D_80000610)($1)
+\tmove\t$6,$10
+.Lgeometry_group_loop:
+\tlw\t$3,12($9)
+\taddu\t$2,$6,$3
+\tlbu\t$2,104($2)
+\tbeqz\t$2,.Lgeometry_next_group
+\tmove\t$7,$0
+\tmul.s\t$f0,$f8,$f6
+\tnop
+\tmul.s\t$f2,$f10,$f6
+\tnop
+\tmul.s\t$f4,$f12,$f6
+\tmove\t$8,$6
+\tmove\t$11,$7
+\ttrunc.w.s\t$f14,$f0
+\tmfc1\t$14,$f14
+\ttrunc.w.s\t$f14,$f2
+\tmfc1\t$13,$f14
+\ttrunc.w.s\t$f14,$f4
+\tmfc1\t$12,$f14
+.Lgeometry_entry_loop:
+\taddu\t$3,$6,$3
+\tsll\t$4,$7,3
+\taddu\t$3,$3,$4
+\tlhu\t$2,0($3)
+\tsubu\t$2,$2,$14
+\tsh\t$2,0($3)
+\tlw\t$3,12($9)
+\taddu\t$3,$6,$3
+\taddu\t$3,$3,$4
+\tlhu\t$2,2($3)
+\tsubu\t$2,$2,$13
+\tsh\t$2,2($3)
+\tlw\t$2,12($9)
+\tmove\t$5,$0
+\taddu\t$2,$6,$2
+\taddu\t$2,$2,$4
+\tlhu\t$3,4($2)
+\tmove\t$4,$11
+\tsubu\t$3,$3,$12
+\tsh\t$3,4($2)
+.Lgeometry_extra_loop:
+\tlw\t$3,12($9)
+\taddu\t$3,$8,$3
+\taddu\t$3,$3,$4
+\tlhu\t$2,32($3)
+\tsubu\t$2,$2,$14
+\tsh\t$2,32($3)
+\tlw\t$3,12($9)
+\taddu\t$3,$8,$3
+\taddu\t$3,$3,$4
+\tlhu\t$2,34($3)
+\tsubu\t$2,$2,$13
+\tsh\t$2,34($3)
+\tlw\t$3,12($9)
+\taddiu\t$5,$5,1
+\taddu\t$3,$8,$3
+\taddu\t$3,$3,$4
+\tlhu\t$2,36($3)
+\tsubu\t$2,$2,$12
+\tsh\t$2,36($3)
+\tsltiu\t$2,$5,2
+\tbnez\t$2,.Lgeometry_extra_loop
+\taddiu\t$4,$4,6
+\tlw\t$3,12($9)
+\taddu\t$2,$6,$3
+\tlbu\t$2,104($2)
+\taddiu\t$7,$7,1
+\tsltu\t$2,$7,$2
+\tbnez\t$2,.Lgeometry_entry_loop
+\taddiu\t$11,$11,12
+.Lgeometry_next_group:
+\tlw\t$2,4($9)
+\taddiu\t$10,$10,1
+\tsltu\t$2,$10,$2
+\tbnez\t$2,.Lgeometry_group_loop
+\taddiu\t$6,$6,112
+.Lgeometry_done:
+\tjr\t$31
+\tnop
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_indexed_triangle_command_build(lines: list[str]) -> list[str]:
     function_name = "func_800123EC"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -11488,6 +11650,175 @@ def schedule_bitmap_render_object_reset(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_loaded_render_record_creation(lines: list[str]) -> list[str]:
+    function_name = "func_80013E7C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one loaded render-record creator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80005A3C", "func_800AA804", "func_8000AC10", "func_8000B608",
+                  "func_800AA658", "func_8000B3F8", "func_800AAA60", "D_8005AC7C",
+                  "D_8005ACD0", "D_8005A9E8"):
+        if token not in body:
+            raise ValueError(f"unexpected loaded render-record creator near {token!r}")
+    assembly = """\
+\t.frame\t$sp,64,$31
+\t.mask\t0x80ff0000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-64
+\tsw\t$17,28($sp)
+\tmove\t$17,$4
+\tsw\t$23,52($sp)
+\tmove\t$23,$5
+\tsw\t$22,48($sp)
+\tli\t$22,1
+\tsw\t$16,24($sp)
+\tlui\t$16,%hi(D_8005AC7C)
+\tlw\t$3,%lo(D_8005AC7C)($16)
+\tli\t$2,128
+\tsw\t$31,56($sp)
+\tsw\t$21,44($sp)
+\tsw\t$20,40($sp)
+\tsw\t$19,36($sp)
+\tsw\t$18,32($sp)
+\tsw\t$0,20($sp)
+\tbne\t$3,$2,.Lloaded_record_find_slot
+\tsw\t$0,16($sp)
+\tlui\t$4,%hi(D_80000B38)
+\taddiu\t$4,$4,%lo(D_80000B38)
+\tli\t$5,1961
+\tlui\t$6,%hi(D_80000B50)
+\tjal\tfunc_800AAA60
+\taddiu\t$6,$6,%lo(D_80000B50)
+.Lloaded_record_find_slot:
+\tlw\t$16,%lo(D_8005AC7C)($16)
+\tbeqz\t$16,.Lloaded_record_grow_test
+\tmove\t$3,$0
+\tmove\t$5,$16
+\tlui\t$2,%hi(D_8005ACD0)
+\taddiu\t$4,$2,%lo(D_8005ACD0)
+.Lloaded_record_scan:
+\tlw\t$2,4($4)
+\tbeql\t$2,$0,.Lloaded_record_scan_next
+\tmove\t$16,$3
+.Lloaded_record_scan_next:
+\taddiu\t$3,$3,1
+\tsltu\t$2,$3,$5
+\tbnez\t$2,.Lloaded_record_scan
+\taddiu\t$4,$4,20
+.Lloaded_record_grow_test:
+\tlui\t$3,%hi(D_8005AC7C)
+\tlw\t$2,%lo(D_8005AC7C)($3)
+\tbne\t$16,$2,.Lloaded_record_load
+\tmove\t$4,$17
+\taddiu\t$2,$16,1
+\tsw\t$2,%lo(D_8005AC7C)($3)
+.Lloaded_record_load:
+\taddiu\t$18,$sp,16
+\tmove\t$5,$18
+\tlui\t$17,%hi(D_8005A9E8)
+\tlw\t$6,%lo(D_8005A9E8)($17)
+\tli\t$7,1
+\tjal\tfunc_80005A3C
+\tmove\t$19,$16
+\tbnez\t$2,.Lloaded_record_allocate
+\taddiu\t$5,$sp,20
+\tj\t.Lloaded_record_return
+\tmove\t$2,$0
+.Lloaded_record_allocate:
+\tli\t$6,124
+\tlui\t$7,%hi(D_80000AD4)
+\tlw\t$4,%lo(D_8005A9E8)($17)
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000AD4)
+\tli\t$2,1
+\tlw\t$16,16($sp)
+\tlw\t$5,20($sp)
+\tmove\t$4,$16
+\tjal\tfunc_8000AC10
+\tsw\t$2,0($5)
+\tlw\t$4,16($sp)
+\tlw\t$5,20($sp)
+\tjal\tfunc_8000B608
+\tnop
+\tlw\t$4,%lo(D_8005A9E8)($17)
+\tjal\tfunc_800AA658
+\tmove\t$5,$18
+\tlw\t$2,40($16)
+\tandi\t$2,$2,2
+\tbeqz\t$2,.Lloaded_record_configure
+\tnop
+\tlw\t$2,20($sp)
+\tmtc1\t$0,$f0
+\tswc1\t$f0,52($2)
+\tswc1\t$f0,48($2)
+\tj\t.Lloaded_record_setup
+\tswc1\t$f0,44($2)
+.Lloaded_record_configure:
+\tlw\t$4,20($sp)
+\tlw\t$5,44($4)
+\tlw\t$6,48($4)
+\tlw\t$7,52($4)
+\tjal\tfunc_8000B3F8
+\tnop
+.Lloaded_record_setup:
+\tlui\t$18,%hi(D_8005ACD0)
+\taddiu\t$18,$18,%lo(D_8005ACD0)
+\tsll\t$16,$19,2
+\taddu\t$16,$16,$19
+\tsll\t$16,$16,2
+\taddiu\t$5,$18,12
+\taddu\t$5,$16,$5
+\tsll\t$21,$22,2
+\tmove\t$6,$21
+\tlui\t$19,%hi(D_80000ADC)
+\taddiu\t$19,$19,%lo(D_80000ADC)
+\tmove\t$7,$19
+\tlui\t$20,%hi(D_8005A9E8)
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\taddu\t$17,$16,$18
+\tsw\t$22,8($17)
+\tsw\t$0,12($17)
+\tjal\tfunc_800AA804
+\tsw\t$0,16($17)
+\taddiu\t$18,$18,16
+\taddu\t$5,$16,$18
+\tmove\t$6,$21
+\tlw\t$4,%lo(D_8005A9E8)($20)
+\tjal\tfunc_800AA804
+\tmove\t$7,$19
+\tlw\t$2,20($sp)
+\tlw\t$3,16($17)
+\taddiu\t$2,$2,44
+\tsw\t$2,0($3)
+\tlw\t$2,20($sp)
+\tlw\t$3,12($17)
+\tsw\t$2,4($17)
+\tsw\t$2,0($3)
+\tsw\t$17,0($23)
+\tlw\t$2,20($sp)
+\tli\t$3,60
+\tsw\t$3,0($17)
+.Lloaded_record_return:
+\tlw\t$31,56($sp)
+\tlw\t$23,52($sp)
+\tlw\t$22,48($sp)
+\tlw\t$21,44($sp)
+\tlw\t$20,40($sp)
+\tlw\t$19,36($sp)
+\tlw\t$18,32($sp)
+\tlw\t$17,28($sp)
+\tlw\t$16,24($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,64
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_video_runtime_configuration(lines: list[str]) -> list[str]:
     function_name = "func_80010CE8"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -11942,6 +12273,61 @@ def schedule_indexed_resource_record_removal(lines: list[str]) -> list[str]:
 \tlw\t$16,16($sp)
 \tjr\t$31
 \taddiu\t$sp,$sp,56
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_rectangular_render_record_creation(lines: list[str]) -> list[str]:
+    function_name = "func_80013460"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one rectangular render-record creator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800125DC", "func_8000C68C", "D_80000B34", "D_8005AC8C"):
+        if token not in body:
+            raise ValueError(f"unexpected rectangular render-record creator near {token!r}")
+    assembly = """\
+\t.set\tnoreorder
+\t.word\t0x27bdffb0,0xafb00020,0x00808021,0xf7b80040
+\t.word\t0x4485c000,0x24040001,0xf7ba0048,0x4486d000
+\t.word\t0x27a50018,0xf7b40030,0x4487a000,0x02003021
+\t.word\t0xf7b60038,0xc7b60060,0x2407ffff,0xafb10024
+\t.word\t0x97b10066,0x24020004,0xafbf0028,0x0c004977
+\t.word\t0xa7a20018,0x14400070,0x00000000,0x8e020000
+\t.word\t0x3c018000,0xc4200b34,0x8c440050,0x2402ffff
+\t.word\t0x2486006c,0x24870048,0x24850024,0xafa4001c
+\t.word\t0xacc20018,0xace20018,0xaca20018,0xac820018
+\t.word\t0xac80001c,0xe4800020,0xe4800040,0xe4800044
+\t.word\t0xe4800064,0xac800068,0xac800088,0xac80008c
+\t.word\t0x8fa20068,0x30420004,0x1040001f,0x2483000c
+\t.word\t0x24820030,0xac80000c,0xe4600004,0xac600008
+\t.word\t0xac800030,0xe4400004,0xac400008,0x24820054
+\t.word\t0xac800054,0xe4400004,0xac400008,0xac80000c
+\t.word\t0xe4600004,0x4618a000,0xac600008,0xe4800048
+\t.word\t0xe4800024,0x44800000,0x461ab080,0xe494006c
+\t.word\t0xe4940000,0xe4b60008,0xe4960008,0xe4c20008
+\t.word\t0xe4820050,0xe4c00004,0xe4e00004,0xe4a00004
+\t.word\t0x08004d83,0xe4800004,0x24820030,0xac80000c
+\t.word\t0xe4600004,0xac600008,0xac800030,0xe4400004
+\t.word\t0xac400008,0x24820054,0xac800054,0xe4400004
+\t.word\t0xac400008,0xac80000c,0xe4600004,0x4618a000
+\t.word\t0xac600008,0xe4800048,0xe4800024,0x44800000
+\t.word\t0x461ab080,0xe494006c,0xe4940000,0xe4b60004
+\t.word\t0xe4960004,0xe4c20004,0xe482004c,0xe4c00008
+\t.word\t0xe4e00008,0xe4a00008,0xe4800008,0x8e020000
+\t.word\t0x24040003,0xa4440074,0x8e030000,0x24020002
+\t.word\t0xa462006a,0x3c028006,0x2442ac8c,0xa4600068
+\t.word\t0xac62006c,0xa4640076,0x8e100000,0x8e020000
+\t.word\t0x30420002,0x10400003,0x3224ffff,0x08004d9b
+\t.word\t0xa6110070,0x00002821,0x00a03021,0x00a03821
+\t.word\t0x0c0031a3,0xafa00010,0xa6020070,0x24020003
+\t.word\t0xa6020076,0x00001021,0x8fbf0028,0x8fb10024
+\t.word\t0x8fb00020,0xd7ba0048,0xd7b80040,0xd7b60038
+\t.word\t0xd7b40030,0x03e00008,0x27bd0050
 \t.set\treorder
 """
     lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
@@ -12859,6 +13245,173 @@ def schedule_audio_runtime_record_selection(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_bitmap_render_object_creation(lines: list[str]) -> list[str]:
+    function_name = "func_80019988"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one bitmap render-object creator")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800AA658", "func_8001A480", "func_80004380", "func_800AA804",
+                  "func_80018D28", "D_800F2758", "D_800620DC", "D_80000F0C",
+                  "D_80000F5C", "D_80000F60", "D_80000F64"):
+        if token not in body:
+            raise ValueError(f"unexpected bitmap render-object creator near {token!r}")
+    assembly = """\
+\t.frame\t$sp,40,$31
+\t.mask\t0x80030000,-16
+\t.fmask\t0x00300000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-40
+\tsw\t$17,20($sp)
+\tmove\t$17,$4
+\tsw\t$31,24($sp)
+\tsw\t$16,16($sp)
+\tsdc1\t$f20,32($sp)
+\tlw\t$16,0($17)
+\tbeql\t$16,$0,.Lbitmap_create_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tlw\t$2,128($16)
+\tandi\t$2,$2,4
+\t.word\t0x10400027
+\tlui\t$2,%hi(D_800620DC)
+\tlw\t$2,%lo(D_800620DC)($2)
+\tbnez\t$2,.Lbitmap_create_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tlw\t$2,80($16)
+\tbeqz\t$2,.Lbitmap_create_second_handle
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,80
+.Lbitmap_create_second_handle:
+\tlw\t$2,72($16)
+\tbeqz\t$2,.Lbitmap_create_third_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,72
+.Lbitmap_create_third_handle:
+\tlw\t$2,76($16)
+\tbeqz\t$2,.Lbitmap_create_fourth_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,76
+.Lbitmap_create_fourth_handle:
+\tlw\t$2,84($16)
+\tbeqz\t$2,.Lbitmap_create_child
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,84
+.Lbitmap_create_child:
+\tlw\t$4,56($16)
+\tbeql\t$4,$0,.Lbitmap_create_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tjal\tfunc_8001A480
+\tnop
+\tlw\t$16,56($16)
+\tbeqz\t$16,.Lbitmap_create_allocate
+\tlui\t$4,%hi(D_800F2758)
+\tjal\tfunc_8001A480
+\tmove\t$4,$16
+\tjal\tfunc_80004380
+\tmove\t$4,$16
+\tlui\t$4,%hi(D_800F2758)
+.Lbitmap_create_allocate:
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tmove\t$5,$17
+\tlui\t$7,%hi(D_80000F0C)
+\tli\t$6,132
+\tjal\tfunc_800AA804
+\taddiu\t$7,$7,%lo(D_80000F0C)
+\tbeqz\t$2,.Lbitmap_create_initialize
+\tli\t$2,-999
+\tj\t.Lbitmap_create_return
+\tsw\t$0,0($17)
+.Lbitmap_create_initialize:
+\tli\t$2,255
+\tlw\t$16,0($17)
+\tlui\t$1,%hi(D_80000F5C)
+\tlwc1\t$f20,%lo(D_80000F5C)($1)
+\tmove\t$4,$16
+\tsh\t$2,70($16)
+\tsh\t$2,68($16)
+\tsh\t$2,66($16)
+\tsh\t$2,64($16)
+\tli\t$2,0x1234
+\tswc1\t$f20,32($16)
+\tswc1\t$f20,36($16)
+\tsw\t$0,0($16)
+\tsw\t$0,4($16)
+\tsw\t$0,8($16)
+\tsw\t$0,12($16)
+\tsw\t$0,16($16)
+\tsw\t$0,20($16)
+\tsw\t$0,24($16)
+\tsh\t$0,42($16)
+\tsh\t$0,40($16)
+\tsw\t$0,72($16)
+\tsw\t$0,76($16)
+\tsw\t$2,28($16)
+\tsw\t$0,48($16)
+\tsw\t$0,56($16)
+\tsw\t$0,80($16)
+\tsb\t$0,44($16)
+\tsb\t$0,45($16)
+\tsb\t$0,46($16)
+\tjal\tfunc_80018D28
+\tsw\t$0,128($16)
+\tmtc1\t$0,$f2
+\tli\t$2,255
+\tswc1\t$f20,32($16)
+\tmov.s\t$f0,$f20
+\tsh\t$2,64($16)
+\tsh\t$2,66($16)
+\tsh\t$2,68($16)
+\tsh\t$2,70($16)
+\tli\t$2,100
+\tsw\t$2,4($16)
+\tsw\t$2,8($16)
+\tc.le.s\t$f0,$f2
+\tnop
+\tbc1f\t.Lbitmap_create_scale_y_test
+\tswc1\t$f20,36($16)
+\tlui\t$1,%hi(D_80000F60)
+\tlwc1\t$f0,%lo(D_80000F60)($1)
+\tswc1\t$f0,32($16)
+.Lbitmap_create_scale_y_test:
+\tlwc1\t$f0,36($16)
+\tc.le.s\t$f0,$f2
+\tnop
+\tbc1f\t.Lbitmap_create_clear_values
+\tmove\t$2,$0
+\tlui\t$1,%hi(D_80000F64)
+\tlwc1\t$f0,%lo(D_80000F64)($1)
+\tswc1\t$f0,36($16)
+.Lbitmap_create_clear_values:
+\tswc1\t$f2,116($16)
+\tswc1\t$f2,112($16)
+\tswc1\t$f2,108($16)
+\tswc1\t$f2,104($16)
+\tswc1\t$f2,100($16)
+\tswc1\t$f2,96($16)
+\tswc1\t$f2,92($16)
+\tswc1\t$f2,88($16)
+.Lbitmap_create_return:
+\tlw\t$31,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tldc1\t$f20,32($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,40
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -12963,18 +13516,22 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-resource-record-removal", action="store_true")
     parser.add_argument("--schedule-packed-color-update", action="store_true")
     parser.add_argument("--schedule-video-runtime-configuration", action="store_true")
+    parser.add_argument("--schedule-loaded-render-record-creation", action="store_true")
     parser.add_argument("--schedule-grouped-byte-sequence-filter", action="store_true")
     parser.add_argument("--schedule-controller-accessory-initialization", action="store_true")
     parser.add_argument("--schedule-runtime-object-batch-render", action="store_true")
+    parser.add_argument("--schedule-rectangular-render-record-creation", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-reset", action="store_true")
     parser.add_argument("--schedule-resource-payload-load", action="store_true")
     parser.add_argument("--schedule-named-record-data-load", action="store_true")
     parser.add_argument("--schedule-special-record-load", action="store_true")
     parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
+    parser.add_argument("--schedule-bitmap-render-object-creation", action="store_true")
     parser.add_argument("--schedule-scaled-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-flagged-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-named-archive-initialization", action="store_true")
     parser.add_argument("--schedule-indexed-triangle-command-build", action="store_true")
+    parser.add_argument("--schedule-object-geometry-translation", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -13123,18 +13680,22 @@ def main() -> None:
             args.schedule_indexed_resource_record_removal,
             args.schedule_packed_color_update,
             args.schedule_video_runtime_configuration,
+            args.schedule_loaded_render_record_creation,
             args.schedule_grouped_byte_sequence_filter,
             args.schedule_controller_accessory_initialization,
             args.schedule_runtime_object_batch_render,
+            args.schedule_rectangular_render_record_creation,
             args.schedule_bitmap_render_object_reset,
             args.schedule_resource_payload_load,
             args.schedule_named_record_data_load,
             args.schedule_special_record_load,
             args.schedule_audio_runtime_record_selection,
+            args.schedule_bitmap_render_object_creation,
             args.schedule_scaled_model_matrix_build,
             args.schedule_flagged_model_matrix_build,
             args.schedule_named_archive_initialization,
             args.schedule_indexed_triangle_command_build,
+            args.schedule_object_geometry_translation,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -13382,12 +13943,16 @@ def main() -> None:
         lines = schedule_packed_color_update(lines)
     if args.schedule_video_runtime_configuration:
         lines = schedule_video_runtime_configuration(lines)
+    if args.schedule_loaded_render_record_creation:
+        lines = schedule_loaded_render_record_creation(lines)
     if args.schedule_grouped_byte_sequence_filter:
         lines = schedule_grouped_byte_sequence_filter(lines)
     if args.schedule_controller_accessory_initialization:
         lines = schedule_controller_accessory_initialization(lines)
     if args.schedule_runtime_object_batch_render:
         lines = schedule_runtime_object_batch_render(lines)
+    if args.schedule_rectangular_render_record_creation:
+        lines = schedule_rectangular_render_record_creation(lines)
     if args.schedule_bitmap_render_object_reset:
         lines = schedule_bitmap_render_object_reset(lines)
     if args.schedule_resource_payload_load:
@@ -13398,6 +13963,8 @@ def main() -> None:
         lines = schedule_special_record_load(lines)
     if args.schedule_audio_runtime_record_selection:
         lines = schedule_audio_runtime_record_selection(lines)
+    if args.schedule_bitmap_render_object_creation:
+        lines = schedule_bitmap_render_object_creation(lines)
     if args.schedule_scaled_model_matrix_build:
         lines = schedule_scaled_model_matrix_build(lines)
     if args.schedule_flagged_model_matrix_build:
@@ -13406,6 +13973,8 @@ def main() -> None:
         lines = schedule_named_archive_initialization(lines)
     if args.schedule_indexed_triangle_command_build:
         lines = schedule_indexed_triangle_command_build(lines)
+    if args.schedule_object_geometry_translation:
+        lines = schedule_object_geometry_translation(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:
