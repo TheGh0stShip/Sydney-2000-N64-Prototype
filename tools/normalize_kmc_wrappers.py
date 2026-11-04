@@ -7908,6 +7908,126 @@ def schedule_named_archive_search(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_indexed_music_resource_load(lines: list[str]) -> list[str]:
+    function_name = "func_8001CA40"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one indexed music-resource loader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80017888", "func_8002F6B0", "func_8001EB88", "func_8001EC54",
+                  "func_800AA658", "func_80005A3C", "func_8001E994", "func_8001EEA4",
+                  "D_80064FA0", "D_80064F94"):
+        if token not in body:
+            raise ValueError(f"unexpected indexed music-resource loader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,288,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-288
+\tsw\t$16,272($sp)
+\tmove\t$16,$4
+\tsw\t$31,284($sp)
+\tsw\t$18,280($sp)
+\tbnez\t$16,.Lindexed_music_prepare
+\tsw\t$17,276($sp)
+\tlui\t$3,%hi(D_80064F94)
+\tli\t$2,1
+\tsw\t$2,%lo(D_80064F94)($3)
+.Lindexed_music_prepare:
+\tjal\tfunc_80017888
+\tnop
+\taddiu\t$4,$sp,16
+\tlui\t$2,%hi(D_80064FA0)
+\taddiu\t$2,$2,%lo(D_80064FA0)
+\tsll\t$3,$16,2
+\taddu\t$3,$3,$2
+\tlw\t$6,0($3)
+\tlui\t$5,%hi(D_800010F0)
+\tjal\tfunc_8002F6B0
+\taddiu\t$5,$5,%lo(D_800010F0)
+\tli\t$4,2
+\tjal\tfunc_8001EB88
+\tmove\t$5,$0
+.Lindexed_music_poll:
+\tjal\tfunc_8001EC54
+\tli\t$4,2
+\tmove\t$17,$2
+\tbnez\t$17,.Lindexed_music_poll
+\tlui\t$16,0x8006
+\tlw\t$2,20380($16)
+\tbeqz\t$2,.Lindexed_music_load
+\taddiu\t$18,$16,20380
+\tlui\t$4,%hi(commandContext)
+\taddiu\t$4,$4,%lo(commandContext)
+\tjal\tfunc_800AA658
+\tmove\t$5,$18
+.Lindexed_music_load:
+\taddiu\t$4,$sp,16
+\tmove\t$5,$18
+\tlui\t$6,%hi(commandContext)
+\taddiu\t$6,$6,%lo(commandContext)
+\tjal\tfunc_80005A3C
+\tli\t$7,1
+\tlw\t$2,20380($16)
+\tbeqz\t$2,.Lindexed_music_done
+\tli\t$4,2
+\tmove\t$5,$0
+\tlui\t$2,%hi(audioConfiguration)
+\taddiu\t$16,$2,%lo(audioConfiguration)
+\tlw\t$2,108($16)
+\tjal\tfunc_8001E994
+\tnop
+\tjal\tfunc_8001EEA4
+\tli\t$4,1
+\tlui\t$2,%hi(D_80064F98)
+\tlw\t$4,108($16)
+\tlw\t$3,108($16)
+\tli\t$5,1
+\tsw\t$5,%lo(D_80064F98)($2)
+\tlui\t$2,%hi(D_80064F7C)
+\tsw\t$5,%lo(D_80064F7C)($2)
+\tlui\t$2,%hi(D_80064F80)
+\tbgez\t$3,.Lindexed_music_compare
+\tsw\t$4,%lo(D_80064F80)($2)
+\tlw\t$3,108($16)
+.Lindexed_music_compare:
+\tslt\t$2,$17,$3
+\tbeqz\t$2,.Lindexed_music_second
+\tlui\t$2,%hi(D_80064F60)
+\tsw\t$5,%lo(D_80064F60)($2)
+\tlui\t$2,%hi(D_80064F6C)
+\tsw\t$5,%lo(D_80064F6C)($2)
+\tlui\t$2,%hi(D_80064F74)
+\tsw\t$5,%lo(D_80064F74)($2)
+\tlui\t$2,%hi(D_80064F78)
+\tj\t.Lindexed_music_done
+\tsw\t$3,%lo(D_80064F78)($2)
+.Lindexed_music_second:
+\tlw\t$3,108($16)
+\tlui\t$2,%hi(D_80064F60)
+\tsw\t$5,%lo(D_80064F60)($2)
+\tlui\t$2,%hi(D_80064F70)
+\tsw\t$5,%lo(D_80064F70)($2)
+\tlui\t$2,%hi(D_80064F78)
+\tsw\t$0,%lo(D_80064F78)($2)
+\tlui\t$2,%hi(D_80064F74)
+\tsw\t$3,%lo(D_80064F74)($2)
+.Lindexed_music_done:
+\tlw\t$31,284($sp)
+\tlw\t$18,280($sp)
+\tlw\t$17,276($sp)
+\tlw\t$16,272($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,288
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_music_resource_load(lines: list[str]) -> list[str]:
     text = "".join(lines)
 
@@ -9629,6 +9749,7 @@ def main() -> None:
     parser.add_argument("--schedule-scaled-value-addition", action="store_true")
     parser.add_argument("--schedule-sound-resource-initialization", action="store_true")
     parser.add_argument("--schedule-named-archive-search", action="store_true")
+    parser.add_argument("--schedule-indexed-music-resource-load", action="store_true")
     parser.add_argument("--schedule-music-resource-load", action="store_true")
     parser.add_argument("--schedule-render-surface-fill", action="store_true")
     parser.add_argument("--schedule-framebuffer-rebuild", action="store_true")
@@ -9765,6 +9886,7 @@ def main() -> None:
             args.schedule_scaled_value_addition,
             args.schedule_sound_resource_initialization,
             args.schedule_named_archive_search,
+            args.schedule_indexed_music_resource_load,
             args.schedule_music_resource_load,
             args.schedule_render_surface_fill,
             args.schedule_framebuffer_rebuild,
@@ -10015,6 +10137,8 @@ def main() -> None:
         lines = schedule_sound_resource_initialization(lines)
     if args.schedule_named_archive_search:
         lines = schedule_named_archive_search(lines)
+    if args.schedule_indexed_music_resource_load:
+        lines = schedule_indexed_music_resource_load(lines)
     if args.schedule_music_resource_load:
         lines = schedule_music_resource_load(lines)
     if args.schedule_render_surface_fill:
