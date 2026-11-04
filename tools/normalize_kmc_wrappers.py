@@ -3474,6 +3474,117 @@ def schedule_scheduler_task_loop(lines: list[str]) -> list[str]:
     return lines
 
 
+def normalize_framebuffer_wait(lines: list[str]) -> list[str]:
+    import hashlib
+
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    digest = hashlib.sha256("\n".join(body).encode()).hexdigest()
+    expected_digest = "ad05496eaadde65d206c6e3678fba18780a140847d629f33949db1007efb413b"
+    if len(body) != 87 or digest != expected_digest:
+        raise ValueError(
+            "unexpected framebuffer-wait compiler body: "
+            f"digest {digest}, count {len(body)}"
+        )
+
+    starts = [index for index, line in enumerate(lines) if line.strip() == "func_8000618C:"]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8000618C"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one framebuffer-wait function body; "
+            f"found {(len(starts), len(ends))}"
+        )
+
+    lines[starts[0] + 1 : ends[0]] = [
+        "\t.set\tnoreorder\n",
+        "\taddiu\t$sp,$sp,-64\n",
+        "\tsw\t$19,44($sp)\n",
+        "\tmove\t$19,$4\n",
+        "\tsw\t$20,48($sp)\n",
+        "\taddiu\t$20,$sp,16\n",
+        "\tsw\t$31,60($sp)\n",
+        "\tsw\t$22,56($sp)\n",
+        "\tsw\t$21,52($sp)\n",
+        "\tsw\t$18,40($sp)\n",
+        "\tsw\t$17,36($sp)\n",
+        "\tsw\t$16,32($sp)\n",
+        "\tlw\t$22,12($5)\n",
+        "\taddiu\t$21,$19,284\n",
+        "\tsw\t$0,24($sp)\n",
+        ".Lframebuffer_check:\n",
+        "\tjal\tfunc_800346F0\n",
+        "\tmove\t$16,$0\n",
+        "\tbeql\t$2,$22,.Lframebuffer_busy\n",
+        "\tli\t$16,1\n",
+        "\tjal\tfunc_80034840\n",
+        "\tnop\n",
+        "\tbeql\t$2,$22,.Lframebuffer_busy\n",
+        "\tli\t$16,1\n",
+        ".Lframebuffer_busy:\n",
+        "\tbeqz\t$16,.Lframebuffer_return\n",
+        "\tnop\n",
+        "\tjal\tfunc_8002A3E0\n",
+        "\tli\t$4,1\n",
+        "\tmove\t$4,$2\n",
+        "\tsw\t$21,4($20)\n",
+        "\tlw\t$2,1640($19)\n",
+        "\tmove\t$17,$0\n",
+        "\tsw\t$2,16($sp)\n",
+        "\tjal\tfunc_8002A3E0\n",
+        "\tsw\t$20,1640($19)\n",
+        "\tmove\t$4,$21\n",
+        "\taddiu\t$5,$sp,24\n",
+        "\tjal\tfunc_80032BB0\n",
+        "\tli\t$6,1\n",
+        "\tlw\t$16,1640($19)\n",
+        "\tjal\tfunc_8002A3E0\n",
+        "\tli\t$4,1\n",
+        "\tmove\t$18,$20\n",
+        "\tbeqz\t$16,.Lframebuffer_restore\n",
+        "\tmove\t$4,$2\n",
+        ".Lframebuffer_search:\n",
+        "\tbnel\t$16,$18,.Lframebuffer_next\n",
+        "\tmove\t$17,$16\n",
+        "\tbnez\t$17,.Lframebuffer_remove_after\n",
+        "\tnop\n",
+        "\tlw\t$2,0($16)\n",
+        "\tj\t.Lframebuffer_restore\n",
+        "\tsw\t$2,1640($19)\n",
+        ".Lframebuffer_next:\n",
+        "\tlw\t$16,0($17)\n",
+        "\tbnez\t$16,.Lframebuffer_search\n",
+        "\tnop\n",
+        ".Lframebuffer_restore:\n",
+        "\tjal\tfunc_8002A3E0\n",
+        "\tnop\n",
+        "\tj\t.Lframebuffer_check\n",
+        "\tnop\n",
+        ".Lframebuffer_remove_after:\n",
+        "\tlw\t$2,0($16)\n",
+        "\tj\t.Lframebuffer_restore\n",
+        "\tsw\t$2,0($17)\n",
+        ".Lframebuffer_return:\n",
+        "\tlw\t$31,60($sp)\n",
+        "\tlw\t$22,56($sp)\n",
+        "\tlw\t$21,52($sp)\n",
+        "\tlw\t$20,48($sp)\n",
+        "\tlw\t$19,44($sp)\n",
+        "\tlw\t$18,40($sp)\n",
+        "\tlw\t$17,36($sp)\n",
+        "\tlw\t$16,32($sp)\n",
+        "\tj\t$31\n",
+        "\taddiu\t$sp,$sp,64\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_indexed_record_value(lines: list[str]) -> list[str]:
     """Interleave record/buffer addresses and restore the shared return schedule."""
     starts = [
@@ -6173,6 +6284,7 @@ def main() -> None:
     parser.add_argument("--schedule-named-resource-load", action="store_true")
     parser.add_argument("--schedule-active-slot-release", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
+    parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -6218,6 +6330,7 @@ def main() -> None:
             args.schedule_indexed_record_copy,
             args.truncate_nonreturning_thread,
             args.truncate_scheduler_task_loop,
+            args.normalize_framebuffer_wait,
             args.schedule_indexed_record_value,
             args.schedule_all_vector_planes,
             args.schedule_object_reference_return,
@@ -6359,6 +6472,8 @@ def main() -> None:
         lines = truncate_nonreturning_thread(lines)
     if args.truncate_scheduler_task_loop:
         lines = truncate_scheduler_task_loop(lines)
+    if args.normalize_framebuffer_wait:
+        lines = normalize_framebuffer_wait(lines)
     if args.schedule_indexed_record_value:
         lines = schedule_indexed_record_value(lines)
     if args.schedule_all_vector_planes:
