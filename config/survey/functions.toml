@@ -52,7 +52,7 @@ functions = [
     { name = "func_80005680", vram = 0x80005680, size = 0x40 }, # leaf
     { name = "func_800056C0", vram = 0x800056c0, size = 0x194 }, # c
     { name = "func_80005854", vram = 0x80005854, size = 0x188 }, # c
-    { name = "func_800059DC", vram = 0x800059dc, size = 0x60 }, # leaf
+    { name = "func_800059DC", vram = 0x800059dc, size = 0x60 }, # c
     { name = "func_80005A3C", vram = 0x80005a3c, size = 0x34 }, # c
     { name = "func_80005A70", vram = 0x80005a70, size = 0x34 }, # c
     { name = "func_80005AA4", vram = 0x80005aa4, size = 0xf8 }, # c

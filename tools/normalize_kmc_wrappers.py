@@ -1310,6 +1310,80 @@ def schedule_two_optional_handles(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_decode_path_string(lines: list[str]) -> list[str]:
+    """Reproduce the peeled byte-copy schedule used by the path decoder."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lbu\t$2,0($5)"
+        and index + 1 < len(lines)
+        and lines[index + 1].strip() == "addu\t$5,$5,1"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_800059DC"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one path-decoder body; "
+            f"found {(len(starts), len(ends))}"
+        )
+
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    markers = (
+        body.count("li\t$8,0x0000005f"),
+        body.count("li\t$7,0x0000005c"),
+        body.count("li\t$6,0x0000002e"),
+        sum(instruction.startswith("bnel\t$2,$3,") for instruction in body),
+        body.count("j\t$31"),
+    )
+    if len(body) != 24 or markers != (1, 1, 1, 1, 1):
+        raise ValueError(
+            "unexpected path-decoder compiler body: "
+            f"length {len(body)}, markers {markers}"
+        )
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlbu\t$2,0($5)\n",
+        "\tsb\t$2,0($4)\n",
+        "\tandi\t$2,$2,0xff\n",
+        "\tbeq\t$2,$0,.Ldecode_done\n",
+        "\taddiu\t$5,$5,1\n",
+        "\taddiu\t$8,$0,95\n",
+        "\taddiu\t$7,$0,92\n",
+        "\taddiu\t$6,$0,46\n",
+        ".Ldecode_loop:\n",
+        "\tlbu\t$3,0($4)\n",
+        "\tbnel\t$3,$8,.Ldecode_copy\n",
+        "\taddiu\t$4,$4,1\n",
+        "\tlbu\t$2,0($5)\n",
+        "\tbnel\t$2,$3,.Ldecode_single\n",
+        "\tsb\t$6,0($4)\n",
+        "\taddiu\t$5,$5,1\n",
+        "\tsb\t$7,0($4)\n",
+        ".Ldecode_single:\n",
+        "\taddiu\t$4,$4,1\n",
+        ".Ldecode_copy:\n",
+        "\tlbu\t$2,0($5)\n",
+        "\tsb\t$2,0($4)\n",
+        "\tandi\t$2,$2,0xff\n",
+        "\tbne\t$2,$0,.Ldecode_loop\n",
+        "\taddiu\t$5,$5,1\n",
+        ".Ldecode_done:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1342,6 +1416,7 @@ def main() -> None:
     parser.add_argument("--schedule-free-global-slot", action="store_true")
     parser.add_argument("--schedule-append-string", action="store_true")
     parser.add_argument("--schedule-two-optional-handles", action="store_true")
+    parser.add_argument("--schedule-decode-path-string", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1375,6 +1450,7 @@ def main() -> None:
             args.schedule_free_global_slot,
             args.schedule_append_string,
             args.schedule_two_optional_handles,
+            args.schedule_decode_path_string,
         )
     )
     if selected != 1:
@@ -1435,6 +1511,8 @@ def main() -> None:
         lines = schedule_append_string(lines)
     if args.schedule_two_optional_handles:
         lines = schedule_two_optional_handles(lines)
+    if args.schedule_decode_path_string:
+        lines = schedule_decode_path_string(lines)
     args.output.write_text("".join(lines))
 
 
