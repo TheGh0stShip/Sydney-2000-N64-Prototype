@@ -32,6 +32,7 @@ verify-matching: $(BASEROM)
 	$(N64DK) match-batch config/matching_ido.tsv=ido5.3 --project .
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) tools/verify_ido_normalized.py config/matching_ido_normalized.tsv --rom $(BASEROM) --symbols config/survey/symbol_addrs.txt
 	$(N64DK) match-batch config/matching_sn.tsv=sn --project .
+	PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) tools/verify_sn_normalized.py config/matching_sn_normalized.tsv --rom $(BASEROM) --symbols config/survey/symbol_addrs.txt
 	$(N64DK) match-batch config/matching_as.tsv=as --project .
 
 report:
