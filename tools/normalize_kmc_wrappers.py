@@ -7548,6 +7548,134 @@ def schedule_named_archive_search(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_music_resource_load(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+
+    def replace_once(old: str, new: str, label: str) -> None:
+        nonlocal text
+        count = text.count(old)
+        if count != 1:
+            raise ValueError(f"expected one {label} pattern; found {count}")
+        text = text.replace(old, new, 1)
+
+    replace_once(
+        "\tla\t$16,D_80060000\n",
+        "\tnop\n"
+        "\tlui\t$16,0x8006\n",
+        "music resource page",
+    )
+    replace_once(
+        "\tbeq\t$2,$0,.L1\n"
+        "\tla\t$16,audioConfiguration+108\n"
+        "\t#.set\tvolatile\n"
+        "\tlw\t$2,0($16)\n"
+        "\t#.set\tnovolatile\n"
+        "\tli\t$4,0x00000002\t\t# 2\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_8001E994\n"
+        "\tmove\t$5,$17\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n",
+        "\tbeq\t$2,$0,.L1\n"
+        "\tli\t$4,0x00000002\t\t# 2\n"
+        "\tmove\t$5,$0\n"
+        "\tlui\t$2,0x800f\n"
+        "\taddiu\t$16,$2,6880\n"
+        "\tlw\t$2,108($16)\n"
+        "\tjal\tfunc_8001E994\n"
+        "\tnop\n",
+        "music volume setup",
+    )
+    replace_once(
+        "\t#.set\tvolatile\n"
+        "\tlw\t$2,0($16)\n"
+        "\t#.set\tnovolatile\n"
+        "\t#.set\tvolatile\n"
+        "\tlw\t$3,0($16)\n"
+        "\t#.set\tnovolatile\n"
+        "\tli\t$5,0x00000001\t\t# 1\n"
+        "\tsw\t$5,D_80064F98\n"
+        "\tsw\t$5,D_80064F7C\n"
+        "\tsw\t$2,D_80064F80\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbgezl\t$3,.L11\n"
+        "\tslt\t$17,$17,$3\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\t#.set\tvolatile\n"
+        "\tlw\t$3,0($16)\n"
+        "\t#.set\tnovolatile\n"
+        "\t#nop\n"
+        "\tslt\t$17,$17,$3\n"
+        ".L11:\n"
+        "\tbeq\t$17,$0,.L9\n"
+        "\tsw\t$5,D_80064F60\n"
+        "\tsw\t$5,D_80064F6C\n"
+        "\tsw\t$5,D_80064F74\n"
+        "\tsw\t$3,D_80064F78\n"
+        "\tj\t.L1\n"
+        ".L9:\n"
+        "\t#.set\tvolatile\n"
+        "\tlw\t$2,0($16)\n"
+        "\t#.set\tnovolatile\n"
+        "\tsw\t$5,D_80064F60\n"
+        "\tsw\t$5,D_80064F70\n"
+        "\tsw\t$0,D_80064F78\n"
+        "\tsw\t$2,D_80064F74\n",
+        "\tlui\t$2,0x8006\n"
+        "\tlw\t$4,108($16)\n"
+        "\tlw\t$3,108($16)\n"
+        "\tli\t$5,0x00000001\t\t# 1\n"
+        "\tsw\t$5,20376($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$5,20348($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tbgez\t$3,.L11\n"
+        "\tsw\t$4,20352($2)\n"
+        "\tlw\t$3,108($16)\n"
+        ".L11:\n"
+        "\tslt\t$2,$17,$3\n"
+        "\tbeq\t$2,$0,.L9\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$5,20320($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$5,20332($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$5,20340($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tj\t.L1\n"
+        "\tsw\t$3,20344($2)\n"
+        ".L9:\n"
+        "\tlw\t$3,108($16)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$5,20320($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$5,20336($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$0,20344($2)\n"
+        "\tlui\t$2,0x8006\n"
+        "\tsw\t$3,20340($2)\n",
+        "music transition state",
+    )
+    replace_once(
+        "\taddu\t$sp,$sp,288\n"
+        "\tj\t$31\n",
+        "\tj\t$31\n"
+        "\taddu\t$sp,$sp,288\n",
+        "music resource epilogue",
+    )
+
+    output = ["\t.set\tnoreorder\n"]
+    for line in text.splitlines(keepends=True):
+        if line.strip() == ".set\treorder":
+            output.append("\t.set\tnoreorder\n")
+        else:
+            output.append(line)
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -7662,6 +7790,7 @@ def main() -> None:
     parser.add_argument("--schedule-scaled-value-addition", action="store_true")
     parser.add_argument("--schedule-sound-resource-initialization", action="store_true")
     parser.add_argument("--schedule-named-archive-search", action="store_true")
+    parser.add_argument("--schedule-music-resource-load", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -7783,6 +7912,7 @@ def main() -> None:
             args.schedule_scaled_value_addition,
             args.schedule_sound_resource_initialization,
             args.schedule_named_archive_search,
+            args.schedule_music_resource_load,
         )
     )
     if selected != 1:
@@ -8015,6 +8145,8 @@ def main() -> None:
         lines = schedule_sound_resource_initialization(lines)
     if args.schedule_named_archive_search:
         lines = schedule_named_archive_search(lines)
+    if args.schedule_music_resource_load:
+        lines = schedule_music_resource_load(lines)
     args.output.write_text("".join(lines))
 
 
