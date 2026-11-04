@@ -3817,6 +3817,90 @@ def schedule_checked_named_record_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_blocking_rom_read(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$2,romQueueInitialized"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80011250"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one blocking ROM-read body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$2,romQueueInitialized", "subu\t$sp,$sp,88", "sw\t$19,76($sp)",
+        "move\t$19,$4", "sw\t$17,68($sp)", "move\t$17,$5",
+        "sw\t$18,72($sp)", "move\t$18,$6", "sw\t$31,80($sp)",
+        "bne\t$2,$0,.L2", "sw\t$16,64($sp)", "la\t$4,romQueue",
+        "la\t$5,romMessages", "jal\tosCreateMesgQueue", "li\t$6,0x00000008",
+        "li\t$2,0x00000001", "sw\t$2,romQueueInitialized", ".L2:",
+        "move\t$4,$17", "jal\tosInvalDCache", "move\t$5,$18",
+        "la\t$16,romQueue", "addu\t$4,$sp,32", "li\t$5,0x00000001",
+        "move\t$6,$0", "move\t$7,$19", "sw\t$17,16($sp)",
+        "sw\t$18,20($sp)", "jal\tosPiStartDma", "sw\t$16,24($sp)",
+        "move\t$4,$16", "addu\t$5,$sp,56", "jal\tosRecvMesg",
+        "li\t$6,0x00000001", "lw\t$31,80($sp)", "lw\t$19,76($sp)",
+        "lw\t$18,72($sp)", "lw\t$17,68($sp)", "lw\t$16,64($sp)",
+        "addu\t$sp,$sp,88", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected blocking ROM-read body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,88\n",
+        "\tsw\t$16,64($sp)\n",
+        "\tlui\t$16,0x8006\n",
+        "\tlw\t$2,-22288($16)\n",
+        "\tsw\t$19,76($sp)\n",
+        "\tmove\t$19,$4\n",
+        "\tsw\t$17,68($sp)\n",
+        "\tmove\t$17,$5\n",
+        "\tsw\t$18,72($sp)\n",
+        "\tmove\t$18,$6\n",
+        "\tbne\t$2,$0,.L2\n",
+        "\tsw\t$31,80($sp)\n",
+        "\tlui\t$4,0x8006\n",
+        "\taddiu\t$4,$4,-22284\n",
+        "\tlui\t$5,0x8006\n",
+        "\taddiu\t$5,$5,-22260\n",
+        "\tjal\tosCreateMesgQueue\n",
+        "\tli\t$6,8\n",
+        "\tli\t$2,1\n",
+        "\tsw\t$2,-22288($16)\n",
+        ".L2:\n",
+        "\tmove\t$4,$17\n",
+        "\tjal\tosInvalDCache\n",
+        "\tmove\t$5,$18\n",
+        "\taddiu\t$4,$sp,32\n",
+        "\tli\t$5,1\n",
+        "\tmove\t$6,$0\n",
+        "\tlui\t$16,0x8006\n",
+        "\taddiu\t$16,$16,-22284\n",
+        "\tmove\t$7,$19\n",
+        "\tsw\t$17,16($sp)\n",
+        "\tsw\t$18,20($sp)\n",
+        "\tjal\tosPiStartDma\n",
+        "\tsw\t$16,24($sp)\n",
+        "\tmove\t$4,$16\n",
+        "\taddiu\t$5,$sp,56\n",
+        "\tjal\tosRecvMesg\n",
+        "\tli\t$6,1\n",
+        "\tlw\t$31,80($sp)\n",
+        "\tlw\t$19,76($sp)\n",
+        "\tlw\t$18,72($sp)\n",
+        "\tlw\t$17,68($sp)\n",
+        "\tlw\t$16,64($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,88\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -3887,6 +3971,7 @@ def main() -> None:
     parser.add_argument("--schedule-controller-motor-message-drain", action="store_true")
     parser.add_argument("--schedule-display-pipeline-configuration", action="store_true")
     parser.add_argument("--schedule-checked-named-record-resolution", action="store_true")
+    parser.add_argument("--schedule-blocking-rom-read", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -3958,6 +4043,7 @@ def main() -> None:
             args.schedule_controller_motor_message_drain,
             args.schedule_display_pipeline_configuration,
             args.schedule_checked_named_record_resolution,
+            args.schedule_blocking_rom_read,
         )
     )
     if selected != 1:
@@ -4094,6 +4180,8 @@ def main() -> None:
         lines = schedule_display_pipeline_configuration(lines)
     if args.schedule_checked_named_record_resolution:
         lines = schedule_checked_named_record_resolution(lines)
+    if args.schedule_blocking_rom_read:
+        lines = schedule_blocking_rom_read(lines)
     args.output.write_text("".join(lines))
 
 
