@@ -257,3 +257,4 @@
 0x29CF0	0x60	src/game/call_function_pointer_range.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_800290F0	65af64651761312cc04077fb2ce18d6be88b8c114fb849b7849e78aecd8e1408
 0x29E74	0x38	src/game/cache_sweeps.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DICACHE_NAME=func_80029274 -DDCACHE_NAME=func_80029290	10f1b7ea4584755a5f0020f01f7f7a517903baab60eaae5e8cc274731e9701b9
 0x2ECB0	0x18	src/libultra/free_param.c	--symbol=audioGlobals:0x80066FA0 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8002E0B0 -DGLOBALS_NAME=audioGlobals	3ebcf2ec3f6be92366bf1ba04bbce5cef61612ce7a722e18597d81f903e468c7
+0x61D0	0x8	src/game/clear_output_word.c	-O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_800055D0	cefccd0fa4a09f82b07456a5519c18d4196ca4d54a542ef3b32e4f8b8c48775e
