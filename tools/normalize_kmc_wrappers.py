@@ -5233,6 +5233,63 @@ def schedule_startup_message_drain(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_packed_coordinate_wrap(lines: list[str]) -> list[str]:
+    labels = [index for index, line in enumerate(lines) if line.strip() == "func_80010BF4:"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80010BF4"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one packed-coordinate wrapper")
+    start = labels[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start + 1 : end]
+        if line.strip()
+        and not line.lstrip().startswith((".", "#"))
+    ]
+    body = [item for item in body if item]
+    required = [
+        "la\t$6,D_8005A894", "lw\t$4,48($6)", "li\t$8,-2147483648",
+        "lw\t$7,D_8005A834", "ori\t$8,$8,0x8001", "mult\t$5,$8",
+        "lw\t$9,D_8005A890", "sw\t$5,48($9)", "lw\t$4,68($6)",
+        "sw\t$5,68($9)",
+    ]
+    cursor = 0
+    for instruction in required:
+        try:
+            cursor = body.index(instruction, cursor) + 1
+        except ValueError as exc:
+            raise ValueError(f"unexpected packed-coordinate wrapper near {instruction!r}") from exc
+
+    lines[start + 1 : end] = [
+        "\t.frame\t$sp,0,$31\n", "\t.mask\t0x00000000,0\n",
+        "\t.fmask\t0x00000000,0\n", "\t.set\tnoreorder\n",
+        "\tlui\t$8,0x8000\n", "\tori\t$8,$8,0x8001\n",
+        "\tlui\t$6,%hi(D_8005A894)\n", "\taddiu\t$6,$6,%lo(D_8005A894)\n",
+        "\tlui\t$2,%hi(D_8005A834)\n", "\tlui\t$9,%hi(D_8005A890)\n",
+        "\tlw\t$4,48($6)\n", "\tlw\t$7,%lo(D_8005A834)($2)\n",
+        "\tsrl\t$5,$4,16\n", "\taddu\t$5,$5,$7\n", "\tmult\t$5,$8\n",
+        "\tlw\t$9,%lo(D_8005A890)($9)\n", "\tsra\t$2,$5,31\n",
+        "\tandi\t$4,$4,0xffff\n", "\taddu\t$4,$4,$7\n", "\tmfhi\t$10\n",
+        "\taddu\t$3,$10,$5\n", "\tsra\t$3,$3,15\n", "\tsubu\t$3,$3,$2\n",
+        "\tsll\t$2,$3,16\n", "\tmult\t$4,$8\n", "\tsubu\t$2,$2,$3\n",
+        "\tsubu\t$5,$5,$2\n", "\tsll\t$5,$5,16\n", "\tsra\t$2,$4,31\n",
+        "\tmfhi\t$10\n", "\taddu\t$3,$10,$4\n", "\tsra\t$3,$3,15\n",
+        "\tsubu\t$3,$3,$2\n", "\tsll\t$2,$3,16\n", "\tsubu\t$2,$2,$3\n",
+        "\tsubu\t$4,$4,$2\n", "\tor\t$5,$5,$4\n", "\tsw\t$5,48($9)\n",
+        "\tlw\t$4,68($6)\n", "\tsrl\t$5,$4,16\n", "\taddu\t$5,$5,$7\n",
+        "\tmult\t$5,$8\n", "\tsra\t$2,$5,31\n", "\tandi\t$4,$4,0xffff\n",
+        "\taddu\t$4,$4,$7\n", "\tmfhi\t$10\n", "\taddu\t$3,$10,$5\n",
+        "\tsra\t$3,$3,15\n", "\tsubu\t$3,$3,$2\n", "\tsll\t$2,$3,16\n",
+        "\tmult\t$4,$8\n", "\tsubu\t$2,$2,$3\n", "\tsubu\t$5,$5,$2\n",
+        "\tsll\t$5,$5,16\n", "\tsra\t$2,$4,31\n", "\tmfhi\t$10\n",
+        "\taddu\t$3,$10,$4\n", "\tsra\t$3,$3,15\n", "\tsubu\t$3,$3,$2\n",
+        "\tsll\t$2,$3,16\n", "\tsubu\t$2,$2,$3\n", "\tsubu\t$4,$4,$2\n",
+        "\tor\t$5,$5,$4\n", "\tjr\t$31\n", "\tsw\t$5,68($9)\n",
+        "\t.set\treorder\n", "\n",
+    ]
+    return lines
+
+
 def schedule_double_tangent(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
     ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037F70"]
@@ -6365,6 +6422,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-object-record-initialization", action="store_true")
     parser.add_argument("--schedule-nested-render-object-creation", action="store_true")
     parser.add_argument("--schedule-startup-message-drain", action="store_true")
+    parser.add_argument("--schedule-packed-coordinate-wrap", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
     parser.add_argument("--schedule-double-sine", action="store_true")
@@ -6472,6 +6530,7 @@ def main() -> None:
             args.schedule_indexed_object_record_initialization,
             args.schedule_nested_render_object_creation,
             args.schedule_startup_message_drain,
+            args.schedule_packed_coordinate_wrap,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
             args.schedule_double_sine,
@@ -6660,6 +6719,8 @@ def main() -> None:
         lines = schedule_nested_render_object_creation(lines)
     if args.schedule_startup_message_drain:
         lines = schedule_startup_message_drain(lines)
+    if args.schedule_packed_coordinate_wrap:
+        lines = schedule_packed_coordinate_wrap(lines)
     if args.schedule_double_tangent:
         lines = schedule_double_tangent(lines)
     if args.schedule_double_cosine:
