@@ -42,18 +42,49 @@ def move_first_address_before_ra_save(lines: list[str]) -> list[str]:
     return lines
 
 
+def move_stack_allocation_before_global_load(lines: list[str]) -> list[str]:
+    matches: list[int] = []
+    for index in range(len(lines) - 1):
+        load = lines[index].strip()
+        allocation = lines[index + 1].strip().replace(" ", "")
+        if (
+            re.fullmatch(r"lw\s+\$2,[A-Za-z_][A-Za-z0-9_]*", load)
+            and allocation == "subu\t$sp,$sp,24".replace(" ", "")
+        ):
+            matches.append(index)
+
+    if len(matches) != 1:
+        raise ValueError(
+            "expected exactly one adjacent global '$2' load / 24-byte stack allocation; "
+            f"found {len(matches)}"
+        )
+
+    index = matches[0]
+    lines[index], lines[index + 1] = lines[index + 1], lines[index]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
     parser.add_argument("output", type=Path)
     parser.add_argument("--move-first-address-before-ra-save", action="store_true")
+    parser.add_argument("--move-stack-allocation-before-global-load", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
+    selected = sum(
+        (
+            args.move_first_address_before_ra_save,
+            args.move_stack_allocation_before_global_load,
+        )
+    )
+    if selected != 1:
+        raise ValueError(f"expected exactly one normalization rule; selected {selected}")
     if args.move_first_address_before_ra_save:
         lines = move_first_address_before_ra_save(lines)
-    else:
-        raise ValueError("no normalization rule selected")
+    if args.move_stack_allocation_before_global_load:
+        lines = move_stack_allocation_before_global_load(lines)
     args.output.write_text("".join(lines))
 
 
