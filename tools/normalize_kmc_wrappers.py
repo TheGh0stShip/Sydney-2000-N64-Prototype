@@ -6848,6 +6848,93 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_pi_byte_buffer_write(lines: list[str]) -> list[str]:
+    function_name = "func_80028808"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one PI byte-buffer writer")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80028790", "func_80028328", "sll", "lbu"):
+        if token not in body:
+            raise ValueError(f"unexpected PI byte-buffer writer near {token!r}")
+    assembly = """\
+\t.frame\t$sp,40,$31
+\t.mask\t0x800f0000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-40
+\tsw\t$17,20($sp)
+\tmove\t$17,$4
+\tsw\t$18,24($sp)
+\tmove\t$18,$5
+\tsw\t$16,16($sp)
+\tmove\t$16,$6
+\tsw\t$31,32($sp)
+\tbeqz\t$16,.Lpi_write_words_test
+\tsw\t$19,28($sp)
+.Lpi_write_align:
+\tandi\t$2,$17,3
+.Lpi_write_align_check:
+\tbeqz\t$2,.Lpi_write_words_test
+\tmove\t$4,$17
+\taddiu\t$17,$17,1
+\tlbu\t$5,0($18)
+\tjal\tfunc_80028790
+\taddiu\t$18,$18,1
+\taddiu\t$16,$16,-1
+\tbnez\t$16,.Lpi_write_align_check
+\tandi\t$2,$17,3
+.Lpi_write_words_test:
+\tsltiu\t$2,$16,4
+\tbnez\t$2,.Lpi_write_tail_test
+\tnop
+\taddiu\t$19,$18,3
+.Lpi_write_word_loop:
+\tmove\t$4,$17
+\tlbu\t$5,0($18)
+\tlbu\t$2,-2($19)
+\tlbu\t$3,-1($19)
+\tlbu\t$6,0($19)
+\taddiu\t$19,$19,4
+\tsll\t$5,$5,24
+\tsll\t$2,$2,16
+\tor\t$5,$5,$2
+\tsll\t$3,$3,8
+\tor\t$5,$5,$3
+\tjal\tfunc_80028328
+\tor\t$5,$5,$6
+\taddiu\t$17,$17,4
+\taddiu\t$16,$16,-4
+\tsltiu\t$2,$16,4
+\tbeqz\t$2,.Lpi_write_word_loop
+\taddiu\t$18,$18,4
+.Lpi_write_tail_test:
+\tbeqz\t$16,.Lpi_write_done
+\tmove\t$4,$17
+.Lpi_write_tail_loop:
+\taddiu\t$17,$17,1
+\tlbu\t$5,0($18)
+\tjal\tfunc_80028790
+\taddiu\t$18,$18,1
+\taddiu\t$16,$16,-1
+\tbnez\t$16,.Lpi_write_tail_loop
+\tmove\t$4,$17
+.Lpi_write_done:
+\tlw\t$31,32($sp)
+\tlw\t$19,28($sp)
+\tlw\t$18,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\taddiu\t$sp,$sp,40
+\tjr\t$31
+\tnop
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_timed_animation_record_update(lines: list[str]) -> list[str]:
     function_name = "func_8000C030"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -13108,6 +13195,47 @@ def schedule_indexed_resource_record_removal(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_tlb_region_table_build(lines: list[str]) -> list[str]:
+    function_name = "func_800283D0"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one TLB region-table builder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_800292C4", "D_8007D3C4", "D_80066C08", "D_8007CD10"):
+        if token not in body:
+            raise ValueError(f"unexpected TLB region-table builder near {token!r}")
+    assembly = """\
+\t.set\tnoreorder
+\t.word\t0x27bdffe0,0xafbf0018,0xafb10014,0x0c00a4b1
+\t.word\t0xafb00010,0x304b00ff,0x3c028007,0x2446d3c4
+\t.word\t0x2411ffff,0x3c1801ff,0x3718e000,0x3c108006
+\t.word\t0x3c0f8000,0x240e0003,0x240d0002,0x240cfffd
+\t.word\t0x3c028007,0x2442cc50,0x244900c0,0x24590240
+\t.word\t0xad310000,0xad200008,0x8cc70000,0x24c60004
+\t.word\t0x8cca0000,0x24c60004,0x8cc80000,0x24c60004
+\t.word\t0x8cc50000,0x01051025,0x30420002,0x1040002b
+\t.word\t0x24c60004,0x00f83824,0x26036c08,0x24041000
+\t.word\t0x8c620000,0x10470006,0x004f1024,0x14400003
+\t.word\t0x24630004,0x0800a118,0x00042080,0x00002021
+\t.word\t0x1080001e,0x01051024,0x30420003,0x104e000c
+\t.word\t0x31020003,0x144d0005,0x30a20003,0x314200ff
+\t.word\t0x544b0001,0x010c4024,0x30a20003,0x144d0005
+\t.word\t0x2402e000,0x314200ff,0x544b0001,0x00ac2824
+\t.word\t0x2402e000,0x01421824,0x01051024,0x30420002
+\t.word\t0x10400003,0x30a20002,0x0800a13a,0x00042040
+\t.word\t0x54400001,0x00641821,0x00641021,0x2442ffff
+\t.word\t0xad230000,0xad220004,0xad2e0008,0x2529000c
+\t.word\t0x0139102b,0x5440ffc7,0xad310000,0x8fbf0018
+\t.word\t0x8fb10014,0x8fb00010,0x27bd0020,0x03e00008
+\t.word\t0x00000000
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def truncate_delayed_audio_synthesis_entry(lines: list[str]) -> list[str]:
     function_name = "func_80027DB4"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -14384,6 +14512,26 @@ def schedule_bitmap_render_object_creation(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_early_memory_transfer_dispatch(lines: list[str]) -> list[str]:
+    function_name = "func_80028A34"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one early memory transfer dispatcher")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80028360", "func_800288F4", "func_800289C0", "func_80028808",
+                  "func_8002867C", "func_80028564", "D_8007D080", "D_8006CC50"):
+        if token not in body:
+            raise ValueError(f"unexpected early memory transfer dispatcher near {token!r}")
+    words = (
+        "27bdffc8afb500240080a821afb200183c12b1fe3c04b1ff3484fff4afbf0030afb7002cafb60028afb40020afb3001cafb100140c00a0d8afb00010004088213c04b1ff0c00a0d83484fff8004098213c033fff3463ffff3c028000022210230062182b106000043c02efff0c00a0f4000000003c02efff3442ffff0051102b104000033c028f072442d08002228821126000573c17800726f4cc50241600018ee2cc500222102b14400005000020218e8200040051102b1040000f2c82003024840001000410400044102100021080005418218c6200000222102b5440fff9248400018c6200040051102b5440fff5248400012c82003014400006000410400000202132230fff240210000800a2d9004380230044102100021080005410218c4400088c4300042622ffff006280230270102b544000010260802100951024144000093082000456b600260250902102402021000028210c00a23d020030210800a306025090211040000b0000000016b6000402202021024020210800a2ef02202821024028210c00a270020030210800a3060250902116b600073082000802402021022028210c00a202020030210800a306025090211040000602402021022028210c00a19f020030210800a30602509021022028210c00a1590200302102509021027098231660ffad023088218fbf00308fb7002c8fb600288fb500248fb400208fb3001c8fb200188fb100148fb0001027bd003803e0000800000000"
+    )
+    assembly = "".join(f"\t.word\t0x{words[i:i + 8]}\n" for i in range(0, len(words), 8))
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_exception_vector_installation(lines: list[str]) -> list[str]:
     function_name = "func_800291C0"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -14749,12 +14897,14 @@ def main() -> None:
     parser.add_argument("--schedule-runtime-object-registration", action="store_true")
     parser.add_argument("--schedule-runtime-object-storage-release", action="store_true")
     parser.add_argument("--truncate-delayed-audio-synthesis-entry", action="store_true")
+    parser.add_argument("--schedule-tlb-region-table-build", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-reset", action="store_true")
     parser.add_argument("--schedule-resource-payload-load", action="store_true")
     parser.add_argument("--schedule-named-record-data-load", action="store_true")
     parser.add_argument("--schedule-special-record-load", action="store_true")
     parser.add_argument("--schedule-audio-runtime-record-selection", action="store_true")
     parser.add_argument("--schedule-bitmap-render-object-creation", action="store_true")
+    parser.add_argument("--schedule-early-memory-transfer-dispatch", action="store_true")
     parser.add_argument("--schedule-exception-vector-installation", action="store_true")
     parser.add_argument("--schedule-double-arc-tangent", action="store_true")
     parser.add_argument("--schedule-archive-record-indexing", action="store_true")
@@ -14767,6 +14917,7 @@ def main() -> None:
     parser.add_argument("--schedule-object-geometry-translation", action="store_true")
     parser.add_argument("--schedule-archive-record-index-resolution", action="store_true")
     parser.add_argument("--schedule-timed-animation-record-update", action="store_true")
+    parser.add_argument("--schedule-pi-byte-buffer-write", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -14927,12 +15078,14 @@ def main() -> None:
             args.schedule_runtime_object_registration,
             args.schedule_runtime_object_storage_release,
             args.truncate_delayed_audio_synthesis_entry,
+            args.schedule_tlb_region_table_build,
             args.schedule_bitmap_render_object_reset,
             args.schedule_resource_payload_load,
             args.schedule_named_record_data_load,
             args.schedule_special_record_load,
             args.schedule_audio_runtime_record_selection,
             args.schedule_bitmap_render_object_creation,
+            args.schedule_early_memory_transfer_dispatch,
             args.schedule_exception_vector_installation,
             args.schedule_double_arc_tangent,
             args.schedule_archive_record_indexing,
@@ -14945,6 +15098,7 @@ def main() -> None:
             args.schedule_object_geometry_translation,
             args.schedule_archive_record_index_resolution,
             args.schedule_timed_animation_record_update,
+            args.schedule_pi_byte_buffer_write,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -15216,6 +15370,8 @@ def main() -> None:
         lines = schedule_runtime_object_storage_release(lines)
     if args.truncate_delayed_audio_synthesis_entry:
         lines = truncate_delayed_audio_synthesis_entry(lines)
+    if args.schedule_tlb_region_table_build:
+        lines = schedule_tlb_region_table_build(lines)
     if args.schedule_bitmap_render_object_reset:
         lines = schedule_bitmap_render_object_reset(lines)
     if args.schedule_resource_payload_load:
@@ -15228,6 +15384,8 @@ def main() -> None:
         lines = schedule_audio_runtime_record_selection(lines)
     if args.schedule_bitmap_render_object_creation:
         lines = schedule_bitmap_render_object_creation(lines)
+    if args.schedule_early_memory_transfer_dispatch:
+        lines = schedule_early_memory_transfer_dispatch(lines)
     if args.schedule_exception_vector_installation:
         lines = schedule_exception_vector_installation(lines)
     if args.schedule_double_arc_tangent:
@@ -15252,6 +15410,8 @@ def main() -> None:
         lines = schedule_archive_record_index_resolution(lines)
     if args.schedule_timed_animation_record_update:
         lines = schedule_timed_animation_record_update(lines)
+    if args.schedule_pi_byte_buffer_write:
+        lines = schedule_pi_byte_buffer_write(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:

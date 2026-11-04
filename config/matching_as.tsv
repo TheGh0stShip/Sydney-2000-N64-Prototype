@@ -4,3 +4,4 @@
 0x29D90	0x20	src/libultra/error_exception_vector_tail.s	-O2 -G0 -mips3 -mgp32 -mfp32	5efeca8be037c5aadb7b845b8ad2e2d890596cab6a9f8a33ee66281b6c437797
 0x29EC4	0xC4	src/libultra/capture_tlb_entries.s	-O2 -G0 -mips3 -mgp32 -mfp32	ec6175314338ff30fc5a6220a746ed171ce653d8fe5c6ebc411d637066b19df4
 0x32E50	0x2C	src/libultra/exception_save_prefix.s	-O2 -G0 -mips3 -mgp32 -mfp32	2e95ffc1e31e201a62f2105fcb85ad2863ab27d256ab86694a3da730b383079e
+0x28C34	0x28C	src/game/gsm_short_term_synthesis.s	-O2 -G0 -mips3 -mgp32 -mfp32	7e1c85ef94709b6ebd00ac7b266e1f97e3bf1cc9be002349b28f21a15b0ce81e
