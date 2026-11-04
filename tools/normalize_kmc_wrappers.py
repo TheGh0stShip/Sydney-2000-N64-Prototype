@@ -320,6 +320,68 @@ def schedule_render_record_bytes(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_record_reset(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,32"]
+    if len(starts) != 1:
+        raise ValueError(f"expected exactly one 32-byte reset frame; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    body = [item for item in body if item]
+    loops = [item[:-1] for item in body if re.fullmatch(r"\.L[0-9]+:", item)]
+    if len(loops) != 1:
+        raise ValueError(f"expected exactly one audio-record loop label; found {len(loops)}")
+    loop = loops[0]
+    expected = [
+        "subu\t$sp,$sp,32", "sw\t$16,16($sp)", "la\t$16,audioRecords",
+        "sw\t$17,20($sp)", "move\t$17,$0", "sw\t$31,24($sp)",
+        "sw\t$0,firstAudioState", "sw\t$0,secondAudioState", f"{loop}:",
+        "lw\t$4,52($16)", "jal\tfunc_8001EDE0", "move\t$5,$0",
+        "lw\t$4,52($16)", "addu\t$17,$17,1", "jal\tfunc_8001ECD4",
+        "move\t$5,$0", "move\t$4,$16", "move\t$5,$0",
+        "jal\tfunc_80037F30", "li\t$6,0x00000040", "slt\t$2,$17,20",
+        f"bne\t$2,$0,{loop}", "addu\t$16,$16,64", "lw\t$31,24($sp)",
+        "lw\t$17,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,32", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected audio-record reset body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,32\n",
+        "\tsw\t$17,20($sp)\n",
+        "\tmove\t$17,$0\n",
+        "\tlui\t$2,%hi(audioRecords)\n",
+        "\tsw\t$16,16($sp)\n",
+        "\taddiu\t$16,$2,%lo(audioRecords)\n",
+        "\tlui\t$2,%hi(firstAudioState)\n",
+        "\tsw\t$0,%lo(firstAudioState)($2)\n",
+        "\tlui\t$2,%hi(secondAudioState)\n",
+        "\tsw\t$31,24($sp)\n",
+        "\tsw\t$0,%lo(secondAudioState)($2)\n",
+        f"{loop}:\n",
+        "\tmove\t$5,$0\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001EDE0\n",
+        "\taddu\t$17,$17,1\n",
+        "\tlw\t$4,52($16)\n",
+        "\tjal\tfunc_8001ECD4\n",
+        "\tmove\t$5,$0\n",
+        "\tmove\t$4,$16\n",
+        "\tmove\t$5,$0\n",
+        "\tjal\tfunc_80037F30\n",
+        "\tli\t$6,0x00000040\n",
+        "\tslt\t$2,$17,20\n",
+        f"\tbne\t$2,$0,{loop}\n",
+        "\taddu\t$16,$16,64\n",
+        "\tlw\t$31,24($sp)\n",
+        "\tlw\t$17,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,32\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def schedule_nested_float_pair(lines: list[str]) -> list[str]:
     starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$4,0($4)"]
     if len(starts) != 1:
@@ -2279,6 +2341,7 @@ def main() -> None:
     parser.add_argument("--normalize-object-queue-entry", action="store_true")
     parser.add_argument("--schedule-scheduler-queue-return", action="store_true")
     parser.add_argument("--schedule-render-record-bytes", action="store_true")
+    parser.add_argument("--schedule-audio-record-reset", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2329,6 +2392,7 @@ def main() -> None:
             args.normalize_object_queue_entry,
             args.schedule_scheduler_queue_return,
             args.schedule_render_record_bytes,
+            args.schedule_audio_record_reset,
         )
     )
     if selected != 1:
@@ -2423,6 +2487,8 @@ def main() -> None:
         lines = schedule_scheduler_queue_return(lines)
     if args.schedule_render_record_bytes:
         lines = schedule_render_record_bytes(lines)
+    if args.schedule_audio_record_reset:
+        lines = schedule_audio_record_reset(lines)
     args.output.write_text("".join(lines))
 
 
