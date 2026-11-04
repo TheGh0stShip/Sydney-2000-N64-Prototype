@@ -602,6 +602,32 @@ def schedule_message_queue_initializer(lines: list[str]) -> list[str]:
     return lines
 
 
+def interleave_output_call_addresses(lines: list[str]) -> list[str]:
+    matches: list[tuple[int, str, str]] = []
+    for index in range(len(lines) - 2):
+        context = re.fullmatch(
+            r"\s*la\s+\$4,([A-Za-z_][A-Za-z0-9_]*)\s*", lines[index]
+        )
+        callback = re.fullmatch(
+            r"\s*la\s+\$7,([A-Za-z_][A-Za-z0-9_]*)\s*", lines[index + 2]
+        )
+        if context and lines[index + 1].strip() == "addu\t$5,$sp,16" and callback:
+            matches.append((index, context.group(1), callback.group(1)))
+    if len(matches) != 1:
+        raise ValueError(f"expected exactly one output-call address setup; found {len(matches)}")
+    index, context, callback = matches[0]
+    lines[index : index + 3] = [
+        "\t.set\tnoreorder\n",
+        f"\tlui\t$4,%hi({context})\n",
+        f"\tlui\t$7,%hi({callback})\n",
+        f"\taddiu\t$4,$4,%lo({context})\n",
+        "\taddu\t$5,$sp,16\n",
+        f"\taddiu\t$7,$7,%lo({callback})\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -621,6 +647,7 @@ def main() -> None:
     parser.add_argument("--reuse-configuration-limit", action="store_true")
     parser.add_argument("--split-aliased-boolean-stores", action="store_true")
     parser.add_argument("--schedule-message-queue-initializer", action="store_true")
+    parser.add_argument("--interleave-output-call-addresses", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -641,6 +668,7 @@ def main() -> None:
             args.reuse_configuration_limit,
             args.split_aliased_boolean_stores,
             args.schedule_message_queue_initializer,
+            args.interleave_output_call_addresses,
         )
     )
     if selected != 1:
@@ -675,6 +703,8 @@ def main() -> None:
         lines = split_aliased_boolean_stores(lines)
     if args.schedule_message_queue_initializer:
         lines = schedule_message_queue_initializer(lines)
+    if args.interleave_output_call_addresses:
+        lines = interleave_output_call_addresses(lines)
     args.output.write_text("".join(lines))
 
 
