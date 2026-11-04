@@ -5476,6 +5476,111 @@ def schedule_runtime_display_commands(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_audio_runtime_batch_queue(lines: list[str]) -> list[str]:
+    labels = [i for i, line in enumerate(lines) if line.strip() == "func_8001DC3C:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_8001DC3C"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one audio-runtime batch queue")
+    start, end = labels[0], ends[0]
+    body = [line.strip().split("#", 1)[0].rstrip() for line in lines[start + 1:end]
+            if line.strip() and not line.lstrip().startswith((".", "#"))]
+    required = ["lw\t$2,audioRuntimeRequest", "sw\t$2,audioRuntimeRequest",
+                "lw\t$8,audioRuntimeCurrent", "lw\t$2,audioRuntimeSequence",
+                "sw\t$2,audioRuntimeSequence", "sw\t$14,0($4)", "li\t$2,-1"]
+    for instruction in required:
+        if instruction not in body:
+            raise ValueError(f"unexpected audio-runtime batch queue near {instruction!r}")
+    assembly = """\
+\t.frame\t$sp,0,$31
+\t.mask\t0x00000000,0
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\tmove\t$9,$5
+\tmove\t$11,$0
+\tmove\t$10,$11
+\tlui\t$3,%hi(audioRuntimeRequest)
+\tlw\t$2,%lo(audioRuntimeRequest)($3)
+\tlw\t$14,16($sp)
+\taddiu\t$4,$2,1
+\tblez\t$6,.Laudio_batch_result
+\tsw\t$4,%lo(audioRuntimeRequest)($3)
+\tlui\t$2,%hi(audioRuntimeRecords)
+\taddiu\t$13,$2,%lo(audioRuntimeRecords)
+\tmove\t$15,$4
+\tlui\t$2,0x8006
+\tlw\t$8,0x51e4($2)
+\tlui\t$12,%hi(audioRuntimeSequence)
+\taddiu\t$5,$5,12
+.Laudio_batch_input:
+\tmove\t$3,$0
+\tmove\t$4,$13
+.Laudio_batch_search:
+\tlw\t$2,0($4)
+\tbeqz\t$2,.Laudio_batch_slot_check
+\tslti\t$2,$3,10
+\taddiu\t$3,$3,1
+\tslti\t$2,$3,10
+\tbnez\t$2,.Laudio_batch_search
+\taddiu\t$4,$4,36
+\tslti\t$2,$3,10
+.Laudio_batch_slot_check:
+\tbeqz\t$2,.Laudio_batch_advance
+\tsll\t$2,$3,3
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\taddu\t$4,$2,$13
+\tlw\t$2,0($4)
+\tbnel\t$2,$0,.Laudio_batch_next
+\taddiu\t$5,$5,24
+\tsw\t$15,4($4)
+\tlw\t$2,0($9)
+\tsw\t$2,8($4)
+\tlw\t$3,-8($5)
+\tlw\t$2,%lo(audioRuntimeSequence)($12)
+\tsw\t$7,16($4)
+\tsw\t$14,20($4)
+\tsw\t$8,24($4)
+\tsw\t$2,28($4)
+\tsw\t$3,12($4)
+\tlw\t$3,0($5)
+\taddiu\t$2,$2,1
+\tsw\t$2,%lo(audioRuntimeSequence)($12)
+\tli\t$2,2
+\tsw\t$2,0($4)
+\tbeqz\t$7,.Laudio_batch_end_time
+\tsw\t$3,32($4)
+\tmove\t$2,$7
+\taddu\t$2,$2,$8
+\tsw\t$2,16($4)
+.Laudio_batch_end_time:
+\tbeqz\t$14,.Laudio_batch_allocated
+\taddiu\t$10,$10,1
+\tlw\t$2,20($4)
+\taddu\t$2,$2,$8
+\tsw\t$2,20($4)
+.Laudio_batch_allocated:
+.Laudio_batch_advance:
+\taddiu\t$5,$5,24
+.Laudio_batch_next:
+\taddiu\t$11,$11,1
+\tslt\t$2,$11,$6
+\tbnez\t$2,.Laudio_batch_input
+\taddiu\t$9,$9,24
+.Laudio_batch_result:
+\tbne\t$10,$6,.Laudio_batch_failure
+\tlui\t$2,%hi(audioRuntimeRequest)
+\tlw\t$2,%lo(audioRuntimeRequest)($2)
+\tjr\t$31
+\tnop
+.Laudio_batch_failure:
+\tjr\t$31
+\tli\t$2,-1
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_vertex_record_conversion(lines: list[str]) -> list[str]:
     labels = [i for i, line in enumerate(lines) if line.strip() == "func_800122CC:"]
     ends = [i for i, line in enumerate(lines) if line.strip() == ".end\tfunc_800122CC"]
@@ -7021,6 +7126,7 @@ def main() -> None:
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
     parser.add_argument("--schedule-vertex-record-conversion", action="store_true")
+    parser.add_argument("--schedule-audio-runtime-batch-queue", action="store_true")
     parser.add_argument("--schedule-compact-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-double-tangent", action="store_true")
     parser.add_argument("--schedule-double-cosine", action="store_true")
@@ -7137,6 +7243,7 @@ def main() -> None:
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
             args.schedule_vertex_record_conversion,
+            args.schedule_audio_runtime_batch_queue,
             args.schedule_compact_video_mode_initialization,
             args.schedule_double_tangent,
             args.schedule_double_cosine,
@@ -7342,6 +7449,8 @@ def main() -> None:
         lines = schedule_resource_display_lists(lines)
     if args.schedule_vertex_record_conversion:
         lines = schedule_vertex_record_conversion(lines)
+    if args.schedule_audio_runtime_batch_queue:
+        lines = schedule_audio_runtime_batch_queue(lines)
     if args.schedule_compact_video_mode_initialization:
         lines = schedule_video_mode_initialization(
             lines, "func_80011150", screen_width=320, video_mode=1, video_offset=0,
