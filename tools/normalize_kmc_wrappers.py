@@ -4955,6 +4955,71 @@ def schedule_startup_message_drain(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_double_tangent(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "mtc1\t$0,$f0"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80037F70"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one double-tangent body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "mtc1\t$0,$f0", "mtc1\t$0,$f1", "l.d\t$f2,tangentPi",
+        "subu\t$sp,$sp,40", "s.d\t$f20,24($sp)", "mov.d\t$f20,$f12",
+        "sw\t$31,16($sp)", "c.le.d\t$f0,$f20", "s.d\t$f22,32($sp)",
+        "bc1f\t.L2", "div.d\t$f4,$f20,$f2", "l.d\t$f0,tangentPositiveHalf",
+        "j\t.L8", "add.d\t$f4,$f4,$f0", ".L2:",
+        "l.d\t$f0,tangentNegativeHalf", "add.d\t$f4,$f4,$f0", ".L8:",
+        "l.d\t$f2,tangentPi", "trunc.w.d $f0,$f4,$3", "mfc1\t$2,$f0",
+        "mtc1\t$2,$f0", "cvt.d.w\t$f0,$f0", "mul.d\t$f0,$f0,$f2",
+        "sub.d\t$f20,$f20,$f0", "mtc1\t$0,$f22", "mtc1\t$0,$f23",
+        "c.eq.d\t$f20,$f22", "bc1t\t.L6", "mov.d\t$f0,$f22",
+        "jal\tfunc_80038060", "mov.d\t$f12,$f20", "mov.d\t$f12,$f20",
+        "jal\tfunc_80038190", "mov.d\t$f20,$f0", "c.eq.d\t$f0,$f22",
+        "bc1t\t.L5", "j\t.L6", "div.d\t$f0,$f20,$f0", ".L5:",
+        "l.d\t$f0,tangentMaximum", ".L6:", "lw\t$31,16($sp)",
+        "l.d\t$f22,32($sp)", "l.d\t$f20,24($sp)", "addu\t$sp,$sp,40", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected double-tangent body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-40\n", "\tsw\t$31,16($sp)\n",
+        "\ts.d\t$f22,32($sp)\n", "\ts.d\t$f20,24($sp)\n", "\tmov.d\t$f20,$f12\n",
+        "\tlui\t$1,%hi(tangentPi)\n", "\tldc1\t$f0,%lo(tangentPi)($1)\n",
+        "\tdiv.d\t$f2,$f20,$f0\n", "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n",
+        "\tnop\n", "\tc.le.d\t$f0,$f20\n",
+        "\tlui\t$1,%hi(tangentNegativeHalf)\n",
+        "\tldc1\t$f0,%lo(tangentNegativeHalf)($1)\n",
+        "\tbc1fl\t.Ltangent_rounded\n", "\tadd.d\t$f0,$f2,$f0\n",
+        "\tlui\t$1,%hi(tangentPositiveHalf)\n",
+        "\tldc1\t$f0,%lo(tangentPositiveHalf)($1)\n", "\tadd.d\t$f0,$f2,$f0\n",
+        ".Ltangent_rounded:\n", "\ttrunc.w.d\t$f2,$f0\n", "\tmfc1\t$3,$f2\n",
+        "\tnop\n", "\tmtc1\t$3,$f0\n", "\tnop\n", "\tcvt.d.w\t$f0,$f0\n",
+        "\tlui\t$1,%hi(tangentReductionPi)\n",
+        "\tldc1\t$f2,%lo(tangentReductionPi)($1)\n",
+        "\tmul.d\t$f0,$f0,$f2\n", "\tsub.d\t$f20,$f20,$f0\n",
+        "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n", "\tnop\n",
+        "\tc.eq.d\t$f20,$f0\n", "\tnop\n", "\tbc1t\t.Ltangent_done\n", "\tnop\n",
+        "\tjal\tfunc_80038060\n", "\tmov.d\t$f12,$f20\n", "\tmov.d\t$f22,$f0\n",
+        "\tjal\tfunc_80038190\n", "\tmov.d\t$f12,$f20\n", "\tmov.d\t$f2,$f0\n",
+        "\tmtc1\t$0,$f0\n", "\tmtc1\t$0,$f1\n", "\tnop\n",
+        "\tc.eq.d\t$f2,$f0\n", "\tnop\n", "\tnop\n",
+        "\tbc1fl\t.Ltangent_done\n", "\tdiv.d\t$f0,$f22,$f2\n",
+        "\tlui\t$1,%hi(tangentMaximum)\n",
+        "\tldc1\t$f0,%lo(tangentMaximum)($1)\n", ".Ltangent_done:\n",
+        "\tlw\t$31,16($sp)\n", "\tldc1\t$f22,32($sp)\n", "\tldc1\t$f20,24($sp)\n",
+        "\tjr\t$31\n", "\taddiu\t$sp,$sp,40\n", "\tnop\n", "\tnop\n", "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -5041,6 +5106,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-object-record-initialization", action="store_true")
     parser.add_argument("--schedule-nested-render-object-creation", action="store_true")
     parser.add_argument("--schedule-startup-message-drain", action="store_true")
+    parser.add_argument("--schedule-double-tangent", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -5128,6 +5194,7 @@ def main() -> None:
             args.schedule_indexed_object_record_initialization,
             args.schedule_nested_render_object_creation,
             args.schedule_startup_message_drain,
+            args.schedule_double_tangent,
         )
     )
     if selected != 1:
@@ -5296,6 +5363,8 @@ def main() -> None:
         lines = schedule_nested_render_object_creation(lines)
     if args.schedule_startup_message_drain:
         lines = schedule_startup_message_drain(lines)
+    if args.schedule_double_tangent:
+        lines = schedule_double_tangent(lines)
     args.output.write_text("".join(lines))
 
 
