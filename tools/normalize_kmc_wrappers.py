@@ -399,6 +399,46 @@ def duplicate_nested_bit_returns(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_copy_string(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lbu\t$2,0($5)"]
+    if len(starts) != 2:
+        raise ValueError(f"expected two source-byte loads; found {len(starts)}")
+    start = starts[0]
+    end, body = _function_body(lines, start)
+    if len(body) != 14 or not re.fullmatch(r"beq\t\$2,\$0,\.L[0-9]+", body[1]):
+        raise ValueError(f"unexpected string-copy body: {body!r}")
+    done = body[1].rsplit(",", 1)[1]
+    loop = body[3][:-1] if re.fullmatch(r"\.L[0-9]+:", body[3]) else ""
+    expected = [
+        "lbu\t$2,0($5)", f"beq\t$2,$0,{done}", "move\t$6,$4",
+        f"{loop}:", "lbu\t$2,0($5)", "addu\t$5,$5,1",
+        "lbu\t$3,0($5)", "sb\t$2,0($6)", f"bne\t$3,$0,{loop}",
+        "addu\t$6,$6,1", f"{done}:", "sb\t$0,0($6)",
+        "j\t$31", "move\t$2,$4",
+    ]
+    if not loop or body != expected:
+        raise ValueError(f"unexpected string-copy body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlbu\t$2,0($5)\n",
+        f"\tbeq\t$2,$0,{done}\n",
+        "\tmove\t$3,$4\n",
+        f"{loop}:\n",
+        "\tlbu\t$2,0($5)\n",
+        "\tsb\t$2,0($3)\n",
+        "\taddu\t$5,$5,1\n",
+        "\tlbu\t$2,0($5)\n",
+        f"\tbne\t$2,$0,{loop}\n",
+        "\taddu\t$3,$3,1\n",
+        f"{done}:\n",
+        "\tsb\t$0,0($3)\n",
+        "\tj\t$31\n",
+        "\tmove\t$2,$4\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -413,6 +453,7 @@ def main() -> None:
     parser.add_argument("--schedule-nested-float-pair", action="store_true")
     parser.add_argument("--schedule-nested-float-quad", action="store_true")
     parser.add_argument("--duplicate-nested-bit-returns", action="store_true")
+    parser.add_argument("--schedule-copy-string", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -428,6 +469,7 @@ def main() -> None:
             args.schedule_nested_float_pair,
             args.schedule_nested_float_quad,
             args.duplicate_nested_bit_returns,
+            args.schedule_copy_string,
         )
     )
     if selected != 1:
@@ -452,6 +494,8 @@ def main() -> None:
         lines = schedule_nested_float_quad(lines)
     if args.duplicate_nested_bit_returns:
         lines = duplicate_nested_bit_returns(lines)
+    if args.schedule_copy_string:
+        lines = schedule_copy_string(lines)
     args.output.write_text("".join(lines))
 
 
