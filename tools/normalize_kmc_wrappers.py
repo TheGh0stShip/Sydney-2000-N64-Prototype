@@ -7866,6 +7866,264 @@ def schedule_render_surface_fill(lines: list[str]) -> list[str]:
     return output
 
 
+def schedule_framebuffer_rebuild(lines: list[str]) -> list[str]:
+    text = "".join(lines)
+
+    def replace_once(old: str, new: str, label: str) -> None:
+        nonlocal text
+        count = text.count(old)
+        if count != 1:
+            raise ValueError(f"expected one {label} pattern; found {count}")
+        text = text.replace(old, new, 1)
+
+    replace_once(
+        "\tsubu\t$sp,$sp,312\n"
+        "\tsw\t$16,280($sp)\n"
+        "\tla\t$16,D_80040000\n"
+        "\tsw\t$31,308($sp)\n"
+        "\tsw\t$22,304($sp)\n"
+        "\tsw\t$21,300($sp)\n"
+        "\tsw\t$20,296($sp)\n"
+        "\tsw\t$19,292($sp)\n"
+        "\tsw\t$18,288($sp)\n"
+        "\tsw\t$17,284($sp)\n"
+        "\tlw\t$2,-27552($16)\n"
+        "\tla\t$8,D_800F0000\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeq\t$2,$0,.L2\n"
+        "\taddu\t$17,$16,-27552\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\taddu\t$4,$8,10072\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800AA658\n"
+        "\tmove\t$5,$17\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tsw\t$0,-27552($16)\n"
+        ".L2:\n"
+        "\tlw\t$6,D_80060000-22492\n"
+        "\tlw\t$2,D_80060000-22488\n"
+        "\t#nop\n"
+        "\tmult\t$6,$2\n"
+        "\tmflo\t$6\n"
+        "\t#nop\n"
+        "\taddu\t$4,$8,10072\n"
+        "\tmove\t$5,$17\n"
+        "\tla\t$7,D_80000000+2048\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800AA100\n"
+        "\tsll\t$6,$6,1\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n",
+        "\tsubu\t$sp,$sp,304\n"
+        "\tsw\t$16,272($sp)\n"
+        "\tlui\t$16,0x8004\n"
+        "\tlw\t$2,-27552($16)\n"
+        "\tsw\t$17,276($sp)\n"
+        "\taddu\t$17,$16,-27552\n"
+        "\tsw\t$31,300($sp)\n"
+        "\tsw\t$22,296($sp)\n"
+        "\tsw\t$21,292($sp)\n"
+        "\tsw\t$20,288($sp)\n"
+        "\tsw\t$19,284($sp)\n"
+        "\tbeq\t$2,$0,.L2\n"
+        "\tsw\t$18,280($sp)\n"
+        "\tlui\t$4,0x800f\n"
+        "\taddiu\t$4,$4,10072\n"
+        "\tjal\tfunc_800AA658\n"
+        "\tmove\t$5,$17\n"
+        "\tsw\t$0,-27552($16)\n"
+        ".L2:\n"
+        "\tlui\t$8,0x800f\n"
+        "\taddiu\t$4,$8,10072\n"
+        "\tlui\t$2,0x8006\n"
+        "\tlui\t$3,0x8006\n"
+        "\tlw\t$6,-22492($2)\n"
+        "\tlw\t$2,-22488($3)\n"
+        "\tmove\t$5,$17\n"
+        "\tmult\t$6,$2\n"
+        "\tlui\t$7,0x8000\n"
+        "\taddiu\t$7,$7,2048\n"
+        "\tmove\t$17,$0\n"
+        "\tmove\t$18,$8\n"
+        "\tmflo\t$9\n"
+        "\tjal\tfunc_800AA100\n"
+        "\tsll\t$6,$9,1\n",
+        "depth buffer rebuild",
+    )
+    replace_once(
+        "\taddu\t$16,$16,-27564\n"
+        "\tmove\t$18,$8\n"
+        "\tmove\t$17,$0\n"
+        ".L6:\n"
+        "\tlw\t$2,0($16)\n"
+        "\t#nop\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeql\t$2,$0,.L15\n"
+        "\taddu\t$17,$17,1\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\taddu\t$4,$18,10072\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800AA658\n"
+        "\tmove\t$5,$16\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tsw\t$0,0($16)\n"
+        "\taddu\t$17,$17,1\n"
+        ".L15:\n"
+        "\tsltu\t$2,$17,3\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbne\t$2,$0,.L6\n"
+        "\taddu\t$16,$16,4\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n",
+        "\tlui\t$2,0x8004\n"
+        "\taddiu\t$16,$2,-27564\n"
+        ".L6:\n"
+        "\tlw\t$2,0($16)\n"
+        "\tbeq\t$2,$0,.L15\n"
+        "\taddiu\t$4,$18,10072\n"
+        "\tjal\tfunc_800AA658\n"
+        "\tmove\t$5,$16\n"
+        "\tsw\t$0,0($16)\n"
+        ".L15:\n"
+        "\taddu\t$17,$17,1\n"
+        "\tslti\t$2,$17,3\n"
+        "\tbne\t$2,$0,.L6\n"
+        "\taddu\t$16,$16,4\n",
+        "frame buffer release loop",
+    )
+    replace_once(
+        "\tla\t$20,D_80060000+25036\n"
+        "\tlw\t$2,0($20)\n"
+        "\t#nop\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeq\t$2,$0,.L9\n"
+        "\taddu\t$20,$20,-25036\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tla\t$16,D_80040000-27564\n"
+        "\tmove\t$18,$20\n"
+        "\tmove\t$17,$0\n"
+        "\tla\t$22,D_80000000\n"
+        "\tla\t$21,D_800F0000\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbeq\t$2,$0,.L9\n"
+        "\tmove\t$19,$20\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n",
+        "\tlui\t$3,0x8006\n"
+        "\tlw\t$2,25036($3)\n"
+        "\tbeq\t$2,$0,.L9\n"
+        "\tmove\t$17,$0\n"
+        "\tlui\t$22,0x8000\n"
+        "\tlui\t$21,0x800f\n"
+        "\tlui\t$20,0x8006\n"
+        "\tlui\t$19,0x8006\n"
+        "\tmove\t$18,$3\n"
+        "\tlui\t$2,0x8004\n"
+        "\taddiu\t$16,$2,-27564\n",
+        "frame buffer allocation setup",
+    )
+    replace_once(
+        ".L13:\n"
+        "\taddu\t$4,$sp,16\n"
+        "\taddu\t$5,$22,2056\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_8002F6B0\n"
+        "\tmove\t$6,$17\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tlw\t$6,-22492($20)\n"
+        "\tlw\t$2,-22488($19)\n"
+        "\t#nop\n"
+        "\tmult\t$6,$2\n"
+        "\tmflo\t$6\n"
+        "\t#nop\n"
+        "\taddu\t$4,$21,10072\n"
+        "\tmove\t$5,$16\n"
+        "\taddu\t$7,$sp,16\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tjal\tfunc_800AA100\n"
+        "\tsll\t$6,$6,1\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n\n"
+        "\tlw\t$2,25036($18)\n"
+        "\taddu\t$17,$17,1\n"
+        "\tsltu\t$2,$17,$2\n"
+        "\t.set\tnoreorder\n"
+        "\t.set\tnomacro\n"
+        "\tbne\t$2,$0,.L13\n"
+        "\taddu\t$16,$16,4\n"
+        "\t.set\tmacro\n"
+        "\t.set\treorder\n",
+        "\taddu\t$4,$sp,16\n"
+        ".L13:\n"
+        "\taddu\t$5,$22,2056\n"
+        "\tjal\tfunc_8002F6B0\n"
+        "\tmove\t$6,$17\n"
+        "\tlw\t$3,-22492($20)\n"
+        "\tlw\t$2,-22488($19)\n"
+        "\tmult\t$3,$2\n"
+        "\taddiu\t$4,$21,10072\n"
+        "\tmove\t$5,$16\n"
+        "\taddu\t$7,$sp,16\n"
+        "\taddu\t$16,$16,4\n"
+        "\tmflo\t$9\n"
+        "\tjal\tfunc_800AA100\n"
+        "\tsll\t$6,$9,1\n"
+        "\tlw\t$2,25036($18)\n"
+        "\taddu\t$17,$17,1\n"
+        "\tsltu\t$2,$17,$2\n"
+        "\tbne\t$2,$0,.L13\n"
+        "\taddu\t$4,$sp,16\n",
+        "frame buffer allocation loop",
+    )
+    replace_once(
+        "\tlw\t$31,308($sp)\n"
+        "\tlw\t$22,304($sp)\n"
+        "\tlw\t$21,300($sp)\n"
+        "\tlw\t$20,296($sp)\n"
+        "\tlw\t$19,292($sp)\n"
+        "\tlw\t$18,288($sp)\n"
+        "\tlw\t$17,284($sp)\n"
+        "\tlw\t$16,280($sp)\n"
+        "\taddu\t$sp,$sp,312\n"
+        "\tj\t$31\n",
+        "\tlw\t$31,300($sp)\n"
+        "\tlw\t$22,296($sp)\n"
+        "\tlw\t$21,292($sp)\n"
+        "\tlw\t$20,288($sp)\n"
+        "\tlw\t$19,284($sp)\n"
+        "\tlw\t$18,280($sp)\n"
+        "\tlw\t$17,276($sp)\n"
+        "\tlw\t$16,272($sp)\n"
+        "\tj\t$31\n"
+        "\taddu\t$sp,$sp,304\n",
+        "frame buffer rebuild epilogue",
+    )
+
+    output = ["\t.set\tnoreorder\n"]
+    for line in text.splitlines(keepends=True):
+        if line.strip() == ".set\treorder":
+            output.append("\t.set\tnoreorder\n")
+        else:
+            output.append(line)
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -7982,6 +8240,7 @@ def main() -> None:
     parser.add_argument("--schedule-named-archive-search", action="store_true")
     parser.add_argument("--schedule-music-resource-load", action="store_true")
     parser.add_argument("--schedule-render-surface-fill", action="store_true")
+    parser.add_argument("--schedule-framebuffer-rebuild", action="store_true")
     parser.add_argument("--truncate-scheduler-task-loop", action="store_true")
     parser.add_argument("--normalize-framebuffer-wait", action="store_true")
     parser.add_argument("--normalize-render-shutdown", action="store_true")
@@ -8105,6 +8364,7 @@ def main() -> None:
             args.schedule_named_archive_search,
             args.schedule_music_resource_load,
             args.schedule_render_surface_fill,
+            args.schedule_framebuffer_rebuild,
         )
     )
     if selected != 1:
@@ -8341,6 +8601,8 @@ def main() -> None:
         lines = schedule_music_resource_load(lines)
     if args.schedule_render_surface_fill:
         lines = schedule_render_surface_fill(lines)
+    if args.schedule_framebuffer_rebuild:
+        lines = schedule_framebuffer_rebuild(lines)
     args.output.write_text("".join(lines))
 
 
