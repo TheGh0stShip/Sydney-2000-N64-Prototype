@@ -2067,6 +2067,45 @@ def schedule_all_vector_planes(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_reference_return(lines: list[str]) -> list[str]:
+    """Place the object-reference stack restore in the return delay slot."""
+    labels = [index for index, line in enumerate(lines) if line.strip() == ".L3:"]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8001A330"
+    ]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError(
+            "expected one object-reference epilogue; "
+            f"found {(len(labels), len(ends))}"
+        )
+    start = labels[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        ".L3:", "move\t$2,$0", "lw\t$31,20($sp)",
+        "lw\t$16,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected object-reference epilogue: {body!r}")
+    lines[start:end] = [
+        ".L3:\n",
+        "\t.set\tnoreorder\n",
+        "\tmove\t$2,$0\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -2112,6 +2151,7 @@ def main() -> None:
     parser.add_argument("--truncate-nonreturning-thread", action="store_true")
     parser.add_argument("--schedule-indexed-record-value", action="store_true")
     parser.add_argument("--schedule-all-vector-planes", action="store_true")
+    parser.add_argument("--schedule-object-reference-return", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2158,6 +2198,7 @@ def main() -> None:
             args.truncate_nonreturning_thread,
             args.schedule_indexed_record_value,
             args.schedule_all_vector_planes,
+            args.schedule_object_reference_return,
         )
     )
     if selected != 1:
@@ -2244,6 +2285,8 @@ def main() -> None:
         lines = schedule_indexed_record_value(lines)
     if args.schedule_all_vector_planes:
         lines = schedule_all_vector_planes(lines)
+    if args.schedule_object_reference_return:
+        lines = schedule_object_reference_return(lines)
     args.output.write_text("".join(lines))
 
 
