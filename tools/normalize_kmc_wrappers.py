@@ -5920,6 +5920,87 @@ def schedule_named_resource_load(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_active_slot_release(lines: list[str]) -> list[str]:
+    frames = [index for index, line in enumerate(lines) if line.strip().startswith(".frame")]
+    masks = [index for index, line in enumerate(lines) if line.strip().startswith(".mask")]
+    if len(frames) != 1 or lines[frames[0]].strip().split("#", 1)[0].rstrip() != ".frame\t$sp,56,$31":
+        raise ValueError("unexpected active-slot release frame")
+    if len(masks) != 1 or lines[masks[0]].strip() != ".mask\t0x807f0000,-4":
+        raise ValueError("unexpected active-slot release register mask")
+    starts = [index for index, line in enumerate(lines) if line.strip() == "subu\t$sp,$sp,56"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_80006D14"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one active-slot release body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "subu\t$sp,$sp,56", "sw\t$21,44($sp)", "li\t$21,-2",
+        "sw\t$19,36($sp)", "la\t$19,activeSlotState+4", "sw\t$18,32($sp)",
+        "addu\t$18,$19,132", "sw\t$20,40($sp)", "addu\t$20,$19,68",
+        "sw\t$17,28($sp)", "move\t$17,$20", "sw\t$16,24($sp)",
+        "move\t$16,$0", "sw\t$22,48($sp)", "addu\t$22,$19,100",
+        "sw\t$31,52($sp)", ".L14:", "lw\t$2,0($19)", "beq\t$2,$0,.L3",
+        "lw\t$3,0($18)", "beq\t$3,$0,.L4", "addu\t$2,$16,$20",
+        "lw\t$2,0($2)", "beq\t$2,$0,.L9", "move\t$5,$0",
+        "la\t$2,activeSlotState+72", "addu\t$6,$16,$2", "move\t$4,$3",
+        ".L11:", "lw\t$3,0($4)", "andi\t$2,$3,0x0001",
+        "beq\t$2,$0,.L10", "and\t$2,$3,$21", "sw\t$2,0($4)",
+        ".L10:", "lw\t$2,0($6)", "addu\t$5,$5,1", "sltu\t$2,$5,$2",
+        "bne\t$2,$0,.L11", "addu\t$4,$4,32", ".L9:", "lw\t$2,0($19)",
+        "addu\t$2,$2,-1", "sw\t$2,0($19)", "sw\t$0,0($17)",
+        "lw\t$4,164($19)", "jal\tfunc_800AA658", "move\t$5,$18", ".L4:",
+        "addu\t$18,$18,4", "addu\t$17,$17,4", "sltu\t$2,$17,$22",
+        "bne\t$2,$0,.L14", "addu\t$16,$16,4", ".L3:",
+        "sw\t$0,activeSlotState", "move\t$2,$0", "lw\t$31,52($sp)",
+        "lw\t$22,48($sp)", "lw\t$21,44($sp)", "lw\t$20,40($sp)",
+        "lw\t$19,36($sp)", "lw\t$18,32($sp)", "lw\t$17,28($sp)",
+        "lw\t$16,24($sp)", "addu\t$sp,$sp,56", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected active-slot release body: {body!r}")
+    lines[frames[0]] = "\t.frame\t$sp,48,$31\n"
+    lines[masks[0]] = "\t.mask\t0x803f0000,-8\n"
+    lines[start:end] = [
+        "\t.set\tnoreorder\n", "\taddiu\t$sp,$sp,-48\n", "\tsw\t$19,28($sp)\n",
+        "\taddiu\t$19,$0,-2\n", "\tsw\t$21,36($sp)\n",
+        "\tlui\t$21,%hi(activeSlotState)\n", "\tlui\t$2,%hi(activeSlotState)\n",
+        "\tsw\t$18,24($sp)\n", "\taddiu\t$18,$2,%lo(activeSlotState)\n",
+        "\tsw\t$17,20($sp)\n", "\taddiu\t$17,$18,136\n",
+        "\tsw\t$16,16($sp)\n", "\taddu\t$16,$18,$0\n", "\tsw\t$20,32($sp)\n",
+        "\taddiu\t$20,$16,32\n", "\tsw\t$31,40($sp)\n",
+        ".Lactive_slot_outer:\n", "\tsltu\t$2,$16,$20\n",
+        "\tbeqz\t$2,.Lactive_slot_done\n", "\tnop\n", "\tlw\t$2,4($18)\n",
+        "\tbeqz\t$2,.Lactive_slot_done\n", "\tnop\n", "\tlw\t$2,136($16)\n",
+        "\tbeqzl\t$2,.Lactive_slot_next\n", "\taddiu\t$17,$17,4\n",
+        "\tlw\t$2,72($16)\n", "\tbeqz\t$2,.Lactive_slot_release\n",
+        "\taddu\t$5,$0,$0\n", ".Lactive_slot_entries:\n", "\tlw\t$2,136($16)\n",
+        "\tsll\t$3,$5,5\n", "\taddu\t$3,$3,$2\n", "\tlw\t$4,0($3)\n",
+        "\tandi\t$2,$4,1\n", "\tbeqz\t$2,.Lactive_slot_entry_next\n",
+        "\tand\t$2,$4,$19\n", "\tsw\t$2,0($3)\n", ".Lactive_slot_entry_next:\n",
+        "\tlw\t$2,72($16)\n", "\taddiu\t$5,$5,1\n", "\tsltu\t$2,$5,$2\n",
+        "\tbnez\t$2,.Lactive_slot_entries\n", "\tnop\n",
+        ".Lactive_slot_release:\n", "\taddu\t$5,$17,$0\n", "\tlw\t$2,4($18)\n",
+        "\tlw\t$4,%lo(activeSlotState)+0xa8($21)\n", "\taddiu\t$2,$2,-1\n",
+        "\tsw\t$2,4($18)\n", "\tjal\tfunc_800AA658\n", "\tsw\t$0,72($16)\n",
+        "\taddiu\t$17,$17,4\n", ".Lactive_slot_next:\n",
+        "\tj\t.Lactive_slot_outer\n", "\taddiu\t$16,$16,4\n",
+        ".Lactive_slot_done:\n", "\tlw\t$31,40($sp)\n", "\tlw\t$21,36($sp)\n",
+        "\tlw\t$20,32($sp)\n", "\tlw\t$19,28($sp)\n", "\tlw\t$18,24($sp)\n",
+        "\tlw\t$17,20($sp)\n", "\tlw\t$16,16($sp)\n",
+        "\tlui\t$2,%hi(activeSlotState)\n", "\tsw\t$0,%lo(activeSlotState)($2)\n",
+        "\taddu\t$2,$0,$0\n", "\tjr\t$31\n", "\taddiu\t$sp,$sp,48\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -6019,6 +6100,7 @@ def main() -> None:
     parser.add_argument("--schedule-display-record-initialization", action="store_true")
     parser.add_argument("--schedule-resource-record-processing", action="store_true")
     parser.add_argument("--schedule-named-resource-load", action="store_true")
+    parser.add_argument("--schedule-active-slot-release", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -6119,6 +6201,7 @@ def main() -> None:
             args.schedule_display_record_initialization,
             args.schedule_resource_record_processing,
             args.schedule_named_resource_load,
+            args.schedule_active_slot_release,
         )
     )
     if selected != 1:
@@ -6313,6 +6396,8 @@ def main() -> None:
         lines = schedule_resource_record_processing(lines)
     if args.schedule_named_resource_load:
         lines = schedule_named_resource_load(lines)
+    if args.schedule_active_slot_release:
+        lines = schedule_active_slot_release(lines)
     args.output.write_text("".join(lines))
 
 
