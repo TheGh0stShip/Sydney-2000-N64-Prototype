@@ -1840,6 +1840,75 @@ def schedule_work_buffer_call(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_record_copy(lines: list[str]) -> list[str]:
+    """Restore the sentinel branch and indexed record-copy register schedule."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "subu\t$sp,$sp,24"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_800054B8"
+    ]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one indexed-record copy body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "subu\t$sp,$sp,24", "move\t$2,$0", "li\t$3,-1",
+        "sw\t$31,20($sp)", "beq\t$5,$3,.L2", "sw\t$16,16($sp)",
+        "li\t$16,-2147221504", "sll\t$4,$5,2", "addu\t$4,$4,$5",
+        "sll\t$4,$4,2", "subu\t$4,$4,$5", "sll\t$4,$4,2",
+        "li\t$5,-2147221504", "lw\t$2,records", "ori\t$5,$5,0x36c0",
+        "li\t$6,0x0000004c", "addu\t$2,$2,4", "jal\tfunc_80011300",
+        "addu\t$4,$2,$4", "lw\t$2,14016($16)", ".L2:",
+        "lw\t$31,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,24",
+        "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected indexed-record compiler body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tli\t$2,-1\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tbne\t$5,$2,.Lrecord_copy\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tj\t.Lrecord_done\n",
+        "\tmove\t$2,$0\n",
+        ".Lrecord_copy:\n",
+        "\tlui\t$2,%hi(records)\n",
+        "\tlui\t$16,%hi(buffer)\n",
+        "\tsll\t$4,$5,2\n",
+        "\taddu\t$4,$4,$5\n",
+        "\tsll\t$4,$4,2\n",
+        "\tsubu\t$4,$4,$5\n",
+        "\tsll\t$4,$4,2\n",
+        "\taddiu\t$5,$16,%lo(buffer)\n",
+        "\tlw\t$2,%lo(records)($2)\n",
+        "\tli\t$6,0x0000004c\n",
+        "\taddiu\t$2,$2,4\n",
+        "\tjal\tfunc_80011300\n",
+        "\taddu\t$4,$2,$4\n",
+        "\tlw\t$2,%lo(buffer)($16)\n",
+        ".Lrecord_done:\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tj\t$31\n",
+        "\taddu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1881,6 +1950,7 @@ def main() -> None:
     parser.add_argument("--reuse-initialized-address", action="store_true")
     parser.add_argument("--schedule-stream-consumption", action="store_true")
     parser.add_argument("--schedule-work-buffer-call", action="store_true")
+    parser.add_argument("--schedule-indexed-record-copy", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1923,6 +1993,7 @@ def main() -> None:
             args.reuse_initialized_address,
             args.schedule_stream_consumption,
             args.schedule_work_buffer_call,
+            args.schedule_indexed_record_copy,
         )
     )
     if selected != 1:
@@ -2001,6 +2072,8 @@ def main() -> None:
         lines = schedule_stream_consumption(lines)
     if args.schedule_work_buffer_call:
         lines = schedule_work_buffer_call(lines)
+    if args.schedule_indexed_record_copy:
+        lines = schedule_indexed_record_copy(lines)
     args.output.write_text("".join(lines))
 
 
