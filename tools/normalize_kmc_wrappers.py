@@ -2106,6 +2106,47 @@ def schedule_object_reference_return(lines: list[str]) -> list[str]:
     return lines
 
 
+def normalize_object_queue_entry(lines: list[str]) -> list[str]:
+    """Select the original commutative address order and second FP temporary."""
+    address = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "addu\t$3,$2,$3"
+    ]
+    conversions = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "trunc.w.s $f0,$f2,$7"
+    ]
+    if len(address) != 1 or len(conversions) != 1:
+        raise ValueError(
+            "expected one queue-entry address and second conversion; "
+            f"found {(len(address), len(conversions))}"
+        )
+    conversion = conversions[0]
+    if conversion + 1 >= len(lines) or lines[conversion + 1].strip() != "mfc1\t$2,$f0":
+        raise ValueError("unexpected queue-entry FP conversion result")
+    lines[address[0]] = lines[address[0]].replace("$3,$2,$3", "$3,$3,$2")
+    lines[conversion] = lines[conversion].replace("$f0,$f2", "$f4,$f2")
+    lines[conversion + 1] = lines[conversion + 1].replace("$2,$f0", "$2,$f4")
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.split("#", 1)[0].strip() == "li\t$6,-2147090432"
+    ]
+    returns = [index for index, line in enumerate(lines) if line.strip() == "j\t$31"]
+    if len(starts) != 1 or len(returns) != 1:
+        raise ValueError(
+            "expected one queue-entry body and return; "
+            f"found {(len(starts), len(returns))}"
+        )
+    lines.insert(starts[0], "\t.set\tnoreorder\n")
+    for index, line in enumerate(lines):
+        if line.strip() == ".set\treorder":
+            lines[index] = "\t.set\tnoreorder\n"
+    returns = [index for index, line in enumerate(lines) if line.strip() == "j\t$31"]
+    lines.insert(returns[0] + 1, "\tnop\n")
+    lines.insert(returns[0] + 2, "\t.set\treorder\n")
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -2152,6 +2193,7 @@ def main() -> None:
     parser.add_argument("--schedule-indexed-record-value", action="store_true")
     parser.add_argument("--schedule-all-vector-planes", action="store_true")
     parser.add_argument("--schedule-object-reference-return", action="store_true")
+    parser.add_argument("--normalize-object-queue-entry", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -2199,6 +2241,7 @@ def main() -> None:
             args.schedule_indexed_record_value,
             args.schedule_all_vector_planes,
             args.schedule_object_reference_return,
+            args.normalize_object_queue_entry,
         )
     )
     if selected != 1:
@@ -2287,6 +2330,8 @@ def main() -> None:
         lines = schedule_all_vector_planes(lines)
     if args.schedule_object_reference_return:
         lines = schedule_object_reference_return(lines)
+    if args.normalize_object_queue_entry:
+        lines = normalize_object_queue_entry(lines)
     args.output.write_text("".join(lines))
 
 
