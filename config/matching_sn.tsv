@@ -1,0 +1,2 @@
+0x30FE0	0x584	src/libgcc/udivdi3.c	--section-base=.rdata:0x80001610 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	53cf3ba59c939303a34124e287cd7a5dd38fff956c7e2175d82dafe7019feed7
+0x31C30	0x5EC	src/libgcc/divdi3.c	--section-base=.rdata:0x80001810 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0a3e9b10af954a881015647febd2be356b9d7e13396b32a3a911032fa7aa3271

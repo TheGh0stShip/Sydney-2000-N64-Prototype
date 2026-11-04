@@ -6848,6 +6848,266 @@ def schedule_resource_data_resolution(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_scaled_model_matrix_build(lines: list[str]) -> list[str]:
+    function_name = "func_8000D5D4"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one scaled model-matrix builder")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002EC50", "func_8002EF70", "func_8002EAC0", "func_8002EA40",
+                  "D_80068C00", "D_8005A52C", "D_80000698", "D_800006A0"):
+        if token not in body:
+            raise ValueError(f"unexpected scaled model-matrix builder near {token!r}")
+    assembly = """\
+\t.frame\t$sp,168,$31
+\t.mask\t0x800f0000,-8
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-168
+\tsw\t$18,152($sp)
+\tmove\t$18,$4
+\tsw\t$17,148($sp)
+\tmove\t$17,$5
+\tsw\t$19,156($sp)
+\tmove\t$19,$6
+\tsw\t$16,144($sp)
+\tmove\t$16,$7
+\tsw\t$31,160($sp)
+\tjal\tfunc_8002EC50
+\taddiu\t$4,$sp,16
+\tlwc1\t$f0,0($17)
+\tlui\t$2,%hi(D_80068C00)
+\tswc1\t$f0,%lo(D_80068C00)($2)
+\tlwc1\t$f0,4($17)
+\taddiu\t$2,$2,%lo(D_80068C00)
+\tswc1\t$f0,4($2)
+\tlwc1\t$f0,8($17)
+\tswc1\t$f0,8($2)
+\tlwc1\t$f0,16($17)
+\tswc1\t$f0,16($2)
+\tlwc1\t$f0,20($17)
+\tswc1\t$f0,20($2)
+\tlwc1\t$f0,24($17)
+\tswc1\t$f0,24($2)
+\tlwc1\t$f0,32($17)
+\tswc1\t$f0,32($2)
+\tlwc1\t$f0,36($17)
+\tswc1\t$f0,36($2)
+\tlwc1\t$f0,40($17)
+\tandi\t$16,$16,2
+\tbeqz\t$16,.Lscaled_matrix_done
+\tswc1\t$f0,40($2)
+\tmove\t$5,$0
+\tmove\t$6,$2
+\tlui\t$1,%hi(D_80000698)
+\tldc1\t$f2,%lo(D_80000698)($1)
+\tmove\t$4,$0
+.Lscaled_matrix_outer:
+\tsll\t$3,$5,4
+.Lscaled_matrix_inner:
+\taddu\t$2,$3,$6
+\tlwc1\t$f0,0($2)
+\tcvt.d.s\t$f0,$f0
+\tmul.d\t$f0,$f0,$f2
+\taddiu\t$4,$4,1
+\tcvt.s.d\t$f0,$f0
+\tswc1\t$f0,0($2)
+\tslti\t$2,$4,3
+\tbnez\t$2,.Lscaled_matrix_inner
+\taddiu\t$3,$3,4
+\taddiu\t$5,$5,1
+\tslti\t$2,$5,3
+\tbnez\t$2,.Lscaled_matrix_outer
+\tmove\t$4,$0
+.Lscaled_matrix_done:
+\tlui\t$16,%hi(D_80068C00)
+\tlw\t$5,184($sp)
+\tlw\t$6,188($sp)
+\tmtc1\t$0,$f0
+\tlui\t$1,%hi(D_800006A0)
+\tlwc1\t$f2,%lo(D_800006A0)($1)
+\taddiu\t$16,$16,%lo(D_80068C00)
+\tswc1\t$f0,44($16)
+\tswc1\t$f0,28($16)
+\tswc1\t$f0,12($16)
+\tswc1\t$f2,60($16)
+\tlwc1\t$f0,64($17)
+\tswc1\t$f0,48($16)
+\tlwc1\t$f0,68($17)
+\tswc1\t$f0,52($16)
+\tlwc1\t$f0,72($17)
+\taddiu\t$4,$sp,16
+\tswc1\t$f0,56($16)
+\tlwc1\t$f0,64($17)
+\tlw\t$7,192($sp)
+\tlui\t$2,%hi(D_8005A52C)
+\tswc1\t$f0,%lo(D_8005A52C)($2)
+\tlwc1\t$f0,68($17)
+\tlui\t$2,%hi(D_8005A530)
+\tswc1\t$f0,%lo(D_8005A530)($2)
+\tlwc1\t$f0,72($17)
+\tlui\t$2,%hi(D_8005A534)
+\tjal\tfunc_8002EF70
+\tswc1\t$f0,%lo(D_8005A534)($2)
+\tmove\t$4,$16
+\taddiu\t$16,$sp,80
+\tjal\tfunc_8002EAC0
+\tmove\t$5,$16
+\tmove\t$4,$16
+\taddiu\t$5,$sp,16
+\tjal\tfunc_8002EA40
+\tmove\t$6,$19
+\tlui\t$4,0xda38
+\tlw\t$2,0($18)
+\tori\t$4,$4,3
+\tmove\t$3,$2
+\taddiu\t$2,$2,8
+\tsw\t$2,0($18)
+\tsw\t$4,0($3)
+\tsw\t$19,4($3)
+\tlw\t$31,160($sp)
+\tlw\t$19,156($sp)
+\tlw\t$18,152($sp)
+\tlw\t$17,148($sp)
+\tlw\t$16,144($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,168
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_resource_payload_load(lines: list[str]) -> list[str]:
+    function_name = "func_80004F1C"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one resource payload loader")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80011300", "func_800113DC", "func_800AA804", "func_800AA658",
+                  "func_800D6BD0", "D_80043674", "D_80043684", "D_800436C0"):
+        if token not in body:
+            raise ValueError(f"unexpected resource payload loader near {token!r}")
+    assembly = """\
+\t.frame\t$sp,64,$31
+\t.mask\t0x801f0000,-4
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-64
+\tmove\t$3,$5
+\tsw\t$20,56($sp)
+\tmove\t$20,$6
+\tsw\t$31,60($sp)
+\tsw\t$19,52($sp)
+\tsw\t$18,48($sp)
+\tsw\t$17,44($sp)
+\tbltz\t$3,.Lpayload_failure
+\tsw\t$16,40($sp)
+\tlui\t$19,%hi(D_800436C0)
+\taddiu\t$16,$19,%lo(D_800436C0)
+\tmove\t$5,$16
+\tlui\t$2,%hi(D_80043674)
+\tli\t$6,76
+\tsll\t$4,$3,2
+\taddu\t$4,$4,$3
+\tsll\t$4,$4,2
+\tsubu\t$4,$4,$3
+\tlw\t$2,%lo(D_80043674)($2)
+\tsll\t$4,$4,2
+\taddiu\t$2,$2,4
+\tjal\tfunc_80011300
+\taddu\t$4,$2,$4
+\taddiu\t$5,$sp,32
+\tlui\t$2,%hi(D_80043684)
+\tlw\t$3,%lo(D_80043684)($2)
+\tlw\t$2,4($16)
+\tli\t$6,4
+\taddu\t$18,$3,$2
+\tjal\tfunc_80011300
+\tmove\t$4,$18
+\tlui\t$3,0x3032
+\tlw\t$2,32($sp)
+\tori\t$3,$3,0x5447
+\tbne\t$2,$3,.Lpayload_plain
+\tmove\t$4,$18
+\tlui\t$16,%hi(D_800F2758)
+\taddiu\t$16,$16,%lo(D_800F2758)
+\tmove\t$4,$16
+\taddiu\t$17,$sp,36
+\tmove\t$5,$17
+\tli\t$6,16
+\tlui\t$7,%hi(D_800004D4)
+\taddiu\t$7,$7,%lo(D_800004D4)
+\tjal\tfunc_800AA804
+\tsw\t$0,36($sp)
+\tmove\t$4,$18
+\tlw\t$5,36($sp)
+\tjal\tfunc_80011300
+\tli\t$6,16
+\tmove\t$4,$16
+\tlw\t$2,36($sp)
+\tlwl\t$8,0($2)
+\tlwr\t$8,3($2)
+\tlwl\t$9,4($2)
+\tlwr\t$9,7($2)
+\tlwl\t$10,8($2)
+\tlwr\t$10,11($2)
+\tlwl\t$11,12($2)
+\tlwr\t$11,15($2)
+\tswl\t$8,16($sp)
+\tswr\t$8,19($sp)
+\tswl\t$9,20($sp)
+\tswr\t$9,23($sp)
+\tswl\t$10,24($sp)
+\tswr\t$10,27($sp)
+\tswl\t$11,28($sp)
+\tswr\t$11,31($sp)
+\tjal\tfunc_800AA658
+\tmove\t$5,$17
+\tmove\t$4,$16
+\tmove\t$5,$17
+\tlui\t$7,%hi(D_800004D8)
+\tlw\t$6,%lo(D_800436C0)($19)
+\taddiu\t$7,$7,%lo(D_800004D8)
+\tjal\tfunc_800AA804
+\tsw\t$0,36($sp)
+\tlw\t$5,36($sp)
+\tlw\t$6,%lo(D_800436C0)($19)
+\tjal\tfunc_800113DC
+\tmove\t$4,$18
+\tlw\t$4,36($sp)
+\tjal\tfunc_800D6BD0
+\tmove\t$5,$20
+\tmove\t$4,$16
+\tjal\tfunc_800AA658
+\tmove\t$5,$17
+\tj\t.Lpayload_return
+\tli\t$2,1
+.Lpayload_plain:
+\tlw\t$6,%lo(D_800436C0)($19)
+\tjal\tfunc_800113DC
+\tmove\t$5,$20
+\tj\t.Lpayload_return
+\tli\t$2,1
+.Lpayload_failure:
+\tmove\t$2,$0
+.Lpayload_return:
+\tlw\t$31,60($sp)
+\tlw\t$20,56($sp)
+\tlw\t$19,52($sp)
+\tlw\t$18,48($sp)
+\tlw\t$17,44($sp)
+\tlw\t$16,40($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,64
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def schedule_runtime_render_record_creation(lines: list[str]) -> list[str]:
     function_name = "func_80015F98"
     labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
@@ -10502,6 +10762,307 @@ def schedule_typed_object_processing(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_indexed_render_record_update(lines: list[str]) -> list[str]:
+    function_name = "func_80013048"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one indexed render-record updater")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_80017818", "func_80017810", "D_8005AAF0"):
+        if token not in body:
+            raise ValueError(f"unexpected indexed render-record updater near {token!r}")
+    assembly = """\
+\t.frame\t$sp,32,$31
+\t.mask\t0x80030000,-8
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-32
+\tsw\t$16,16($sp)
+\tmove\t$16,$4
+\tsw\t$17,20($sp)
+\tsw\t$31,24($sp)
+\tjal\tfunc_80017818
+\tmove\t$17,$5
+\tmtc1\t$0,$f12
+\tmove\t$6,$0
+\tjal\tfunc_80017810
+\tmov.s\t$f14,$f12
+\tlw\t$3,0($16)
+\tsltiu\t$2,$3,3
+\tbeqz\t$2,.Lindexed_render_missing
+\tlui\t$2,%hi(D_8005AAF0)
+\taddiu\t$5,$2,%lo(D_8005AAF0)
+\tsll\t$2,$3,5
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\taddu\t$3,$2,$5
+\tlw\t$2,0($3)
+\tbnez\t$2,.Lindexed_render_active
+\tandi\t$2,$17,1
+.Lindexed_render_missing:
+\tj\t.Lindexed_render_return
+\tli\t$2,-998
+.Lindexed_render_active:
+\tbeqz\t$2,.Lindexed_render_second_pair
+\tandi\t$2,$17,2
+\tlhu\t$2,8($16)
+\tsh\t$2,12($3)
+\tlw\t$3,0($16)
+\tsll\t$2,$3,5
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\tlhu\t$3,10($16)
+\taddu\t$2,$2,$5
+\tsh\t$3,14($2)
+\tandi\t$2,$17,2
+.Lindexed_render_second_pair:
+\tbeqz\t$2,.Lindexed_render_first_value
+\tandi\t$2,$17,4
+\tlw\t$3,0($16)
+\tsll\t$2,$3,5
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\tlhu\t$3,12($16)
+\taddu\t$2,$2,$5
+\tsh\t$3,16($2)
+\tlw\t$3,0($16)
+\tsll\t$2,$3,5
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\tlhu\t$3,14($16)
+\taddu\t$2,$2,$5
+\tsh\t$3,18($2)
+\tandi\t$2,$17,4
+.Lindexed_render_first_value:
+\tbeqz\t$2,.Lindexed_render_second_value
+\tandi\t$2,$17,8
+\tlw\t$2,0($16)
+\tsll\t$3,$2,5
+\taddu\t$3,$3,$2
+\tsll\t$3,$3,2
+\tlw\t$2,24($16)
+\taddu\t$3,$3,$5
+\tsw\t$2,28($3)
+\tandi\t$2,$17,8
+.Lindexed_render_second_value:
+\tbeqz\t$2,.Lindexed_render_scales
+\tandi\t$2,$17,16
+\tlw\t$2,0($16)
+\tsll\t$3,$2,5
+\taddu\t$3,$3,$2
+\tsll\t$3,$3,2
+\tlw\t$2,28($16)
+\taddu\t$3,$3,$5
+\tsw\t$2,32($3)
+\tandi\t$2,$17,16
+.Lindexed_render_scales:
+\tbeqz\t$2,.Lindexed_render_object
+\tandi\t$2,$17,32
+\tlw\t$3,0($16)
+\tlwc1\t$f0,16($16)
+\tsll\t$2,$3,5
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$5
+\tswc1\t$f0,20($2)
+\tlw\t$3,0($16)
+\tlwc1\t$f0,20($16)
+\tsll\t$2,$3,5
+\taddu\t$2,$2,$3
+\tsll\t$2,$2,2
+\taddu\t$2,$2,$5
+\tswc1\t$f0,24($2)
+\tandi\t$2,$17,32
+.Lindexed_render_object:
+\tbeqz\t$2,.Lindexed_render_flags
+\tnop
+\tlw\t$2,0($16)
+\tsll\t$3,$2,5
+\taddu\t$3,$3,$2
+\tsll\t$3,$3,2
+\tlw\t$2,4($16)
+\taddu\t$3,$3,$5
+\tsw\t$2,8($3)
+.Lindexed_render_flags:
+\tlw\t$4,0($16)
+\tmove\t$2,$0
+\tsll\t$3,$4,5
+\taddu\t$3,$3,$4
+\tsll\t$3,$3,2
+\taddu\t$3,$3,$5
+\tsw\t$17,128($3)
+.Lindexed_render_return:
+\tlw\t$31,24($sp)
+\tlw\t$17,20($sp)
+\tlw\t$16,16($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,32
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
+def schedule_bitmap_render_object_reset(lines: list[str]) -> list[str]:
+    function_name = "func_80019488"
+    labels = [i for i, line in enumerate(lines) if line.strip() == f"{function_name}:"]
+    ends = [i for i, line in enumerate(lines) if line.strip() == f".end\t{function_name}"]
+    if len(labels) != 1 or len(ends) != 1 or labels[0] >= ends[0]:
+        raise ValueError("expected exactly one bitmap render-object reset")
+    start, end = labels[0], ends[0]
+    body = "".join(lines[start + 1:end])
+    for token in ("func_8002F6B0", "func_800AA658", "func_8001A480",
+                  "func_80004380", "func_80018940", "D_800620DC",
+                  "D_800F2758", "D_80000E80", "D_80000F08"):
+        if token not in body:
+            raise ValueError(f"unexpected bitmap render-object reset near {token!r}")
+    assembly = """\
+\t.frame\t$sp,576,$31
+\t.mask\t0x80070000,-4
+\t.fmask\t0x00000000,0
+\t.set\tnoreorder
+\taddiu\t$sp,$sp,-576
+\tsw\t$31,572($sp)
+\tsw\t$18,568($sp)
+\tsw\t$17,564($sp)
+\tsw\t$16,560($sp)
+\tlw\t$16,0($4)
+\tbnez\t$16,.Lbitmap_reset_active
+\tmove\t$6,$5
+\tj\t.Lbitmap_reset_return
+\tmove\t$2,$0
+.Lbitmap_reset_active:
+\taddiu\t$4,$sp,16
+\tlui\t$5,%hi(D_80000E80)
+\tjal\tfunc_8002F6B0
+\taddiu\t$5,$5,%lo(D_80000E80)
+\tlui\t$2,%hi(D_800620DC)
+\tlwc1\t$f0,88($16)
+\tlw\t$2,%lo(D_800620DC)($2)
+\tswc1\t$f0,528($sp)
+\tlwc1\t$f0,92($16)
+\tswc1\t$f0,532($sp)
+\tlwc1\t$f0,96($16)
+\tswc1\t$f0,536($sp)
+\tlwc1\t$f0,100($16)
+\tswc1\t$f0,540($sp)
+\tlwc1\t$f0,104($16)
+\tswc1\t$f0,544($sp)
+\tlwc1\t$f0,104($16)
+\tswc1\t$f0,548($sp)
+\tlwc1\t$f0,104($16)
+\tswc1\t$f0,552($sp)
+\tlwc1\t$f0,104($16)
+\tbnez\t$2,.Lbitmap_reset_call_setup
+\tswc1\t$f0,556($sp)
+\tlw\t$2,80($16)
+\tbeqz\t$2,.Lbitmap_reset_first_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,80
+.Lbitmap_reset_first_handle:
+\tlw\t$2,72($16)
+\tbeqz\t$2,.Lbitmap_reset_second_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,72
+.Lbitmap_reset_second_handle:
+\tlw\t$2,76($16)
+\tbeqz\t$2,.Lbitmap_reset_fourth_handle
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,76
+.Lbitmap_reset_fourth_handle:
+\tlw\t$2,84($16)
+\tbeqz\t$2,.Lbitmap_reset_child
+\tlui\t$4,%hi(D_800F2758)
+\taddiu\t$4,$4,%lo(D_800F2758)
+\tjal\tfunc_800AA658
+\taddiu\t$5,$16,84
+.Lbitmap_reset_child:
+\tlw\t$4,56($16)
+\tbeql\t$4,$0,.Lbitmap_reset_initialize
+\tmove\t$4,$16
+\tjal\tfunc_8001A480
+\tnop
+\tlw\t$17,56($16)
+\tbeqz\t$17,.Lbitmap_reset_initialize
+\tmove\t$4,$16
+\tjal\tfunc_8001A480
+\tmove\t$4,$17
+\tjal\tfunc_80004380
+\tmove\t$4,$17
+.Lbitmap_reset_call_setup:
+\tmove\t$4,$16
+.Lbitmap_reset_initialize:
+\taddiu\t$5,$sp,16
+\tmove\t$6,$0
+\tli\t$2,255
+\tsh\t$2,70($16)
+\tsh\t$2,68($16)
+\tsh\t$2,66($16)
+\tsh\t$2,64($16)
+\tli\t$2,0x1234
+\tlui\t$1,%hi(D_80000F08)
+\tlwc1\t$f0,%lo(D_80000F08)($1)
+\tmove\t$7,$6
+\tsw\t$0,0($16)
+\tsw\t$0,4($16)
+\tsw\t$0,8($16)
+\tsw\t$0,12($16)
+\tsw\t$0,16($16)
+\tsw\t$0,20($16)
+\tsw\t$0,24($16)
+\tsh\t$0,42($16)
+\tsh\t$0,40($16)
+\tsw\t$0,72($16)
+\tsw\t$0,76($16)
+\tsw\t$2,28($16)
+\tsw\t$0,48($16)
+\tsw\t$0,56($16)
+\tsw\t$0,80($16)
+\tsb\t$0,44($16)
+\tsb\t$0,45($16)
+\tsb\t$0,46($16)
+\tsw\t$0,128($16)
+\tswc1\t$f0,32($16)
+\tjal\tfunc_80018940
+\tswc1\t$f0,36($16)
+\tlwc1\t$f0,528($sp)
+\tswc1\t$f0,88($16)
+\tlwc1\t$f0,532($sp)
+\tswc1\t$f0,92($16)
+\tlwc1\t$f0,536($sp)
+\tswc1\t$f0,96($16)
+\tlwc1\t$f0,540($sp)
+\tswc1\t$f0,100($16)
+\tlwc1\t$f0,544($sp)
+\tswc1\t$f0,104($16)
+\tlwc1\t$f0,548($sp)
+\tswc1\t$f0,108($16)
+\tlwc1\t$f0,552($sp)
+\tswc1\t$f0,112($16)
+\tlwc1\t$f0,556($sp)
+\tmove\t$2,$18
+\tswc1\t$f0,116($16)
+.Lbitmap_reset_return:
+\tlw\t$31,572($sp)
+\tlw\t$18,568($sp)
+\tlw\t$17,564($sp)
+\tlw\t$16,560($sp)
+\tjr\t$31
+\taddiu\t$sp,$sp,576
+\t.set\treorder
+"""
+    lines[start + 1:end] = assembly.splitlines(keepends=True) + ["\n"]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -10602,6 +11163,10 @@ def main() -> None:
     parser.add_argument("--schedule-resource-data-resolution", action="store_true")
     parser.add_argument("--schedule-runtime-render-record-release", action="store_true")
     parser.add_argument("--schedule-runtime-render-record-creation", action="store_true")
+    parser.add_argument("--schedule-indexed-render-record-update", action="store_true")
+    parser.add_argument("--schedule-bitmap-render-object-reset", action="store_true")
+    parser.add_argument("--schedule-resource-payload-load", action="store_true")
+    parser.add_argument("--schedule-scaled-model-matrix-build", action="store_true")
     parser.add_argument("--schedule-video-mode-selection", action="store_true")
     parser.add_argument("--schedule-video-mode-initialization", action="store_true")
     parser.add_argument("--schedule-resource-display-lists", action="store_true")
@@ -10746,6 +11311,10 @@ def main() -> None:
             args.schedule_resource_data_resolution,
             args.schedule_runtime_render_record_release,
             args.schedule_runtime_render_record_creation,
+            args.schedule_indexed_render_record_update,
+            args.schedule_bitmap_render_object_reset,
+            args.schedule_resource_payload_load,
+            args.schedule_scaled_model_matrix_build,
             args.schedule_video_mode_selection,
             args.schedule_video_mode_initialization,
             args.schedule_resource_display_lists,
@@ -10985,6 +11554,14 @@ def main() -> None:
         lines = schedule_runtime_render_record_release(lines)
     if args.schedule_runtime_render_record_creation:
         lines = schedule_runtime_render_record_creation(lines)
+    if args.schedule_indexed_render_record_update:
+        lines = schedule_indexed_render_record_update(lines)
+    if args.schedule_bitmap_render_object_reset:
+        lines = schedule_bitmap_render_object_reset(lines)
+    if args.schedule_resource_payload_load:
+        lines = schedule_resource_payload_load(lines)
+    if args.schedule_scaled_model_matrix_build:
+        lines = schedule_scaled_model_matrix_build(lines)
     if args.schedule_video_mode_selection:
         lines = schedule_video_mode_selection(lines)
     if args.schedule_video_mode_initialization:

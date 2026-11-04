@@ -30,6 +30,8 @@ verify-matching: $(BASEROM)
 	$(N64DK) match-batch config/matching_kmc_builtin.tsv=kmc+builtin --project . -I tools/ultralib/include -I tools/ultralib/include/PR -I tools/ultralib/src/audio -I tools/ultralib/src/gu
 	$(N64DK) match-batch config/matching_kmc_as.tsv=kmc+as --project . -I tools/ultralib/include -I tools/ultralib/include/PR -I tools/ultralib/include/compiler/gcc -I tools/ultralib/src/audio -I tools/ultralib/src/gu -I tools/battletanx_ga/src/libmus -I tools/battletanx_ga/src/n_audio -I tools/battletanx_ga/include
 	$(N64DK) match-batch config/matching_ido.tsv=ido5.3 --project .
+	$(N64DK) match-batch config/matching_sn.tsv=sn --project .
+	$(N64DK) match-batch config/matching_as.tsv=as --project .
 
 report:
 	$(PYTHON) tools/generate_decomp_report.py
