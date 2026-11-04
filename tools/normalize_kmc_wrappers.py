@@ -1620,6 +1620,61 @@ def schedule_masked_vector_copy(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_record_transition(lines: list[str]) -> list[str]:
+    """Delay the fifth argument load and signed-duration conversion."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "lw\t$8,16($sp)"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_8001D5D8"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one record-transition body; "
+            f"found {(len(starts), len(ends))}"
+        )
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    expected = [
+        "lw\t$8,16($sp)", "bltz\t$5,.L2", "sll\t$4,$5,6",
+        "la\t$2,records", "addu\t$4,$4,$2", "lw\t$3,24($4)",
+        "sll\t$2,$7,16", "sra\t$2,$2,16", "subu\t$3,$6,$3",
+        "div\t$3,$3,$2", "sh\t$7,58($4)", "sb\t$8,56($4)",
+        "sw\t$3,60($4)", ".L2:", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected record-transition compiler body: {body!r}")
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tbltz\t$5,.L2\n",
+        "\tsll\t$4,$5,6\n",
+        "\t.set\treorder\n",
+        "\tla\t$2,records\n",
+        "\taddu\t$4,$4,$2\n",
+        "\tsll\t$2,$7,16\n",
+        "\tlw\t$3,24($4)\n",
+        "\tsra\t$2,$2,16\n",
+        "\tsubu\t$3,$6,$3\n",
+        "\tdiv\t$3,$3,$2\n",
+        "\tsh\t$7,58($4)\n",
+        "\tlw\t$2,16($sp)\n",
+        "\tsb\t$2,56($4)\n",
+        "\tsw\t$3,60($4)\n",
+        ".L2:\n",
+        "\tj\t$31\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1657,6 +1712,7 @@ def main() -> None:
     parser.add_argument("--schedule-player-scratch-allocator", action="store_true")
     parser.add_argument("--schedule-handle-array-release", action="store_true")
     parser.add_argument("--schedule-masked-vector-copy", action="store_true")
+    parser.add_argument("--schedule-record-transition", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1695,6 +1751,7 @@ def main() -> None:
             args.schedule_player_scratch_allocator,
             args.schedule_handle_array_release,
             args.schedule_masked_vector_copy,
+            args.schedule_record_transition,
         )
     )
     if selected != 1:
@@ -1765,6 +1822,8 @@ def main() -> None:
         lines = schedule_handle_array_release(lines)
     if args.schedule_masked_vector_copy:
         lines = schedule_masked_vector_copy(lines)
+    if args.schedule_record_transition:
+        lines = schedule_record_transition(lines)
     args.output.write_text("".join(lines))
 
 
