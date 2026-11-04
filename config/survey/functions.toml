@@ -76,7 +76,7 @@ functions = [
     { name = "func_80006B24", vram = 0x80006b24, size = 0x1f0 }, # c
     { name = "func_80006D14", vram = 0x80006d14, size = 0xf8 }, # c
     { name = "func_80006E0C", vram = 0x80006e0c, size = 0x20 }, # c
-    { name = "func_80006E2C", vram = 0x80006e2c, size = 0x50 }, # leaf
+    { name = "func_80006E2C", vram = 0x80006e2c, size = 0x50 }, # c
     { name = "func_80006E7C", vram = 0x80006e7c, size = 0x84 }, # leaf
     { name = "func_80006F00", vram = 0x80006f00, size = 0x15c }, # c
     { name = "func_8000705C", vram = 0x8000705c, size = 0x174 }, # c

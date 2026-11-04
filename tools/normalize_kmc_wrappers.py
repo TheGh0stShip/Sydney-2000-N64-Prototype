@@ -1117,6 +1117,73 @@ def schedule_save_eeprom_transfer(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_free_global_slot(lines: list[str]) -> list[str]:
+    """Preserve the original delay slots in the eight-entry slot scan."""
+    starts = [
+        index for index, line in enumerate(lines)
+        if line.strip() == "li\t$3,-2147221504\t\t\t# 0x80040000"
+    ]
+    ends = [
+        index for index, line in enumerate(lines)
+        if line.strip() == ".end\tfunc_80006E2C"
+    ]
+    if len(starts) != 1 or len(ends) != 1 or starts[0] >= ends[0]:
+        raise ValueError(
+            "expected one free-slot scan body; "
+            f"found {(len(starts), len(ends))}"
+        )
+
+    start = starts[0]
+    end = ends[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip()
+        and not line.lstrip().startswith((".set", "#"))
+    ]
+    required = (
+        "lw\t$2,4($4)",
+        "bne\t$2,$0,.L5",
+        "lw\t$2,state",
+        "j\t$31",
+    )
+    counts = tuple(body.count(instruction) for instruction in required)
+    if len(body) != 21 or counts != (1, 1, 1, 1):
+        raise ValueError(
+            "unexpected free-slot compiler body: "
+            f"length {len(body)}, markers {counts}"
+        )
+
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$3,%hi(state)\n",
+        "\taddiu\t$4,$3,%lo(state)\n",
+        "\tlw\t$2,4($4)\n",
+        "\tsltiu\t$2,$2,8\n",
+        "\tbeq\t$2,$0,.L2\n",
+        "\taddiu\t$2,$0,8\n",
+        "\tlw\t$2,%lo(state)($3)\n",
+        "\tj\t.L9\n",
+        "\tsll\t$2,$2,2\n",
+        ".L5:\n",
+        "\tlw\t$2,%lo(state)($3)\n",
+        "\taddiu\t$2,$2,1\n",
+        "\tsw\t$2,%lo(state)($3)\n",
+        "\tsll\t$2,$2,2\n",
+        ".L9:\n",
+        "\taddu\t$2,$2,$4\n",
+        "\tlw\t$2,136($2)\n",
+        "\tbne\t$2,$0,.L5\n",
+        "\tlui\t$2,%hi(state)\n",
+        "\tlw\t$2,%lo(state)($2)\n",
+        ".L2:\n",
+        "\tj\t$31\n",
+        "\tnop\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -1146,6 +1213,7 @@ def main() -> None:
     parser.add_argument("--schedule-double-buffer-allocations", action="store_true")
     parser.add_argument("--suppress-asset-relocation-load-hazards", action="store_true")
     parser.add_argument("--schedule-save-eeprom-transfer", action="store_true")
+    parser.add_argument("--schedule-free-global-slot", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -1176,6 +1244,7 @@ def main() -> None:
             args.schedule_double_buffer_allocations,
             args.suppress_asset_relocation_load_hazards,
             args.schedule_save_eeprom_transfer,
+            args.schedule_free_global_slot,
         )
     )
     if selected != 1:
@@ -1230,6 +1299,8 @@ def main() -> None:
         lines = suppress_asset_relocation_load_hazards(lines)
     if args.schedule_save_eeprom_transfer:
         lines = schedule_save_eeprom_transfer(lines)
+    if args.schedule_free_global_slot:
+        lines = schedule_free_global_slot(lines)
     args.output.write_text("".join(lines))
 
 
