@@ -4277,6 +4277,97 @@ def schedule_audio_record_volume_initialization(lines: list[str]) -> list[str]:
     return lines
 
 
+def schedule_object_resource_cleanup(lines: list[str]) -> list[str]:
+    starts = [index for index, line in enumerate(lines) if line.strip() == "lw\t$2,objectCleanupBlocked"]
+    ends = [index for index, line in enumerate(lines) if line.strip() == ".end\tfunc_8001A480"]
+    candidates = [(start, ends[0]) for start in starts] if len(ends) == 1 else []
+    candidates = [(start, end) for start, end in candidates if start < end]
+    if len(candidates) != 1:
+        raise ValueError(f"expected one object-resource cleanup body; found {candidates!r}")
+    start, end = candidates[0]
+    body = [
+        line.strip().split("#", 1)[0].rstrip()
+        for line in lines[start:end]
+        if line.strip() and not line.lstrip().startswith((".set", "#"))
+    ]
+    body = [item for item in body if item]
+    expected = [
+        "lw\t$2,objectCleanupBlocked", "subu\t$sp,$sp,24", "sw\t$16,16($sp)",
+        "move\t$16,$4", "bne\t$2,$0,.L1", "sw\t$31,20($sp)",
+        "lw\t$2,80($16)", "beq\t$2,$0,.L3", "la\t$4,commandContext",
+        "jal\tfunc_800AA658", "addu\t$5,$16,80", ".L3:",
+        "lw\t$2,72($16)", "beq\t$2,$0,.L4", "la\t$4,commandContext",
+        "jal\tfunc_800AA658", "addu\t$5,$16,72", ".L4:",
+        "lw\t$2,76($16)", "beq\t$2,$0,.L5", "la\t$4,commandContext",
+        "jal\tfunc_800AA658", "addu\t$5,$16,76", ".L5:",
+        "lw\t$2,84($16)", "beq\t$2,$0,.L6", "la\t$4,commandContext",
+        "jal\tfunc_800AA658", "addu\t$5,$16,84", ".L6:",
+        "lw\t$4,56($16)", "beq\t$4,$0,.L1", "jal\tfunc_8001A480",
+        "lw\t$16,56($16)", "beq\t$16,$0,.L1", "jal\tfunc_8001A480",
+        "move\t$4,$16", "jal\tfunc_80004380", "move\t$4,$16", ".L1:",
+        "lw\t$31,20($sp)", "lw\t$16,16($sp)", "addu\t$sp,$sp,24", "j\t$31",
+    ]
+    if body != expected:
+        raise ValueError(f"unexpected object-resource cleanup body: {body!r}")
+    lines[start:end] = [
+        "\t.set\tnoreorder\n",
+        "\tlui\t$2,0x8006\n",
+        "\tlw\t$2,8412($2)\n",
+        "\tsubu\t$sp,$sp,24\n",
+        "\tsw\t$16,16($sp)\n",
+        "\tmove\t$16,$4\n",
+        "\tbne\t$2,$0,.L1\n",
+        "\tsw\t$31,20($sp)\n",
+        "\tlw\t$2,80($16)\n",
+        "\tbeq\t$2,$0,.L3\n",
+        "\tlui\t$4,0x800f\n",
+        "\taddiu\t$4,$4,10072\n",
+        "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$5,$16,80\n",
+        ".L3:\n",
+        "\tlw\t$2,72($16)\n",
+        "\tbeq\t$2,$0,.L4\n",
+        "\tlui\t$4,0x800f\n",
+        "\taddiu\t$4,$4,10072\n",
+        "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$5,$16,72\n",
+        ".L4:\n",
+        "\tlw\t$2,76($16)\n",
+        "\tbeq\t$2,$0,.L5\n",
+        "\tlui\t$4,0x800f\n",
+        "\taddiu\t$4,$4,10072\n",
+        "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$5,$16,76\n",
+        ".L5:\n",
+        "\tlw\t$2,84($16)\n",
+        "\tbeq\t$2,$0,.L6\n",
+        "\tlui\t$4,0x800f\n",
+        "\taddiu\t$4,$4,10072\n",
+        "\tjal\tfunc_800AA658\n",
+        "\taddiu\t$5,$16,84\n",
+        ".L6:\n",
+        "\tlw\t$4,56($16)\n",
+        "\tbeq\t$4,$0,.L1\n",
+        "\tnop\n",
+        "\tjal\tfunc_8001A480\n",
+        "\tnop\n",
+        "\tlw\t$16,56($16)\n",
+        "\tbeq\t$16,$0,.L1\n",
+        "\tnop\n",
+        "\tjal\tfunc_8001A480\n",
+        "\tmove\t$4,$16\n",
+        "\tjal\tfunc_80004380\n",
+        "\tmove\t$4,$16\n",
+        ".L1:\n",
+        "\tlw\t$31,20($sp)\n",
+        "\tlw\t$16,16($sp)\n",
+        "\tjr\t$31\n",
+        "\taddiu\t$sp,$sp,24\n",
+        "\t.set\treorder\n",
+    ]
+    return lines
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("input", type=Path)
@@ -4352,6 +4443,7 @@ def main() -> None:
     parser.add_argument("--schedule-chunked-writeback-rom-read", action="store_true")
     parser.add_argument("--schedule-indexed-record-payload", action="store_true")
     parser.add_argument("--schedule-audio-record-volume-initialization", action="store_true")
+    parser.add_argument("--schedule-object-resource-cleanup", action="store_true")
     args = parser.parse_args()
 
     lines = args.input.read_text().splitlines(keepends=True)
@@ -4428,6 +4520,7 @@ def main() -> None:
             args.schedule_chunked_writeback_rom_read,
             args.schedule_indexed_record_payload,
             args.schedule_audio_record_volume_initialization,
+            args.schedule_object_resource_cleanup,
         )
     )
     if selected != 1:
@@ -4574,6 +4667,8 @@ def main() -> None:
         lines = schedule_indexed_record_payload(lines)
     if args.schedule_audio_record_volume_initialization:
         lines = schedule_audio_record_volume_initialization(lines)
+    if args.schedule_object_resource_cleanup:
+        lines = schedule_object_resource_cleanup(lines)
     args.output.write_text("".join(lines))
 
 

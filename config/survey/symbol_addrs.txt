@@ -829,3 +829,4 @@ buffer = 0x800436C0; // type:object
 baseValue = 0x80043684; // type:u32
 audioConfiguration = 0x800F1AE0; // type:object
 audioInitializationObject = 0x80038C40; // type:object
+objectCleanupBlocked = 0x800620DC; // type:u32
