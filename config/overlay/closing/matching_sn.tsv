@@ -4,6 +4,7 @@
 0x6F558	0x4	src/overlays/closing_return_stack_112.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0c3389f212211c587dc7f2824dac6f3edaf128c6065caa5d652b2be19cfafe09
 0x6F66C	0x4	src/overlays/closing_return_stack_136.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	23020bbaac429c151f7facd9b6df01641f079e317c792134f79d91ac4cfe7b44
 0x6FC24	0x4	src/overlays/closing_return_stack_88.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b6465877b90a18a85e33cd665b35cc6640fa0486610037da349d4bf5870b9c94
+0x6FC28	0x1E8	src/overlays/closing_initialize_medal_objects.c	--symbol=func_800AC9B8:0x800AC9B8 --symbol=func_800AD9E8:0x800AD9E8 --symbol=func_800B9FA4:0x800B9FA4 --symbol=func_800B9E9C:0x800B9E9C --symbol=func_800AD434:0x800AD434 --symbol=func_800AD2A8:0x800AD2A8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	83ef80d2ef682d38202ab755672caef33983b56ee035b0944bd03142c0139011
 0x6FE10	0x4	src/overlays/closing_return_stack_184.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	516284a8d7c814a35ecb660573df4ff8bac3aef6aae9e7e0c0ef9593b8f126d1
 0x6FE14	0x254	src/overlays/closing_release_medal_objects.c	--symbol=func_800AC308:0x800AC308 --symbol=func_800AACB0:0x800AACB0 --symbol=func_800AA658:0x800AA658 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3338fa38f98720f9fd5c98e1a8cf5bfa3851ddb7911b320d94ceb335265cde04
 0x70068	0x8	src/overlays/ceremony_noop_event.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
