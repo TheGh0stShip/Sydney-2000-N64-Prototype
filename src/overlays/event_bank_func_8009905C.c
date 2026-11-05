@@ -453,4 +453,3 @@ __asm__(
     "lw $2,12($17)\n"
     "lhu $3,18($17)\n"
     ".end func_8009905C\n.set at\n.set reorder\n");
-

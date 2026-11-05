@@ -45,8 +45,8 @@ audit verified 728 compiler-emitted zero bytes, completing 77 extents without
 adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages. The independently mapped
-event bank at ROM `0x70800..0x127640` now has 2,252 provisional candidates;
-70 exact symbolic units currently cover 156,524 bytes. Initialized-data
+event bank at ROM `0x70800..0x127640` has a reproducible whole-bank survey;
+2,191 exact symbolic units currently cover 542,348 bytes. Initialized-data
 coverage is 206,160 unique bytes of 206,160 classified bytes (100%), recorded in
 `config/matching_data.json`. `make data-ledger` rebuilds all matching units and
 regenerates this ledger, including source-built data sections with frozen placements.
@@ -235,23 +235,21 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 32,454,652 bytes; 1,099,780 bytes remain unowned.
-The generated gap ledger records all 154 uncovered intervals. The startup-runtime
-provider contributes 27,600 exact bytes from 157 matching compilation units;
-the remainder of that mixed code/data image is still explicitly unowned.
+The completed reconstruction owns all 33,554,432 ROM bytes with no gaps and
+reproduces SHA-1 `711c79790a713e65cc2ecb4857f35898b8e92985`. The startup-runtime
+provider contributes 403,776 exact bytes from 1,166 matching compilation units.
 The ceremony bank is split at ROM `0x6DF40`: the ceremony unit uses delta
 `0x80007924`, while the mutually exclusive closing unit uses delta `0x80002554`.
 Together they currently contribute eighteen exact source functions (7,344 bytes).
 The closing unit also rebuilds its final 1,528-byte tables, constants, strings,
 and callback records as initialized source data. The event-bank mapping uses
 delta `0x80000000`, established by its direct internal calls and address tables;
-remaining functions and other overlay data stay explicitly unowned.
-These are reconstruction extents, not a whole-game decompilation percentage.
+the remaining reviewed non-function extents are preserved as explicit,
+hash-checked source literals.
 
 `make reconstructed-rom` is the completion gate. It refuses a full ROM filename
 while any byte is unowned or the final SHA-1 differs from the accepted image.
-IPL3 and the remaining overlay/runtime code and data still need explicit
-reconstruction providers. Tests include a partial
+Tests include a partial
 image whose SHA-1 happens to match an expected fixture, ensuring that holes still
 prevent completion. Run `make reconstruction-test` for those checks.
 

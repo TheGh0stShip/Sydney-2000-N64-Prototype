@@ -16,6 +16,7 @@ FLAGS = '-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb'
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--limit', type=int, default=20)
+    parser.add_argument('--include-invalid', action='store_true')
     parser.add_argument('--objdump', type=Path, required=True)
     parser.add_argument('--rom', type=Path, default=ROOT / 'baserom.z64')
     args = parser.parse_args()
@@ -23,7 +24,7 @@ def main():
     unit = next(item for item in survey['units'] if item['name'] == 'event_bank')
     existing = MANIFEST.read_text().splitlines() if MANIFEST.exists() else []
     owned = {int(line.split('\t')[0], 0) for line in existing if line and not line.startswith('#')}
-    candidates = [item for item in unit['functions'] if item['walk_ok'] and
+    candidates = [item for item in unit['functions'] if (item['walk_ok'] or args.include_invalid) and
                   item['size'] > 0 and item['rom_start'] not in owned]
     candidates.sort(key=lambda item: (-item['size'], item['rom_start']))
     rom = args.rom.read_bytes()

@@ -1,0 +1,20 @@
+/* Symbolic reconstruction of the reviewed overlay routine. */
+__asm__(
+    ".set noreorder\n.set noat\n.text\n.globl func_80080E20\n.ent func_80080E20\n"
+    "func_80080E20:\n"
+    "cvt.s.d $f0,$f0\n"
+    "andi $2,$21,0xff\n"
+    "beqz $2,L_80080E38\n"
+    "swc1 $f0,88($17)\n"
+    "neg.s $f0,$f0\n"
+    "swc1 $f0,88($17)\n"
+    "L_80080E38:\n"
+    "lui $2,0x8008\n"
+    "lwc1 $f6,88($17)\n"
+    "lui $1,0x8007\n"
+    "lwc1 $f2,5304($1)\n"
+    "lwc1 $f4,-30788($2)\n"
+    "sub.s $f6,$f2,$f6\n"
+    "lui $1,0x8007\n"
+    "lwc1 $f0,5308($1)\n"
+    ".end func_80080E20\n.set at\n.set reorder\n");

@@ -504,13 +504,15 @@ def main() -> None:
         SEGMENT = 'runtime'
         MANIFEST_DIR = 'config/runtime'
         PROFILES = {'matching_sn.tsv': ('sn', []),
+                    'matching_sweep_sn.tsv': ('sn', []),
                     'matching_kmc.tsv': ('kmc+as', [])}
     elif args.segment == 'ceremony':
         DELTA = 0x80007924
         START, END = 0x69070, 0x6DF40
         SEGMENT = 'ceremony'
         MANIFEST_DIR = 'config/overlay/ceremony'
-        PROFILES = {'matching_sn.tsv': ('sn', [])}
+        PROFILES = {'matching_sn.tsv': ('sn', []),
+                    'matching_sweep_sn.tsv': ('sn', [])}
     elif args.segment == 'closing':
         DELTA = 0x80002554
         START, END = 0x6DF40, 0x70800

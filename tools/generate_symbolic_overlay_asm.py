@@ -22,6 +22,8 @@ def main():
     parser.add_argument('name')
     parser.add_argument('--delta', type=lambda value: int(value, 0), required=True)
     parser.add_argument('--objdump', type=Path, required=True)
+    parser.add_argument('--raw', action='store_true',
+                        help='emit reviewed instruction words for assembler-sensitive fragments')
     args = parser.parse_args()
     env = {'LD_LIBRARY_PATH': str(args.objdump.parents[1] / 'lib' / 'x86_64-linux-gnu')}
     start = args.start + args.delta
@@ -37,6 +39,12 @@ def main():
         if match:
             rows.append((int(match.group(1), 16), match.group(2), match.group(3),
                          match.group(4).split(' <', 1)[0]))
+    if args.raw:
+        payload = args.rom.read_bytes()[args.start:args.start + args.size]
+        if len(payload) != args.size or args.size % 4:
+            raise ValueError('raw instruction extent must be a complete word range')
+        rows = [(start + offset, payload[offset:offset + 4].hex(), '.word', '')
+                for offset in range(0, args.size, 4)]
     labels = set()
     for _, _, mnemonic, operands in rows:
         if mnemonic.startswith('b') or mnemonic in ('j', 'jal'):
@@ -51,9 +59,16 @@ def main():
     for address, raw_word, mnemonic, operands in rows:
         if address in labels and address != start:
             output.append(f'    "L_{address:08X}:\\n"')
+        if args.raw:
+            octets = ','.join(f'0x{raw_word[index:index + 2].upper()}'
+                              for index in range(0, len(raw_word), 2))
+            output.append(f'    ".byte {octets}\\n"')
+            continue
         def target_name(match):
             target = int(match.group(0), 16)
             if start <= target <= end:
+                if target == start:
+                    return args.name
                 return f'L_{target:08X}'
             if mnemonic in ('j', 'jal'):
                 return f'func_{target:08X}'
@@ -64,6 +79,9 @@ def main():
             not start <= int(value, 16) <= end
             for value in re.findall(r'0x[0-9a-f]+', operands))
         if external_branch:
+            output.append(f'    ".word 0x{raw_word.upper()}\\n"')
+            continue
+        if mnemonic in ('div', 'divu') and operands.startswith('zero,'):
             output.append(f'    ".word 0x{raw_word.upper()}\\n"')
             continue
         operands = re.sub(r'0x[0-9a-f]+', target_name, operands)

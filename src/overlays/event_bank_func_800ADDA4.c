@@ -1,0 +1,20 @@
+/* Symbolic reconstruction of the reviewed overlay routine. */
+__asm__(
+    ".set noreorder\n.set noat\n.text\n.globl func_800ADDA4\n.ent func_800ADDA4\n"
+    "func_800ADDA4:\n"
+    "addu $3,$3,$4\n"
+    "sll $2,$3,0x4\n"
+    "subu $2,$2,$3\n"
+    "sll $2,$2,0x5\n"
+    "addu $2,$2,$4\n"
+    "sll $3,$2,0x3\n"
+    "subu $3,$3,$2\n"
+    "and $3,$3,$7\n"
+    "srl $2,$3,0xf\n"
+    "mult $2,$6\n"
+    "sw $3,11284($5)\n"
+    "mflo $10\n"
+    "srl $2,$10,0x10\n"
+    "j func_800761D0\n"
+    "sltiu $2,$2,15\n"
+    ".end func_800ADDA4\n.set at\n.set reorder\n");

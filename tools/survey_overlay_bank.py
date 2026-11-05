@@ -18,6 +18,7 @@ MAPPINGS = (
     # 24-bit offset as their ROM location (for example ROM 0x70F20 is called as
     # 0x80070F20), establishing this relocation independently of heuristics.
     ('event_bank', 0x70800, 0x127640, 0x80070800),
+    ('startup_runtime', 0x127640, 0x1A3AB0, 0x80083D50),
 )
 POINTER_AT = 0x69070
 POINTEE_AT = 0x6908C
@@ -44,7 +45,7 @@ def render(rom: bytes) -> dict:
         analyser = Analyser(image, min(seeds), text_lo=vram_start)
         for address in seeds:
             analyser.add(address, 'stack_frame')
-        if unit_name == 'event_bank':
+        if unit_name in ('event_bank', 'startup_runtime'):
             # The large bank makes recursive split-point discovery quadratic.
             # Seed direct calls in one linear pass; stack-frame seeds cover the
             # remaining non-leaf routines while avoiding speculative j targets.
@@ -52,7 +53,10 @@ def render(rom: bytes) -> dict:
                 word, = struct.unpack_from('>I', rom, rom_start + offset)
                 if word >> 26 == 3:
                     target = 0x80000000 | ((word & 0x03FFFFFF) << 2)
-                    if image.valid(target):
+                    first = image.word(target) if image.valid(target) else 0
+                    opcode, base = first >> 26, (first >> 21) & 31
+                    plausible = first != 0 and not (0x20 <= opcode <= 0x3F and base == 0)
+                    if image.valid(target) and plausible:
                         analyser.add(target, 'call')
         else:
             analyser.grow()

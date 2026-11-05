@@ -1,0 +1,22 @@
+/* Symbolic reconstruction of the reviewed overlay routine. */
+__asm__(
+    ".set noreorder\n.set noat\n.text\n.globl func_8007E7F0\n.ent func_8007E7F0\n"
+    "func_8007E7F0:\n"
+    "move $4,$17\n"
+    "addiu $19,$19,1\n"
+    "sll $6,$2,0x3\n"
+    "addu $6,$6,$2\n"
+    "sll $6,$6,0x2\n"
+    "addu $2,$18,$6\n"
+    "addu $2,$2,$21\n"
+    "lbu $5,8763($2)\n"
+    "li $2,0xa22c\n"
+    "addu $6,$6,$2\n"
+    "addu $6,$18,$6\n"
+    "jal func_800A1538\n"
+    "xori $7,$7,0x1\n"
+    "lui $5,0x425c\n"
+    "jal func_800A13A0\n"
+    "move $4,$17\n"
+    "addu $16,$16,$18\n"
+    ".end func_8007E7F0\n.set at\n.set reorder\n");

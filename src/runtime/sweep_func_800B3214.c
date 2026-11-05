@@ -1,0 +1,23 @@
+/* Symbolic reconstruction of the reviewed overlay routine. */
+__asm__(
+    ".set noreorder\n.set noat\n.text\n.globl func_800B3214\n.ent func_800B3214\n"
+    "func_800B3214:\n"
+    "lw $3,8($4)\n"
+    "li $6,61\n"
+    "nor $5,$0,$5\n"
+    "L_800B3220:\n"
+    "beqz $3,L_800B324C\n"
+    "nop\n"
+    "lw $2,0($3)\n"
+    "lw $4,12($3)\n"
+    "bnel $2,$6,L_800B3220\n"
+    "move $3,$4\n"
+    "lw $2,192($3)\n"
+    "and $2,$2,$5\n"
+    "sw $2,192($3)\n"
+    "j L_800B3220\n"
+    "move $3,$4\n"
+    "L_800B324C:\n"
+    "jr $31\n"
+    "nop\n"
+    ".end func_800B3214\n.set at\n.set reorder\n");

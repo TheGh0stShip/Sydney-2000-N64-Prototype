@@ -372,4 +372,3 @@ __asm__(
     "jr $31\n"
     "addiu $29,$29,128\n"
     ".end func_8011C8B0\n.set at\n.set reorder\n");
-

@@ -52,6 +52,7 @@
     "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
     "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
     "config/overlay/ceremony/matching_sn.tsv": "60eab5c3878b31ad341a060fa49565109d781f62e6a17fc53aa8a06cc786f27a",
+    "config/overlay/ceremony/matching_sweep_sn.tsv": "c737c3ac9644035cb4b1273d58ea655a3836b8fcc11edb939093ce35f4044f78",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
     "config/survey/symbol_addrs.txt": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3",
     "src/overlays/ceremony_configure_medal_sequence.c": "d103f6e3d4e29611e822b53f93e79b3a451589c7ec810058bed4d6cd0ffbebf5",
@@ -60,7 +61,45 @@
     "src/overlays/ceremony_noop_callback.c": "85b498a6e25297ecbadc6908b788b81e789d66816a771cbe985c2245f5cb2790",
     "src/overlays/ceremony_reset_runtime.c": "e893362aff6eb3d8d63ffd49c37647470296fa7cb24432815084511c8928c685",
     "src/overlays/ceremony_set_runtime_mode.c": "4bd3171bcae3363c0577711cc5b0617e83e98b443554b393f72df8aaaa27fb86",
-    "tools/build_source_image.py": "645abf58a2137c75a3aec1d8cdca4ec0fa06c278423f23c10c2e892a9254a892",
+    "src/overlays/ceremony_sweep_func_80070AD4.c": "21d82dad77752d3c1cd86fe6ed603982d5cd6baea780c54f3b44f09fce9a1fed",
+    "src/overlays/ceremony_sweep_func_80070BE0.c": "dd53c17ba450972ea5759fe9bd36682821e4137717bdc231ed75b19e835898ee",
+    "src/overlays/ceremony_sweep_func_80071078.c": "fa93526101dd71dc5227c658f0f076ad187661af7cf152068b65227b19f49292",
+    "src/overlays/ceremony_sweep_func_8007123C.c": "5f7a2c041c6f99cd1f981bdf013bd1b91961f191bb688fb9ec51fac37fe5a8b1",
+    "src/overlays/ceremony_sweep_func_80071300.c": "9dcbbc7bedf070e62614784a5201e76b0d19fc0778b0641b05e6303d04d717fc",
+    "src/overlays/ceremony_sweep_func_800714D4.c": "5415a72e8527de80d3a9f1041925c51ebbfd00256f0b35302d083f4d21fd2ecf",
+    "src/overlays/ceremony_sweep_func_800715B4.c": "58a86040c42ab37934575b22ba9fcff78b95e4e1f19a2390e4736099b3edf80f",
+    "src/overlays/ceremony_sweep_func_80071748.c": "d6bad70fbebd146bbb202ef2c872899d5f1f455d810d1bcae4c6745d29d830fb",
+    "src/overlays/ceremony_sweep_func_80071778.c": "931feecbc9da2a5cf835420a66959d4d7d10e1c24581577105f312d563f6b4d6",
+    "src/overlays/ceremony_sweep_func_8007190C.c": "f173c2d4638eb481c8b2fca2d2969de4134860d785abf8eebac5a6a21233048f",
+    "src/overlays/ceremony_sweep_func_800719A4.c": "e4c5f3b25d07957479e769ad1cf57c4d3c9e7a8627df227be071fe32face09d7",
+    "src/overlays/ceremony_sweep_func_80071B8C.c": "9d0d42da6828c454c258ccdd83798ddb6e6b3c238e1459ebf8a3d59a1e92d3e8",
+    "src/overlays/ceremony_sweep_func_80071D50.c": "e696e69c67d9441d3f3d745ff9851d9fdea64071f688f39ac2c50c03affd76c8",
+    "src/overlays/ceremony_sweep_func_80071E00.c": "832b509fa2ebc1273d5a887ba81cdbf40707c602754868ceb070e67df3570f6c",
+    "src/overlays/ceremony_sweep_func_80072B48.c": "a5d84fb1105916950b5b215aca80c486f4a6ba9dca7da50f6a54dc9d15d4fc4c",
+    "src/overlays/ceremony_sweep_func_80072EE4.c": "9ed6827489a6a29109d8e52bbd2eefcd02af6b9222cbdb28aea5f89f7c411fc2",
+    "src/overlays/ceremony_sweep_func_80072F4C.c": "f123a35b8908c85cbbc379abcfc566aa98f2ddca1ca1f72a2232ab245c04a3f7",
+    "src/overlays/ceremony_sweep_func_80073118.c": "3621ea0b36c5175edfd6f23f1a3f3359c90e09a49639234e78ce745775315028",
+    "src/overlays/ceremony_sweep_func_800736D4.c": "7fd38f11f45e98bebda38193bd3cc683c79cac6a8ea0c3a576f36ce491f22543",
+    "src/overlays/ceremony_sweep_func_800738A8.c": "ae9b60511ca2ceed0ebfd481c081d6b04c43e713bbb46449d77472eef7a0441e",
+    "src/overlays/ceremony_sweep_func_800739E8.c": "fd43819449113c4e12e6da6fd30b225f030562c2bcf682bd7dec21aba38eea58",
+    "src/overlays/ceremony_sweep_func_80073B30.c": "eca407d19ceaa25532fd9ca655af94a79416f6a2f27a181e4bf4014b6547f7e2",
+    "src/overlays/ceremony_sweep_func_80073CF0.c": "9b961a428d02a385e381416e5ae2ffe900e33ed3410c1a9ee55cf21af5b05cd5",
+    "src/overlays/ceremony_sweep_func_80073D28.c": "8c8db7690d4005749146c6be435c41e3e406f6ee1ea4f250c4d4ba4131f82820",
+    "src/overlays/ceremony_sweep_func_80073DB0.c": "a3503d53aa1721bde2972dd6095e419049e8e9719040d397d328cabc9b29786c",
+    "src/overlays/ceremony_sweep_func_80073E4C.c": "432ddb85330209cde47b7abd327d3a4aa93aa71ec6aec66889478b5a638b441c",
+    "src/overlays/ceremony_sweep_func_80073F50.c": "b5e189ab1bd344c9fb315ac4ee71d8e4d6629fcbf5a0a382c68ef399aac4df74",
+    "src/overlays/ceremony_sweep_func_800741AC.c": "4cbe09140ec3b1d7e3a4a994a88311d1e91f5b996037553f4ba943b83a2d64b7",
+    "src/overlays/ceremony_sweep_func_800742BC.c": "bc8291b69b8209edb60ca488c4a9da9bc18e1a6a0c00cb1ca5341d6e253f2489",
+    "src/overlays/ceremony_sweep_func_80074568.c": "20f74313e2119d0edd4f8dd29ffb88c60002e0c5d60418055c668ab7a73ca1cf",
+    "src/overlays/ceremony_sweep_func_800746C0.c": "3f3939b3b195f8ef2e78b94402a2bb4db3216a781e657ad16908df8aaf5739b6",
+    "src/overlays/ceremony_sweep_func_80074E48.c": "f52579a8ab1ad23390fa53a89dc779788b5c119d3d40e443bcabe2da625eaf24",
+    "src/overlays/ceremony_sweep_func_8007501C.c": "29e2ee7a3def145058306a3a2831c8566c2ddc992ce7434654903a0609ae9bac",
+    "src/overlays/ceremony_sweep_func_8007515C.c": "c5bb4bad50e214e49ea2b165fb38c5d26e50ad3f66c55f03f88543c5485f555d",
+    "src/overlays/ceremony_sweep_func_800752A4.c": "870b667c317632e50ee5b0dc4a98b264ccb8942b5dcf03ee88a8f1ca2eb620bd",
+    "src/overlays/ceremony_sweep_func_80075464.c": "76a59ee907fb37d1637e7e93b70771bac8a80362ef67d68690543d32fdf83d4e",
+    "src/overlays/ceremony_sweep_func_800755C0.c": "636e59956c612ceb6882639281cff50585bbb1ae82d02bbabb9fd21035e3cbf0",
+    "src/overlays/ceremony_sweep_func_80075754.c": "d9323f3c8d03e097a937b6978af7b2a986052eefea197f0677ab7f0cc00e04cf",
+    "tools/build_source_image.py": "baff76b338fd7a72a298d677d921cac65d029e9ed9a3c281204728cf7e827bfa",
     "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
     "tools/verify_ido_normalized.py": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49",
     "tools/verify_sn_normalized.py": "a0401769c0a1e27684188481413e4f9ba505f550010d865b8bd6beae3c03855d"
@@ -86,7 +125,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "6867ebfc48f7652c50437f09dc38e0f34788666ec43a810fcfb7110298097060",
+      "object_sha256_at_discovery": "f3e6d4a107063ce91ea9fade7fd0ea80e23c2d14456661db31d4f35d9fb09e2b",
       "pipeline": "sn",
       "row_sha256": "28ce80f6f93eab56b18fed47e7e0a4bdb91dafd5a3026a1fe4b851f316ad1e4d",
       "section_bases": {
@@ -124,7 +163,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "66449f0fd0796d11d2eeee975c84e46c4bf0f00216fb7b4b68e15d1981a4b9da",
+      "object_sha256_at_discovery": "e60cf5f90ab3fbbefb0a88640877b343140ddef0506c61349114c07a2a347793",
       "pipeline": "sn",
       "row_sha256": "17e389529baeff2ec2984e98115d999a855494aa595131ecfc59c2e16fa7484d",
       "section_bases": {
@@ -162,7 +201,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "be3731f8dad14fcd1a484a3e28c1db9135f1b4a02b2a69632cf90d2c07f66db2",
+      "object_sha256_at_discovery": "6926354a85ead7806eb0790b8d0c1fdb2a33494892f03c5c99ca15f865cc648b",
       "pipeline": "sn",
       "row_sha256": "f644e50af3f87f9e882d3a1986d0ff49de86ee61ddddeaea26effbf0a546d9a0",
       "section_bases": {
@@ -197,7 +236,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "120f9758e81d7f30e1f8fcc2b7b346e338265801631ce0af15ff3ea5de9062c1",
+      "object_sha256_at_discovery": "f1867eb0c6dae1f5e03b238e69980e025c03fbc82db15012e0361dcf62a0f47b",
       "pipeline": "sn",
       "row_sha256": "b05f00885d772e7b3e832eb2b4ba594973a7e2e2b8ec7b7e53ed3f007073a23b",
       "section_bases": {
@@ -236,7 +275,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "2a9065e37c5ac5119f22b6a5346cfa35ba271dfec9523248e4f3d82bffbbcc07",
+      "object_sha256_at_discovery": "44aa6ebd6195eaffffa713956465583d46302724e895654674d56a2c223b196f",
       "pipeline": "sn",
       "row_sha256": "d5dfef7371fadf4943d0eb88c77c3b969fd28aebcb96c1fb25a948fcc83e5f7f",
       "section_bases": {
@@ -276,7 +315,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "f167c6bb946f109ccbe39acaad086be0ca33a57485b4e29b355e1a55d329aedf",
+      "object_sha256_at_discovery": "7f58af0585fc0c7177f7710553b68575638ccf4e695b93b8982ed4012e95ea4d",
       "pipeline": "sn",
       "row_sha256": "97365ec8f0349cafbde4ca164d16f313f5d7e7fa18677d412fa7c96ce587faff",
       "section_bases": {
@@ -301,6 +340,1655 @@
         "func_800AE72C": 2148198188,
         "func_800AE9DC": 2148198876,
         "func_800AEF6C": 2148200300
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:277dad27a98e1426",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "5d07e59e61d173d8d1d0f6c55d516ba27321ebacd2d477dbb351e0800be74516",
+      "pipeline": "sn",
+      "row_sha256": "277dad27a98e142666fb7fe3d24116bacf46705e00c34e58219f554e02d0ce17",
+      "section_bases": {
+        ".text": 2147945172
+      },
+      "sections": [
+        {
+          "emitted_size": 268,
+          "name": ".text",
+          "owned_size": 268,
+          "rom_start": 430512,
+          "sha256": "1f3904e57249d2a7f97f18fff1bbdf24b723216f3c1d3b7128b3c721e2cf2f96",
+          "unowned_zero_tail": 0,
+          "vram": 2147945172
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80070AD4.c",
+      "source_sha256": "21d82dad77752d3c1cd86fe6ed603982d5cd6baea780c54f3b44f09fce9a1fed",
+      "symbols": {
+        "func_80008570": 2147517808,
+        "func_800709FC": 2147944956,
+        "func_80070A1C": 2147944988,
+        "func_80071078": 2147946616,
+        "func_800715B4": 2147947956,
+        "func_800AB2A4": 2148184740,
+        "func_800B4794": 2148222868,
+        "func_800BC07C": 2148253820
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:c9c076cf6f8d62a1",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "cf2b9ed7c8bea35d2cafe90f841bcff133fdc31c260dfa67d0e726d8932f6c67",
+      "pipeline": "sn",
+      "row_sha256": "c9c076cf6f8d62a117d8a65f86f15dcbf13b0fb18b87e01a3702444c3c1afd81",
+      "section_bases": {
+        ".text": 2147945440
+      },
+      "sections": [
+        {
+          "emitted_size": 1176,
+          "name": ".text",
+          "owned_size": 1176,
+          "rom_start": 430780,
+          "sha256": "5626aa64899a77765e1e2e602f1fa95954504de78a7783a0119e9b4a1c3a8368",
+          "unowned_zero_tail": 0,
+          "vram": 2147945440
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80070BE0.c",
+      "source_sha256": "dd53c17ba450972ea5759fe9bd36682821e4137717bdc231ed75b19e835898ee",
+      "symbols": {
+        "func_8000673C": 2147510076,
+        "func_80015EAC": 2147573420,
+        "func_80017B50": 2147580752,
+        "func_80017D84": 2147581316,
+        "func_800AA658": 2148181592,
+        "func_800AA804": 2148182020,
+        "func_800AD6D0": 2148194000,
+        "func_800ADC54": 2148195412,
+        "func_800BA2D0": 2148246224,
+        "func_800BB110": 2148249872,
+        "func_800D3FD0": 2148351952,
+        "func_800DAD10": 2148379920
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:d2b55de4a9536c9a",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "9dcf7b94ea5b2d76ea67c1e8b366aa06a584618866932a47323f2f4ea39d1a68",
+      "pipeline": "sn",
+      "row_sha256": "d2b55de4a9536c9a727f8b42021642db640f9014c34d72c0e36b269a29b78484",
+      "section_bases": {
+        ".text": 2147946616
+      },
+      "sections": [
+        {
+          "emitted_size": 452,
+          "name": ".text",
+          "owned_size": 452,
+          "rom_start": 431956,
+          "sha256": "d34334c775033aeffacb49b9f06abb860685e5079d5d8d8ba95adf8fd5b50d18",
+          "unowned_zero_tail": 0,
+          "vram": 2147946616
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071078.c",
+      "source_sha256": "fa93526101dd71dc5227c658f0f076ad187661af7cf152068b65227b19f49292",
+      "symbols": {
+        "func_800177AC": 2147579820,
+        "func_80070ED8": 2147946200,
+        "func_80071748": 2147948360,
+        "func_800A31BC": 2148151740,
+        "func_800A3298": 2148151960,
+        "func_800AC37C": 2148189052,
+        "func_800ADC54": 2148195412,
+        "func_800B360C": 2148218380,
+        "func_800BBD78": 2148253048,
+        "func_800BC1E8": 2148254184
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:e965ea6c5a487776",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "6260d74e83b9c8ab49f1656dbce498928a66a5d45cc0638fa1091ea754e207f2",
+      "pipeline": "sn",
+      "row_sha256": "e965ea6c5a487776f71a03844b82f814a68757b34fc699f764b926bd6696dfe2",
+      "section_bases": {
+        ".text": 2147947068
+      },
+      "sections": [
+        {
+          "emitted_size": 196,
+          "name": ".text",
+          "owned_size": 196,
+          "rom_start": 432408,
+          "sha256": "38731293091c2232255ed45a491047233bcb67974e40bdc56232e11e3a0a4be2",
+          "unowned_zero_tail": 0,
+          "vram": 2147947068
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_8007123C.c",
+      "source_sha256": "5f7a2c041c6f99cd1f981bdf013bd1b91961f191bb688fb9ec51fac37fe5a8b1",
+      "symbols": {
+        "func_800B35F0": 2148218352,
+        "func_800D52A8": 2148356776,
+        "func_800DB124": 2148380964
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:084742ab33544b88",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "556573fd6df9aeb4d0766e5e71995a48b8450ec33604d2b109b9bb58dc5b5881",
+      "pipeline": "sn",
+      "row_sha256": "084742ab33544b88cdc0c43fc6bcc66b7004a38f47f9331b853bdfcd91e9386c",
+      "section_bases": {
+        ".text": 2147947264
+      },
+      "sections": [
+        {
+          "emitted_size": 452,
+          "name": ".text",
+          "owned_size": 452,
+          "rom_start": 432604,
+          "sha256": "9ba0b68913335126ebef2e1923e354a303c0a27776450451329a245d386d6c24",
+          "unowned_zero_tail": 0,
+          "vram": 2147947264
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071300.c",
+      "source_sha256": "9dcbbc7bedf070e62614784a5201e76b0d19fc0778b0641b05e6303d04d717fc",
+      "symbols": {
+        "func_80006A18": 2147510808,
+        "func_800137FC": 2147563516,
+        "func_80014384": 2147566468,
+        "func_80017A90": 2147580560,
+        "func_80017B24": 2147580708,
+        "func_8001D550": 2147603792,
+        "func_8007116C": 2147946860,
+        "func_800A3218": 2148151832,
+        "func_800A3240": 2148151872,
+        "func_800AA658": 2148181592,
+        "func_800AACB0": 2148183216,
+        "func_800AB240": 2148184640,
+        "func_800AC308": 2148188936,
+        "func_800AC334": 2148188980,
+        "func_800BAC24": 2148248612,
+        "func_800BC274": 2148254324
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:2acfaa69033ed480",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "a2f4651162ab936fd210e7a395497fff6eb4e0ec9bea2a6a56a58a4594d7a7cb",
+      "pipeline": "sn",
+      "row_sha256": "2acfaa69033ed48086162289f87f14a14badc9732e3b9687cd2cbd95b7560476",
+      "section_bases": {
+        ".text": 2147947732
+      },
+      "sections": [
+        {
+          "emitted_size": 224,
+          "name": ".text",
+          "owned_size": 224,
+          "rom_start": 433072,
+          "sha256": "33ce2dab0766b06ea140a911db02cb0be13b83812a5864961d44f8557ebde564",
+          "unowned_zero_tail": 0,
+          "vram": 2147947732
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800714D4.c",
+      "source_sha256": "5415a72e8527de80d3a9f1041925c51ebbfd00256f0b35302d083f4d21fd2ecf",
+      "symbols": {
+        "func_800AD2A8": 2148192936,
+        "func_800AD434": 2148193332
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:f3363127eee9a06c",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "c1058f0e5786f284162c402e47d34dbf9b2755ca8be9caeb78be00c3ba04cedf",
+      "pipeline": "sn",
+      "row_sha256": "f3363127eee9a06cfd2915f15ef49036dea517988341c2bd99a1401d9971559b",
+      "section_bases": {
+        ".text": 2147947956
+      },
+      "sections": [
+        {
+          "emitted_size": 404,
+          "name": ".text",
+          "owned_size": 404,
+          "rom_start": 433296,
+          "sha256": "d81a4dc919e224c66089dab2bf0a2c2b1b45d0661a12abaa193b240addeb1dd0",
+          "unowned_zero_tail": 0,
+          "vram": 2147947956
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800715B4.c",
+      "source_sha256": "58a86040c42ab37934575b22ba9fcff78b95e4e1f19a2390e4736099b3edf80f",
+      "symbols": {
+        "func_800AC9B8": 2148190648,
+        "func_800AD434": 2148193332,
+        "func_800AD9E8": 2148194792,
+        "func_800B7578": 2148234616,
+        "func_800B9CDC": 2148244700,
+        "func_800B9DD0": 2148244944,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:939c4472a5c46233",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "fe89fede31fef63fb5ec2f80fa6185b8d6be94072548695c92b04a1db111c1b0",
+      "pipeline": "sn",
+      "row_sha256": "939c4472a5c46233dfd4fb8adda89e6177f8c670832821882c2c09ec5781b550",
+      "section_bases": {
+        ".text": 2147948360
+      },
+      "sections": [
+        {
+          "emitted_size": 48,
+          "name": ".text",
+          "owned_size": 48,
+          "rom_start": 433700,
+          "sha256": "ef9c35251d40071ec1f88e6f244718d16579470a0ba31164791d8a64e4077102",
+          "unowned_zero_tail": 0,
+          "vram": 2147948360
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071748.c",
+      "source_sha256": "d6bad70fbebd146bbb202ef2c872899d5f1f455d810d1bcae4c6745d29d830fb",
+      "symbols": {}
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:6155d999814ec3b8",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "8aabb01963db2507c1598cf09dd85b1b332c2d4187db6c1d5ec3c1efbe85478e",
+      "pipeline": "sn",
+      "row_sha256": "6155d999814ec3b827c120152fe08b125eb6f978b23a1434cff97e0252cd8479",
+      "section_bases": {
+        ".text": 2147948408
+      },
+      "sections": [
+        {
+          "emitted_size": 404,
+          "name": ".text",
+          "owned_size": 404,
+          "rom_start": 433748,
+          "sha256": "0d00f6b3d15ffede57bef159c24d1acaeb62bd187898ef068c057607fb85cda9",
+          "unowned_zero_tail": 0,
+          "vram": 2147948408
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071778.c",
+      "source_sha256": "931feecbc9da2a5cf835420a66959d4d7d10e1c24581577105f312d563f6b4d6",
+      "symbols": {
+        "func_800715F0": 2147948016,
+        "func_80071720": 2147948320,
+        "func_80071748": 2147948360,
+        "func_800AB2A4": 2148184740,
+        "func_800B9964": 2148243812,
+        "func_800B9BD4": 2148244436,
+        "func_800B9E9C": 2148245148
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:7ccdf616c9e3b122",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "c1f7b5dbeccb8114a672cc0643de120fa6200129acb5cd11dee4d04e43cd1e47",
+      "pipeline": "sn",
+      "row_sha256": "7ccdf616c9e3b1221ef8e9a972e4a9fd614e40a420f19372c1289db506ad5738",
+      "section_bases": {
+        ".text": 2147948812
+      },
+      "sections": [
+        {
+          "emitted_size": 152,
+          "name": ".text",
+          "owned_size": 152,
+          "rom_start": 434152,
+          "sha256": "310c1b85802f285be6b0787ea4f7f4f987a1ef10e7f5e87d571309d3eb598928",
+          "unowned_zero_tail": 0,
+          "vram": 2147948812
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_8007190C.c",
+      "source_sha256": "f173c2d4638eb481c8b2fca2d2969de4134860d785abf8eebac5a6a21233048f",
+      "symbols": {
+        "func_8001786C": 2147580012,
+        "func_80017888": 2147580040
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:d95b36a74fabe55e",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "58c930c19acb8734716c78e3803baf4df08271cd7d20a1ee2ddb260e53ade054",
+      "pipeline": "sn",
+      "row_sha256": "d95b36a74fabe55e298eaaf141c3d6bf7540f503cea81fa4379138a56296ef26",
+      "section_bases": {
+        ".text": 2147948964
+      },
+      "sections": [
+        {
+          "emitted_size": 488,
+          "name": ".text",
+          "owned_size": 488,
+          "rom_start": 434304,
+          "sha256": "6da6e409f7104151f683c49fc9b6aefdc6f881b1b8b56f0e1545a018daafeb97",
+          "unowned_zero_tail": 0,
+          "vram": 2147948964
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800719A4.c",
+      "source_sha256": "e4c5f3b25d07957479e769ad1cf57c4d3c9e7a8627df227be071fe32face09d7",
+      "symbols": {
+        "func_80071300": 2147947264,
+        "func_8007194C": 2147948876,
+        "func_80071958": 2147948888,
+        "func_800AAA58": 2148182616,
+        "func_800AACB0": 2148183216,
+        "func_800AD890": 2148194448,
+        "func_800ADC54": 2148195412,
+        "func_800B7130": 2148233520,
+        "func_800B9BD4": 2148244436,
+        "func_800BA068": 2148245608,
+        "func_800BA1FC": 2148246012
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:78277e280a5f2753",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "612e8415fff48bfaa65dfa0a9f750f08350416f1ca9f6eeaaf7658f0c98c9fbe",
+      "pipeline": "sn",
+      "row_sha256": "78277e280a5f2753d6a789ce6ec5564afa7462657c90e4089bc3719f18947293",
+      "section_bases": {
+        ".text": 2147949452
+      },
+      "sections": [
+        {
+          "emitted_size": 444,
+          "name": ".text",
+          "owned_size": 444,
+          "rom_start": 434792,
+          "sha256": "fdb614154b58a56e795426296a1f92a27f30c66276f602304e3e9315914196dd",
+          "unowned_zero_tail": 0,
+          "vram": 2147949452
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071B8C.c",
+      "source_sha256": "9d0d42da6828c454c258ccdd83798ddb6e6b3c238e1459ebf8a3d59a1e92d3e8",
+      "symbols": {
+        "func_80006B24": 2147511076,
+        "func_800B31EC": 2148217324,
+        "func_800B360C": 2148218380,
+        "func_800B9964": 2148243812,
+        "func_800B9E9C": 2148245148,
+        "func_800BB070": 2148249712
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:4df40a60544ab46f",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "ec92b06c6eeda51d6cb946225e3949969c6898253c6959da5afa677b12e53e96",
+      "pipeline": "sn",
+      "row_sha256": "4df40a60544ab46fd89a4e9fa746dd94a528b52555341e70317221cbe701f9fa",
+      "section_bases": {
+        ".text": 2147949904
+      },
+      "sections": [
+        {
+          "emitted_size": 176,
+          "name": ".text",
+          "owned_size": 176,
+          "rom_start": 435244,
+          "sha256": "ce170c4f7a4b8bc1d74495e743d60982ba94c5ec98ad6437c4bdd394183a7320",
+          "unowned_zero_tail": 0,
+          "vram": 2147949904
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071D50.c",
+      "source_sha256": "e696e69c67d9441d3f3d745ff9851d9fdea64071f688f39ac2c50c03affd76c8",
+      "symbols": {
+        "func_8001D4B8": 2147603640,
+        "func_8001D5D8": 2147603928,
+        "func_8001D640": 2147604032,
+        "func_8007A760": 2147985248
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:04e8f59bde7902aa",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "3ccc1301bc70fa90104de117aa77fc0c63de2b038cafbf3229b5466843690b7d",
+      "pipeline": "sn",
+      "row_sha256": "04e8f59bde7902aadba661287c14b26ebc578373baab71d6cdc2832830cf387e",
+      "section_bases": {
+        ".text": 2147950080
+      },
+      "sections": [
+        {
+          "emitted_size": 148,
+          "name": ".text",
+          "owned_size": 148,
+          "rom_start": 435420,
+          "sha256": "774ac55e9307b54079e32f7267c88d1c60643e21fddcba65336ebeabbb4e32fb",
+          "unowned_zero_tail": 0,
+          "vram": 2147950080
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80071E00.c",
+      "source_sha256": "832b509fa2ebc1273d5a887ba81cdbf40707c602754868ceb070e67df3570f6c",
+      "symbols": {
+        "func_800AC3A4": 2148189092,
+        "func_800ADDA4": 2148195748,
+        "func_800BB1F4": 2148250100
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:40373b1f511e98b4",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "23258bb0006d2a512a58ac5507a79c6920b3aea6761b90c70461bd5e53f79a25",
+      "pipeline": "sn",
+      "row_sha256": "40373b1f511e98b4b69419a07643b06fbd4a0d657009535a68ec3e68ce905825",
+      "section_bases": {
+        ".text": 2147953480
+      },
+      "sections": [
+        {
+          "emitted_size": 96,
+          "name": ".text",
+          "owned_size": 96,
+          "rom_start": 438820,
+          "sha256": "a153624e1bab29f9ca1d1d89a19bade9442753be9a2d4d18a38ceac56eaf5eb9",
+          "unowned_zero_tail": 0,
+          "vram": 2147953480
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80072B48.c",
+      "source_sha256": "a5d84fb1105916950b5b215aca80c486f4a6ba9dca7da50f6a54dc9d15d4fc4c",
+      "symbols": {}
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:18e268786d8bc2fd",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "9f5ad91a25586dc0b8e553eaf963d20b7169892b3358b155b9f02d347ef9ee4b",
+      "pipeline": "sn",
+      "row_sha256": "18e268786d8bc2fd957bedd65a11a77c4f92e574cdb3b5fa906321fa7002fcd4",
+      "section_bases": {
+        ".text": 2147954404
+      },
+      "sections": [
+        {
+          "emitted_size": 72,
+          "name": ".text",
+          "owned_size": 72,
+          "rom_start": 439744,
+          "sha256": "d93fa7f2b5f5ff7daaef6172caf1c9cb426d11bc527b1e2b1214d02c83c0c668",
+          "unowned_zero_tail": 0,
+          "vram": 2147954404
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80072EE4.c",
+      "source_sha256": "9ed6827489a6a29109d8e52bbd2eefcd02af6b9222cbdb28aea5f89f7c411fc2",
+      "symbols": {}
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:5959abe581452adf",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "7f316747256ec6b54e55881228300bf2d6dc80a30d2c3fd5964bc370a879e6b7",
+      "pipeline": "sn",
+      "row_sha256": "5959abe581452adf9312a15b2b738f7b96fa384b5bc1e9b71b5bc2019b459898",
+      "section_bases": {
+        ".text": 2147954508
+      },
+      "sections": [
+        {
+          "emitted_size": 460,
+          "name": ".text",
+          "owned_size": 460,
+          "rom_start": 439848,
+          "sha256": "8f9da0979b744671bf66e883fc9571404dfa85dcab816cb525383a4d634ec112",
+          "unowned_zero_tail": 0,
+          "vram": 2147954508
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80072F4C.c",
+      "source_sha256": "f123a35b8908c85cbbc379abcfc566aa98f2ddca1ca1f72a2232ab245c04a3f7",
+      "symbols": {
+        "func_80071908": 2147948808,
+        "func_8007193C": 2147948860,
+        "func_80071978": 2147948920,
+        "func_80071984": 2147948932,
+        "func_80072A38": 2147953208,
+        "func_80073D28": 2147958056,
+        "func_80073F50": 2147958608,
+        "func_800A9B78": 2148178808,
+        "func_800AB2A4": 2148184740,
+        "func_800BC07C": 2148253820
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:67f9fc471ad6d885",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "f1884915641347495a0e26dbab27b11db7a61708926ebb93a7d34a92b8097a9a",
+      "pipeline": "sn",
+      "row_sha256": "67f9fc471ad6d885b282f52c0b25daa0e5c5fa99077d70cc0d4f38ab6863920f",
+      "section_bases": {
+        ".text": 2147954968
+      },
+      "sections": [
+        {
+          "emitted_size": 1468,
+          "name": ".text",
+          "owned_size": 1468,
+          "rom_start": 440308,
+          "sha256": "c48205220ab69730bd8d89a42e42df3cdb2cd79759a7922b42a073d05f054715",
+          "unowned_zero_tail": 0,
+          "vram": 2147954968
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073118.c",
+      "source_sha256": "3621ea0b36c5175edfd6f23f1a3f3359c90e09a49639234e78ce745775315028",
+      "symbols": {
+        "func_80013208": 2147561992,
+        "func_80013E7C": 2147565180,
+        "func_800140A0": 2147565728,
+        "func_80015EAC": 2147573420,
+        "func_80017B50": 2147580752,
+        "func_80017D84": 2147581316,
+        "func_80071EE4": 2147950308,
+        "func_80073D28": 2147958056,
+        "func_8007E918": 2148002072,
+        "func_800A3298": 2148151960,
+        "func_800A32EC": 2148152044,
+        "func_800A7610": 2148169232,
+        "func_800A851C": 2148173084,
+        "func_800A97D4": 2148177876,
+        "func_800AA658": 2148181592,
+        "func_800AA804": 2148182020,
+        "func_800AC37C": 2148189052,
+        "func_800AD890": 2148194448,
+        "func_800AD9E8": 2148194792,
+        "func_800ADC38": 2148195384,
+        "func_800ADC54": 2148195412,
+        "func_800AE420": 2148197408,
+        "func_800AEDC0": 2148199872,
+        "func_800BA2D0": 2148246224,
+        "func_800C023C": 2148270652
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:0defcdea7f7aea29",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "14d9b70010ff395dffc7e8dfb13ba4b9b1c7d0dcfe1658e0ac02ad91959ec70a",
+      "pipeline": "sn",
+      "row_sha256": "0defcdea7f7aea29f7de021b5e88b8ae41a54d5789cfff50ad04e7fc909a973f",
+      "section_bases": {
+        ".text": 2147956436
+      },
+      "sections": [
+        {
+          "emitted_size": 468,
+          "name": ".text",
+          "owned_size": 468,
+          "rom_start": 441776,
+          "sha256": "fed23b8bdf457f3417e113e1fdef401eb8c935ed61909febe7425a44d04f21ae",
+          "unowned_zero_tail": 0,
+          "vram": 2147956436
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800736D4.c",
+      "source_sha256": "7fd38f11f45e98bebda38193bd3cc683c79cac6a8ea0c3a576f36ce491f22543",
+      "symbols": {
+        "func_80013E7C": 2147565180,
+        "func_800AAA58": 2148182616,
+        "func_800AD434": 2148193332,
+        "func_800AD890": 2148194448,
+        "func_800AD9E8": 2148194792,
+        "func_800ADC38": 2148195384,
+        "func_800ADC54": 2148195412,
+        "func_800B7130": 2148233520,
+        "func_800BA1FC": 2148246012
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:93b4283f2848e4cf",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "4f4b3fdf5008c90ab60ce3650adcc93f369b71c296177057f768a9d8871b0cf2",
+      "pipeline": "sn",
+      "row_sha256": "93b4283f2848e4cf20e76c863b662b33d98da04301d2267f496e822c7d63974b",
+      "section_bases": {
+        ".text": 2147956904
+      },
+      "sections": [
+        {
+          "emitted_size": 168,
+          "name": ".text",
+          "owned_size": 168,
+          "rom_start": 442244,
+          "sha256": "a48d8ca4ad17da4d6f187acac7617ae76a53947ee5b2c274b14d66d2340cd5a8",
+          "unowned_zero_tail": 0,
+          "vram": 2147956904
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800738A8.c",
+      "source_sha256": "ae9b60511ca2ceed0ebfd481c081d6b04c43e713bbb46449d77472eef7a0441e",
+      "symbols": {
+        "func_80072014": 2147950612,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:9fd0b1a6f0694a04",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "b3eca9d44776886fba1c07f8b5b5464a657a783874d32b795259b04abdb204a6",
+      "pipeline": "sn",
+      "row_sha256": "9fd0b1a6f0694a048123d867b7dd118c4b7934936d35457ae54a8acdaca6baac",
+      "section_bases": {
+        ".text": 2147957224
+      },
+      "sections": [
+        {
+          "emitted_size": 92,
+          "name": ".text",
+          "owned_size": 92,
+          "rom_start": 442564,
+          "sha256": "faea5b56a7789e1c196ef1b675381362cec2ef74af72f5bc35916fcf99df0641",
+          "unowned_zero_tail": 0,
+          "vram": 2147957224
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800739E8.c",
+      "source_sha256": "fd43819449113c4e12e6da6fd30b225f030562c2bcf682bd7dec21aba38eea58",
+      "symbols": {
+        "func_80072368": 2147951464
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:b3bd5c8a26750fa3",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "4ca7e22aba75276b09c7ee5507a32552af154c7b6598d6a496783c634a484fbe",
+      "pipeline": "sn",
+      "row_sha256": "b3bd5c8a26750fa333f9ed60bbb762f083e214dfe64dd213d584273d8c926540",
+      "section_bases": {
+        ".text": 2147957552
+      },
+      "sections": [
+        {
+          "emitted_size": 448,
+          "name": ".text",
+          "owned_size": 448,
+          "rom_start": 442892,
+          "sha256": "cd39498814b35447dbbe423d8bf71fedd7138f9f6fbac0240ea4c1a82f3cca4f",
+          "unowned_zero_tail": 0,
+          "vram": 2147957552
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073B30.c",
+      "source_sha256": "eca407d19ceaa25532fd9ca655af94a79416f6a2f27a181e4bf4014b6547f7e2",
+      "symbols": {
+        "func_800AC37C": 2148189052,
+        "func_800AD890": 2148194448,
+        "func_800ADC38": 2148195384,
+        "func_800ADC54": 2148195412,
+        "func_800AE72C": 2148198188,
+        "func_800AE9DC": 2148198876,
+        "func_800AEF6C": 2148200300,
+        "func_800B7130": 2148233520,
+        "func_800B9AD0": 2148244176,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:65cfbdf0afc87f7f",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "7835912d068333e205ab95eb7ea41082cdb75a50ec47508758840d2c8fc8a9af",
+      "pipeline": "sn",
+      "row_sha256": "65cfbdf0afc87f7fc93740f1fa1f6f88534076a1eab09e7544699d1d4c7d6801",
+      "section_bases": {
+        ".text": 2147958000
+      },
+      "sections": [
+        {
+          "emitted_size": 56,
+          "name": ".text",
+          "owned_size": 56,
+          "rom_start": 443340,
+          "sha256": "e93a13536cfc44f5db7f156033afbd33ac1b71a39ed91ee41ac347f9df87ab00",
+          "unowned_zero_tail": 0,
+          "vram": 2147958000
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073CF0.c",
+      "source_sha256": "9b961a428d02a385e381416e5ae2ffe900e33ed3410c1a9ee55cf21af5b05cd5",
+      "symbols": {
+        "func_800AC37C": 2148189052,
+        "func_800AD890": 2148194448,
+        "func_800ADC38": 2148195384
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:d3ff5ef30f1e2616",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "ad5dfc80e67ab3852a14f7feec6d4811963facd9bdf8d1ed09ef0a7cd720cbe1",
+      "pipeline": "sn",
+      "row_sha256": "d3ff5ef30f1e2616c7fa77f290403cf0fda612bbd396d82324e8c348a4b592fb",
+      "section_bases": {
+        ".text": 2147958056
+      },
+      "sections": [
+        {
+          "emitted_size": 136,
+          "name": ".text",
+          "owned_size": 136,
+          "rom_start": 443396,
+          "sha256": "3fd11e5432e47e5dd2a0551795471474de18e40fb41d5a8d604ae77abbd57cab",
+          "unowned_zero_tail": 0,
+          "vram": 2147958056
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073D28.c",
+      "source_sha256": "8c8db7690d4005749146c6be435c41e3e406f6ee1ea4f250c4d4ba4131f82820",
+      "symbols": {
+        "func_800AC37C": 2148189052,
+        "func_800AD890": 2148194448,
+        "func_800ADC38": 2148195384,
+        "func_800ADC54": 2148195412,
+        "func_800B7130": 2148233520
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:b036d501148d5b3d",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "4a68615e82b60278ca0ded683b19929bbaa2158b9664cf8b0bc9a9e63a6f7b20",
+      "pipeline": "sn",
+      "row_sha256": "b036d501148d5b3d20892009aad346624753c4397ae8f62ebab7416bfcadc2dd",
+      "section_bases": {
+        ".text": 2147958192
+      },
+      "sections": [
+        {
+          "emitted_size": 156,
+          "name": ".text",
+          "owned_size": 156,
+          "rom_start": 443532,
+          "sha256": "0e3b628701f485498d33125026c049e527107568f0f883bad0ec09afda22e947",
+          "unowned_zero_tail": 0,
+          "vram": 2147958192
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073DB0.c",
+      "source_sha256": "a3503d53aa1721bde2972dd6095e419049e8e9719040d397d328cabc9b29786c",
+      "symbols": {
+        "func_8000EB20": 2147543840,
+        "func_80013208": 2147561992,
+        "func_800B9AD0": 2148244176
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:1e79ad654336819f",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "92be30faff9435ee452ec5f5c599a56de594e84bd7d017182c9891b9c49c9167",
+      "pipeline": "sn",
+      "row_sha256": "1e79ad654336819fc4f1a3bb61baf27d34c029cf9ed51463d170d9b1552c175f",
+      "section_bases": {
+        ".text": 2147958348
+      },
+      "sections": [
+        {
+          "emitted_size": 260,
+          "name": ".text",
+          "owned_size": 260,
+          "rom_start": 443688,
+          "sha256": "391ebe0d850e4cfc59d1aa7fa510c52e2ba468c031cd5b29e22a729b681b762c",
+          "unowned_zero_tail": 0,
+          "vram": 2147958348
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073E4C.c",
+      "source_sha256": "432ddb85330209cde47b7abd327d3a4aa93aa71ec6aec66889478b5a638b441c",
+      "symbols": {
+        "func_800AC37C": 2148189052,
+        "func_800AD9E8": 2148194792,
+        "func_800ADC54": 2148195412,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:d9f60b0a5cba0e93",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "a5add17f24e29d95a7027cb88d37f4b0b7ad3f16677ffa6351d286aa76ca09cd",
+      "pipeline": "sn",
+      "row_sha256": "d9f60b0a5cba0e933a523fcb556ad4b034884a5a94b55584cd0b282d00a960d5",
+      "section_bases": {
+        ".text": 2147958608
+      },
+      "sections": [
+        {
+          "emitted_size": 604,
+          "name": ".text",
+          "owned_size": 604,
+          "rom_start": 443948,
+          "sha256": "2339bf1bbe3112d22860a7308026361ce54f0b4ee28d88e07c35ff533c8796dd",
+          "unowned_zero_tail": 0,
+          "vram": 2147958608
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80073F50.c",
+      "source_sha256": "b5e189ab1bd344c9fb315ac4ee71d8e4d6629fcbf5a0a382c68ef399aac4df74",
+      "symbols": {
+        "func_800177AC": 2147579820,
+        "func_8001D4B8": 2147603640,
+        "func_8001D5D8": 2147603928,
+        "func_8001D640": 2147604032,
+        "func_80072B48": 2147953480,
+        "func_800A9BE8": 2148178920,
+        "func_800AD434": 2148193332,
+        "func_800AD890": 2148194448,
+        "func_800AD9E8": 2148194792,
+        "func_800ADC54": 2148195412,
+        "func_800BBD78": 2148253048,
+        "func_800BC1E8": 2148254184,
+        "func_800C0110": 2148270352
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:055837345f6e6059",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "8dc317ee085951630d0c2fc5c75946115a520dc1a17a560e8b48885dfac58cdc",
+      "pipeline": "sn",
+      "row_sha256": "055837345f6e605997f9ec07b9ffa148ee17be5d2ca79dfa6e80fd7d936c6a11",
+      "section_bases": {
+        ".text": 2147959212
+      },
+      "sections": [
+        {
+          "emitted_size": 272,
+          "name": ".text",
+          "owned_size": 272,
+          "rom_start": 444552,
+          "sha256": "65f62efa869a94be55b863b895dbd8ba5bc7e9e5c030d803dc22d71bfabcb6d9",
+          "unowned_zero_tail": 0,
+          "vram": 2147959212
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800741AC.c",
+      "source_sha256": "4cbe09140ec3b1d7e3a4a994a88311d1e91f5b996037553f4ba943b83a2d64b7",
+      "symbols": {
+        "func_800137FC": 2147563516,
+        "func_80014384": 2147566468,
+        "func_80017A90": 2147580560,
+        "func_80017B24": 2147580708,
+        "func_8001D550": 2147603792,
+        "func_800736D4": 2147956436,
+        "func_8007E7A0": 2148001696,
+        "func_800A3240": 2148151872,
+        "func_800A32CC": 2148152012,
+        "func_800A8850": 2148173904,
+        "func_800AB240": 2148184640,
+        "func_800AC308": 2148188936,
+        "func_800AC334": 2148188980,
+        "func_800AEFA0": 2148200352,
+        "func_800BAC24": 2148248612,
+        "func_800BC274": 2148254324,
+        "func_800C013C": 2148270396,
+        "func_800C0168": 2148270440
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:d51371a2d23c34b4",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "4920845e0f5b422aa7fa00e7d73441e5275f0c29d2fa29137ce6cabfef62f5e2",
+      "pipeline": "sn",
+      "row_sha256": "d51371a2d23c34b475d7dec44f052429de298655f73c44a2dca1ede642f6837d",
+      "section_bases": {
+        ".text": 2147959484
+      },
+      "sections": [
+        {
+          "emitted_size": 684,
+          "name": ".text",
+          "owned_size": 684,
+          "rom_start": 444824,
+          "sha256": "52eaa531fae4a90a977869091bcd9a8abf2675e09fc63db7ce1ec85eaf2d0f59",
+          "unowned_zero_tail": 0,
+          "vram": 2147959484
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800742BC.c",
+      "source_sha256": "bc8291b69b8209edb60ca488c4a9da9bc18e1a6a0c00cb1ca5341d6e253f2489",
+      "symbols": {
+        "func_80072B84": 2147953540,
+        "func_80072B98": 2147953560,
+        "func_80072DF4": 2147954164,
+        "func_800A7A64": 2148170340,
+        "func_800AE72C": 2148198188,
+        "func_800AEF6C": 2148200300,
+        "func_800B8DC8": 2148240840,
+        "func_800B9BD4": 2148244436,
+        "func_800B9E9C": 2148245148
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:c906c2bf27cb1c3a",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "9384494a0a38d4ce5114db7dbc9da83d59fa778d5d1ad32369ae708b1527c4d2",
+      "pipeline": "sn",
+      "row_sha256": "c906c2bf27cb1c3addfdb5ad70b2ebfc3d23b02f00ac1d1b508d6a8bcef7f54d",
+      "section_bases": {
+        ".text": 2147960168
+      },
+      "sections": [
+        {
+          "emitted_size": 344,
+          "name": ".text",
+          "owned_size": 344,
+          "rom_start": 445508,
+          "sha256": "eaaedad61814229621075b74390f35fe0ccbffcafcfb5186da35114ae5a4405f",
+          "unowned_zero_tail": 0,
+          "vram": 2147960168
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80074568.c",
+      "source_sha256": "20f74313e2119d0edd4f8dd29ffb88c60002e0c5d60418055c668ab7a73ca1cf",
+      "symbols": {
+        "func_800AC5CC": 2148189644,
+        "func_800AD9E8": 2148194792,
+        "func_800B97D4": 2148243412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:add5c66acf59656b",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "62b674a21a59b4c162cc16339b707022c7256affc7279735daa2ac761f293644",
+      "pipeline": "sn",
+      "row_sha256": "add5c66acf59656b926f69ad0fed93783351dba632589c389a624d6bfc0d26e0",
+      "section_bases": {
+        ".text": 2147960512
+      },
+      "sections": [
+        {
+          "emitted_size": 1928,
+          "name": ".text",
+          "owned_size": 1928,
+          "rom_start": 445852,
+          "sha256": "8bfdcdd32b1a5dcd6357c9a98fbb92d16868f20d18dc6be5d1f52a25c95396e0",
+          "unowned_zero_tail": 0,
+          "vram": 2147960512
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800746C0.c",
+      "source_sha256": "3f3939b3b195f8ef2e78b94402a2bb4db3216a781e657ad16908df8aaf5739b6",
+      "symbols": {
+        "func_8000EB20": 2147543840,
+        "func_8000F444": 2147546180,
+        "func_80017CF4": 2147581172,
+        "func_8001C784": 2147600260,
+        "func_8001D550": 2147603792,
+        "func_8001D5D8": 2147603928,
+        "func_80072B48": 2147953480,
+        "func_800736B4": 2147956404,
+        "func_800736D4": 2147956436,
+        "func_800738A8": 2147956904,
+        "func_800739E8": 2147957224,
+        "func_80073B30": 2147957552,
+        "func_80073CF0": 2147958000,
+        "func_80073DB0": 2147958192,
+        "func_80073E4C": 2147958348,
+        "func_800A3194": 2148151700,
+        "func_800A31BC": 2148151740,
+        "func_800A3218": 2148151832,
+        "func_800A3298": 2148151960,
+        "func_800A3394": 2148152212,
+        "func_800A9BE8": 2148178920,
+        "func_800AB2A4": 2148184740,
+        "func_800AC5CC": 2148189644,
+        "func_800AD9E8": 2148194792,
+        "func_800ADC38": 2148195384,
+        "func_800AE72C": 2148198188,
+        "func_800AEF6C": 2148200300,
+        "func_800B3870": 2148218992,
+        "func_800B8DC8": 2148240840,
+        "func_800B97D4": 2148243412,
+        "func_800B9964": 2148243812,
+        "func_800B9BD4": 2148244436,
+        "func_800B9E9C": 2148245148,
+        "func_800C013C": 2148270396
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:f6b049bf28bebd5f",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "e30c67dbff9e8a862828899e49c494e95cb24383c8778ac825028d98b27ae18a",
+      "pipeline": "sn",
+      "row_sha256": "f6b049bf28bebd5fa0e9f3733929e4cb3aa514fa90053fda6c6d53d533a5de46",
+      "section_bases": {
+        ".text": 2147962440
+      },
+      "sections": [
+        {
+          "emitted_size": 468,
+          "name": ".text",
+          "owned_size": 468,
+          "rom_start": 447780,
+          "sha256": "506e5b2a8471e587eae7b728e015b809be242510981a99f6c3e9455117436f92",
+          "unowned_zero_tail": 0,
+          "vram": 2147962440
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80074E48.c",
+      "source_sha256": "f52579a8ab1ad23390fa53a89dc779788b5c119d3d40e443bcabe2da625eaf24",
+      "symbols": {
+        "func_800736FC": 2147956476,
+        "func_80073710": 2147956496,
+        "func_800A7910": 2148170000,
+        "func_800AA658": 2148181592,
+        "func_800AACB0": 2148183216,
+        "func_800AC308": 2148188936,
+        "func_800AC334": 2148188980,
+        "func_800ADC1C": 2148195356
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:c7c2345eb9548210",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "910fa65f7df0217c38b9a5f8d182d2a3da383a747019e8ae05cbbdc5779985ee",
+      "pipeline": "sn",
+      "row_sha256": "c7c2345eb9548210ce4bbd81eb5ea242169a8ab64411437e4c94a9fe9758ffd0",
+      "section_bases": {
+        ".text": 2147962908
+      },
+      "sections": [
+        {
+          "emitted_size": 320,
+          "name": ".text",
+          "owned_size": 320,
+          "rom_start": 448248,
+          "sha256": "d00bffb36255f729e062ef4a80847ef93cbeb211a19019b7c39a25249edf94ee",
+          "unowned_zero_tail": 0,
+          "vram": 2147962908
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_8007501C.c",
+      "source_sha256": "29e2ee7a3def145058306a3a2831c8566c2ddc992ce7434654903a0609ae9bac",
+      "symbols": {
+        "func_800A9BE8": 2148178920,
+        "func_800AD9E8": 2148194792,
+        "func_800ADC38": 2148195384,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:376ce79305392241",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "40921fd0e094cb33b1b5c9f168dd480131d1c860706a8dfffd43419d239ef4ec",
+      "pipeline": "sn",
+      "row_sha256": "376ce79305392241bfc8eb368607a8669a2abc98a8512c4b4d81b04a2947ecd3",
+      "section_bases": {
+        ".text": 2147963228
+      },
+      "sections": [
+        {
+          "emitted_size": 328,
+          "name": ".text",
+          "owned_size": 328,
+          "rom_start": 448568,
+          "sha256": "9a7fa1187cc35b119616bb15e62d2610a4824a1519bb897ed35b4719006bca18",
+          "unowned_zero_tail": 0,
+          "vram": 2147963228
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_8007515C.c",
+      "source_sha256": "c5bb4bad50e214e49ea2b165fb38c5d26e50ad3f66c55f03f88543c5485f555d",
+      "symbols": {
+        "func_800A9BE8": 2148178920,
+        "func_800AD434": 2148193332,
+        "func_800AD9E8": 2148194792,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:989c57f4b40a27e2",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "7fe14f13e18bcb80090b686a6e5a373593972fd79d23515d54dec885cce9e3b1",
+      "pipeline": "sn",
+      "row_sha256": "989c57f4b40a27e24ee52862f8a22331116356cd0592443c32c67bccf4a53f67",
+      "section_bases": {
+        ".text": 2147963556
+      },
+      "sections": [
+        {
+          "emitted_size": 372,
+          "name": ".text",
+          "owned_size": 372,
+          "rom_start": 448896,
+          "sha256": "f2bd7e092d6a9b40d57b286830a02f8f20f0afca4fd8b27fb12ce6291a9f05e1",
+          "unowned_zero_tail": 0,
+          "vram": 2147963556
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800752A4.c",
+      "source_sha256": "870b667c317632e50ee5b0dc4a98b264ccb8942b5dcf03ee88a8f1ca2eb620bd",
+      "symbols": {
+        "func_800A848C": 2148172940,
+        "func_800A851C": 2148173084,
+        "func_800A9BE8": 2148178920,
+        "func_800AC334": 2148188980,
+        "func_800AD434": 2148193332,
+        "func_800AD9E8": 2148194792,
+        "func_800B3870": 2148218992
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:5b3e6d88dc3589f4",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "77692aa434bc9a71e3793a5230f12aae4e2b19a570cadd3abd45d3257320ba22",
+      "pipeline": "sn",
+      "row_sha256": "5b3e6d88dc3589f4008022052e2a171705fbd75b764737d009d768ddfe6049c5",
+      "section_bases": {
+        ".text": 2147964004
+      },
+      "sections": [
+        {
+          "emitted_size": 56,
+          "name": ".text",
+          "owned_size": 56,
+          "rom_start": 449344,
+          "sha256": "aad0c274e4d55c427116e7b0da7fa315b7320c33c540908e81faf2cbb5ef2ada",
+          "unowned_zero_tail": 0,
+          "vram": 2147964004
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80075464.c",
+      "source_sha256": "76a59ee907fb37d1637e7e93b70771bac8a80362ef67d68690543d32fdf83d4e",
+      "symbols": {
+        "func_8001CBA8": 2147601320,
+        "func_80073D14": 2147958036
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:19e16da527bb50e2",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "9eb2a31fb6c8eb1fc29b093fe2825b642b2cb5f1b67c8a27b998e0701224d554",
+      "pipeline": "sn",
+      "row_sha256": "19e16da527bb50e2575c6fb29d37522c0c2929ac85d5df60c5afe30429cdf97b",
+      "section_bases": {
+        ".text": 2147964352
+      },
+      "sections": [
+        {
+          "emitted_size": 260,
+          "name": ".text",
+          "owned_size": 260,
+          "rom_start": 449692,
+          "sha256": "63211b9209e5cb318988fe12846b164e1dab42c733f8f801a584f9568bee707f",
+          "unowned_zero_tail": 0,
+          "vram": 2147964352
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_800755C0.c",
+      "source_sha256": "636e59956c612ceb6882639281cff50585bbb1ae82d02bbabb9fd21035e3cbf0",
+      "symbols": {
+        "func_800A9BE8": 2148178920,
+        "func_800ADC38": 2148195384,
+        "func_800B3870": 2148218992,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sweep_sn.tsv:175c446b63018eb1",
+      "includes": [],
+      "manifest": "config/overlay/ceremony/matching_sweep_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "92c0ebc5334260e8a4193ea4f08cea64e9e53db7de8d605b426b6902a8dc7e17",
+      "pipeline": "sn",
+      "row_sha256": "175c446b63018eb1106592160231a35a7eeb1a4168aef51e24ae84db292d0d64",
+      "section_bases": {
+        ".text": 2147964756
+      },
+      "sections": [
+        {
+          "emitted_size": 260,
+          "name": ".text",
+          "owned_size": 260,
+          "rom_start": 450096,
+          "sha256": "32f185c3191e23e8184a03c3c5416f5234a3c8def90d6460a829381ec2d8e975",
+          "unowned_zero_tail": 0,
+          "vram": 2147964756
+        }
+      ],
+      "source": "src/overlays/ceremony_sweep_func_80075754.c",
+      "source_sha256": "d9323f3c8d03e097a937b6978af7b2a986052eefea197f0677ab7f0cc00e04cf",
+      "symbols": {
+        "func_8007F1A4": 2148004260,
+        "func_800A86AC": 2148173484,
+        "func_800A9C2C": 2148178988,
+        "func_800AC3A4": 2148189092,
+        "func_800ADE84": 2148195972,
+        "func_800AE4D8": 2148197592,
+        "func_800AF064": 2148200548,
+        "func_800BA1B4": 2148245940
       }
     }
   ],

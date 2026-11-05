@@ -1,0 +1,20 @@
+/* Symbolic reconstruction of the reviewed overlay routine. */
+__asm__(
+    ".set noreorder\n.set noat\n.text\n.globl func_8011D160\n.ent func_8011D160\n"
+    "func_8011D160:\n"
+    "addiu $29,$29,-24\n"
+    "move $5,$4\n"
+    "lui $4,0x800f\n"
+    "addiu $4,$4,9952\n"
+    "sw $31,16($29)\n"
+    "lw $2,192($5)\n"
+    "li $6,15\n"
+    "sb $0,288($5)\n"
+    "sb $0,289($5)\n"
+    "ori $2,$2,0x4\n"
+    "jal func_800AACB0\n"
+    "sw $2,192($5)\n"
+    "lw $31,16($29)\n"
+    "jr $31\n"
+    "addiu $29,$29,24\n"
+    ".end func_8011D160\n.set at\n.set reorder\n");

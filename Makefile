@@ -6,7 +6,7 @@ N64DK_PYTHON ?= $(N64DK_ROOT)/.venv/bin/python
 N64DK_TOOLCHAIN ?= ../BattleTanx/.toolchain
 N64DK := PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) -m n64dk
 
-.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check overlay-survey overlay-survey-check verify-runtime verify-overlays runtime-link-plan runtime-pieces ceremony-link-plan ceremony-pieces closing-link-plan closing-pieces event-bank-link-plan event-bank-pieces source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory archive-assets verify-archive-assets archive-assets-test verify-archive-directory archive-directory-test initialized-data initialized-data-verify initialized-data-test initialized-data-check reconstruction reconstruction-verify reconstructed-rom reconstruction-test validate-runtime-priority validate-runtime-memory rsp-tools rsp-pieces rsp-verify rsp-check rsp-test clean
+.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check overlay-survey overlay-survey-check verify-runtime verify-overlays runtime-link-plan runtime-pieces ceremony-link-plan ceremony-pieces closing-link-plan closing-pieces event-bank-link-plan event-bank-pieces residual-literals source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory archive-assets verify-archive-assets archive-assets-test verify-archive-directory archive-directory-test initialized-data initialized-data-verify initialized-data-test initialized-data-check reconstruction reconstruction-verify reconstructed-rom reconstruction-test validate-runtime-priority validate-runtime-memory rsp-tools rsp-pieces rsp-verify rsp-check rsp-test clean
 
 all: setup
 
@@ -46,10 +46,11 @@ validate-render-queue: $(BASEROM)
 
 # Startup runtime image only; other overlay banks need their own mappings.
 verify-runtime: $(BASEROM) runtime-survey-check
-	$(N64DK) match-batch config/runtime/matching_sn.tsv=sn config/runtime/matching_kmc.tsv=kmc+as --project . --vram-delta 0x7FF5C710
+	$(N64DK) match-batch config/runtime/matching_sn.tsv=sn config/runtime/matching_sweep_sn.tsv=sn config/runtime/matching_kmc.tsv=kmc+as --project . --vram-delta 0x7FF5C710
 
 verify-overlays: $(BASEROM) overlay-survey-check
 	$(N64DK) match-batch config/overlay/ceremony/matching_sn.tsv=sn --project . --vram-delta 0x80007924
+	$(N64DK) match-batch config/overlay/ceremony/matching_sweep_sn.tsv=sn --project . --vram-delta 0x80007924
 	$(N64DK) match-batch config/overlay/closing/matching_sn.tsv=sn --project . --vram-delta 0x80002554
 	$(N64DK) match-batch config/overlay/event_bank/matching_sn.tsv=sn --project . --vram-delta 0x80000000
 
@@ -87,6 +88,9 @@ verify-archive-assets: archive-assets
 archive-assets-test:
 	$(PYTHON) tools/test_archive_payload.py
 
+residual-literals: config/residual_literals.json
+	$(PYTHON) tools/build_residual_literals.py build
+
 initialized-data:
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) tools/build_initialized_data.py build
 
@@ -100,14 +104,14 @@ initialized-data-test:
 	$(PYTHON) tools/test_initialized_data.py
 
 # Composition reads source artifacts only; verification may read ROM afterward.
-reconstruction: source-pieces runtime-pieces ceremony-pieces closing-pieces event-bank-pieces initialized-data rsp-pieces archive-directory archive-assets
+reconstruction: source-pieces runtime-pieces ceremony-pieces closing-pieces event-bank-pieces initialized-data rsp-pieces archive-directory archive-assets residual-literals
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/compose_reconstruction.py
 
-reconstruction-verify: source-pieces runtime-pieces ceremony-pieces closing-pieces event-bank-pieces initialized-data rsp-pieces archive-directory archive-assets $(BASEROM)
+reconstruction-verify: source-pieces runtime-pieces ceremony-pieces closing-pieces event-bank-pieces initialized-data rsp-pieces archive-directory archive-assets residual-literals $(BASEROM)
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/compose_reconstruction.py --verify-rom $(BASEROM)
 
 # This must fail while any ROM byte is unowned or the final SHA-1 differs.
-reconstructed-rom: source-pieces runtime-pieces ceremony-pieces closing-pieces event-bank-pieces initialized-data rsp-pieces archive-directory archive-assets
+reconstructed-rom: source-pieces runtime-pieces ceremony-pieces closing-pieces event-bank-pieces initialized-data rsp-pieces archive-directory archive-assets residual-literals
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/compose_reconstruction.py --require-complete
 
 reconstruction-test:

@@ -500,4 +500,3 @@ __asm__(
     "lwc1 $f0,4888($1)\n"
     "move $4,$16\n"
     ".end func_800ABAE0\n.set at\n.set reorder\n");
-

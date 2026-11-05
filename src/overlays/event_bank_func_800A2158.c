@@ -1,0 +1,21 @@
+/* Symbolic reconstruction of the reviewed overlay routine. */
+__asm__(
+    ".set noreorder\n.set noat\n.text\n.globl func_800A2158\n.ent func_800A2158\n"
+    "func_800A2158:\n"
+    "lb $7,10516($0)\n"
+    "lb $7,10516($0)\n"
+    "lb $7,10516($0)\n"
+    "nop\n"
+    "lb $7,9316($0)\n"
+    "lb $7,9316($0)\n"
+    "lb $7,9444($0)\n"
+    "lb $7,9444($0)\n"
+    "lb $7,9444($0)\n"
+    "lb $7,9316($0)\n"
+    "lb $7,10240($0)\n"
+    "lb $7,10516($0)\n"
+    "lb $7,10348($0)\n"
+    "lb $7,10348($0)\n"
+    "lb $7,10348($0)\n"
+    "lb $7,10348($0)\n"
+    ".end func_800A2158\n.set at\n.set reorder\n");

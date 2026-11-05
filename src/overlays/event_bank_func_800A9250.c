@@ -384,4 +384,3 @@ __asm__(
     "jal func_800B4794\n"
     "move $4,$0\n"
     ".end func_800A9250\n.set at\n.set reorder\n");
-

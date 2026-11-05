@@ -575,6 +575,32 @@ def load_archive_payload(evidence, artifact):
                                   'source': metadata['inventory']})]
 
 
+def load_residual_literals(evidence, artifact):
+    if not artifact.is_file():
+        raise ValueError('residual literal artifact missing; run make residual-literals')
+    metadata = evidence.json(artifact)
+    if (metadata.get('version') != 1 or
+            metadata.get('kind') != 'reviewed source-literal residual data' or
+            not metadata.get('complete_component') or metadata.get('complete_rom') is not False):
+        raise ValueError('unsupported residual literal artifact')
+    config = json.loads(evidence.repo(metadata['config'], metadata['config_sha256']))
+    evidence.repo('tools/build_residual_literals.py', metadata['generator_sha256'])
+    if len(config['ranges']) != len(metadata['pieces']):
+        raise ValueError('residual literal piece set changed')
+    produced = []
+    for source, piece in zip(config['ranges'], metadata['pieces']):
+        if any(source[key] != piece[key] for key in ('id', 'rom_start', 'size', 'sha256')):
+            raise ValueError('residual literal metadata differs from source')
+        expected = bytes.fromhex(source['data_hex'])
+        data = piece_bytes(evidence, artifact, piece, source['size'], source['sha256'])
+        if data != expected:
+            raise ValueError(f'residual literal bytes differ: {source["id"]}')
+        produced.append((source['rom_start'], data,
+                         {'owner': 'residual-literal:' + source['id'],
+                          'kind': metadata['kind'], 'source': metadata['config']}))
+    return produced
+
+
 def compose(project, resident, initialized, directory, output, verify_rom=None,
             require_complete=False, rsp=None, runtime=None, ceremony=None, closing=None,
             payload=None, event_bank=None):
@@ -586,8 +612,9 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
     closing = closing or project / 'build/overlay_closing/source_image.json'
     payload = payload or project / 'build/rom_components/archive_payload.json'
     event_bank = event_bank or project / 'build/overlay_event_bank/source_image.json'
+    residual = project / 'build/residual_literals/residual_literals.json'
     for path in (resident, initialized, directory, rsp, runtime, ceremony, closing, payload,
-                 event_bank):
+                 event_bank, residual):
         if not path.resolve().is_relative_to(project.resolve()):
             raise ValueError('component metadata must be inside the project')
     data_intervals = classified_data(evidence)
@@ -600,6 +627,7 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
               load_event_bank(evidence, event_bank) +
               load_directory(evidence, directory) +
               load_archive_payload(evidence, payload) +
+              load_residual_literals(evidence, residual) +
               load_static_layout(evidence))
     image, provenance = RomImage(ROM_SIZE), []
     for start, data, source in pieces:

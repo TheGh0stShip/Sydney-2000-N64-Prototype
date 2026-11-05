@@ -1129,4 +1129,3 @@ __asm__(
     "lwc1 $f2,2744($21)\n"
     "lui $1,0x8008\n"
     ".end func_800E4588\n.set at\n.set reorder\n");
-

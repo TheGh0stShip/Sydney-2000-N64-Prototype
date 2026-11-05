@@ -42,7 +42,7 @@
     },
     {
       "path": "config/link_units.json",
-      "sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7"
+      "sha256": "c5b0ad8d44035e42509a8bf084ecfb5d60ca899832a58e136acae979081962ba"
     },
     {
       "path": "config/matching_as.tsv",
@@ -2242,7 +2242,7 @@
     },
     {
       "path": "tools/build_source_image.py",
-      "sha256": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743"
+      "sha256": "baff76b338fd7a72a298d677d921cac65d029e9ed9a3c281204728cf7e827bfa"
     },
     {
       "path": "tools/f3dex2/.gitignore",
@@ -3634,7 +3634,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "a152e80b2d6a2e655e4f75887155acc845e6e9e7d8988c1f35afeb3bebc7b2c0",
+      "object_sha256": "5998c7164c5ff0c90cef1651d36ba9512b3364aee700081f5a7e4861ba81f0a4",
       "provider": "typed-initialized-data"
     },
     {
@@ -4473,7 +4473,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "ee06395837a5a994f0426bd3125a5554ae7c85e4d01aef0593dffbf02c412363",
+      "object_sha256": "f5b40e24b4b2ee816771c0293e67d3fbf6e18ae6be2cfee3192c2de214129463",
       "provider": "typed-initialized-data"
     },
     {
@@ -4496,7 +4496,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "b376c40bd1c14ff84d0493266c9230c75535bd6c0074546aaf2558c9f56d8cc2",
+      "object_sha256": "9813a24f496aaec4a0424157275db4600443a7a5fc5ee2b993cb52425433f83c",
       "provider": "typed-initialized-data"
     },
     {
@@ -4519,7 +4519,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "6317cc885bb8ca4f90e0e51d05d54c9134d8aa924439389d57278a8a566e709c",
+      "object_sha256": "361e906ef4996d49597baf435a80fa319a16628cf2345187988c8ac7288416d5",
       "provider": "typed-initialized-data"
     },
     {
@@ -4630,7 +4630,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "ae755ef55c9e122c7d8a507dd2afb945ecd473a7f54a69056b56e0540494447f",
+      "object_sha256": "803f15099205d388b881ea7e9415cf6ff6b6b075374cca505eba38089c9b4946",
       "provider": "typed-initialized-data"
     },
     {
@@ -4807,7 +4807,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "0c018c208c0811484ade3e72ce9c7d698d70d5e4da89139010cfc671edbd810b",
+      "object_sha256": "f2ae351a2aa221a870d2304200ba5c957668ba828586a1603f84dbd397d2d48d",
       "provider": "typed-initialized-data"
     },
     {
@@ -5270,7 +5270,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "37b29cd19f6d87cd411d090377b173b43a3bcbfcc739d8cbcce9b30c1bf06aa3",
+      "object_sha256": "48e4980dafccb4cc82f59c4a97665dbdcfc1f2a3d88edc1fbe0ab3624eecd50a",
       "provider": "typed-initialized-data"
     },
     {
@@ -5402,7 +5402,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7",
+      "source_image_plan_sha256": "c5b0ad8d44035e42509a8bf084ecfb5d60ca899832a58e136acae979081962ba",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -5515,7 +5515,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7",
+      "source_image_plan_sha256": "c5b0ad8d44035e42509a8bf084ecfb5d60ca899832a58e136acae979081962ba",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -5631,7 +5631,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "a2fa72cc94ac1d8d63fac2b53da2baed5d439e8e95fee513d59647209133f5f4",
+      "object_sha256": "76f6d87274b807240fe9ec3b7f8426653037689d69c461395d0b84c35a7ad5fc",
       "provider": "typed-initialized-data"
     }
   ],
@@ -5644,9 +5644,9 @@
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7",
+    "plan_sha256": "c5b0ad8d44035e42509a8bf084ecfb5d60ca899832a58e136acae979081962ba",
     "build_tool_path": "tools/build_source_image.py",
-    "build_tool_sha256": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743",
+    "build_tool_sha256": "baff76b338fd7a72a298d677d921cac65d029e9ed9a3c281204728cf7e827bfa",
     "verified_source_pieces": 722,
     "owned_resident_bytes": 219252,
     "added_initialized_sections": 2,
@@ -6130,7 +6130,7 @@
           "-meb"
         ],
         "source": "src/data/closing_overlay_data.c",
-        "object_sha256": "a2fa72cc94ac1d8d63fac2b53da2baed5d439e8e95fee513d59647209133f5f4",
+        "object_sha256": "76f6d87274b807240fe9ec3b7f8426653037689d69c461395d0b84c35a7ad5fc",
         "symbols": {}
       },
       {
@@ -6145,7 +6145,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "a152e80b2d6a2e655e4f75887155acc845e6e9e7d8988c1f35afeb3bebc7b2c0",
+        "object_sha256": "5998c7164c5ff0c90cef1651d36ba9512b3364aee700081f5a7e4861ba81f0a4",
         "symbols": {}
       },
       {
@@ -6160,7 +6160,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "b376c40bd1c14ff84d0493266c9230c75535bd6c0074546aaf2558c9f56d8cc2",
+        "object_sha256": "9813a24f496aaec4a0424157275db4600443a7a5fc5ee2b993cb52425433f83c",
         "symbols": {}
       },
       {
@@ -6175,7 +6175,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "6317cc885bb8ca4f90e0e51d05d54c9134d8aa924439389d57278a8a566e709c",
+        "object_sha256": "361e906ef4996d49597baf435a80fa319a16628cf2345187988c8ac7288416d5",
         "symbols": {}
       },
       {
@@ -6190,7 +6190,7 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "0c018c208c0811484ade3e72ce9c7d698d70d5e4da89139010cfc671edbd810b",
+        "object_sha256": "f2ae351a2aa221a870d2304200ba5c957668ba828586a1603f84dbd397d2d48d",
         "symbols": {}
       },
       {
@@ -6219,7 +6219,7 @@
           "-meb"
         ],
         "source": "src/data/resident_tail_data.c",
-        "object_sha256": "37b29cd19f6d87cd411d090377b173b43a3bcbfcc739d8cbcce9b30c1bf06aa3",
+        "object_sha256": "48e4980dafccb4cc82f59c4a97665dbdcfc1f2a3d88edc1fbe0ab3624eecd50a",
         "symbols": {}
       },
       {
@@ -6248,7 +6248,7 @@
           "-meb"
         ],
         "source": "src/data/gsm_rpe_coefficients.c",
-        "object_sha256": "ee06395837a5a994f0426bd3125a5554ae7c85e4d01aef0593dffbf02c412363",
+        "object_sha256": "f5b40e24b4b2ee816771c0293e67d3fbf6e18ae6be2cfee3192c2de214129463",
         "symbols": {}
       },
       {
@@ -6263,7 +6263,7 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "ae755ef55c9e122c7d8a507dd2afb945ecd473a7f54a69056b56e0540494447f",
+        "object_sha256": "803f15099205d388b881ea7e9415cf6ff6b6b075374cca505eba38089c9b4946",
         "symbols": {}
       }
     ],
@@ -6413,10 +6413,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-bcngcdcr/rspboot/code.bin",
+          "/tmp/sydney-rsp-uah1kp4a/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-bcngcdcr/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-bcngcdcr/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-uah1kp4a/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-uah1kp4a/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -6431,10 +6431,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-bcngcdcr/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-uah1kp4a/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-bcngcdcr/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-uah1kp4a/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -6445,9 +6445,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-bcngcdcr/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-uah1kp4a/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-bcngcdcr/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-uah1kp4a/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
