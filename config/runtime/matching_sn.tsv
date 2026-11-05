@@ -142,3 +142,5 @@
 0x158978	0x134	src/runtime/apply_completing_motion_properties.c	--symbol=runtimeClock:0x800F272C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	729ca0c8825396447c07ed95c7084676548c02987244fe0b0a0cbaff4e438623
 0x1581BC	0x200	src/runtime/follow_runtime_motion.c	--symbol=runtimeMotionUpVector:0x800F267C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b9f6f7d7a7204e831e4dd67ef8b17714efce274738f2f365007a03ce2b597320
 0x15851C	0x90	src/runtime/apply_runtime_motion_target.c	--symbol=runtimeMotionUpVector:0x800F267C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	de065d057bd92ca2b42a83be9dc896227652ff517c0faecfdd0d79485c8d6875
+0x158430	0xEC	src/runtime/advance_runtime_child_motion.c	--symbol=runtimeMotionUpVector:0x800F267C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	10499118bf15104e8757536cb596c6cf065ef5ee9a9963d2a22f0d9fb101fe12
+0x1583BC	0x74	src/runtime/replace_runtime_target.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0c231121560a510fe9e9d8e6b253f1b9d7faab65b60920aa3a3aa240aaab03f7
