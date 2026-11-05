@@ -51,12 +51,13 @@
     "@n64dk/sdk/signature.py": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee",
     "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
     "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
-    "config/overlay/closing/matching_sn.tsv": "dc77d58168e604380fc766f9339ff2d15c69e81669bba64ef2ea541ee65bf5eb",
+    "config/overlay/closing/matching_sn.tsv": "f55fe6acfb3d830e65ed25e5caade29afc9c3422bfe0d0d4c927181b71657f6a",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
     "config/survey/symbol_addrs.txt": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3",
     "src/overlays/ceremony_initialize_event_record.c": "fadf84924026ddfc05cf86db2b144592be315fbfed34f501d3d501a2a255a297",
     "src/overlays/ceremony_noop_event.c": "3ef9a9d8b24236754dee8490446f8cb05143c0cc9b3341228f9e7a90b63b1e21",
     "src/overlays/ceremony_shutdown.c": "34770c3c799bbd2bda8e33a062f372a34b669e4672ad0283a7c1f524898188be",
+    "src/overlays/closing_select_resource.c": "4d2d6cae2e0b8adc8dcca36ef4d9af9d4b7b38a9e21a38e1f1fc5f8b34d8b886",
     "tools/build_source_image.py": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743",
     "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
     "tools/verify_ido_normalized.py": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49",
@@ -83,7 +84,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "fe08e14bacb3694ae7dccd73fe6163e060231823f024c0bed58a93394b8bb90f",
+      "object_sha256_at_discovery": "ecba07552d6ad1d6a60fafcc469fabf0750676b8f8ff2832b0e6842c2f5346a6",
       "pipeline": "sn",
       "row_sha256": "d195670e7979b82eb4bff395fb66b6ee8b53dbdc5580f4d547ef805cf3b61c23",
       "section_bases": {
@@ -118,7 +119,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "31d10d6f1c0e0daff453c5f5f69d0f6a795f10e7c4ddbdd341bac9aac1d418b1",
+      "object_sha256_at_discovery": "9dfd584c5448cc25eb511e2701fa1b508c83cfc3402fe56a0d1f182404b72f53",
       "pipeline": "sn",
       "row_sha256": "9d51c5a9e38b9736c2cc1ca59e11dd9a5c7a8f9d34fe013b8e1b9c1053aee1aa",
       "section_bases": {
@@ -158,7 +159,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "24079d80328724d94f0d19ba6a7a1f7ab3cdf6f613fe39007cae01edc62ed13e",
+      "object_sha256_at_discovery": "b354c03dae26b8cccddde8b464a33b5a3046119f8428556eb47c025bc85c4d98",
       "pipeline": "sn",
       "row_sha256": "f4e4ca0d1c9fb15530fe5c6f13292febe779f522842188a5454d1af4ca72e889",
       "section_bases": {
@@ -202,6 +203,43 @@
         "func_800C013C": 2148270396,
         "func_800C0168": 2148270440,
         "func_800F01A8": 2148467112
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sn.tsv:fd87c19c4bb03c65",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "04596cb295cb8943036dbff085797ea9eaf204bd3c2bfefebf3955e1fedaf1f9",
+      "pipeline": "sn",
+      "row_sha256": "fd87c19c4bb03c65c374ce3a000350c94602dbe8d4e893f7d2a79bec06ab157f",
+      "section_bases": {
+        ".text": 2147952068
+      },
+      "sections": [
+        {
+          "emitted_size": 56,
+          "name": ".text",
+          "owned_size": 56,
+          "rom_start": 458864,
+          "sha256": "11453ec162f62c4dbd4b74e9c8afb15853170851c421810df0c3f2938396af11",
+          "unowned_zero_tail": 0,
+          "vram": 2147952068
+        }
+      ],
+      "source": "src/overlays/closing_select_resource.c",
+      "source_sha256": "4d2d6cae2e0b8adc8dcca36ef4d9af9d4b7b38a9e21a38e1f1fc5f8b34d8b886",
+      "symbols": {
+        "func_8001CBA8": 2147601320
       }
     }
   ],

@@ -46,7 +46,7 @@ adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages: the overlay bank at ROM
 `0x69070..0x127640` is outside the current function survey. Initialized-data
-coverage is 7,160 unique bytes of 204,164 classified bytes (3.51%), recorded in
+coverage is 204,632 unique bytes of 204,632 classified bytes (100%), recorded in
 `config/matching_data.json`. `make data-ledger` rebuilds all matching units and
 regenerates this ledger, including source-built data sections with frozen placements.
 Reporting checks the recorded source, manifest,
@@ -227,13 +227,13 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 3,335,198 bytes; 30,219,234 bytes remain unowned.
-The generated gap ledger records all 93 uncovered intervals. The startup-runtime
+The current partial owns 3,335,254 bytes; 30,219,178 bytes remain unowned.
+The generated gap ledger records all 98 uncovered intervals. The startup-runtime
 provider contributes 27,600 exact bytes from 157 matching compilation units;
 the remainder of that mixed code/data image is still explicitly unowned.
 The ceremony bank is split at ROM `0x6DF40`: the ceremony unit uses delta
 `0x80007924`, while the mutually exclusive closing unit uses delta `0x80002554`.
-Together they currently contribute nine exact source functions (952 bytes); their
+Together they currently contribute ten exact source functions (1,008 bytes); their
 remaining functions and data stay explicitly unowned.
 These are reconstruction extents, not a whole-game decompilation percentage.
 

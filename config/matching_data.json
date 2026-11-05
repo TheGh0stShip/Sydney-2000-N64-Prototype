@@ -36,7 +36,7 @@
     },
     {
       "path": "config/link_units.json",
-      "sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d"
+      "sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7"
     },
     {
       "path": "config/matching_as.tsv",
@@ -2232,7 +2232,7 @@
     },
     {
       "path": "tools/build_source_image.py",
-      "sha256": "873fdc74c7655a14c15a2bfeda1c59994c8040d0b52ff3d8af82f91609778951"
+      "sha256": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743"
     },
     {
       "path": "tools/f3dex2/.gitignore",
@@ -3624,7 +3624,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "c9112d34d2183351b8aa84ff467f35d72e86ce87109175d822b3f28d242a1407",
+      "object_sha256": "0b61d23a178447a25a29289b90e1225b07c5d53832c5f478a866ba95beb0b754",
       "provider": "typed-initialized-data"
     },
     {
@@ -4463,7 +4463,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "ddbd39896b8bbfa02dc6d4b741456e1240a9d6b04782ea679279590295c0633e",
+      "object_sha256": "3b4f9b4c34a5393dd107c54054d2c13c2f77de012628d88898d6441de0b53bcb",
       "provider": "typed-initialized-data"
     },
     {
@@ -4486,7 +4486,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "4362ebc4e45be1be74fe0e349fc4114b0a1e48f2300b590c0ea151c03c184b7d",
+      "object_sha256": "16e452658b73db2d999638eb058a1f8b339b68de141d3f968cbf970e0ca5b432",
       "provider": "typed-initialized-data"
     },
     {
@@ -4509,7 +4509,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "5ac5597b100464c9bf88c5e97b86484d9d5d3b7a2f29dedac477afbc9e2607f3",
+      "object_sha256": "fbaa06ca26f1f5b0bbb57bd6615d17a385c0fb7fd5bfa3667c956c2d201d48b1",
       "provider": "typed-initialized-data"
     },
     {
@@ -4620,7 +4620,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "aba987a289ef9043ba2410620564c7fbac682f1fdb199e81bb9b9de6ba4cfb5e",
+      "object_sha256": "e496483dba41cde50c7feb26b38840c935898c25f95e792996e2e11f8dd7f0d6",
       "provider": "typed-initialized-data"
     },
     {
@@ -4797,7 +4797,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "d35a5388158fb5ad796c6a5a0dbef7ca874db9a7dd00750b23e6f74d8eed5b13",
+      "object_sha256": "6c59d06c01942ff99e8870906620d2599429a8d34adc5fb81f83e56407461e35",
       "provider": "typed-initialized-data"
     },
     {
@@ -5260,7 +5260,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "1fab8ef151265536bec72ee96188674c46b74a7f92779545b8b7284117d21030",
+      "object_sha256": "e5ed3054e621c199e523c03b172c7114253cd21fa22a943ea46d91a33886f4a8",
       "provider": "typed-initialized-data"
     },
     {
@@ -5392,7 +5392,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d",
+      "source_image_plan_sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -5505,7 +5505,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d",
+      "source_image_plan_sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -5611,9 +5611,9 @@
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d",
+    "plan_sha256": "31fcaa2c3eb8834094f795518bfd4b5bba1cd37e2bffe19fc05435dabfe868a7",
     "build_tool_path": "tools/build_source_image.py",
-    "build_tool_sha256": "873fdc74c7655a14c15a2bfeda1c59994c8040d0b52ff3d8af82f91609778951",
+    "build_tool_sha256": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743",
     "verified_source_pieces": 722,
     "owned_resident_bytes": 219252,
     "added_initialized_sections": 2,
@@ -6093,7 +6093,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "c9112d34d2183351b8aa84ff467f35d72e86ce87109175d822b3f28d242a1407",
+        "object_sha256": "0b61d23a178447a25a29289b90e1225b07c5d53832c5f478a866ba95beb0b754",
         "symbols": {}
       },
       {
@@ -6108,7 +6108,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "4362ebc4e45be1be74fe0e349fc4114b0a1e48f2300b590c0ea151c03c184b7d",
+        "object_sha256": "16e452658b73db2d999638eb058a1f8b339b68de141d3f968cbf970e0ca5b432",
         "symbols": {}
       },
       {
@@ -6123,7 +6123,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "5ac5597b100464c9bf88c5e97b86484d9d5d3b7a2f29dedac477afbc9e2607f3",
+        "object_sha256": "fbaa06ca26f1f5b0bbb57bd6615d17a385c0fb7fd5bfa3667c956c2d201d48b1",
         "symbols": {}
       },
       {
@@ -6138,7 +6138,7 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "d35a5388158fb5ad796c6a5a0dbef7ca874db9a7dd00750b23e6f74d8eed5b13",
+        "object_sha256": "6c59d06c01942ff99e8870906620d2599429a8d34adc5fb81f83e56407461e35",
         "symbols": {}
       },
       {
@@ -6167,7 +6167,7 @@
           "-meb"
         ],
         "source": "src/data/resident_tail_data.c",
-        "object_sha256": "1fab8ef151265536bec72ee96188674c46b74a7f92779545b8b7284117d21030",
+        "object_sha256": "e5ed3054e621c199e523c03b172c7114253cd21fa22a943ea46d91a33886f4a8",
         "symbols": {}
       },
       {
@@ -6196,7 +6196,7 @@
           "-meb"
         ],
         "source": "src/data/gsm_rpe_coefficients.c",
-        "object_sha256": "ddbd39896b8bbfa02dc6d4b741456e1240a9d6b04782ea679279590295c0633e",
+        "object_sha256": "3b4f9b4c34a5393dd107c54054d2c13c2f77de012628d88898d6441de0b53bcb",
         "symbols": {}
       },
       {
@@ -6211,7 +6211,7 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "aba987a289ef9043ba2410620564c7fbac682f1fdb199e81bb9b9de6ba4cfb5e",
+        "object_sha256": "e496483dba41cde50c7feb26b38840c935898c25f95e792996e2e11f8dd7f0d6",
         "symbols": {}
       }
     ],
@@ -6361,10 +6361,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-53fvdg02/rspboot/code.bin",
+          "/tmp/sydney-rsp-cujo978n/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-53fvdg02/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-53fvdg02/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-cujo978n/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-cujo978n/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -6379,10 +6379,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-53fvdg02/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-cujo978n/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-53fvdg02/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-cujo978n/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -6393,9 +6393,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-53fvdg02/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-cujo978n/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-53fvdg02/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-cujo978n/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
