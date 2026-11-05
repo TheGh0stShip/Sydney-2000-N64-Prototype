@@ -1,4 +1,4 @@
-/* NONMATCHING reconstruction of func_8001A660, ROM 0x1B260..0x1B918.
+/* Byte-exact reconstruction of func_8001A660, ROM 0x1B260..0x1B918.
  * All pointers and display-list address tokens use the N64 big-endian o32 ABI.
  * Sampled behavior: tools/validate_queued_texture_sheets.py (SN GCC -O2).
  */
@@ -42,6 +42,7 @@ typedef char check_queue_size[sizeof(QueueEntry) == 8 ? 1 : -1];
 typedef char check_record_size[sizeof(SheetRecord) == 12 ? 1 : -1];
 extern Gfx *displayListHead;
 extern Gfx *displayListBuffers[];
+extern Gfx *initialDisplayListBuffers[] __asm__("displayListBuffers");
 extern u32 displayListIndex;
 extern s32 maximumSpriteLayer;
 extern u32 spriteQueueCount;
@@ -62,7 +63,6 @@ extern s32 halfWidthMode;
 #define COMMIT(pointer) (*(Gfx *volatile *)(displayBase + 0x63DC) = (pointer))
 
 void func_8001A660(void) {
-    register u8 *headPage __asm__("$18") = (u8 *)0x80060000;
     register u8 *displayBase __asm__("$25");
     register Gfx *initialCursor __asm__("$24");
     register Gfx **initialBuffers __asm__("$3");
@@ -75,9 +75,10 @@ void func_8001A660(void) {
     u8 layer;
     u32 *textureCount;
     TextureSheet **sheetCursor;
-    initialBuffers = displayListBuffers;
+    __asm__("" : "+m"(displayListHead));
+    initialBuffers = initialDisplayListBuffers;
     initialIndex = displayListIndex;
-    initialCursor = *(Gfx **)(headPage + 0x63DC);
+    initialCursor = displayListHead;
     if (initialCursor - initialBuffers[initialIndex] >= 0x17ED) return;
     {
         register Gfx *p3 __asm__("$3");
@@ -99,8 +100,10 @@ void func_8001A660(void) {
         register u32 setup11 __asm__("$14") = 0x00500278;
         register u32 setup12 __asm__("$16") = 0xFC11FE23;
         register u32 setup13 __asm__("$17") = 0xE2001D00;
-        __asm__ volatile ("" : : "r"(headPage) : "$25");
-        displayBase = headPage;
+        /* Reuse the page already resident in s2; the original schedules this
+         * copy instead of materializing a second 0x8006 high half. */
+        __asm__("addu $25,$18,$0");
+        __asm__("" : "=r"(displayBase));
         p3 = initialCursor + 1;
         layer = 0;
         W0(0, setup0);
@@ -177,10 +180,9 @@ void func_8001A660(void) {
         W0(15, setup13);
         W1(p3, temporary);
     }
+    __asm__("" : "+m"(displayListHead));
     for (; ; layer++) {
         s32 depth;
-        register Gfx *layerCursor __asm__("$2");
-        register Gfx *layerCommand __asm__("$3");
         if (layer > maximumSpriteLayer) break;
         switch (layer) {
         case 0: depth = 32; break;
@@ -196,12 +198,16 @@ void func_8001A660(void) {
         default: depth = 32; break;
         }
         sheetIndex = 0;
-        layerCursor = HEAD;
-        sheetCursor = textureSheets;
-        layerCommand = layerCursor++;
-        HEAD = layerCursor;
-        layerCommand->command = 0xEE000000;
-        layerCommand->argument = depth << 17;
+        { register Gfx *cursor __asm__("$2");
+        register Gfx *command __asm__("$3");
+        cursor=HEAD;
+        __asm__("" : : "r"(cursor));
+        __asm__("" : "=r"(sheetCursor) : "0"(textureSheets));
+        __asm__("" : : "r"(cursor));
+        command=cursor++;
+        HEAD=cursor;
+        command->command=0xEE000000;
+        command->argument=depth<<17; }
         for (; ; sheetIndex++, sheetCursor++) {
             TextureSheet *sheet;
             Gfx *textureCommands;
@@ -225,17 +231,15 @@ void func_8001A660(void) {
                     register u32 group __asm__("$14");
                     register s32 entryIndex __asm__("$11");
                     u32 alpha;
-                    register u32 bottom __asm__("$3");
                     Gfx *packet, *rectangle;
                     register Gfx *coords __asm__("$6");
-                    Gfx *sync;
                     Gfx *end;
                     register u32 rectangleWord __asm__("$4");
-                    register u32 rectangleArgument __asm__("$7");
+                    u32 rectangleArgument;
                     u32 s, t, step;
                     s32 x, y, width, height, originX, originY;
                     u32 dx, dy;
-                    register s32 adjustment __asm__("$5");
+                    s32 adjustment;
                     if (queueIndex >= spriteQueueCount) break;
                     object = queued->object;
                     if (object->layer != layer) continue;
@@ -258,9 +262,25 @@ void func_8001A660(void) {
                     }
                     previousAlpha = alpha;
                     if (queued->object->flags & 0x80000) {
-                        EMIT(0xFA000000, 0x050505FF);
+                        register u32 argument __asm__("$2") = 0x050505FF;
+                        register Gfx *cursor __asm__("$3") = HEAD;
+                        register Gfx *command __asm__("$4") = cursor;
+                        cursor++;
+                        __asm__("lui $23,0xFA00");
+                        HEAD = cursor;
+                        __asm__("sw $23,0(%0)" : : "r"(command));
+                        command->argument = argument;
                     } else {
-                        EMIT(0xFA000000, 0xFFFFFF00 | alpha);
+                        register Gfx *cursor __asm__("$2") = HEAD;
+                        register Gfx *command __asm__("$3") = cursor;
+                        register u32 argument __asm__("$2");
+                        cursor++;
+                        __asm__("lui $23,0xFA00");
+                        HEAD = cursor;
+                        argument = 0xFFFFFF00 | alpha;
+                        __asm__("" : "+r"(argument));
+                        __asm__("sw $23,0(%0)" : : "r"(command));
+                        command->argument = argument;
                     }
                     if (halfWidthMode == one) {
                         dx = 0x800;
@@ -280,24 +300,37 @@ void func_8001A660(void) {
                     if (halfWidthMode == one) x <<= 1;
                     else x <<= 2;
                     y <<= 2;
-                    originX = x + queued->x;
-                    originY = queued->y + y;
-                    adjustment = (sheetRecords[group].frameValue - 6) << 1;
+                    {
+                    register u32 fv __asm__("$5") = sheetRecords[group].frameValue;
+                    register u32 opcode __asm__("$2");
+                    register u32 bottom __asm__("$3");
+                    u32 yArgument;
+                    __asm__ volatile ("" : "=r"(opcode) : "0"(0xE4000000), "r"(fv) : "memory");
                     packet = HEAD;
                     rectangle = packet++;
+                    originX = x + queued->x;
+                    originY = queued->y + y;
+                    __asm__ volatile ("" : "=r"(fv) : "0"(fv), "r"(originY));
+                    fv = (fv - 6) << 1;
+                    __asm__ volatile ("" : : "r"(opcode), "r"(fv), "r"(originY) : "$4");
                     rectangleWord = originX + width;
-                    bottom = originY + height - adjustment;
+                    bottom = originY + height - fv;
                     rectangleWord &= 0xFFF;
                     rectangleWord <<= 12;
                     bottom &= 0xFFF;
-                    bottom |= 0xE4000000;
+                    bottom |= opcode;
                     rectangleWord |= bottom;
-                    rectangleArgument = (originX & 0xFFF) << 12; rectangleArgument |= (originY - adjustment) & 0xFFF;
+                    yArgument = originY - fv;
+                    __asm__ volatile ("" : "=r"(originX) : "0"(originX), "r"(yArgument));
+                    rectangleArgument = (originX & 0xFFF) << 12;
+                    rectangleArgument |= yArgument & 0xFFF;
+                    }
                     coords = packet + 1;
                     rectangle->command = rectangleWord;
                     rectangle->argument = rectangleArgument;
                     packet[0].command = 0xE1000000;
-                    sync = packet + 2;
+                    __asm__ volatile ("" : : "r"((u32)entryIndex * 20 + (u32)entries) : "$5");
+                    { register Gfx *sync __asm__("$5") = packet + 2;
                     *(Gfx *volatile *)(displayBase + 0x63DC) = packet;
                     *(Gfx *volatile *)(displayBase + 0x63DC) = coords;
                     s = entries[entryIndex].s;
@@ -311,6 +344,7 @@ void func_8001A660(void) {
                     coords->argument = step;
                     packet[2].command = 0xE7000000;
                     sync->argument = 0;
+                    }
                 }
             }
         }
