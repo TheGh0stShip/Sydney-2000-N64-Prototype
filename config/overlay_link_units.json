@@ -51,11 +51,13 @@
     "@n64dk/sdk/signature.py": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee",
     "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
     "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
-    "config/overlay/matching_sn.tsv": "bbf84bd10994757b57a2646bacd0e0d524b4640adafc65348b5caed51dee4e49",
+    "config/overlay/matching_sn.tsv": "82cb829deccd104a8a353971318dbdcd8ef01e96715341b12cf9fa7a6f6dd05c",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
     "config/survey/symbol_addrs.txt": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3",
+    "src/overlays/ceremony_configure_medal_sequence.c": "d103f6e3d4e29611e822b53f93e79b3a451589c7ec810058bed4d6cd0ffbebf5",
     "src/overlays/ceremony_cycle_display.c": "57727e262b783670ee66462e21b2a149031e2b3903d3df4ce84e3363487ee787",
     "src/overlays/ceremony_initialize_event_record.c": "7b6d086ef61f9bc3ac7d2d403a27ce5fc54de2367f10f955f1b1d87bf4867301",
+    "src/overlays/ceremony_initialize_medal_record.c": "143bc02b3dc3761dc1243a1336c2cb5c03539bdebc3019abe11d40b4a574f12a",
     "src/overlays/ceremony_noop_callback.c": "85b498a6e25297ecbadc6908b788b81e789d66816a771cbe985c2245f5cb2790",
     "src/overlays/ceremony_noop_event.c": "43ac1231aa701a84abb6312a503100b41160e15c5dacce6c4ae2f33e8bfdb801",
     "src/overlays/ceremony_reset_runtime.c": "e893362aff6eb3d8d63ffd49c37647470296fa7cb24432815084511c8928c685",
@@ -86,7 +88,7 @@
       "includes": [],
       "manifest": "config/overlay/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "e72afd14eb177ad807a1a1ea6fad082fa8479c2ea5ee2b185583c6fb7e898c06",
+      "object_sha256_at_discovery": "9ce54fda64d5e0d07a52e7699356f82224fbf5a563ed78d5f00e5cd05260b7ab",
       "pipeline": "sn",
       "row_sha256": "28ce80f6f93eab56b18fed47e7e0a4bdb91dafd5a3026a1fe4b851f316ad1e4d",
       "section_bases": {
@@ -124,7 +126,7 @@
       "includes": [],
       "manifest": "config/overlay/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "54fa07d382dc61df1a13809aff068f35ad3b82413313add87c0f0354827980f5",
+      "object_sha256_at_discovery": "871192558cd120303b8dcb7a5c4f3591b51b0093fb7520f0883afca54b7a8376",
       "pipeline": "sn",
       "row_sha256": "17e389529baeff2ec2984e98115d999a855494aa595131ecfc59c2e16fa7484d",
       "section_bases": {
@@ -162,7 +164,7 @@
       "includes": [],
       "manifest": "config/overlay/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "2ee3b6ab9832166e5c265e7ec0ed5d6110a8ab4fbe5fdd59dab5bb0df9c883b8",
+      "object_sha256_at_discovery": "667c47a0addc4b4ed6045ea751540bb791f689c71b0f286c291620532cbe1c87",
       "pipeline": "sn",
       "row_sha256": "f644e50af3f87f9e882d3a1986d0ff49de86ee61ddddeaea26effbf0a546d9a0",
       "section_bases": {
@@ -197,7 +199,7 @@
       "includes": [],
       "manifest": "config/overlay/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "3b785f3d9ccd9a41c095c6f3c7380cf6c0e7c9c34a816f520e6e3af77ed6b5fa",
+      "object_sha256_at_discovery": "1a853c05ce17b58c39f1e051b59f48ae8d1b1a57e3276867bc9717092df1b298",
       "pipeline": "sn",
       "row_sha256": "d195670e7979b82eb4bff395fb66b6ee8b53dbdc5580f4d547ef805cf3b61c23",
       "section_bases": {
@@ -232,7 +234,7 @@
       "includes": [],
       "manifest": "config/overlay/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "83568254a337612431e12971d09f1654099efb5f2e645ca1696f7af63b727a56",
+      "object_sha256_at_discovery": "e253aa658f561f02137a6c1957668b6634050018410bc44d35d7a4c89c7b38e8",
       "pipeline": "sn",
       "row_sha256": "9d51c5a9e38b9736c2cc1ca59e11dd9a5c7a8f9d34fe013b8e1b9c1053aee1aa",
       "section_bases": {
@@ -272,7 +274,7 @@
       "includes": [],
       "manifest": "config/overlay/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "e26a3fd91d493d82666a741bfc9ebfb6bf4cee1a5851f0507f95c50681937088",
+      "object_sha256_at_discovery": "8c0a0ce3e7cf3bd4e797ad4d87c571e8a5b536f2fe1b9e9b222525dd12edbbc5",
       "pipeline": "sn",
       "row_sha256": "b05f00885d772e7b3e832eb2b4ba594973a7e2e2b8ec7b7e53ed3f007073a23b",
       "section_bases": {
@@ -295,6 +297,87 @@
         "ceremonyDisplayResources": 2147959024,
         "func_800A848C": 2148172940,
         "func_800B4794": 2148222868
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sn.tsv:d5dfef7371fadf49",
+      "includes": [],
+      "manifest": "config/overlay/matching_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "cbf542a361b09315bbe4b1f8250ce1a73e8afd1efd6120679b479d20f72c375a",
+      "pipeline": "sn",
+      "row_sha256": "d5dfef7371fadf4943d0eb88c77c3b969fd28aebcb96c1fb25a948fcc83e5f7f",
+      "section_bases": {
+        ".text": 2147964612
+      },
+      "sections": [
+        {
+          "emitted_size": 144,
+          "name": ".text",
+          "owned_size": 144,
+          "rom_start": 449952,
+          "sha256": "445bc22f77c39dae7d71e64f6fd915a3feb785e2bab3b04ef578a0714950be11",
+          "unowned_zero_tail": 0,
+          "vram": 2147964612
+        }
+      ],
+      "source": "src/overlays/ceremony_initialize_medal_record.c",
+      "source_sha256": "143bc02b3dc3761dc1243a1336c2cb5c03539bdebc3019abe11d40b4a574f12a",
+      "symbols": {
+        "func_800A9B78": 2148178808,
+        "func_800AC334": 2148188980,
+        "func_800AC37C": 2148189052,
+        "func_800B3870": 2148218992
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sn.tsv:97365ec8f0349caf",
+      "includes": [],
+      "manifest": "config/overlay/matching_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "fc5e096c5bd35cf1ff8b507b45b98b8a57e1b31cc6a15d85b63824bcbffa8ff0",
+      "pipeline": "sn",
+      "row_sha256": "97365ec8f0349cafbde4ca164d16f313f5d7e7fa18677d412fa7c96ce587faff",
+      "section_bases": {
+        ".text": 2147964196
+      },
+      "sections": [
+        {
+          "emitted_size": 156,
+          "name": ".text",
+          "owned_size": 156,
+          "rom_start": 449536,
+          "sha256": "140bf1dbb72472a7ba71ea446c85fb1b2b7bd21e05534e4b56da757286123f72",
+          "unowned_zero_tail": 0,
+          "vram": 2147964196
+        }
+      ],
+      "source": "src/overlays/ceremony_configure_medal_sequence.c",
+      "source_sha256": "d103f6e3d4e29611e822b53f93e79b3a451589c7ec810058bed4d6cd0ffbebf5",
+      "symbols": {
+        "func_800A9BE8": 2148178920,
+        "func_800ADC1C": 2148195356,
+        "func_800AE72C": 2148198188,
+        "func_800AE9DC": 2148198876,
+        "func_800AEF6C": 2148200300
       }
     }
   ],

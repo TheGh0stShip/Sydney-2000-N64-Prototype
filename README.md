@@ -227,12 +227,12 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 3,334,610 bytes; 30,219,822 bytes remain unowned.
+The current partial owns 3,334,910 bytes; 30,219,522 bytes remain unowned.
 The generated gap ledger records all 93 uncovered intervals. The startup-runtime
 provider contributes 27,600 exact bytes from 157 matching compilation units;
 the remainder of that mixed code/data image is still explicitly unowned.
-The separately relocated ceremony overlay currently contributes six exact source
-functions (364 bytes); its remaining functions and data stay explicitly unowned.
+The separately relocated ceremony overlay currently contributes eight exact source
+functions (664 bytes); its remaining functions and data stay explicitly unowned.
 These are reconstruction extents, not a whole-game decompilation percentage.
 
 `make reconstructed-rom` is the completion gate. It refuses a full ROM filename
