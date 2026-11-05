@@ -140,3 +140,5 @@
 0x1766A8	0x29C	src/claude/func_800D2DB8.c	--section-base=.rdata:0x80089EF8 --symbol=func_8001A330:0x8001A330 --symbol=func_8001A1D8:0x8001A1D8 --symbol=func_8001A210:0x8001A210 --symbol=func_800191E0:0x800191E0 --symbol=func_800D328C:0x800D328C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	295bcc9f2dbf08ed249c4d803d2004ecbf0ba11bad473c7d8ee19d91c68398fd
 0x1588B8	0xC0	src/runtime/update_completing_runtime_motion.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	496ba4201c68c1ad9a59bce372395190c0e7a4af51f1cca870a4ed9d7bebf2d8
 0x158978	0x134	src/runtime/apply_completing_motion_properties.c	--symbol=runtimeClock:0x800F272C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	729ca0c8825396447c07ed95c7084676548c02987244fe0b0a0cbaff4e438623
+0x1581BC	0x200	src/runtime/follow_runtime_motion.c	--symbol=runtimeMotionUpVector:0x800F267C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b9f6f7d7a7204e831e4dd67ef8b17714efce274738f2f365007a03ce2b597320
+0x15851C	0x90	src/runtime/apply_runtime_motion_target.c	--symbol=runtimeMotionUpVector:0x800F267C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	de065d057bd92ca2b42a83be9dc896227652ff517c0faecfdd0d79485c8d6875
