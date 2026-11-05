@@ -6,7 +6,7 @@ N64DK_PYTHON ?= $(N64DK_ROOT)/.venv/bin/python
 N64DK_TOOLCHAIN ?= ../BattleTanx/.toolchain
 N64DK := PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) -m n64dk
 
-.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check verify-runtime runtime-link-plan runtime-pieces source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory verify-archive-directory archive-directory-test initialized-data initialized-data-verify initialized-data-test initialized-data-check reconstruction reconstruction-verify reconstructed-rom reconstruction-test validate-runtime-priority validate-runtime-memory rsp-tools rsp-pieces rsp-verify rsp-check rsp-test clean
+.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check overlay-survey overlay-survey-check verify-runtime runtime-link-plan runtime-pieces source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory verify-archive-directory archive-directory-test initialized-data initialized-data-verify initialized-data-test initialized-data-check reconstruction reconstruction-verify reconstructed-rom reconstruction-test validate-runtime-priority validate-runtime-memory rsp-tools rsp-pieces rsp-verify rsp-check rsp-test clean
 
 all: setup
 
@@ -135,6 +135,12 @@ runtime-survey: $(BASEROM)
 
 runtime-survey-check: $(BASEROM)
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/survey_runtime_image.py --rom $(BASEROM) --check
+
+overlay-survey: $(BASEROM)
+	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/survey_overlay_bank.py --rom $(BASEROM)
+
+overlay-survey-check: $(BASEROM)
+	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/survey_overlay_bank.py --rom $(BASEROM) --check
 
 data-ledger: $(BASEROM)
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) tools/generate_data_ledger.py --rom $(BASEROM)
