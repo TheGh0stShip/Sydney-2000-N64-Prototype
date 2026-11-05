@@ -129,6 +129,31 @@ def load_data_measures(path: Path | None = None) -> tuple[int, int]:
     return total, matched
 
 
+def classified_code_ranges(section: dict) -> list[tuple[int, int]]:
+    """Return reviewed program-code extents, excluding embedded data."""
+    classification_path = ROOT / "config/survey/ledger.tsv"
+    if not classification_path.is_file():
+        start = section["rom"]
+        return [(start, start + section["size"])]
+    ranges = []
+    for number, line in enumerate(classification_path.read_text().splitlines(), 1):
+        if number == 1 or not line:
+            continue
+        fields = line.split("\t")
+        if len(fields) != 8:
+            raise ValueError(f"{classification_path}:{number}: expected eight fields")
+        start, end, size, classification, category = fields[:5]
+        left, right = int(start, 0), int(end, 0)
+        if int(size, 0) != right - left:
+            raise ValueError(f"{classification_path}:{number}: inconsistent extent")
+        if classification == "code" and category == "program":
+            ranges.append((left, right))
+    if any(left < previous_end
+           for (_, previous_end), (left, _) in zip(ranges, ranges[1:])):
+        raise ValueError("classified code ranges must be ordered and non-overlapping")
+    return merge_ranges(ranges)
+
+
 
 def load_rsp_proof(path: Path | None = None) -> tuple[list[tuple[int, int, str]], list[dict]]:
     """Read checked source-build proof without requiring ROM, assembler or SDK."""
@@ -209,13 +234,16 @@ def main() -> None:
 
     cpu_merged = merged
     merged = merge_ranges([(start, end) for start, end, _ in ranges + rsp_ranges])
-    # Manifest rows and separately built RSP programs share the surveyed span.
-    # Only their union within the surveyed text segment contributes code bytes.
-    total_code = section["size"]
-    text_start = section["rom"]
-    text_end = text_start + total_code
-    matched_code = covered_bytes(text_start, text_end, merged)
-    gaps = missing_ranges(text_start, text_end, merged)
+    # Manifest rows and separately built RSP programs share reviewed code
+    # intervals. Embedded rodata is measured by the initialized-data ledger.
+    code_ranges = classified_code_ranges(section)
+    total_code = sum(end - start for start, end in code_ranges)
+    matched_code = sum(covered_bytes(start, end, merged)
+                       for start, end in code_ranges)
+    gaps = [gap for start, end in code_ranges
+            for gap in missing_ranges(start, end, merged)]
+    text_start = min(start for start, _ in code_ranges)
+    text_end = max(end for _, end in code_ranges)
     report = {
         "measures": measures(total_code, matched_code, len(functions), matched_count,
                              total_data, matched_data),

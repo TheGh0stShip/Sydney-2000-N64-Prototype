@@ -275,6 +275,166 @@
       ]
     },
     {
+      "id": "resident_dense_extents",
+      "source": "src/data/resident_dense_extents.c",
+      "inputs": {
+            "src/data/resident_dense_extents.c": "1e9a9d3de5f7bcf0824839228c43dcbe0d87693bafca8e2eabf95778e257e68c"
+      },
+      "pipeline": "kmc+as",
+      "flags": [
+            "-O2",
+            "-G0",
+            "-mips3",
+            "-mgp32",
+            "-mfp32"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+            {
+                  "name": ".data.dense_80043670",
+                  "segment": "resident",
+                  "rom_start": 279152,
+                  "vram": 2147759728,
+                  "size": 164,
+                  "sha256": "1a672dd1625d7e70d02d5565898790e3386eec79c1800f9244b2238034ec0e7b"
+            },
+            {
+                  "name": ".data.dense_80043DF0",
+                  "segment": "resident",
+                  "rom_start": 281072,
+                  "vram": 2147761648,
+                  "size": 260,
+                  "sha256": "5deb2a92dd0a8d0e70f395ed01d3b2ad00984f2d1a858f820fff9035225114c0"
+            },
+            {
+                  "name": ".data.dense_800445C0",
+                  "segment": "resident",
+                  "rom_start": 283072,
+                  "vram": 2147763648,
+                  "size": 76,
+                  "sha256": "f6523119764542969cf7cbebaedf0400d4f2b7dd4d3ed9629ae7afa70cd19583"
+            },
+            {
+                  "name": ".data.dense_800456B0",
+                  "segment": "resident",
+                  "rom_start": 287408,
+                  "vram": 2147767984,
+                  "size": 4,
+                  "sha256": "4d95bd31ff660b3f6b0868c2a6fbfdcd40d3583ffa65a6ceeb6c9bb1f01be1e1"
+            },
+            {
+                  "name": ".data.dense_80047814",
+                  "segment": "resident",
+                  "rom_start": 295956,
+                  "vram": 2147776532,
+                  "size": 416,
+                  "sha256": "12e9a153e4253d5e305e58a4b3e82ca0b819233329430075ba3fd9d965bfe31c"
+            },
+            {
+                  "name": ".data.dense_8005A800",
+                  "segment": "resident",
+                  "rom_start": 373760,
+                  "vram": 2147854336,
+                  "size": 516,
+                  "sha256": "f3d91339823084248a1800ae79d528559e3ab0b77027bb5891266123c97e4bde"
+            },
+            {
+                  "name": ".data.dense_8005AB04",
+                  "segment": "resident",
+                  "rom_start": 374532,
+                  "vram": 2147855108,
+                  "size": 112,
+                  "sha256": "1d2b39f23f8d325e2d3c160d68f811b28b3c783cb6308db154786463835a341a"
+            },
+            {
+                  "name": ".data.dense_8005AC88",
+                  "segment": "resident",
+                  "rom_start": 374920,
+                  "vram": 2147855496,
+                  "size": 32,
+                  "sha256": "b8aa5005c888543feafebdf6554c85e2a2f891582f4664216be5a6c805ea38f5"
+            },
+            {
+                  "name": ".data.dense_8005F9A4",
+                  "segment": "resident",
+                  "rom_start": 394660,
+                  "vram": 2147875236,
+                  "size": 144,
+                  "sha256": "89e8839633edbdad56c78d60b3b8d64cc3628f3d857b68e3912147dafdf1ec59"
+            },
+            {
+                  "name": ".data.dense_800620F4",
+                  "segment": "resident",
+                  "rom_start": 404724,
+                  "vram": 2147885300,
+                  "size": 44,
+                  "sha256": "4f34177e626bacee120b4ef59f19e8215a90f964431fc73a3a69d1dde0c4de18"
+            },
+            {
+                  "name": ".data.dense_80062434",
+                  "segment": "resident",
+                  "rom_start": 405556,
+                  "vram": 2147886132,
+                  "size": 124,
+                  "sha256": "6bd3c17a07555f2bc50d000cf83e2044c069eae649172698cabaa728e386240b"
+            },
+            {
+                  "name": ".data.dense_80063520",
+                  "segment": "resident",
+                  "rom_start": 409888,
+                  "vram": 2147890464,
+                  "size": 2580,
+                  "sha256": "68f950f2916f0d0949fd9b8a089494c46a78782228149dc8ecf51bd0a476dae6"
+            },
+            {
+                  "name": ".data.dense_80064738",
+                  "segment": "resident",
+                  "rom_start": 414520,
+                  "vram": 2147895096,
+                  "size": 4,
+                  "sha256": "d7a6ba72c0f1763e4a416a018669b1970faf64f64c15a3781f9de77bad94505b"
+            },
+            {
+                  "name": ".data.dense_80064FA0",
+                  "segment": "resident",
+                  "rom_start": 416672,
+                  "vram": 2147897248,
+                  "size": 172,
+                  "sha256": "9593246f0de3ed18dd8a70e53cbeaa2cb5a2372ac0250488528eaf4d57c0155a"
+            },
+            {
+                  "name": ".data.dense_800651F8",
+                  "segment": "resident",
+                  "rom_start": 417272,
+                  "vram": 2147897848,
+                  "size": 4056,
+                  "sha256": "0bd8795482b766c39e7adaa9b55b501235d3c215fec39bfac0c5f2a2573db744"
+            }
+      ]
+},
+    {
+      "id": "gsm_rpe_coefficients",
+      "source": "src/data/gsm_rpe_coefficients.c",
+      "inputs": {
+        "src/data/gsm_rpe_coefficients.c": "93a6e5b0e42e1003aff31f5c83b30b2852e8a206d346c036e44ea185a9ef2af5"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".rodata",
+          "segment": "resident",
+          "rom_start": 166316,
+          "vram": 2147646892,
+          "size": 8,
+          "sha256": "a62fba1debbaef872c0367358993852f810c18f267328e7314e8a1593c5fb65c"
+        }
+      ]
+    },
+    {
       "id": "scene_light_state",
       "source": "src/data/scene_light_state.c",
       "inputs": {

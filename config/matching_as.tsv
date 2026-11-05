@@ -44,3 +44,6 @@
 0x38484	0xC	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b
 0x3860C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
 0x38AEC	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x29D88	0x8	src/asm/exception_vector_fragment.s	-O2 -G0 -mips3 -mgp32 -mfp32	28897700da31d10b22508432341008d972fcfea50ac4106a261e0a4b521efec3
+0x31A64	0xC	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b
+0x39168	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc

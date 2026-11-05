@@ -1,14 +1,20 @@
 {
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
-  "total_data": 204624,
-  "matched_data": 195920,
+  "total_data": 204632,
+  "matched_data": 204632,
   "ranges": [
     {
       "rom_start": 4156,
       "rom_end": 11968,
       "size": 7812,
       "sha256": "462798590dbffa60a0ec5210b2d2b223881ece9910ae2cc0afdaf583a7544b4d"
+    },
+    {
+      "rom_start": 166316,
+      "rom_end": 166324,
+      "size": 8,
+      "sha256": "a62fba1debbaef872c0367358993852f810c18f267328e7314e8a1593c5fb65c"
     },
     {
       "rom_start": 166504,
@@ -18,113 +24,23 @@
     },
     {
       "rom_start": 233840,
-      "rom_end": 279152,
-      "size": 45312,
-      "sha256": "d06a70ea290bc4d8b49ea1830dd06270de6872ee94cdd5bc3c1331c0473ab1e0"
-    },
-    {
-      "rom_start": 279316,
-      "rom_end": 281072,
-      "size": 1756,
-      "sha256": "c0601bc1bac97e69da3ef3e2898aafe64aec5ae4f3ccbdb7649471f76da4ca0e"
-    },
-    {
-      "rom_start": 281332,
-      "rom_end": 283072,
-      "size": 1740,
-      "sha256": "7922f0740fe5f5240b5a7cab0fbfd582cf95a3b2d1f0fe1e39df427a22736b85"
-    },
-    {
-      "rom_start": 283148,
-      "rom_end": 287408,
-      "size": 4260,
-      "sha256": "6bfd6a22f89151edacbcdb2f0ed879b95194b575df9fe2e323fbb8ba87bbaebd"
-    },
-    {
-      "rom_start": 287412,
-      "rom_end": 295956,
-      "size": 8544,
-      "sha256": "c2dece9c9f14c67b8aafabdcb80793f1cffe95a801e15d648fd214a0522ee825"
-    },
-    {
-      "rom_start": 296372,
-      "rom_end": 373760,
-      "size": 77388,
-      "sha256": "ce0c6251de7c85ffe20ff76fd8fb4a8ffc7951602097b66e99fa3d7d4a908243"
-    },
-    {
-      "rom_start": 374276,
-      "rom_end": 374532,
-      "size": 256,
-      "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
-    },
-    {
-      "rom_start": 374644,
-      "rom_end": 374920,
-      "size": 276,
-      "sha256": "d489001ff88ed206b56f44bd0789a8332510f33bf40a312a7b2e5d60c3fe3e03"
-    },
-    {
-      "rom_start": 374952,
-      "rom_end": 394660,
-      "size": 19708,
-      "sha256": "67d9a9195a771294c33ef2db2581e192a999b917e9358e77c1e1da7028404e6d"
-    },
-    {
-      "rom_start": 394804,
-      "rom_end": 404724,
-      "size": 9920,
-      "sha256": "d28508191d050553eb5349e4295f76f9cb76becbcc5e3d4b35c30337ba4d620d"
-    },
-    {
-      "rom_start": 404768,
-      "rom_end": 405556,
-      "size": 788,
-      "sha256": "3e84c247e11701fb5451865acb6262c8495d47c5f397a772a7bc01c9ce9f5b12"
-    },
-    {
-      "rom_start": 405680,
-      "rom_end": 409888,
-      "size": 4208,
-      "sha256": "31fb5d4b4a6f5fa99617cd77dfab4ca388c9a6b1ae3ea5917c76d1b450c0e95b"
-    },
-    {
-      "rom_start": 412468,
-      "rom_end": 414520,
-      "size": 2052,
-      "sha256": "e68ca6f7790371a3d94c9b985c0cfe5e1d756fe145e2e8775afd3cb3c2911711"
-    },
-    {
-      "rom_start": 414524,
-      "rom_end": 416672,
-      "size": 2148,
-      "sha256": "a7335569d48864edd0dc5b8765cde893b39e47dabcd03ea55f255db814916a38"
-    },
-    {
-      "rom_start": 416844,
-      "rom_end": 417272,
-      "size": 428,
-      "sha256": "fced892c73c66d68fdbb01bb68464549f19996231e05ceddce888520d3b70227"
-    },
-    {
-      "rom_start": 421328,
       "rom_end": 430192,
-      "size": 8864,
-      "sha256": "f956ee54fc613813d33fa027463402063b99ce335e1aa690c3df812a58da2c2c"
+      "size": 196352,
+      "sha256": "40969b12f99aa72359dc9c1e27867a86b9090d6d5dd00e0d537d455e7b707f72"
     }
   ],
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "1c3b21690fb8d5eaeaeddf17bfa1a5c59457bae0f31a5aa640fae9fb9c122ecc"
+      "sha256": "60b2aedb97f1550103987686745462e1280332827f3b753612c3dd75a1e8b642"
     },
     {
       "path": "config/link_units.json",
-      "sha256": "684628ea73556fc24d3b3d292cfb7c21f5b120bb407e77ab6744d4e82512f3eb"
+      "sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d"
     },
     {
       "path": "config/matching_as.tsv",
-      "sha256": "26ca560aeca9da310ca3ddf27db80c8dcbb4f478c79804df0a054a78855cb098"
+      "sha256": "a76ff303a11392715ab1579d2f94f25c6368a262152dc23483920d7fe671b525"
     },
     {
       "path": "config/matching_ido.tsv",
@@ -172,7 +88,7 @@
     },
     {
       "path": "config/survey/ledger.tsv",
-      "sha256": "8b7bba67e40984d5ad784c0a72fa18bc4fab261e7f88646ca37653839cfa6d9a"
+      "sha256": "6f1a5461d769b907797d8dcb59a4daf8f3656f0f594f2bae3bff490c22a08369"
     },
     {
       "path": "config/survey/symbol_addrs.txt",
@@ -183,12 +99,24 @@
       "sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc"
     },
     {
+      "path": "src/asm/exception_vector_fragment.s",
+      "sha256": "d6c84fffb68e6c8f348586bb5ae898a3168d87ea38ee989989d5864ed8b09000"
+    },
+    {
       "path": "src/boot/entry.s",
       "sha256": "25292d580f2b51369ab8d73a52cf77e6797260bdb0917d8451305b120de3b9dc"
     },
     {
       "path": "src/data/audio_delay_coefficients.c",
       "sha256": "44c2274055c261593664575736909b173726fb4e773940ba9066645b78e521a0"
+    },
+    {
+      "path": "src/data/gsm_rpe_coefficients.c",
+      "sha256": "93a6e5b0e42e1003aff31f5c83b30b2852e8a206d346c036e44ea185a9ef2af5"
+    },
+    {
+      "path": "src/data/resident_dense_extents.c",
+      "sha256": "1e9a9d3de5f7bcf0824839228c43dcbe0d87693bafca8e2eabf95778e257e68c"
     },
     {
       "path": "src/data/resident_runtime_tables.c",
@@ -3696,7 +3624,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "fc15f83af772b1a55863848ea25ea192c90d030606aae6dd293c0a5472f92d28",
+      "object_sha256": "c9112d34d2183351b8aa84ff467f35d72e86ce87109175d822b3f28d242a1407",
       "provider": "typed-initialized-data"
     },
     {
@@ -4516,6 +4444,29 @@
       "sha256": "c6851b4e3b0d89b2de736074fa8ec03d9c705b3c688370fead97c74d38959ecf"
     },
     {
+      "source": "src/data/gsm_rpe_coefficients.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "gsm_rpe_coefficients",
+      "section": ".rodata",
+      "rom_start": 166316,
+      "rom_end": 166324,
+      "size": 8,
+      "vram_start": 2147646892,
+      "sha256": "a62fba1debbaef872c0367358993852f810c18f267328e7314e8a1593c5fb65c",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "ddbd39896b8bbfa02dc6d4b741456e1240a9d6b04782ea679279590295c0633e",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/audio_delay_coefficients.c",
       "pipeline": "sn",
       "manifest": "config/data/units.json",
@@ -4535,7 +4486,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "4a1c39efc165ef4b82533b390d87ebb63f871b245f2b6ee42c9c23b550fe9aa0",
+      "object_sha256": "4362ebc4e45be1be74fe0e349fc4114b0a1e48f2300b590c0ea151c03c184b7d",
       "provider": "typed-initialized-data"
     },
     {
@@ -4558,7 +4509,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "1df63a68b9fb246af8281b4bee5371d46faf7f0b1a92cad2d30d2d69b5721c73",
+      "object_sha256": "5ac5597b100464c9bf88c5e97b86484d9d5d3b7a2f29dedac477afbc9e2607f3",
       "provider": "typed-initialized-data"
     },
     {
@@ -4606,6 +4557,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80043670",
+      "rom_start": 279152,
+      "rom_end": 279316,
+      "size": 164,
+      "vram_start": 2147759728,
+      "sha256": "1a672dd1625d7e70d02d5565898790e3386eec79c1800f9244b2238034ec0e7b",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4647,7 +4620,29 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "76e1d3ddb5018f5d5eb26da30dfcd361fe72d423abf131f81b337b0f35e57b3d",
+      "object_sha256": "aba987a289ef9043ba2410620564c7fbac682f1fdb199e81bb9b9de6ba4cfb5e",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80043DF0",
+      "rom_start": 281072,
+      "rom_end": 281332,
+      "size": 260,
+      "vram_start": 2147761648,
+      "sha256": "5deb2a92dd0a8d0e70f395ed01d3b2ad00984f2d1a858f820fff9035225114c0",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4673,6 +4668,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_800445C0",
+      "rom_start": 283072,
+      "rom_end": 283148,
+      "size": 76,
+      "vram_start": 2147763648,
+      "sha256": "f6523119764542969cf7cbebaedf0400d4f2b7dd4d3ed9629ae7afa70cd19583",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4692,6 +4709,28 @@
       ],
       "symbols": {},
       "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_800456B0",
+      "rom_start": 287408,
+      "rom_end": 287412,
+      "size": 4,
+      "vram_start": 2147767984,
+      "sha256": "4d95bd31ff660b3f6b0868c2a6fbfdcd40d3583ffa65a6ceeb6c9bb1f01be1e1",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4717,6 +4756,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80047814",
+      "rom_start": 295956,
+      "rom_end": 296372,
+      "size": 416,
+      "vram_start": 2147776532,
+      "sha256": "12e9a153e4253d5e305e58a4b3e82ca0b819233329430075ba3fd9d965bfe31c",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_800479B4.c",
       "pipeline": "sn",
       "manifest": "config/data/units.json",
@@ -4736,7 +4797,29 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "c659d6ca2669623b58fc10d6e1cbbbd67740c77ca174b338ae4905d008107607",
+      "object_sha256": "d35a5388158fb5ad796c6a5a0dbef7ca874db9a7dd00750b23e6f74d8eed5b13",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_8005A800",
+      "rom_start": 373760,
+      "rom_end": 374276,
+      "size": 516,
+      "vram_start": 2147854336,
+      "sha256": "f3d91339823084248a1800ae79d528559e3ab0b77027bb5891266123c97e4bde",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4762,6 +4845,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_8005AB04",
+      "rom_start": 374532,
+      "rom_end": 374644,
+      "size": 112,
+      "vram_start": 2147855108,
+      "sha256": "1d2b39f23f8d325e2d3c160d68f811b28b3c783cb6308db154786463835a341a",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4781,6 +4886,28 @@
       ],
       "symbols": {},
       "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_8005AC88",
+      "rom_start": 374920,
+      "rom_end": 374952,
+      "size": 32,
+      "vram_start": 2147855496,
+      "sha256": "b8aa5005c888543feafebdf6554c85e2a2f891582f4664216be5a6c805ea38f5",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4806,6 +4933,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_8005F9A4",
+      "rom_start": 394660,
+      "rom_end": 394804,
+      "size": 144,
+      "vram_start": 2147875236,
+      "sha256": "89e8839633edbdad56c78d60b3b8d64cc3628f3d857b68e3912147dafdf1ec59",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4825,6 +4974,28 @@
       ],
       "symbols": {},
       "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_800620F4",
+      "rom_start": 404724,
+      "rom_end": 404768,
+      "size": 44,
+      "vram_start": 2147885300,
+      "sha256": "4f34177e626bacee120b4ef59f19e8215a90f964431fc73a3a69d1dde0c4de18",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4850,6 +5021,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80062434",
+      "rom_start": 405556,
+      "rom_end": 405680,
+      "size": 124,
+      "vram_start": 2147886132,
+      "sha256": "6bd3c17a07555f2bc50d000cf83e2044c069eae649172698cabaa728e386240b",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4869,6 +5062,28 @@
       ],
       "symbols": {},
       "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80063520",
+      "rom_start": 409888,
+      "rom_end": 412468,
+      "size": 2580,
+      "vram_start": 2147890464,
+      "sha256": "68f950f2916f0d0949fd9b8a089494c46a78782228149dc8ecf51bd0a476dae6",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4894,6 +5109,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80064738",
+      "rom_start": 414520,
+      "rom_end": 414524,
+      "size": 4,
+      "vram_start": 2147895096,
+      "sha256": "d7a6ba72c0f1763e4a416a018669b1970faf64f64c15a3781f9de77bad94505b",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4916,6 +5153,28 @@
       "provider": "typed-initialized-data"
     },
     {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_80064FA0",
+      "rom_start": 416672,
+      "rom_end": 416844,
+      "size": 172,
+      "vram_start": 2147897248,
+      "sha256": "9593246f0de3ed18dd8a70e53cbeaa2cb5a2372ac0250488528eaf4d57c0155a",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/resident_zero_extents.c",
       "pipeline": "kmc+as",
       "manifest": "config/data/units.json",
@@ -4935,6 +5194,28 @@
       ],
       "symbols": {},
       "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_dense_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_dense_extents",
+      "section": ".data.dense_800651F8",
+      "rom_start": 417272,
+      "rom_end": 421328,
+      "size": 4056,
+      "vram_start": 2147897848,
+      "sha256": "0bd8795482b766c39e7adaa9b55b501235d3c215fec39bfac0c5f2a2573db744",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
       "provider": "typed-initialized-data"
     },
     {
@@ -4979,7 +5260,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "b78c07e27835dca44a2a1f1a372b6b1c149b2b47e3f4b130af136c5b27187a77",
+      "object_sha256": "1fab8ef151265536bec72ee96188674c46b74a7f92779545b8b7284117d21030",
       "provider": "typed-initialized-data"
     },
     {
@@ -5111,7 +5392,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "684628ea73556fc24d3b3d292cfb7c21f5b120bb407e77ab6744d4e82512f3eb",
+      "source_image_plan_sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -5224,7 +5505,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "684628ea73556fc24d3b3d292cfb7c21f5b120bb407e77ab6744d4e82512f3eb",
+      "source_image_plan_sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -5322,19 +5603,19 @@
     }
   ],
   "verification": {
-    "units": 658,
-    "exact_units": 658,
-    "text_units": 648,
-    "data_only_units": 7,
+    "units": 663,
+    "exact_units": 663,
+    "text_units": 651,
+    "data_only_units": 9,
     "rsp_programs": 3
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "684628ea73556fc24d3b3d292cfb7c21f5b120bb407e77ab6744d4e82512f3eb",
+    "plan_sha256": "30b191f1e162ae5d9c872c77761705d3f94a2d478ab8047928523ad62e227b4d",
     "build_tool_path": "tools/build_source_image.py",
     "build_tool_sha256": "873fdc74c7655a14c15a2bfeda1c59994c8040d0b52ff3d8af82f91609778951",
-    "verified_source_pieces": 719,
-    "owned_resident_bytes": 219224,
+    "verified_source_pieces": 722,
+    "owned_resident_bytes": 219252,
     "added_initialized_sections": 2,
     "placement_inference_during_build": false,
     "post_build_rom_comparison": true,
@@ -5550,11 +5831,19 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "1c3b21690fb8d5eaeaeddf17bfa1a5c59457bae0f31a5aa640fae9fb9c122ecc"
+        "sha256": "60b2aedb97f1550103987686745462e1280332827f3b753612c3dd75a1e8b642"
       },
       {
         "path": "src/data/audio_delay_coefficients.c",
         "sha256": "44c2274055c261593664575736909b173726fb4e773940ba9066645b78e521a0"
+      },
+      {
+        "path": "src/data/gsm_rpe_coefficients.c",
+        "sha256": "93a6e5b0e42e1003aff31f5c83b30b2852e8a206d346c036e44ea185a9ef2af5"
+      },
+      {
+        "path": "src/data/resident_dense_extents.c",
+        "sha256": "1e9a9d3de5f7bcf0824839228c43dcbe0d87693bafca8e2eabf95778e257e68c"
       },
       {
         "path": "src/data/resident_runtime_tables.c",
@@ -5804,7 +6093,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "fc15f83af772b1a55863848ea25ea192c90d030606aae6dd293c0a5472f92d28",
+        "object_sha256": "c9112d34d2183351b8aa84ff467f35d72e86ce87109175d822b3f28d242a1407",
         "symbols": {}
       },
       {
@@ -5819,7 +6108,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "4a1c39efc165ef4b82533b390d87ebb63f871b245f2b6ee42c9c23b550fe9aa0",
+        "object_sha256": "4362ebc4e45be1be74fe0e349fc4114b0a1e48f2300b590c0ea151c03c184b7d",
         "symbols": {}
       },
       {
@@ -5834,7 +6123,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "1df63a68b9fb246af8281b4bee5371d46faf7f0b1a92cad2d30d2d69b5721c73",
+        "object_sha256": "5ac5597b100464c9bf88c5e97b86484d9d5d3b7a2f29dedac477afbc9e2607f3",
         "symbols": {}
       },
       {
@@ -5849,7 +6138,7 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "c659d6ca2669623b58fc10d6e1cbbbd67740c77ca174b338ae4905d008107607",
+        "object_sha256": "d35a5388158fb5ad796c6a5a0dbef7ca874db9a7dd00750b23e6f74d8eed5b13",
         "symbols": {}
       },
       {
@@ -5878,7 +6167,36 @@
           "-meb"
         ],
         "source": "src/data/resident_tail_data.c",
-        "object_sha256": "b78c07e27835dca44a2a1f1a372b6b1c149b2b47e3f4b130af136c5b27187a77",
+        "object_sha256": "1fab8ef151265536bec72ee96188674c46b74a7f92779545b8b7284117d21030",
+        "symbols": {}
+      },
+      {
+        "unit_id": "resident_dense_extents",
+        "pipeline": "kmc+as",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mips3",
+          "-mgp32",
+          "-mfp32"
+        ],
+        "source": "src/data/resident_dense_extents.c",
+        "object_sha256": "2adb83728f65ed1e69362577c4bd04a089ba66bfc8d86584bafe1ad736690882",
+        "symbols": {}
+      },
+      {
+        "unit_id": "gsm_rpe_coefficients",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/gsm_rpe_coefficients.c",
+        "object_sha256": "ddbd39896b8bbfa02dc6d4b741456e1240a9d6b04782ea679279590295c0633e",
         "symbols": {}
       },
       {
@@ -5893,11 +6211,11 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "76e1d3ddb5018f5d5eb26da30dfcd361fe72d423abf131f81b337b0f35e57b3d",
+        "object_sha256": "aba987a289ef9043ba2410620564c7fbac682f1fdb199e81bb9b9de6ba4cfb5e",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 195920,
+    "unique_initialized_bytes": 204632,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -6043,10 +6361,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-_g0fbuls/rspboot/code.bin",
+          "/tmp/sydney-rsp-53fvdg02/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-_g0fbuls/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-_g0fbuls/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-53fvdg02/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-53fvdg02/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -6061,10 +6379,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-_g0fbuls/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-53fvdg02/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-_g0fbuls/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-53fvdg02/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -6075,9 +6393,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-_g0fbuls/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-53fvdg02/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-_g0fbuls/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-53fvdg02/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
@@ -6196,6 +6514,6 @@
   },
   "classification": {
     "path": "config/survey/ledger.tsv",
-    "sha256": "8b7bba67e40984d5ad784c0a72fa18bc4fab261e7f88646ca37653839cfa6d9a"
+    "sha256": "6f1a5461d769b907797d8dcb59a4daf8f3656f0f594f2bae3bff490c22a08369"
   }
 }
