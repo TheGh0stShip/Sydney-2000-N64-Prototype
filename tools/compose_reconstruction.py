@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """Compose verified source and extracted-asset artifacts into a preservation ROM.
 
-No original ROM supplies bytes. Only frozen resident source pieces, typed
-initialized-data pieces, symbolic RSP microcode, and reconstructed archive-directory metadata are
-accepted. Ownership is independent of byte value: unowned zero fill receives no
-credit. --verify-rom compares owned bytes only, after source composition.
+The composer never reads the original ROM unless --verify-rom is requested. It
+accepts frozen source pieces, typed initialized data, symbolic RSP microcode,
+reconstructed archive metadata, and separately extracted/hash-checked archive
+assets. Ownership is independent of byte value: unowned zero fill receives no
+credit. --verify-rom compares owned bytes only after composition.
 """
 from __future__ import annotations
 

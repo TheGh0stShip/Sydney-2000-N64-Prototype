@@ -225,8 +225,9 @@ credit; no precompiled microcode blob supplies bytes. See
 ## Whole-ROM reconstruction gate
 
 `make reconstruction` builds source-derived resident and startup-runtime sections,
-typed initialized data, symbolic RSP programs and DMEM data, and the archive
-directory, then composes `build/reconstruction/rom.partial.bin`
+typed initialized data, symbolic RSP programs and DMEM data, the archive
+directory, and hash-checked extracted assets, then composes
+`build/reconstruction/rom.partial.bin`
 and its ownership bitmap. Composition validates producer inputs, link-plan and
 toolkit hashes, exact piece sets, typed placements, directory reserialization,
 bounds, and overlaps. Original ROM bytes are not used to fill gaps.
