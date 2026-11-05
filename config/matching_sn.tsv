@@ -17,3 +17,11 @@
 0x9B3C	0xE34	src/game/build_model_display_lists.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1c8f45ea2521361d85481e6eb8d966155da8e8662de05f29fdf5834806907fbe
 0x1562C	0x1480	src/game/render_frame.c	--section-base=.rdata:0x80000C20 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d58fbc176327431fd7784af91c946668a9aefa278788417781068b64c3c2a4fb
 0x100B0	0xF30	src/game/build_mipmap_chain.c	--section-base=.rdata:0x800007A0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6d67c90fac3025d73149f451983ea910f0338679039c1bb3964a6b8f066e14e5
+0x21A90	0xC	src/game/clear_stream_state_b8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ba359f66d5fe4a59eb1d783a0dfb75c9d5723eace529dd49d11b681e1af6217e
+0x21E9C	0xC	src/game/clear_stream_state_d6.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	80a387502fcca2ddf266d589fb01712c1926a53311aa2c9a6d5e511e1ca2624f
+0x21EB8	0xC	src/game/clear_stream_state_d7.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3dbcfb8069cf783d05498db434bf81df72ae431ffb51072c4a31973f777dd5f3
+0x21FF4	0xC	src/game/clear_stream_state_ce.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f65506451a6fe524e70cc3454714b892bc7daf7eddd1b50b7ca0dbfec979fb3e
+0x22010	0xC	src/game/clear_stream_state_d2.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5c1a607ba43e594661aec06930b5286e8662138952f18a5d241213a27f09f895
+0x22044	0x8	src/game/advance_stream_by_two.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9d2fef282bcfc6d5100ce278ce131df2b4ff72b6ffb376bbee5622139a47d7a9
+0x22094	0xC	src/game/clear_stream_state_84.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	48bee226d8ceb04e95ea0d178a29fb2f9f77c43667803c0d48b86c4023486359
+0x220A0	0x8	src/game/advance_stream_by_one.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	932e3d781ad736264ff78a311ed98bbccda8db3c8362dcf4777c2dc4534d072e
