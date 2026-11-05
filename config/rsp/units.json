@@ -1,0 +1,172 @@
+{
+  "version": 1,
+  "target": {
+    "architecture": "rsp",
+    "scalar_bits": 32,
+    "byte_order": "big",
+    "vector_coprocessor": "RSP COP2",
+    "cpu_abi": null
+  },
+  "rom_size": 33554432,
+  "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+  "assembler": {
+    "project": "https://github.com/Kingcom/armips",
+    "commit": "62adab4ef30da765f5cf22a451eb08a59c54dc8b",
+    "source_archive_sha256": "f7a65102febb4811a336a06e6d93c7e84cc86548182d54e1b1b4e2bffe562f56",
+    "filesystem_commit": "3f1c185ab414e764c694b8171d1c4d8c5c437517",
+    "filesystem_archive_sha256": "cc1c5439d29031477868bdea25b68b4210dc8ed018bb63a65e708afe405db4e1",
+    "build_flags": [
+      "-DCMAKE_BUILD_TYPE=Release",
+      "-DWITH_TESTS=OFF"
+    ],
+    "bootstrap_recipe": "config/rsp/bootstrap_armips.sh",
+    "binary_policy": "ARMIPS executable supplied separately; its actual SHA256 is recorded, not inferred from the source pin."
+  },
+  "dependencies": [
+    {
+      "path": "tools/f3dex2",
+      "url": "https://github.com/Mr-Wiseguy/f3dex2.git",
+      "commit": "bd31393fd02b89e024b043c8c50c9a5a10143fb6"
+    }
+  ],
+  "inputs": {
+    "tools/battletanx_ga/rsp/n_aspMain.s": "fd389ed4d300fc2fa573c8ccdb89c9d77375513f00febf2436a83e1eb28052d4",
+    "tools/battletanx_ga/rsp/rsp_defs.inc": "817a4f719d1d7c747ca150b16643881820cfd2af1d33e31edebffd5d7aacd1ea",
+    "tools/battletanx_ga/rsp/rspboot.s": "535948f75bf728afbce87208b12f649c51992a99d3d4a8e4f0f37f4f93ca81ed",
+    "tools/battletanx_ga/tools/bootstrap_armips.sh": "d6b7786890809adc4cf76d25674dc0cd80eef625222b06a1ec1d7455b6196b55",
+    "tools/f3dex2/.gitignore": "f2dfa15dbc490ef604e3b130efdd457397e5dba217bbd28654a9c13334a0be6b",
+    "tools/f3dex2/LICENSE": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499",
+    "tools/f3dex2/Makefile": "568cf8690143c6d2c50e1c7fd4e7165e0a287319a4da81a3d4b9f7582e7a8826",
+    "tools/f3dex2/PR/R4300.h": "bb8a7702ef8dfe94c389f0c411a4f2346c506ea8766e85c332a44486a97b7b44",
+    "tools/f3dex2/PR/gbi.h": "74d8f61eebd436e772b0198bdf855a8c718eb09069925125a4ec6a10ff7422cf",
+    "tools/f3dex2/PR/rcp.h": "db21d74c1b4ef4d3eeef7032f5bfd701a10fd68bbcfa5433397421efcb3540fc",
+    "tools/f3dex2/PR/sptask.h": "12b0a593a7013076fb60cf7224f0bdf25da554076e8b6f2ffe3999769e737dc5",
+    "tools/f3dex2/PR/sptaskoff.h": "fcace45a479d60f2f2ccab3f1662fc67bbfb86882ea87f18701b1b2355e1912c",
+    "tools/f3dex2/PR/ultratypes.h": "a3c2e6294b2253acf1e2db15e39eb9a0e58e87008b0f0bb5539c401d81a98240",
+    "tools/f3dex2/README.md": "b6649bb05b371503a1936877eb61ed6598a14f2e263451aceed35825bdad2c9c",
+    "tools/f3dex2/f3dex2.s": "a26149e84ce383d22bd4a1f90e125ce89f7bfd41ef9cc6e7d3b97cddf9d92647",
+    "tools/f3dex2/gbi_internal.h": "af7e12dad4a199da390e8cf93f690a189bd85a448b5ed61eb45d3eaa7345cecc",
+    "tools/f3dex2/rsp/rspboot.h": "11c50dddc63608a16eea7e78dbf09512bd073b94f34a97cd1af9a974011cb678",
+    "tools/f3dex2/ucodes_database.mk": "6db0633b2a429e12ba3d281f10107420ac5011dcb77c74d97fef912cc4db8efe",
+    "config/rsp/bootstrap_armips.sh": "1ec64477b5ae2ddee62fa7a34679f092a387608a72142abaad06e2e534f8302e"
+  },
+  "units": [
+    {
+      "id": "rspboot",
+      "recipe": "rspboot_align16",
+      "source": "tools/battletanx_ga/rsp/rspboot.s",
+      "sections": [
+        {
+          "name": ".text",
+          "rom_start": 11968,
+          "size": 208,
+          "storage_vram": 2147492544,
+          "sha256": "5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4",
+          "logical_mappings": [
+            {
+              "file_offset": 0,
+              "size": 208,
+              "rsp_address": 4096,
+              "memory": "IMEM",
+              "role": "boot instructions plus source alignment"
+            }
+          ],
+          "instruction_bytes": 204,
+          "alignment_bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "f3dex2_2_08_fifo",
+      "recipe": "f3dex2_make",
+      "source": "tools/f3dex2/f3dex2.s",
+      "sections": [
+        {
+          "name": ".text",
+          "rom_start": 12176,
+          "size": 5008,
+          "storage_vram": 2147492752,
+          "sha256": "f220ae92941dfe08f2e2eaa1a45b4291314787bb4e1179e370293f603fc66c68",
+          "logical_mappings": [
+            {
+              "file_offset": 0,
+              "size": 3968,
+              "rsp_address": 4224,
+              "memory": "IMEM",
+              "role": "initial task DMA including overlay 3"
+            },
+            {
+              "file_offset": 3968,
+              "size": 152,
+              "rsp_address": 4096,
+              "memory": "IMEM",
+              "role": "overlay 0"
+            },
+            {
+              "file_offset": 4120,
+              "size": 368,
+              "rsp_address": 4096,
+              "memory": "IMEM",
+              "role": "overlay 1"
+            },
+            {
+              "file_offset": 4488,
+              "size": 520,
+              "rsp_address": 4824,
+              "memory": "IMEM",
+              "role": "overlay 2"
+            },
+            {
+              "file_offset": 600,
+              "size": 544,
+              "rsp_address": 4824,
+              "memory": "IMEM",
+              "role": "overlay 3 embedded in initial DMA"
+            }
+          ]
+        },
+        {
+          "name": ".data",
+          "rom_start": 233840,
+          "size": 1056,
+          "storage_vram": 2147714416,
+          "sha256": "34a79826cb38275bc68aa2bc2679383deb5cdc2d7ca7ceff2014c02cecc4c36f",
+          "logical_mappings": [
+            {
+              "file_offset": 0,
+              "size": 1056,
+              "rsp_address": 0,
+              "memory": "DMEM",
+              "role": "graphics initial data"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "n_asp_main",
+      "recipe": "armips",
+      "source": "tools/battletanx_ga/rsp/n_aspMain.s",
+      "sections": [
+        {
+          "name": ".text",
+          "rom_start": 17184,
+          "size": 3168,
+          "storage_vram": 2147497760,
+          "sha256": "7e5932658e7f965a47b9dac8ec05b405e9ac18c26d39daddb852418f66613ba4",
+          "logical_mappings": [
+            {
+              "file_offset": 0,
+              "size": 3168,
+              "rsp_address": 4224,
+              "memory": "IMEM",
+              "role": "audio task"
+            }
+          ],
+          "instruction_bytes": 3156,
+          "alignment_bytes": 12
+        }
+      ]
+    }
+  ]
+}

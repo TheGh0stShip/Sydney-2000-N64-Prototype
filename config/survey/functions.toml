@@ -1,5 +1,5 @@
 # Function boundaries for Syd2k USA: main segment
-# text 0x80000400..0x80038568, 751 functions
+# text 0x80000400..0x80038568, 743 CPU functions; RSP programs catalogued separately
 [[section]]
 name = ".main"
 rom = 0x00001000
@@ -11,14 +11,7 @@ functions = [
     # 0x800017C4..0x8000180C is byte-valued lookup-table data, not nine stubs.
     # 0x80001FD8..0x80002020 is an address table; the following CP0 words are
     # an unterminated boot fragment, so this span is not a callable function.
-    { name = "func_800032BC", vram = 0x800032bc, size = 0x30 }, # asm
-    { name = "func_800032F0", vram = 0x800032f0, size = 0x20 }, # asm
-    { name = "func_80003334", vram = 0x80003334, size = 0x3c }, # asm
-    { name = "func_80003370", vram = 0x80003370, size = 0x24 }, # asm
-    { name = "func_800033C8", vram = 0x800033c8, size = 0x8 }, # stub
-    { name = "func_800033D8", vram = 0x800033d8, size = 0x8 }, # stub
-    { name = "func_800033EC", vram = 0x800033ec, size = 0x8 }, # stub
-    { name = "func_80003418", vram = 0x80003418, size = 0x8 }, # stub
+    # ROM 0x2EC0..0x4F80 contains three source-built RSP programs, not CPU functions.
     { name = "func_80004380", vram = 0x80004380, size = 0x28 }, # c
     { name = "func_800043A8", vram = 0x800043a8, size = 0x38 }, # c
     { name = "func_800043E0", vram = 0x800043e0, size = 0x2e0 }, # c

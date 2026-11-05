@@ -28,14 +28,16 @@ Accepted image:
 
 The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
-The current survey identifies 751 functions. The game and most libraries were
-built with KMC GCC. Matching manifests cover 176,064 unique bytes of the 229,736-byte surveyed
-resident text span (76.64%), including assembly units. Complete extents are
-covered for 707 of 751 catalogued functions. Another 32 have reconstructed
-bodies with uncovered zero-padding suffixes (312 bytes total), and 12 have
-wholly unmatched bodies (36,888 bytes). The remaining 16,472 uncovered bytes
-are outside catalogued function extents and include boot, RSP, and data spans
-that need classification.
+The current survey identifies 743 CPU functions. The game and most libraries were
+built with KMC GCC. Matching CPU manifests and three source-built RSP programs
+cover 186,840 unique bytes of the 229,736-byte surveyed resident text span
+(81.33%). Complete extents are covered for 700 of 743 CPU functions. Another 32
+have reconstructed bodies with uncovered zero-padding suffixes (312 bytes total),
+and 11 have wholly unmatched bodies (34,288 bytes). The remaining 8,296 uncovered
+bytes are outside catalogued CPU function extents and need further classification.
+Eight former CPU catalogue entries were scalar routines inside the graphics
+microcode; their compatibility symbols remain, and the complete RSP source now
+supersedes the old 208-byte assembly fragments without adding CPU functions.
 
 Earlier row-sum reporting double-counted 2,792 overlapping bytes and credited
 function extents based only on their first byte. A subsequent source-padding
@@ -44,7 +46,7 @@ adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages: the overlay bank at ROM
 `0x69070..0x127640` is outside the current function survey. Initialized-data
-coverage is 5,820 unique bytes of 206,276 classified bytes (2.82%), recorded in
+coverage is 7,044 unique bytes of 204,164 classified bytes (3.45%), recorded in
 `config/matching_data.json`. `make data-ledger` rebuilds all matching units and
 regenerates this ledger, including source-built data sections with frozen placements.
 Reporting checks the recorded source, manifest,
@@ -176,3 +178,66 @@ original afterward. `make archive-directory-test` checks packing and rejects
 invalid metadata. Outputs live in `build/rom_components/file_directory.bin` and
 its provenance JSON. No payloads or executable blobs are copied, and these
 metadata bytes add no code-decompilation credit.
+
+## Typed initialized-data sources
+
+`make initialized-data` compiles data-only C units listed in
+`config/data/units.json`, using explicit section placements and symbols without
+reading the ROM. Executable text, unexpected allocated sections, unplaced
+references, wrong target layouts, and conflicting overlaps fail validation.
+`make initialized-data-verify` compares the source-built sections afterward;
+`make initialized-data-check` checks input and artifact freshness without the
+ROM or toolchain. `make initialized-data-test` exercises the ownership gates.
+
+The first unit defines the 168-byte scene-light state as a typed, explicitly
+initialized `.data` object with o32 size and offset assertions. The data ledger
+rebuilds these units and includes their verified bytes in its deduplicated
+initialized-data measure. They add no function bodies or executable-code credit.
+
+## Source-built RSP programs
+
+`make rsp-tools` bootstraps a pinned ARMIPS assembler in the ignored local tool
+cache. `make rsp-pieces` builds symbolic sources without ROM input; `make
+rsp-verify` compares all emitted bytes afterward. `make rsp-check` validates
+source, producer, dependency, tool and piece hashes. `make rsp-test` checks
+ownership, conflicts, stale inputs and RSP address bounds.
+
+The pinned `tools/f3dex2` submodule builds F3DEX FIFO 2.08: 5,008 bytes at ROM
+`0x2F90..0x4320`, including overlays, plus 1,056 bytes of initial DMEM data at
+`0x39170..0x39590`. Bundled symbolic assembly builds the 208-byte boot image at
+`0x2EC0..0x2F90` and 3,168-byte audio microcode at `0x4320..0x4F80`. Boot storage
+contains 204 instruction bytes plus four assembler-generated alignment bytes;
+audio includes 12 explicit padding bytes. All four outputs compare exactly.
+
+The RSP executes big-endian scalar32/vector instructions with separate 4 KiB
+IMEM and DMEM banks. Its execution addresses and overlay mappings are recorded
+separately from CPU-visible storage addresses. These are three RSP programs,
+not CPU o32 functions. Source-built graphics DMEM contributes initialized-data
+credit; no precompiled microcode blob supplies bytes. See
+[the provider recipe](config/rsp/README.md).
+
+## Whole-ROM reconstruction gate
+
+`make reconstruction` builds source-derived resident sections, typed initialized
+data, symbolic RSP programs and DMEM data, and the archive directory, then composes `build/reconstruction/rom.partial.bin`
+and its ownership bitmap. Composition validates producer inputs, link-plan and
+toolkit hashes, exact piece sets, typed placements, directory reserialization,
+bounds, and overlaps. Original ROM bytes are not used to fill gaps.
+
+`make reconstruction-verify` compares owned bytes against the original only after
+composition. `reconstruction.json` lists every remaining gap by ROM region.
+The current partial owns 722,468 bytes; 32,831,964 bytes remain unowned.
+The generated gap ledger records all 79 uncovered intervals.
+These are reconstruction extents, not a whole-game decompilation percentage.
+
+`make reconstructed-rom` is the completion gate. It refuses a full ROM filename
+while any byte is unowned or the final SHA-1 differs from the accepted image.
+Header/IPL3, executable overlays, runtime source pieces, and asset
+payloads still need explicit reconstruction providers. Tests include a partial
+image whose SHA-1 happens to match an expected fixture, ensuring that holes still
+prevent completion. Run `make reconstruction-test` for those checks.
+
+`make validate-runtime-priority` executes 600 original-runtime priority operations
+against an independent signed-key reference model, checking returned nodes,
+indices, counters, and the active/free pool partition. Exact C bytes are verified
+separately by `make verify-runtime`; this model adds no matching credit.

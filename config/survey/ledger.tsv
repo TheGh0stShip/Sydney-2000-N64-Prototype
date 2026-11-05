@@ -3,10 +3,9 @@ start	end	size	class	category	kind	name	evidence
 0x40	0x1000	4032	rom_metadata	rom_metadata	ipl3	ipl3	cic 6102
 0x1000	0x103C	60	code	program	.text	text_80000400	datamap section
 0x103C	0x2EC0	7812	data	program	.rodata	rodata_8000043C	datamap section
-0x2EC0	0x3240	896	data	program	.data	data_800022C0	datamap section
-0x3240	0x3B80	2368	code	program	rsp_text	rsp_80002640	RSP opcodes only, vector-heavy (64-byte granularity)
-0x3B80	0x4040	1216	data	program	.data	data_800022C0	datamap section
-0x4040	0x4F80	3904	code	program	rsp_text	rsp_80003440	RSP opcodes only, vector-heavy (64-byte granularity)
+0x2EC0	0x2F90	208	code	program	rsp_text	rspboot	symbolic ARMIPS source: 204 instruction bytes plus four alignment bytes
+0x2F90	0x4320	5008	code	program	rsp_text	f3dex2_fifo_2_08	pinned symbolic F3DEX source including IMEM overlays; full source-built comparison
+0x4320	0x4F80	3168	code	program	rsp_text	n_aspMain	symbolic ARMIPS source; full source-built comparison
 0x4F80	0x39170	213488	code	program	.text	text_80004380	datamap section
 0x39170	0x69070	196352	data	program	.data	data_80038570	datamap section
 0x69070	0x6EA00	22928	unknown	-	-	gap_69070	-

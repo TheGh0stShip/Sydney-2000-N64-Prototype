@@ -4,3 +4,6 @@
 [submodule "tools/battletanx_ga"]
 	path = tools/battletanx_ga
 	url = https://github.com/TheGh0stShip/BattleTanx-Global-Assault-PC-Port.git
+[submodule "tools/f3dex2"]
+	path = tools/f3dex2
+	url = https://github.com/Mr-Wiseguy/f3dex2.git

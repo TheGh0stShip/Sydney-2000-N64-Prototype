@@ -12,7 +12,7 @@
   },
   "evidence": {
     "loader_manifest_row_sha256": "aa96c9d504f343638e3fda7f9bc8d8043250c97fa5f4a97b29f8d59ed8bdd7b6",
-    "resident_catalogue_sha256": "ca8ad17b458c8c4be1535f5307d6684c12341a914c84df9fe8f911bf7284e250",
+    "resident_catalogue_sha256": "095ad3c90723b45a93d3d55cf9bb031140b998fe92d738d2afa757ef1c83744d",
     "analysis_module_sha256": "498b01c332582116a18a7dcfea2afddae456a36ee9a58bd2d748d5ba81a84b52",
     "generator_sha256": "0494105b9c41d2752263798ef4473af85b182d7aaf9e41122c9e09439e68d333",
     "initializer_ranges": [

@@ -1,0 +1,48 @@
+{
+  "version": 1,
+  "target": {
+    "architecture": "mips",
+    "byte_order": "big",
+    "pointer_bits": 32,
+    "abi": "o32"
+  },
+  "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+  "segments": [
+    {
+      "id": "resident",
+      "rom_start": 4096,
+      "rom_end": 430192,
+      "vram_delta": 2147480576
+    }
+  ],
+  "units": [
+    {
+      "id": "scene_light_state",
+      "source": "src/data/scene_light_state.c",
+      "inputs": {
+        "src/data/scene_light_state.c": "a86b84ccc5e6f0ece0217776fe919fc4647469bf40b8220bbfd7eaaeab6bf622"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "resident",
+          "rom_start": 280904,
+          "vram": 2147761480,
+          "size": 168,
+          "sha256": "e3c2af35d1dfc500e16f826a071cc311bf55003a3de77de7ea3376c6b6fa2857"
+        }
+      ]
+    }
+  ]
+}

@@ -129,11 +129,53 @@ def load_data_measures(path: Path | None = None) -> tuple[int, int]:
     return total, matched
 
 
+
+def load_rsp_proof(path: Path | None = None) -> tuple[list[tuple[int, int, str]], list[dict]]:
+    """Read checked source-build proof without requiring ROM, assembler or SDK."""
+    ledger = json.loads((path or DATA_LEDGER).read_text())
+    provider = ledger.get('rsp_provider')
+    if not provider or provider.get('post_build_rom_comparison') is not True or provider.get('placement_inference') is not False:
+        raise ValueError('missing verified source-built RSP proof; run make data-ledger')
+    if provider['config_path'] != 'config/rsp/units.json' or provider['target'].get('architecture') != 'rsp':
+        raise ValueError('unsupported RSP proof target/configuration')
+    config = json.loads((ROOT / provider['config_path']).read_text())
+    tracked = {item['path']: item['sha256'] for item in ledger['inputs']}
+    expected_inputs = dict(config['inputs'])
+    for name in (provider['config_path'], 'tools/build_rsp.py'):
+        expected_inputs[name] = hashlib.sha256((ROOT / name).read_bytes()).hexdigest()
+    for name, expected_hash in expected_inputs.items():
+        relative = Path(name)
+        if relative.is_absolute() or '..' in relative.parts or hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() != expected_hash:
+            raise ValueError('stale RSP source input')
+    actual_inputs = {item['path']: item['sha256'] for item in provider['inputs']}
+    if actual_inputs != expected_inputs or any(tracked.get(name) != digest for name, digest in expected_inputs.items()):
+        raise ValueError('incomplete or stale RSP source provenance')
+    expected = {(unit['id'], section['name']): dict(section, unit_id=unit['id'], source=unit['source'])
+                for unit in config['units'] for section in unit['sections']}
+    ranges, programs = [], []
+    for piece in provider['pieces']:
+        key = piece['unit_id'], piece['name']
+        if key not in expected or piece != expected.pop(key):
+            raise ValueError('RSP proof output differs from reviewed placement/digest')
+        if piece['name'] == '.text':
+            start, end = piece['rom_start'], piece['rom_start'] + piece['size']
+            ranges.append((start, end, piece['source']))
+            programs.append({'name': piece['unit_id'], 'source': piece['source'], 'size': piece['size'],
+                             'rom_start': start, 'rom_end': end, 'sha256': piece['sha256'],
+                             'instruction_bytes': piece.get('instruction_bytes'),
+                             'alignment_bytes': piece.get('alignment_bytes'),
+                             'logical_mappings': piece['logical_mappings']})
+    if expected or len(programs) != 3:
+        raise ValueError('incomplete source-built RSP program proof')
+    return ranges, programs
+
+
 def main() -> None:
     total_data, matched_data = load_data_measures()
     section = tomllib.loads(FUNCTIONS.read_text())["section"][0]
     functions = section["functions"]
     ranges = manifest_ranges()
+    rsp_ranges, rsp_programs = load_rsp_proof()
     merged = merge_ranges([(start, end) for start, end, _ in ranges])
     units = []
     matched_count = 0
@@ -165,7 +207,9 @@ def main() -> None:
             },
         })
 
-    # Manifest rows can overlap (whole libraries and individual functions).
+    cpu_merged = merged
+    merged = merge_ranges([(start, end) for start, end, _ in ranges + rsp_ranges])
+    # Manifest rows and separately built RSP programs share the surveyed span.
     # Only their union within the surveyed text segment contributes code bytes.
     total_code = section["size"]
     text_start = section["rom"]
@@ -176,10 +220,16 @@ def main() -> None:
         "measures": measures(total_code, matched_code, len(functions), matched_count,
                              total_data, matched_data),
         "units": units,
+        "metadata": {"cpu_functions": len(functions), "rsp_programs": rsp_programs,
+                     "rsp_program_count": len(rsp_programs),
+                     "rsp_code_bytes": sum(end - start for start, end in merge_ranges([(a, b) for a, b, _ in rsp_ranges]))},
         "version": 2,
         "categories": [
             {"id": "code", "name": "Program code",
              "measures": measures(total_code, matched_code, len(functions), matched_count)},
+            {"id": "rsp", "name": "RSP microcode (subset of surveyed code)",
+             "measures": measures(sum(p["size"] for p in rsp_programs),
+                                  sum(p["size"] for p in rsp_programs), 0, 0)},
             {"id": "program_data", "name": "Initialized program data",
              "measures": measures(0, 0, 0, 0, total_data, matched_data)},
         ],
@@ -198,6 +248,7 @@ def main() -> None:
         ],
         "incomplete_functions": [unit["name"] for unit in units
                                  if not unit["metadata"]["complete"]],
+        "rsp_programs": rsp_programs,
         "function_gaps": [
             {"name": function["name"], "size": function["size"],
              "matched_bytes": int(unit["measures"]["matched_code"]),
@@ -205,7 +256,7 @@ def main() -> None:
                  {"rom_start": left, "rom_end": right, "size": right - left}
                  for left, right in missing_ranges(
                      function["vram"] - ROM_TO_VRAM,
-                     function["vram"] - ROM_TO_VRAM + function["size"], merged)
+                     function["vram"] - ROM_TO_VRAM + function["size"], cpu_merged)
              ]}
             for function, unit in zip(functions, units)
             if not unit["metadata"]["complete"]

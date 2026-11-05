@@ -92,7 +92,8 @@ def manifest_rows() -> dict[str, list[dict]]:
     return result
 
 
-def input_paths(rows: dict[str, list[dict]], symbol_files: list[Path]) -> list[Path]:
+def input_paths(rows: dict[str, list[dict]], symbol_files: list[Path],
+                data_inputs: list[dict] = ()) -> list[Path]:
     paths = {ROOT / 'config/survey/ledger.tsv', Path(__file__).absolute(),
              ROOT / 'tools/normalize_kmc_wrappers.py',
              ROOT / 'tools/verify_ido_normalized.py',
@@ -108,6 +109,11 @@ def input_paths(rows: dict[str, list[dict]], symbol_files: list[Path]) -> list[P
         if relative_path.is_absolute() or '..' in relative_path.parts:
             raise ValueError(f'invalid source-image input path: {name}')
         paths.add(ROOT / relative_path)
+    for item in data_inputs:
+        name = Path(item['path'])
+        if name.is_absolute() or '..' in name.parts:
+            raise ValueError('invalid data-only input provenance path')
+        paths.add(ROOT / name)
     paths.update(ROOT / 'config' / name for name in rows)
     paths.update(Path(path).absolute() for path in symbol_files)
     sources = {ROOT / row['source'] for group in rows.values() for row in group}
@@ -211,6 +217,63 @@ def source_image_sections(rom: Path, jobs: int, rows: dict[str, list[dict]],
     return added, metadata
 
 
+def initialized_data_sections(rom: Path) -> tuple[list[dict], dict]:
+    """Rebuild typed data-only units, then compare their actual emitted bytes."""
+    import build_initialized_data as initialized
+    config_path = ROOT / 'config/data/units.json'
+    sections = []
+    with tempfile.TemporaryDirectory(prefix='sydney-typed-data-ledger-') as tmp:
+        output = Path(tmp) / 'pieces'
+        provider = initialized.build_data(config_path, output, ROOT, verify_rom=rom)
+        units = {unit['unit_id']: unit for unit in provider['units']}
+        for piece in provider['pieces']:
+            data = (output / piece['file']).read_bytes()
+            if len(data) != piece['size'] or hashlib.sha256(data).hexdigest() != piece['sha256']:
+                raise ValueError('typed initialized-data output changed during collection')
+            unit = units[piece['unit_id']]
+            sections.append({
+                'source': piece['source'], 'pipeline': unit['pipeline'],
+                'manifest': provider['config_path'], 'data_unit_id': piece['unit_id'],
+                'section': piece['section'], 'rom_start': piece['rom_start'],
+                'rom_end': piece['rom_start'] + piece['size'], 'size': piece['size'],
+                'vram_start': piece['vram'], 'sha256': piece['sha256'],
+                'compiler_flags': unit['compiler_flags'], 'symbols': unit['symbols'],
+                'object_sha256': unit['object_sha256'], 'provider': 'typed-initialized-data',
+            })
+    initialized.check_inputs(ROOT, provider['inputs'])
+    metadata = {key: provider[key] for key in (
+        'config_path', 'inputs', 'toolkit_inputs', 'units', 'unique_initialized_bytes',
+        'placement_inference', 'post_build_rom_comparison', 'new_function_bodies')}
+    return sections, metadata
+
+
+
+def rsp_sections(rom: Path) -> tuple[list[dict], dict]:
+    """Rebuild symbolic microcode, postcompare every byte, collect only DMEM data."""
+    import build_rsp as rsp
+    with tempfile.TemporaryDirectory(prefix='sydney-rsp-ledger-') as tmp:
+        output = Path(tmp) / 'pieces'
+        provider = rsp.build_rsp(ROOT / 'config/rsp/units.json', output, ROOT, verify_rom=rom)
+        sections = []
+        for piece in provider['pieces']:
+            if piece['name'] != '.data':
+                continue
+            sections.append({'source': piece['source'], 'pipeline': 'armips-rsp',
+                             'manifest': provider['config_path'], 'rsp_unit_id': piece['unit_id'],
+                             'section': piece['name'], 'rom_start': piece['rom_start'],
+                             'rom_end': piece['rom_start'] + piece['size'], 'size': piece['size'],
+                             'vram_start': piece['storage_vram'], 'sha256': piece['sha256'],
+                             'provider': 'symbolic-rsp-source',
+                             'logical_mappings': piece['logical_mappings']})
+    metadata = {key: provider[key] for key in (
+        'config_path', 'inputs', 'tools', 'assembler_source_recipe', 'dependencies',
+        'target', 'units', 'unique_owned_bytes', 'placement_inference',
+        'post_build_rom_comparison')}
+    metadata['pieces'] = [{k: v for k, v in piece.items() if k != 'file'}
+                          for piece in provider['pieces']]
+    return sections, metadata
+
+
 def generate(rom_path: Path, output: Path, jobs: int) -> dict:
     from n64dk.match import manifest as manifest_module
     from n64dk.match import symbols as symbol_module
@@ -230,7 +293,10 @@ def generate(rom_path: Path, output: Path, jobs: int) -> dict:
     config.include = list(dict.fromkeys([ROOT / path for path in INCLUDE_DIRS] + config.include))
     symbol_files = config.symbols or symbol_module.discover(ROOT)
     symbols = symbol_module.load(symbol_files)
-    inputs = snapshot(input_paths(rows, symbol_files))
+    typed_sections, typed_provider = initialized_data_sections(rom_path)
+    microcode_sections, rsp_provider = rsp_sections(rom_path)
+    provider_inputs = typed_provider['inputs'] + rsp_provider['inputs']
+    inputs = snapshot(input_paths(rows, symbol_files, provider_inputs))
     target = Target.from_rom(Rom.load(rom_path), config.vram_delta)
     if target.delta != ROM_TO_VRAM:
         raise ValueError('unexpected resident image address mapping')
@@ -278,6 +344,8 @@ def generate(rom_path: Path, output: Path, jobs: int) -> dict:
                              'sha256': hashlib.sha256(rom_data[start:end]).hexdigest()})
     additional, source_provider = source_image_sections(rom_path, jobs, rows, sections)
     sections.extend(additional)
+    sections.extend(typed_sections)
+    sections.extend(microcode_sections)
     classification_path, data_ranges = classification()
     compared_ranges = merge_ranges([(row['rom_start'], row['rom_end']) for row in sections])
     matched_ranges = merge_ranges([
@@ -288,7 +356,7 @@ def generate(rom_path: Path, output: Path, jobs: int) -> dict:
     if compared_ranges != matched_ranges:
         raise ValueError('compared initialized section is outside classified data; review classification')
     # Reject a ledger produced while another worker changed any compiler input.
-    if rows != manifest_rows() or inputs != snapshot(input_paths(rows, symbol_files)):
+    if rows != manifest_rows() or inputs != snapshot(input_paths(rows, symbol_files, provider_inputs)):
         raise ValueError('compiler inputs changed during verification; regenerate after edits settle')
     ledger = {
         'version': 1, 'rom_sha1': identity,
@@ -299,8 +367,14 @@ def generate(rom_path: Path, output: Path, jobs: int) -> dict:
                    for start, end in matched_ranges],
         'inputs': inputs,
         'sections': sorted(sections, key=lambda row: (row['rom_start'], row['source'])),
-        'verification': {'units': len(verified), 'exact_units': len(verified)},
+        'verification': {'units': len(verified) + len(typed_provider['units']) + len(rsp_provider['units']),
+                         'exact_units': len(verified) + len(typed_provider['units']) + len(rsp_provider['units']),
+                         'text_units': len(verified),
+                         'data_only_units': len(typed_provider['units']),
+                         'rsp_programs': len(rsp_provider['units'])},
         'source_image_provider': source_provider,
+        'initialized_data_provider': typed_provider,
+        'rsp_provider': rsp_provider,
         'classification': {'path': relative(classification_path),
                            'sha256': sha256(classification_path)},
     }

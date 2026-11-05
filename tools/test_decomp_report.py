@@ -92,6 +92,53 @@ class CoverageTests(unittest.TestCase):
                     with self.assertRaisesRegex(ValueError, 'unverified manifest'):
                         report.load_data_measures(ledger)
 
+    def test_rsp_proof_tracks_symbolic_source_and_separates_dmem(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / 'config/rsp').mkdir(parents=True)
+            (root / 'tools').mkdir()
+            (root / 'tools/build_rsp.py').write_text('producer fixture')
+            units = []
+            frozen = {}
+            for number in range(3):
+                name = f'rsp{number}.s'
+                (root / name).write_text('.rsp')
+                frozen[name] = hashlib.sha256((root / name).read_bytes()).hexdigest()
+                sections = [dict(name='.text', rom_start=0x3000 + number * 4, size=4, sha256='a' * 64)]
+                if number == 0:
+                    sections.append(dict(name='.data', rom_start=0x39000, size=16, sha256='b' * 64))
+                units.append(dict(id=str(number), source=name, sections=sections))
+            config = dict(inputs=frozen, units=units)
+            config_path = root / 'config/rsp/units.json'
+            config_path.write_text(json.dumps(config))
+            for name in ('config/rsp/units.json', 'tools/build_rsp.py'):
+                frozen[name] = hashlib.sha256((root / name).read_bytes()).hexdigest()
+            inputs = [dict(path=name, sha256=value) for name, value in frozen.items()]
+            pieces = [dict(section, unit_id=unit['id'], source=unit['source'])
+                      for unit in units for section in unit['sections']]
+            for piece in pieces:
+                piece['logical_mappings'] = []
+            # Keep exact piece fields in the reviewed configuration too.
+            for unit in units:
+                for section in unit['sections']:
+                    section['logical_mappings'] = []
+            config['inputs'] = {name: value for name, value in frozen.items() if name.startswith('rsp')}
+            config_path.write_text(json.dumps(config))
+            frozen['config/rsp/units.json'] = hashlib.sha256(config_path.read_bytes()).hexdigest()
+            inputs = [dict(path=name, sha256=value) for name, value in frozen.items()]
+            provider = dict(config_path='config/rsp/units.json', target=dict(architecture='rsp'),
+                            post_build_rom_comparison=True, placement_inference=False,
+                            inputs=inputs, pieces=pieces)
+            ledger = root / 'ledger.json'
+            ledger.write_text(json.dumps(dict(inputs=inputs, rsp_provider=provider)))
+            with patch.object(report, 'ROOT', root):
+                ranges, programs = report.load_rsp_proof(ledger)
+                self.assertEqual(len(programs), 3)
+                self.assertEqual(sum(end - start for start, end, _ in ranges), 12)
+                (root / 'rsp1.s').write_text('changed')
+                with self.assertRaisesRegex(ValueError, 'stale RSP'):
+                    report.load_rsp_proof(ledger)
+
     def test_partial_functions_and_global_coverage(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
@@ -120,6 +167,7 @@ functions = [
                  patch.object(report, 'FUNCTIONS', inventory), \
                  patch.object(report, 'MANIFESTS', [manifest]), \
                  patch.object(report, 'OUTPUT', output), \
+                 patch.object(report, 'load_rsp_proof', return_value=([], [])), \
                  contextlib.redirect_stdout(io.StringIO()):
                 report.main()
             result = json.loads(output.read_text())

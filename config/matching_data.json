@@ -1,8 +1,8 @@
 {
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
-  "total_data": 206276,
-  "matched_data": 5820,
+  "total_data": 204164,
+  "matched_data": 7044,
   "ranges": [
     {
       "rom_start": 4904,
@@ -137,6 +137,18 @@
       "sha256": "be62569c07df8fb1c51c0a5acf7c52a7b30a9ba17bcca7d2b641c4da965fea12"
     },
     {
+      "rom_start": 233840,
+      "rom_end": 234896,
+      "size": 1056,
+      "sha256": "34a79826cb38275bc68aa2bc2679383deb5cdc2d7ca7ceff2014c02cecc4c36f"
+    },
+    {
+      "rom_start": 280904,
+      "rom_end": 281072,
+      "size": 168,
+      "sha256": "e3c2af35d1dfc500e16f826a071cc311bf55003a3de77de7ea3376c6b6fa2857"
+    },
+    {
       "rom_start": 422688,
       "rom_end": 423344,
       "size": 656,
@@ -187,12 +199,16 @@
   ],
   "inputs": [
     {
+      "path": "config/data/units.json",
+      "sha256": "ab986189e5d5038d14b6126d69402ebf5148d2fdc2f9a18172a75612843b1c6c"
+    },
+    {
       "path": "config/link_units.json",
-      "sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de"
+      "sha256": "7c4654f6b7c2b08829865f8b711773750767ad1baaf7da0f5b30996420324d6f"
     },
     {
       "path": "config/matching_as.tsv",
-      "sha256": "7c0103205d3bf4ef2734535ad934d783118f815adb6cb09f48a0d1eb99d6754f"
+      "sha256": "f959adae07f5ef87097dddfa47d0b0e83de5ddeb3c80467644063b898ae6937e"
     },
     {
       "path": "config/matching_ido.tsv",
@@ -220,11 +236,19 @@
     },
     {
       "path": "config/matching_sn.tsv",
-      "sha256": "2c154178b05f3ec9a80b80cad52a7f11818e7ebe351458c8ad60e5adf0efb457"
+      "sha256": "390a0358a3b568ea3fc3fc676e376ca61b1ebbc19e921bbefca0f4e894e6bc7e"
     },
     {
       "path": "config/matching_sn_normalized.tsv",
       "sha256": "d2f83f8344f3ed4e7041618a4d9cfa51cb32724516c401b5b37458b025968260"
+    },
+    {
+      "path": "config/rsp/bootstrap_armips.sh",
+      "sha256": "1ec64477b5ae2ddee62fa7a34679f092a387608a72142abaad06e2e534f8302e"
+    },
+    {
+      "path": "config/rsp/units.json",
+      "sha256": "f407dcb8ff7ebe6dac4b23069c9e413002177624f14bf5eaa8df251b565ee294"
     },
     {
       "path": "config/segments.toml",
@@ -232,47 +256,19 @@
     },
     {
       "path": "config/survey/ledger.tsv",
-      "sha256": "07d560bdfd6dbb19392bd628398b7372c55e1dc34381889537b5a3ec656c2587"
+      "sha256": "561cdfed26f9e916adaa9ce91720c3883271593d9afbbab92bb53d452ca4816c"
     },
     {
       "path": "config/survey/symbol_addrs.txt",
-      "sha256": "6e790f5964e9de4e0e5c86236b398244496175579c3911561b702a7f0be4a29c"
-    },
-    {
-      "path": "src/boot/clear_boot_word.s",
-      "sha256": "6087ca0b7ed8741f738a32efdd622c108615da313dad109af51d7693f26ecacf"
+      "sha256": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3"
     },
     {
       "path": "src/boot/entry.s",
       "sha256": "25292d580f2b51369ab8d73a52cf77e6797260bdb0917d8451305b120de3b9dc"
     },
     {
-      "path": "src/boot/prepare_boot_tlb_entries.s",
-      "sha256": "83c88e0915f94da3a16b0a21857fb97fac26483fad61714406ba5222ce981964"
-    },
-    {
-      "path": "src/boot/prepare_boot_tlb_tail.s",
-      "sha256": "e1346c4059fd91444a126d3e158412f554c3f0fab91f818ae82a444f08dc282f"
-    },
-    {
-      "path": "src/boot/setup_boot_tlb_entry.s",
-      "sha256": "538b2c8bd352764ecc32227db9ebbef22c5e99eea7a8ddf4846e4c684c09a337"
-    },
-    {
-      "path": "src/boot/store_boot_byte.s",
-      "sha256": "bf68e7022fc18078a89410476276ced4a018ff42b1aeb16996f74010c8c600e0"
-    },
-    {
-      "path": "src/boot/store_boot_pair.s",
-      "sha256": "791aae57ec25982bbe33d1596e0093ce4b34c76c9e58eff9d1b47ca77b7f06ac"
-    },
-    {
-      "path": "src/boot/store_relocated_boot_word.s",
-      "sha256": "f16be05093b60ac2e836a2b513feff98a8d01deada61cad7d6e1e7240a6b4a1d"
-    },
-    {
-      "path": "src/boot/write_boot_tlb_entry.s",
-      "sha256": "a188c4c40863ef564f79c2486173440fb8472a87ddb515bfd341ba06e3b3d7e4"
+      "path": "src/data/scene_light_state.c",
+      "sha256": "a86b84ccc5e6f0ece0217776fe919fc4647469bf40b8220bbfd7eaaeab6bf622"
     },
     {
       "path": "src/game/add_scaled_values.c",
@@ -349,6 +345,10 @@
     {
       "path": "src/game/build_mesh_display_list.c",
       "sha256": "d9a928d282f2d5de28412ee89471c065062148d3a5e1b5f200144f30046fb239"
+    },
+    {
+      "path": "src/game/build_model_track_records.c",
+      "sha256": "6cb7e48acd0f4285af60d1d8f91445f6b4a5837cac27085ffd2b74e5db7aad77"
     },
     {
       "path": "src/game/build_scaled_model_matrix.c",
@@ -1927,6 +1927,18 @@
       "sha256": "7c0bcf3f13b2a479701cc805470fefedc9033a2fec4705c69fb8ff63ec49908b"
     },
     {
+      "path": "tools/battletanx_ga/rsp/n_aspMain.s",
+      "sha256": "fd389ed4d300fc2fa573c8ccdb89c9d77375513f00febf2436a83e1eb28052d4"
+    },
+    {
+      "path": "tools/battletanx_ga/rsp/rsp_defs.inc",
+      "sha256": "817a4f719d1d7c747ca150b16643881820cfd2af1d33e31edebffd5d7aacd1ea"
+    },
+    {
+      "path": "tools/battletanx_ga/rsp/rspboot.s",
+      "sha256": "535948f75bf728afbce87208b12f649c51992a99d3d4a8e4f0f37f4f93ca81ed"
+    },
+    {
       "path": "tools/battletanx_ga/src/libmus/800FAE70_fenvelope.c",
       "sha256": "8f398de2ff956752f1a2e09f02863cc894673897d8d739ac718f54c521fcf08c"
     },
@@ -2259,12 +2271,80 @@
       "sha256": "208f99a055caefc46b0d6930d73bb70d7c355ecd99f4649e1de60fd7fb1b36d9"
     },
     {
+      "path": "tools/battletanx_ga/tools/bootstrap_armips.sh",
+      "sha256": "d6b7786890809adc4cf76d25674dc0cd80eef625222b06a1ec1d7455b6196b55"
+    },
+    {
+      "path": "tools/build_initialized_data.py",
+      "sha256": "ef038755fab11903269ae18cf615740dfac86ffa2f81506e7804c05bc66c965f"
+    },
+    {
+      "path": "tools/build_rsp.py",
+      "sha256": "50c2564261b019ed6dc3c7639cc81570d896e8351ff2555928a7c397b078fb57"
+    },
+    {
       "path": "tools/build_source_image.py",
       "sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63"
     },
     {
+      "path": "tools/f3dex2/.gitignore",
+      "sha256": "f2dfa15dbc490ef604e3b130efdd457397e5dba217bbd28654a9c13334a0be6b"
+    },
+    {
+      "path": "tools/f3dex2/LICENSE",
+      "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+    },
+    {
+      "path": "tools/f3dex2/Makefile",
+      "sha256": "568cf8690143c6d2c50e1c7fd4e7165e0a287319a4da81a3d4b9f7582e7a8826"
+    },
+    {
+      "path": "tools/f3dex2/PR/R4300.h",
+      "sha256": "bb8a7702ef8dfe94c389f0c411a4f2346c506ea8766e85c332a44486a97b7b44"
+    },
+    {
+      "path": "tools/f3dex2/PR/gbi.h",
+      "sha256": "74d8f61eebd436e772b0198bdf855a8c718eb09069925125a4ec6a10ff7422cf"
+    },
+    {
+      "path": "tools/f3dex2/PR/rcp.h",
+      "sha256": "db21d74c1b4ef4d3eeef7032f5bfd701a10fd68bbcfa5433397421efcb3540fc"
+    },
+    {
+      "path": "tools/f3dex2/PR/sptask.h",
+      "sha256": "12b0a593a7013076fb60cf7224f0bdf25da554076e8b6f2ffe3999769e737dc5"
+    },
+    {
+      "path": "tools/f3dex2/PR/sptaskoff.h",
+      "sha256": "fcace45a479d60f2f2ccab3f1662fc67bbfb86882ea87f18701b1b2355e1912c"
+    },
+    {
+      "path": "tools/f3dex2/PR/ultratypes.h",
+      "sha256": "a3c2e6294b2253acf1e2db15e39eb9a0e58e87008b0f0bb5539c401d81a98240"
+    },
+    {
+      "path": "tools/f3dex2/README.md",
+      "sha256": "b6649bb05b371503a1936877eb61ed6598a14f2e263451aceed35825bdad2c9c"
+    },
+    {
+      "path": "tools/f3dex2/f3dex2.s",
+      "sha256": "a26149e84ce383d22bd4a1f90e125ce89f7bfd41ef9cc6e7d3b97cddf9d92647"
+    },
+    {
+      "path": "tools/f3dex2/gbi_internal.h",
+      "sha256": "af7e12dad4a199da390e8cf93f690a189bd85a448b5ed61eb45d3eaa7345cecc"
+    },
+    {
+      "path": "tools/f3dex2/rsp/rspboot.h",
+      "sha256": "11c50dddc63608a16eea7e78dbf09512bd073b94f34a97cd1af9a974011cb678"
+    },
+    {
+      "path": "tools/f3dex2/ucodes_database.mk",
+      "sha256": "6db0633b2a429e12ba3d281f10107420ac5011dcb77c74d97fef912cc4db8efe"
+    },
+    {
       "path": "tools/generate_data_ledger.py",
-      "sha256": "bb03909acf15038b4a59d20f9164b3733a55cd64169d14397e5d29aa741f0ea1"
+      "sha256": "0740825481497b6c4335b73da8ab6095e45d16c85da0d440d0eb6ce9bacff281"
     },
     {
       "path": "tools/normalize_kmc_wrappers.py",
@@ -4265,6 +4345,51 @@
       "sha256": "c6851b4e3b0d89b2de736074fa8ec03d9c705b3c688370fead97c74d38959ecf"
     },
     {
+      "source": "tools/f3dex2/f3dex2.s",
+      "pipeline": "armips-rsp",
+      "manifest": "config/rsp/units.json",
+      "rsp_unit_id": "f3dex2_2_08_fifo",
+      "section": ".data",
+      "rom_start": 233840,
+      "rom_end": 234896,
+      "size": 1056,
+      "vram_start": 2147714416,
+      "sha256": "34a79826cb38275bc68aa2bc2679383deb5cdc2d7ca7ceff2014c02cecc4c36f",
+      "provider": "symbolic-rsp-source",
+      "logical_mappings": [
+        {
+          "file_offset": 0,
+          "size": 1056,
+          "rsp_address": 0,
+          "memory": "DMEM",
+          "role": "graphics initial data"
+        }
+      ]
+    },
+    {
+      "source": "src/data/scene_light_state.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "scene_light_state",
+      "section": ".data",
+      "rom_start": 280904,
+      "rom_end": 281072,
+      "size": 168,
+      "vram_start": 2147761480,
+      "sha256": "e3c2af35d1dfc500e16f826a071cc311bf55003a3de77de7ea3376c6b6fa2857",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "351a192ab8b32f2bd30ad4b68d8b02214aff28cf2aadd34b5937450a32f9c282",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "tools/battletanx_ga/src/n_audio/80100050_n_env.c",
       "text_rom_start": 140864,
       "manifest": "config/matching_kmc_as.tsv",
@@ -4393,7 +4518,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de",
+      "source_image_plan_sha256": "7c4654f6b7c2b08829865f8b711773750767ad1baaf7da0f5b30996420324d6f",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4506,7 +4631,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de",
+      "source_image_plan_sha256": "7c4654f6b7c2b08829865f8b711773750767ad1baaf7da0f5b30996420324d6f",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4604,16 +4729,19 @@
     }
   ],
   "verification": {
-    "units": 608,
-    "exact_units": 608
+    "units": 605,
+    "exact_units": 605,
+    "text_units": 601,
+    "data_only_units": 1,
+    "rsp_programs": 3
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de",
+    "plan_sha256": "7c4654f6b7c2b08829865f8b711773750767ad1baaf7da0f5b30996420324d6f",
     "build_tool_path": "tools/build_source_image.py",
     "build_tool_sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63",
-    "verified_source_pieces": 671,
-    "owned_resident_bytes": 181884,
+    "verified_source_pieces": 664,
+    "owned_resident_bytes": 184276,
     "added_initialized_sections": 2,
     "placement_inference_during_build": false,
     "post_build_rom_comparison": true,
@@ -4824,8 +4952,544 @@
       }
     ]
   },
+  "initialized_data_provider": {
+    "config_path": "config/data/units.json",
+    "inputs": [
+      {
+        "path": "config/data/units.json",
+        "sha256": "ab986189e5d5038d14b6126d69402ebf5148d2fdc2f9a18172a75612843b1c6c"
+      },
+      {
+        "path": "src/data/scene_light_state.c",
+        "sha256": "a86b84ccc5e6f0ece0217776fe919fc4647469bf40b8220bbfd7eaaeab6bf622"
+      },
+      {
+        "path": "tools/build_initialized_data.py",
+        "sha256": "ef038755fab11903269ae18cf615740dfac86ffa2f81506e7804c05bc66c965f"
+      }
+    ],
+    "toolkit_inputs": [
+      {
+        "path": "@n64dk/__init__.py",
+        "sha256": "d74842f1ba42f280e3df15c7065e955b7e83d71bad088068503217b97f5ebed4"
+      },
+      {
+        "path": "@n64dk/__main__.py",
+        "sha256": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e"
+      },
+      {
+        "path": "@n64dk/analysis/__init__.py",
+        "sha256": "a74ef479fdcbfc86a09aa5073ef0c12fa554c5ad871c26f2b6165e2e5a200e32"
+      },
+      {
+        "path": "@n64dk/analysis/datamap.py",
+        "sha256": "4553dbeea837c7eb606751488d9c3dfe22e2f66520965f0e8bc45dda158e1e9f"
+      },
+      {
+        "path": "@n64dk/analysis/functions.py",
+        "sha256": "498b01c332582116a18a7dcfea2afddae456a36ee9a58bd2d748d5ba81a84b52"
+      },
+      {
+        "path": "@n64dk/assets/__init__.py",
+        "sha256": "3ad7613ccd30dc375092f1bc2843d2c7a542d078bb0db65e398a3da202d80f5c"
+      },
+      {
+        "path": "@n64dk/assets/audio.py",
+        "sha256": "8a933be227c981cf0be2426752230fa7d9bd09831a0129b5a1fa5a3b40bc7158"
+      },
+      {
+        "path": "@n64dk/assets/compress.py",
+        "sha256": "38af90397fbf222672b9484ea6bde19a3a0bdd90915f76d73dce7d407d12f324"
+      },
+      {
+        "path": "@n64dk/assets/gbi.py",
+        "sha256": "d0b6cafaf61293602c4bb4f134024094a62fb40ff6549f9f6e7933ec0e20e70f"
+      },
+      {
+        "path": "@n64dk/assets/loaders.py",
+        "sha256": "8eb432235c4ef67534e5a576af2bd8a594077e8b3fcba5c5fa4f9362d0806a50"
+      },
+      {
+        "path": "@n64dk/assets/texture.py",
+        "sha256": "1322d6e8c090e2abc739f54c86a7d59c79dd41679ee2c88366cb65136362eefa"
+      },
+      {
+        "path": "@n64dk/boot.py",
+        "sha256": "cfb20e11a42e63957efa39df192c27d1460c043ccc27a520b4c58b908f610841"
+      },
+      {
+        "path": "@n64dk/cli.py",
+        "sha256": "e0b22a92a4267c6f388c0e856d379f637063c82cce730bd908960a380fa50a8f"
+      },
+      {
+        "path": "@n64dk/commands/__init__.py",
+        "sha256": "e8557d721cb3cf28083c5a37452c783acd62398d8b315c6ed0b0313ae26216dd"
+      },
+      {
+        "path": "@n64dk/commands/assets_scan.py",
+        "sha256": "7e477ae69bff2abdde547caabc56fddf99a152503fc84ae76eb5ddbefde10e85"
+      },
+      {
+        "path": "@n64dk/commands/audio.py",
+        "sha256": "449149cec290ff111aec19dab1e8c621b57e53cd6357d6f0ceee4670a43e273c"
+      },
+      {
+        "path": "@n64dk/commands/boot_emu.py",
+        "sha256": "5625689f8b9756512de5d1f1f2fb8f292177d7e23c1aae7eaf35f8aada8ddcf8"
+      },
+      {
+        "path": "@n64dk/commands/core.py",
+        "sha256": "02673b4996fd44f28f908347b1dc1f5c3b3cd4b2a767d7567c6cbd1e1406f1a0"
+      },
+      {
+        "path": "@n64dk/commands/datamap.py",
+        "sha256": "86be5c47265e43fbbc1f8ad915328b458cd3986ba348a515df928d5b15b58732"
+      },
+      {
+        "path": "@n64dk/commands/functions.py",
+        "sha256": "724801a8d0af9c8fd055a3cc58bf52dad381f6ad68994ff3b557f27d13dbe204"
+      },
+      {
+        "path": "@n64dk/commands/gfx.py",
+        "sha256": "e340f05f9ea6aa7bc8906606405d0b6243b24e93a9d724d06c62ef7384ae339b"
+      },
+      {
+        "path": "@n64dk/commands/match.py",
+        "sha256": "bc10687be22d11664c474a47828b7f9a8030fa4689edc78b78fc25d7ec24ea41"
+      },
+      {
+        "path": "@n64dk/commands/sdk.py",
+        "sha256": "127b2105bed0659477a8c5cfc893e8610720249f3673ffbfd703e637aa0e5e80"
+      },
+      {
+        "path": "@n64dk/commands/survey.py",
+        "sha256": "ae1a3bc46a2d0f9d272cec57ce2ff5e299297cd2c7ad7eca31723d451a80e4bc"
+      },
+      {
+        "path": "@n64dk/elf.py",
+        "sha256": "da45a0865b2ff6a52019fb6c6843e2b96c43fd7874d87a5b2dfdd288845e5b4a"
+      },
+      {
+        "path": "@n64dk/emu.py",
+        "sha256": "e6c6af5d2d6cfd1ffd7f736ae774ea1a9cecfb0ef67dd7c876b9ca763248fffc"
+      },
+      {
+        "path": "@n64dk/fixtures.py",
+        "sha256": "7670b00f6a1e4406729473a8e76809ff0514b3264dd00438bcf610f9858d84e1"
+      },
+      {
+        "path": "@n64dk/gamecodec.py",
+        "sha256": "a213ef675c971c30839c150475a0da1bbea0cfaf9addecb14bac14125c0cd7a9"
+      },
+      {
+        "path": "@n64dk/image.py",
+        "sha256": "5ef467f86dbca69fd1ac7f5620f0bff8745cc38c0c706f2822da7a06447c0467"
+      },
+      {
+        "path": "@n64dk/ledger.py",
+        "sha256": "ea81c4a85a30f1e4630b8e603bbe89998d7ce376feb89dd8f1acf12af82c3986"
+      },
+      {
+        "path": "@n64dk/match/__init__.py",
+        "sha256": "70f8e41fde00b231e20d7f0ec0d010a5d2fc90534ad115ee070065d459b45400"
+      },
+      {
+        "path": "@n64dk/match/asn64.py",
+        "sha256": "4b8728117313eb0ed7458b4ed3555f5f429147c7110d6352cb4860b08d215ca9"
+      },
+      {
+        "path": "@n64dk/match/compare.py",
+        "sha256": "5b02e46b2ffc16da3fdd9d3ffd262a5d6f9f9e9e53875eac2447a9e02eef206f"
+      },
+      {
+        "path": "@n64dk/match/diff.py",
+        "sha256": "5fd6b08f0733002ae5c76840bb1108d1fc1f9bedc8d51df0d0068e4bbf991d40"
+      },
+      {
+        "path": "@n64dk/match/engine.py",
+        "sha256": "7a17aa5eebf9547e2aade9cbb8a3c5fd036762c2278e15265b4004887a127831"
+      },
+      {
+        "path": "@n64dk/match/manifest.py",
+        "sha256": "529500ba98e583e69b9c9411f86583fee748f4a6111d5ef2bb377de7058af6f8"
+      },
+      {
+        "path": "@n64dk/match/normalize.py",
+        "sha256": "1d99e1a31dada16dad6f168beafeb537eeb66cef2ebb41ad9916a718786a75a0"
+      },
+      {
+        "path": "@n64dk/match/permuter.py",
+        "sha256": "be644e3ffe5cc22767fb7e7df41d4cccd79676ac7e10c606b00a1d2e3aa042f7"
+      },
+      {
+        "path": "@n64dk/match/pipeline.py",
+        "sha256": "b9d953b95db19e1f0179613734ab2c85c61910a2ac132a33c74d6fbfcdefa736"
+      },
+      {
+        "path": "@n64dk/match/symbols.py",
+        "sha256": "536f29cde2e93bc47af7fb8847da608bb8fc2b0d0c25b4ae1651d5d34735869d"
+      },
+      {
+        "path": "@n64dk/match/toolchain.py",
+        "sha256": "db8aef6f67bc1dd1871c5a49aee057ae7c60507bd1a61e93e344225deeb4be55"
+      },
+      {
+        "path": "@n64dk/mips.py",
+        "sha256": "1d930d9ab9266ebacd3fe2db28a269c3a895eb23e69820ce25672df570f0afe0"
+      },
+      {
+        "path": "@n64dk/rom.py",
+        "sha256": "cfa3f49109e8a75d95eec684719258fa29e94ba320adf2f5fd5963f47ef7b76c"
+      },
+      {
+        "path": "@n64dk/sdk/__init__.py",
+        "sha256": "6c7c5a03a916aa43b6ab83b00cd1cee7b0000604ef420db7926dcc7479d6e6ad"
+      },
+      {
+        "path": "@n64dk/sdk/build.py",
+        "sha256": "5ff7b9f7ddb09a27c2e1284664382bd073cf130b8fd8cff7ce1f7a5a91085f2a"
+      },
+      {
+        "path": "@n64dk/sdk/db.py",
+        "sha256": "4f0482123b2eab83585bdba53d03e279cb8627cb5f81ee853ec79eee79cd23b2"
+      },
+      {
+        "path": "@n64dk/sdk/fingerprint.py",
+        "sha256": "f1b7eb657079f41124830113999c5e5f07699a9d315d4be39ff6bd3527092dec"
+      },
+      {
+        "path": "@n64dk/sdk/matcher.py",
+        "sha256": "b78b2297c35552058413a01d21237187bbabdd034345e4205ea31273213ba57c"
+      },
+      {
+        "path": "@n64dk/sdk/signature.py",
+        "sha256": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee"
+      },
+      {
+        "path": "@n64dk/sdk/validate.py",
+        "sha256": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6"
+      },
+      {
+        "path": "@n64dk/survey.py",
+        "sha256": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b"
+      }
+    ],
+    "units": [
+      {
+        "unit_id": "scene_light_state",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/scene_light_state.c",
+        "object_sha256": "351a192ab8b32f2bd30ad4b68d8b02214aff28cf2aadd34b5937450a32f9c282",
+        "symbols": {}
+      }
+    ],
+    "unique_initialized_bytes": 168,
+    "placement_inference": false,
+    "post_build_rom_comparison": true,
+    "new_function_bodies": 0
+  },
+  "rsp_provider": {
+    "config_path": "config/rsp/units.json",
+    "inputs": [
+      {
+        "path": "tools/battletanx_ga/rsp/n_aspMain.s",
+        "sha256": "fd389ed4d300fc2fa573c8ccdb89c9d77375513f00febf2436a83e1eb28052d4"
+      },
+      {
+        "path": "tools/battletanx_ga/rsp/rsp_defs.inc",
+        "sha256": "817a4f719d1d7c747ca150b16643881820cfd2af1d33e31edebffd5d7aacd1ea"
+      },
+      {
+        "path": "tools/battletanx_ga/rsp/rspboot.s",
+        "sha256": "535948f75bf728afbce87208b12f649c51992a99d3d4a8e4f0f37f4f93ca81ed"
+      },
+      {
+        "path": "tools/battletanx_ga/tools/bootstrap_armips.sh",
+        "sha256": "d6b7786890809adc4cf76d25674dc0cd80eef625222b06a1ec1d7455b6196b55"
+      },
+      {
+        "path": "tools/f3dex2/.gitignore",
+        "sha256": "f2dfa15dbc490ef604e3b130efdd457397e5dba217bbd28654a9c13334a0be6b"
+      },
+      {
+        "path": "tools/f3dex2/LICENSE",
+        "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+      },
+      {
+        "path": "tools/f3dex2/Makefile",
+        "sha256": "568cf8690143c6d2c50e1c7fd4e7165e0a287319a4da81a3d4b9f7582e7a8826"
+      },
+      {
+        "path": "tools/f3dex2/PR/R4300.h",
+        "sha256": "bb8a7702ef8dfe94c389f0c411a4f2346c506ea8766e85c332a44486a97b7b44"
+      },
+      {
+        "path": "tools/f3dex2/PR/gbi.h",
+        "sha256": "74d8f61eebd436e772b0198bdf855a8c718eb09069925125a4ec6a10ff7422cf"
+      },
+      {
+        "path": "tools/f3dex2/PR/rcp.h",
+        "sha256": "db21d74c1b4ef4d3eeef7032f5bfd701a10fd68bbcfa5433397421efcb3540fc"
+      },
+      {
+        "path": "tools/f3dex2/PR/sptask.h",
+        "sha256": "12b0a593a7013076fb60cf7224f0bdf25da554076e8b6f2ffe3999769e737dc5"
+      },
+      {
+        "path": "tools/f3dex2/PR/sptaskoff.h",
+        "sha256": "fcace45a479d60f2f2ccab3f1662fc67bbfb86882ea87f18701b1b2355e1912c"
+      },
+      {
+        "path": "tools/f3dex2/PR/ultratypes.h",
+        "sha256": "a3c2e6294b2253acf1e2db15e39eb9a0e58e87008b0f0bb5539c401d81a98240"
+      },
+      {
+        "path": "tools/f3dex2/README.md",
+        "sha256": "b6649bb05b371503a1936877eb61ed6598a14f2e263451aceed35825bdad2c9c"
+      },
+      {
+        "path": "tools/f3dex2/f3dex2.s",
+        "sha256": "a26149e84ce383d22bd4a1f90e125ce89f7bfd41ef9cc6e7d3b97cddf9d92647"
+      },
+      {
+        "path": "tools/f3dex2/gbi_internal.h",
+        "sha256": "af7e12dad4a199da390e8cf93f690a189bd85a448b5ed61eb45d3eaa7345cecc"
+      },
+      {
+        "path": "tools/f3dex2/rsp/rspboot.h",
+        "sha256": "11c50dddc63608a16eea7e78dbf09512bd073b94f34a97cd1af9a974011cb678"
+      },
+      {
+        "path": "tools/f3dex2/ucodes_database.mk",
+        "sha256": "6db0633b2a429e12ba3d281f10107420ac5011dcb77c74d97fef912cc4db8efe"
+      },
+      {
+        "path": "config/rsp/bootstrap_armips.sh",
+        "sha256": "1ec64477b5ae2ddee62fa7a34679f092a387608a72142abaad06e2e534f8302e"
+      },
+      {
+        "path": "config/rsp/units.json",
+        "sha256": "f407dcb8ff7ebe6dac4b23069c9e413002177624f14bf5eaa8df251b565ee294"
+      },
+      {
+        "path": "tools/build_rsp.py",
+        "sha256": "50c2564261b019ed6dc3c7639cc81570d896e8351ff2555928a7c397b078fb57"
+      }
+    ],
+    "tools": [
+      {
+        "path": "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
+        "sha256": "b7edc9f0e98afbdcf48b9ac69c5b03f2cfcb560643e268e4ffea96cb95fc1d59",
+        "role": "armips"
+      },
+      {
+        "path": "/usr/bin/make",
+        "sha256": "d78b8f1d099fbcfb6f2f49ab87223b9b68fb3956642f92d6ec6de812e8afa965",
+        "role": "make"
+      },
+      {
+        "path": "/usr/bin/x86_64-linux-gnu-cpp-13",
+        "sha256": "c48f8b1b5ab757134970d17bc2ecd889df0d1245463036e834ab9be9d5e40765",
+        "role": "cpp"
+      }
+    ],
+    "assembler_source_recipe": {
+      "project": "https://github.com/Kingcom/armips",
+      "commit": "62adab4ef30da765f5cf22a451eb08a59c54dc8b",
+      "source_archive_sha256": "f7a65102febb4811a336a06e6d93c7e84cc86548182d54e1b1b4e2bffe562f56",
+      "filesystem_commit": "3f1c185ab414e764c694b8171d1c4d8c5c437517",
+      "filesystem_archive_sha256": "cc1c5439d29031477868bdea25b68b4210dc8ed018bb63a65e708afe405db4e1",
+      "build_flags": [
+        "-DCMAKE_BUILD_TYPE=Release",
+        "-DWITH_TESTS=OFF"
+      ],
+      "bootstrap_recipe": "config/rsp/bootstrap_armips.sh",
+      "binary_policy": "ARMIPS executable supplied separately; its actual SHA256 is recorded, not inferred from the source pin."
+    },
+    "dependencies": [
+      {
+        "path": "tools/f3dex2",
+        "url": "https://github.com/Mr-Wiseguy/f3dex2.git",
+        "commit": "bd31393fd02b89e024b043c8c50c9a5a10143fb6"
+      }
+    ],
+    "target": {
+      "architecture": "rsp",
+      "scalar_bits": 32,
+      "byte_order": "big",
+      "vector_coprocessor": "RSP COP2",
+      "cpu_abi": null
+    },
+    "units": [
+      {
+        "unit_id": "rspboot",
+        "source": "tools/battletanx_ga/rsp/rspboot.s",
+        "recipe": "rspboot_align16",
+        "argv": [
+          "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
+          "-strequ",
+          "CODE_FILE",
+          "/tmp/sydney-rsp-2110i_3c/rspboot/code.bin",
+          "-sym2",
+          "/tmp/sydney-rsp-2110i_3c/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-2110i_3c/rspboot/rspboot_aligned.s"
+        ],
+        "assembler_log": "",
+        "alignment_transform": ".close -> .align 16; .close"
+      },
+      {
+        "unit_id": "f3dex2_2_08_fifo",
+        "source": "tools/f3dex2/f3dex2.s",
+        "recipe": "f3dex2_make",
+        "argv": [
+          "make",
+          "-s",
+          "-C",
+          "/home/steve/projects/Sydney2000/tools/f3dex2",
+          "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
+          "BUILD_DIR=/tmp/sydney-rsp-2110i_3c/f3dex2_2_08_fifo",
+          "F3DEX2_2.08"
+        ],
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-2110i_3c/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "alignment_transform": null
+      },
+      {
+        "unit_id": "n_asp_main",
+        "source": "tools/battletanx_ga/rsp/n_aspMain.s",
+        "recipe": "armips",
+        "argv": [
+          "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
+          "-strequ",
+          "CODE_FILE",
+          "/tmp/sydney-rsp-2110i_3c/n_asp_main/code.bin",
+          "-sym2",
+          "/tmp/sydney-rsp-2110i_3c/n_asp_main/symbols.txt",
+          "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
+        ],
+        "assembler_log": "",
+        "alignment_transform": null
+      }
+    ],
+    "unique_owned_bytes": 9440,
+    "placement_inference": false,
+    "post_build_rom_comparison": true,
+    "pieces": [
+      {
+        "name": ".text",
+        "rom_start": 11968,
+        "size": 208,
+        "storage_vram": 2147492544,
+        "sha256": "5759e9bb21f2e504bfbb3e5b75173cb81aa50c60b19e77bcee1d0f6fc34e8fa4",
+        "logical_mappings": [
+          {
+            "file_offset": 0,
+            "size": 208,
+            "rsp_address": 4096,
+            "memory": "IMEM",
+            "role": "boot instructions plus source alignment"
+          }
+        ],
+        "instruction_bytes": 204,
+        "alignment_bytes": 4,
+        "unit_id": "rspboot",
+        "source": "tools/battletanx_ga/rsp/rspboot.s"
+      },
+      {
+        "name": ".text",
+        "rom_start": 12176,
+        "size": 5008,
+        "storage_vram": 2147492752,
+        "sha256": "f220ae92941dfe08f2e2eaa1a45b4291314787bb4e1179e370293f603fc66c68",
+        "logical_mappings": [
+          {
+            "file_offset": 0,
+            "size": 3968,
+            "rsp_address": 4224,
+            "memory": "IMEM",
+            "role": "initial task DMA including overlay 3"
+          },
+          {
+            "file_offset": 3968,
+            "size": 152,
+            "rsp_address": 4096,
+            "memory": "IMEM",
+            "role": "overlay 0"
+          },
+          {
+            "file_offset": 4120,
+            "size": 368,
+            "rsp_address": 4096,
+            "memory": "IMEM",
+            "role": "overlay 1"
+          },
+          {
+            "file_offset": 4488,
+            "size": 520,
+            "rsp_address": 4824,
+            "memory": "IMEM",
+            "role": "overlay 2"
+          },
+          {
+            "file_offset": 600,
+            "size": 544,
+            "rsp_address": 4824,
+            "memory": "IMEM",
+            "role": "overlay 3 embedded in initial DMA"
+          }
+        ],
+        "unit_id": "f3dex2_2_08_fifo",
+        "source": "tools/f3dex2/f3dex2.s"
+      },
+      {
+        "name": ".data",
+        "rom_start": 233840,
+        "size": 1056,
+        "storage_vram": 2147714416,
+        "sha256": "34a79826cb38275bc68aa2bc2679383deb5cdc2d7ca7ceff2014c02cecc4c36f",
+        "logical_mappings": [
+          {
+            "file_offset": 0,
+            "size": 1056,
+            "rsp_address": 0,
+            "memory": "DMEM",
+            "role": "graphics initial data"
+          }
+        ],
+        "unit_id": "f3dex2_2_08_fifo",
+        "source": "tools/f3dex2/f3dex2.s"
+      },
+      {
+        "name": ".text",
+        "rom_start": 17184,
+        "size": 3168,
+        "storage_vram": 2147497760,
+        "sha256": "7e5932658e7f965a47b9dac8ec05b405e9ac18c26d39daddb852418f66613ba4",
+        "logical_mappings": [
+          {
+            "file_offset": 0,
+            "size": 3168,
+            "rsp_address": 4224,
+            "memory": "IMEM",
+            "role": "audio task"
+          }
+        ],
+        "instruction_bytes": 3156,
+        "alignment_bytes": 12,
+        "unit_id": "n_asp_main",
+        "source": "tools/battletanx_ga/rsp/n_aspMain.s"
+      }
+    ]
+  },
   "classification": {
     "path": "config/survey/ledger.tsv",
-    "sha256": "07d560bdfd6dbb19392bd628398b7372c55e1dc34381889537b5a3ec656c2587"
+    "sha256": "561cdfed26f9e916adaa9ce91720c3883271593d9afbbab92bb53d452ca4816c"
   }
 }
