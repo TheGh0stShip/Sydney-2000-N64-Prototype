@@ -227,13 +227,13 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 3,338,710 bytes; 30,215,722 bytes remain unowned.
+The current partial owns 3,339,130 bytes; 30,215,302 bytes remain unowned.
 The generated gap ledger records all 98 uncovered intervals. The startup-runtime
 provider contributes 27,600 exact bytes from 157 matching compilation units;
 the remainder of that mixed code/data image is still explicitly unowned.
 The ceremony bank is split at ROM `0x6DF40`: the ceremony unit uses delta
 `0x80007924`, while the mutually exclusive closing unit uses delta `0x80002554`.
-Together they currently contribute fifteen exact source functions (2,912 bytes).
+Together they currently contribute sixteen exact source functions (3,332 bytes).
 The closing unit also rebuilds its final 1,528-byte tables, constants, strings,
 and callback records as initialized source data; remaining functions and other
 overlay data stay explicitly unowned.
