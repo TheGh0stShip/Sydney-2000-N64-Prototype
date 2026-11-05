@@ -2185,3 +2185,4 @@
 0xfe380	0x58	src/overlays/event_bank_func_800FE380.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	814282f872befc2778f7f165cf76246fdc31316f2bae3e41f5003cd5e53089f1
 0xa0fb4	0x58	src/overlays/event_bank_func_800A0FB4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	8d3ae813820b5ad9aa9bc46735d218bf07de0db077336104ba7f83269222c59a
 0xa100c	0x8	src/overlays/event_bank_noop_800A100C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xb636c	0x38	src/overlays/event_bank_func_800B636C.c	--symbol=D_80077660:0x80077660 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ca14abb72e9d59d10b1c781d3edbb224e847643c5c01ad132d10877d971dad1e
