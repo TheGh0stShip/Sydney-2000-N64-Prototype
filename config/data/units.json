@@ -19,9 +19,108 @@
       "rom_start": 450368,
       "rom_end": 460800,
       "vram_delta": 2147493204
+    },
+    {
+      "id": "event_bank",
+      "rom_start": 460800,
+      "rom_end": 1209920,
+      "vram_delta": 2147483648
+    },
+    {
+      "id": "runtime",
+      "rom_start": 1209920,
+      "rom_end": 1718960,
+      "vram_delta": 2146813712
     }
   ],
   "units": [
+    {
+      "id": "runtime_global_tables",
+      "source": "src/data/runtime_global_tables.c",
+      "inputs": {
+        "src/data/runtime_global_tables.c": "3ca380a5bbdcebded47c34621ed9f1be84f7563f0564873d3500e1439aada3d1"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1656656,
+          "vram": 2148470368,
+          "size": 62304,
+          "sha256": "abf06f21faa649544b41b1b073744000dbfecf8393c12bf4ed538b1fc05976fb"
+        }
+      ]
+    },
+    {
+      "id": "runtime_tables_80086764",
+      "source": "src/data/runtime_tables_80086764.c",
+      "inputs": {
+        "src/data/runtime_tables_80086764.c": "9a8b52493aec6c480e5f63a1e304bcff084ba122967ccd426449aea6e1db9688"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1220692,
+          "vram": 2148034404,
+          "size": 14204,
+          "sha256": "0513d8f272d22691a3843e5fd40634b6f011a3e706acd3bbe79754f4775d19a1"
+        }
+      ]
+    },
+    {
+      "id": "runtime_tables_8008AB20",
+      "source": "src/data/runtime_tables_8008AB20.c",
+      "inputs": {"src/data/runtime_tables_8008AB20.c": "ae2a9c5c1e884bb1c906ce7c45cb93ad4522c13b1434dba4a8ac3675d881a57c"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [], "symbols": {},
+      "sections": [{"name": ".data", "segment": "runtime", "rom_start": 1238032, "vram": 2148051744, "size": 8488, "sha256": "b71c6fb817d57326d36f706031df299b01c49890a22c6f38a0bd6db16411b855"}]
+    },
+    {
+      "id": "event_tables_8010B15C",
+      "source": "src/data/event_tables_8010B15C.c",
+      "inputs": {"src/data/event_tables_8010B15C.c": "9e44e94a2b37390977cad4d79190c79aa355d48505d6207f579adb8cdbbf6daf"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [], "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1093980, "vram": 2148577628, "size": 8020, "sha256": "f940528a03d93d9dcde38f5a52f95c3eda52ff08cb62e49dfd4438418a958747"}]
+    },
+    {
+      "id": "event_tables_8011A310",
+      "source": "src/data/event_tables_8011A310.c",
+      "inputs": {"src/data/event_tables_8011A310.c": "05f23f4ec2098456370bc023c7f7b375d8bfd3b0ac3b678c55ab79b225f60e83"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [], "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1155856, "vram": 2148639504, "size": 6664, "sha256": "ae8c8d6b7531593b9b97c2bb7c2316c1200336391b5b0c4a6a35e919d7d7949d"}]
+    },
+    {
+      "id": "event_tables_80120B38",
+      "source": "src/data/event_tables_80120B38.c",
+      "inputs": {"src/data/event_tables_80120B38.c": "584934f8ec976b4d10ab8d02ecd5df5b6cb7614759f6fca52ca0821bafa96303"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [], "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1182520, "vram": 2148666168, "size": 5912, "sha256": "33ab434ae5867abd7b2011947191fda21a104e743d354abf6c1c4f6a5d021da5"}]
+    },
+    {
+      "id": "event_tables_8011559C",
+      "source": "src/data/event_tables_8011559C.c",
+      "inputs": {"src/data/event_tables_8011559C.c": "bade0b12fc708edc46d9d3cc31603ab08a0f7f990e9ec1935124c0ea51833759"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [], "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1136028, "vram": 2148619676, "size": 5492, "sha256": "e397e53234bf6a25daebff70f323bad4562d73bc1f216c1040db97f54dbdc3e8"}]
+    },
     {
       "id": "closing_overlay_data",
       "source": "src/data/closing_overlay_data.c",

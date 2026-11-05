@@ -314,6 +314,10 @@ def load_initialized(evidence, artifact, data_intervals):
                      'rom_end': RESIDENT_END, 'vram_delta': RESIDENT_DELTA},
         'closing': {'id': 'closing', 'rom_start': 0x6DF40,
                     'rom_end': 0x70800, 'vram_delta': 0x80002554},
+        'event_bank': {'id': 'event_bank', 'rom_start': 0x70800,
+                       'rom_end': RUNTIME_START, 'vram_delta': 0x80000000},
+        'runtime': {'id': 'runtime', 'rom_start': RUNTIME_START,
+                    'rom_end': RUNTIME_END, 'vram_delta': RUNTIME_DELTA},
     }
     if segment_maps != approved_maps:
         raise ValueError('typed-data segment maps changed')

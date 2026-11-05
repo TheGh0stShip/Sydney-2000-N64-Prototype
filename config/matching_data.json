@@ -1,8 +1,8 @@
 {
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
-  "total_data": 206160,
-  "matched_data": 206160,
+  "total_data": 317244,
+  "matched_data": 317244,
   "ranges": [
     {
       "rom_start": 4156,
@@ -33,12 +33,54 @@
       "rom_end": 460800,
       "size": 1528,
       "sha256": "b276737a1ffda29b013c15710547071fed6199325206b4eb4373f00bc3319478"
+    },
+    {
+      "rom_start": 1093980,
+      "rom_end": 1102000,
+      "size": 8020,
+      "sha256": "f940528a03d93d9dcde38f5a52f95c3eda52ff08cb62e49dfd4438418a958747"
+    },
+    {
+      "rom_start": 1136028,
+      "rom_end": 1141520,
+      "size": 5492,
+      "sha256": "e397e53234bf6a25daebff70f323bad4562d73bc1f216c1040db97f54dbdc3e8"
+    },
+    {
+      "rom_start": 1155856,
+      "rom_end": 1162520,
+      "size": 6664,
+      "sha256": "ae8c8d6b7531593b9b97c2bb7c2316c1200336391b5b0c4a6a35e919d7d7949d"
+    },
+    {
+      "rom_start": 1182520,
+      "rom_end": 1188432,
+      "size": 5912,
+      "sha256": "33ab434ae5867abd7b2011947191fda21a104e743d354abf6c1c4f6a5d021da5"
+    },
+    {
+      "rom_start": 1220692,
+      "rom_end": 1234896,
+      "size": 14204,
+      "sha256": "0513d8f272d22691a3843e5fd40634b6f011a3e706acd3bbe79754f4775d19a1"
+    },
+    {
+      "rom_start": 1238032,
+      "rom_end": 1246520,
+      "size": 8488,
+      "sha256": "b71c6fb817d57326d36f706031df299b01c49890a22c6f38a0bd6db16411b855"
+    },
+    {
+      "rom_start": 1656656,
+      "rom_end": 1718960,
+      "size": 62304,
+      "sha256": "abf06f21faa649544b41b1b073744000dbfecf8393c12bf4ed538b1fc05976fb"
     }
   ],
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "97ebe8f4873b385095895349ad41643bb05233ac96b9b2bff306361967344dc0"
+      "sha256": "1ed173231979abc5518479b2075b3e2d9c6c6c1d5a0b1ec52569fa7054544972"
     },
     {
       "path": "config/link_units.json",
@@ -121,6 +163,22 @@
       "sha256": "9a7323ead62bc5c1af966e78de518477495d62f488a569090db31a9e7216fb7e"
     },
     {
+      "path": "src/data/event_tables_8010B15C.c",
+      "sha256": "9e44e94a2b37390977cad4d79190c79aa355d48505d6207f579adb8cdbbf6daf"
+    },
+    {
+      "path": "src/data/event_tables_8011559C.c",
+      "sha256": "bade0b12fc708edc46d9d3cc31603ab08a0f7f990e9ec1935124c0ea51833759"
+    },
+    {
+      "path": "src/data/event_tables_8011A310.c",
+      "sha256": "05f23f4ec2098456370bc023c7f7b375d8bfd3b0ac3b678c55ab79b225f60e83"
+    },
+    {
+      "path": "src/data/event_tables_80120B38.c",
+      "sha256": "584934f8ec976b4d10ab8d02ecd5df5b6cb7614759f6fca52ca0821bafa96303"
+    },
+    {
       "path": "src/data/gsm_rpe_coefficients.c",
       "sha256": "93a6e5b0e42e1003aff31f5c83b30b2852e8a206d346c036e44ea185a9ef2af5"
     },
@@ -143,6 +201,18 @@
     {
       "path": "src/data/resident_zero_extents.c",
       "sha256": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+    },
+    {
+      "path": "src/data/runtime_global_tables.c",
+      "sha256": "3ca380a5bbdcebded47c34621ed9f1be84f7563f0564873d3500e1439aada3d1"
+    },
+    {
+      "path": "src/data/runtime_tables_80086764.c",
+      "sha256": "9a8b52493aec6c480e5f63a1e304bcff084ba122967ccd426449aea6e1db9688"
+    },
+    {
+      "path": "src/data/runtime_tables_8008AB20.c",
+      "sha256": "ae2a9c5c1e884bb1c906ce7c45cb93ad4522c13b1434dba4a8ac3675d881a57c"
     },
     {
       "path": "src/data/scene_light_state.c",
@@ -2302,7 +2372,7 @@
     },
     {
       "path": "tools/generate_data_ledger.py",
-      "sha256": "0740825481497b6c4335b73da8ab6095e45d16c85da0d440d0eb6ce9bacff281"
+      "sha256": "1f2962b64d879748b1538e3a1f9a4582bcb289ded82e13f040872af97125d1e8"
     },
     {
       "path": "tools/normalize_kmc_wrappers.py",
@@ -3634,7 +3704,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "4c865a4392eb5de6d1440ce9f26ddd221ba64c24fc39c95f6a3f83ab06e164ee",
+      "object_sha256": "10feb20e980bbad1bba852bae61ced9bdbb10369994dd20bdb0c42c4bd1460ab",
       "provider": "typed-initialized-data"
     },
     {
@@ -4473,7 +4543,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "6b9f0787d60389690dfe452de1b0c241059ea380fb58453f2085fb7d3896f7cd",
+      "object_sha256": "0d48515b596fbe04c34cd965bd9a620447cefcea97d098a9165f3be6a6195706",
       "provider": "typed-initialized-data"
     },
     {
@@ -4496,7 +4566,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "232c964f40c85976b8c42feea5fe572feb6d8cc1428f1f67ef191cf36fa1691d",
+      "object_sha256": "34c70f92923a6c731f159727bd1b2abeacb3c24d19e67063f22c032986960f40",
       "provider": "typed-initialized-data"
     },
     {
@@ -4519,7 +4589,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "f6bf518bbd8ecc3d329825f6166a252a274c5c784e09632db91037a44d5d1891",
+      "object_sha256": "759dd8ec2a2e6858ca8d0416c4c0e45f5af16d2a8b46e8c02634be3d60231e3f",
       "provider": "typed-initialized-data"
     },
     {
@@ -4630,7 +4700,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "4de5f80f3e79b46b1445f83f6d76ba8db4d899f56185cfb5d002cc07302e326f",
+      "object_sha256": "90daa3cfbd53045467fdf368bc0d1a2577dcf4103dda962ce2798a6b7a0018c5",
       "provider": "typed-initialized-data"
     },
     {
@@ -4807,7 +4877,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "25042de2bc1d26dec2ebc8ffd8aa138fd77a287f9a3e4b9a3ba91dfc6a1cf6bf",
+      "object_sha256": "65ad6637aaec84805754fd33a1c540fe97871ec4f561b0dd21f16092ecb1c6a4",
       "provider": "typed-initialized-data"
     },
     {
@@ -5270,7 +5340,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "bf67610c28a310dca5e6705e6a2ee600f1edcec9be5a318d9072c1711b176562",
+      "object_sha256": "e79f3be2570e42ccace274d3ee7a054a3b5e60a00e33f8efe126cce3371e7fc1",
       "provider": "typed-initialized-data"
     },
     {
@@ -5631,15 +5701,176 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "d32f51efc5a2c6502a28a9965453894e94ab36dafca42adbec81a112727c7f7c",
+      "object_sha256": "a8a36874d8d4cc68d650bc0f8f778c6f3e1b9d41718326ec60649a2706e42065",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_tables_8010B15C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_tables_8010B15C",
+      "section": ".data",
+      "rom_start": 1093980,
+      "rom_end": 1102000,
+      "size": 8020,
+      "vram_start": 2148577628,
+      "sha256": "f940528a03d93d9dcde38f5a52f95c3eda52ff08cb62e49dfd4438418a958747",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "c10f754b7a931fc4da4fedcfef21712a6ff40ebdab482380a6bee39d64c83ad7",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_tables_8011559C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_tables_8011559C",
+      "section": ".data",
+      "rom_start": 1136028,
+      "rom_end": 1141520,
+      "size": 5492,
+      "vram_start": 2148619676,
+      "sha256": "e397e53234bf6a25daebff70f323bad4562d73bc1f216c1040db97f54dbdc3e8",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "97e8a34d876177223af466e1dd8e9166501a6885ee40e146a4cba3b08798c0cc",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_tables_8011A310.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_tables_8011A310",
+      "section": ".data",
+      "rom_start": 1155856,
+      "rom_end": 1162520,
+      "size": 6664,
+      "vram_start": 2148639504,
+      "sha256": "ae8c8d6b7531593b9b97c2bb7c2316c1200336391b5b0c4a6a35e919d7d7949d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "d6bcce396435b0f885461cf05237dc9ffbbf5324c5d8275802cb1952e2e6e543",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_tables_80120B38.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_tables_80120B38",
+      "section": ".data",
+      "rom_start": 1182520,
+      "rom_end": 1188432,
+      "size": 5912,
+      "vram_start": 2148666168,
+      "sha256": "33ab434ae5867abd7b2011947191fda21a104e743d354abf6c1c4f6a5d021da5",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "34bf1d2e64497167f39f35f717e4e5b505b203f265d71534d7d4ebe5d2c951f3",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_tables_80086764.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_tables_80086764",
+      "section": ".data",
+      "rom_start": 1220692,
+      "rom_end": 1234896,
+      "size": 14204,
+      "vram_start": 2148034404,
+      "sha256": "0513d8f272d22691a3843e5fd40634b6f011a3e706acd3bbe79754f4775d19a1",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "dcf3e9c33545836bf7dc9701c0722f6bbf557f95e14c39bac179ac7c1b201662",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_tables_8008AB20.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_tables_8008AB20",
+      "section": ".data",
+      "rom_start": 1238032,
+      "rom_end": 1246520,
+      "size": 8488,
+      "vram_start": 2148051744,
+      "sha256": "b71c6fb817d57326d36f706031df299b01c49890a22c6f38a0bd6db16411b855",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "0e743a82ab78806fae4cf2a873e9d4179245c1a37626fbecaa030ceed4d4f553",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_global_tables.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_global_tables",
+      "section": ".data",
+      "rom_start": 1656656,
+      "rom_end": 1718960,
+      "size": 62304,
+      "vram_start": 2148470368,
+      "sha256": "abf06f21faa649544b41b1b073744000dbfecf8393c12bf4ed538b1fc05976fb",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "83e7eca9dd50a0340a03562d7e89601cf3fd8148b92dee7f6d7b7ccd02e79981",
       "provider": "typed-initialized-data"
     }
   ],
   "verification": {
-    "units": 664,
-    "exact_units": 664,
+    "units": 671,
+    "exact_units": 671,
     "text_units": 651,
-    "data_only_units": 10,
+    "data_only_units": 17,
     "rsp_programs": 3
   },
   "source_image_provider": {
@@ -5864,7 +6095,7 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "97ebe8f4873b385095895349ad41643bb05233ac96b9b2bff306361967344dc0"
+        "sha256": "1ed173231979abc5518479b2075b3e2d9c6c6c1d5a0b1ec52569fa7054544972"
       },
       {
         "path": "src/data/audio_delay_coefficients.c",
@@ -5873,6 +6104,22 @@
       {
         "path": "src/data/closing_overlay_data.c",
         "sha256": "9a7323ead62bc5c1af966e78de518477495d62f488a569090db31a9e7216fb7e"
+      },
+      {
+        "path": "src/data/event_tables_8010B15C.c",
+        "sha256": "9e44e94a2b37390977cad4d79190c79aa355d48505d6207f579adb8cdbbf6daf"
+      },
+      {
+        "path": "src/data/event_tables_8011559C.c",
+        "sha256": "bade0b12fc708edc46d9d3cc31603ab08a0f7f990e9ec1935124c0ea51833759"
+      },
+      {
+        "path": "src/data/event_tables_8011A310.c",
+        "sha256": "05f23f4ec2098456370bc023c7f7b375d8bfd3b0ac3b678c55ab79b225f60e83"
+      },
+      {
+        "path": "src/data/event_tables_80120B38.c",
+        "sha256": "584934f8ec976b4d10ab8d02ecd5df5b6cb7614759f6fca52ca0821bafa96303"
       },
       {
         "path": "src/data/gsm_rpe_coefficients.c",
@@ -5897,6 +6144,18 @@
       {
         "path": "src/data/resident_zero_extents.c",
         "sha256": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+      },
+      {
+        "path": "src/data/runtime_global_tables.c",
+        "sha256": "3ca380a5bbdcebded47c34621ed9f1be84f7563f0564873d3500e1439aada3d1"
+      },
+      {
+        "path": "src/data/runtime_tables_80086764.c",
+        "sha256": "9a8b52493aec6c480e5f63a1e304bcff084ba122967ccd426449aea6e1db9688"
+      },
+      {
+        "path": "src/data/runtime_tables_8008AB20.c",
+        "sha256": "ae2a9c5c1e884bb1c906ce7c45cb93ad4522c13b1434dba4a8ac3675d881a57c"
       },
       {
         "path": "src/data/scene_light_state.c",
@@ -6119,6 +6378,111 @@
     ],
     "units": [
       {
+        "unit_id": "runtime_global_tables",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_global_tables.c",
+        "object_sha256": "83e7eca9dd50a0340a03562d7e89601cf3fd8148b92dee7f6d7b7ccd02e79981",
+        "symbols": {}
+      },
+      {
+        "unit_id": "runtime_tables_80086764",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_tables_80086764.c",
+        "object_sha256": "dcf3e9c33545836bf7dc9701c0722f6bbf557f95e14c39bac179ac7c1b201662",
+        "symbols": {}
+      },
+      {
+        "unit_id": "runtime_tables_8008AB20",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_tables_8008AB20.c",
+        "object_sha256": "0e743a82ab78806fae4cf2a873e9d4179245c1a37626fbecaa030ceed4d4f553",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_tables_8010B15C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_tables_8010B15C.c",
+        "object_sha256": "c10f754b7a931fc4da4fedcfef21712a6ff40ebdab482380a6bee39d64c83ad7",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_tables_8011A310",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_tables_8011A310.c",
+        "object_sha256": "d6bcce396435b0f885461cf05237dc9ffbbf5324c5d8275802cb1952e2e6e543",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_tables_80120B38",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_tables_80120B38.c",
+        "object_sha256": "34bf1d2e64497167f39f35f717e4e5b505b203f265d71534d7d4ebe5d2c951f3",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_tables_8011559C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_tables_8011559C.c",
+        "object_sha256": "97e8a34d876177223af466e1dd8e9166501a6885ee40e146a4cba3b08798c0cc",
+        "symbols": {}
+      },
+      {
         "unit_id": "closing_overlay_data",
         "pipeline": "sn",
         "compiler_flags": [
@@ -6130,7 +6494,7 @@
           "-meb"
         ],
         "source": "src/data/closing_overlay_data.c",
-        "object_sha256": "d32f51efc5a2c6502a28a9965453894e94ab36dafca42adbec81a112727c7f7c",
+        "object_sha256": "a8a36874d8d4cc68d650bc0f8f778c6f3e1b9d41718326ec60649a2706e42065",
         "symbols": {}
       },
       {
@@ -6145,7 +6509,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "4c865a4392eb5de6d1440ce9f26ddd221ba64c24fc39c95f6a3f83ab06e164ee",
+        "object_sha256": "10feb20e980bbad1bba852bae61ced9bdbb10369994dd20bdb0c42c4bd1460ab",
         "symbols": {}
       },
       {
@@ -6160,7 +6524,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "232c964f40c85976b8c42feea5fe572feb6d8cc1428f1f67ef191cf36fa1691d",
+        "object_sha256": "34c70f92923a6c731f159727bd1b2abeacb3c24d19e67063f22c032986960f40",
         "symbols": {}
       },
       {
@@ -6175,7 +6539,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "f6bf518bbd8ecc3d329825f6166a252a274c5c784e09632db91037a44d5d1891",
+        "object_sha256": "759dd8ec2a2e6858ca8d0416c4c0e45f5af16d2a8b46e8c02634be3d60231e3f",
         "symbols": {}
       },
       {
@@ -6190,7 +6554,7 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "25042de2bc1d26dec2ebc8ffd8aa138fd77a287f9a3e4b9a3ba91dfc6a1cf6bf",
+        "object_sha256": "65ad6637aaec84805754fd33a1c540fe97871ec4f561b0dd21f16092ecb1c6a4",
         "symbols": {}
       },
       {
@@ -6219,7 +6583,7 @@
           "-meb"
         ],
         "source": "src/data/resident_tail_data.c",
-        "object_sha256": "bf67610c28a310dca5e6705e6a2ee600f1edcec9be5a318d9072c1711b176562",
+        "object_sha256": "e79f3be2570e42ccace274d3ee7a054a3b5e60a00e33f8efe126cce3371e7fc1",
         "symbols": {}
       },
       {
@@ -6248,7 +6612,7 @@
           "-meb"
         ],
         "source": "src/data/gsm_rpe_coefficients.c",
-        "object_sha256": "6b9f0787d60389690dfe452de1b0c241059ea380fb58453f2085fb7d3896f7cd",
+        "object_sha256": "0d48515b596fbe04c34cd965bd9a620447cefcea97d098a9165f3be6a6195706",
         "symbols": {}
       },
       {
@@ -6263,11 +6627,11 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "4de5f80f3e79b46b1445f83f6d76ba8db4d899f56185cfb5d002cc07302e326f",
+        "object_sha256": "90daa3cfbd53045467fdf368bc0d1a2577dcf4103dda962ce2798a6b7a0018c5",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 206160,
+    "unique_initialized_bytes": 317244,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -6413,10 +6777,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-00dyzmtn/rspboot/code.bin",
+          "/tmp/sydney-rsp-qijzlcfg/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-00dyzmtn/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-00dyzmtn/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-qijzlcfg/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-qijzlcfg/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -6431,10 +6795,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-00dyzmtn/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-qijzlcfg/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-00dyzmtn/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-qijzlcfg/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -6445,9 +6809,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-00dyzmtn/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-qijzlcfg/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-00dyzmtn/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-qijzlcfg/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",

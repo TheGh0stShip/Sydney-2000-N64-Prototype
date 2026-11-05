@@ -347,6 +347,13 @@ def generate(rom_path: Path, output: Path, jobs: int) -> dict:
     sections.extend(typed_sections)
     sections.extend(microcode_sections)
     classification_path, data_ranges = classification()
+    # Reviewed, compiler-built data units refine coarse survey regions that were
+    # previously only classified as loader-referenced or unknown. Their explicit
+    # ROM/VRAM placement and post-link ROM comparison are stronger evidence than
+    # the older region-wide survey label, so include those exact extents only.
+    data_ranges = merge_ranges(data_ranges + [
+        (section['rom_start'], section['rom_end']) for section in typed_sections
+    ])
     compared_ranges = merge_ranges([(row['rom_start'], row['rom_end']) for row in sections])
     matched_ranges = merge_ranges([
         (max(start, left), min(end, right))
