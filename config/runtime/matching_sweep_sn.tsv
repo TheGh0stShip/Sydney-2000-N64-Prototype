@@ -1156,3 +1156,4 @@
 0x15f28c	0x24	src/runtime/runtime_func_800BB99C.c	--section-base=.rdata:0x80086F2C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	59aef01d5c855c91f1968e35eb4a2efa46679ee6553b6685255b7cbf98353095
 0x15f2b0	0x5c	src/runtime/runtime_func_800BB9C0.c	--section-base=.rdata:0x80086F30 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	966f9b736eef604b2d2675c568c654d3105cf33fab4a6af9c8aafd4c685e606a
 0x15f30c	0x10	src/runtime/runtime_func_800BBA1C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5acc9fb919697b637c3be84b1ae6cd95f640b807c1dddd13001543847d7c83d6
+0x144c88	0x8	src/runtime/runtime_noop_800A1398.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378

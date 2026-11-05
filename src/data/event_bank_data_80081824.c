@@ -1,0 +1,10 @@
+/* Initialized overlay/runtime data at ROM 0x81824. */
+typedef unsigned int u32;
+typedef char check_u32_size[sizeof(u32) == 4 ? 1 : -1];
+
+u32 event_bank_data_80081824[27] __attribute__((section(".data"))) = {
+    0x00000000, 0x00000000, 0x00000000, 0x800707E0, 0x80070808, 0x80070830, 0x80070858, 0x8007087C,
+    0x800708A4, 0x800708CC, 0x800708F4, 0x80070918, 0x8007093C, 0x80070960, 0x80070984, 0x800709AC,
+    0x800709D8, 0x800709FC, 0x80070A28, 0x80070A4C, 0x80070A74, 0x80070A9C, 0x80070AC4, 0x80070AEC,
+    0x80070B14, 0x80070B38, 0x80070B60,
+};

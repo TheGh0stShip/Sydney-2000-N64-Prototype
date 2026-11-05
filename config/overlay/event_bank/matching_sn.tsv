@@ -1377,6 +1377,7 @@
 0xbcbd8	0x8	src/overlays/event_bank_noop_800BCBD8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
 0xbcbe0	0x88	src/overlays/event_bank_func_800BCBE0.c	--symbol=func_800AD9E8:0x800AD9E8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1872f3d21ee667958169fe8a39f61eda07e49316cde3e523d751a6d0317fd1e4
 0xbcc68	0x44	src/overlays/event_bank_func_800BCC68.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6b82db53d3e283112bf73f4c1517c71de38bda931b120fce7b123fd89d3349fa
+0xbccac	0x30	src/overlays/event_bank_func_800BCCAC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	58e3d9e12b744a9dbc8d432ad3b69669605349cee5256f9ba006f8a2d99ef86c
 0xbccdc	0x9c	src/overlays/event_bank_func_800BCCDC.c	--symbol=func_8008393C:0x8008393C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b29b03551dc052dda7cc2da16f91f3c591513db455dff0d29acce49fe2fc9552
 0xbcd78	0x50	src/overlays/event_bank_func_800BCD78.c	--symbol=func_80081DC8:0x80081DC8 --symbol=func_800ADE84:0x800ADE84 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6e85d22814e20d046a1774664714208242df4a201aca9878925e261eb4127633
 0xbd040	0x2d0	src/overlays/event_bank_func_800BD040.c	--symbol=func_80015EAC:0x80015EAC --symbol=func_800177AC:0x800177AC --symbol=func_80070CE0:0x80070CE0 --symbol=func_80070CEC:0x80070CEC --symbol=func_80070D10:0x80070D10 --symbol=func_80071B0C:0x80071B0C --symbol=func_80072158:0x80072158 --symbol=func_800828B4:0x800828B4 --symbol=func_80083700:0x80083700 --symbol=func_80083A0C:0x80083A0C --symbol=func_800AA658:0x800AA658 --symbol=func_800BBD78:0x800BBD78 --symbol=func_800BC07C:0x800BC07C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	bbb2ff6e505dfbfd5df52c017539f6c689926d1e98cbbd173623eb3d14f5c724
@@ -2124,3 +2125,48 @@
 0x79280	0x10	src/overlays/event_bank_func_80079280.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9527ff2cf69e37e70c32275f6b33c90140e5bcbba8812df66d011d9fbf70db32
 0x8768c	0x14	src/overlays/event_bank_func_8008768C.c	--symbol=D_80077720:0x80077720 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	67c483494e6a071889f7b4a546d18b22c944ec53568f8ce6fc88ecf45b6943a4
 0x883fc	0x5c	src/overlays/event_bank_func_800883FC.c	--symbol=D_800FC270:0x800FC270 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1dd7259b5947d44c01ea0077cd284ec85d135fb73b81c6bb0ec2e0905a1a4365
+0x118be8	0x8	src/overlays/event_bank_noop_80118BE8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x118bf0	0x8	src/overlays/event_bank_noop_80118BF0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x11c02c	0x8	src/overlays/event_bank_noop_8011C02C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x11c034	0x8	src/overlays/event_bank_noop_8011C034.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x11e168	0x8	src/overlays/event_bank_noop_8011E168.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x11e170	0x8	src/overlays/event_bank_noop_8011E170.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1235fc	0x8	src/overlays/event_bank_noop_801235FC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x123604	0x8	src/overlays/event_bank_noop_80123604.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x12360c	0x8	src/overlays/event_bank_noop_8012360C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xa13d0	0x8	src/overlays/event_bank_func_800A13D0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0xa13d8	0x8	src/overlays/event_bank_func_800A13D8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xa13e0	0x8	src/overlays/event_bank_func_800A13E0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xadf14	0x8	src/overlays/event_bank_func_800ADF14.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xb670c	0x8	src/overlays/event_bank_return_zero_800B670C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0xb6714	0x8	src/overlays/event_bank_noop_800B6714.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xb671c	0x8	src/overlays/event_bank_noop_800B671C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x101abc	0x8	src/overlays/event_bank_return_zero_80101ABC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0xdacf8	0x14	src/overlays/event_bank_func_800DACF8.c	--symbol=D_80077600:0x80077600 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ef809a3c056a4ba6f78a49d054a41013f85be23dbca90b52295be49165f086d3
+0xe209c	0x14	src/overlays/event_bank_func_800E209C.c	--symbol=D_80077B90:0x80077B90 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	51044f60841eca82273ce86aad2905bf32953fe17116beeb04cea9ad0ded5949
+0xf2838	0x8	src/overlays/event_bank_func_800F2838.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xfe478	0x8	src/overlays/event_bank_func_800FE478.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0xfe480	0x34	src/overlays/event_bank_func_800FE480.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	317d2e5857bf98ad17b4910cb6775891b75228e375957ead9e1bedc5c1b263f7
+0xfe4b4	0x24	src/overlays/event_bank_func_800FE4B4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0da3697fad000a1afbe258fa7597af3529e203408bfb7b4fcfda38349881a9db
+0xfe518	0x8	src/overlays/event_bank_func_800FE518.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xfe4d8	0x40	src/overlays/event_bank_func_800FE4D8.c	--symbol=D_80078C98:0x80078C98 -mno-split-addresses -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7b27e0a6cc68b3c0ec72d8afc3b9a7e1818d1a27a98b9439f113084bd77f9e03
+0xec0ec	0x8	src/overlays/event_bank_noop_800EC0EC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xef538	0x8	src/overlays/event_bank_return_zero_800EF538.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0xf2918	0x8	src/overlays/event_bank_noop_800F2918.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x101ae8	0x8	src/overlays/event_bank_noop_80101AE8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1084a8	0x8	src/overlays/event_bank_return_zero_801084A8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0x10adbc	0x8	src/overlays/event_bank_noop_8010ADBC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x11d030	0x8	src/overlays/event_bank_noop_8011D030.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x11d630	0x8	src/overlays/event_bank_noop_8011D630.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1274cc	0x8	src/overlays/event_bank_return_zero_801274CC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0xec0f4	0x8	src/overlays/event_bank_noop_800EC0F4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xef540	0x8	src/overlays/event_bank_noop_800EF540.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x101af0	0x8	src/overlays/event_bank_noop_80101AF0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1084b0	0x8	src/overlays/event_bank_noop_801084B0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1274d4	0x8	src/overlays/event_bank_noop_801274D4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xef548	0x8	src/overlays/event_bank_noop_800EF548.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1084b8	0x8	src/overlays/event_bank_noop_801084B8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x1274dc	0x8	src/overlays/event_bank_noop_801274DC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x101a4c	0x8	src/overlays/event_bank_func_80101A4C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	15766f7995bfa29e0d4595df1ad161be585cc3ba03fbf39b497e4c6a3c87022f
+0x119034	0xc	src/overlays/event_bank_func_80119034.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	efe45a34393ddf4afc80b209bd0c79cab8535aa5dc1167f7ae3d9566e3630158
+0x11d038	0x14	src/overlays/event_bank_func_8011D038.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	34239cbeeb3fbdf50d3770a45016150a8d7a7e7c3dbfc70a7c6f88364c486dbb

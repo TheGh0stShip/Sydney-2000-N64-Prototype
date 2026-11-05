@@ -312,6 +312,8 @@ def load_initialized(evidence, artifact, data_intervals):
     approved_maps = {
         'resident': {'id': 'resident', 'rom_start': RESIDENT_START,
                      'rom_end': RESIDENT_END, 'vram_delta': RESIDENT_DELTA},
+        'ceremony': {'id': 'ceremony', 'rom_start': 0x69070,
+                     'rom_end': 0x6DF40, 'vram_delta': 0x80007924},
         'closing': {'id': 'closing', 'rom_start': 0x6DF40,
                     'rom_end': 0x70800, 'vram_delta': 0x80002554},
         'event_bank': {'id': 'event_bank', 'rom_start': 0x70800,
