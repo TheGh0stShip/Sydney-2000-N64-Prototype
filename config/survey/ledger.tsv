@@ -13,7 +13,8 @@ start	end	size	class	category	kind	name	evidence
 0x28C34	0x39170	66876	code	program	.text	text_80028034	datamap section
 0x39170	0x69070	196352	data	program	.data	data_80038570	datamap section
 0x69070	0x6EA00	22928	unknown	-	-	gap_69070	-
-0x6EA00	0x70800	7680	referenced	loader_range	raw	rom_6EA00	records 0x80072A6C in 0x800AD9BC
+0x6EA00	0x70208	6152	referenced	loader_range	raw	rom_6EA00	records 0x80072A6C in 0x800AD9BC
+0x70208	0x70800	1528	data	overlay_data	typed	closing_overlay_data	closing overlay tables, constants, strings, and callback records
 0x70800	0xB0000	260096	unknown	-	-	gap_70800	-
 0xB0000	0xC0000	65536	referenced	loader_range	raw	rom_B0000	records 0x800F5CE0 in 0x800EA224
 0xC0000	0xD0000	65536	unknown	-	-	gap_C0000	-

@@ -306,6 +306,15 @@ def load_initialized(evidence, artifact, data_intervals):
     config = json.loads(evidence.repo('config/data/units.json'))
     if config.get('version') != 1 or config.get('target') != TARGET or config.get('rom_sha1') != ROM_SHA1:
         raise ValueError('unsupported typed-data configuration')
+    segment_maps = {item['id']: item for item in config['segments']}
+    approved_maps = {
+        'resident': {'id': 'resident', 'rom_start': RESIDENT_START,
+                     'rom_end': RESIDENT_END, 'vram_delta': RESIDENT_DELTA},
+        'closing': {'id': 'closing', 'rom_start': 0x6DF40,
+                    'rom_end': 0x70800, 'vram_delta': 0x80002554},
+    }
+    if segment_maps != approved_maps:
+        raise ValueError('typed-data segment maps changed')
     if names != data_input_names(evidence.project, config):
         raise ValueError('typed-data input set changed; rebuild initialized-data artifacts')
     expected = {}
@@ -332,7 +341,7 @@ def load_initialized(evidence, artifact, data_intervals):
             if key in expected:
                 raise ValueError('duplicate initialized-data declaration')
             expected[key] = unit, section
-    seen, produced, provider_image = set(), [], RomImage(RESIDENT_END)
+    seen, produced, provider_image = set(), [], RomImage(ROM_SIZE)
     for piece in metadata['pieces']:
         key = piece['unit_id'], piece['section']
         if key not in expected or key in seen:
@@ -342,12 +351,14 @@ def load_initialized(evidence, artifact, data_intervals):
         for field in ('rom_start', 'vram', 'size', 'sha256', 'segment'):
             if piece[field] != section[field]:
                 raise ValueError(f'initialized-data piece differs from its declaration: {field}')
-        if piece['source'] != unit['source'] or piece['segment'] != 'resident':
+        if piece['source'] != unit['source'] or piece['segment'] not in segment_maps:
             raise ValueError('unsupported initialized-data source/segment attribution')
         start, size = piece['rom_start'], piece['size']
-        require_region(start, size, RESIDENT_START, RESIDENT_END, 'typed data')
-        require_data(start, size, data_intervals)
-        if piece['vram'] != start + RESIDENT_DELTA:
+        segment = segment_maps[piece['segment']]
+        require_region(start, size, segment['rom_start'], segment['rom_end'], 'typed data')
+        if piece['segment'] == 'resident':
+            require_data(start, size, data_intervals)
+        if piece['vram'] != start + segment['vram_delta']:
             raise ValueError('initialized-data ROM/VRAM map changed')
         data = piece_bytes(evidence, artifact, piece, size, section['sha256'])
         owner = 'typed-data:' + piece['unit_id'] + ':' + piece['section']

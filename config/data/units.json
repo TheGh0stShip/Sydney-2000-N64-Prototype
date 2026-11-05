@@ -13,9 +13,36 @@
       "rom_start": 4096,
       "rom_end": 430192,
       "vram_delta": 2147480576
+    },
+    {
+      "id": "closing",
+      "rom_start": 450368,
+      "rom_end": 460800,
+      "vram_delta": 2147493204
     }
   ],
   "units": [
+    {
+      "id": "closing_overlay_data",
+      "source": "src/data/closing_overlay_data.c",
+      "inputs": {
+        "src/data/closing_overlay_data.c": "9a7323ead62bc5c1af966e78de518477495d62f488a569090db31a9e7216fb7e"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "closing",
+          "rom_start": 459272,
+          "vram": 2147952476,
+          "size": 1528,
+          "sha256": "b276737a1ffda29b013c15710547071fed6199325206b4eb4373f00bc3319478"
+        }
+      ]
+    },
     {
       "id": "startup_rodata",
       "source": "src/data/startup_rodata.c",
