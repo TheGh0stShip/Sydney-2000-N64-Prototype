@@ -38,8 +38,10 @@ def emit_source(path: Path, symbol: str, data: bytes, rom_start: int) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--minimum-bytes", type=lambda value: int(value, 0), default=100_000)
+    parser.add_argument("--range", action="append", dest="range_ids",
+                        help="promote an explicitly reviewed residual id (repeatable)")
     args = parser.parse_args()
-    if args.minimum_bytes < 100_000:
+    if not args.range_ids and args.minimum_bytes < 100_000:
         raise ValueError("large-pass promotion requires at least 100000 bytes")
 
     residual = json.loads(RESIDUALS.read_text())
@@ -58,12 +60,20 @@ def main() -> None:
     candidates.sort(key=lambda pair: pair[0]["size"], reverse=True)
 
     selected, total = [], 0
-    for pair in candidates:
-        selected.append(pair)
-        total += pair[0]["size"]
-        if total >= args.minimum_bytes:
-            break
-    if total < args.minimum_bytes:
+    if args.range_ids:
+        requested = set(args.range_ids)
+        selected = [pair for pair in candidates if pair[0]["id"] in requested]
+        found = {pair[0]["id"] for pair in selected}
+        if found != requested:
+            raise ValueError(f"explicit ranges are missing or ineligible: {sorted(requested - found)}")
+        total = sum(pair[0]["size"] for pair in selected)
+    else:
+        for pair in candidates:
+            selected.append(pair)
+            total += pair[0]["size"]
+            if total >= args.minimum_bytes:
+                break
+    if not args.range_ids and total < args.minimum_bytes:
         raise ValueError(f"only {total} aligned residual bytes are eligible")
 
     promoted_ids = set()
