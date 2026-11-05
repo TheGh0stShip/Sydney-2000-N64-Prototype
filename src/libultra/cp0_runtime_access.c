@@ -12,6 +12,10 @@ u32 GET_COUNT_NAME(void) {
     return value;
 }
 
+#ifdef TRAILING_NOP
+asm(".word 0");
+#endif
+
 #elif defined(BUILD_SET_COMPARE)
 
 #ifndef SET_COMPARE_NAME
@@ -21,6 +25,10 @@ u32 GET_COUNT_NAME(void) {
 void SET_COMPARE_NAME(u32 value) {
     asm volatile("mtc0 %0,$11" : : "r"(value));
 }
+
+#ifdef TRAILING_NOP
+asm(".word 0");
+#endif
 
 #else
 

@@ -228,7 +228,7 @@
     },
     {
       "path": "config/link_units.json",
-      "sha256": "5adb7a2be80eaac9af1fa0ccd9b5979b616db442db79ef199545ad4626e923fe"
+      "sha256": "6a3880252e095e1596ceca0ab3326d580f238bb304039cbf25b150b2f906ace9"
     },
     {
       "path": "config/matching_as.tsv",
@@ -244,7 +244,7 @@
     },
     {
       "path": "config/matching_kmc.tsv",
-      "sha256": "8a86b065c91d29ab27579c573b7746650e0f6433d904eb463e1641ce1235c1d8"
+      "sha256": "cc4311c9aea318f6c673c44f404a47d6ff6a6fb771d6a5169a36823d643e2928"
     },
     {
       "path": "config/matching_kmc_as.tsv",
@@ -1752,7 +1752,7 @@
     },
     {
       "path": "src/libultra/cp0_runtime_access.c",
-      "sha256": "65ab278926cd1b6dac775be35339598594834c3ef1b71cd0f231b904f86cf310"
+      "sha256": "bdb12a7274b4f26f7c31e9d3670b898824cc775f6caf2ee33b44ce9918f65512"
     },
     {
       "path": "src/libultra/debug_exception_save_prefix.s",
@@ -4570,7 +4570,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "6bc4d49a7e40e7ca97f70e8ac9ec2fa4ef3d8a5c86c91bf37dc8d468e41bba0f",
+      "object_sha256": "23c121dc720a41b1aba87aa51b57dc970567778928dfd7668752f9fa36513881",
       "provider": "typed-initialized-data"
     },
     {
@@ -4702,7 +4702,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "5adb7a2be80eaac9af1fa0ccd9b5979b616db442db79ef199545ad4626e923fe",
+      "source_image_plan_sha256": "6a3880252e095e1596ceca0ab3326d580f238bb304039cbf25b150b2f906ace9",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4815,7 +4815,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "5adb7a2be80eaac9af1fa0ccd9b5979b616db442db79ef199545ad4626e923fe",
+      "source_image_plan_sha256": "6a3880252e095e1596ceca0ab3326d580f238bb304039cbf25b150b2f906ace9",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4921,11 +4921,11 @@
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "5adb7a2be80eaac9af1fa0ccd9b5979b616db442db79ef199545ad4626e923fe",
+    "plan_sha256": "6a3880252e095e1596ceca0ab3326d580f238bb304039cbf25b150b2f906ace9",
     "build_tool_path": "tools/build_source_image.py",
     "build_tool_sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63",
     "verified_source_pieces": 686,
-    "owned_resident_bytes": 209348,
+    "owned_resident_bytes": 209356,
     "added_initialized_sections": 2,
     "placement_inference_during_build": false,
     "post_build_rom_comparison": true,
@@ -5371,7 +5371,7 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "6bc4d49a7e40e7ca97f70e8ac9ec2fa4ef3d8a5c86c91bf37dc8d468e41bba0f",
+        "object_sha256": "23c121dc720a41b1aba87aa51b57dc970567778928dfd7668752f9fa36513881",
         "symbols": {}
       }
     ],
@@ -5521,10 +5521,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-6mjoc_6_/rspboot/code.bin",
+          "/tmp/sydney-rsp-arxx0s_w/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-6mjoc_6_/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-6mjoc_6_/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-arxx0s_w/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-arxx0s_w/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -5539,10 +5539,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-6mjoc_6_/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-arxx0s_w/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-6mjoc_6_/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-arxx0s_w/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -5553,9 +5553,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-6mjoc_6_/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-arxx0s_w/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-6mjoc_6_/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-arxx0s_w/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
