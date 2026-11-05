@@ -1,8 +1,8 @@
 {
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
-  "total_data": 317244,
-  "matched_data": 317244,
+  "total_data": 427592,
+  "matched_data": 427592,
   "ranges": [
     {
       "rom_start": 4156,
@@ -35,16 +35,334 @@
       "sha256": "b276737a1ffda29b013c15710547071fed6199325206b4eb4373f00bc3319478"
     },
     {
+      "rom_start": 472772,
+      "rom_end": 474576,
+      "size": 1804,
+      "sha256": "7050d709b761c71250e81eb2d2aa051b33a6e3c9fa82468ff500e038bc31813e"
+    },
+    {
+      "rom_start": 497780,
+      "rom_end": 498848,
+      "size": 1068,
+      "sha256": "fcc00b42251c7950937b8fac9c694f0905c49985f9e396532643f067f55239a9"
+    },
+    {
+      "rom_start": 501016,
+      "rom_end": 501920,
+      "size": 904,
+      "sha256": "3a75d52743aeb3643c855afde5bf41f0bc52a58abf9b20911c14b9302ace9c5e"
+    },
+    {
+      "rom_start": 530672,
+      "rom_end": 534640,
+      "size": 3968,
+      "sha256": "3463b62dbff41347339ed7b0394c2e587cdad9fc79e3cc6b03aa87b2dc4e7bf8"
+    },
+    {
+      "rom_start": 539364,
+      "rom_end": 542440,
+      "size": 3076,
+      "sha256": "7a974c4896d6354942d2e5afb373d3eae6352d8b5a58f7ca331ec5675dbb3e65"
+    },
+    {
+      "rom_start": 559164,
+      "rom_end": 563440,
+      "size": 4276,
+      "sha256": "b4280a450b1de70f89861875a5cab1187032f87712caa9d2ec8416ac31a18c75"
+    },
+    {
+      "rom_start": 587624,
+      "rom_end": 591856,
+      "size": 4232,
+      "sha256": "41479323241c4bcbb3ee81a186bcf2b9fa7eec1b5fb8809834bc8f914b0a3605"
+    },
+    {
+      "rom_start": 613364,
+      "rom_end": 617536,
+      "size": 4172,
+      "sha256": "161d1779f95d6189b36a942b8fde9fabd3a54f78ed78dcf2f47b023a40d03fb7"
+    },
+    {
+      "rom_start": 617624,
+      "rom_end": 618940,
+      "size": 1316,
+      "sha256": "d62faf5645150f116c9dbba6ffced5676df0594c6c26fcfb658767fe265dffc6"
+    },
+    {
+      "rom_start": 621364,
+      "rom_end": 622508,
+      "size": 1144,
+      "sha256": "2fdfb6cd81014a047f9995979bde28e3510661055ba4fca7ab0bda3c10103456"
+    },
+    {
+      "rom_start": 624952,
+      "rom_end": 625928,
+      "size": 976,
+      "sha256": "966f92442b0590fa9fb70d16e720075ada67735addea722258ad4c255d415589"
+    },
+    {
+      "rom_start": 639756,
+      "rom_end": 643360,
+      "size": 3604,
+      "sha256": "b5e16a5dc3f18c50aac6fafd9ba8dadd8550ea27493634747701b03a6fe2a5e5"
+    },
+    {
+      "rom_start": 645796,
+      "rom_end": 647084,
+      "size": 1288,
+      "sha256": "91631383b2e74ff17fa17d834cae9a706162dc97bac5fa6ed863c961277cbe0f"
+    },
+    {
+      "rom_start": 650456,
+      "rom_end": 651780,
+      "size": 1324,
+      "sha256": "858c9eaac249b9e402d121f5d6bc69827f7d2c02a037dd69063f3af9a99bd68e"
+    },
+    {
+      "rom_start": 660672,
+      "rom_end": 663748,
+      "size": 3076,
+      "sha256": "e9fbc1e987df0b4d3cf80f91b90193faa7d91a446ec4248090d31a9f28244e3e"
+    },
+    {
+      "rom_start": 664344,
+      "rom_end": 665504,
+      "size": 1160,
+      "sha256": "94fad6eccc478bfb9b159e70b36d8539cdde174ddba659d46bcd6a5e5c3e92a4"
+    },
+    {
+      "rom_start": 668920,
+      "rom_end": 670012,
+      "size": 1092,
+      "sha256": "0c9bdfac16a84ac924089d571188019f2722bbf2e5f13b02fdb1af3d0b4911a1"
+    },
+    {
+      "rom_start": 670116,
+      "rom_end": 671280,
+      "size": 1164,
+      "sha256": "5545188feae031716978303c123febbe73780de3c983660c6cdea338b1244368"
+    },
+    {
+      "rom_start": 672144,
+      "rom_end": 673956,
+      "size": 1812,
+      "sha256": "535953900b951a3f498a543e843a76be149c0c2565e9a4552da616f8af0fe039"
+    },
+    {
+      "rom_start": 688740,
+      "rom_end": 692816,
+      "size": 4076,
+      "sha256": "a1d98218d13087ac20fed0cf10051b35c7026b55f882592798e5c104cc0e8d9d"
+    },
+    {
+      "rom_start": 700088,
+      "rom_end": 700992,
+      "size": 904,
+      "sha256": "dd4a2054c37641ec76d18137749fc8bd9402a9737f4acb46ca52a3b35e61d847"
+    },
+    {
+      "rom_start": 701144,
+      "rom_end": 702772,
+      "size": 1628,
+      "sha256": "e122c352aacdb5841e5404a29cbbffc1b1f98a42a5e4f787ffe8acc03c456809"
+    },
+    {
+      "rom_start": 718632,
+      "rom_end": 722784,
+      "size": 4152,
+      "sha256": "64bfdae2e3f0054091efbca3936aad12aad83780c6cb2ad681d079288e34176a"
+    },
+    {
+      "rom_start": 728436,
+      "rom_end": 729432,
+      "size": 996,
+      "sha256": "3ec65d41c1d7413ae33e7854d3e6fc865289b5606b7b1cc5e48b4341373658c0"
+    },
+    {
+      "rom_start": 741116,
+      "rom_end": 742116,
+      "size": 1000,
+      "sha256": "8f1213c450d7d13569369e98128a8a1dd7d69cd6900b7848b028910e7e42f6d7"
+    },
+    {
+      "rom_start": 747532,
+      "rom_end": 748880,
+      "size": 1348,
+      "sha256": "f494577d0ffec79827580c04e91c10d0daafa164f13c1763265e5f1eb59fe77e"
+    },
+    {
+      "rom_start": 751728,
+      "rom_end": 752816,
+      "size": 1088,
+      "sha256": "fe9178ccb5052027f2ae3c0f2bb28ae63a80c43654b24e667f357df6720b13b4"
+    },
+    {
+      "rom_start": 757612,
+      "rom_end": 758768,
+      "size": 1156,
+      "sha256": "b96beef2a0aa64b6f2e03f85ae881f94f116f6da45cfb7d8a4e0418fbd633ed2"
+    },
+    {
+      "rom_start": 775772,
+      "rom_end": 777216,
+      "size": 1444,
+      "sha256": "558669731e405603459d537b1aa811ad7c312cf3b7cc15d179bfd513b794093a"
+    },
+    {
+      "rom_start": 781376,
+      "rom_end": 782260,
+      "size": 884,
+      "sha256": "d782e9ec7c4bd1e3f8884b3d82355b4196dfba4f9c7a94ded51741f226dd2a95"
+    },
+    {
+      "rom_start": 787816,
+      "rom_end": 789088,
+      "size": 1272,
+      "sha256": "f41f063a35aa3bc9de01ff37f46f326b9cde2f94b7032386d9dc4496cf75180d"
+    },
+    {
+      "rom_start": 830648,
+      "rom_end": 833592,
+      "size": 2944,
+      "sha256": "072487ce3ef95d4201ea004ac7b3bdbbf42161a6152a6c26bfa199051be8bbf8"
+    },
+    {
+      "rom_start": 836940,
+      "rom_end": 838044,
+      "size": 1104,
+      "sha256": "376e36ebac02fdcbf4cc0d6d9df74be87b1fa907c2ecafc6807a150bb793e6fe"
+    },
+    {
+      "rom_start": 849680,
+      "rom_end": 851148,
+      "size": 1468,
+      "sha256": "f681e0bcf3fc0d9320416fb58e1ecf3292002738e72fe7ba09afeb000b265621"
+    },
+    {
+      "rom_start": 852792,
+      "rom_end": 853680,
+      "size": 888,
+      "sha256": "8313f3b7e3abde88acf9b973659d2e4822290aa6743c8832e5a78869c0cec22d"
+    },
+    {
+      "rom_start": 855456,
+      "rom_end": 856552,
+      "size": 1096,
+      "sha256": "a162d1d96cf42d4de62d1e477d724e864e6448ff73625c64a64375a7da06b5e0"
+    },
+    {
+      "rom_start": 868332,
+      "rom_end": 869240,
+      "size": 908,
+      "sha256": "5ead55713e2e68901cab945173ae8ef7f9ec54af6484a79d80847468cec9fdda"
+    },
+    {
+      "rom_start": 873124,
+      "rom_end": 876528,
+      "size": 3404,
+      "sha256": "834d9221b54df662b10fb59cb64aef19df6aa906301b522f44d5cf61a0786cf2"
+    },
+    {
+      "rom_start": 883340,
+      "rom_end": 884572,
+      "size": 1232,
+      "sha256": "60d9c383b91b0afe44d119164761314c69dcf7e36aafe3b837c10d276b1e5cce"
+    },
+    {
+      "rom_start": 900756,
+      "rom_end": 904928,
+      "size": 4172,
+      "sha256": "f71c28b5ef10e432e4aae80313b038c2bda26a47ad908daeacba3fdd15778dbb"
+    },
+    {
+      "rom_start": 930412,
+      "rom_end": 932128,
+      "size": 1716,
+      "sha256": "d36fe57ef016c780ca0978150233e3ffd987e7deb17bd6f11a1a9965cecf5565"
+    },
+    {
+      "rom_start": 945512,
+      "rom_end": 946608,
+      "size": 1096,
+      "sha256": "53d5f96b828b58e382a9ea1875fd0913141a089759315c4b02783a5acd1c36b6"
+    },
+    {
+      "rom_start": 957192,
+      "rom_end": 958480,
+      "size": 1288,
+      "sha256": "c815135369821c6c5e4868c9cfce6ca5ddb48c1236d2d0a374dd168ff344ec7f"
+    },
+    {
+      "rom_start": 994664,
+      "rom_end": 995872,
+      "size": 1208,
+      "sha256": "06d0ddef42ae52c3c53b1e2e2c74bfc08fca4102f77e9e8da85687c145c94fe3"
+    },
+    {
+      "rom_start": 1009452,
+      "rom_end": 1010912,
+      "size": 1460,
+      "sha256": "6950aa1ea32af72b17a90482402fec49d6e509e0d2d6ba60482bdd585623a9d9"
+    },
+    {
+      "rom_start": 1022404,
+      "rom_end": 1023552,
+      "size": 1148,
+      "sha256": "517be7ed469dc71c0dc8f6870d771149624108a67cccf97a675aa710c50524e9"
+    },
+    {
+      "rom_start": 1041824,
+      "rom_end": 1043808,
+      "size": 1984,
+      "sha256": "b376cf3584473f13be1ec786d982b1ea46fc314b4f7761646896625b35ae3ed2"
+    },
+    {
+      "rom_start": 1068016,
+      "rom_end": 1069520,
+      "size": 1504,
+      "sha256": "a845d35715956804683a79f35817e554f1ad75f1b4b0a2a075c10afcbe9c6810"
+    },
+    {
       "rom_start": 1093980,
       "rom_end": 1102000,
       "size": 8020,
       "sha256": "f940528a03d93d9dcde38f5a52f95c3eda52ff08cb62e49dfd4438418a958747"
     },
     {
+      "rom_start": 1102112,
+      "rom_end": 1104800,
+      "size": 2688,
+      "sha256": "8c18cb67842988769c61a601fea74c2c0573315a46dacc4895f0bba1a3b568fa"
+    },
+    {
+      "rom_start": 1124800,
+      "rom_end": 1126336,
+      "size": 1536,
+      "sha256": "cfb9809fb098231bd419e58876a46541c8bebb0c2f73ccacbce355fcc3319023"
+    },
+    {
+      "rom_start": 1131300,
+      "rom_end": 1132208,
+      "size": 908,
+      "sha256": "c7453f1317326b7202af39acdc9b4b1d2b7e366de6dc39a15ebb0edb3e837a38"
+    },
+    {
       "rom_start": 1136028,
       "rom_end": 1141520,
       "size": 5492,
       "sha256": "e397e53234bf6a25daebff70f323bad4562d73bc1f216c1040db97f54dbdc3e8"
+    },
+    {
+      "rom_start": 1151128,
+      "rom_end": 1153024,
+      "size": 1896,
+      "sha256": "46acdaca21b8b9d774c5a71173d6d86ee8bf13c9de83b9cd495160ebb2af4a9e"
+    },
+    {
+      "rom_start": 1154496,
+      "rom_end": 1155588,
+      "size": 1092,
+      "sha256": "8fff63487e21a863c3d283c683e330e7a64a669440bed1c715d6e7feab8894ad"
     },
     {
       "rom_start": 1155856,
@@ -59,10 +377,40 @@
       "sha256": "33ab434ae5867abd7b2011947191fda21a104e743d354abf6c1c4f6a5d021da5"
     },
     {
+      "rom_start": 1196360,
+      "rom_end": 1199520,
+      "size": 3160,
+      "sha256": "a3ade387646e827249bdd34d83d5d6819d04eaffb69098eb4be19e2f4f25d583"
+    },
+    {
+      "rom_start": 1213600,
+      "rom_end": 1214768,
+      "size": 1168,
+      "sha256": "0e4da5f5fb02c6ac4ba6acb4036227139c680fdb378d6feeb2fe2d4727b70a66"
+    },
+    {
+      "rom_start": 1214776,
+      "rom_end": 1218388,
+      "size": 3612,
+      "sha256": "db99ed5c035d4357aed1a499ec230dcd414c88311f1984d0390d4b7f042a8f3b"
+    },
+    {
+      "rom_start": 1218876,
+      "rom_end": 1220192,
+      "size": 1316,
+      "sha256": "51b95b8b28d2a459356aebda4840fbe0a954da601c5054c8a0b16b491737d7a9"
+    },
+    {
       "rom_start": 1220692,
       "rom_end": 1234896,
       "size": 14204,
       "sha256": "0513d8f272d22691a3843e5fd40634b6f011a3e706acd3bbe79754f4775d19a1"
+    },
+    {
+      "rom_start": 1235052,
+      "rom_end": 1238000,
+      "size": 2948,
+      "sha256": "ef8dafcae3838965fd53e00eecdfa4fe3c98daeb1c3090bf9657b0d6f596e378"
     },
     {
       "rom_start": 1238032,
@@ -80,7 +428,7 @@
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "1ed173231979abc5518479b2075b3e2d9c6c6c1d5a0b1ec52569fa7054544972"
+      "sha256": "504ca0e1e85b81475afbb9d7d418ce1bdb001538735dfa39b6bb183579cfb9f8"
     },
     {
       "path": "config/link_units.json",
@@ -163,6 +511,222 @@
       "sha256": "9a7323ead62bc5c1af966e78de518477495d62f488a569090db31a9e7216fb7e"
     },
     {
+      "path": "src/data/event_bank_data_800736C4.c",
+      "sha256": "6a23339673d6650482fc115444ee2b8662cd29e9c58953b807b02c62a2cb2193"
+    },
+    {
+      "path": "src/data/event_bank_data_80079874.c",
+      "sha256": "25a12a6c0c8404b44b4cc3875a952818fe5760b59f0b179fcfc829b17a886b22"
+    },
+    {
+      "path": "src/data/event_bank_data_8007A518.c",
+      "sha256": "f4de090475f4a6edfb2aff03e2790ef07fb41b8f239659a5c0bd725880f67923"
+    },
+    {
+      "path": "src/data/event_bank_data_800818F0.c",
+      "sha256": "0fca07c698be0b52b79f152ec37833bc3f3cc99cafde445b6d387afb079e82d7"
+    },
+    {
+      "path": "src/data/event_bank_data_80083AE4.c",
+      "sha256": "a288f6b45b8095270e52b0f6e2e01624ba219b3fcace9db0559605d06fe49555"
+    },
+    {
+      "path": "src/data/event_bank_data_8008883C.c",
+      "sha256": "8685c28b3d2e932b3c07850a77d37644e26200fa7ee4489d52f989c746e83589"
+    },
+    {
+      "path": "src/data/event_bank_data_8008F768.c",
+      "sha256": "33e228dae206a4a8b94a2ff462a39e94e686d2362872310c9adac6391a9052c2"
+    },
+    {
+      "path": "src/data/event_bank_data_80095BF4.c",
+      "sha256": "70305c4532dacf0d407aecfd4e02e9c5f9019dc072fbbfa4079260cf2af1f5cc"
+    },
+    {
+      "path": "src/data/event_bank_data_80096C98.c",
+      "sha256": "87c340fd6c75c295b568ab1ada0273bdd0da6f942bcc701416c5148182bdb342"
+    },
+    {
+      "path": "src/data/event_bank_data_80097B34.c",
+      "sha256": "e123c445cd09b9e02f77cfe4dc837fa12d00017b4c23612c3a1bda3929e7feb4"
+    },
+    {
+      "path": "src/data/event_bank_data_80098938.c",
+      "sha256": "9edc88388a748eae05218df4782bafd0336198ff5285fc0abc4048e20c70fd4c"
+    },
+    {
+      "path": "src/data/event_bank_data_8009C30C.c",
+      "sha256": "748fa27110f7797fa5df69af36c895c06616f2bebc836f5dbb74bee3bcbb49f8"
+    },
+    {
+      "path": "src/data/event_bank_data_8009DAA4.c",
+      "sha256": "f983e951861df31ff518e10ccf3c3490ec16cd154ff62fbc71a99d72395511ae"
+    },
+    {
+      "path": "src/data/event_bank_data_8009ECD8.c",
+      "sha256": "f934e78afea9b8f8bbc4cb2da1b09dc6fd69a72ffcb8710345a7c9b0fa457bb2"
+    },
+    {
+      "path": "src/data/event_bank_data_800A14C0.c",
+      "sha256": "0092ea4c0c516ee3a4c87e48cd55e7a647a38602b299f41e78c098e871159fac"
+    },
+    {
+      "path": "src/data/event_bank_data_800A2318.c",
+      "sha256": "cf6dfb1e27132a3c6e1b3e7274e7da007a34c7d6eb337585896cd023955ae070"
+    },
+    {
+      "path": "src/data/event_bank_data_800A34F8.c",
+      "sha256": "a24e1cb609df26961fa093f71794c638dd8843b8712def374a7a80ea83837efe"
+    },
+    {
+      "path": "src/data/event_bank_data_800A39A4.c",
+      "sha256": "5b0e2901fa4196f6cc1766865df3166cb38d348fcffd9a144ddf58258512b96b"
+    },
+    {
+      "path": "src/data/event_bank_data_800A4190.c",
+      "sha256": "2ec5c9654e521ee27cab91e7e7e85802d556e524c1be634a1386fbef7ff8c89f"
+    },
+    {
+      "path": "src/data/event_bank_data_800A8264.c",
+      "sha256": "6c116198ebed1ad5cffa681103222e47ce98f07a295070e3f262712b13ed5345"
+    },
+    {
+      "path": "src/data/event_bank_data_800AAEB8.c",
+      "sha256": "16971e4ee1e1e64e7f7b90db4094630b34b5c73e6143691d15ce154cdd85bf4e"
+    },
+    {
+      "path": "src/data/event_bank_data_800AB2D8.c",
+      "sha256": "2d285a0137e1195c549a176d46636a67aa43be92925f35efa6c69cd083598c48"
+    },
+    {
+      "path": "src/data/event_bank_data_800AF728.c",
+      "sha256": "87159f7822e67fbe33ad34936ab89f99702e2eb7b42cad04b9905471180844cc"
+    },
+    {
+      "path": "src/data/event_bank_data_800B1D74.c",
+      "sha256": "c839df14337871f0afd8582cc7c790e3b4fded5c551faf7defaa84672972d0be"
+    },
+    {
+      "path": "src/data/event_bank_data_800B4EFC.c",
+      "sha256": "e53a17d18306157708bb26ee528920154f84676b29e9c7bb1974f1cf400484d8"
+    },
+    {
+      "path": "src/data/event_bank_data_800B680C.c",
+      "sha256": "50c0ef529b67b083977bf96a242d17b6504d0c8c090a1b69be9033c9913a13d5"
+    },
+    {
+      "path": "src/data/event_bank_data_800B7870.c",
+      "sha256": "0a045b6b41e5f571c0dce51980415911c5bf05666cdcb318f5eb201dfea37127"
+    },
+    {
+      "path": "src/data/event_bank_data_800B8F6C.c",
+      "sha256": "aabb342f8af2fd078c20ce2df39b1ae1a1b14ca47f056898c652d510f7581f3b"
+    },
+    {
+      "path": "src/data/event_bank_data_800BD65C.c",
+      "sha256": "9be0f0f323719ae15f780bcc678362b276fb7ce1ca34763f6f1ed6a25b1e3752"
+    },
+    {
+      "path": "src/data/event_bank_data_800BEC40.c",
+      "sha256": "095e841679b291337a55e4f190fb78a3e3d021ab93c73b1b6bbbf714d5a102b8"
+    },
+    {
+      "path": "src/data/event_bank_data_800C0568.c",
+      "sha256": "e0afc26cb083dbabaa977c61424e2d993c601170f5372f6109f3479d12e6a47d"
+    },
+    {
+      "path": "src/data/event_bank_data_800CACB8.c",
+      "sha256": "27b86ceb0d1b0cbc831c3f3233517bf67e43ac6ded3cb2bd412340441264012a"
+    },
+    {
+      "path": "src/data/event_bank_data_800CC54C.c",
+      "sha256": "eef4e7653388f63721444b6ba48d89c3d99e397d56ca79d2226ea6fb96bd1fbd"
+    },
+    {
+      "path": "src/data/event_bank_data_800CF710.c",
+      "sha256": "4393afebff4fd9bdb93dfd2328cc1535076170771da20fd36c73c786a6d0ff32"
+    },
+    {
+      "path": "src/data/event_bank_data_800D0338.c",
+      "sha256": "6f8b0db7d2e316f382adbb5bc9c95686158aeccb3db0cdef6eb7ad011674c804"
+    },
+    {
+      "path": "src/data/event_bank_data_800D0DA0.c",
+      "sha256": "20b882ff1e9a42196e748bd966923c809f445c6e30f6f83b5bcb683cbfde7978"
+    },
+    {
+      "path": "src/data/event_bank_data_800D3FEC.c",
+      "sha256": "b3382b4c93e736e33462374d43656d4f3bf1f4ad86b02d6cad87084e5aeb72a0"
+    },
+    {
+      "path": "src/data/event_bank_data_800D52A4.c",
+      "sha256": "3f655d3f62956faa9dbac51714200da5f3f395c79e690bbd1b51585ece77d502"
+    },
+    {
+      "path": "src/data/event_bank_data_800D7A8C.c",
+      "sha256": "2ef3401de876e57512b12343a0bb4abb111ef1e9b137dc06a798d232373a4760"
+    },
+    {
+      "path": "src/data/event_bank_data_800DBE94.c",
+      "sha256": "9c104f20e9ec4f7c7bb75a62fba018c86bda9a3f09a630208fdbd0c88d9c3053"
+    },
+    {
+      "path": "src/data/event_bank_data_800E326C.c",
+      "sha256": "7802e65e6db7c93eacb085694dbc3b0d6f6690d3f178626206e1441f418eded0"
+    },
+    {
+      "path": "src/data/event_bank_data_800E6D68.c",
+      "sha256": "c733a2c34d3015f738fde52ea08037414043a33703db43c963f059dbb7f530d4"
+    },
+    {
+      "path": "src/data/event_bank_data_800E9B08.c",
+      "sha256": "8b897ba2f5ca9dfd7a962341faca23b398d5ed8883d5bb4f4bdc345a79c1eb83"
+    },
+    {
+      "path": "src/data/event_bank_data_800F2D68.c",
+      "sha256": "82c0681b06b643cf687fbe58f1cc6e76b91a12c7433f3c88c5e258cb2ee3cd00"
+    },
+    {
+      "path": "src/data/event_bank_data_800F672C.c",
+      "sha256": "135e04e1a9cee496a7320525b4a5f99978666bdd94b05053093b57bee3b398fe"
+    },
+    {
+      "path": "src/data/event_bank_data_800F99C4.c",
+      "sha256": "c783e87d03ae3eb5bd3f7e8bd69ba1de9abd13b60f94ae20de1adfdb79067425"
+    },
+    {
+      "path": "src/data/event_bank_data_800FE5A0.c",
+      "sha256": "df2e7b3a0076a03447e638f6dbe49cfec1487cf6b9762bdc86bd514474d421d0"
+    },
+    {
+      "path": "src/data/event_bank_data_80104BF0.c",
+      "sha256": "404a7877da06c40eb11b5aeb1c751226023971c35a94f596d9da1b8f21666a44"
+    },
+    {
+      "path": "src/data/event_bank_data_8010D120.c",
+      "sha256": "8517d438354a94f7ceeeb3c5c334f6c619981105fd8c65172909bd753728cbf7"
+    },
+    {
+      "path": "src/data/event_bank_data_801129C0.c",
+      "sha256": "49ebc1a68eaa1402ed9985e431633ade1fdaa616e0f07d2601da7fcc6b21ffc3"
+    },
+    {
+      "path": "src/data/event_bank_data_80114324.c",
+      "sha256": "540ccfec4fb87e87074f245a4ed08d84b7feb9cc3b3afa3493df35811d35c6d8"
+    },
+    {
+      "path": "src/data/event_bank_data_80119098.c",
+      "sha256": "f2ccf6c0142005d781de4df6dda1a84e65f788e5a0406dc6a30b43befc49911d"
+    },
+    {
+      "path": "src/data/event_bank_data_80119DC0.c",
+      "sha256": "35612115088501b3bb2bdf9006c3dde26a94541237d72cb675f76c6a45ebf08b"
+    },
+    {
+      "path": "src/data/event_bank_data_80124148.c",
+      "sha256": "9c89475db0c5510d817b42a6a949a9c8125b19d261b93096a553cc0f1ef2dae4"
+    },
+    {
       "path": "src/data/event_tables_8010B15C.c",
       "sha256": "9e44e94a2b37390977cad4d79190c79aa355d48505d6207f579adb8cdbbf6daf"
     },
@@ -201,6 +765,22 @@
     {
       "path": "src/data/resident_zero_extents.c",
       "sha256": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+    },
+    {
+      "path": "src/data/runtime_data_80084BB0.c",
+      "sha256": "8f6efebd592f9a5ff23cdf06c95939241976bb2e8e55e98688e74000ac259595"
+    },
+    {
+      "path": "src/data/runtime_data_80085048.c",
+      "sha256": "d6e987e8171b1aa8d4e3f9e58353cf4713bd30dee1bd4765d5bbfff46668e3df"
+    },
+    {
+      "path": "src/data/runtime_data_8008604C.c",
+      "sha256": "3150376cf783846945189b99806a56f6f2495b9638ae72902444f4938a8c0883"
+    },
+    {
+      "path": "src/data/runtime_data_80089F7C.c",
+      "sha256": "4b086fc4109f7440a885095e029488abbb9e4866085ca9d469eb641a170421f4"
     },
     {
       "path": "src/data/runtime_global_tables.c",
@@ -3704,7 +4284,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "10feb20e980bbad1bba852bae61ced9bdbb10369994dd20bdb0c42c4bd1460ab",
+      "object_sha256": "31a349f280d4a29b39d736a003de23526d9d967ae99f77e98bd9289649e93a35",
       "provider": "typed-initialized-data"
     },
     {
@@ -4543,7 +5123,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "0d48515b596fbe04c34cd965bd9a620447cefcea97d098a9165f3be6a6195706",
+      "object_sha256": "bb60cc21bda21cc1f4efd04afcf7a1105c2fad6741119c59d868d30b2f809d71",
       "provider": "typed-initialized-data"
     },
     {
@@ -4566,7 +5146,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "34c70f92923a6c731f159727bd1b2abeacb3c24d19e67063f22c032986960f40",
+      "object_sha256": "f799d0eadde00ccdaa93d508689bcdfaadd7da5c3db4af22f6dded8c9b544566",
       "provider": "typed-initialized-data"
     },
     {
@@ -4589,7 +5169,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "759dd8ec2a2e6858ca8d0416c4c0e45f5af16d2a8b46e8c02634be3d60231e3f",
+      "object_sha256": "b654bc7ba428a721e1c479d04c9446812dfb360b89e67e1eedf81a3dae03e458",
       "provider": "typed-initialized-data"
     },
     {
@@ -4700,7 +5280,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "90daa3cfbd53045467fdf368bc0d1a2577dcf4103dda962ce2798a6b7a0018c5",
+      "object_sha256": "1d346d261959611ec6ff0f9b320e6018e680794af6a9c6c66ed073c34d77f165",
       "provider": "typed-initialized-data"
     },
     {
@@ -4877,7 +5457,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "65ad6637aaec84805754fd33a1c540fe97871ec4f561b0dd21f16092ecb1c6a4",
+      "object_sha256": "1d1317b1bde05d44454bd3c2efb6cc58f65a77e26d1fa1d7af8851fc21fdba5f",
       "provider": "typed-initialized-data"
     },
     {
@@ -5340,7 +5920,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "e79f3be2570e42ccace274d3ee7a054a3b5e60a00e33f8efe126cce3371e7fc1",
+      "object_sha256": "48d2c7a0bab10189f942ace83a8fe4243d5e31913d26b33a83448561dd77ad84",
       "provider": "typed-initialized-data"
     },
     {
@@ -5701,7 +6281,1111 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "a8a36874d8d4cc68d650bc0f8f778c6f3e1b9d41718326ec60649a2706e42065",
+      "object_sha256": "364b31c58de8396b4eb054f7ff44d2c871255051edf9626a30f2c5d0b2365e92",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800736C4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800736C4",
+      "section": ".data",
+      "rom_start": 472772,
+      "rom_end": 474576,
+      "size": 1804,
+      "vram_start": 2147956420,
+      "sha256": "7050d709b761c71250e81eb2d2aa051b33a6e3c9fa82468ff500e038bc31813e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "011ef9c31012ea45300395f20b5e47041269f04a3e92e5e690987ecdb226f33a",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80079874.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80079874",
+      "section": ".data",
+      "rom_start": 497780,
+      "rom_end": 498848,
+      "size": 1068,
+      "vram_start": 2147981428,
+      "sha256": "fcc00b42251c7950937b8fac9c694f0905c49985f9e396532643f067f55239a9",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "7a26d87cecfb7bb90a3164030ec3ec03cebd0e93eee87e7514e299edf470ce65",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8007A518.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8007A518",
+      "section": ".data",
+      "rom_start": 501016,
+      "rom_end": 501920,
+      "size": 904,
+      "vram_start": 2147984664,
+      "sha256": "3a75d52743aeb3643c855afde5bf41f0bc52a58abf9b20911c14b9302ace9c5e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "a305fd1070d95e867d99d2fe73416f0552025ead96d5d56d84ea7c0798dc42f7",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800818F0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800818F0",
+      "section": ".data",
+      "rom_start": 530672,
+      "rom_end": 534640,
+      "size": 3968,
+      "vram_start": 2148014320,
+      "sha256": "3463b62dbff41347339ed7b0394c2e587cdad9fc79e3cc6b03aa87b2dc4e7bf8",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "7ab99e93b691d25f624370306dfb6424a073ef6d563daafd556334cc07c1852a",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80083AE4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80083AE4",
+      "section": ".data",
+      "rom_start": 539364,
+      "rom_end": 542440,
+      "size": 3076,
+      "vram_start": 2148023012,
+      "sha256": "7a974c4896d6354942d2e5afb373d3eae6352d8b5a58f7ca331ec5675dbb3e65",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "2fdc052478a93b6120b842729788a9fc1b95c5d33c94448534d3c72019acaf5c",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8008883C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8008883C",
+      "section": ".data",
+      "rom_start": 559164,
+      "rom_end": 563440,
+      "size": 4276,
+      "vram_start": 2148042812,
+      "sha256": "b4280a450b1de70f89861875a5cab1187032f87712caa9d2ec8416ac31a18c75",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "f4bc285f0cc483f2aff2263389f4fd248345e3b2c1bd55de736d5b164f1981d1",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8008F768.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8008F768",
+      "section": ".data",
+      "rom_start": 587624,
+      "rom_end": 591856,
+      "size": 4232,
+      "vram_start": 2148071272,
+      "sha256": "41479323241c4bcbb3ee81a186bcf2b9fa7eec1b5fb8809834bc8f914b0a3605",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "23aa69bba9651d07b54f6c9cc96a5e43fa45b66fc6c8304e6ea8373d240e2450",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80095BF4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80095BF4",
+      "section": ".data",
+      "rom_start": 613364,
+      "rom_end": 617536,
+      "size": 4172,
+      "vram_start": 2148097012,
+      "sha256": "161d1779f95d6189b36a942b8fde9fabd3a54f78ed78dcf2f47b023a40d03fb7",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "8ddf0416bf69a79c2ed812d7b7e9b5b22f6711da58e457e64e150490177e9350",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80096C98.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80096C98",
+      "section": ".data",
+      "rom_start": 617624,
+      "rom_end": 618940,
+      "size": 1316,
+      "vram_start": 2148101272,
+      "sha256": "d62faf5645150f116c9dbba6ffced5676df0594c6c26fcfb658767fe265dffc6",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "4a6390f4f5497e9481238b7b57194559f2ef56fbdc3483d98d4d6e5959aae8ea",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80097B34.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80097B34",
+      "section": ".data",
+      "rom_start": 621364,
+      "rom_end": 622508,
+      "size": 1144,
+      "vram_start": 2148105012,
+      "sha256": "2fdfb6cd81014a047f9995979bde28e3510661055ba4fca7ab0bda3c10103456",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "24dddb907acc63b0b7e2cd14114322ff4379a69369e5ec532d6f75d6069fab43",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80098938.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80098938",
+      "section": ".data",
+      "rom_start": 624952,
+      "rom_end": 625928,
+      "size": 976,
+      "vram_start": 2148108600,
+      "sha256": "966f92442b0590fa9fb70d16e720075ada67735addea722258ad4c255d415589",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "51da97a3227e43a70a01fa0b63ab78438caabd8cbeeb61d748e046274101409a",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8009C30C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8009C30C",
+      "section": ".data",
+      "rom_start": 639756,
+      "rom_end": 643360,
+      "size": 3604,
+      "vram_start": 2148123404,
+      "sha256": "b5e16a5dc3f18c50aac6fafd9ba8dadd8550ea27493634747701b03a6fe2a5e5",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "7037b72e846470a4fc774b52b1c1a0b1204032616c54afc9143a1b5c27a962ae",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8009DAA4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8009DAA4",
+      "section": ".data",
+      "rom_start": 645796,
+      "rom_end": 647084,
+      "size": 1288,
+      "vram_start": 2148129444,
+      "sha256": "91631383b2e74ff17fa17d834cae9a706162dc97bac5fa6ed863c961277cbe0f",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "478987879c650584b7ddaf0740ce470fd82f33d9921db77089f98caf654a4257",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8009ECD8.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8009ECD8",
+      "section": ".data",
+      "rom_start": 650456,
+      "rom_end": 651780,
+      "size": 1324,
+      "vram_start": 2148134104,
+      "sha256": "858c9eaac249b9e402d121f5d6bc69827f7d2c02a037dd69063f3af9a99bd68e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "8c328a3c92df5dd8a0c95208f4c2dfa54d5d127e9d368566118f915c90021716",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800A14C0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800A14C0",
+      "section": ".data",
+      "rom_start": 660672,
+      "rom_end": 663748,
+      "size": 3076,
+      "vram_start": 2148144320,
+      "sha256": "e9fbc1e987df0b4d3cf80f91b90193faa7d91a446ec4248090d31a9f28244e3e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "cc293cb12618f75263682d52fca93af466b39beb63a08f3159cbf24d596b9aef",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800A2318.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800A2318",
+      "section": ".data",
+      "rom_start": 664344,
+      "rom_end": 665504,
+      "size": 1160,
+      "vram_start": 2148147992,
+      "sha256": "94fad6eccc478bfb9b159e70b36d8539cdde174ddba659d46bcd6a5e5c3e92a4",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "822cedde7573fec7d64e48d548a6159334e48bc04530154e76c5658012a86618",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800A34F8.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800A34F8",
+      "section": ".data",
+      "rom_start": 668920,
+      "rom_end": 670012,
+      "size": 1092,
+      "vram_start": 2148152568,
+      "sha256": "0c9bdfac16a84ac924089d571188019f2722bbf2e5f13b02fdb1af3d0b4911a1",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "ed29a8b0d15f5a1deabee7c501448ca7ac892e6eabad44316fee4e09596e9ef4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800A39A4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800A39A4",
+      "section": ".data",
+      "rom_start": 670116,
+      "rom_end": 671280,
+      "size": 1164,
+      "vram_start": 2148153764,
+      "sha256": "5545188feae031716978303c123febbe73780de3c983660c6cdea338b1244368",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "7af786b2ab72415ba9e8330baa4fc93ee8adfd1388d15d36232fb8d7adcd6a61",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800A4190.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800A4190",
+      "section": ".data",
+      "rom_start": 672144,
+      "rom_end": 673956,
+      "size": 1812,
+      "vram_start": 2148155792,
+      "sha256": "535953900b951a3f498a543e843a76be149c0c2565e9a4552da616f8af0fe039",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "ff70cd35c4a51d6f5a4e62d65fd0ee1ac50493c2926ff04178851f406bbd046d",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800A8264.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800A8264",
+      "section": ".data",
+      "rom_start": 688740,
+      "rom_end": 692816,
+      "size": 4076,
+      "vram_start": 2148172388,
+      "sha256": "a1d98218d13087ac20fed0cf10051b35c7026b55f882592798e5c104cc0e8d9d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "316171287dbf7dd5af2865eba69ae30aa6d53e539d99b2b8a40acfe25e9fb279",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800AAEB8.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800AAEB8",
+      "section": ".data",
+      "rom_start": 700088,
+      "rom_end": 700992,
+      "size": 904,
+      "vram_start": 2148183736,
+      "sha256": "dd4a2054c37641ec76d18137749fc8bd9402a9737f4acb46ca52a3b35e61d847",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "06add1509d316a138c4a9cbbd3564e6f4c8663f24f890f0117d47eade1e59551",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800AB2D8.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800AB2D8",
+      "section": ".data",
+      "rom_start": 701144,
+      "rom_end": 702772,
+      "size": 1628,
+      "vram_start": 2148184792,
+      "sha256": "e122c352aacdb5841e5404a29cbbffc1b1f98a42a5e4f787ffe8acc03c456809",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "795fdbaa8702e1feb28816b8a14d913b32f2fa36777d11fd8c8b622813c92275",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800AF728.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800AF728",
+      "section": ".data",
+      "rom_start": 718632,
+      "rom_end": 722784,
+      "size": 4152,
+      "vram_start": 2148202280,
+      "sha256": "64bfdae2e3f0054091efbca3936aad12aad83780c6cb2ad681d079288e34176a",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "4b8ffb95b9c1209bf48a9749bcc8a42300c3f41bdb6ca77f8f6085f790fd56dd",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800B1D74.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800B1D74",
+      "section": ".data",
+      "rom_start": 728436,
+      "rom_end": 729432,
+      "size": 996,
+      "vram_start": 2148212084,
+      "sha256": "3ec65d41c1d7413ae33e7854d3e6fc865289b5606b7b1cc5e48b4341373658c0",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "0fcedeb95cc61313dde31662abcbf6e05e9c1943cc6a138be3236633314c329a",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800B4EFC.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800B4EFC",
+      "section": ".data",
+      "rom_start": 741116,
+      "rom_end": 742116,
+      "size": 1000,
+      "vram_start": 2148224764,
+      "sha256": "8f1213c450d7d13569369e98128a8a1dd7d69cd6900b7848b028910e7e42f6d7",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "eb4a1b2be4b2d7f8e435ca7daee06e127ebb4919e5dc340c112869f4e98de931",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800B680C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800B680C",
+      "section": ".data",
+      "rom_start": 747532,
+      "rom_end": 748880,
+      "size": 1348,
+      "vram_start": 2148231180,
+      "sha256": "f494577d0ffec79827580c04e91c10d0daafa164f13c1763265e5f1eb59fe77e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "f978eeac805f137defd6b4396686fa10ad0f7f0049823e252682bedb4b6485e9",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800B7870.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800B7870",
+      "section": ".data",
+      "rom_start": 751728,
+      "rom_end": 752816,
+      "size": 1088,
+      "vram_start": 2148235376,
+      "sha256": "fe9178ccb5052027f2ae3c0f2bb28ae63a80c43654b24e667f357df6720b13b4",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "cca9e305429f9687e507d1def64d749e4fd3b47bee9a28c77df20c2f6e4ac3f0",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800B8F6C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800B8F6C",
+      "section": ".data",
+      "rom_start": 757612,
+      "rom_end": 758768,
+      "size": 1156,
+      "vram_start": 2148241260,
+      "sha256": "b96beef2a0aa64b6f2e03f85ae881f94f116f6da45cfb7d8a4e0418fbd633ed2",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "cc78c46beea1385bba19509abd370f7fb52a5848a4e26213218d25b12f1ac912",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800BD65C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800BD65C",
+      "section": ".data",
+      "rom_start": 775772,
+      "rom_end": 777216,
+      "size": 1444,
+      "vram_start": 2148259420,
+      "sha256": "558669731e405603459d537b1aa811ad7c312cf3b7cc15d179bfd513b794093a",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "801ff616b6835908a36fa0156fb4de5aa0ad2d507d0d24e425784a96371ed674",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800BEC40.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800BEC40",
+      "section": ".data",
+      "rom_start": 781376,
+      "rom_end": 782260,
+      "size": 884,
+      "vram_start": 2148265024,
+      "sha256": "d782e9ec7c4bd1e3f8884b3d82355b4196dfba4f9c7a94ded51741f226dd2a95",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "1bd927a70769258052c3f4a5962172ddb4f5b2e2853279cbd5cd56af87ef8ee6",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800C0568.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800C0568",
+      "section": ".data",
+      "rom_start": 787816,
+      "rom_end": 789088,
+      "size": 1272,
+      "vram_start": 2148271464,
+      "sha256": "f41f063a35aa3bc9de01ff37f46f326b9cde2f94b7032386d9dc4496cf75180d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "d8b923c64fbd623d0ca2e4d2ee9e70f1406fcd3dd68b5ac4c4d5e55b7cd35817",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800CACB8.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800CACB8",
+      "section": ".data",
+      "rom_start": 830648,
+      "rom_end": 833592,
+      "size": 2944,
+      "vram_start": 2148314296,
+      "sha256": "072487ce3ef95d4201ea004ac7b3bdbbf42161a6152a6c26bfa199051be8bbf8",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "00a3ebb33bfa07ea9d9289b7ab366aefbbc52e21c084e19198c556471984f4bd",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800CC54C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800CC54C",
+      "section": ".data",
+      "rom_start": 836940,
+      "rom_end": 838044,
+      "size": 1104,
+      "vram_start": 2148320588,
+      "sha256": "376e36ebac02fdcbf4cc0d6d9df74be87b1fa907c2ecafc6807a150bb793e6fe",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "db08f4f225a0a9fe9b9d9662c036222474542df90595771aae20dba4c8946a9d",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800CF710.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800CF710",
+      "section": ".data",
+      "rom_start": 849680,
+      "rom_end": 851148,
+      "size": 1468,
+      "vram_start": 2148333328,
+      "sha256": "f681e0bcf3fc0d9320416fb58e1ecf3292002738e72fe7ba09afeb000b265621",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "3bc416f25f70594d4f0ecae3fe3d250aaa9c8be1278de287aa55bd026dec9dd3",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800D0338.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800D0338",
+      "section": ".data",
+      "rom_start": 852792,
+      "rom_end": 853680,
+      "size": 888,
+      "vram_start": 2148336440,
+      "sha256": "8313f3b7e3abde88acf9b973659d2e4822290aa6743c8832e5a78869c0cec22d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "e81277df766684f1a8703c004084251b3004c96f4b3785b467e093b1eaf47d8d",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800D0DA0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800D0DA0",
+      "section": ".data",
+      "rom_start": 855456,
+      "rom_end": 856552,
+      "size": 1096,
+      "vram_start": 2148339104,
+      "sha256": "a162d1d96cf42d4de62d1e477d724e864e6448ff73625c64a64375a7da06b5e0",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "8058498f3b84f1be964939f2a1a1f05794c77817baebeefd4f7f8c4f0ef0cdfc",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800D3FEC.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800D3FEC",
+      "section": ".data",
+      "rom_start": 868332,
+      "rom_end": 869240,
+      "size": 908,
+      "vram_start": 2148351980,
+      "sha256": "5ead55713e2e68901cab945173ae8ef7f9ec54af6484a79d80847468cec9fdda",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "489f1cea976250fd9eab4fe017501a4cd7a05ddf497967ffc67d756352a5d41e",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800D52A4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800D52A4",
+      "section": ".data",
+      "rom_start": 873124,
+      "rom_end": 876528,
+      "size": 3404,
+      "vram_start": 2148356772,
+      "sha256": "834d9221b54df662b10fb59cb64aef19df6aa906301b522f44d5cf61a0786cf2",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "e86000858f2cf06c1ee253066d04985733de95baf358cafc8dad1d0e2b4eb0f9",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800D7A8C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800D7A8C",
+      "section": ".data",
+      "rom_start": 883340,
+      "rom_end": 884572,
+      "size": 1232,
+      "vram_start": 2148366988,
+      "sha256": "60d9c383b91b0afe44d119164761314c69dcf7e36aafe3b837c10d276b1e5cce",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "43051f91af151e1697ef44ebddb7b34b1f583e97d415735519b22a37dbd42acb",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800DBE94.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800DBE94",
+      "section": ".data",
+      "rom_start": 900756,
+      "rom_end": 904928,
+      "size": 4172,
+      "vram_start": 2148384404,
+      "sha256": "f71c28b5ef10e432e4aae80313b038c2bda26a47ad908daeacba3fdd15778dbb",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "dff61194fa36347db0ce595c02d47b209f0e9b4cd2ab506463cd0897b5bf7add",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800E326C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800E326C",
+      "section": ".data",
+      "rom_start": 930412,
+      "rom_end": 932128,
+      "size": 1716,
+      "vram_start": 2148414060,
+      "sha256": "d36fe57ef016c780ca0978150233e3ffd987e7deb17bd6f11a1a9965cecf5565",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "a456465e8788e2369a14124e435f3c6ec9ac2e61250fa46905f18ed281c926a7",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800E6D68.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800E6D68",
+      "section": ".data",
+      "rom_start": 945512,
+      "rom_end": 946608,
+      "size": 1096,
+      "vram_start": 2148429160,
+      "sha256": "53d5f96b828b58e382a9ea1875fd0913141a089759315c4b02783a5acd1c36b6",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "f74966c1ef5cf1a69daae3a95e2f6bd1d6b8b1ca14c90af420c109b9de24fa76",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800E9B08.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800E9B08",
+      "section": ".data",
+      "rom_start": 957192,
+      "rom_end": 958480,
+      "size": 1288,
+      "vram_start": 2148440840,
+      "sha256": "c815135369821c6c5e4868c9cfce6ca5ddb48c1236d2d0a374dd168ff344ec7f",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "0c510e4c3f8bc9b99679a66dd91e8ab508ede3d8862f5e127ad300f001f0e159",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800F2D68.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800F2D68",
+      "section": ".data",
+      "rom_start": 994664,
+      "rom_end": 995872,
+      "size": 1208,
+      "vram_start": 2148478312,
+      "sha256": "06d0ddef42ae52c3c53b1e2e2c74bfc08fca4102f77e9e8da85687c145c94fe3",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "abcf80484c81d4c7694fa3a692d88073e0ca708ba284238b3bd639414cfc8b64",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800F672C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800F672C",
+      "section": ".data",
+      "rom_start": 1009452,
+      "rom_end": 1010912,
+      "size": 1460,
+      "vram_start": 2148493100,
+      "sha256": "6950aa1ea32af72b17a90482402fec49d6e509e0d2d6ba60482bdd585623a9d9",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "287f156092ff76b1d7df4559a3aac95b08d4dd27084f41f30194233a092474d8",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800F99C4.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800F99C4",
+      "section": ".data",
+      "rom_start": 1022404,
+      "rom_end": 1023552,
+      "size": 1148,
+      "vram_start": 2148506052,
+      "sha256": "517be7ed469dc71c0dc8f6870d771149624108a67cccf97a675aa710c50524e9",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "18ba5a5d42f3ac854944e01230c1538f615fd5ff99d3bfbc4ee74fc37d45ee93",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_800FE5A0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_800FE5A0",
+      "section": ".data",
+      "rom_start": 1041824,
+      "rom_end": 1043808,
+      "size": 1984,
+      "vram_start": 2148525472,
+      "sha256": "b376cf3584473f13be1ec786d982b1ea46fc314b4f7761646896625b35ae3ed2",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "2e094146be88c8721c0a670aed8819418454ed1bbeac4015245fb915004ea734",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80104BF0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80104BF0",
+      "section": ".data",
+      "rom_start": 1068016,
+      "rom_end": 1069520,
+      "size": 1504,
+      "vram_start": 2148551664,
+      "sha256": "a845d35715956804683a79f35817e554f1ad75f1b4b0a2a075c10afcbe9c6810",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "62da6c227696a2e722de9fdf4a76710e1c2d5fcf508899c6b54ee9769747bccc",
       "provider": "typed-initialized-data"
     },
     {
@@ -5724,7 +7408,76 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "c10f754b7a931fc4da4fedcfef21712a6ff40ebdab482380a6bee39d64c83ad7",
+      "object_sha256": "988a4c20d8985db7ec5a869f85cf1ccea5426ccf308f5ecf5c1ec2e87e62cbbb",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_8010D120.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_8010D120",
+      "section": ".data",
+      "rom_start": 1102112,
+      "rom_end": 1104800,
+      "size": 2688,
+      "vram_start": 2148585760,
+      "sha256": "8c18cb67842988769c61a601fea74c2c0573315a46dacc4895f0bba1a3b568fa",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "089a5c66909255907e06d3a734e061c4ada3deec8cb64deb80116361820dc526",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_801129C0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_801129C0",
+      "section": ".data",
+      "rom_start": 1124800,
+      "rom_end": 1126336,
+      "size": 1536,
+      "vram_start": 2148608448,
+      "sha256": "cfb9809fb098231bd419e58876a46541c8bebb0c2f73ccacbce355fcc3319023",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "8c68907f0d60e90134a9da68155b8d119e0aee275290c22f848e2dc92561ca0b",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80114324.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80114324",
+      "section": ".data",
+      "rom_start": 1131300,
+      "rom_end": 1132208,
+      "size": 908,
+      "vram_start": 2148614948,
+      "sha256": "c7453f1317326b7202af39acdc9b4b1d2b7e366de6dc39a15ebb0edb3e837a38",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "9cf3661dbd28fa35ee88045a07f402927056e16a1bce8e849b19639acb705b5e",
       "provider": "typed-initialized-data"
     },
     {
@@ -5747,7 +7500,53 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "97e8a34d876177223af466e1dd8e9166501a6885ee40e146a4cba3b08798c0cc",
+      "object_sha256": "f113e8ec2d1ee267d05cc707cd0b678ef8782629ea526d7b9fc2bf38e397904d",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80119098.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80119098",
+      "section": ".data",
+      "rom_start": 1151128,
+      "rom_end": 1153024,
+      "size": 1896,
+      "vram_start": 2148634776,
+      "sha256": "46acdaca21b8b9d774c5a71173d6d86ee8bf13c9de83b9cd495160ebb2af4a9e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "1ac4c2213f65ab3b523436e9171c5d296ba9cd3a5c53f5a63c18113d84259aca",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80119DC0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80119DC0",
+      "section": ".data",
+      "rom_start": 1154496,
+      "rom_end": 1155588,
+      "size": 1092,
+      "vram_start": 2148638144,
+      "sha256": "8fff63487e21a863c3d283c683e330e7a64a669440bed1c715d6e7feab8894ad",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "8a2e5839add354bd03298904981ec4ea39e03a537632c403fca89b49bfa6f439",
       "provider": "typed-initialized-data"
     },
     {
@@ -5770,7 +7569,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "d6bcce396435b0f885461cf05237dc9ffbbf5324c5d8275802cb1952e2e6e543",
+      "object_sha256": "068fda0aef654d3258714bc6f71207d356d305cdec73077c95d71c4b335ae1f4",
       "provider": "typed-initialized-data"
     },
     {
@@ -5793,7 +7592,99 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "34bf1d2e64497167f39f35f717e4e5b505b203f265d71534d7d4ebe5d2c951f3",
+      "object_sha256": "c376a6d613513053d88c2aecb586fae95e54b32dcb5c9b485ffa0fd510373890",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/event_bank_data_80124148.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "event_bank_data_80124148",
+      "section": ".data",
+      "rom_start": 1196360,
+      "rom_end": 1199520,
+      "size": 3160,
+      "vram_start": 2148680008,
+      "sha256": "a3ade387646e827249bdd34d83d5d6819d04eaffb69098eb4be19e2f4f25d583",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "63c19702489f9c63332046b006fc9a0d74c9cb5dde1820ecd68fbdcf73d3b174",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_data_80084BB0.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_data_80084BB0",
+      "section": ".data",
+      "rom_start": 1213600,
+      "rom_end": 1214768,
+      "size": 1168,
+      "vram_start": 2148027312,
+      "sha256": "0e4da5f5fb02c6ac4ba6acb4036227139c680fdb378d6feeb2fe2d4727b70a66",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "605e347878a4ac7cdd5d7e6243f93d228554a5d8d1c0770dc79a6f291249b3d3",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_data_80085048.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_data_80085048",
+      "section": ".data",
+      "rom_start": 1214776,
+      "rom_end": 1218388,
+      "size": 3612,
+      "vram_start": 2148028488,
+      "sha256": "db99ed5c035d4357aed1a499ec230dcd414c88311f1984d0390d4b7f042a8f3b",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "a6a831d9bd473c67d7a7b250e32f065c301cbfda03c300fa9e31fb0d876a3dc6",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_data_8008604C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_data_8008604C",
+      "section": ".data",
+      "rom_start": 1218876,
+      "rom_end": 1220192,
+      "size": 1316,
+      "vram_start": 2148032588,
+      "sha256": "51b95b8b28d2a459356aebda4840fbe0a954da601c5054c8a0b16b491737d7a9",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "eaeddf3ef5de9a5ace2bf4b834535d6834932359e71679575b91ca98295332b9",
       "provider": "typed-initialized-data"
     },
     {
@@ -5816,7 +7707,30 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "dcf3e9c33545836bf7dc9701c0722f6bbf557f95e14c39bac179ac7c1b201662",
+      "object_sha256": "0fa781ca8a85531259581d7971df1a23e616a8a76a89c662cb79daf54a8cfd09",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/runtime_data_80089F7C.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "runtime_data_80089F7C",
+      "section": ".data",
+      "rom_start": 1235052,
+      "rom_end": 1238000,
+      "size": 2948,
+      "vram_start": 2148048764,
+      "sha256": "ef8dafcae3838965fd53e00eecdfa4fe3c98daeb1c3090bf9657b0d6f596e378",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "4e5ed1720c776fcf69e4167796d6dd7685675c54575cbd232ad0c4629f7fbda1",
       "provider": "typed-initialized-data"
     },
     {
@@ -5839,7 +7753,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "0e743a82ab78806fae4cf2a873e9d4179245c1a37626fbecaa030ceed4d4f553",
+      "object_sha256": "6bd0ecd48bdd518ac967d3bc0f07673a54d11349409d4d5bddd523bfc8791e9e",
       "provider": "typed-initialized-data"
     },
     {
@@ -5862,15 +7776,15 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "83e7eca9dd50a0340a03562d7e89601cf3fd8148b92dee7f6d7b7ccd02e79981",
+      "object_sha256": "e30346cb7ebea6967884566849d57e845be90ec45ed14bf874cc3f61c0a51219",
       "provider": "typed-initialized-data"
     }
   ],
   "verification": {
-    "units": 671,
-    "exact_units": 671,
+    "units": 729,
+    "exact_units": 729,
     "text_units": 651,
-    "data_only_units": 17,
+    "data_only_units": 75,
     "rsp_programs": 3
   },
   "source_image_provider": {
@@ -6095,7 +8009,7 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "1ed173231979abc5518479b2075b3e2d9c6c6c1d5a0b1ec52569fa7054544972"
+        "sha256": "504ca0e1e85b81475afbb9d7d418ce1bdb001538735dfa39b6bb183579cfb9f8"
       },
       {
         "path": "src/data/audio_delay_coefficients.c",
@@ -6104,6 +8018,222 @@
       {
         "path": "src/data/closing_overlay_data.c",
         "sha256": "9a7323ead62bc5c1af966e78de518477495d62f488a569090db31a9e7216fb7e"
+      },
+      {
+        "path": "src/data/event_bank_data_800736C4.c",
+        "sha256": "6a23339673d6650482fc115444ee2b8662cd29e9c58953b807b02c62a2cb2193"
+      },
+      {
+        "path": "src/data/event_bank_data_80079874.c",
+        "sha256": "25a12a6c0c8404b44b4cc3875a952818fe5760b59f0b179fcfc829b17a886b22"
+      },
+      {
+        "path": "src/data/event_bank_data_8007A518.c",
+        "sha256": "f4de090475f4a6edfb2aff03e2790ef07fb41b8f239659a5c0bd725880f67923"
+      },
+      {
+        "path": "src/data/event_bank_data_800818F0.c",
+        "sha256": "0fca07c698be0b52b79f152ec37833bc3f3cc99cafde445b6d387afb079e82d7"
+      },
+      {
+        "path": "src/data/event_bank_data_80083AE4.c",
+        "sha256": "a288f6b45b8095270e52b0f6e2e01624ba219b3fcace9db0559605d06fe49555"
+      },
+      {
+        "path": "src/data/event_bank_data_8008883C.c",
+        "sha256": "8685c28b3d2e932b3c07850a77d37644e26200fa7ee4489d52f989c746e83589"
+      },
+      {
+        "path": "src/data/event_bank_data_8008F768.c",
+        "sha256": "33e228dae206a4a8b94a2ff462a39e94e686d2362872310c9adac6391a9052c2"
+      },
+      {
+        "path": "src/data/event_bank_data_80095BF4.c",
+        "sha256": "70305c4532dacf0d407aecfd4e02e9c5f9019dc072fbbfa4079260cf2af1f5cc"
+      },
+      {
+        "path": "src/data/event_bank_data_80096C98.c",
+        "sha256": "87c340fd6c75c295b568ab1ada0273bdd0da6f942bcc701416c5148182bdb342"
+      },
+      {
+        "path": "src/data/event_bank_data_80097B34.c",
+        "sha256": "e123c445cd09b9e02f77cfe4dc837fa12d00017b4c23612c3a1bda3929e7feb4"
+      },
+      {
+        "path": "src/data/event_bank_data_80098938.c",
+        "sha256": "9edc88388a748eae05218df4782bafd0336198ff5285fc0abc4048e20c70fd4c"
+      },
+      {
+        "path": "src/data/event_bank_data_8009C30C.c",
+        "sha256": "748fa27110f7797fa5df69af36c895c06616f2bebc836f5dbb74bee3bcbb49f8"
+      },
+      {
+        "path": "src/data/event_bank_data_8009DAA4.c",
+        "sha256": "f983e951861df31ff518e10ccf3c3490ec16cd154ff62fbc71a99d72395511ae"
+      },
+      {
+        "path": "src/data/event_bank_data_8009ECD8.c",
+        "sha256": "f934e78afea9b8f8bbc4cb2da1b09dc6fd69a72ffcb8710345a7c9b0fa457bb2"
+      },
+      {
+        "path": "src/data/event_bank_data_800A14C0.c",
+        "sha256": "0092ea4c0c516ee3a4c87e48cd55e7a647a38602b299f41e78c098e871159fac"
+      },
+      {
+        "path": "src/data/event_bank_data_800A2318.c",
+        "sha256": "cf6dfb1e27132a3c6e1b3e7274e7da007a34c7d6eb337585896cd023955ae070"
+      },
+      {
+        "path": "src/data/event_bank_data_800A34F8.c",
+        "sha256": "a24e1cb609df26961fa093f71794c638dd8843b8712def374a7a80ea83837efe"
+      },
+      {
+        "path": "src/data/event_bank_data_800A39A4.c",
+        "sha256": "5b0e2901fa4196f6cc1766865df3166cb38d348fcffd9a144ddf58258512b96b"
+      },
+      {
+        "path": "src/data/event_bank_data_800A4190.c",
+        "sha256": "2ec5c9654e521ee27cab91e7e7e85802d556e524c1be634a1386fbef7ff8c89f"
+      },
+      {
+        "path": "src/data/event_bank_data_800A8264.c",
+        "sha256": "6c116198ebed1ad5cffa681103222e47ce98f07a295070e3f262712b13ed5345"
+      },
+      {
+        "path": "src/data/event_bank_data_800AAEB8.c",
+        "sha256": "16971e4ee1e1e64e7f7b90db4094630b34b5c73e6143691d15ce154cdd85bf4e"
+      },
+      {
+        "path": "src/data/event_bank_data_800AB2D8.c",
+        "sha256": "2d285a0137e1195c549a176d46636a67aa43be92925f35efa6c69cd083598c48"
+      },
+      {
+        "path": "src/data/event_bank_data_800AF728.c",
+        "sha256": "87159f7822e67fbe33ad34936ab89f99702e2eb7b42cad04b9905471180844cc"
+      },
+      {
+        "path": "src/data/event_bank_data_800B1D74.c",
+        "sha256": "c839df14337871f0afd8582cc7c790e3b4fded5c551faf7defaa84672972d0be"
+      },
+      {
+        "path": "src/data/event_bank_data_800B4EFC.c",
+        "sha256": "e53a17d18306157708bb26ee528920154f84676b29e9c7bb1974f1cf400484d8"
+      },
+      {
+        "path": "src/data/event_bank_data_800B680C.c",
+        "sha256": "50c0ef529b67b083977bf96a242d17b6504d0c8c090a1b69be9033c9913a13d5"
+      },
+      {
+        "path": "src/data/event_bank_data_800B7870.c",
+        "sha256": "0a045b6b41e5f571c0dce51980415911c5bf05666cdcb318f5eb201dfea37127"
+      },
+      {
+        "path": "src/data/event_bank_data_800B8F6C.c",
+        "sha256": "aabb342f8af2fd078c20ce2df39b1ae1a1b14ca47f056898c652d510f7581f3b"
+      },
+      {
+        "path": "src/data/event_bank_data_800BD65C.c",
+        "sha256": "9be0f0f323719ae15f780bcc678362b276fb7ce1ca34763f6f1ed6a25b1e3752"
+      },
+      {
+        "path": "src/data/event_bank_data_800BEC40.c",
+        "sha256": "095e841679b291337a55e4f190fb78a3e3d021ab93c73b1b6bbbf714d5a102b8"
+      },
+      {
+        "path": "src/data/event_bank_data_800C0568.c",
+        "sha256": "e0afc26cb083dbabaa977c61424e2d993c601170f5372f6109f3479d12e6a47d"
+      },
+      {
+        "path": "src/data/event_bank_data_800CACB8.c",
+        "sha256": "27b86ceb0d1b0cbc831c3f3233517bf67e43ac6ded3cb2bd412340441264012a"
+      },
+      {
+        "path": "src/data/event_bank_data_800CC54C.c",
+        "sha256": "eef4e7653388f63721444b6ba48d89c3d99e397d56ca79d2226ea6fb96bd1fbd"
+      },
+      {
+        "path": "src/data/event_bank_data_800CF710.c",
+        "sha256": "4393afebff4fd9bdb93dfd2328cc1535076170771da20fd36c73c786a6d0ff32"
+      },
+      {
+        "path": "src/data/event_bank_data_800D0338.c",
+        "sha256": "6f8b0db7d2e316f382adbb5bc9c95686158aeccb3db0cdef6eb7ad011674c804"
+      },
+      {
+        "path": "src/data/event_bank_data_800D0DA0.c",
+        "sha256": "20b882ff1e9a42196e748bd966923c809f445c6e30f6f83b5bcb683cbfde7978"
+      },
+      {
+        "path": "src/data/event_bank_data_800D3FEC.c",
+        "sha256": "b3382b4c93e736e33462374d43656d4f3bf1f4ad86b02d6cad87084e5aeb72a0"
+      },
+      {
+        "path": "src/data/event_bank_data_800D52A4.c",
+        "sha256": "3f655d3f62956faa9dbac51714200da5f3f395c79e690bbd1b51585ece77d502"
+      },
+      {
+        "path": "src/data/event_bank_data_800D7A8C.c",
+        "sha256": "2ef3401de876e57512b12343a0bb4abb111ef1e9b137dc06a798d232373a4760"
+      },
+      {
+        "path": "src/data/event_bank_data_800DBE94.c",
+        "sha256": "9c104f20e9ec4f7c7bb75a62fba018c86bda9a3f09a630208fdbd0c88d9c3053"
+      },
+      {
+        "path": "src/data/event_bank_data_800E326C.c",
+        "sha256": "7802e65e6db7c93eacb085694dbc3b0d6f6690d3f178626206e1441f418eded0"
+      },
+      {
+        "path": "src/data/event_bank_data_800E6D68.c",
+        "sha256": "c733a2c34d3015f738fde52ea08037414043a33703db43c963f059dbb7f530d4"
+      },
+      {
+        "path": "src/data/event_bank_data_800E9B08.c",
+        "sha256": "8b897ba2f5ca9dfd7a962341faca23b398d5ed8883d5bb4f4bdc345a79c1eb83"
+      },
+      {
+        "path": "src/data/event_bank_data_800F2D68.c",
+        "sha256": "82c0681b06b643cf687fbe58f1cc6e76b91a12c7433f3c88c5e258cb2ee3cd00"
+      },
+      {
+        "path": "src/data/event_bank_data_800F672C.c",
+        "sha256": "135e04e1a9cee496a7320525b4a5f99978666bdd94b05053093b57bee3b398fe"
+      },
+      {
+        "path": "src/data/event_bank_data_800F99C4.c",
+        "sha256": "c783e87d03ae3eb5bd3f7e8bd69ba1de9abd13b60f94ae20de1adfdb79067425"
+      },
+      {
+        "path": "src/data/event_bank_data_800FE5A0.c",
+        "sha256": "df2e7b3a0076a03447e638f6dbe49cfec1487cf6b9762bdc86bd514474d421d0"
+      },
+      {
+        "path": "src/data/event_bank_data_80104BF0.c",
+        "sha256": "404a7877da06c40eb11b5aeb1c751226023971c35a94f596d9da1b8f21666a44"
+      },
+      {
+        "path": "src/data/event_bank_data_8010D120.c",
+        "sha256": "8517d438354a94f7ceeeb3c5c334f6c619981105fd8c65172909bd753728cbf7"
+      },
+      {
+        "path": "src/data/event_bank_data_801129C0.c",
+        "sha256": "49ebc1a68eaa1402ed9985e431633ade1fdaa616e0f07d2601da7fcc6b21ffc3"
+      },
+      {
+        "path": "src/data/event_bank_data_80114324.c",
+        "sha256": "540ccfec4fb87e87074f245a4ed08d84b7feb9cc3b3afa3493df35811d35c6d8"
+      },
+      {
+        "path": "src/data/event_bank_data_80119098.c",
+        "sha256": "f2ccf6c0142005d781de4df6dda1a84e65f788e5a0406dc6a30b43befc49911d"
+      },
+      {
+        "path": "src/data/event_bank_data_80119DC0.c",
+        "sha256": "35612115088501b3bb2bdf9006c3dde26a94541237d72cb675f76c6a45ebf08b"
+      },
+      {
+        "path": "src/data/event_bank_data_80124148.c",
+        "sha256": "9c89475db0c5510d817b42a6a949a9c8125b19d261b93096a553cc0f1ef2dae4"
       },
       {
         "path": "src/data/event_tables_8010B15C.c",
@@ -6144,6 +8274,22 @@
       {
         "path": "src/data/resident_zero_extents.c",
         "sha256": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+      },
+      {
+        "path": "src/data/runtime_data_80084BB0.c",
+        "sha256": "8f6efebd592f9a5ff23cdf06c95939241976bb2e8e55e98688e74000ac259595"
+      },
+      {
+        "path": "src/data/runtime_data_80085048.c",
+        "sha256": "d6e987e8171b1aa8d4e3f9e58353cf4713bd30dee1bd4765d5bbfff46668e3df"
+      },
+      {
+        "path": "src/data/runtime_data_8008604C.c",
+        "sha256": "3150376cf783846945189b99806a56f6f2495b9638ae72902444f4938a8c0883"
+      },
+      {
+        "path": "src/data/runtime_data_80089F7C.c",
+        "sha256": "4b086fc4109f7440a885095e029488abbb9e4866085ca9d469eb641a170421f4"
       },
       {
         "path": "src/data/runtime_global_tables.c",
@@ -6389,7 +8535,7 @@
           "-meb"
         ],
         "source": "src/data/runtime_global_tables.c",
-        "object_sha256": "83e7eca9dd50a0340a03562d7e89601cf3fd8148b92dee7f6d7b7ccd02e79981",
+        "object_sha256": "e30346cb7ebea6967884566849d57e845be90ec45ed14bf874cc3f61c0a51219",
         "symbols": {}
       },
       {
@@ -6404,7 +8550,7 @@
           "-meb"
         ],
         "source": "src/data/runtime_tables_80086764.c",
-        "object_sha256": "dcf3e9c33545836bf7dc9701c0722f6bbf557f95e14c39bac179ac7c1b201662",
+        "object_sha256": "0fa781ca8a85531259581d7971df1a23e616a8a76a89c662cb79daf54a8cfd09",
         "symbols": {}
       },
       {
@@ -6419,7 +8565,7 @@
           "-meb"
         ],
         "source": "src/data/runtime_tables_8008AB20.c",
-        "object_sha256": "0e743a82ab78806fae4cf2a873e9d4179245c1a37626fbecaa030ceed4d4f553",
+        "object_sha256": "6bd0ecd48bdd518ac967d3bc0f07673a54d11349409d4d5bddd523bfc8791e9e",
         "symbols": {}
       },
       {
@@ -6434,7 +8580,7 @@
           "-meb"
         ],
         "source": "src/data/event_tables_8010B15C.c",
-        "object_sha256": "c10f754b7a931fc4da4fedcfef21712a6ff40ebdab482380a6bee39d64c83ad7",
+        "object_sha256": "988a4c20d8985db7ec5a869f85cf1ccea5426ccf308f5ecf5c1ec2e87e62cbbb",
         "symbols": {}
       },
       {
@@ -6449,7 +8595,7 @@
           "-meb"
         ],
         "source": "src/data/event_tables_8011A310.c",
-        "object_sha256": "d6bcce396435b0f885461cf05237dc9ffbbf5324c5d8275802cb1952e2e6e543",
+        "object_sha256": "068fda0aef654d3258714bc6f71207d356d305cdec73077c95d71c4b335ae1f4",
         "symbols": {}
       },
       {
@@ -6464,7 +8610,7 @@
           "-meb"
         ],
         "source": "src/data/event_tables_80120B38.c",
-        "object_sha256": "34bf1d2e64497167f39f35f717e4e5b505b203f265d71534d7d4ebe5d2c951f3",
+        "object_sha256": "c376a6d613513053d88c2aecb586fae95e54b32dcb5c9b485ffa0fd510373890",
         "symbols": {}
       },
       {
@@ -6479,7 +8625,7 @@
           "-meb"
         ],
         "source": "src/data/event_tables_8011559C.c",
-        "object_sha256": "97e8a34d876177223af466e1dd8e9166501a6885ee40e146a4cba3b08798c0cc",
+        "object_sha256": "f113e8ec2d1ee267d05cc707cd0b678ef8782629ea526d7b9fc2bf38e397904d",
         "symbols": {}
       },
       {
@@ -6494,7 +8640,7 @@
           "-meb"
         ],
         "source": "src/data/closing_overlay_data.c",
-        "object_sha256": "a8a36874d8d4cc68d650bc0f8f778c6f3e1b9d41718326ec60649a2706e42065",
+        "object_sha256": "364b31c58de8396b4eb054f7ff44d2c871255051edf9626a30f2c5d0b2365e92",
         "symbols": {}
       },
       {
@@ -6509,7 +8655,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "10feb20e980bbad1bba852bae61ced9bdbb10369994dd20bdb0c42c4bd1460ab",
+        "object_sha256": "31a349f280d4a29b39d736a003de23526d9d967ae99f77e98bd9289649e93a35",
         "symbols": {}
       },
       {
@@ -6524,7 +8670,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "34c70f92923a6c731f159727bd1b2abeacb3c24d19e67063f22c032986960f40",
+        "object_sha256": "f799d0eadde00ccdaa93d508689bcdfaadd7da5c3db4af22f6dded8c9b544566",
         "symbols": {}
       },
       {
@@ -6539,7 +8685,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "759dd8ec2a2e6858ca8d0416c4c0e45f5af16d2a8b46e8c02634be3d60231e3f",
+        "object_sha256": "b654bc7ba428a721e1c479d04c9446812dfb360b89e67e1eedf81a3dae03e458",
         "symbols": {}
       },
       {
@@ -6554,7 +8700,7 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "65ad6637aaec84805754fd33a1c540fe97871ec4f561b0dd21f16092ecb1c6a4",
+        "object_sha256": "1d1317b1bde05d44454bd3c2efb6cc58f65a77e26d1fa1d7af8851fc21fdba5f",
         "symbols": {}
       },
       {
@@ -6583,7 +8729,7 @@
           "-meb"
         ],
         "source": "src/data/resident_tail_data.c",
-        "object_sha256": "e79f3be2570e42ccace274d3ee7a054a3b5e60a00e33f8efe126cce3371e7fc1",
+        "object_sha256": "48d2c7a0bab10189f942ace83a8fe4243d5e31913d26b33a83448561dd77ad84",
         "symbols": {}
       },
       {
@@ -6612,7 +8758,7 @@
           "-meb"
         ],
         "source": "src/data/gsm_rpe_coefficients.c",
-        "object_sha256": "0d48515b596fbe04c34cd965bd9a620447cefcea97d098a9165f3be6a6195706",
+        "object_sha256": "bb60cc21bda21cc1f4efd04afcf7a1105c2fad6741119c59d868d30b2f809d71",
         "symbols": {}
       },
       {
@@ -6627,11 +8773,881 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "90daa3cfbd53045467fdf368bc0d1a2577dcf4103dda962ce2798a6b7a0018c5",
+        "object_sha256": "1d346d261959611ec6ff0f9b320e6018e680794af6a9c6c66ed073c34d77f165",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8008883C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8008883C.c",
+        "object_sha256": "f4bc285f0cc483f2aff2263389f4fd248345e3b2c1bd55de736d5b164f1981d1",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8008F768",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8008F768.c",
+        "object_sha256": "23aa69bba9651d07b54f6c9cc96a5e43fa45b66fc6c8304e6ea8373d240e2450",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80095BF4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80095BF4.c",
+        "object_sha256": "8ddf0416bf69a79c2ed812d7b7e9b5b22f6711da58e457e64e150490177e9350",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800DBE94",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800DBE94.c",
+        "object_sha256": "dff61194fa36347db0ce595c02d47b209f0e9b4cd2ab506463cd0897b5bf7add",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800AF728",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800AF728.c",
+        "object_sha256": "4b8ffb95b9c1209bf48a9749bcc8a42300c3f41bdb6ca77f8f6085f790fd56dd",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800A8264",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800A8264.c",
+        "object_sha256": "316171287dbf7dd5af2865eba69ae30aa6d53e539d99b2b8a40acfe25e9fb279",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800818F0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800818F0.c",
+        "object_sha256": "7ab99e93b691d25f624370306dfb6424a073ef6d563daafd556334cc07c1852a",
+        "symbols": {}
+      },
+      {
+        "unit_id": "runtime_data_80085048",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_data_80085048.c",
+        "object_sha256": "a6a831d9bd473c67d7a7b250e32f065c301cbfda03c300fa9e31fb0d876a3dc6",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8009C30C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8009C30C.c",
+        "object_sha256": "7037b72e846470a4fc774b52b1c1a0b1204032616c54afc9143a1b5c27a962ae",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800D52A4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800D52A4.c",
+        "object_sha256": "e86000858f2cf06c1ee253066d04985733de95baf358cafc8dad1d0e2b4eb0f9",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80124148",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80124148.c",
+        "object_sha256": "63c19702489f9c63332046b006fc9a0d74c9cb5dde1820ecd68fbdcf73d3b174",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80083AE4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80083AE4.c",
+        "object_sha256": "2fdc052478a93b6120b842729788a9fc1b95c5d33c94448534d3c72019acaf5c",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800A14C0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800A14C0.c",
+        "object_sha256": "cc293cb12618f75263682d52fca93af466b39beb63a08f3159cbf24d596b9aef",
+        "symbols": {}
+      },
+      {
+        "unit_id": "runtime_data_80089F7C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_data_80089F7C.c",
+        "object_sha256": "4e5ed1720c776fcf69e4167796d6dd7685675c54575cbd232ad0c4629f7fbda1",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800CACB8",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800CACB8.c",
+        "object_sha256": "00a3ebb33bfa07ea9d9289b7ab366aefbbc52e21c084e19198c556471984f4bd",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8010D120",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8010D120.c",
+        "object_sha256": "089a5c66909255907e06d3a734e061c4ada3deec8cb64deb80116361820dc526",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800FE5A0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800FE5A0.c",
+        "object_sha256": "2e094146be88c8721c0a670aed8819418454ed1bbeac4015245fb915004ea734",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80119098",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80119098.c",
+        "object_sha256": "1ac4c2213f65ab3b523436e9171c5d296ba9cd3a5c53f5a63c18113d84259aca",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800A4190",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800A4190.c",
+        "object_sha256": "ff70cd35c4a51d6f5a4e62d65fd0ee1ac50493c2926ff04178851f406bbd046d",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800736C4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800736C4.c",
+        "object_sha256": "011ef9c31012ea45300395f20b5e47041269f04a3e92e5e690987ecdb226f33a",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800E326C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800E326C.c",
+        "object_sha256": "a456465e8788e2369a14124e435f3c6ec9ac2e61250fa46905f18ed281c926a7",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800AB2D8",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800AB2D8.c",
+        "object_sha256": "795fdbaa8702e1feb28816b8a14d913b32f2fa36777d11fd8c8b622813c92275",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_801129C0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_801129C0.c",
+        "object_sha256": "8c68907f0d60e90134a9da68155b8d119e0aee275290c22f848e2dc92561ca0b",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80104BF0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80104BF0.c",
+        "object_sha256": "62da6c227696a2e722de9fdf4a76710e1c2d5fcf508899c6b54ee9769747bccc",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800CF710",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800CF710.c",
+        "object_sha256": "3bc416f25f70594d4f0ecae3fe3d250aaa9c8be1278de287aa55bd026dec9dd3",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800F672C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800F672C.c",
+        "object_sha256": "287f156092ff76b1d7df4559a3aac95b08d4dd27084f41f30194233a092474d8",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800BD65C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800BD65C.c",
+        "object_sha256": "801ff616b6835908a36fa0156fb4de5aa0ad2d507d0d24e425784a96371ed674",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800B680C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800B680C.c",
+        "object_sha256": "f978eeac805f137defd6b4396686fa10ad0f7f0049823e252682bedb4b6485e9",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8009ECD8",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8009ECD8.c",
+        "object_sha256": "8c328a3c92df5dd8a0c95208f4c2dfa54d5d127e9d368566118f915c90021716",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80096C98",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80096C98.c",
+        "object_sha256": "4a6390f4f5497e9481238b7b57194559f2ef56fbdc3483d98d4d6e5959aae8ea",
+        "symbols": {}
+      },
+      {
+        "unit_id": "runtime_data_8008604C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_data_8008604C.c",
+        "object_sha256": "eaeddf3ef5de9a5ace2bf4b834535d6834932359e71679575b91ca98295332b9",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8009DAA4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8009DAA4.c",
+        "object_sha256": "478987879c650584b7ddaf0740ce470fd82f33d9921db77089f98caf654a4257",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800E9B08",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800E9B08.c",
+        "object_sha256": "0c510e4c3f8bc9b99679a66dd91e8ab508ede3d8862f5e127ad300f001f0e159",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800C0568",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800C0568.c",
+        "object_sha256": "d8b923c64fbd623d0ca2e4d2ee9e70f1406fcd3dd68b5ac4c4d5e55b7cd35817",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800D7A8C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800D7A8C.c",
+        "object_sha256": "43051f91af151e1697ef44ebddb7b34b1f583e97d415735519b22a37dbd42acb",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800F2D68",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800F2D68.c",
+        "object_sha256": "abcf80484c81d4c7694fa3a692d88073e0ca708ba284238b3bd639414cfc8b64",
+        "symbols": {}
+      },
+      {
+        "unit_id": "runtime_data_80084BB0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/runtime_data_80084BB0.c",
+        "object_sha256": "605e347878a4ac7cdd5d7e6243f93d228554a5d8d1c0770dc79a6f291249b3d3",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800A39A4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800A39A4.c",
+        "object_sha256": "7af786b2ab72415ba9e8330baa4fc93ee8adfd1388d15d36232fb8d7adcd6a61",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800A2318",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800A2318.c",
+        "object_sha256": "822cedde7573fec7d64e48d548a6159334e48bc04530154e76c5658012a86618",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800B8F6C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800B8F6C.c",
+        "object_sha256": "cc78c46beea1385bba19509abd370f7fb52a5848a4e26213218d25b12f1ac912",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800F99C4",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800F99C4.c",
+        "object_sha256": "18ba5a5d42f3ac854944e01230c1538f615fd5ff99d3bfbc4ee74fc37d45ee93",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80097B34",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80097B34.c",
+        "object_sha256": "24dddb907acc63b0b7e2cd14114322ff4379a69369e5ec532d6f75d6069fab43",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800CC54C",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800CC54C.c",
+        "object_sha256": "db08f4f225a0a9fe9b9d9662c036222474542df90595771aae20dba4c8946a9d",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800D0DA0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800D0DA0.c",
+        "object_sha256": "8058498f3b84f1be964939f2a1a1f05794c77817baebeefd4f7f8c4f0ef0cdfc",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800E6D68",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800E6D68.c",
+        "object_sha256": "f74966c1ef5cf1a69daae3a95e2f6bd1d6b8b1ca14c90af420c109b9de24fa76",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800A34F8",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800A34F8.c",
+        "object_sha256": "ed29a8b0d15f5a1deabee7c501448ca7ac892e6eabad44316fee4e09596e9ef4",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80119DC0",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80119DC0.c",
+        "object_sha256": "8a2e5839add354bd03298904981ec4ea39e03a537632c403fca89b49bfa6f439",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800B7870",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800B7870.c",
+        "object_sha256": "cca9e305429f9687e507d1def64d749e4fd3b47bee9a28c77df20c2f6e4ac3f0",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80079874",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80079874.c",
+        "object_sha256": "7a26d87cecfb7bb90a3164030ec3ec03cebd0e93eee87e7514e299edf470ce65",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800B4EFC",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800B4EFC.c",
+        "object_sha256": "eb4a1b2be4b2d7f8e435ca7daee06e127ebb4919e5dc340c112869f4e98de931",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800B1D74",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800B1D74.c",
+        "object_sha256": "0fcedeb95cc61313dde31662abcbf6e05e9c1943cc6a138be3236633314c329a",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80098938",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80098938.c",
+        "object_sha256": "51da97a3227e43a70a01fa0b63ab78438caabd8cbeeb61d748e046274101409a",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800D3FEC",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800D3FEC.c",
+        "object_sha256": "489f1cea976250fd9eab4fe017501a4cd7a05ddf497967ffc67d756352a5d41e",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_80114324",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_80114324.c",
+        "object_sha256": "9cf3661dbd28fa35ee88045a07f402927056e16a1bce8e849b19639acb705b5e",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_8007A518",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_8007A518.c",
+        "object_sha256": "a305fd1070d95e867d99d2fe73416f0552025ead96d5d56d84ea7c0798dc42f7",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800AAEB8",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800AAEB8.c",
+        "object_sha256": "06add1509d316a138c4a9cbbd3564e6f4c8663f24f890f0117d47eade1e59551",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800D0338",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800D0338.c",
+        "object_sha256": "e81277df766684f1a8703c004084251b3004c96f4b3785b467e093b1eaf47d8d",
+        "symbols": {}
+      },
+      {
+        "unit_id": "event_bank_data_800BEC40",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/event_bank_data_800BEC40.c",
+        "object_sha256": "1bd927a70769258052c3f4a5962172ddb4f5b2e2853279cbd5cd56af87ef8ee6",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 317244,
+    "unique_initialized_bytes": 427592,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -6777,10 +9793,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-qijzlcfg/rspboot/code.bin",
+          "/tmp/sydney-rsp-ebq7f0w_/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-qijzlcfg/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-qijzlcfg/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-ebq7f0w_/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-ebq7f0w_/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -6795,10 +9811,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-qijzlcfg/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-ebq7f0w_/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-qijzlcfg/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-ebq7f0w_/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -6809,9 +9825,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-qijzlcfg/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-ebq7f0w_/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-qijzlcfg/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-ebq7f0w_/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",

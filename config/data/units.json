@@ -41,7 +41,14 @@
         "src/data/runtime_global_tables.c": "3ca380a5bbdcebded47c34621ed9f1be84f7563f0564873d3500e1439aada3d1"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -62,7 +69,14 @@
         "src/data/runtime_tables_80086764.c": "9a8b52493aec6c480e5f63a1e304bcff084ba122967ccd426449aea6e1db9688"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -79,47 +93,142 @@
     {
       "id": "runtime_tables_8008AB20",
       "source": "src/data/runtime_tables_8008AB20.c",
-      "inputs": {"src/data/runtime_tables_8008AB20.c": "ae2a9c5c1e884bb1c906ce7c45cb93ad4522c13b1434dba4a8ac3675d881a57c"},
+      "inputs": {
+        "src/data/runtime_tables_8008AB20.c": "ae2a9c5c1e884bb1c906ce7c45cb93ad4522c13b1434dba4a8ac3675d881a57c"
+      },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
-      "include_dirs": [], "symbols": {},
-      "sections": [{"name": ".data", "segment": "runtime", "rom_start": 1238032, "vram": 2148051744, "size": 8488, "sha256": "b71c6fb817d57326d36f706031df299b01c49890a22c6f38a0bd6db16411b855"}]
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1238032,
+          "vram": 2148051744,
+          "size": 8488,
+          "sha256": "b71c6fb817d57326d36f706031df299b01c49890a22c6f38a0bd6db16411b855"
+        }
+      ]
     },
     {
       "id": "event_tables_8010B15C",
       "source": "src/data/event_tables_8010B15C.c",
-      "inputs": {"src/data/event_tables_8010B15C.c": "9e44e94a2b37390977cad4d79190c79aa355d48505d6207f579adb8cdbbf6daf"},
+      "inputs": {
+        "src/data/event_tables_8010B15C.c": "9e44e94a2b37390977cad4d79190c79aa355d48505d6207f579adb8cdbbf6daf"
+      },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
-      "include_dirs": [], "symbols": {},
-      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1093980, "vram": 2148577628, "size": 8020, "sha256": "f940528a03d93d9dcde38f5a52f95c3eda52ff08cb62e49dfd4438418a958747"}]
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1093980,
+          "vram": 2148577628,
+          "size": 8020,
+          "sha256": "f940528a03d93d9dcde38f5a52f95c3eda52ff08cb62e49dfd4438418a958747"
+        }
+      ]
     },
     {
       "id": "event_tables_8011A310",
       "source": "src/data/event_tables_8011A310.c",
-      "inputs": {"src/data/event_tables_8011A310.c": "05f23f4ec2098456370bc023c7f7b375d8bfd3b0ac3b678c55ab79b225f60e83"},
+      "inputs": {
+        "src/data/event_tables_8011A310.c": "05f23f4ec2098456370bc023c7f7b375d8bfd3b0ac3b678c55ab79b225f60e83"
+      },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
-      "include_dirs": [], "symbols": {},
-      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1155856, "vram": 2148639504, "size": 6664, "sha256": "ae8c8d6b7531593b9b97c2bb7c2316c1200336391b5b0c4a6a35e919d7d7949d"}]
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1155856,
+          "vram": 2148639504,
+          "size": 6664,
+          "sha256": "ae8c8d6b7531593b9b97c2bb7c2316c1200336391b5b0c4a6a35e919d7d7949d"
+        }
+      ]
     },
     {
       "id": "event_tables_80120B38",
       "source": "src/data/event_tables_80120B38.c",
-      "inputs": {"src/data/event_tables_80120B38.c": "584934f8ec976b4d10ab8d02ecd5df5b6cb7614759f6fca52ca0821bafa96303"},
+      "inputs": {
+        "src/data/event_tables_80120B38.c": "584934f8ec976b4d10ab8d02ecd5df5b6cb7614759f6fca52ca0821bafa96303"
+      },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
-      "include_dirs": [], "symbols": {},
-      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1182520, "vram": 2148666168, "size": 5912, "sha256": "33ab434ae5867abd7b2011947191fda21a104e743d354abf6c1c4f6a5d021da5"}]
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1182520,
+          "vram": 2148666168,
+          "size": 5912,
+          "sha256": "33ab434ae5867abd7b2011947191fda21a104e743d354abf6c1c4f6a5d021da5"
+        }
+      ]
     },
     {
       "id": "event_tables_8011559C",
       "source": "src/data/event_tables_8011559C.c",
-      "inputs": {"src/data/event_tables_8011559C.c": "bade0b12fc708edc46d9d3cc31603ab08a0f7f990e9ec1935124c0ea51833759"},
+      "inputs": {
+        "src/data/event_tables_8011559C.c": "bade0b12fc708edc46d9d3cc31603ab08a0f7f990e9ec1935124c0ea51833759"
+      },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
-      "include_dirs": [], "symbols": {},
-      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 1136028, "vram": 2148619676, "size": 5492, "sha256": "e397e53234bf6a25daebff70f323bad4562d73bc1f216c1040db97f54dbdc3e8"}]
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1136028,
+          "vram": 2148619676,
+          "size": 5492,
+          "sha256": "e397e53234bf6a25daebff70f323bad4562d73bc1f216c1040db97f54dbdc3e8"
+        }
+      ]
     },
     {
       "id": "closing_overlay_data",
@@ -128,7 +237,14 @@
         "src/data/closing_overlay_data.c": "9a7323ead62bc5c1af966e78de518477495d62f488a569090db31a9e7216fb7e"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -205,7 +321,14 @@
         "src/data/resident_runtime_tables.c": "5c943c3bb93a2ba78c4459a88b92ec6916294b29d31e4354977d4cacf64b572b"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -226,7 +349,14 @@
         "src/data/resident_zero_800479B4.c": "1c788e70bcd546c596fb3a3571a327924d82cbbab644a272f28103285e80939f"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -244,141 +374,141 @@
       "id": "resident_zero_extents",
       "source": "src/data/resident_zero_extents.c",
       "inputs": {
-            "src/data/resident_zero_extents.c": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+        "src/data/resident_zero_extents.c": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
       },
       "pipeline": "kmc+as",
       "flags": [
-            "-O2",
-            "-G0",
-            "-mips3",
-            "-mgp32",
-            "-mfp32"
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
       ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
-            {
-                  "name": ".data.zero_80038C40",
-                  "segment": "resident",
-                  "rom_start": 235584,
-                  "vram": 2147716160,
-                  "size": 43568,
-                  "sha256": "0035fd21e2a61d052df3b55c2a7befe639fd4a846d8e10248070e380b6adbc6b"
-            },
-            {
-                  "name": ".data.zero_80043714",
-                  "segment": "resident",
-                  "rom_start": 279316,
-                  "vram": 2147759892,
-                  "size": 1756,
-                  "sha256": "c0601bc1bac97e69da3ef3e2898aafe64aec5ae4f3ccbdb7649471f76da4ca0e"
-            },
-            {
-                  "name": ".data.zero_80043EF4",
-                  "segment": "resident",
-                  "rom_start": 281332,
-                  "vram": 2147761908,
-                  "size": 1740,
-                  "sha256": "7922f0740fe5f5240b5a7cab0fbfd582cf95a3b2d1f0fe1e39df427a22736b85"
-            },
-            {
-                  "name": ".data.zero_8004460C",
-                  "segment": "resident",
-                  "rom_start": 283148,
-                  "vram": 2147763724,
-                  "size": 4260,
-                  "sha256": "6bfd6a22f89151edacbcdb2f0ed879b95194b575df9fe2e323fbb8ba87bbaebd"
-            },
-            {
-                  "name": ".data.zero_800456B4",
-                  "segment": "resident",
-                  "rom_start": 287412,
-                  "vram": 2147767988,
-                  "size": 8544,
-                  "sha256": "c2dece9c9f14c67b8aafabdcb80793f1cffe95a801e15d648fd214a0522ee825"
-            },
-            {
-                  "name": ".data.zero_8005AA04",
-                  "segment": "resident",
-                  "rom_start": 374276,
-                  "vram": 2147854852,
-                  "size": 256,
-                  "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
-            },
-            {
-                  "name": ".data.zero_8005AB74",
-                  "segment": "resident",
-                  "rom_start": 374644,
-                  "vram": 2147855220,
-                  "size": 276,
-                  "sha256": "d489001ff88ed206b56f44bd0789a8332510f33bf40a312a7b2e5d60c3fe3e03"
-            },
-            {
-                  "name": ".data.zero_8005ACA8",
-                  "segment": "resident",
-                  "rom_start": 374952,
-                  "vram": 2147855528,
-                  "size": 19708,
-                  "sha256": "67d9a9195a771294c33ef2db2581e192a999b917e9358e77c1e1da7028404e6d"
-            },
-            {
-                  "name": ".data.zero_8005FA34",
-                  "segment": "resident",
-                  "rom_start": 394804,
-                  "vram": 2147875380,
-                  "size": 9920,
-                  "sha256": "d28508191d050553eb5349e4295f76f9cb76becbcc5e3d4b35c30337ba4d620d"
-            },
-            {
-                  "name": ".data.zero_80062120",
-                  "segment": "resident",
-                  "rom_start": 404768,
-                  "vram": 2147885344,
-                  "size": 788,
-                  "sha256": "3e84c247e11701fb5451865acb6262c8495d47c5f397a772a7bc01c9ce9f5b12"
-            },
-            {
-                  "name": ".data.zero_800624B0",
-                  "segment": "resident",
-                  "rom_start": 405680,
-                  "vram": 2147886256,
-                  "size": 4208,
-                  "sha256": "31fb5d4b4a6f5fa99617cd77dfab4ca388c9a6b1ae3ea5917c76d1b450c0e95b"
-            },
-            {
-                  "name": ".data.zero_80063F34",
-                  "segment": "resident",
-                  "rom_start": 412468,
-                  "vram": 2147893044,
-                  "size": 2052,
-                  "sha256": "e68ca6f7790371a3d94c9b985c0cfe5e1d756fe145e2e8775afd3cb3c2911711"
-            },
-            {
-                  "name": ".data.zero_8006473C",
-                  "segment": "resident",
-                  "rom_start": 414524,
-                  "vram": 2147895100,
-                  "size": 2148,
-                  "sha256": "a7335569d48864edd0dc5b8765cde893b39e47dabcd03ea55f255db814916a38"
-            },
-            {
-                  "name": ".data.zero_8006504C",
-                  "segment": "resident",
-                  "rom_start": 416844,
-                  "vram": 2147897420,
-                  "size": 428,
-                  "sha256": "fced892c73c66d68fdbb01bb68464549f19996231e05ceddce888520d3b70227"
-            },
-            {
-                  "name": ".data.zero_800661D0",
-                  "segment": "resident",
-                  "rom_start": 421328,
-                  "vram": 2147901904,
-                  "size": 1152,
-                  "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
-            }
+        {
+          "name": ".data.zero_80038C40",
+          "segment": "resident",
+          "rom_start": 235584,
+          "vram": 2147716160,
+          "size": 43568,
+          "sha256": "0035fd21e2a61d052df3b55c2a7befe639fd4a846d8e10248070e380b6adbc6b"
+        },
+        {
+          "name": ".data.zero_80043714",
+          "segment": "resident",
+          "rom_start": 279316,
+          "vram": 2147759892,
+          "size": 1756,
+          "sha256": "c0601bc1bac97e69da3ef3e2898aafe64aec5ae4f3ccbdb7649471f76da4ca0e"
+        },
+        {
+          "name": ".data.zero_80043EF4",
+          "segment": "resident",
+          "rom_start": 281332,
+          "vram": 2147761908,
+          "size": 1740,
+          "sha256": "7922f0740fe5f5240b5a7cab0fbfd582cf95a3b2d1f0fe1e39df427a22736b85"
+        },
+        {
+          "name": ".data.zero_8004460C",
+          "segment": "resident",
+          "rom_start": 283148,
+          "vram": 2147763724,
+          "size": 4260,
+          "sha256": "6bfd6a22f89151edacbcdb2f0ed879b95194b575df9fe2e323fbb8ba87bbaebd"
+        },
+        {
+          "name": ".data.zero_800456B4",
+          "segment": "resident",
+          "rom_start": 287412,
+          "vram": 2147767988,
+          "size": 8544,
+          "sha256": "c2dece9c9f14c67b8aafabdcb80793f1cffe95a801e15d648fd214a0522ee825"
+        },
+        {
+          "name": ".data.zero_8005AA04",
+          "segment": "resident",
+          "rom_start": 374276,
+          "vram": 2147854852,
+          "size": 256,
+          "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
+        },
+        {
+          "name": ".data.zero_8005AB74",
+          "segment": "resident",
+          "rom_start": 374644,
+          "vram": 2147855220,
+          "size": 276,
+          "sha256": "d489001ff88ed206b56f44bd0789a8332510f33bf40a312a7b2e5d60c3fe3e03"
+        },
+        {
+          "name": ".data.zero_8005ACA8",
+          "segment": "resident",
+          "rom_start": 374952,
+          "vram": 2147855528,
+          "size": 19708,
+          "sha256": "67d9a9195a771294c33ef2db2581e192a999b917e9358e77c1e1da7028404e6d"
+        },
+        {
+          "name": ".data.zero_8005FA34",
+          "segment": "resident",
+          "rom_start": 394804,
+          "vram": 2147875380,
+          "size": 9920,
+          "sha256": "d28508191d050553eb5349e4295f76f9cb76becbcc5e3d4b35c30337ba4d620d"
+        },
+        {
+          "name": ".data.zero_80062120",
+          "segment": "resident",
+          "rom_start": 404768,
+          "vram": 2147885344,
+          "size": 788,
+          "sha256": "3e84c247e11701fb5451865acb6262c8495d47c5f397a772a7bc01c9ce9f5b12"
+        },
+        {
+          "name": ".data.zero_800624B0",
+          "segment": "resident",
+          "rom_start": 405680,
+          "vram": 2147886256,
+          "size": 4208,
+          "sha256": "31fb5d4b4a6f5fa99617cd77dfab4ca388c9a6b1ae3ea5917c76d1b450c0e95b"
+        },
+        {
+          "name": ".data.zero_80063F34",
+          "segment": "resident",
+          "rom_start": 412468,
+          "vram": 2147893044,
+          "size": 2052,
+          "sha256": "e68ca6f7790371a3d94c9b985c0cfe5e1d756fe145e2e8775afd3cb3c2911711"
+        },
+        {
+          "name": ".data.zero_8006473C",
+          "segment": "resident",
+          "rom_start": 414524,
+          "vram": 2147895100,
+          "size": 2148,
+          "sha256": "a7335569d48864edd0dc5b8765cde893b39e47dabcd03ea55f255db814916a38"
+        },
+        {
+          "name": ".data.zero_8006504C",
+          "segment": "resident",
+          "rom_start": 416844,
+          "vram": 2147897420,
+          "size": 428,
+          "sha256": "fced892c73c66d68fdbb01bb68464549f19996231e05ceddce888520d3b70227"
+        },
+        {
+          "name": ".data.zero_800661D0",
+          "segment": "resident",
+          "rom_start": 421328,
+          "vram": 2147901904,
+          "size": 1152,
+          "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
+        }
       ]
-},
+    },
     {
       "id": "resident_tail_data",
       "source": "src/data/resident_tail_data.c",
@@ -386,7 +516,14 @@
         "src/data/resident_tail_data.c": "2f23c0dc879bb79f6aaead6f2b2a86d1319ced9e08ee5570bcb39fede985f11d"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -404,141 +541,141 @@
       "id": "resident_dense_extents",
       "source": "src/data/resident_dense_extents.c",
       "inputs": {
-            "src/data/resident_dense_extents.c": "1e9a9d3de5f7bcf0824839228c43dcbe0d87693bafca8e2eabf95778e257e68c"
+        "src/data/resident_dense_extents.c": "1e9a9d3de5f7bcf0824839228c43dcbe0d87693bafca8e2eabf95778e257e68c"
       },
       "pipeline": "kmc+as",
       "flags": [
-            "-O2",
-            "-G0",
-            "-mips3",
-            "-mgp32",
-            "-mfp32"
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
       ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
-            {
-                  "name": ".data.dense_80043670",
-                  "segment": "resident",
-                  "rom_start": 279152,
-                  "vram": 2147759728,
-                  "size": 164,
-                  "sha256": "1a672dd1625d7e70d02d5565898790e3386eec79c1800f9244b2238034ec0e7b"
-            },
-            {
-                  "name": ".data.dense_80043DF0",
-                  "segment": "resident",
-                  "rom_start": 281072,
-                  "vram": 2147761648,
-                  "size": 260,
-                  "sha256": "5deb2a92dd0a8d0e70f395ed01d3b2ad00984f2d1a858f820fff9035225114c0"
-            },
-            {
-                  "name": ".data.dense_800445C0",
-                  "segment": "resident",
-                  "rom_start": 283072,
-                  "vram": 2147763648,
-                  "size": 76,
-                  "sha256": "f6523119764542969cf7cbebaedf0400d4f2b7dd4d3ed9629ae7afa70cd19583"
-            },
-            {
-                  "name": ".data.dense_800456B0",
-                  "segment": "resident",
-                  "rom_start": 287408,
-                  "vram": 2147767984,
-                  "size": 4,
-                  "sha256": "4d95bd31ff660b3f6b0868c2a6fbfdcd40d3583ffa65a6ceeb6c9bb1f01be1e1"
-            },
-            {
-                  "name": ".data.dense_80047814",
-                  "segment": "resident",
-                  "rom_start": 295956,
-                  "vram": 2147776532,
-                  "size": 416,
-                  "sha256": "12e9a153e4253d5e305e58a4b3e82ca0b819233329430075ba3fd9d965bfe31c"
-            },
-            {
-                  "name": ".data.dense_8005A800",
-                  "segment": "resident",
-                  "rom_start": 373760,
-                  "vram": 2147854336,
-                  "size": 516,
-                  "sha256": "f3d91339823084248a1800ae79d528559e3ab0b77027bb5891266123c97e4bde"
-            },
-            {
-                  "name": ".data.dense_8005AB04",
-                  "segment": "resident",
-                  "rom_start": 374532,
-                  "vram": 2147855108,
-                  "size": 112,
-                  "sha256": "1d2b39f23f8d325e2d3c160d68f811b28b3c783cb6308db154786463835a341a"
-            },
-            {
-                  "name": ".data.dense_8005AC88",
-                  "segment": "resident",
-                  "rom_start": 374920,
-                  "vram": 2147855496,
-                  "size": 32,
-                  "sha256": "b8aa5005c888543feafebdf6554c85e2a2f891582f4664216be5a6c805ea38f5"
-            },
-            {
-                  "name": ".data.dense_8005F9A4",
-                  "segment": "resident",
-                  "rom_start": 394660,
-                  "vram": 2147875236,
-                  "size": 144,
-                  "sha256": "89e8839633edbdad56c78d60b3b8d64cc3628f3d857b68e3912147dafdf1ec59"
-            },
-            {
-                  "name": ".data.dense_800620F4",
-                  "segment": "resident",
-                  "rom_start": 404724,
-                  "vram": 2147885300,
-                  "size": 44,
-                  "sha256": "4f34177e626bacee120b4ef59f19e8215a90f964431fc73a3a69d1dde0c4de18"
-            },
-            {
-                  "name": ".data.dense_80062434",
-                  "segment": "resident",
-                  "rom_start": 405556,
-                  "vram": 2147886132,
-                  "size": 124,
-                  "sha256": "6bd3c17a07555f2bc50d000cf83e2044c069eae649172698cabaa728e386240b"
-            },
-            {
-                  "name": ".data.dense_80063520",
-                  "segment": "resident",
-                  "rom_start": 409888,
-                  "vram": 2147890464,
-                  "size": 2580,
-                  "sha256": "68f950f2916f0d0949fd9b8a089494c46a78782228149dc8ecf51bd0a476dae6"
-            },
-            {
-                  "name": ".data.dense_80064738",
-                  "segment": "resident",
-                  "rom_start": 414520,
-                  "vram": 2147895096,
-                  "size": 4,
-                  "sha256": "d7a6ba72c0f1763e4a416a018669b1970faf64f64c15a3781f9de77bad94505b"
-            },
-            {
-                  "name": ".data.dense_80064FA0",
-                  "segment": "resident",
-                  "rom_start": 416672,
-                  "vram": 2147897248,
-                  "size": 172,
-                  "sha256": "9593246f0de3ed18dd8a70e53cbeaa2cb5a2372ac0250488528eaf4d57c0155a"
-            },
-            {
-                  "name": ".data.dense_800651F8",
-                  "segment": "resident",
-                  "rom_start": 417272,
-                  "vram": 2147897848,
-                  "size": 4056,
-                  "sha256": "0bd8795482b766c39e7adaa9b55b501235d3c215fec39bfac0c5f2a2573db744"
-            }
+        {
+          "name": ".data.dense_80043670",
+          "segment": "resident",
+          "rom_start": 279152,
+          "vram": 2147759728,
+          "size": 164,
+          "sha256": "1a672dd1625d7e70d02d5565898790e3386eec79c1800f9244b2238034ec0e7b"
+        },
+        {
+          "name": ".data.dense_80043DF0",
+          "segment": "resident",
+          "rom_start": 281072,
+          "vram": 2147761648,
+          "size": 260,
+          "sha256": "5deb2a92dd0a8d0e70f395ed01d3b2ad00984f2d1a858f820fff9035225114c0"
+        },
+        {
+          "name": ".data.dense_800445C0",
+          "segment": "resident",
+          "rom_start": 283072,
+          "vram": 2147763648,
+          "size": 76,
+          "sha256": "f6523119764542969cf7cbebaedf0400d4f2b7dd4d3ed9629ae7afa70cd19583"
+        },
+        {
+          "name": ".data.dense_800456B0",
+          "segment": "resident",
+          "rom_start": 287408,
+          "vram": 2147767984,
+          "size": 4,
+          "sha256": "4d95bd31ff660b3f6b0868c2a6fbfdcd40d3583ffa65a6ceeb6c9bb1f01be1e1"
+        },
+        {
+          "name": ".data.dense_80047814",
+          "segment": "resident",
+          "rom_start": 295956,
+          "vram": 2147776532,
+          "size": 416,
+          "sha256": "12e9a153e4253d5e305e58a4b3e82ca0b819233329430075ba3fd9d965bfe31c"
+        },
+        {
+          "name": ".data.dense_8005A800",
+          "segment": "resident",
+          "rom_start": 373760,
+          "vram": 2147854336,
+          "size": 516,
+          "sha256": "f3d91339823084248a1800ae79d528559e3ab0b77027bb5891266123c97e4bde"
+        },
+        {
+          "name": ".data.dense_8005AB04",
+          "segment": "resident",
+          "rom_start": 374532,
+          "vram": 2147855108,
+          "size": 112,
+          "sha256": "1d2b39f23f8d325e2d3c160d68f811b28b3c783cb6308db154786463835a341a"
+        },
+        {
+          "name": ".data.dense_8005AC88",
+          "segment": "resident",
+          "rom_start": 374920,
+          "vram": 2147855496,
+          "size": 32,
+          "sha256": "b8aa5005c888543feafebdf6554c85e2a2f891582f4664216be5a6c805ea38f5"
+        },
+        {
+          "name": ".data.dense_8005F9A4",
+          "segment": "resident",
+          "rom_start": 394660,
+          "vram": 2147875236,
+          "size": 144,
+          "sha256": "89e8839633edbdad56c78d60b3b8d64cc3628f3d857b68e3912147dafdf1ec59"
+        },
+        {
+          "name": ".data.dense_800620F4",
+          "segment": "resident",
+          "rom_start": 404724,
+          "vram": 2147885300,
+          "size": 44,
+          "sha256": "4f34177e626bacee120b4ef59f19e8215a90f964431fc73a3a69d1dde0c4de18"
+        },
+        {
+          "name": ".data.dense_80062434",
+          "segment": "resident",
+          "rom_start": 405556,
+          "vram": 2147886132,
+          "size": 124,
+          "sha256": "6bd3c17a07555f2bc50d000cf83e2044c069eae649172698cabaa728e386240b"
+        },
+        {
+          "name": ".data.dense_80063520",
+          "segment": "resident",
+          "rom_start": 409888,
+          "vram": 2147890464,
+          "size": 2580,
+          "sha256": "68f950f2916f0d0949fd9b8a089494c46a78782228149dc8ecf51bd0a476dae6"
+        },
+        {
+          "name": ".data.dense_80064738",
+          "segment": "resident",
+          "rom_start": 414520,
+          "vram": 2147895096,
+          "size": 4,
+          "sha256": "d7a6ba72c0f1763e4a416a018669b1970faf64f64c15a3781f9de77bad94505b"
+        },
+        {
+          "name": ".data.dense_80064FA0",
+          "segment": "resident",
+          "rom_start": 416672,
+          "vram": 2147897248,
+          "size": 172,
+          "sha256": "9593246f0de3ed18dd8a70e53cbeaa2cb5a2372ac0250488528eaf4d57c0155a"
+        },
+        {
+          "name": ".data.dense_800651F8",
+          "segment": "resident",
+          "rom_start": 417272,
+          "vram": 2147897848,
+          "size": 4056,
+          "sha256": "0bd8795482b766c39e7adaa9b55b501235d3c215fec39bfac0c5f2a2573db744"
+        }
       ]
-},
+    },
     {
       "id": "gsm_rpe_coefficients",
       "source": "src/data/gsm_rpe_coefficients.c",
@@ -546,7 +683,14 @@
         "src/data/gsm_rpe_coefficients.c": "93a6e5b0e42e1003aff31f5c83b30b2852e8a206d346c036e44ea185a9ef2af5"
       },
       "pipeline": "sn",
-      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "include_dirs": [],
       "symbols": {},
       "sections": [
@@ -585,6 +729,1630 @@
           "vram": 2147761480,
           "size": 168,
           "sha256": "e3c2af35d1dfc500e16f826a071cc311bf55003a3de77de7ea3376c6b6fa2857"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8008883C",
+      "source": "src/data/event_bank_data_8008883C.c",
+      "inputs": {
+        "src/data/event_bank_data_8008883C.c": "8685c28b3d2e932b3c07850a77d37644e26200fa7ee4489d52f989c746e83589"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 559164,
+          "vram": 2148042812,
+          "size": 4276,
+          "sha256": "b4280a450b1de70f89861875a5cab1187032f87712caa9d2ec8416ac31a18c75"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8008F768",
+      "source": "src/data/event_bank_data_8008F768.c",
+      "inputs": {
+        "src/data/event_bank_data_8008F768.c": "33e228dae206a4a8b94a2ff462a39e94e686d2362872310c9adac6391a9052c2"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 587624,
+          "vram": 2148071272,
+          "size": 4232,
+          "sha256": "41479323241c4bcbb3ee81a186bcf2b9fa7eec1b5fb8809834bc8f914b0a3605"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80095BF4",
+      "source": "src/data/event_bank_data_80095BF4.c",
+      "inputs": {
+        "src/data/event_bank_data_80095BF4.c": "70305c4532dacf0d407aecfd4e02e9c5f9019dc072fbbfa4079260cf2af1f5cc"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 613364,
+          "vram": 2148097012,
+          "size": 4172,
+          "sha256": "161d1779f95d6189b36a942b8fde9fabd3a54f78ed78dcf2f47b023a40d03fb7"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800DBE94",
+      "source": "src/data/event_bank_data_800DBE94.c",
+      "inputs": {
+        "src/data/event_bank_data_800DBE94.c": "9c104f20e9ec4f7c7bb75a62fba018c86bda9a3f09a630208fdbd0c88d9c3053"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 900756,
+          "vram": 2148384404,
+          "size": 4172,
+          "sha256": "f71c28b5ef10e432e4aae80313b038c2bda26a47ad908daeacba3fdd15778dbb"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800AF728",
+      "source": "src/data/event_bank_data_800AF728.c",
+      "inputs": {
+        "src/data/event_bank_data_800AF728.c": "87159f7822e67fbe33ad34936ab89f99702e2eb7b42cad04b9905471180844cc"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 718632,
+          "vram": 2148202280,
+          "size": 4152,
+          "sha256": "64bfdae2e3f0054091efbca3936aad12aad83780c6cb2ad681d079288e34176a"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800A8264",
+      "source": "src/data/event_bank_data_800A8264.c",
+      "inputs": {
+        "src/data/event_bank_data_800A8264.c": "6c116198ebed1ad5cffa681103222e47ce98f07a295070e3f262712b13ed5345"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 688740,
+          "vram": 2148172388,
+          "size": 4076,
+          "sha256": "a1d98218d13087ac20fed0cf10051b35c7026b55f882592798e5c104cc0e8d9d"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800818F0",
+      "source": "src/data/event_bank_data_800818F0.c",
+      "inputs": {
+        "src/data/event_bank_data_800818F0.c": "0fca07c698be0b52b79f152ec37833bc3f3cc99cafde445b6d387afb079e82d7"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 530672,
+          "vram": 2148014320,
+          "size": 3968,
+          "sha256": "3463b62dbff41347339ed7b0394c2e587cdad9fc79e3cc6b03aa87b2dc4e7bf8"
+        }
+      ]
+    },
+    {
+      "id": "runtime_data_80085048",
+      "source": "src/data/runtime_data_80085048.c",
+      "inputs": {
+        "src/data/runtime_data_80085048.c": "d6e987e8171b1aa8d4e3f9e58353cf4713bd30dee1bd4765d5bbfff46668e3df"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1214776,
+          "vram": 2148028488,
+          "size": 3612,
+          "sha256": "db99ed5c035d4357aed1a499ec230dcd414c88311f1984d0390d4b7f042a8f3b"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8009C30C",
+      "source": "src/data/event_bank_data_8009C30C.c",
+      "inputs": {
+        "src/data/event_bank_data_8009C30C.c": "748fa27110f7797fa5df69af36c895c06616f2bebc836f5dbb74bee3bcbb49f8"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 639756,
+          "vram": 2148123404,
+          "size": 3604,
+          "sha256": "b5e16a5dc3f18c50aac6fafd9ba8dadd8550ea27493634747701b03a6fe2a5e5"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800D52A4",
+      "source": "src/data/event_bank_data_800D52A4.c",
+      "inputs": {
+        "src/data/event_bank_data_800D52A4.c": "3f655d3f62956faa9dbac51714200da5f3f395c79e690bbd1b51585ece77d502"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 873124,
+          "vram": 2148356772,
+          "size": 3404,
+          "sha256": "834d9221b54df662b10fb59cb64aef19df6aa906301b522f44d5cf61a0786cf2"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80124148",
+      "source": "src/data/event_bank_data_80124148.c",
+      "inputs": {
+        "src/data/event_bank_data_80124148.c": "9c89475db0c5510d817b42a6a949a9c8125b19d261b93096a553cc0f1ef2dae4"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1196360,
+          "vram": 2148680008,
+          "size": 3160,
+          "sha256": "a3ade387646e827249bdd34d83d5d6819d04eaffb69098eb4be19e2f4f25d583"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80083AE4",
+      "source": "src/data/event_bank_data_80083AE4.c",
+      "inputs": {
+        "src/data/event_bank_data_80083AE4.c": "a288f6b45b8095270e52b0f6e2e01624ba219b3fcace9db0559605d06fe49555"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 539364,
+          "vram": 2148023012,
+          "size": 3076,
+          "sha256": "7a974c4896d6354942d2e5afb373d3eae6352d8b5a58f7ca331ec5675dbb3e65"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800A14C0",
+      "source": "src/data/event_bank_data_800A14C0.c",
+      "inputs": {
+        "src/data/event_bank_data_800A14C0.c": "0092ea4c0c516ee3a4c87e48cd55e7a647a38602b299f41e78c098e871159fac"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 660672,
+          "vram": 2148144320,
+          "size": 3076,
+          "sha256": "e9fbc1e987df0b4d3cf80f91b90193faa7d91a446ec4248090d31a9f28244e3e"
+        }
+      ]
+    },
+    {
+      "id": "runtime_data_80089F7C",
+      "source": "src/data/runtime_data_80089F7C.c",
+      "inputs": {
+        "src/data/runtime_data_80089F7C.c": "4b086fc4109f7440a885095e029488abbb9e4866085ca9d469eb641a170421f4"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1235052,
+          "vram": 2148048764,
+          "size": 2948,
+          "sha256": "ef8dafcae3838965fd53e00eecdfa4fe3c98daeb1c3090bf9657b0d6f596e378"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800CACB8",
+      "source": "src/data/event_bank_data_800CACB8.c",
+      "inputs": {
+        "src/data/event_bank_data_800CACB8.c": "27b86ceb0d1b0cbc831c3f3233517bf67e43ac6ded3cb2bd412340441264012a"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 830648,
+          "vram": 2148314296,
+          "size": 2944,
+          "sha256": "072487ce3ef95d4201ea004ac7b3bdbbf42161a6152a6c26bfa199051be8bbf8"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8010D120",
+      "source": "src/data/event_bank_data_8010D120.c",
+      "inputs": {
+        "src/data/event_bank_data_8010D120.c": "8517d438354a94f7ceeeb3c5c334f6c619981105fd8c65172909bd753728cbf7"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1102112,
+          "vram": 2148585760,
+          "size": 2688,
+          "sha256": "8c18cb67842988769c61a601fea74c2c0573315a46dacc4895f0bba1a3b568fa"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800FE5A0",
+      "source": "src/data/event_bank_data_800FE5A0.c",
+      "inputs": {
+        "src/data/event_bank_data_800FE5A0.c": "df2e7b3a0076a03447e638f6dbe49cfec1487cf6b9762bdc86bd514474d421d0"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1041824,
+          "vram": 2148525472,
+          "size": 1984,
+          "sha256": "b376cf3584473f13be1ec786d982b1ea46fc314b4f7761646896625b35ae3ed2"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80119098",
+      "source": "src/data/event_bank_data_80119098.c",
+      "inputs": {
+        "src/data/event_bank_data_80119098.c": "f2ccf6c0142005d781de4df6dda1a84e65f788e5a0406dc6a30b43befc49911d"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1151128,
+          "vram": 2148634776,
+          "size": 1896,
+          "sha256": "46acdaca21b8b9d774c5a71173d6d86ee8bf13c9de83b9cd495160ebb2af4a9e"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800A4190",
+      "source": "src/data/event_bank_data_800A4190.c",
+      "inputs": {
+        "src/data/event_bank_data_800A4190.c": "2ec5c9654e521ee27cab91e7e7e85802d556e524c1be634a1386fbef7ff8c89f"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 672144,
+          "vram": 2148155792,
+          "size": 1812,
+          "sha256": "535953900b951a3f498a543e843a76be149c0c2565e9a4552da616f8af0fe039"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800736C4",
+      "source": "src/data/event_bank_data_800736C4.c",
+      "inputs": {
+        "src/data/event_bank_data_800736C4.c": "6a23339673d6650482fc115444ee2b8662cd29e9c58953b807b02c62a2cb2193"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 472772,
+          "vram": 2147956420,
+          "size": 1804,
+          "sha256": "7050d709b761c71250e81eb2d2aa051b33a6e3c9fa82468ff500e038bc31813e"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800E326C",
+      "source": "src/data/event_bank_data_800E326C.c",
+      "inputs": {
+        "src/data/event_bank_data_800E326C.c": "7802e65e6db7c93eacb085694dbc3b0d6f6690d3f178626206e1441f418eded0"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 930412,
+          "vram": 2148414060,
+          "size": 1716,
+          "sha256": "d36fe57ef016c780ca0978150233e3ffd987e7deb17bd6f11a1a9965cecf5565"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800AB2D8",
+      "source": "src/data/event_bank_data_800AB2D8.c",
+      "inputs": {
+        "src/data/event_bank_data_800AB2D8.c": "2d285a0137e1195c549a176d46636a67aa43be92925f35efa6c69cd083598c48"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 701144,
+          "vram": 2148184792,
+          "size": 1628,
+          "sha256": "e122c352aacdb5841e5404a29cbbffc1b1f98a42a5e4f787ffe8acc03c456809"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_801129C0",
+      "source": "src/data/event_bank_data_801129C0.c",
+      "inputs": {
+        "src/data/event_bank_data_801129C0.c": "49ebc1a68eaa1402ed9985e431633ade1fdaa616e0f07d2601da7fcc6b21ffc3"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1124800,
+          "vram": 2148608448,
+          "size": 1536,
+          "sha256": "cfb9809fb098231bd419e58876a46541c8bebb0c2f73ccacbce355fcc3319023"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80104BF0",
+      "source": "src/data/event_bank_data_80104BF0.c",
+      "inputs": {
+        "src/data/event_bank_data_80104BF0.c": "404a7877da06c40eb11b5aeb1c751226023971c35a94f596d9da1b8f21666a44"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1068016,
+          "vram": 2148551664,
+          "size": 1504,
+          "sha256": "a845d35715956804683a79f35817e554f1ad75f1b4b0a2a075c10afcbe9c6810"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800CF710",
+      "source": "src/data/event_bank_data_800CF710.c",
+      "inputs": {
+        "src/data/event_bank_data_800CF710.c": "4393afebff4fd9bdb93dfd2328cc1535076170771da20fd36c73c786a6d0ff32"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 849680,
+          "vram": 2148333328,
+          "size": 1468,
+          "sha256": "f681e0bcf3fc0d9320416fb58e1ecf3292002738e72fe7ba09afeb000b265621"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800F672C",
+      "source": "src/data/event_bank_data_800F672C.c",
+      "inputs": {
+        "src/data/event_bank_data_800F672C.c": "135e04e1a9cee496a7320525b4a5f99978666bdd94b05053093b57bee3b398fe"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1009452,
+          "vram": 2148493100,
+          "size": 1460,
+          "sha256": "6950aa1ea32af72b17a90482402fec49d6e509e0d2d6ba60482bdd585623a9d9"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800BD65C",
+      "source": "src/data/event_bank_data_800BD65C.c",
+      "inputs": {
+        "src/data/event_bank_data_800BD65C.c": "9be0f0f323719ae15f780bcc678362b276fb7ce1ca34763f6f1ed6a25b1e3752"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 775772,
+          "vram": 2148259420,
+          "size": 1444,
+          "sha256": "558669731e405603459d537b1aa811ad7c312cf3b7cc15d179bfd513b794093a"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800B680C",
+      "source": "src/data/event_bank_data_800B680C.c",
+      "inputs": {
+        "src/data/event_bank_data_800B680C.c": "50c0ef529b67b083977bf96a242d17b6504d0c8c090a1b69be9033c9913a13d5"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 747532,
+          "vram": 2148231180,
+          "size": 1348,
+          "sha256": "f494577d0ffec79827580c04e91c10d0daafa164f13c1763265e5f1eb59fe77e"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8009ECD8",
+      "source": "src/data/event_bank_data_8009ECD8.c",
+      "inputs": {
+        "src/data/event_bank_data_8009ECD8.c": "f934e78afea9b8f8bbc4cb2da1b09dc6fd69a72ffcb8710345a7c9b0fa457bb2"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 650456,
+          "vram": 2148134104,
+          "size": 1324,
+          "sha256": "858c9eaac249b9e402d121f5d6bc69827f7d2c02a037dd69063f3af9a99bd68e"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80096C98",
+      "source": "src/data/event_bank_data_80096C98.c",
+      "inputs": {
+        "src/data/event_bank_data_80096C98.c": "87c340fd6c75c295b568ab1ada0273bdd0da6f942bcc701416c5148182bdb342"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 617624,
+          "vram": 2148101272,
+          "size": 1316,
+          "sha256": "d62faf5645150f116c9dbba6ffced5676df0594c6c26fcfb658767fe265dffc6"
+        }
+      ]
+    },
+    {
+      "id": "runtime_data_8008604C",
+      "source": "src/data/runtime_data_8008604C.c",
+      "inputs": {
+        "src/data/runtime_data_8008604C.c": "3150376cf783846945189b99806a56f6f2495b9638ae72902444f4938a8c0883"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1218876,
+          "vram": 2148032588,
+          "size": 1316,
+          "sha256": "51b95b8b28d2a459356aebda4840fbe0a954da601c5054c8a0b16b491737d7a9"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8009DAA4",
+      "source": "src/data/event_bank_data_8009DAA4.c",
+      "inputs": {
+        "src/data/event_bank_data_8009DAA4.c": "f983e951861df31ff518e10ccf3c3490ec16cd154ff62fbc71a99d72395511ae"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 645796,
+          "vram": 2148129444,
+          "size": 1288,
+          "sha256": "91631383b2e74ff17fa17d834cae9a706162dc97bac5fa6ed863c961277cbe0f"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800E9B08",
+      "source": "src/data/event_bank_data_800E9B08.c",
+      "inputs": {
+        "src/data/event_bank_data_800E9B08.c": "8b897ba2f5ca9dfd7a962341faca23b398d5ed8883d5bb4f4bdc345a79c1eb83"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 957192,
+          "vram": 2148440840,
+          "size": 1288,
+          "sha256": "c815135369821c6c5e4868c9cfce6ca5ddb48c1236d2d0a374dd168ff344ec7f"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800C0568",
+      "source": "src/data/event_bank_data_800C0568.c",
+      "inputs": {
+        "src/data/event_bank_data_800C0568.c": "e0afc26cb083dbabaa977c61424e2d993c601170f5372f6109f3479d12e6a47d"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 787816,
+          "vram": 2148271464,
+          "size": 1272,
+          "sha256": "f41f063a35aa3bc9de01ff37f46f326b9cde2f94b7032386d9dc4496cf75180d"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800D7A8C",
+      "source": "src/data/event_bank_data_800D7A8C.c",
+      "inputs": {
+        "src/data/event_bank_data_800D7A8C.c": "2ef3401de876e57512b12343a0bb4abb111ef1e9b137dc06a798d232373a4760"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 883340,
+          "vram": 2148366988,
+          "size": 1232,
+          "sha256": "60d9c383b91b0afe44d119164761314c69dcf7e36aafe3b837c10d276b1e5cce"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800F2D68",
+      "source": "src/data/event_bank_data_800F2D68.c",
+      "inputs": {
+        "src/data/event_bank_data_800F2D68.c": "82c0681b06b643cf687fbe58f1cc6e76b91a12c7433f3c88c5e258cb2ee3cd00"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 994664,
+          "vram": 2148478312,
+          "size": 1208,
+          "sha256": "06d0ddef42ae52c3c53b1e2e2c74bfc08fca4102f77e9e8da85687c145c94fe3"
+        }
+      ]
+    },
+    {
+      "id": "runtime_data_80084BB0",
+      "source": "src/data/runtime_data_80084BB0.c",
+      "inputs": {
+        "src/data/runtime_data_80084BB0.c": "8f6efebd592f9a5ff23cdf06c95939241976bb2e8e55e98688e74000ac259595"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1213600,
+          "vram": 2148027312,
+          "size": 1168,
+          "sha256": "0e4da5f5fb02c6ac4ba6acb4036227139c680fdb378d6feeb2fe2d4727b70a66"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800A39A4",
+      "source": "src/data/event_bank_data_800A39A4.c",
+      "inputs": {
+        "src/data/event_bank_data_800A39A4.c": "5b0e2901fa4196f6cc1766865df3166cb38d348fcffd9a144ddf58258512b96b"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 670116,
+          "vram": 2148153764,
+          "size": 1164,
+          "sha256": "5545188feae031716978303c123febbe73780de3c983660c6cdea338b1244368"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800A2318",
+      "source": "src/data/event_bank_data_800A2318.c",
+      "inputs": {
+        "src/data/event_bank_data_800A2318.c": "cf6dfb1e27132a3c6e1b3e7274e7da007a34c7d6eb337585896cd023955ae070"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 664344,
+          "vram": 2148147992,
+          "size": 1160,
+          "sha256": "94fad6eccc478bfb9b159e70b36d8539cdde174ddba659d46bcd6a5e5c3e92a4"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800B8F6C",
+      "source": "src/data/event_bank_data_800B8F6C.c",
+      "inputs": {
+        "src/data/event_bank_data_800B8F6C.c": "aabb342f8af2fd078c20ce2df39b1ae1a1b14ca47f056898c652d510f7581f3b"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 757612,
+          "vram": 2148241260,
+          "size": 1156,
+          "sha256": "b96beef2a0aa64b6f2e03f85ae881f94f116f6da45cfb7d8a4e0418fbd633ed2"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800F99C4",
+      "source": "src/data/event_bank_data_800F99C4.c",
+      "inputs": {
+        "src/data/event_bank_data_800F99C4.c": "c783e87d03ae3eb5bd3f7e8bd69ba1de9abd13b60f94ae20de1adfdb79067425"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1022404,
+          "vram": 2148506052,
+          "size": 1148,
+          "sha256": "517be7ed469dc71c0dc8f6870d771149624108a67cccf97a675aa710c50524e9"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80097B34",
+      "source": "src/data/event_bank_data_80097B34.c",
+      "inputs": {
+        "src/data/event_bank_data_80097B34.c": "e123c445cd09b9e02f77cfe4dc837fa12d00017b4c23612c3a1bda3929e7feb4"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 621364,
+          "vram": 2148105012,
+          "size": 1144,
+          "sha256": "2fdfb6cd81014a047f9995979bde28e3510661055ba4fca7ab0bda3c10103456"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800CC54C",
+      "source": "src/data/event_bank_data_800CC54C.c",
+      "inputs": {
+        "src/data/event_bank_data_800CC54C.c": "eef4e7653388f63721444b6ba48d89c3d99e397d56ca79d2226ea6fb96bd1fbd"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 836940,
+          "vram": 2148320588,
+          "size": 1104,
+          "sha256": "376e36ebac02fdcbf4cc0d6d9df74be87b1fa907c2ecafc6807a150bb793e6fe"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800D0DA0",
+      "source": "src/data/event_bank_data_800D0DA0.c",
+      "inputs": {
+        "src/data/event_bank_data_800D0DA0.c": "20b882ff1e9a42196e748bd966923c809f445c6e30f6f83b5bcb683cbfde7978"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 855456,
+          "vram": 2148339104,
+          "size": 1096,
+          "sha256": "a162d1d96cf42d4de62d1e477d724e864e6448ff73625c64a64375a7da06b5e0"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800E6D68",
+      "source": "src/data/event_bank_data_800E6D68.c",
+      "inputs": {
+        "src/data/event_bank_data_800E6D68.c": "c733a2c34d3015f738fde52ea08037414043a33703db43c963f059dbb7f530d4"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 945512,
+          "vram": 2148429160,
+          "size": 1096,
+          "sha256": "53d5f96b828b58e382a9ea1875fd0913141a089759315c4b02783a5acd1c36b6"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800A34F8",
+      "source": "src/data/event_bank_data_800A34F8.c",
+      "inputs": {
+        "src/data/event_bank_data_800A34F8.c": "a24e1cb609df26961fa093f71794c638dd8843b8712def374a7a80ea83837efe"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 668920,
+          "vram": 2148152568,
+          "size": 1092,
+          "sha256": "0c9bdfac16a84ac924089d571188019f2722bbf2e5f13b02fdb1af3d0b4911a1"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80119DC0",
+      "source": "src/data/event_bank_data_80119DC0.c",
+      "inputs": {
+        "src/data/event_bank_data_80119DC0.c": "35612115088501b3bb2bdf9006c3dde26a94541237d72cb675f76c6a45ebf08b"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1154496,
+          "vram": 2148638144,
+          "size": 1092,
+          "sha256": "8fff63487e21a863c3d283c683e330e7a64a669440bed1c715d6e7feab8894ad"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800B7870",
+      "source": "src/data/event_bank_data_800B7870.c",
+      "inputs": {
+        "src/data/event_bank_data_800B7870.c": "0a045b6b41e5f571c0dce51980415911c5bf05666cdcb318f5eb201dfea37127"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 751728,
+          "vram": 2148235376,
+          "size": 1088,
+          "sha256": "fe9178ccb5052027f2ae3c0f2bb28ae63a80c43654b24e667f357df6720b13b4"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80079874",
+      "source": "src/data/event_bank_data_80079874.c",
+      "inputs": {
+        "src/data/event_bank_data_80079874.c": "25a12a6c0c8404b44b4cc3875a952818fe5760b59f0b179fcfc829b17a886b22"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 497780,
+          "vram": 2147981428,
+          "size": 1068,
+          "sha256": "fcc00b42251c7950937b8fac9c694f0905c49985f9e396532643f067f55239a9"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800B4EFC",
+      "source": "src/data/event_bank_data_800B4EFC.c",
+      "inputs": {
+        "src/data/event_bank_data_800B4EFC.c": "e53a17d18306157708bb26ee528920154f84676b29e9c7bb1974f1cf400484d8"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 741116,
+          "vram": 2148224764,
+          "size": 1000,
+          "sha256": "8f1213c450d7d13569369e98128a8a1dd7d69cd6900b7848b028910e7e42f6d7"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800B1D74",
+      "source": "src/data/event_bank_data_800B1D74.c",
+      "inputs": {
+        "src/data/event_bank_data_800B1D74.c": "c839df14337871f0afd8582cc7c790e3b4fded5c551faf7defaa84672972d0be"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 728436,
+          "vram": 2148212084,
+          "size": 996,
+          "sha256": "3ec65d41c1d7413ae33e7854d3e6fc865289b5606b7b1cc5e48b4341373658c0"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80098938",
+      "source": "src/data/event_bank_data_80098938.c",
+      "inputs": {
+        "src/data/event_bank_data_80098938.c": "9edc88388a748eae05218df4782bafd0336198ff5285fc0abc4048e20c70fd4c"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 624952,
+          "vram": 2148108600,
+          "size": 976,
+          "sha256": "966f92442b0590fa9fb70d16e720075ada67735addea722258ad4c255d415589"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800D3FEC",
+      "source": "src/data/event_bank_data_800D3FEC.c",
+      "inputs": {
+        "src/data/event_bank_data_800D3FEC.c": "b3382b4c93e736e33462374d43656d4f3bf1f4ad86b02d6cad87084e5aeb72a0"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 868332,
+          "vram": 2148351980,
+          "size": 908,
+          "sha256": "5ead55713e2e68901cab945173ae8ef7f9ec54af6484a79d80847468cec9fdda"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80114324",
+      "source": "src/data/event_bank_data_80114324.c",
+      "inputs": {
+        "src/data/event_bank_data_80114324.c": "540ccfec4fb87e87074f245a4ed08d84b7feb9cc3b3afa3493df35811d35c6d8"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1131300,
+          "vram": 2148614948,
+          "size": 908,
+          "sha256": "c7453f1317326b7202af39acdc9b4b1d2b7e366de6dc39a15ebb0edb3e837a38"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_8007A518",
+      "source": "src/data/event_bank_data_8007A518.c",
+      "inputs": {
+        "src/data/event_bank_data_8007A518.c": "f4de090475f4a6edfb2aff03e2790ef07fb41b8f239659a5c0bd725880f67923"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 501016,
+          "vram": 2147984664,
+          "size": 904,
+          "sha256": "3a75d52743aeb3643c855afde5bf41f0bc52a58abf9b20911c14b9302ace9c5e"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800AAEB8",
+      "source": "src/data/event_bank_data_800AAEB8.c",
+      "inputs": {
+        "src/data/event_bank_data_800AAEB8.c": "16971e4ee1e1e64e7f7b90db4094630b34b5c73e6143691d15ce154cdd85bf4e"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 700088,
+          "vram": 2148183736,
+          "size": 904,
+          "sha256": "dd4a2054c37641ec76d18137749fc8bd9402a9737f4acb46ca52a3b35e61d847"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800D0338",
+      "source": "src/data/event_bank_data_800D0338.c",
+      "inputs": {
+        "src/data/event_bank_data_800D0338.c": "6f8b0db7d2e316f382adbb5bc9c95686158aeccb3db0cdef6eb7ad011674c804"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 852792,
+          "vram": 2148336440,
+          "size": 888,
+          "sha256": "8313f3b7e3abde88acf9b973659d2e4822290aa6743c8832e5a78869c0cec22d"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800BEC40",
+      "source": "src/data/event_bank_data_800BEC40.c",
+      "inputs": {
+        "src/data/event_bank_data_800BEC40.c": "095e841679b291337a55e4f190fb78a3e3d021ab93c73b1b6bbbf714d5a102b8"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 781376,
+          "vram": 2148265024,
+          "size": 884,
+          "sha256": "d782e9ec7c4bd1e3f8884b3d82355b4196dfba4f9c7a94ded51741f226dd2a95"
         }
       ]
     }
