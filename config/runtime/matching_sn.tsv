@@ -145,3 +145,4 @@
 0x158430	0xEC	src/runtime/advance_runtime_child_motion.c	--symbol=runtimeMotionUpVector:0x800F267C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	10499118bf15104e8757536cb596c6cf065ef5ee9a9963d2a22f0d9fb101fe12
 0x1583BC	0x74	src/runtime/replace_runtime_target.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0c231121560a510fe9e9d8e6b253f1b9d7faab65b60920aa3a3aa240aaab03f7
 0x14D9F0	0x388	src/runtime/allocate_aligned_runtime_block.c	--symbol=func_800AA658:0x800AA658 --symbol=func_800AA650:0x800AA650 --symbol=func_800B3AFC:0x800B3AFC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ac9dbeb8b353b8f531689a47506107fdd3b85ba8c12395759b3ccc6c70dd14f5
+0x1469D8	0xAC	src/runtime/update_runtime_audio_state.c	--symbol=saveBlock:0x800FC270 --symbol=func_800A2FCC:0x800A2FCC --symbol=func_8001D10C:0x8001D10C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6c4117bc0a0f76b24e21bce1ff9421b7e3bb2f7cb8c278713bf6e66618ba0cc9
