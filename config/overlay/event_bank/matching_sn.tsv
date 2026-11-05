@@ -2170,3 +2170,9 @@
 0x101a4c	0x8	src/overlays/event_bank_func_80101A4C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	15766f7995bfa29e0d4595df1ad161be585cc3ba03fbf39b497e4c6a3c87022f
 0x119034	0xc	src/overlays/event_bank_func_80119034.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	efe45a34393ddf4afc80b209bd0c79cab8535aa5dc1167f7ae3d9566e3630158
 0x11d038	0x14	src/overlays/event_bank_func_8011D038.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	34239cbeeb3fbdf50d3770a45016150a8d7a7e7c3dbfc70a7c6f88364c486dbb
+0x95800	0x24	src/overlays/event_bank_func_80095800.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c99e7df688ffd40d7cdfd1fd26799ad76a0f90ccbd461a48f6b818be804303ef
+0xe6c8c	0x24	src/overlays/event_bank_func_800E6C8C.c	--symbol=D_80078C44:0x80078C44 --symbol=D_80078C48:0x80078C48 -mno-split-addresses -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	84d51906fd5cfac85f2aca6228e95459b88382e5755e5c1522b40ff320ccb155
+0xe6cb0	0x8	src/overlays/event_bank_noop_800E6CB0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0xdba38	0x5c	src/overlays/event_bank_func_800DBA38.c	--symbol=D_800FC270:0x800FC270 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1dd7259b5947d44c01ea0077cd284ec85d135fb73b81c6bb0ec2e0905a1a4365
+0xe2ea8	0x5c	src/overlays/event_bank_func_800E2EA8.c	--symbol=D_800FC270:0x800FC270 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1dd7259b5947d44c01ea0077cd284ec85d135fb73b81c6bb0ec2e0905a1a4365
+0xd5060	0x5c	src/overlays/event_bank_func_800D5060.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	80abb632c4b80dcd63dc8a3c745943c70f42be3d9ebaea2855ed4bc407c55858
