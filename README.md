@@ -29,11 +29,11 @@ Accepted image:
 The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
 The current survey identifies 751 functions. The game and most libraries were
-built with KMC GCC. Matching manifests cover 174,808 unique bytes of the 229,736-byte surveyed
-resident text span (76.09%), including assembly units. Complete extents are
-covered for 706 of 751 catalogued functions. Another 32 have reconstructed
-bodies with uncovered zero-padding suffixes (312 bytes total), and 13 have
-wholly unmatched bodies (38,144 bytes). The remaining 16,472 uncovered bytes
+built with KMC GCC. Matching manifests cover 176,064 unique bytes of the 229,736-byte surveyed
+resident text span (76.64%), including assembly units. Complete extents are
+covered for 707 of 751 catalogued functions. Another 32 have reconstructed
+bodies with uncovered zero-padding suffixes (312 bytes total), and 12 have
+wholly unmatched bodies (36,888 bytes). The remaining 16,472 uncovered bytes
 are outside catalogued function extents and include boot, RSP, and data spans
 that need classification.
 
@@ -154,7 +154,8 @@ The data-ledger refresh also builds the frozen source pieces and compares them
 against the ROM. It now includes two exact 32-byte initialized sections that the
 older per-unit data comparison omitted.
 
-The mapped-input and queued-texture reconstructions are still nonmatching.
+The mapped-input function `func_80007384` now matches all 1,256 bytes with SN
+GCC without normalization. The queued-texture reconstruction is still nonmatching.
 `make validate-mapped-inputs` checks controller consumption, virtual callbacks,
 pass accumulation, and event-ring updates against the original with deterministic
 external helper stubs. `make validate-texture-sheets` checks emitted commands,

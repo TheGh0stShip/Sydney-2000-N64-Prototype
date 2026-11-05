@@ -58,7 +58,7 @@
     "config/matching_kmc_as.tsv": "7cde5d369edccd03e1cbba9787726678908171bbf4b570fb66af7b6e7688a410",
     "config/matching_kmc_builtin.tsv": "aece1dc9c238f04ac465a894810e7ea4f68f3c5ce160a874bcdda52035dbacf9",
     "config/matching_kmc_hook.tsv": "2a3c9cc3f57385fbecdea3c5241dab1c3c17872361a3d092351809a3a2417407",
-    "config/matching_sn.tsv": "be19d69e5b099d27b14fbebd7c8235d36dc2662d7a595efd53d28f8f6b346939",
+    "config/matching_sn.tsv": "2c154178b05f3ec9a80b80cad52a7f11818e7ebe351458c8ad60e5adf0efb457",
     "config/matching_sn_normalized.tsv": "d2f83f8344f3ed4e7041618a4d9cfa51cb32724516c401b5b37458b025968260",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
     "config/survey/symbol_addrs.txt": "6e790f5964e9de4e0e5c86236b398244496175579c3911561b702a7f0be4a29c",
@@ -375,6 +375,7 @@
     "src/game/update_fire_heat_buffer.c": "6d785e6b9437fe694a5800d520bcd2de9c1b3610cf06e348cfaf31bdc819c09c",
     "src/game/update_gsm_stream_channel.c": "16db03891aa0737276cad6509e33f75717538095ba8ca32a9e9adeae8cb45f1a",
     "src/game/update_indexed_render_record.c": "6ef5a92fadaadd0b08a3477e31eef9e6ec9b29171391517ae3b3bbf46cf32e64",
+    "src/game/update_mapped_display_inputs.c": "cc881578228ae1b56d309c6cf9b5e4dc0adc57321b9863b97020584ecda453b5",
     "src/game/update_packed_display_records.c": "9df7bd738b87d0b5b2153b431a389122dcbe3bed99983ab5b74581196c514025",
     "src/game/update_runtime_render_resource.c": "74d65ba0442514797d26950377f239ea4482b9c1faf4dc0c30ce48419c10c513",
     "src/game/update_timed_animation_records.c": "0d351fe0469b4f427e5ef9973bcf629c37733939b9ba3741f1bf51183beb1d85",
@@ -29299,7 +29300,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "13ad835aaea81755756e82e83065b901a3cd5e36d1eff816cf9500def0bde9e9",
+      "object_sha256_at_discovery": "f533d9c743c5f324d2593e2496129793c85a4b736d46215aa3d4be7f23e76afd",
       "pipeline": "sn",
       "row_sha256": "0771a873fe63ef9ee499967ec5d87c996bc41ea569df1e09a68a28e0a6960f55",
       "section_bases": {
@@ -29345,7 +29346,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "108c97eea990f309f857e75e149888544b1cc803455ce9ea2dda3b6d36ee2c3c",
+      "object_sha256_at_discovery": "f9728893ada45ea9bb725ccfc5cff8df15dc0fc54bb8197deb18559a768cf482",
       "pipeline": "sn",
       "row_sha256": "b1c3d79bd336e33501d7e801054ccf9ce875b172b84dcab6aa8b4dd20eae07ce",
       "section_bases": {
@@ -29391,7 +29392,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "12a3ea2e83523676c3dc046d821177671443668964ce9dc460c654d19ab3cb4c",
+      "object_sha256_at_discovery": "9e93be2c1e7b682ea5ef9b44537fc6749b0f16ae60d1b071add8d7dee3326f1b",
       "pipeline": "sn",
       "row_sha256": "765ef753bc8d9c9b5bb5227cdab095d03568631f921386ad327e6369da1f9880",
       "section_bases": {
@@ -29432,7 +29433,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "e0b81c8fb528f6edd3336fce96316057a4fa21f62e6e18895ee5e0efb599752a",
+      "object_sha256_at_discovery": "0db9dbed272fa652f7d25d265a04c0cbd56ad081dce5bc641552b426d941ed9a",
       "pipeline": "sn",
       "row_sha256": "958fc1d48b612f5fa42033784e0f6bd6b85192e004adb14b3529a2dcf70480e6",
       "section_bases": {
@@ -29481,7 +29482,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "5d5eeeda859fef315148524ba2e7cf28b5e1a38b576a65aaa6d01bf9d34f07d2",
+      "object_sha256_at_discovery": "f7de4b79e4b411bae111866624afa9eec4db42eec284db6b339bee9a0b90346f",
       "pipeline": "sn",
       "row_sha256": "0a1a58f35871bdae8e9b42f20189bcfd455da242c69268faea64d1e7a24b0d1d",
       "section_bases": {
@@ -29522,7 +29523,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "5e9233bdb1d18d017bbed9521a751d253ca5a336ff1c3397fcd97cf22ce22a0a",
+      "object_sha256_at_discovery": "f57f7c45330c87d042ff101708352cb7487d3f29e6121f8e00fd93a62042f66f",
       "pipeline": "sn",
       "row_sha256": "41b303558d5460dae73e8c4ccb9a627aa4eb2be53a3a8860bb092dcddc4f92bc",
       "section_bases": {
@@ -29564,7 +29565,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "93046140932449981f54b167952a4050653e74987e7b16d53a888b5b6c4113fd",
+      "object_sha256_at_discovery": "23a973894bb6f6345e06be2f02082a76f95fa3199e96df985ddc4456ae605335",
       "pipeline": "sn",
       "row_sha256": "267882f11863d2b3c1d00fdc86681492ea5e3fdcadbab2a5cae9da552bab8dc5",
       "section_bases": {
@@ -29610,7 +29611,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "5ce4449014c204f67e90f4f87795561c72aaa630b715a1c9cb47a633a0a033da",
+      "object_sha256_at_discovery": "fc132ee3b0d5cbdb9c4607438ef515f418e7f859b7dd074fcb545ad980ff2479",
       "pipeline": "sn",
       "row_sha256": "fd062c261861d9e84b02414d42aff14bda6f5c1ef18afbc858ae85f4cbc3154e",
       "section_bases": {
@@ -29689,7 +29690,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "4b513df1565e9d60717bf6722d7514377d471d46ade11f10404d1453d70ad9bf",
+      "object_sha256_at_discovery": "a94b451328dd7d7dccb23553711388bfb5f43a0ac2dc53a7d77cd96071b37365",
       "pipeline": "sn",
       "row_sha256": "abe66a9ad1f9a43602d753bb671afd64866ba990a95c61b0d89cda5288dd4af5",
       "section_bases": {
@@ -29727,7 +29728,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "3a488cadc2e82c5a7c53c9e19606bf698c6f459fc2705e5a3f0387f29ae5df4e",
+      "object_sha256_at_discovery": "be3e23c1f3d63153e2fbda4f6ee08924ff5855fd483e5b21ee68eb1ac5f91d30",
       "pipeline": "sn",
       "row_sha256": "fffc1f8cad329da34f13510fa0a7a4443f7e1f7397366519a24e08b9ecf1abae",
       "section_bases": {
@@ -29769,11 +29770,56 @@
         "-mhard-float",
         "-meb"
       ],
+      "id": "matching_sn.tsv:3d366961d62c9ef5",
+      "includes": [],
+      "manifest": "config/matching_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "6821bbcf8e79be9aa8aa91597269b2fa6f592dc8e6ab4a9e375791bf8cf698b9",
+      "pipeline": "sn",
+      "row_sha256": "3d366961d62c9ef5ba76bf9fc840fbf6f5fc15ea32687d99518887c9116aa344",
+      "section_bases": {
+        ".text": 2147513220
+      },
+      "sections": [
+        {
+          "emitted_size": 1256,
+          "name": ".text",
+          "owned_size": 1256,
+          "rom_start": 32644,
+          "sha256": "1fef74fa542edbec991e528f186a158f28a32d5087476aec7177782648531101",
+          "unowned_zero_tail": 0,
+          "vram": 2147513220
+        }
+      ],
+      "source": "src/game/update_mapped_display_inputs.c",
+      "source_sha256": "cc881578228ae1b56d309c6cf9b5e4dc0adc57321b9863b97020584ecda453b5",
+      "symbols": {
+        "displayConfigurationReady": 2148476712,
+        "displayInputControllers": 2147911888,
+        "displayInputEventIndex": 2148481154,
+        "displayInputMaps": 2148477656,
+        "displayInputRecords": 2147911840,
+        "displayInputStates": 2147761916,
+        "func_800AAC44": 2148183108,
+        "func_800BC408": 2148254728,
+        "selectedDisplayConfiguration": 2148476792
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
       "id": "matching_sn_normalized.tsv:3ce4c6f44a7bbe68",
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "shadow-operands",
-      "object_sha256_at_discovery": "159f11f0fddc468d226d7bf70c29b33a08368b6888044da68ea62e521fa83fcf",
+      "object_sha256_at_discovery": "2974575ae5b61f501e21081892b022553288acda178c704a91fc06b54ac7b261",
       "pipeline": "sn",
       "row_sha256": "3ce4c6f44a7bbe6848fcd8f923165995593998d70e4c8d7b1919331b13829a3a",
       "section_bases": {
@@ -29847,7 +29893,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "debug-regions",
-      "object_sha256_at_discovery": "d73a8f9d1ed2705505ae71f32a88624e06ae5adc3b3f84faa12c4773b4facedc",
+      "object_sha256_at_discovery": "fe9f47bae00b20f66f1c5fa055c1f32cd7153d771981d64a43c058ca3caf1264",
       "pipeline": "sn",
       "row_sha256": "9ac17f0b3d9d2e0bf7c8243af42b11c2ff5285da7a9cbf02e06f8a4048919150",
       "section_bases": {

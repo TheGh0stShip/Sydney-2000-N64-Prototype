@@ -188,7 +188,7 @@
   "inputs": [
     {
       "path": "config/link_units.json",
-      "sha256": "acffee3b508c63ae68c5a766357fb562c5834e8e1738205ae4f0e3a634bb7405"
+      "sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de"
     },
     {
       "path": "config/matching_as.tsv",
@@ -220,7 +220,7 @@
     },
     {
       "path": "config/matching_sn.tsv",
-      "sha256": "be19d69e5b099d27b14fbebd7c8235d36dc2662d7a595efd53d28f8f6b346939"
+      "sha256": "2c154178b05f3ec9a80b80cad52a7f11818e7ebe351458c8ad60e5adf0efb457"
     },
     {
       "path": "config/matching_sn_normalized.tsv",
@@ -1493,6 +1493,10 @@
     {
       "path": "src/game/update_indexed_render_record.c",
       "sha256": "6ef5a92fadaadd0b08a3477e31eef9e6ec9b29171391517ae3b3bbf46cf32e64"
+    },
+    {
+      "path": "src/game/update_mapped_display_inputs.c",
+      "sha256": "cc881578228ae1b56d309c6cf9b5e4dc0adc57321b9863b97020584ecda453b5"
     },
     {
       "path": "src/game/update_packed_display_records.c",
@@ -4389,7 +4393,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "acffee3b508c63ae68c5a766357fb562c5834e8e1738205ae4f0e3a634bb7405",
+      "source_image_plan_sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4502,7 +4506,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "acffee3b508c63ae68c5a766357fb562c5834e8e1738205ae4f0e3a634bb7405",
+      "source_image_plan_sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4600,16 +4604,16 @@
     }
   ],
   "verification": {
-    "units": 607,
-    "exact_units": 607
+    "units": 608,
+    "exact_units": 608
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "acffee3b508c63ae68c5a766357fb562c5834e8e1738205ae4f0e3a634bb7405",
+    "plan_sha256": "153c2ff95c99dcb0ae39e33005559923dacfbe7f445aefc2034e399bd9fe79de",
     "build_tool_path": "tools/build_source_image.py",
     "build_tool_sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63",
-    "verified_source_pieces": 670,
-    "owned_resident_bytes": 180628,
+    "verified_source_pieces": 671,
+    "owned_resident_bytes": 181884,
     "added_initialized_sections": 2,
     "placement_inference_during_build": false,
     "post_build_rom_comparison": true,

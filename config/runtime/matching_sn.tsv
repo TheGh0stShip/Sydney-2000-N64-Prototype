@@ -48,3 +48,5 @@
 0x1525F4	0x44	src/runtime/activate_runtime_object_fields.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	b37eda01d17469965081f1085ae6d9811427010d25744e13544434c4401877a2
 0x1468BC	0x5C	src/runtime/run_audio_state_callbacks.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	af5ffb59c6a005788fd292921ab4bcd4248af2ba083b37d9bdbe2fbbb418e758
 0x14FC24	0x48	src/runtime/detach_runtime_object.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6970932a4c884b06d353e3cf9551fa54c040b9eae82cd23ba1c96a0247e36eb7
+0x14E7C0	0x134	src/runtime/sift_down_runtime_priority_heap.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0a817baf7f4b3f879fd99c133d2f811fe7fd70d84581fe20fd1b9530bf4f10f0
+0x17D1EC	0x3C	src/runtime/get_runtime_asset_or_default.c	--symbol=runtimeAssets:0x800F7574 --symbol=runtimeDefaultAsset:0x800FAFC8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5a998b6a4a48eb6d7ad6ae17322734a7be4bda1fa8ce9d96777619789644802f
