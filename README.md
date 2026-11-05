@@ -227,7 +227,7 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 3,336,990 bytes; 30,217,442 bytes remain unowned.
+The current partial owns 3,336,994 bytes; 30,217,438 bytes remain unowned.
 The generated gap ledger records all 98 uncovered intervals. The startup-runtime
 provider contributes 27,600 exact bytes from 157 matching compilation units;
 the remainder of that mixed code/data image is still explicitly unowned.
