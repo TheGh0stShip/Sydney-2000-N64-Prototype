@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "byte_order": "big",
+  "pi_bsd_domain_1": "0x80371240",
+  "clock_rate": "0x0000000F",
+  "entry_point": "0x80000400",
+  "release": "0x00001444",
+  "crc1": "0x80A78080",
+  "crc2": "0x5F9F8833",
+  "name": "Syd2k USA",
+  "manufacturer_id": 0,
+  "cartridge_id": "0000",
+  "country_code": 0,
+  "version_byte": 0,
+  "capacity_fill_start": "0x1DC1CE2",
+  "rom_size": "0x2000000",
+  "capacity_fill_value": 0
+}

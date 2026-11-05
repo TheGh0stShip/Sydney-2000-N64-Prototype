@@ -85,6 +85,20 @@ class CompositionTests(unittest.TestCase):
                 reconstruction.piece_bytes(reconstruction.Evidence(project), artifact, item, 7,
                                            reconstruction.sha256(b'abcd'))
 
+    def test_typed_header_and_capacity_fill_are_serialized_without_rom_input(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            project = Path(tmp)
+            (project / 'config').mkdir()
+            source = Path(__file__).parents[1] / 'config/rom_layout.json'
+            (project / 'config/rom_layout.json').write_bytes(source.read_bytes())
+            pieces = reconstruction.load_static_layout(reconstruction.Evidence(project))
+            self.assertEqual(pieces[0][0], 0)
+            self.assertEqual(len(pieces[0][1]), 0x40)
+            self.assertEqual(pieces[0][1][0x20:0x34], b'Syd2k USA           ')
+            self.assertEqual(pieces[1][0], 0x1DC1CE2)
+            self.assertEqual(len(pieces[1][1]), 0x2000000 - 0x1DC1CE2)
+            self.assertFalse(any(pieces[1][1]))
+
     def test_absolute_traversing_and_symlinked_piece_paths_are_rejected(self):
         with tempfile.TemporaryDirectory() as tmp:
             project = Path(tmp) / 'project'
@@ -170,6 +184,7 @@ class CompositionTests(unittest.TestCase):
                  patch.object(reconstruction, 'load_initialized', return_value=[]), \
                  patch.object(reconstruction, 'load_rsp', return_value=[]), \
                  patch.object(reconstruction, 'load_runtime', return_value=[]), \
+                 patch.object(reconstruction, 'load_static_layout', return_value=[]), \
                  patch.object(reconstruction, 'load_directory', return_value=[]):
                 with self.assertRaisesRegex(ValueError, '6 unowned bytes in 2 gaps'):
                     reconstruction.compose(project, project / 'resident.json',

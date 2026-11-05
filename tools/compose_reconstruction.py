@@ -13,6 +13,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import struct
 
 ROOT = Path(__file__).resolve().parents[1]
 ROM_SIZE = 0x2000000
@@ -408,6 +409,37 @@ def load_runtime(evidence, artifact):
     return produced
 
 
+def load_static_layout(evidence):
+    """Serialize typed cartridge metadata and deterministic unused capacity."""
+    config = json.loads(evidence.repo('config/rom_layout.json'))
+    if (config.get('version') != 1 or config.get('byte_order') != 'big' or
+            int(config['rom_size'], 0) != ROM_SIZE):
+        raise ValueError('unsupported typed ROM layout')
+    name = config['name'].encode('ascii')
+    cartridge_id = bytes.fromhex(config['cartridge_id'])
+    if len(name) > 20 or len(cartridge_id) != 2:
+        raise ValueError('invalid N64 header text/identifier width')
+    header = bytearray(0x40)
+    struct.pack_into('>7I', header, 0,
+                     int(config['pi_bsd_domain_1'], 0), int(config['clock_rate'], 0),
+                     int(config['entry_point'], 0), int(config['release'], 0),
+                     int(config['crc1'], 0), int(config['crc2'], 0), 0)
+    header[0x20:0x34] = name.ljust(20, b' ')
+    header[0x3B] = config['manufacturer_id']
+    header[0x3C:0x3E] = cartridge_id
+    header[0x3E] = config['country_code']
+    header[0x3F] = config['version_byte']
+    fill_start = int(config['capacity_fill_start'], 0)
+    fill_value = config['capacity_fill_value']
+    if not 0 <= fill_value <= 255 or not 0x1DC1CE2 <= fill_start <= ROM_SIZE:
+        raise ValueError('invalid cartridge capacity-fill declaration')
+    return [(0, bytes(header), {'owner': 'typed-rom-header', 'kind': 'typed N64 header',
+                                'source': 'config/rom_layout.json'}),
+            (fill_start, bytes([fill_value]) * (ROM_SIZE - fill_start),
+             {'owner': 'capacity-fill', 'kind': 'deterministic cartridge capacity fill',
+              'source': 'config/rom_layout.json'})]
+
+
 
 def load_rsp(evidence, artifact, data_intervals):
     if not artifact.is_file():
@@ -487,7 +519,8 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
               load_initialized(evidence, initialized, data_intervals) +
               load_rsp(evidence, rsp, data_intervals) +
               load_runtime(evidence, runtime) +
-              load_directory(evidence, directory))
+              load_directory(evidence, directory) +
+              load_static_layout(evidence))
     image, provenance = RomImage(ROM_SIZE), []
     for start, data, source in pieces:
         image.add(start, data, source['owner'])
