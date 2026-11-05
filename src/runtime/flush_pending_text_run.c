@@ -16,7 +16,7 @@ extern u16 runBufferEnd;
 extern u16 *runOutput;
 extern u8 runGlyphCount;
 extern u16 runCursor;
-void func_800B25AC(void) {
+void func_800B25AC(void *object) {
     u32 remaining=pendingCodeCount;
     if(remaining) {
         pendingRead=pendingCodes;
