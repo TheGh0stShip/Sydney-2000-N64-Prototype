@@ -228,7 +228,7 @@
     },
     {
       "path": "config/link_units.json",
-      "sha256": "070cfd51863a51333ec210003e278e366ae3ad5d76faaaf7da8d5afdc888c013"
+      "sha256": "cb7d6f103b5f2d7d459306a3d9367924e44e86bf296477b5268cf757a90e445c"
     },
     {
       "path": "config/matching_as.tsv",
@@ -264,7 +264,7 @@
     },
     {
       "path": "config/matching_sn_normalized.tsv",
-      "sha256": "d2f83f8344f3ed4e7041618a4d9cfa51cb32724516c401b5b37458b025968260"
+      "sha256": "3a2de8fb13d32c718d8bdf713ce49c6d3d1408448353ca4d0185402b3e5d54e9"
     },
     {
       "path": "config/rsp/bootstrap_armips.sh",
@@ -369,6 +369,10 @@
     {
       "path": "src/game/broadcast_message_to_clients.c",
       "sha256": "79262a2ce7e25123a7ff0d0a2ce942a256f300cedec1f417d9eceb245398b3b1"
+    },
+    {
+      "path": "src/game/build_deduplicated_mesh_batch.c",
+      "sha256": "00ee995de9ca0f9ea3587985957e71f7ec8ed293140ce3030a9a63003d7ba026"
     },
     {
       "path": "src/game/build_flagged_model_matrix.c",
@@ -2376,7 +2380,7 @@
     },
     {
       "path": "tools/build_source_image.py",
-      "sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63"
+      "sha256": "abfb25e90d4c259906066687d56da5c493d09bc3752823572e6cdbd726293e8c"
     },
     {
       "path": "tools/f3dex2/.gitignore",
@@ -3744,7 +3748,7 @@
     },
     {
       "path": "tools/verify_sn_normalized.py",
-      "sha256": "9640aac379c454654ba5fdd342fc31ad7948d5858d6f060d621c8e196642c483"
+      "sha256": "377fb6a0b070a8e48ce15e0f0bbcfab8fd160664b904b71b313d8ac27a11e094"
     }
   ],
   "sections": [
@@ -4574,7 +4578,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "df3aaee6c070967c20c45c03f90bd7af5e38cecd266389f6fa7b79f616d90a47",
+      "object_sha256": "bfba16ca171cf0b63b70083ad2dc0eadaa11cd5219a6cb3962c448d53aa055b5",
       "provider": "typed-initialized-data"
     },
     {
@@ -4706,7 +4710,7 @@
       "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
-      "source_image_plan_sha256": "070cfd51863a51333ec210003e278e366ae3ad5d76faaaf7da8d5afdc888c013",
+      "source_image_plan_sha256": "cb7d6f103b5f2d7d459306a3d9367924e44e86bf296477b5268cf757a90e445c",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4819,7 +4823,7 @@
       "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
       "provider": "frozen-source-image",
       "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
-      "source_image_plan_sha256": "070cfd51863a51333ec210003e278e366ae3ad5d76faaaf7da8d5afdc888c013",
+      "source_image_plan_sha256": "cb7d6f103b5f2d7d459306a3d9367924e44e86bf296477b5268cf757a90e445c",
       "compiler_flags": [
         "-O2",
         "-G0",
@@ -4917,19 +4921,19 @@
     }
   ],
   "verification": {
-    "units": 649,
-    "exact_units": 649,
-    "text_units": 645,
+    "units": 650,
+    "exact_units": 650,
+    "text_units": 646,
     "data_only_units": 1,
     "rsp_programs": 3
   },
   "source_image_provider": {
     "plan_path": "config/link_units.json",
-    "plan_sha256": "070cfd51863a51333ec210003e278e366ae3ad5d76faaaf7da8d5afdc888c013",
+    "plan_sha256": "cb7d6f103b5f2d7d459306a3d9367924e44e86bf296477b5268cf757a90e445c",
     "build_tool_path": "tools/build_source_image.py",
-    "build_tool_sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63",
-    "verified_source_pieces": 714,
-    "owned_resident_bytes": 209660,
+    "build_tool_sha256": "abfb25e90d4c259906066687d56da5c493d09bc3752823572e6cdbd726293e8c",
+    "verified_source_pieces": 715,
+    "owned_resident_bytes": 211396,
     "added_initialized_sections": 2,
     "placement_inference_during_build": false,
     "post_build_rom_comparison": true,
@@ -5375,7 +5379,7 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "df3aaee6c070967c20c45c03f90bd7af5e38cecd266389f6fa7b79f616d90a47",
+        "object_sha256": "bfba16ca171cf0b63b70083ad2dc0eadaa11cd5219a6cb3962c448d53aa055b5",
         "symbols": {}
       }
     ],
@@ -5525,10 +5529,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-ksqm04mj/rspboot/code.bin",
+          "/tmp/sydney-rsp-xq3s6djw/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-ksqm04mj/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-ksqm04mj/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-xq3s6djw/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-xq3s6djw/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -5543,10 +5547,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-ksqm04mj/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-xq3s6djw/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-ksqm04mj/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-xq3s6djw/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -5557,9 +5561,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-ksqm04mj/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-xq3s6djw/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-ksqm04mj/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-xq3s6djw/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",

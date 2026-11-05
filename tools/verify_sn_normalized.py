@@ -74,6 +74,48 @@ def normalize_debug_regions(elf: Elf) -> None:
     text.size = len(body)
 
 
+def normalize_ad30_stack_slots(elf: Elf) -> None:
+    """Reproduce the ROM compiler's caller-save/spill slot ordering.
+
+    The generated instruction stream is otherwise identical.  This SN build
+    allocates the long-lived ``start`` spill before the five temporary
+    caller-save slots; the ROM build allocated the same six words in the
+    opposite order.  Only the reviewed stack displacements differ.
+    """
+    text = elf.section(".text")
+    if text is None or len(text.data) != 0x6C8:
+        raise ValueError("AD30 compiler text extent changed")
+    reviewed = {
+        0x04C: (0xAFA30040, 0xAFA30058),
+        0x058: (0x8FAC0040, 0x8FAC0058),
+        0x350: (0xAFAC0048, 0xAFAC0040),
+        0x354: (0xAFAD004C, 0xAFAD0044),
+        0x358: (0xAFAE0050, 0xAFAE0048),
+        0x35C: (0xAFAF0054, 0xAFAF004C),
+        0x360: (0xAFB80058, 0xAFB80050),
+        0x374: (0x8FAC0048, 0x8FAC0040),
+        0x378: (0x8FAD004C, 0x8FAD0044),
+        0x37C: (0x8FAE0050, 0x8FAE0048),
+        0x380: (0x8FAF0054, 0x8FAF004C),
+        0x384: (0x8FB80058, 0x8FB80050),
+        0x4C4: (0x8FA70040, 0x8FA70058),
+        0x658: (0xAFB30040, 0xAFB30058),
+    }
+    body = bytearray(text.data)
+    relocations = {offset for offset, *_ in elf.relocations(text)}
+    for offset, (compiled, expected) in reviewed.items():
+        actual = struct.unpack_from(">I", body, offset)[0]
+        if actual != compiled:
+            raise ValueError(
+                f"AD30 reviewed word at 0x{offset:X} changed: "
+                f"0x{actual:08X} != 0x{compiled:08X}"
+            )
+        if offset in relocations:
+            raise ValueError(f"AD30 reviewed word at 0x{offset:X} is a relocation")
+        struct.pack_into(">I", body, offset, expected)
+    text.data = bytes(body)
+
+
 def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
     config = load_config(project)
     compiler = config.toolchain("sn")
@@ -101,6 +143,8 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
             for flag in shlex.split(fields[3]):
                 if flag == "--normalize-debug-regions":
                     normalizer = normalize_debug_regions
+                elif flag == "--normalize-ad30-stack-slots":
+                    normalizer = normalize_ad30_stack_slots
                 elif flag.startswith("--section-base="):
                     section, value = flag.split("=", 1)[1].split(":", 1)
                     bases[section] = int(value, 0)
