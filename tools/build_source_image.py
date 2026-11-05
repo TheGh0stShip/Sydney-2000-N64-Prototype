@@ -490,7 +490,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=('discover', 'build'))
     parser.add_argument('--project', type=Path, default=ROOT)
-    parser.add_argument('--segment', choices=('resident', 'runtime', 'ceremony', 'closing'), default='resident')
+    parser.add_argument('--segment', choices=('resident', 'runtime', 'ceremony', 'closing', 'event_bank'), default='resident')
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--rom', type=Path, default=ROOT / 'baserom.z64', help='discovery input only')
     parser.add_argument('--verify-rom', type=Path, help='optional comparison after source-only build')
@@ -517,12 +517,20 @@ def main() -> None:
         SEGMENT = 'closing'
         MANIFEST_DIR = 'config/overlay/closing'
         PROFILES = {'matching_sn.tsv': ('sn', [])}
+    elif args.segment == 'event_bank':
+        DELTA = 0x80000000
+        START, END = 0x70800, 0x127640
+        SEGMENT = 'event_bank'
+        MANIFEST_DIR = 'config/overlay/event_bank'
+        PROFILES = {'matching_sn.tsv': ('sn', [])}
     plans = {'resident': 'config/link_units.json',
              'runtime': 'config/runtime_link_units.json',
              'ceremony': 'config/overlay_link_units.json',
-             'closing': 'config/closing_link_units.json'}
+             'closing': 'config/closing_link_units.json',
+             'event_bank': 'config/event_bank_link_units.json'}
     outputs = {'resident': 'build/source_image', 'runtime': 'build/runtime_image',
-               'ceremony': 'build/overlay_ceremony', 'closing': 'build/overlay_closing'}
+               'ceremony': 'build/overlay_ceremony', 'closing': 'build/overlay_closing',
+               'event_bank': 'build/overlay_event_bank'}
     args.plan = args.plan or ROOT / plans[SEGMENT]
     args.output = args.output or ROOT / outputs[SEGMENT]
     if args.jobs < 1:

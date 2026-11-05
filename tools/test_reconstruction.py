@@ -186,6 +186,7 @@ class CompositionTests(unittest.TestCase):
                  patch.object(reconstruction, 'load_runtime', return_value=[]), \
                  patch.object(reconstruction, 'load_ceremony', return_value=[]), \
                  patch.object(reconstruction, 'load_closing', return_value=[]), \
+                 patch.object(reconstruction, 'load_event_bank', return_value=[]), \
                  patch.object(reconstruction, 'load_static_layout', return_value=[]), \
                  patch.object(reconstruction, 'load_directory', return_value=[]), \
                  patch.object(reconstruction, 'load_archive_payload', return_value=[]):

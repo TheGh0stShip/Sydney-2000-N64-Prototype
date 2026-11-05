@@ -440,6 +440,12 @@ def load_closing(evidence, artifact):
                                0x6DF40, 0x70800, 0x80002554)
 
 
+def load_event_bank(evidence, artifact):
+    return load_mapped_segment(evidence, artifact, 'event_bank',
+                               'config/event_bank_link_units.json',
+                               0x70800, 0x127640, 0x80000000)
+
+
 def load_static_layout(evidence):
     """Serialize typed cartridge metadata and deterministic unused capacity."""
     config = json.loads(evidence.repo('config/rom_layout.json'))
@@ -571,7 +577,7 @@ def load_archive_payload(evidence, artifact):
 
 def compose(project, resident, initialized, directory, output, verify_rom=None,
             require_complete=False, rsp=None, runtime=None, ceremony=None, closing=None,
-            payload=None):
+            payload=None, event_bank=None):
     evidence = Evidence(project)
     evidence.repo('tools/compose_reconstruction.py', sha256(Path(__file__).read_bytes()))
     rsp = rsp or project / 'build/rsp/rsp.json'
@@ -579,7 +585,9 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
     ceremony = ceremony or project / 'build/overlay_ceremony/source_image.json'
     closing = closing or project / 'build/overlay_closing/source_image.json'
     payload = payload or project / 'build/rom_components/archive_payload.json'
-    for path in (resident, initialized, directory, rsp, runtime, ceremony, closing, payload):
+    event_bank = event_bank or project / 'build/overlay_event_bank/source_image.json'
+    for path in (resident, initialized, directory, rsp, runtime, ceremony, closing, payload,
+                 event_bank):
         if not path.resolve().is_relative_to(project.resolve()):
             raise ValueError('component metadata must be inside the project')
     data_intervals = classified_data(evidence)
@@ -589,6 +597,7 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
               load_runtime(evidence, runtime) +
               load_ceremony(evidence, ceremony) +
               load_closing(evidence, closing) +
+              load_event_bank(evidence, event_bank) +
               load_directory(evidence, directory) +
               load_archive_payload(evidence, payload) +
               load_static_layout(evidence))
@@ -655,6 +664,7 @@ def main():
     parser.add_argument('--closing', type=Path, default=ROOT / 'build/overlay_closing/source_image.json')
     parser.add_argument('--directory', type=Path, default=ROOT / 'build/rom_components/file_directory.json')
     parser.add_argument('--payload', type=Path, default=ROOT / 'build/rom_components/archive_payload.json')
+    parser.add_argument('--event-bank', type=Path, default=ROOT / 'build/overlay_event_bank/source_image.json')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/reconstruction')
     parser.add_argument('--verify-rom', type=Path)
     parser.add_argument('--require-complete', action='store_true')
@@ -663,7 +673,7 @@ def main():
             args.directory.resolve(), args.output.resolve(),
             args.verify_rom.resolve() if args.verify_rom else None, args.require_complete,
             args.rsp.resolve(), args.runtime.resolve(), args.ceremony.resolve(),
-            args.closing.resolve(), args.payload.resolve())
+            args.closing.resolve(), args.payload.resolve(), args.event_bank.resolve())
 
 
 if __name__ == '__main__':

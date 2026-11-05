@@ -60,7 +60,7 @@
     "src/overlays/ceremony_noop_callback.c": "85b498a6e25297ecbadc6908b788b81e789d66816a771cbe985c2245f5cb2790",
     "src/overlays/ceremony_reset_runtime.c": "e893362aff6eb3d8d63ffd49c37647470296fa7cb24432815084511c8928c685",
     "src/overlays/ceremony_set_runtime_mode.c": "4bd3171bcae3363c0577711cc5b0617e83e98b443554b393f72df8aaaa27fb86",
-    "tools/build_source_image.py": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743",
+    "tools/build_source_image.py": "645abf58a2137c75a3aec1d8cdca4ec0fa06c278423f23c10c2e892a9254a892",
     "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
     "tools/verify_ido_normalized.py": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49",
     "tools/verify_sn_normalized.py": "a0401769c0a1e27684188481413e4f9ba505f550010d865b8bd6beae3c03855d"
@@ -86,7 +86,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "baa6154a9f3ce79e9df735a0d62cf26e9575f2a1a384dbf7ee72a4e60f80be51",
+      "object_sha256_at_discovery": "6867ebfc48f7652c50437f09dc38e0f34788666ec43a810fcfb7110298097060",
       "pipeline": "sn",
       "row_sha256": "28ce80f6f93eab56b18fed47e7e0a4bdb91dafd5a3026a1fe4b851f316ad1e4d",
       "section_bases": {
@@ -124,7 +124,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "10cd873cc874f11f4a01363140c301d2e1a18b47284dca5876c2897ae092bab4",
+      "object_sha256_at_discovery": "66449f0fd0796d11d2eeee975c84e46c4bf0f00216fb7b4b68e15d1981a4b9da",
       "pipeline": "sn",
       "row_sha256": "17e389529baeff2ec2984e98115d999a855494aa595131ecfc59c2e16fa7484d",
       "section_bases": {
@@ -162,7 +162,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "242538bf79b73fef2dd57ce39cc9ae9be753a31f60b2bc746f22f6a7d1a32d06",
+      "object_sha256_at_discovery": "be3731f8dad14fcd1a484a3e28c1db9135f1b4a02b2a69632cf90d2c07f66db2",
       "pipeline": "sn",
       "row_sha256": "f644e50af3f87f9e882d3a1986d0ff49de86ee61ddddeaea26effbf0a546d9a0",
       "section_bases": {
@@ -197,7 +197,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "2b12dc26a23dcf1d26e3af2be1bf3758722eb692b9256c148959761df9d46f51",
+      "object_sha256_at_discovery": "120f9758e81d7f30e1f8fcc2b7b346e338265801631ce0af15ff3ea5de9062c1",
       "pipeline": "sn",
       "row_sha256": "b05f00885d772e7b3e832eb2b4ba594973a7e2e2b8ec7b7e53ed3f007073a23b",
       "section_bases": {
@@ -236,7 +236,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "586585d5957e84d169fe97a26edfca598f1bb52f1ae71f672afcf9bee88c38ed",
+      "object_sha256_at_discovery": "2a9065e37c5ac5119f22b6a5346cfa35ba271dfec9523248e4f3d82bffbbcc07",
       "pipeline": "sn",
       "row_sha256": "d5dfef7371fadf4943d0eb88c77c3b969fd28aebcb96c1fb25a948fcc83e5f7f",
       "section_bases": {
@@ -276,7 +276,7 @@
       "includes": [],
       "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "900ddbc81155698752caa00daf9a31d4b82187c14b20bc3e4d36e8f9be313225",
+      "object_sha256_at_discovery": "f167c6bb946f109ccbe39acaad086be0ca33a57485b4e29b355e1a55d329aedf",
       "pipeline": "sn",
       "row_sha256": "97365ec8f0349cafbde4ca164d16f313f5d7e7fa18677d412fa7c96ce587faff",
       "section_bases": {

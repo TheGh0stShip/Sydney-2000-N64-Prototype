@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reproducibly map and survey the first event overlay in the ROM bank."""
+"""Reproducibly map and survey executable images in the event-overlay bank."""
 import argparse
 from hashlib import sha1, sha256
 import json
@@ -14,6 +14,10 @@ ROOT = Path(__file__).resolve().parents[1]
 MAPPINGS = (
     ('ceremony', 0x69070, 0x6DF40, 0x80070994),
     ('closing', 0x6DF40, 0x70800, 0x80070494),
+    # Direct j/jal targets and absolute tables in this image use the same low
+    # 24-bit offset as their ROM location (for example ROM 0x70F20 is called as
+    # 0x80070F20), establishing this relocation independently of heuristics.
+    ('event_bank', 0x70800, 0x127640, 0x80070800),
 )
 POINTER_AT = 0x69070
 POINTEE_AT = 0x6908C
@@ -40,7 +44,18 @@ def render(rom: bytes) -> dict:
         analyser = Analyser(image, min(seeds), text_lo=vram_start)
         for address in seeds:
             analyser.add(address, 'stack_frame')
-        analyser.grow()
+        if unit_name == 'event_bank':
+            # The large bank makes recursive split-point discovery quadratic.
+            # Seed direct calls in one linear pass; stack-frame seeds cover the
+            # remaining non-leaf routines while avoiding speculative j targets.
+            for offset in range(0, rom_end - rom_start, 4):
+                word, = struct.unpack_from('>I', rom, rom_start + offset)
+                if word >> 26 == 3:
+                    target = 0x80000000 | ((word & 0x03FFFFFF) << 2)
+                    if image.valid(target):
+                        analyser.add(target, 'call')
+        else:
+            analyser.grow()
         starts = analyser.sorted_starts()
         functions = []
         for index, address in enumerate(starts):

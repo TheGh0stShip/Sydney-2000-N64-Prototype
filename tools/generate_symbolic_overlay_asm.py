@@ -24,10 +24,11 @@ def main():
     parser.add_argument('--objdump', type=Path, required=True)
     args = parser.parse_args()
     env = {'LD_LIBRARY_PATH': str(args.objdump.parents[1] / 'lib' / 'x86_64-linux-gnu')}
-    end = args.start + args.size
+    start = args.start + args.delta
+    end = start + args.size
     text = subprocess.check_output([
         str(args.objdump), '-D', '-b', 'binary', '-m', 'mips:4300', '-EB',
-        f'--adjust-vma={args.delta:#x}', f'--start-address={args.start:#x}',
+        f'--adjust-vma={args.delta:#x}', f'--start-address={start:#x}',
         f'--stop-address={end:#x}', str(args.rom),
     ], text=True, env=env)
     rows = []
@@ -40,18 +41,18 @@ def main():
         if mnemonic.startswith('b') or mnemonic in ('j', 'jal'):
             for value in re.findall(r'0x[0-9a-f]+', operands):
                 target = int(value, 16)
-                if args.start <= target <= end:
+                if start <= target <= end:
                     labels.add(target)
     output = ['/* Symbolic reconstruction of the reviewed overlay routine. */', '__asm__(',
               '    ".set noreorder\\n.set noat\\n.text\\n.globl ' + args.name +
               '\\n.ent ' + args.name + '\\n"', '    "' + args.name + ':\\n"']
     pattern = re.compile(r'(?<![$A-Za-z0-9_])(' + '|'.join(REGISTERS) + r')(?![A-Za-z0-9_])')
     for address, mnemonic, operands in rows:
-        if address in labels and address != args.start:
+        if address in labels and address != start:
             output.append(f'    "L_{address:08X}:\\n"')
         def target_name(match):
             target = int(match.group(0), 16)
-            if args.start <= target <= end:
+            if start <= target <= end:
                 return f'L_{target:08X}'
             if mnemonic in ('j', 'jal'):
                 return f'func_{target:08X}'
