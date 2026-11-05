@@ -1,0 +1,2 @@
+/* Runtime-stage C reconstruction; no matching credit until verified manifest entry. */
+void func_800AED04(unsigned char *object) { unsigned int *first=(unsigned int *)(object+0x2C); unsigned int *second; *(unsigned int *)object=0; *(unsigned int *)(object+0x48)=0; *(unsigned int *)(object+0x1C)=0; *(unsigned int *)(object+0x28)=0; *(unsigned int *)(object+0x44)=0; first[0]=0; first[1]=0; first[2]=0; second=(unsigned int *)(object+0x10); second[0]=0; second[1]=0; second[2]=0; *(unsigned int *)object=0; *(unsigned int *)(object+8)=1; }

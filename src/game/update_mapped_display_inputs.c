@@ -44,9 +44,9 @@ void func_80007384(u32 time) {
     register InputDescriptor *descriptor __asm__("$20");
     u32 mode;
     s32 device;
-    u32 enabled;
+    register u32 enabled __asm__("$2");
     u32 value;
-    u32 mask;
+    register u32 mask __asm__("$8");
     InputBinding *binding;
     ControllerRecord *controller;
     u16 flags;
@@ -56,19 +56,33 @@ void func_80007384(u32 time) {
     void *object;
 
     for (group = 0; ; group++) {
-        groupIndex = (u8)group;
-        if (groupIndex >= 13) break;
-        map = &displayInputMaps[groupIndex];
+        register u32 currentGroup __asm__("$4") = (u8)group;
+        register u32 groupCopy __asm__("$3");
+        register u32 mapOffset __asm__("$2");
+        register u8 *mapBase __asm__("$11");
+        __asm__("" : "=r"(currentGroup) : "0"(currentGroup));
+        pass = 0;
+        if (currentGroup >= 13) break;
+        groupCopy = currentGroup;
+        __asm__("" : "=r"(groupCopy) : "0"(groupCopy));
+        mapOffset = groupCopy * 24;
+        mapBase = (u8 *)displayInputMaps;
+        __asm__("" : "=r"(mapBase) : "0"(mapBase));
+        map = (DisplayInputMap *)(mapOffset + (u32)mapBase);
+        __asm__("" : : "r"(map) : "memory");
+        groupIndex = currentGroup;
         __asm__("" : : "m"(groupIndex));
-        for (pass = 0; ; pass++) {
-            if ((u8)pass >= 2) break;
+        for (; ; pass++) {
+            register u32 currentPass __asm__("$3") = (u8)pass;
+            __asm__("" : "=r"(currentPass) : "0"(currentPass));
+            if (currentPass >= 2) break;
             value = 0;
-            if ((u8)pass == 0) {
+            if (currentPass == 0) {
                 mode = map->modes[0];
                 device = map->devices[0];
-                enabled = 0;
                 if (displayConfigurationReady == 1 || mode == 3 || mode == 4)
                     enabled = (u32)map->objects[0];
+                else enabled = 0;
             } else {
                 mode = map->modes[1];
                 device = map->devices[1];
@@ -85,7 +99,9 @@ void func_80007384(u32 time) {
                     controller = &displayInputControllers[
                         displayInputRecords[descriptor->displayIndex].controllerIndex];
                     for (index = 0; ; index++) {
-                        if ((u8)index >= 6) break;
+                        register u32 currentBinding __asm__("$2") = (u8)index;
+                        __asm__("" : "=r"(currentBinding) : "0"(currentBinding));
+                        if (currentBinding >= 6) break;
                         if (binding->flags != -1) {
                             flags = binding->flags;
                             if (flags & 2) digital = 1;
@@ -165,6 +181,7 @@ next_binding:
                 }
                 if ((u8)pass != 1 || groupIndex == 12) {
                     if ((u16)value != descriptor->value) {
+                        u32 referenceTime = selectedDisplayConfiguration;
                         InputEvent *event = &displayInputEvents[displayInputEventIndex];
                         descriptor->value = value;
                         event->group = group;
@@ -173,7 +190,7 @@ next_binding:
                         event->unused[1] = 0;
                         event->time = time;
                         displayInputEventIndex++;
-                        event->relativeTime = time - selectedDisplayConfiguration;
+                        event->relativeTime = time - referenceTime;
                         if (displayInputEventIndex >= 256) displayInputEventIndex = 0;
                     }
                 }

@@ -29,16 +29,18 @@ Accepted image:
 The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
 The current survey identifies 751 functions. The game and most libraries were
-built with KMC GCC. Matching manifests cover 174,080 unique bytes of the 229,736-byte surveyed
-resident text span (75.77%), including assembly units. Complete extents are
-covered for 629 of 751 catalogued functions. Another 109 have reconstructed
-bodies with uncovered zero-padding suffixes (1,040 bytes total), and 13 have
+built with KMC GCC. Matching manifests cover 174,808 unique bytes of the 229,736-byte surveyed
+resident text span (76.09%), including assembly units. Complete extents are
+covered for 706 of 751 catalogued functions. Another 32 have reconstructed
+bodies with uncovered zero-padding suffixes (312 bytes total), and 13 have
 wholly unmatched bodies (38,144 bytes). The remaining 16,472 uncovered bytes
 are outside catalogued function extents and include boot, RSP, and data spans
 that need classification.
 
 Earlier row-sum reporting double-counted 2,792 overlapping bytes and credited
-function extents based only on their first byte. The current report counts the
+function extents based only on their first byte. A subsequent source-padding
+audit verified 728 compiler-emitted zero bytes, completing 77 extents without
+adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages: the overlay bank at ROM
 `0x69070..0x127640` is outside the current function survey. Initialized-data
@@ -159,3 +161,17 @@ external helper stubs. `make validate-texture-sheets` checks emitted commands,
 capacity exits, alpha modes, layer selection, and halfwidth queue-coordinate
 mutation under the integer MIPS interpreter. These checks do not add matching
 credit or establish physical hardware correctness.
+
+## Archive directory reconstruction
+
+`make archive-directory` packs all 6,955 archive-directory records from the typed
+fields in `config/inventory/archive_records.tsv`, without reading the ROM. It
+reconstructs 528,584 bytes at ROM `0x1A3AB0..0x224B78`, including big-endian count,
+size/offset/auxiliary words and terminated 64-byte names. Record addresses,
+32-bit widths, payload bounds and duplicate aliases are checked before output.
+
+`make verify-archive-directory` compares the completed component against the
+original afterward. `make archive-directory-test` checks packing and rejects
+invalid metadata. Outputs live in `build/rom_components/file_directory.bin` and
+its provenance JSON. No payloads or executable blobs are copied, and these
+metadata bytes add no code-decompilation credit.

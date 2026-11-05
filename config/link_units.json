@@ -51,13 +51,13 @@
     "@n64dk/sdk/signature.py": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee",
     "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
     "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
-    "config/matching_as.tsv": "79b149532d042abfb0dafae630e81dc1b0b3da961b7d2f345c502c124fb64111",
+    "config/matching_as.tsv": "7c0103205d3bf4ef2734535ad934d783118f815adb6cb09f48a0d1eb99d6754f",
     "config/matching_ido.tsv": "aeda11d4b2c6825cc17dbed6beff1bf6a334d462bbcc0eaa9fca97a165b817ad",
     "config/matching_ido_normalized.tsv": "626e8b4f70d913d21694d1773354f2a7a949c9ce26c9c69a7306b42bce659ad5",
     "config/matching_kmc.tsv": "8a86b065c91d29ab27579c573b7746650e0f6433d904eb463e1641ce1235c1d8",
-    "config/matching_kmc_as.tsv": "9c9a5deacd0783852679ae5cdcd2ad95b3a7ea1d3b63331c59fb8b228ecfbb15",
-    "config/matching_kmc_builtin.tsv": "7e33e170876142aaa4a79e6b1e41777889524ae5e82767f826b4a99c7b715816",
-    "config/matching_kmc_hook.tsv": "0a58fe767c66561f19b0729906eb9315008513282050ee0459b40035edfda278",
+    "config/matching_kmc_as.tsv": "7cde5d369edccd03e1cbba9787726678908171bbf4b570fb66af7b6e7688a410",
+    "config/matching_kmc_builtin.tsv": "aece1dc9c238f04ac465a894810e7ea4f68f3c5ce160a874bcdda52035dbacf9",
+    "config/matching_kmc_hook.tsv": "2a3c9cc3f57385fbecdea3c5241dab1c3c17872361a3d092351809a3a2417407",
     "config/matching_sn.tsv": "be19d69e5b099d27b14fbebd7c8235d36dc2662d7a595efd53d28f8f6b346939",
     "config/matching_sn_normalized.tsv": "d2f83f8344f3ed4e7041618a4d9cfa51cb32724516c401b5b37458b025968260",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
@@ -3535,7 +3535,7 @@
         "-DCOPY_NAME=func_8002F684",
         "-DTAG_NAME=tag"
       ],
-      "id": "matching_kmc_hook.tsv:87e8f625240f4336",
+      "id": "matching_kmc_hook.tsv:a6e53bf412cbd4a9",
       "includes": [
         "tools/ultralib/include"
       ],
@@ -3543,7 +3543,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "6a45a85b5f14ad72bcf8c0ef28da9b66a5b08131b9703b2f1b1ff943bbce549c",
       "pipeline": "kmc+hook",
-      "row_sha256": "87e8f625240f43369b422631a9af00d4085ebff227f8e70336ce46d868181fbe",
+      "row_sha256": "a6e53bf412cbd4a9be3279eedb3f82fb478d0129b10231f0b01e2b6598fa22d9",
       "section_bases": {
         ".text": 2147527520
       },
@@ -3551,10 +3551,10 @@
         {
           "emitted_size": 176,
           "name": ".text",
-          "owned_size": 168,
+          "owned_size": 176,
           "rom_start": 46944,
-          "sha256": "3722eb0c0bc56e7f237f20f9cdf8cefdfa93c0d72532e92ed39b77fcd49118ad",
-          "unowned_zero_tail": 8,
+          "sha256": "7fc2ac4fc4ecba2e6eb35e94024727f8668c327e4e576ff06d68f0d468405c0a",
+          "unowned_zero_tail": 0,
           "vram": 2147527520
         }
       ],
@@ -3665,7 +3665,7 @@
         "-DQUEUE_NAME=queue",
         "-DBUFFER_NAME=buffer"
       ],
-      "id": "matching_kmc_hook.tsv:5486a5e2b7b11961",
+      "id": "matching_kmc_hook.tsv:93021b7ccd9e50de",
       "includes": [
         "tools/ultralib/include"
       ],
@@ -3673,7 +3673,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "4e04c11170ab703dc4e73b4c8f5e023f15646615d29c9f16242b1ec8429b3d89",
       "pipeline": "kmc+hook",
-      "row_sha256": "5486a5e2b7b11961e2fa3b8c93013b080a2ec1ee0959e19e61cc0faa5188f27c",
+      "row_sha256": "93021b7ccd9e50de0b0ed053e2d6fc8fcf1aad59eaa8ff9b318ca09f2a6d5fa3",
       "section_bases": {
         ".text": 2147554492
       },
@@ -3681,10 +3681,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 56,
+          "owned_size": 64,
           "rom_start": 73916,
-          "sha256": "dd7a2b17c25c34ccc0c17297517b4f0e6241ff3947d2819447ed8abef0ad8c86",
-          "unowned_zero_tail": 8,
+          "sha256": "c3aae93f23f768d83fe77026d13a60c7d19ca53396a4a74b62fe766a7e8df03a",
+          "unowned_zero_tail": 0,
           "vram": 2147554492
         }
       ],
@@ -4084,7 +4084,7 @@
         "-DPLAYER_NAME=currentPlayer",
         "-DBUFFER_NAME=scratchBuffer"
       ],
-      "id": "matching_kmc_hook.tsv:9abaab412a9b0f63",
+      "id": "matching_kmc_hook.tsv:6df1fffc072e1a17",
       "includes": [
         "tools/ultralib/include"
       ],
@@ -4092,7 +4092,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "bd488cf914de66c9ec31c0c9a63fbf0c6b218631172c024141774416647b7f93",
       "pipeline": "kmc+hook",
-      "row_sha256": "9abaab412a9b0f631bf618c53e4a92bd0984eb32cc9702f9d253e86e1ca00e2c",
+      "row_sha256": "6df1fffc072e1a17246d7e69820e1ad86b37276fdabe6ccdd701abc362379b21",
       "section_bases": {
         ".text": 2147581436
       },
@@ -4100,10 +4100,10 @@
         {
           "emitted_size": 96,
           "name": ".text",
-          "owned_size": 88,
+          "owned_size": 96,
           "rom_start": 100860,
-          "sha256": "c6faf9443c9fbfc27a8190ba6a1a883a066ce8863f4bcb86e12b672f93c3d9b4",
-          "unowned_zero_tail": 8,
+          "sha256": "66f8608278727a9b5e31abfd93c44ebbd9e37ba32c25c7a2b71e22b46b8054b7",
+          "unowned_zero_tail": 0,
           "vram": 2147581436
         }
       ],
@@ -5053,7 +5053,7 @@
         "-mfp32",
         "-DLEAF_NAME=func_80037900"
       ],
-      "id": "matching_kmc_hook.tsv:2a419fae14a13b8d",
+      "id": "matching_kmc_hook.tsv:82e4a850ee08c0b1",
       "includes": [
         "tools/ultralib/include"
       ],
@@ -5061,7 +5061,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "f582f1e48e1c9835a620c4bc9dc0f84f16f13cec1547ec7719e16fffd11bf005",
       "pipeline": "kmc+hook",
-      "row_sha256": "2a419fae14a13b8d97417f00492bd96e452779d1ed7536711c0a355f830d6ed0",
+      "row_sha256": "82e4a850ee08c0b1cd9972a8d9b69c7f3154e0b4195287c7b4aa0f35986ca867",
       "section_bases": {
         ".text": 2147711232
       },
@@ -5069,10 +5069,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 76,
+          "owned_size": 80,
           "rom_start": 230656,
-          "sha256": "6fbd79e136997ef8ccfadac67e54ba8d141785354dd98ba33477b9ef050edb69",
-          "unowned_zero_tail": 4,
+          "sha256": "7d74665bc32c572a099c87644b47cefb76d5280d6e5b9f29f971ed970991d15b",
+          "unowned_zero_tail": 0,
           "vram": 2147711232
         }
       ],
@@ -5092,7 +5092,7 @@
         "-DHELPER_NAME=func_80037D10",
         "-DHANDLE_NAME=handle"
       ],
-      "id": "matching_kmc_hook.tsv:7b10cb5ba1067b1e",
+      "id": "matching_kmc_hook.tsv:8d727b5d875259af",
       "includes": [
         "tools/ultralib/include"
       ],
@@ -5100,7 +5100,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "68f49f2862318c1a864bdeb40a69ffbcdbc9b42e25bd16578ef9f733d5bb34ad",
       "pipeline": "kmc+hook",
-      "row_sha256": "7b10cb5ba1067b1e1d2603c95ada03f34473333d66c3f191c259dac1bdeab7d4",
+      "row_sha256": "8d727b5d875259af6daf5a216d8b2c374023a03035b5c3f060c5959513da77ae",
       "section_bases": {
         ".text": 2147711504
       },
@@ -5108,10 +5108,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 52,
+          "owned_size": 64,
           "rom_start": 230928,
-          "sha256": "aab0af5190dc20b8a8401aca0685e924866cfaffac26e59df5096b66f7758b8c",
-          "unowned_zero_tail": 12,
+          "sha256": "a5c6482b9a576701b889c5d38ed1f4aff0f117b1dc858cb65c38eebc70f7b814",
+          "unowned_zero_tail": 0,
           "vram": 2147711504
         }
       ],
@@ -5134,7 +5134,7 @@
         "-DHELPER_NAME=func_80037DE0",
         "-DHANDLE_NAME=handle"
       ],
-      "id": "matching_kmc_hook.tsv:b255ae90bf258c1f",
+      "id": "matching_kmc_hook.tsv:3f0c996b9efd43c5",
       "includes": [
         "tools/ultralib/include"
       ],
@@ -5142,7 +5142,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "6c8ec1ebd8ef2987a548595c9323171bf2a5f4c935562a7ce835f621ef037167",
       "pipeline": "kmc+hook",
-      "row_sha256": "b255ae90bf258c1fe066b1edf88915b686f7f345b6525a14ce6ca5cbec49fc05",
+      "row_sha256": "3f0c996b9efd43c5d80adc83bfa39ed977d277107fe979792735b4a4b5c05d72",
       "section_bases": {
         ".text": 2147711568
       },
@@ -5150,10 +5150,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 52,
+          "owned_size": 64,
           "rom_start": 230992,
-          "sha256": "2213104c8cc678ee3d96fc7db68b3f17ca7badfa783dd37b4c9f8944cd171147",
-          "unowned_zero_tail": 12,
+          "sha256": "bab1d5f31d2e6e4d105f669545a88fccd2abcacae8afe4a72e9ff99429b3274f",
+          "unowned_zero_tail": 0,
           "vram": 2147711568
         }
       ],
@@ -12718,7 +12718,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_builtin.tsv:9a7c3451d6d10637",
+      "id": "matching_kmc_builtin.tsv:ce4764891eb9e0b9",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -12729,7 +12729,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "b63335e42489b93f92f86bafafd9d60428960e37cbebcb9fcf47e2fe0e3b78d2",
       "pipeline": "kmc+builtin",
-      "row_sha256": "9a7c3451d6d1063764fb7ac2f1b1541cf6212a560e77fae4406673468dfeaaae",
+      "row_sha256": "ce4764891eb9e0b9e8484d4da5870ecc0dd08a5f006dbb571d48bbf1832be865",
       "section_bases": {
         ".text": 2147672032
       },
@@ -12737,10 +12737,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 52,
+          "owned_size": 64,
           "rom_start": 191456,
-          "sha256": "ad5cfacfff51e18d0e6c266c6cce1502fb2fc58f6050215bc9ca951c97a1637e",
-          "unowned_zero_tail": 12,
+          "sha256": "fd17c012033745a81dd8281f74751be91ac4c589316bed097b256c7dea4f8cdb",
+          "unowned_zero_tail": 0,
           "vram": 2147672032
         }
       ],
@@ -12761,7 +12761,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_builtin.tsv:12ed51bd0fbfa0f8",
+      "id": "matching_kmc_builtin.tsv:f487bc2409b48288",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -12772,7 +12772,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "a1768409b0b63bb8951fa0bd26c917c43ae432f17394a85b7b487267a651b959",
       "pipeline": "kmc+builtin",
-      "row_sha256": "12ed51bd0fbfa0f8de7210ccf2199fcf74046bef5821ae26ab6051ab95748297",
+      "row_sha256": "f487bc2409b48288045662d5915316ea4ff00fba14d8f83974f09eeef3179c7a",
       "section_bases": {
         ".text": 2147672096
       },
@@ -12780,10 +12780,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 72,
+          "owned_size": 80,
           "rom_start": 191520,
-          "sha256": "20bb9d32cbacb4238d3cb992dd313be563e371402392074a95b4942e12b9fa4c",
-          "unowned_zero_tail": 8,
+          "sha256": "3cf28a19f9db4e1f811a666352c8873cfcb05fd1b759d6a2f2b7e328f3a04199",
+          "unowned_zero_tail": 0,
           "vram": 2147672096
         }
       ],
@@ -12804,7 +12804,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_builtin.tsv:c6ad6e1d622cfc60",
+      "id": "matching_kmc_builtin.tsv:7e40f960ff67cff2",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -12815,7 +12815,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "6008d231719918fcc1cbf99c11824edfd1fbe43c5931a08c9991c93660751760",
       "pipeline": "kmc+builtin",
-      "row_sha256": "c6ad6e1d622cfc603adabdd8f890f6de802000486cc8bf2a9d198366ffa431cc",
+      "row_sha256": "7e40f960ff67cff2f166622e2caa5e8d4d0cbb923d2d31f3ea38ebd954b4f8df",
       "section_bases": {
         ".text": 2147672176
       },
@@ -12823,10 +12823,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 52,
+          "owned_size": 64,
           "rom_start": 191600,
-          "sha256": "d811db31e000330b00e35d42a248823e8fb5685dd55afd818cf5f29c8b3f6a1f",
-          "unowned_zero_tail": 12,
+          "sha256": "b8315bb21abeccad7780c155c2e1ae0c0da78a96a60d870dbda5e8564289c4a3",
+          "unowned_zero_tail": 0,
           "vram": 2147672176
         }
       ],
@@ -12890,7 +12890,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_builtin.tsv:cbc4f1509e1d246c",
+      "id": "matching_kmc_builtin.tsv:a10086d3b3796e24",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -12901,7 +12901,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "25f138aeee7d9f8a353bf19bbc3b45ffa5c250e8317e208e487cc29e92bd7e80",
       "pipeline": "kmc+builtin",
-      "row_sha256": "cbc4f1509e1d246cc322eefdfe60722b9261ad012d6a994f018158c191c07e1a",
+      "row_sha256": "a10086d3b3796e2456e6377b681e3fd02fe3b6f9cf176d45c91d478c75f79ae0",
       "section_bases": {
         ".text": 2147674464
       },
@@ -12909,10 +12909,10 @@
         {
           "emitted_size": 224,
           "name": ".text",
-          "owned_size": 220,
+          "owned_size": 224,
           "rom_start": 193888,
-          "sha256": "88ecad609341cf1891c7945b0f69ee8d2428c176ac91a15a9129be818fbdcb7a",
-          "unowned_zero_tail": 4,
+          "sha256": "602347f51172aa3c6b0513613d3496d56506574cde8831db224e4f061e432a29",
+          "unowned_zero_tail": 0,
           "vram": 2147674464
         }
       ],
@@ -13490,7 +13490,7 @@
         "-D_LANGUAGE_C",
         "-DLEAF_NAME=func_80037EF0"
       ],
-      "id": "matching_kmc_as.tsv:357bf5e89fc3885d",
+      "id": "matching_kmc_as.tsv:29cdd4624cded706",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -13505,7 +13505,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "d886449c76a30d3ac29aa1e0c95a81cae4a136b49c67599c248cc9734c7811bc",
       "pipeline": "kmc+as",
-      "row_sha256": "357bf5e89fc3885d90d56f6c2409f186a675a4f2a1fe5b9cf145927a64dc15a6",
+      "row_sha256": "29cdd4624cded7060738de492d66ba14d2a44ce9ab8012ecb5e259691e92134e",
       "section_bases": {
         ".text": 2147712752
       },
@@ -13513,10 +13513,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 52,
+          "owned_size": 64,
           "rom_start": 232176,
-          "sha256": "77058ac7cfa20e9c55501734beec7805eca8a6b017b8e40fccfd534d8792dbed",
-          "unowned_zero_tail": 12,
+          "sha256": "c03fc2e7f49d27af5b281db2d65ce75461a16e15ba6193b6901f9c24a9786168",
+          "unowned_zero_tail": 0,
           "vram": 2147712752
         }
       ],
@@ -13537,7 +13537,7 @@
         "-D_LANGUAGE_C",
         "-DLEAF_NAME=func_80037F30"
       ],
-      "id": "matching_kmc_as.tsv:ffa06d8cf7a86034",
+      "id": "matching_kmc_as.tsv:c925f59cb12c687a",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -13552,7 +13552,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "6e66d917fc63bde70ce2d200e4b4a50fd123aa8541b731c6080d3b2a52532c59",
       "pipeline": "kmc+as",
-      "row_sha256": "ffa06d8cf7a86034bbe38d6a10934e6051cd68ff88d1b322ad4c8608331779f0",
+      "row_sha256": "c925f59cb12c687a8845adefea897ecaf5b8b6e1631d07ccd593144d09c17e65",
       "section_bases": {
         ".text": 2147712816
       },
@@ -13560,10 +13560,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 48,
+          "owned_size": 64,
           "rom_start": 232240,
-          "sha256": "8837d7a5ee92f252efe2633afc766b1182a4db811be8f7f32aa3e71fcc7b633d",
-          "unowned_zero_tail": 16,
+          "sha256": "44c08afc13655ae248d364dbe150c16c8431b7b650b252eb47ffa241d865cad2",
+          "unowned_zero_tail": 0,
           "vram": 2147712816
         }
       ],
@@ -13993,7 +13993,7 @@
         "-DFIRST_WORD_INDEX=6260",
         "-DSECOND_WORD_INDEX=6436"
       ],
-      "id": "matching_kmc_as.tsv:307ca87a6bfe0db5",
+      "id": "matching_kmc_as.tsv:8ef28dfdcc595a42",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -14008,7 +14008,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "0a2dca1b37eb7f18d5ffee3d8d166f8f6931d7f6cb7d6a8bb0dccc5b8ce5d5d9",
       "pipeline": "kmc+as",
-      "row_sha256": "307ca87a6bfe0db5e60123591d2552f728e7b638b6f9069136254bc6c5e6b519",
+      "row_sha256": "8ef28dfdcc595a42cac6a6b7a4dc1522345de01b71ae9b85e8949b7207cf688b",
       "section_bases": {
         ".text": 2147607944
       },
@@ -14016,10 +14016,10 @@
         {
           "emitted_size": 48,
           "name": ".text",
-          "owned_size": 44,
+          "owned_size": 48,
           "rom_start": 127368,
-          "sha256": "ae049f72adbedbeeb1dcc27b9ab59b1dbd815382959c1730ce8c8679a8c05fbb",
-          "unowned_zero_tail": 4,
+          "sha256": "39114e082b6ecd8273336fcf431b83f8d1752067e76f7c1dde1ad5dc8ba8fe2b",
+          "unowned_zero_tail": 0,
           "vram": 2147607944
         }
       ],
@@ -14292,7 +14292,7 @@
         "-D_LANGUAGE_C",
         "-DLEAF_NAME=func_8000566C"
       ],
-      "id": "matching_kmc_as.tsv:73899a0a301cf7ae",
+      "id": "matching_kmc_as.tsv:837699b5fc583cf9",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -14307,7 +14307,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "366942d9fff8964eba65036dec19f467e4d27bbe4e36a0464c048eab05076971",
       "pipeline": "kmc+as",
-      "row_sha256": "73899a0a301cf7aec1492be48dd1ed0cad652f3a12f58206183e0955a4044ea7",
+      "row_sha256": "837699b5fc583cf9418d8f4f14c6ea808bb89bdc8572cc745fdb6d066dea8402",
       "section_bases": {
         ".text": 2147505772
       },
@@ -14315,10 +14315,10 @@
         {
           "emitted_size": 16,
           "name": ".text",
-          "owned_size": 8,
+          "owned_size": 16,
           "rom_start": 25196,
-          "sha256": "33b8a3ecc253e501e8d6cc02eef147b269f0076c36976aed96857a56b68cec73",
-          "unowned_zero_tail": 8,
+          "sha256": "feffec39c891710cfca330161e3ada580c42d0fa144381baccd4aff6f584cc21",
+          "unowned_zero_tail": 0,
           "vram": 2147505772
         }
       ],
@@ -14339,7 +14339,7 @@
         "-D_LANGUAGE_C",
         "-DSTUB_NAME=func_8000786C"
       ],
-      "id": "matching_kmc_as.tsv:498064e46814a951",
+      "id": "matching_kmc_as.tsv:a15f6c88b1e8a7c0",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -14354,7 +14354,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "22adcfb5cdf9c45e0824c9df8e4f13588a17d513ad010df5d4e611da112ad76e",
       "pipeline": "kmc+as",
-      "row_sha256": "498064e46814a951cf851ad348b6a21bbef2330a47ceb1851eae13d867553afb",
+      "row_sha256": "a15f6c88b1e8a7c08ca8f5d4d236096155f0c1beda001701c50c5580266bbbe2",
       "section_bases": {
         ".text": 2147514476
       },
@@ -14362,10 +14362,10 @@
         {
           "emitted_size": 16,
           "name": ".text",
-          "owned_size": 8,
+          "owned_size": 16,
           "rom_start": 33900,
-          "sha256": "78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378",
-          "unowned_zero_tail": 8,
+          "sha256": "2415714719d85e4a789acee079f28e4e4c4c2b693ab00b843e8d8d91c8c3882c",
+          "unowned_zero_tail": 0,
           "vram": 2147514476
         }
       ],
@@ -16646,7 +16646,7 @@
         "-DFIELD_OFFSET=0x11DD",
         "-DFIELD_VALUE=4"
       ],
-      "id": "matching_kmc_as.tsv:c08aee9946fec252",
+      "id": "matching_kmc_as.tsv:2d4e57b6e4134cf7",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -16661,7 +16661,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "3bd8b870fbbf2c81cfc75528df42e9de7948d4b69f4ea654f1f916e7cb025822",
       "pipeline": "kmc+as",
-      "row_sha256": "c08aee9946fec252432d3275ee33562302f5aeb85972976be76665c45ad4fe0a",
+      "row_sha256": "2d4e57b6e4134cf726523e70ac0764d96b0f16a1857e94c7350ebb7565a31ea0",
       "section_bases": {
         ".text": 2147641400
       },
@@ -16669,10 +16669,10 @@
         {
           "emitted_size": 16,
           "name": ".text",
-          "owned_size": 12,
+          "owned_size": 16,
           "rom_start": 160824,
-          "sha256": "373d94bfa21b28591ac71f09bc88fec1d6d78c3837058384ec11e2ec814f7c96",
-          "unowned_zero_tail": 4,
+          "sha256": "125a71c27c04c8859e714ac2ebae2c4134a33b78a4d4dfb9682a741f3edd8163",
+          "unowned_zero_tail": 0,
           "vram": 2147641400
         }
       ],
@@ -16788,7 +16788,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:1c0309190053822b",
+      "id": "matching_kmc_as.tsv:e5e9a688040b4b06",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -16803,7 +16803,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "29292ad77f5c95b7a21f1dcbf4743182c356d14f8e55adc6812d4ac2ab7ab519",
       "pipeline": "kmc+as",
-      "row_sha256": "1c0309190053822b9d6ff2bc6659c82043853efe39b2378d4773d04a313dc331",
+      "row_sha256": "e5e9a688040b4b067197ccffb42fe4de741ca66ca83dd9f9db2ac8dd8a756f36",
       "section_bases": {
         ".text": 2147698416
       },
@@ -16811,10 +16811,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 56,
+          "owned_size": 64,
           "rom_start": 217840,
-          "sha256": "78a421ba6530590b649a0c54e0b22557c200f325c6686d880e616e2d9085c007",
-          "unowned_zero_tail": 8,
+          "sha256": "d17dac1f823c6dfe9ae377772fce5e45c180df70e8b248b5b1fb15bba69585a0",
+          "unowned_zero_tail": 0,
           "vram": 2147698416
         }
       ],
@@ -16839,7 +16839,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:2cf3fa79e74296d8",
+      "id": "matching_kmc_as.tsv:084585c70ed85143",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -16854,7 +16854,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "d6bf485ce09f7b6e754a7af0ca8413e126416c6508dce51108ef15b02afd1f24",
       "pipeline": "kmc+as",
-      "row_sha256": "2cf3fa79e74296d851419d461b9c4ee4609ce06feb8c954d8b4f2a9433f1cd1c",
+      "row_sha256": "084585c70ed851437826989ea91d5d3d32e2827b2248bacb94fb025c5ee247e7",
       "section_bases": {
         ".text": 2147698752
       },
@@ -16862,10 +16862,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 56,
+          "owned_size": 64,
           "rom_start": 218176,
-          "sha256": "c075c47cd23102f25c28b950e7be1d68bbc0e93595c76f76171c490bbb9820aa",
-          "unowned_zero_tail": 8,
+          "sha256": "97d43700cf86469adab6ec8aabc9f00a9898e89c652ef111fd6ff40b713b7754",
+          "unowned_zero_tail": 0,
           "vram": 2147698752
         }
       ],
@@ -16890,7 +16890,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:843135d4ce8b5668",
+      "id": "matching_kmc_as.tsv:f15865ad3489ba80",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -16905,7 +16905,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "f338231f5cfb73626a2318ab4650b199cdb437a85fbec66d6f1786e77a7eedbb",
       "pipeline": "kmc+as",
-      "row_sha256": "843135d4ce8b566851898af2935b0625807809653ea540673433f6dd26c91be1",
+      "row_sha256": "f15865ad3489ba8089383252d4950e10e3ac20af511ba8f3c7a93b19d4ca760c",
       "section_bases": {
         ".text": 2147699664
       },
@@ -16913,10 +16913,10 @@
         {
           "emitted_size": 96,
           "name": ".text",
-          "owned_size": 88,
+          "owned_size": 96,
           "rom_start": 219088,
-          "sha256": "5041a7ec8cb920181f395ca967cf55ac431b6156b1f0f9b285358ec705f4a143",
-          "unowned_zero_tail": 8,
+          "sha256": "7d2d009367004a6d9c73e5374e77637222fa435f9cba0214658b2af73b034db2",
+          "unowned_zero_tail": 0,
           "vram": 2147699664
         }
       ],
@@ -16941,7 +16941,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:1ebe8246f1d957db",
+      "id": "matching_kmc_as.tsv:82989931e3520bb4",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -16956,7 +16956,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "392249be476dec9c4471ef6b33fc9fe8b6e91930ef43aebeccc8e0a3247db655",
       "pipeline": "kmc+as",
-      "row_sha256": "1ebe8246f1d957dbc1235a051de87babbb96bc3ceebc0fe0331f2e0bb4a2ea83",
+      "row_sha256": "82989931e3520bb49c014501ecef2dd2b515dd21f5ad3fbfdb9645c721cf6ffb",
       "section_bases": {
         ".text": 2147699760
       },
@@ -16964,10 +16964,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 76,
+          "owned_size": 80,
           "rom_start": 219184,
-          "sha256": "40f240dd64105d36d0aa0f03b3b5feddc649422081d0989bc62e6d5ee39695cd",
-          "unowned_zero_tail": 4,
+          "sha256": "41fb06efc64b28b418b59ef83a6f1aa31948536b21b3726b61035d5a6b5a7980",
+          "unowned_zero_tail": 0,
           "vram": 2147699760
         }
       ],
@@ -16992,7 +16992,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:4e8210f1c798c643",
+      "id": "matching_kmc_as.tsv:e49cc6c83e3312fd",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17007,7 +17007,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "4d6e2e147c7227773ace72101909a4f843cc7b2fbd5b5703e00aca80f2c524fb",
       "pipeline": "kmc+as",
-      "row_sha256": "4e8210f1c798c64338a7e95a5ae997a190f0370a3a5dfdfd611593532e570c14",
+      "row_sha256": "e49cc6c83e3312fdc4fbb3588c0d55a978549a6d9d268939814cda496ddde54b",
       "section_bases": {
         ".text": 2147700208
       },
@@ -17015,10 +17015,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 68,
+          "owned_size": 80,
           "rom_start": 219632,
-          "sha256": "3fbfc50f9bf8b4ab85ae98e3a09bdf9df488f14d91bd80f9319955abd1a96f83",
-          "unowned_zero_tail": 12,
+          "sha256": "d03fe7ac50cd7f7261280fa864973fea986ef77b6f776ac8c2d47f3d35d5e1fd",
+          "unowned_zero_tail": 0,
           "vram": 2147700208
         }
       ],
@@ -17043,7 +17043,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:de7d3a187e744eb6",
+      "id": "matching_kmc_as.tsv:6d198860e0e7526a",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17058,7 +17058,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "214032c844fab611611f2176a4f38727804f10f06fd9c56af9a8de8d223ff37f",
       "pipeline": "kmc+as",
-      "row_sha256": "de7d3a187e744eb6f7dda1d401dbfa7d8129cb3ccb69f79b922a6ad6cb18a82f",
+      "row_sha256": "6d198860e0e7526a31daf9dfe19dbbfeaf0f452ae7ba0ba415abb957955fbcf5",
       "section_bases": {
         ".text": 2147700288
       },
@@ -17066,10 +17066,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 68,
+          "owned_size": 80,
           "rom_start": 219712,
-          "sha256": "205443effe70369472fe3fea97a3eacc1f769e4af77364e3b6090ad440b76c8f",
-          "unowned_zero_tail": 12,
+          "sha256": "fe3db8ba2a9c11d8f359389e5a1309209ecf7d0af5856f30440ae1ae9fb1ecb5",
+          "unowned_zero_tail": 0,
           "vram": 2147700288
         }
       ],
@@ -17140,7 +17140,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:49c1de9c0f08f31f",
+      "id": "matching_kmc_as.tsv:66cc25d2db91b6e7",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17155,7 +17155,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "9edc9fad2bd9396c6c5842047cdd571636ecc068bae9c113b648228dc8a3e724",
       "pipeline": "kmc+as",
-      "row_sha256": "49c1de9c0f08f31fba66f9be20b20ded75a7a5c1678f7da10d4c243c3b792657",
+      "row_sha256": "66cc25d2db91b6e71ec1393a7c84a5f5c26e177df1a8255e1d4b211ba97f61ed",
       "section_bases": {
         ".text": 2147692748
       },
@@ -17163,10 +17163,10 @@
         {
           "emitted_size": 48,
           "name": ".text",
-          "owned_size": 44,
+          "owned_size": 48,
           "rom_start": 212172,
-          "sha256": "44ac8eaf68331a8810cd64c9a45f338d5d119b3b1a4758c29fbbb8951470a7f8",
-          "unowned_zero_tail": 4,
+          "sha256": "6dfd4f166b43b70c38914497404f582d6a5a54631b39c528636de4c335210afe",
+          "unowned_zero_tail": 0,
           "vram": 2147692748
         }
       ],
@@ -17186,7 +17186,7 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_kmc_as.tsv:936d00b82c956f60",
+      "id": "matching_kmc_as.tsv:92d47ed32a245c39",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17201,7 +17201,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "3c5564b5af5fd6f2370a1cea2541c3a8a8d4f610d6649b342057ef0bb0824b56",
       "pipeline": "kmc+as",
-      "row_sha256": "936d00b82c956f6007a14678746bac32c5edaea8a6efaae583dcfa4f8b29c6cb",
+      "row_sha256": "92d47ed32a245c399928eee52246825ed39f8ecaaefeccfee65b27a29248e1ec",
       "section_bases": {
         ".text": 2147692928
       },
@@ -17209,10 +17209,10 @@
         {
           "emitted_size": 32,
           "name": ".text",
-          "owned_size": 24,
+          "owned_size": 32,
           "rom_start": 212352,
-          "sha256": "fd0a3402b8b79b21fdc4cced62867ada1720ac539eea3e7736846caeab47270f",
-          "unowned_zero_tail": 8,
+          "sha256": "3e9a180c46c8a5a9bb9b129e0f7ff4f87641bcd77a3c4a200ba0383c71d31b61",
+          "unowned_zero_tail": 0,
           "vram": 2147692928
         }
       ],
@@ -17272,7 +17272,7 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_kmc_as.tsv:ad334e3f790cd6e3",
+      "id": "matching_kmc_as.tsv:e69888f68ae0edeb",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17287,7 +17287,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "f66653da23130653e295298fde25b9313c93e2a3d85ae40fbb41205e87dcd7d5",
       "pipeline": "kmc+as",
-      "row_sha256": "ad334e3f790cd6e3c3f0a68b4612a53b0136e1047719875e6dbd5b867c16ed84",
+      "row_sha256": "e69888f68ae0edebdbf0e3f445deaafef78c16afb19d4f1dcb76765c9dd4f3e9",
       "section_bases": {
         ".text": 2147693024
       },
@@ -17295,10 +17295,10 @@
         {
           "emitted_size": 144,
           "name": ".text",
-          "owned_size": 140,
+          "owned_size": 144,
           "rom_start": 212448,
-          "sha256": "e3b4d1448178715e6634905c721dec5f4f2638f58aa40c4cf80525c854931320",
-          "unowned_zero_tail": 4,
+          "sha256": "3edbec29e2e0fbed0e8b4a5e50f06a55c0ad1f309422f39204137c771b87c73c",
+          "unowned_zero_tail": 0,
           "vram": 2147693024
         }
       ],
@@ -17370,7 +17370,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:93dea621443a2c3c",
+      "id": "matching_kmc_as.tsv:36454e27d0f7339f",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17385,7 +17385,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "c0def515d771b436717c8e388bf44e38f40597147f3dcab39b97ac264b5e46df",
       "pipeline": "kmc+as",
-      "row_sha256": "93dea621443a2c3ca2d4c85f2fae2826020eaf7bc3948ecea9d5da20d9c08ea7",
+      "row_sha256": "36454e27d0f7339f9efaafa48ba5245866a460f01fbdc7f02e5b085d9ece2991",
       "section_bases": {
         ".text": 2147693200
       },
@@ -17393,10 +17393,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 76,
+          "owned_size": 80,
           "rom_start": 212624,
-          "sha256": "7cc129d2c9d9edf07effd83442fc4604aa6701009b2197ac8ac5a8f27a86da32",
-          "unowned_zero_tail": 4,
+          "sha256": "bc4ec4092a07b1a5d7caa79ef77851b0f415bf2dc38ff796c78c41628172c039",
+          "unowned_zero_tail": 0,
           "vram": 2147693200
         }
       ],
@@ -17419,7 +17419,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:bea44a163ea4aadb",
+      "id": "matching_kmc_as.tsv:a2dd7c19a9c3f0db",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17434,7 +17434,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "4c79cc5d616a398b32c0fed73030aee54884043e661b19ef147b292139b1cc5b",
       "pipeline": "kmc+as",
-      "row_sha256": "bea44a163ea4aadb22cfedb11c4196ae3bfc0223d8b40a3a65a7f1e78dfda46a",
+      "row_sha256": "a2dd7c19a9c3f0dbc3f17b3821644b4a6449430fa9a2efd480a527942c0e52c1",
       "section_bases": {
         ".text": 2147695408
       },
@@ -17442,10 +17442,10 @@
         {
           "emitted_size": 160,
           "name": ".text",
-          "owned_size": 152,
+          "owned_size": 160,
           "rom_start": 214832,
-          "sha256": "aa0441e3247a197433a889707f2db5e8d99b58de103ba6d31bb5c4ce46d4ca63",
-          "unowned_zero_tail": 8,
+          "sha256": "d94304db714965ba021ffc3f255fd5ba6fc852c64f0cbad79d3ee78926bcd45f",
+          "unowned_zero_tail": 0,
           "vram": 2147695408
         }
       ],
@@ -17465,7 +17465,7 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_kmc_as.tsv:e889008db97b71b3",
+      "id": "matching_kmc_as.tsv:9cf7d388edb6e2e1",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17480,7 +17480,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "4edc281ac4c7f61bef0a86f4832b96a389e946f1de5897a317d85418d9853e37",
       "pipeline": "kmc+as",
-      "row_sha256": "e889008db97b71b3e6e8c169ae79d9ae2be4a1c3bf4689ffe971436e368c5b70",
+      "row_sha256": "9cf7d388edb6e2e10b39106e54e66aad87e7dd8a1aca8dfd5247a7a71740b2ff",
       "section_bases": {
         ".text": 2147695568
       },
@@ -17488,10 +17488,10 @@
         {
           "emitted_size": 32,
           "name": ".text",
-          "owned_size": 24,
+          "owned_size": 32,
           "rom_start": 214992,
-          "sha256": "9a109617e5b9240c3a6f8e2cf11b47595209180587f8af5f58bc418ae40d8d91",
-          "unowned_zero_tail": 8,
+          "sha256": "01352d7623ed6883d9b5c8d2935c364315e4aa505229fa8fed2c470657debbdd",
+          "unowned_zero_tail": 0,
           "vram": 2147695568
         }
       ],
@@ -17509,7 +17509,7 @@
         "-mfp32",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:4eba629f96d36278",
+      "id": "matching_kmc_as.tsv:df0f817134598c3b",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17524,7 +17524,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "19fa0286b7d05dd255c45d9e578688e3bf22a04e9de7a3bac10857941cf7f012",
       "pipeline": "kmc+as",
-      "row_sha256": "4eba629f96d36278276f5d8d0bdf9b940b08e1b674ee8469e6d5de55d79d031b",
+      "row_sha256": "df0f817134598c3bd56f29b97ca44223473c6129f2eee9b6031ca31ff3cb1fae",
       "section_bases": {
         ".text": 2147695600
       },
@@ -17532,10 +17532,10 @@
         {
           "emitted_size": 176,
           "name": ".text",
-          "owned_size": 164,
+          "owned_size": 176,
           "rom_start": 215024,
-          "sha256": "6fe79eb686caae484418a363fc62c440f2186d92f144ce1af2a6b144250e1ae1",
-          "unowned_zero_tail": 12,
+          "sha256": "970d04b3aec3725d0b767da9f969feb17faa388245f9aa3ff24cb107dc17d702",
+          "unowned_zero_tail": 0,
           "vram": 2147695600
         }
       ],
@@ -17612,7 +17612,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:914e700904f98919",
+      "id": "matching_kmc_as.tsv:0411550561634be5",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17627,7 +17627,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "a6b567d8d92be0e8ca1b10e6f33d0e597842545e2f801ebd3e968b31a1644fd0",
       "pipeline": "kmc+as",
-      "row_sha256": "914e700904f98919dc06b843765d603c856de025e4dc3961d9ae18e6fb68abe6",
+      "row_sha256": "0411550561634be5a44c0b30b32ebd53417c8343f0cfb854b50650eaf5b93c3b",
       "section_bases": {
         ".text": 2147696480
       },
@@ -17635,10 +17635,10 @@
         {
           "emitted_size": 208,
           "name": ".text",
-          "owned_size": 200,
+          "owned_size": 208,
           "rom_start": 215904,
-          "sha256": "b0ee8cb047e5ee5f54f63d2413f825e66646e9f974121b1b8cd969ac0a6d3b8a",
-          "unowned_zero_tail": 8,
+          "sha256": "7aa5be7877b11d30bdf44015907e4fad300399d9e7d0a84379c10043733d5f91",
+          "unowned_zero_tail": 0,
           "vram": 2147696480
         }
       ],
@@ -17667,7 +17667,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:c972b6b3b6992f5a",
+      "id": "matching_kmc_as.tsv:a055dfe51ff1f44b",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17682,7 +17682,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "bb527dd5f1bc08d3a3478f6b91df2f9336563b06af7f33423015047cccd2209c",
       "pipeline": "kmc+as",
-      "row_sha256": "c972b6b3b6992f5afcad277dcee8db22e77b8d2e0b9e12847db14a47572cc105",
+      "row_sha256": "a055dfe51ff1f44bea2dc913b2124206fec0357fd861b883912491f9b8cd98bc",
       "section_bases": {
         ".text": 2147696688
       },
@@ -17690,10 +17690,10 @@
         {
           "emitted_size": 288,
           "name": ".text",
-          "owned_size": 280,
+          "owned_size": 288,
           "rom_start": 216112,
-          "sha256": "ce88d1f39dff3b49de352731bea1de1fa4a5462662b84ae75ad5b703c0bf82a6",
-          "unowned_zero_tail": 8,
+          "sha256": "4630453e1d7a3801c262d524bd20dc85aa93dad06141935f38d341a109d5f6c0",
+          "unowned_zero_tail": 0,
           "vram": 2147696688
         }
       ],
@@ -17723,7 +17723,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:93b573ec94e9e4c3",
+      "id": "matching_kmc_as.tsv:6f426f7e453039c9",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17738,7 +17738,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "f70939f40a5989c89b837db15bb6fddb490166ab04c29775f4d650df8c351e4e",
       "pipeline": "kmc+as",
-      "row_sha256": "93b573ec94e9e4c3179f30b083ed1ab8a55a1e5a2ad0d70b6dc796486030d8c3",
+      "row_sha256": "6f426f7e453039c999507ba576b9a734be8c1770f8543d7455e4f69f70890423",
       "section_bases": {
         ".text": 2147697040
       },
@@ -17746,10 +17746,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 72,
+          "owned_size": 80,
           "rom_start": 216464,
-          "sha256": "f0a1c5b236a89defdaa851d440afc2eb263b243b96a7f2c31f88b8cc3a7d94c8",
-          "unowned_zero_tail": 8,
+          "sha256": "2fcc71e53f0f3c9a52227975c6f58a1bb2dae8d0db7a713e8bec8aab43a20891",
+          "unowned_zero_tail": 0,
           "vram": 2147697040
         }
       ],
@@ -17776,7 +17776,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:3eeffdfcffabf575",
+      "id": "matching_kmc_as.tsv:0c98bdcb1237b787",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17791,7 +17791,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "fbc7f1c2b3fd18b75ad067733a6988466d192e00975094b9f8955a645c70638d",
       "pipeline": "kmc+as",
-      "row_sha256": "3eeffdfcffabf575bc5e5464b4dd00bfc494c057debd2570acc8436ad577bcfd",
+      "row_sha256": "0c98bdcb1237b7878e8c1135b85c16bc029f347f3d6fcea58df1b2bca18ec3d7",
       "section_bases": {
         ".text": 2147697120
       },
@@ -17799,10 +17799,10 @@
         {
           "emitted_size": 144,
           "name": ".text",
-          "owned_size": 132,
+          "owned_size": 144,
           "rom_start": 216544,
-          "sha256": "2eca959de6ed1a5e5f6851ef4b7f675f616b48e9e3e3dba6ac2674c90e864284",
-          "unowned_zero_tail": 12,
+          "sha256": "3a98e556176cc8f5023fb28fd41a123d51841f400332b55914d3d34494dbc18b",
+          "unowned_zero_tail": 0,
           "vram": 2147697120
         }
       ],
@@ -17829,7 +17829,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:951c1636e3720727",
+      "id": "matching_kmc_as.tsv:fdea927d8bb63889",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17844,7 +17844,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "7ac2885cdfc4e9406bd833e55ac57f484f1c680284028053ab8b9ec904807e58",
       "pipeline": "kmc+as",
-      "row_sha256": "951c1636e3720727afcbd0f97d52aecc9c58520092054e0472fbf06d9a84baa6",
+      "row_sha256": "fdea927d8bb63889f7e0142118eeba503afece3f49f3037ed75d5e6774d3782f",
       "section_bases": {
         ".text": 2147697280
       },
@@ -17852,10 +17852,10 @@
         {
           "emitted_size": 160,
           "name": ".text",
-          "owned_size": 148,
+          "owned_size": 160,
           "rom_start": 216704,
-          "sha256": "85cf3245528af39f369de4878d8a2c589cc7985b7f2d5d1118d9e663430e6430",
-          "unowned_zero_tail": 12,
+          "sha256": "ac3a114ec0acbfd604c418482114c1b8fc8d917cc5ae64728c3b8cd28d30de86",
+          "unowned_zero_tail": 0,
           "vram": 2147697280
         }
       ],
@@ -17880,7 +17880,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:90ead55739faab86",
+      "id": "matching_kmc_as.tsv:4492c228256e0a05",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17895,7 +17895,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "58585c143764a5578b01b20dcae682b083cd06b5b0309dbd19971f8241640f1d",
       "pipeline": "kmc+as",
-      "row_sha256": "90ead55739faab86eb564002bfb9e75cdf65d50b7e3f4910abc2372d6951905a",
+      "row_sha256": "4492c228256e0a05b501d80109f22430bb1b26b0aac872e089c5e357c7688660",
       "section_bases": {
         ".data": 2147905744,
         ".text": 2147698480
@@ -17904,10 +17904,10 @@
         {
           "emitted_size": 272,
           "name": ".text",
-          "owned_size": 260,
+          "owned_size": 272,
           "rom_start": 217904,
-          "sha256": "460120b24ef263d3f97856baae4d1de3275719add27d28765341542176b110cb",
-          "unowned_zero_tail": 12,
+          "sha256": "58f6c54b953566bfe907273473b38a189d516ade3a37781e44975fb0d042ce51",
+          "unowned_zero_tail": 0,
           "vram": 2147698480
         },
         {
@@ -17944,7 +17944,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:1ab778ee82fb7eb0",
+      "id": "matching_kmc_as.tsv:f55ad3e480446645",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -17959,7 +17959,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "d8a188bc7a46ac90f65895bb0b7ad0ae40df452354d17d06d288255aa9b9ba4c",
       "pipeline": "kmc+as",
-      "row_sha256": "1ab778ee82fb7eb0fa86ed96eaf0c6cda2a515fa98082023ae077ab72cb09c4a",
+      "row_sha256": "f55ad3e4804466458b81b349e4ac0b4bb506210ab3c99ff72d46e179a86cac18",
       "section_bases": {
         ".text": 2147699840
       },
@@ -17967,10 +17967,10 @@
         {
           "emitted_size": 368,
           "name": ".text",
-          "owned_size": 356,
+          "owned_size": 368,
           "rom_start": 219264,
-          "sha256": "02ceba3bc6da2346f56016d4d75facc13ae6974737d09f8174db501da95e1d0c",
-          "unowned_zero_tail": 12,
+          "sha256": "2f32358fe76d164bef6af91a2af9bf431b804a0f980a0c8b8a1594e67dbba752",
+          "unowned_zero_tail": 0,
           "vram": 2147699840
         }
       ],
@@ -17995,7 +17995,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:846155edaf94ba32",
+      "id": "matching_kmc_as.tsv:4150893e5eab4e2b",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18010,7 +18010,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "a4b0f7446fb762da081d22a423c32dec53afc388b1e3e62a5f41fce9c658b164",
       "pipeline": "kmc+as",
-      "row_sha256": "846155edaf94ba32aa0a98f495dd2fcff2ada91ef356c693c3ebaa395efaa1f6",
+      "row_sha256": "4150893e5eab4e2bb8ca08c4192ecbe26d37b86c3b27b3933e94b96fabe3cd30",
       "section_bases": {
         ".text": 2147701152
       },
@@ -18018,10 +18018,10 @@
         {
           "emitted_size": 96,
           "name": ".text",
-          "owned_size": 92,
+          "owned_size": 96,
           "rom_start": 220576,
-          "sha256": "084ce0fe5eb98ebe9d1cfacc9b009237bf6f0f0d9eccda54acbd113dcc7f666c",
-          "unowned_zero_tail": 4,
+          "sha256": "305064336ea9deda9ad4bffdb78edd0271fec540f79831640e32f549ec96d60c",
+          "unowned_zero_tail": 0,
           "vram": 2147701152
         }
       ],
@@ -18046,7 +18046,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:7393498343e5d9e1",
+      "id": "matching_kmc_as.tsv:9f1f75b5b5f8bdb6",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18061,7 +18061,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "3c628ccef90c7d538f04330d34dcc5f09444857c208a7b62956f3d0835ea96e1",
       "pipeline": "kmc+as",
-      "row_sha256": "7393498343e5d9e13fe8bea02b13686998d066a44166823846e7cf820fa5ce0a",
+      "row_sha256": "9f1f75b5b5f8bdb66aea0a5b214557265d88f6da1dd249af77c6a0be7209f5dd",
       "section_bases": {
         ".text": 2147654704
       },
@@ -18069,10 +18069,10 @@
         {
           "emitted_size": 128,
           "name": ".text",
-          "owned_size": 116,
+          "owned_size": 128,
           "rom_start": 174128,
-          "sha256": "94c9583d82aff1cc3c3438cd0019165328bd3d152818399eab7411dd8d7f8fa4",
-          "unowned_zero_tail": 12,
+          "sha256": "6d2d277646421ed7e924cd298f5b3adaf50549eb2563eca59fd5e545ae52a766",
+          "unowned_zero_tail": 0,
           "vram": 2147654704
         }
       ],
@@ -18097,7 +18097,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:05ef1474fc158e50",
+      "id": "matching_kmc_as.tsv:b22335866e365b31",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18112,7 +18112,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "82af7b87c302e208250629ef64d673495032f3abb6aa0947c0eb7370e9e3f913",
       "pipeline": "kmc+as",
-      "row_sha256": "05ef1474fc158e50dfe82d14a1118231cd39c32c91b9a831f95ef840ac25b583",
+      "row_sha256": "b22335866e365b31e6c6328666bbd99e1c752a61dfc8885a4cacdcb063527f19",
       "section_bases": {
         ".text": 2147656320
       },
@@ -18120,10 +18120,10 @@
         {
           "emitted_size": 240,
           "name": ".text",
-          "owned_size": 228,
+          "owned_size": 240,
           "rom_start": 175744,
-          "sha256": "7a84bead8e86665f8308944f18730a2976d2a6709b96c413d28a0d7f21eb53e0",
-          "unowned_zero_tail": 12,
+          "sha256": "7f72b640ba47cbc66861bbcbde0bc94f4fdecddb4b957d0e6b5252fd949daebf",
+          "unowned_zero_tail": 0,
           "vram": 2147656320
         }
       ],
@@ -18200,7 +18200,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:2102de2bcfdbda77",
+      "id": "matching_kmc_as.tsv:0f9d15d737446bb9",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18215,7 +18215,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "58cefeffff6b9726afd3884d686bb5dc804578a3ff725514a90a01b01c463174",
       "pipeline": "kmc+as",
-      "row_sha256": "2102de2bcfdbda77497f468d4744e8267d88f2c2b31e3f5d3ecb9431b2f67fd8",
+      "row_sha256": "0f9d15d737446bb9b386d5f7cfaf4318a4b2eff7b10fb4b2eb9f47f1b2dac9d2",
       "section_bases": {
         ".text": 2147658176
       },
@@ -18223,10 +18223,10 @@
         {
           "emitted_size": 160,
           "name": ".text",
-          "owned_size": 148,
+          "owned_size": 160,
           "rom_start": 177600,
-          "sha256": "38fa20e6e0b93878275ad8f2eff64e2af7ddffb95bcad6a54447d4e3860341b9",
-          "unowned_zero_tail": 12,
+          "sha256": "9dfbc6d286b00e4bc7ac71cf67802a085f9d39004c816e4417364be8d51b6a8c",
+          "unowned_zero_tail": 0,
           "vram": 2147658176
         }
       ],
@@ -18252,7 +18252,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:d20e40b6a95c56df",
+      "id": "matching_kmc_as.tsv:6c1edb8bead5a0be",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18267,7 +18267,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "9171b9f49071fea8b866600805fbb2c250813d6dfef27f5e25a3cc45079fe4c3",
       "pipeline": "kmc+as",
-      "row_sha256": "d20e40b6a95c56dfa49d85c2609ddf53a641f8843734112e74981a01413a2c42",
+      "row_sha256": "6c1edb8bead5a0be85fe309a60ae24c1bfe7857ae24862a38b3f3ee5f73ae0df",
       "section_bases": {
         ".text": 2147659856
       },
@@ -18275,10 +18275,10 @@
         {
           "emitted_size": 368,
           "name": ".text",
-          "owned_size": 360,
+          "owned_size": 368,
           "rom_start": 179280,
-          "sha256": "fcd198a68b526f7e4806016ad74c1dde5ec80c06a290f97802090214075337b0",
-          "unowned_zero_tail": 8,
+          "sha256": "a8cd0c1350e7505db8e6eb7775edce518d5644cd9bf3aee419557bf5ed683af9",
+          "unowned_zero_tail": 0,
           "vram": 2147659856
         }
       ],
@@ -18301,7 +18301,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:da5f41e7aed8299a",
+      "id": "matching_kmc_as.tsv:f908a765ce97366b",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18316,7 +18316,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "2971cf6b413e389c75a24ae3fe1b3006fc2cb19dd408e031bf17fb5d669ae210",
       "pipeline": "kmc+as",
-      "row_sha256": "da5f41e7aed8299aca2b5a145fe595bc53d9b250b8a41d0fcaae059341df7761",
+      "row_sha256": "f908a765ce97366bfe9e24a0d2db5a2fd978c47358db93d95a9ac090bcbd9423",
       "section_bases": {
         ".text": 2147660224
       },
@@ -18324,10 +18324,10 @@
         {
           "emitted_size": 368,
           "name": ".text",
-          "owned_size": 356,
+          "owned_size": 368,
           "rom_start": 179648,
-          "sha256": "8e4cf832ce0364d7a275f61d614d1b231ed939e1ac3bde073ffb800278a8fc91",
-          "unowned_zero_tail": 12,
+          "sha256": "9036f175ec16410ed978efdceef8ef50cd2c27905574bc5ad0f94b2e3051b877",
+          "unowned_zero_tail": 0,
           "vram": 2147660224
         }
       ],
@@ -18350,7 +18350,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:c0ff250e74d0edd3",
+      "id": "matching_kmc_as.tsv:634501f771bae8d0",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18365,7 +18365,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "76671196a35b03340c096990484b6cd7998207da2660c05eb44aa2e3f1848b51",
       "pipeline": "kmc+as",
-      "row_sha256": "c0ff250e74d0edd333fe6d82bfac064efc82732c068e34cf270386838bc6300e",
+      "row_sha256": "634501f771bae8d0f1259fe18f228ff1ff02e6dc131fc84e512ef8a0bfe0c32c",
       "section_bases": {
         ".text": 2147660832
       },
@@ -18373,10 +18373,10 @@
         {
           "emitted_size": 176,
           "name": ".text",
-          "owned_size": 168,
+          "owned_size": 176,
           "rom_start": 180256,
-          "sha256": "da50c962dfa4497ccaa1a3532ded1344e6ed05d0a0ab3a7e81bad9690f3ea865",
-          "unowned_zero_tail": 8,
+          "sha256": "5c6b328b62939982826e85a55ea0ef49b73bb923174be7b534f46ab2102a94cb",
+          "unowned_zero_tail": 0,
           "vram": 2147660832
         }
       ],
@@ -18398,7 +18398,7 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_kmc_as.tsv:be27cf4c82e926e9",
+      "id": "matching_kmc_as.tsv:925c8a4229a33081",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18413,7 +18413,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "895fd76151c55903c17f5b98c8a7841cc398a1c21815d835a4940a97623318ba",
       "pipeline": "kmc+as",
-      "row_sha256": "be27cf4c82e926e916f37526a37259f6d6051e32cf92d2d3e840cc3068fffc48",
+      "row_sha256": "925c8a4229a33081d358a89574c1c34e4d84873a69afa7b132473980f032ab05",
       "section_bases": {
         ".text": 2147661488
       },
@@ -18421,10 +18421,10 @@
         {
           "emitted_size": 32,
           "name": ".text",
-          "owned_size": 20,
+          "owned_size": 32,
           "rom_start": 180912,
-          "sha256": "48987c5e47bf83923a8485cc1d9f0ac516148f83367a6257c4848ce148926ee1",
-          "unowned_zero_tail": 12,
+          "sha256": "695c2167e71480ed602fd2aefcf2dae1ebc096e9ef9489714731751b7bf8a2d2",
+          "unowned_zero_tail": 0,
           "vram": 2147661488
         }
       ],
@@ -18446,7 +18446,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:ce1e9f6b7b1baf61",
+      "id": "matching_kmc_as.tsv:e4685b7d6ecd43d2",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18461,7 +18461,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "fa4a81a13e784d6db79634cfe1a1f6a8992d1b228caa8d39d80d532bbb95e1d8",
       "pipeline": "kmc+as",
-      "row_sha256": "ce1e9f6b7b1baf6138567f1509f8be38d8eeb71a69e66bf2194994afb117a65e",
+      "row_sha256": "e4685b7d6ecd43d2209688dc51ddda4bbe2509998335a28a9252f75a624e6fea",
       "section_bases": {
         ".data": 2147904752,
         ".rdata": 2147490752,
@@ -18472,10 +18472,10 @@
         {
           "emitted_size": 1344,
           "name": ".text",
-          "owned_size": 1340,
+          "owned_size": 1344,
           "rom_start": 180944,
-          "sha256": "73c5607b16888a3b28e4dbd2215474568b7d2142996f663ab7adca10699bb82a",
-          "unowned_zero_tail": 4,
+          "sha256": "baaf8c10e35a34682f74d07b6ad478e014b1dcb5c6e22b4c078535d8e319f45b",
+          "unowned_zero_tail": 0,
           "vram": 2147661520
         },
         {
@@ -18813,7 +18813,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:cddb80ebfc39988f",
+      "id": "matching_kmc_as.tsv:dc97616fd5972c26",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18828,7 +18828,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "0219742f6070899eed73b6e76647bdf0c401b28bc1e09a329fa560ae2f52e65c",
       "pipeline": "kmc+as",
-      "row_sha256": "cddb80ebfc39988f61218f1e39f4da3341e7ec7d47a6b775410030580dab9754",
+      "row_sha256": "dc97616fd5972c269d711ff0328c6c21975cb598dba77593cf5ab952da0b9890",
       "section_bases": {
         ".text": 2147672752
       },
@@ -18836,10 +18836,10 @@
         {
           "emitted_size": 480,
           "name": ".text",
-          "owned_size": 476,
+          "owned_size": 480,
           "rom_start": 192176,
-          "sha256": "b9ca880f1962cf2be5e8c025e17be225908d0f5acf4cbee31cbea4fff26aa363",
-          "unowned_zero_tail": 4,
+          "sha256": "0a56960dfab650a36e650a4c7344fe2a8bdbb5bacfea5301bf6ece1dc37f0cb5",
+          "unowned_zero_tail": 0,
           "vram": 2147672752
         }
       ],
@@ -18865,7 +18865,7 @@
         "-mfp32",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:9d3ec9a5abc2761b",
+      "id": "matching_kmc_as.tsv:067fe4d3adddd58d",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18880,7 +18880,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "5c2bdd31fc53b67579716d96492a1cd143244c0809c7e944878df1df422c08d1",
       "pipeline": "kmc+as",
-      "row_sha256": "9d3ec9a5abc2761b3ce413e5ab95ff4e98cac34e198ff47ad52f44f345788b81",
+      "row_sha256": "067fe4d3adddd58d9dbd5deb9226c173ff78a317abc8fc8270cceb0b1332a6ab",
       "section_bases": {
         ".text": 2147674016
       },
@@ -18888,10 +18888,10 @@
         {
           "emitted_size": 96,
           "name": ".text",
-          "owned_size": 84,
+          "owned_size": 96,
           "rom_start": 193440,
-          "sha256": "5393fee80ff44f54212b5e10c246d8b4467f02395ecbd4e4be02296b434574a5",
-          "unowned_zero_tail": 12,
+          "sha256": "98a67206ad98d691ef751b3760b92cc3047c878bfe5b9422277bc17a80ae201b",
+          "unowned_zero_tail": 0,
           "vram": 2147674016
         }
       ],
@@ -18914,7 +18914,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:7f84eac649c064ff",
+      "id": "matching_kmc_as.tsv:633d0c17219e77d4",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18929,7 +18929,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "4532cf16655306c6d51640e663e16f81c4cb6e97ec46c143dc07d8bc17d544c5",
       "pipeline": "kmc+as",
-      "row_sha256": "7f84eac649c064ffbd1f0aab721ee9512f785cd8212320c0bffa3020f03f1bce",
+      "row_sha256": "633d0c17219e77d471915ee29f8dab09dc36b0f87fd7941863af01bf060b4bc0",
       "section_bases": {
         ".data": 2147905456,
         ".text": 2147673232
@@ -18938,10 +18938,10 @@
         {
           "emitted_size": 784,
           "name": ".text",
-          "owned_size": 780,
+          "owned_size": 784,
           "rom_start": 192656,
-          "sha256": "c19f4764f97d8b8814d2534e96ba9029d5ec43d90cef72835bb70dbfc79ea891",
-          "unowned_zero_tail": 4,
+          "sha256": "9a1b7650801939b037f4cd934cde8984be8e41b2000a5e76b92241ce8ffe995b",
+          "unowned_zero_tail": 0,
           "vram": 2147673232
         },
         {
@@ -18979,7 +18979,7 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_kmc_as.tsv:47416cd61d36594f",
+      "id": "matching_kmc_as.tsv:d2713639ee3392da",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -18994,7 +18994,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "2d4e0249c731f3cabae81fa4c92590fb0e672517c9c928de28c772ffa79fe2ec",
       "pipeline": "kmc+as",
-      "row_sha256": "47416cd61d36594faf9600b70cd64b6085b9e1336c178b7f07b2833b2c61eb5d",
+      "row_sha256": "d2713639ee3392da7d1d94aac9e44a1b4b76cb8a7abb608e8e834a512921f1fa",
       "section_bases": {
         ".text": 2147677728
       },
@@ -19002,10 +19002,10 @@
         {
           "emitted_size": 144,
           "name": ".text",
-          "owned_size": 140,
+          "owned_size": 144,
           "rom_start": 197152,
-          "sha256": "2dc015e380e2905cd4de5be86b6517e412726bda176fc34aed4faef22c82e267",
-          "unowned_zero_tail": 4,
+          "sha256": "a2d7cd9a48d93242f6bfb5303e528539ed5273d4d74fe26e477d855fb57ccc7e",
+          "unowned_zero_tail": 0,
           "vram": 2147677728
         }
       ],
@@ -19026,7 +19026,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:b5bf68acb3bf11d4",
+      "id": "matching_kmc_as.tsv:4a92b796bf069b96",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -19041,7 +19041,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "d18af383996e2d2d895760d503f248901baf3d64414fcfb313aa28c7f55f560f",
       "pipeline": "kmc+as",
-      "row_sha256": "b5bf68acb3bf11d4030267e262dcfe19e53fd956811c6430caa7a0618c22b989",
+      "row_sha256": "4a92b796bf069b96511f8e596952ea91d0c0c2b814098e2094484844cafb2fc0",
       "section_bases": {
         ".text": 2147677872
       },
@@ -19049,10 +19049,10 @@
         {
           "emitted_size": 144,
           "name": ".text",
-          "owned_size": 140,
+          "owned_size": 144,
           "rom_start": 197296,
-          "sha256": "91675b5f6bc6ca39f72909f511b4860c13478d8b9b31eecf5c42cc4176c05fa9",
-          "unowned_zero_tail": 4,
+          "sha256": "354876472e2897e68c32fbde4c591c4a508bcd09641f84078a515939f2e8b7e0",
+          "unowned_zero_tail": 0,
           "vram": 2147677872
         }
       ],
@@ -19076,7 +19076,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:c320b1dae3b13ea2",
+      "id": "matching_kmc_as.tsv:e3697dd181fc7d52",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -19091,7 +19091,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "a868444be4428db2b9c62732a8f79a56c7e4ed4e90a2f276b937392ab1c12a7a",
       "pipeline": "kmc+as",
-      "row_sha256": "c320b1dae3b13ea2d356dc330ca4e2a321df063920ae8ee517647ab1e87e4374",
+      "row_sha256": "e3697dd181fc7d520df4addfff2d8715e2f357caf08d9e6065921cd81f954b2b",
       "section_bases": {
         ".text": 2147683952
       },
@@ -19099,10 +19099,10 @@
         {
           "emitted_size": 448,
           "name": ".text",
-          "owned_size": 440,
+          "owned_size": 448,
           "rom_start": 203376,
-          "sha256": "a466e919626a99baf9c421642b4f73db6f2980339031b4b9e93218e37fc8d9ea",
-          "unowned_zero_tail": 8,
+          "sha256": "7ff10d3be4a7bb1c17d0e6d53eef7291d16e252e9fb8c368f47f0218e46c07e8",
+          "unowned_zero_tail": 0,
           "vram": 2147683952
         }
       ],
@@ -19174,7 +19174,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:e8cfd369a1d5ce2a",
+      "id": "matching_kmc_as.tsv:703d14676fc1858c",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -19189,7 +19189,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "03941f00ac2a9b1d1e74e63907c3143de6253fe9175199f344615c687a766f00",
       "pipeline": "kmc+as",
-      "row_sha256": "e8cfd369a1d5ce2a69ce4c3aa5837c2af54fd8f428c058f35c9963d58c24ff45",
+      "row_sha256": "703d14676fc1858cb7dc9b5697ce41c019c5d15c5a6ba341148079ca9adaef3e",
       "section_bases": {
         ".text": 2147688704
       },
@@ -19197,10 +19197,10 @@
         {
           "emitted_size": 320,
           "name": ".text",
-          "owned_size": 308,
+          "owned_size": 320,
           "rom_start": 208128,
-          "sha256": "1343f136659a7e7c77d8f8e2cd8491b43e69b68dff20c7b04532f25490efe294",
-          "unowned_zero_tail": 12,
+          "sha256": "052043001d9defab0d2e80028a3c4d12034ef1d51302b93f107df49b34e13210",
+          "unowned_zero_tail": 0,
           "vram": 2147688704
         }
       ],
@@ -19228,7 +19228,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:69d120b0a409f2de",
+      "id": "matching_kmc_as.tsv:d548945c7f89bb2a",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -19243,7 +19243,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "fcb65f6bd99f5aea90c59cf11e142e73b7f5a233c37a4679a153d26328ae24ff",
       "pipeline": "kmc+as",
-      "row_sha256": "69d120b0a409f2dec6ad0d6383e994d67a0d1791b4051f45cb46181ea6f3c84f",
+      "row_sha256": "d548945c7f89bb2ae7a970982e2d3a98163278c8e9a7edb479d6cfc601d2ed0c",
       "section_bases": {
         ".text": 2147691440
       },
@@ -19251,10 +19251,10 @@
         {
           "emitted_size": 304,
           "name": ".text",
-          "owned_size": 292,
+          "owned_size": 304,
           "rom_start": 210864,
-          "sha256": "f3bc59865dff5dd99f07a7ae247f4dfc6f20ab58023e5b600dc8a1be02fb3d7f",
-          "unowned_zero_tail": 12,
+          "sha256": "5e5b24356e554868704929f981738ec37649e2c8222e8a7d6a017e4f39d34b3d",
+          "unowned_zero_tail": 0,
           "vram": 2147691440
         }
       ],
@@ -19961,7 +19961,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:b2ad28db51c5a39e",
+      "id": "matching_kmc_as.tsv:1284c1cced808576",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -19976,7 +19976,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "33cb4607d1abb4e6d61fcc95c0a8a7204e544cdf60cafd299e7ebef1d4dcb7f6",
       "pipeline": "kmc+as",
-      "row_sha256": "b2ad28db51c5a39e7b33b558162fd87e1baeef9726693f3634dd785e4e9b9500",
+      "row_sha256": "1284c1cced80857648966b741282793dfe5b24c4f264552eb6d6f7aeabbdab93",
       "section_bases": {
         ".text": 2147710752
       },
@@ -19984,10 +19984,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 76,
+          "owned_size": 80,
           "rom_start": 230176,
-          "sha256": "3b10aaabfe6499cd8f0b2fde14189a56a691ff42094335bf9b375c098c70945d",
-          "unowned_zero_tail": 4,
+          "sha256": "6c74b9bd78314c3540a7a6d2d8548a601b501082faa2de3c03348af747b929cc",
+          "unowned_zero_tail": 0,
           "vram": 2147710752
         }
       ],
@@ -20006,7 +20006,7 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_kmc_as.tsv:82e6d32313f1ed28",
+      "id": "matching_kmc_as.tsv:05f0bb41b1be9620",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -20021,7 +20021,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "b630f674969165d4e04e6f4b4c8d4131549aca2b7f37d960bbb6c164a60aa313",
       "pipeline": "kmc+as",
-      "row_sha256": "82e6d32313f1ed287c2d96771d7e4b9b54ed904f93eca2dea0fa21355a7524a1",
+      "row_sha256": "05f0bb41b1be9620b6df948c7b160426bf9ee652d69b8bc5100042dda79d6ad1",
       "section_bases": {
         ".text": 2147710832
       },
@@ -20029,10 +20029,10 @@
         {
           "emitted_size": 32,
           "name": ".text",
-          "owned_size": 24,
+          "owned_size": 32,
           "rom_start": 230256,
-          "sha256": "25977b88ca342ffc53ec297b84032dd5e29435872c2c7b2b2301d68ee74cb38f",
-          "unowned_zero_tail": 8,
+          "sha256": "badffc805f1799689b77a45ef79c9f82a6fe7c18d857553d9a3801c5bb6ce83b",
+          "unowned_zero_tail": 0,
           "vram": 2147710832
         }
       ],
@@ -20053,7 +20053,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:29fd57ca05473da3",
+      "id": "matching_kmc_as.tsv:b7b1750a70ae70a1",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -20068,7 +20068,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "30e8537cef6fef87751c91fb450340c4a8bdce36413d44c47b0ea005fac08e70",
       "pipeline": "kmc+as",
-      "row_sha256": "29fd57ca05473da3375c0cfc10237f067c31054aa0c6de7a734543e42ac36c11",
+      "row_sha256": "b7b1750a70ae70a1c38bb7549b5b3fc33ab81e1bcd6f54fdba4a4181bdd12b46",
       "section_bases": {
         ".text": 2147710864
       },
@@ -20076,10 +20076,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 72,
+          "owned_size": 80,
           "rom_start": 230288,
-          "sha256": "a9371ad682aad5a7a0d8bc1138558467dccdaede116eb0f2edcccfca321f81cc",
-          "unowned_zero_tail": 8,
+          "sha256": "4e1b5fb7ed17c347a658db28a0f8546b8ee027ed2ea2ebfc3da85895c5ad5fe9",
+          "unowned_zero_tail": 0,
           "vram": 2147710864
         }
       ],
@@ -20102,7 +20102,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:272dc27b061b5f33",
+      "id": "matching_kmc_as.tsv:40ab917a238f51b2",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -20117,7 +20117,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "c2f2a10ab25e0613904df848dd3586158399ad6cca41d957547a73b0de2a4de5",
       "pipeline": "kmc+as",
-      "row_sha256": "272dc27b061b5f332638ea665481cad321474d7ddfaac073240a52754476f6fd",
+      "row_sha256": "40ab917a238f51b2000bb58b4e68158ea0e3331c28b80ef4afeb2d4526961f1a",
       "section_bases": {
         ".text": 2147709728
       },
@@ -20125,10 +20125,10 @@
         {
           "emitted_size": 32,
           "name": ".text",
-          "owned_size": 28,
+          "owned_size": 32,
           "rom_start": 229152,
-          "sha256": "7f759c6e605227d134c83767dba49f7a6d1b7e29952e89cb486d19169a419dbb",
-          "unowned_zero_tail": 4,
+          "sha256": "78bc3b94e470fbd3de15d677495983b242030ad3918ebc06f2c92351ffc1fbdc",
+          "unowned_zero_tail": 0,
           "vram": 2147709728
         }
       ],
@@ -20373,7 +20373,7 @@
         "-DBUILD_VERSION=VERSION_K",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:7b7f311f2b77e376",
+      "id": "matching_kmc_as.tsv:39113a1bcd033d4f",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -20388,7 +20388,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "8882301d91d33a1edb78d8a4038a82d28aa08ca6889cfd750ac08bbdd91b5462",
       "pipeline": "kmc+as",
-      "row_sha256": "7b7f311f2b77e37646139126dee77130c6d17ec22668c70222515fa79c911e16",
+      "row_sha256": "39113a1bcd033d4faab22d0a5e2491c94353418212cced4ce9f763cd0f9314d9",
       "section_bases": {
         ".text": 2147674688
       },
@@ -20396,10 +20396,10 @@
         {
           "emitted_size": 128,
           "name": ".text",
-          "owned_size": 116,
+          "owned_size": 128,
           "rom_start": 194112,
-          "sha256": "79fe598ff128f7c1f3d688424625e2ff445aba3816ce7ebc81ab4c331979b744",
-          "unowned_zero_tail": 12,
+          "sha256": "1988762a83f8aed22020474d55ea19741cf5c9529659f08d0a063120e731e422",
+          "unowned_zero_tail": 0,
           "vram": 2147674688
         }
       ],
@@ -20472,7 +20472,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:fd26f4cb87940b4c",
+      "id": "matching_kmc_as.tsv:b9cd516687856d3a",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -20487,7 +20487,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "201c7b6743ef2e2db118c263b8a164c675674b9e9e0905e621f69e1839a2efad",
       "pipeline": "kmc+as",
-      "row_sha256": "fd26f4cb87940b4c31f12eca916f3eda8a34d441224503ce703f57b3fbbde4f0",
+      "row_sha256": "b9cd516687856d3ade08223d8a053190b8e78c55ae85016474bf5ac9008969b5",
       "section_bases": {
         ".rdata": 2147491360,
         ".rodata": 2147491360,
@@ -20497,10 +20497,10 @@
         {
           "emitted_size": 464,
           "name": ".text",
-          "owned_size": 456,
+          "owned_size": 464,
           "rom_start": 194880,
-          "sha256": "8f82b3cec71df07a3195562fa0e31b445d0be51902adc27f1010bfa166781fe4",
-          "unowned_zero_tail": 8,
+          "sha256": "80b6cf4eaed879756a528439a97ab81ff8c927e539b79d88df17d0c265112e12",
+          "unowned_zero_tail": 0,
           "vram": 2147675456
         },
         {
@@ -21534,7 +21534,7 @@
         "-D_FINALROM",
         "-D_LANGUAGE_C"
       ],
-      "id": "matching_kmc_as.tsv:4cbf53c37c992449",
+      "id": "matching_kmc_as.tsv:63d7e36eb7ab5d7c",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -21549,7 +21549,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "ae7c454de994542190e1bd6488120f7cf23ccb9a50d52651436c5076dc020a96",
       "pipeline": "kmc+as",
-      "row_sha256": "4cbf53c37c99244987bb633dc68f7624afd36377e17ad90b7f8440438283c387",
+      "row_sha256": "63d7e36eb7ab5d7c7d690880455e1df09b2c6e878decaced9d8d88128be6e892",
       "section_bases": {
         ".rdata": 2147490400,
         ".rodata": 2147490400,
@@ -21559,10 +21559,10 @@
         {
           "emitted_size": 448,
           "name": ".text",
-          "owned_size": 444,
+          "owned_size": 448,
           "rom_start": 145200,
-          "sha256": "b7b12bb254a8f69c22d4cea9ad443fa87eb63b8902c77389fd0143215f9badfc",
-          "unowned_zero_tail": 4,
+          "sha256": "be6c5f8980c7a8d317d07077118225f6e9c383a2c8d9d4ae09ff29adba6f8a49",
+          "unowned_zero_tail": 0,
           "vram": 2147625776
         },
         {
@@ -23527,7 +23527,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:fb570104b54e3eb5",
+      "id": "matching_kmc_as.tsv:1ef172981fa9ce49",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -23542,7 +23542,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "c7063e732ecce6dfe50f4ab9fdfe56da65cf7b4bc7ac4a6155f3f0202884e540",
       "pipeline": "kmc+as",
-      "row_sha256": "fb570104b54e3eb5bb615968e87ae31c5d2e3bfe3758c532b31e4c1bfe0e2e9d",
+      "row_sha256": "1ef172981fa9ce492bb329b7d87c034d82c7bb092ee2cc002c287a437936c703",
       "section_bases": {
         ".text": 2147657680
       },
@@ -23550,10 +23550,10 @@
         {
           "emitted_size": 496,
           "name": ".text",
-          "owned_size": 492,
+          "owned_size": 496,
           "rom_start": 177104,
-          "sha256": "e37e247ab6bbb20372d8d43b8b379b01e836bb3f8553b278b3e4c7d75ba7ab33",
-          "unowned_zero_tail": 4,
+          "sha256": "50b8ca90de20dee1f2e78c08c714f333e7e4bad5324ee04c8b7706b0ccf8fa05",
+          "unowned_zero_tail": 0,
           "vram": 2147657680
         }
       ],
@@ -23632,7 +23632,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:f08f9c85703d2a2d",
+      "id": "matching_kmc_as.tsv:bfe5d5091bedaa4d",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -23647,7 +23647,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "e14347a5cac5e09233b5dafc43dab6c24fa77d1a79939132906a4aaba7ffb131",
       "pipeline": "kmc+as",
-      "row_sha256": "f08f9c85703d2a2d195e8c5f94fd2d03d6dc3dc4f3eceea3639fdbbe5240011e",
+      "row_sha256": "bfe5d5091bedaa4db02c644518bf9c3bea5b4558cf45c0dccf7394703779637a",
       "section_bases": {
         ".rdata": 2147490736,
         ".rodata": 2147490736,
@@ -23657,10 +23657,10 @@
         {
           "emitted_size": 288,
           "name": ".text",
-          "owned_size": 280,
+          "owned_size": 288,
           "rom_start": 180464,
-          "sha256": "952d0baa629581e4d2700dad575e5753b0a4c205ba09f5c673a6817cb1aea462",
-          "unowned_zero_tail": 8,
+          "sha256": "aff0f026255667896ff0f39dd65423a71dcd64b698f5a0dc013441ac64fbe918",
+          "unowned_zero_tail": 0,
           "vram": 2147661040
         },
         {
@@ -23693,7 +23693,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:dc13275c322c7d1d",
+      "id": "matching_kmc_as.tsv:52a4502f290a6266",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -23708,7 +23708,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "0c3801d209dc59e07a17fd1b8b44ffa9e6fc64e7d8c786bda00f269bc6a13800",
       "pipeline": "kmc+as",
-      "row_sha256": "dc13275c322c7d1d265ff6552d6698dfed403fa4588e21ceaf2bfbc609f51759",
+      "row_sha256": "52a4502f290a626676eb6cdaba76e508069abfa4bbe9ec792ec748cb31ece905",
       "section_bases": {
         ".data": 2147904736,
         ".text": 2147661328
@@ -23717,10 +23717,10 @@
         {
           "emitted_size": 160,
           "name": ".text",
-          "owned_size": 148,
+          "owned_size": 160,
           "rom_start": 180752,
-          "sha256": "6cca9711be95e43bb8b38f63640daf040afeb9f242dec34033b5588d25e16d8c",
-          "unowned_zero_tail": 12,
+          "sha256": "6020f101eba2a34fcdd3f76f0753755a73556f75fb779e33118702f8bd389d16",
+          "unowned_zero_tail": 0,
           "vram": 2147661328
         },
         {
@@ -23754,7 +23754,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:473badee9446e541",
+      "id": "matching_kmc_as.tsv:db2801c51996f7bf",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -23769,7 +23769,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "acc9eb7754c755ead67a5a200d7cc8be9d1ae74a6942a307ec037d9e0116931b",
       "pipeline": "kmc+as",
-      "row_sha256": "473badee9446e54124791d6bfd0df561a69d960034179335cabf92193f2c8e1c",
+      "row_sha256": "db2801c51996f7bff4393ca642b95786e024c127be173c3187eca6279066d019",
       "section_bases": {
         ".text": 2147654832
       },
@@ -23777,10 +23777,10 @@
         {
           "emitted_size": 944,
           "name": ".text",
-          "owned_size": 940,
+          "owned_size": 944,
           "rom_start": 174256,
-          "sha256": "0a8806a79ab333cb649cb1c85d334e1ffaf5580690af7ac6ee4dc79417b86b36",
-          "unowned_zero_tail": 4,
+          "sha256": "19d68797fbcbc96f731e48a6fab141c7400e41c8e2d53cee0d22f90d91d1da39",
+          "unowned_zero_tail": 0,
           "vram": 2147654832
         }
       ],
@@ -23942,7 +23942,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:546ea739e432ed80",
+      "id": "matching_kmc_as.tsv:d6eab5b8480da280",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -23957,7 +23957,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "344a9ce924826dc3b52271ce1220fb97ce3dde004893a09c55e3df318aade371",
       "pipeline": "kmc+as",
-      "row_sha256": "546ea739e432ed804cfd69fca45788010ee03c3bdb09fd48816a71ea5974bba6",
+      "row_sha256": "d6eab5b8480da280a53a759ffb9afca268f09f3175fa079b5e24d0c14295c570",
       "section_bases": {
         ".data": 2147904704,
         ".text": 2147658368
@@ -23966,10 +23966,10 @@
         {
           "emitted_size": 384,
           "name": ".text",
-          "owned_size": 376,
+          "owned_size": 384,
           "rom_start": 177792,
-          "sha256": "6c33ba2c3030a589903f0301a62319365b9ace277b58083fb86cfd359dd54505",
-          "unowned_zero_tail": 8,
+          "sha256": "5fb340a123b1515d01bde091f5b0e2b00a0ef6d90672616d9d2c2b02e23da604",
+          "unowned_zero_tail": 0,
           "vram": 2147658368
         },
         {
@@ -24008,7 +24008,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:81ede48481376b9c",
+      "id": "matching_kmc_as.tsv:d54ea310f9563943",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24023,7 +24023,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "b9c14d0ea2c125c166382e47607653f162935239b557a4832258180325ea3dda",
       "pipeline": "kmc+as",
-      "row_sha256": "81ede48481376b9cba7ad00ed5019ac5d6485c5565bc5ae2c096b18956d95afe",
+      "row_sha256": "d54ea310f95639434835519b50ea861f5683cff37f3a73ba3ad710f54f3d07e9",
       "section_bases": {
         ".rdata": 2147490704,
         ".rodata": 2147490704,
@@ -24033,10 +24033,10 @@
         {
           "emitted_size": 960,
           "name": ".text",
-          "owned_size": 952,
+          "owned_size": 960,
           "rom_start": 178176,
-          "sha256": "adabca54115afef1d1a8c39657883bc4c7e017861faacd5638de22402dc2e594",
-          "unowned_zero_tail": 8,
+          "sha256": "de93522bf8a637dbbdb59bd6031bda57135f61c77f66c1fc48b127508dd542ca",
+          "unowned_zero_tail": 0,
           "vram": 2147658752
         },
         {
@@ -24127,7 +24127,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:6dce9a9cf6201004",
+      "id": "matching_kmc_as.tsv:02691b3e60415840",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24142,7 +24142,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "b9b90b8baa818fb3e4fce2db6ce9ecf26673b5d3dab346af37860a4be65e4a88",
       "pipeline": "kmc+as",
-      "row_sha256": "6dce9a9cf62010041daa2f1e411bc2aa31cd236ab9b7e68085cbf60c2869fbe6",
+      "row_sha256": "02691b3e604158406efc61b9a43be92cc4000d66dabbf4025c63e716e38948b4",
       "section_bases": {
         ".text": 2147659776
       },
@@ -24150,10 +24150,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 72,
+          "owned_size": 80,
           "rom_start": 179200,
-          "sha256": "f9793aac7b86e416736b97525e75c77b8e0686b8a571a2197eab4454a32e1c02",
-          "unowned_zero_tail": 8,
+          "sha256": "4bf434a5f0b4692201d617f25ac9f2ee0645a8ff0ff3d0c4c722997628ab49a5",
+          "unowned_zero_tail": 0,
           "vram": 2147659776
         }
       ],
@@ -24234,7 +24234,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:6c439822c4d01881",
+      "id": "matching_kmc_as.tsv:3ede74575adc1cc8",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24249,7 +24249,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "110c3b26919c29aa2ad5bc1a27a18e5c65056799d45aee17fb8a5136a925c09a",
       "pipeline": "kmc+as",
-      "row_sha256": "6c439822c4d01881f03532201c0415890e0ce15410d605ecb0476ca58c33da15",
+      "row_sha256": "3ede74575adc1cc840a075f00d84fda8499393de68a1e46a6fb6562cfbea6b77",
       "section_bases": {
         ".data": 2147905648,
         ".text": 2147692048
@@ -24258,10 +24258,10 @@
         {
           "emitted_size": 176,
           "name": ".text",
-          "owned_size": 172,
+          "owned_size": 176,
           "rom_start": 211472,
-          "sha256": "43bbe660e3d22427169aa66a8bba87a150f805d396212777cbb8627a38b8afa4",
-          "unowned_zero_tail": 4,
+          "sha256": "9345df6feb1ac06e6f3cccd74958b431c8922f338e1676a2d176c6f4543f9ebb",
+          "unowned_zero_tail": 0,
           "vram": 2147692048
         },
         {
@@ -24298,7 +24298,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:7d359ae57ea91c8f",
+      "id": "matching_kmc_as.tsv:d090efba4d075a67",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24313,7 +24313,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "278e525e3ea5bc60c38bd1a8266a887007cc99c047b3cac1937c3a58085696e9",
       "pipeline": "kmc+as",
-      "row_sha256": "7d359ae57ea91c8fc0a77ca0138b77efec2e18e33de72d64ae6d5592f24489d7",
+      "row_sha256": "d090efba4d075a67e3fc368691633e30b40eb823d2f1cd3291066099b4850cbc",
       "section_bases": {
         ".text": 2147696224
       },
@@ -24321,10 +24321,10 @@
         {
           "emitted_size": 224,
           "name": ".text",
-          "owned_size": 216,
+          "owned_size": 224,
           "rom_start": 215648,
-          "sha256": "9db46625eb724098bf54fe812a6e4d38988b3611589c5e33ec5f3d29da3c0da2",
-          "unowned_zero_tail": 8,
+          "sha256": "4ed11375d92b8bec9906796804e0ead01ecbbb134574f6bb12cffb6be7d26314",
+          "unowned_zero_tail": 0,
           "vram": 2147696224
         }
       ],
@@ -24353,7 +24353,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:083cd9fd8ea9e5ae",
+      "id": "matching_kmc_as.tsv:353cac1361bc4c6c",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24368,7 +24368,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "3fba69105ae6b86ec036eb70b0f6133fd2c68d8b2a4573340bb4a13a5b178af7",
       "pipeline": "kmc+as",
-      "row_sha256": "083cd9fd8ea9e5ae9876db66c1fcf58cda0e89b477c4c0b05bcec0da706c279b",
+      "row_sha256": "353cac1361bc4c6c407166e1bc82c7ab14b5e38b4612b6a458b0719e063ea243",
       "section_bases": {
         ".data": 2147905728,
         ".text": 2147697440
@@ -24377,10 +24377,10 @@
         {
           "emitted_size": 768,
           "name": ".text",
-          "owned_size": 760,
+          "owned_size": 768,
           "rom_start": 216864,
-          "sha256": "b896a9782821a0db1d0c9c497c66551ca0c3c6d9c94d3d5c6be03fded41936d6",
-          "unowned_zero_tail": 8,
+          "sha256": "f6fb000a01d3b466c8f6da173c38dc65b8fcc5736838635e008e151e639dcc1d",
+          "unowned_zero_tail": 0,
           "vram": 2147697440
         },
         {
@@ -24422,7 +24422,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:0da5a23394becbf5",
+      "id": "matching_kmc_as.tsv:aa275e3c9f19169a",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24437,7 +24437,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "0e8d58d0e0571f8560ac8fc8f74290edf40cbb8ac3433b2825110b237b93a178",
       "pipeline": "kmc+as",
-      "row_sha256": "0da5a23394becbf554bcb0feb80a9d71e453f336a87f070d87ca2c8365209a59",
+      "row_sha256": "aa275e3c9f19169a02029dd8cb1e942dcf5cb8178363cc679fc2dadaf431c738",
       "section_bases": {
         ".bss": 2147939152,
         ".data": 2147905856,
@@ -24447,10 +24447,10 @@
         {
           "emitted_size": 832,
           "name": ".text",
-          "owned_size": 824,
+          "owned_size": 832,
           "rom_start": 218240,
-          "sha256": "c96f5fdff806dcb6ca1a1d77d8c7fb1a77663e3a6fe0a0f4e3e77467fa3330d8",
-          "unowned_zero_tail": 8,
+          "sha256": "2dde0a8e961190aaaecf023a6ad843d90cf88700d76eefff1157d4285e0eacfb",
+          "unowned_zero_tail": 0,
           "vram": 2147698816
         },
         {
@@ -24501,7 +24501,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:57bc18828ab60f60",
+      "id": "matching_kmc_as.tsv:d550f477f4e2a0a4",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24516,7 +24516,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "ac6d889186b513046bb86e1b135c7cee3e6c0d826a31cb339e57a9792d9599cc",
       "pipeline": "kmc+as",
-      "row_sha256": "57bc18828ab60f6087befcbe61ea8f766af599c4862501f0610d96cff065aabb",
+      "row_sha256": "d550f477f4e2a0a4591373882ccb5bb46fbb0c14f42b5b5703332886cf57c753",
       "section_bases": {
         ".rdata": 2147492096,
         ".rodata": 2147492096,
@@ -24526,10 +24526,10 @@
         {
           "emitted_size": 784,
           "name": ".text",
-          "owned_size": 776,
+          "owned_size": 784,
           "rom_start": 219792,
-          "sha256": "0829be076f96e8fc092d5a5bea85060043c56ad650516c8be13e49f2d4e213c4",
-          "unowned_zero_tail": 8,
+          "sha256": "bd82caa5f13a4e02c75fa222e4524d1a7bb2b653ffc72f38f98e9529688f6c4b",
+          "unowned_zero_tail": 0,
           "vram": 2147700368
         },
         {
@@ -24620,7 +24620,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:e3aedce949ed8e7f",
+      "id": "matching_kmc_as.tsv:e4bb1a7ab883d046",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24635,7 +24635,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "cff1ab8335ea50518644a1d5bf14ad71e1d59c01518ec7b7df2e6fda53be2c4b",
       "pipeline": "kmc+as",
-      "row_sha256": "e3aedce949ed8e7f43186c522e21a15e31251f22405ccdaee32a2a0c2e313411",
+      "row_sha256": "e4bb1a7ab883d046a837f428a9b8c863f92867f4aeff9214f1517a4f47ecf1fa",
       "section_bases": {
         ".text": 2147702400
       },
@@ -24643,10 +24643,10 @@
         {
           "emitted_size": 720,
           "name": ".text",
-          "owned_size": 708,
+          "owned_size": 720,
           "rom_start": 221824,
-          "sha256": "145f77840aea9d60e80a01de9f66f7f02d28662805dd044b6280c72989dfa820",
-          "unowned_zero_tail": 12,
+          "sha256": "f63c8e43faaef648d598be9d177d5fe649ec19a84cf256ca830fae9f61c3b494",
+          "unowned_zero_tail": 0,
           "vram": 2147702400
         }
       ],
@@ -24737,7 +24737,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:bee7a77e97b7d812",
+      "id": "matching_kmc_as.tsv:cb656cd767583215",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24752,7 +24752,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "483b76497cfb5758a6110e8b792eed0073fa35b401e5ccec5f1bae148e789240",
       "pipeline": "kmc+as",
-      "row_sha256": "bee7a77e97b7d812da099a64c6aafce1e2ba75de6be53534ae2bb5932946c6ac",
+      "row_sha256": "cb656cd7675832156199699ccf7cfe41b4f5f90cfa433aac1eee96f1ebbbbbb1",
       "section_bases": {
         ".text": 2147705216
       },
@@ -24760,10 +24760,10 @@
         {
           "emitted_size": 96,
           "name": ".text",
-          "owned_size": 88,
+          "owned_size": 96,
           "rom_start": 224640,
-          "sha256": "7a30b5ebee3761b6cabb14e2521b337a4e1b56787d81cc52e84a03c41d410ef0",
-          "unowned_zero_tail": 8,
+          "sha256": "2bd68f572a755fe478881ef81918a8cb47e2f8314a69a75e33c8ca700b01ab03",
+          "unowned_zero_tail": 0,
           "vram": 2147705216
         }
       ],
@@ -24787,7 +24787,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:fe304625f2a9734c",
+      "id": "matching_kmc_as.tsv:0e1458fd4a30f961",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24802,7 +24802,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "6f6cf30fb72ac34ea4cd7f78c42137ed5881af7ec86c737aa3fd95cfe1e12bb1",
       "pipeline": "kmc+as",
-      "row_sha256": "fe304625f2a9734cc95dfa652af6871648e64599dbd5e9ccf971cd0398177c75",
+      "row_sha256": "0e1458fd4a30f961712d13e4af323cc0c6f10534811e87de145c490e2df97a15",
       "section_bases": {
         ".text": 2147705312
       },
@@ -24810,10 +24810,10 @@
         {
           "emitted_size": 528,
           "name": ".text",
-          "owned_size": 516,
+          "owned_size": 528,
           "rom_start": 224736,
-          "sha256": "fae6b10e545fa24dc0a7e3e711cc1c9e030f23717778a08599aaf7b03433ba1d",
-          "unowned_zero_tail": 12,
+          "sha256": "4b103038c9568894910f79b2cec617c8f83cad50fd3c28cd74fa27260f301b16",
+          "unowned_zero_tail": 0,
           "vram": 2147705312
         }
       ],
@@ -24841,7 +24841,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:33d064373362487c",
+      "id": "matching_kmc_as.tsv:eb9f317518c9adbd",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -24856,7 +24856,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "af970754fb4d54c2fa77050b832a59226ab1e89e0c508153a4ff1ade0f2ee58a",
       "pipeline": "kmc+as",
-      "row_sha256": "33d064373362487cbc25ea9d76ab5cd61ae8c3b6b937f6738c61099710082969",
+      "row_sha256": "eb9f317518c9adbdfe28f8992dee8b07506c3d80035e59a99df77c723a81ca19",
       "section_bases": {
         ".text": 2147705840
       },
@@ -24864,10 +24864,10 @@
         {
           "emitted_size": 112,
           "name": ".text",
-          "owned_size": 100,
+          "owned_size": 112,
           "rom_start": 225264,
-          "sha256": "294bb1b96a3f15be1e67532119cd94b4dee6f5ca5eab9760e2a5af6fd11f80da",
-          "unowned_zero_tail": 12,
+          "sha256": "e62e4a6666784ac262270593adb75045998a7be7b5bc50836853b24bb52bac1a",
+          "unowned_zero_tail": 0,
           "vram": 2147705840
         }
       ],
@@ -24991,7 +24991,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:63b6f4ea763e9762",
+      "id": "matching_kmc_as.tsv:feebab0ecf1b6a9c",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -25006,7 +25006,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "ff32b6de37109c86460606a0b51f6c2f54ff5c6dd35db199d8f466a33ab45506",
       "pipeline": "kmc+as",
-      "row_sha256": "63b6f4ea763e9762430f2cb983549e03333b96b4cfcb0a3fe7a3108abf70e0d1",
+      "row_sha256": "feebab0ecf1b6a9ce59d0e0b4189f96a8996022d23f3ff44bdf9aa274a06d1c9",
       "section_bases": {
         ".data": 2147910704,
         ".text": 2147708608
@@ -25015,10 +25015,10 @@
         {
           "emitted_size": 496,
           "name": ".text",
-          "owned_size": 488,
+          "owned_size": 496,
           "rom_start": 228032,
-          "sha256": "4d7cfb105a914c6d818e36dc6369a5006b5d3893a4a9f69195a2373989084d52",
-          "unowned_zero_tail": 8,
+          "sha256": "cbd4fdff5a60c122ecad8c7c1b5b0ae5f3fddaed73644fc6c67620590564b00d",
+          "unowned_zero_tail": 0,
           "vram": 2147708608
         },
         {
@@ -25060,7 +25060,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:323dd444a1033e48",
+      "id": "matching_kmc_as.tsv:f2fc423035e91179",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -25075,7 +25075,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "9301f36f23d73398464f6f0207ca962b5ec94a8c1583342fa6002ad01927b107",
       "pipeline": "kmc+as",
-      "row_sha256": "323dd444a1033e480a6a481509197b4bf14063a05a5ec2e1882cc62cab863445",
+      "row_sha256": "f2fc423035e91179464f4ec6df4ca0f048a5d327b6a2c90c6ad4f7cf6ef5ed83",
       "section_bases": {
         ".text": 2147709104
       },
@@ -25083,10 +25083,10 @@
         {
           "emitted_size": 528,
           "name": ".text",
-          "owned_size": 516,
+          "owned_size": 528,
           "rom_start": 228528,
-          "sha256": "cf973b834a6c00bd6ce1600e9250ac204e39a6f050dcafb675a7a9ce692bd67a",
-          "unowned_zero_tail": 12,
+          "sha256": "cbd8642a865cdad6574a945d7bd37afad494178083a3d314bc675025c15187f4",
+          "unowned_zero_tail": 0,
           "vram": 2147709104
         }
       ],
@@ -25120,7 +25120,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:2c9a70da5766c527",
+      "id": "matching_kmc_as.tsv:f63bb68710f35f8b",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -25135,7 +25135,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "00350213205264ffef32723f062dbff4d8f772f71fe8368f6a119061593ba23c",
       "pipeline": "kmc+as",
-      "row_sha256": "2c9a70da5766c5270ca7a87f129a4a3efa98768c18c296600ea92cbd4c07f8ff",
+      "row_sha256": "f63bb68710f35f8b737651c4c1c8d3b88b37d07c606e60088f1c225bdd8fde30",
       "section_bases": {
         ".text": 2147699648
       },
@@ -25143,10 +25143,10 @@
         {
           "emitted_size": 16,
           "name": ".text",
-          "owned_size": 12,
+          "owned_size": 16,
           "rom_start": 219072,
-          "sha256": "41beb76aaa31a128c330cf1a0cc5b6b7d17c7dddf97dc67e277e7c484d2f9f30",
-          "unowned_zero_tail": 4,
+          "sha256": "5baa88e4c010d29fd4397b6b240d7f1d6ef27b8bbc08924947adb1f4142235e8",
+          "unowned_zero_tail": 0,
           "vram": 2147699648
         }
       ],
@@ -25170,7 +25170,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:75fa371329bd6b47",
+      "id": "matching_kmc_as.tsv:c47b1651108cac77",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -25185,7 +25185,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "fb7a5d354002a1ee02a8c8f45ad9420c6d399b21c117dd7fa52534d597f3615e",
       "pipeline": "kmc+as",
-      "row_sha256": "75fa371329bd6b47690d485180c9d50dae47c4faced96e898234a9f1868c7c99",
+      "row_sha256": "c47b1651108cac77b7c8440c2c36afb4ff5262ea34c581f16684195b1de9398c",
       "section_bases": {
         ".text": 2147702160
       },
@@ -25193,10 +25193,10 @@
         {
           "emitted_size": 240,
           "name": ".text",
-          "owned_size": 232,
+          "owned_size": 240,
           "rom_start": 221584,
-          "sha256": "65657619a763433d37ea193b0899afb395dfc7434e663886929d70553571727f",
-          "unowned_zero_tail": 8,
+          "sha256": "65e60c55185eb2045d9b928bd156f58985a472c2d5ac3a55f8ba4bcd502c9bc4",
+          "unowned_zero_tail": 0,
           "vram": 2147702160
         }
       ],
@@ -25434,7 +25434,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:08a903328a8cdeaf",
+      "id": "matching_kmc_as.tsv:05686e6db1204271",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -25449,7 +25449,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "09fffc59f0dc80591d61d19e4cb3991f344d74d4439327a02beff75a1d5619ab",
       "pipeline": "kmc+as",
-      "row_sha256": "08a903328a8cdeaf76f1dafbb721a21404a476d7eec7fdcbc5ddc175f385c184",
+      "row_sha256": "05686e6db1204271fd2af84b262a66cb7080be642780e742c3a717fc88495386",
       "section_bases": {
         ".text": 2147707768
       },
@@ -25457,10 +25457,10 @@
         {
           "emitted_size": 832,
           "name": ".text",
-          "owned_size": 824,
+          "owned_size": 832,
           "rom_start": 227192,
-          "sha256": "8fd7ffc4aac67db7dc23c6118997221db345a05d6f98eabb0db70255c1197279",
-          "unowned_zero_tail": 8,
+          "sha256": "a00b992812e835808de2e22e13e18ce259d25ec3d86a7a91b517629f3833fcf1",
+          "unowned_zero_tail": 0,
           "vram": 2147707768
         }
       ],
@@ -25677,7 +25677,7 @@
         "-D_LANGUAGE_C",
         "-DBUILD_VERSION=VERSION_J"
       ],
-      "id": "matching_kmc_as.tsv:a0f2a89168be7fa2",
+      "id": "matching_kmc_as.tsv:1ec94ddac03ba282",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -25692,7 +25692,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "a82980ba9ac5a0b4eec7a4cfce72b2fd3c26fa1e220dd2cb904c856200e30767",
       "pipeline": "kmc+as",
-      "row_sha256": "a0f2a89168be7fa27b1481eacb1f5cd08f29ed35f823e374994b0fb62a77a455",
+      "row_sha256": "1ec94ddac03ba2824a40141b35170ef38cd80e10639eb226bcfc9c03cfbd4e19",
       "section_bases": {
         ".rdata": 2147491872,
         ".rodata": 2147491872,
@@ -25702,10 +25702,10 @@
         {
           "emitted_size": 2704,
           "name": ".text",
-          "owned_size": 2700,
+          "owned_size": 2704,
           "rom_start": 205344,
-          "sha256": "d18be17b949eec72ba7428cc8b3af547c345b8d93b9c122ec25b9d5ff25234f6",
-          "unowned_zero_tail": 4,
+          "sha256": "fe5af0e352607d1b6c972ad1865d6f28a5cb878aa8a591e6cb6fde375410a2b8",
+          "unowned_zero_tail": 0,
           "vram": 2147685920
         },
         {
@@ -26136,7 +26136,7 @@
         "-DLEAF_NAME=func_8001A63C",
         "-DHELPER_NAME=func_8001C298"
       ],
-      "id": "matching_kmc_as.tsv:3ceea6be042050a2",
+      "id": "matching_kmc_as.tsv:bfc262599b3b0fb9",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -26151,7 +26151,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "7be293001af07067321839944290ede60b0f76e55671bc1a97a04fc9c3e6d48f",
       "pipeline": "kmc+as",
-      "row_sha256": "3ceea6be042050a25662f911c8265a3e24713b3af7e4b2ba70613aae5108ba06",
+      "row_sha256": "bfc262599b3b0fb9101cd70983044eaa23000f5421413bedc3f32352aa4e78be",
       "section_bases": {
         ".text": 2147591740
       },
@@ -26159,10 +26159,10 @@
         {
           "emitted_size": 32,
           "name": ".text",
-          "owned_size": 28,
+          "owned_size": 32,
           "rom_start": 111164,
-          "sha256": "162d1bdaf819fb9f766e3feafbf095585396d2ebbb9555665236d6f68b0b6f21",
-          "unowned_zero_tail": 4,
+          "sha256": "db97a957789bd59bbd295d1091f4fed6bfa5eda86e315e945dfbcabd17e9659f",
+          "unowned_zero_tail": 0,
           "vram": 2147591740
         }
       ],
@@ -26299,7 +26299,7 @@
         "-D_LANGUAGE_C",
         "-DLEAF_NAME=func_80038550"
       ],
-      "id": "matching_kmc_as.tsv:51710cc69aa14f0b",
+      "id": "matching_kmc_as.tsv:ebf72a790e540f3b",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -26314,7 +26314,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "a9842ec43ce1d1c9a5ecb2ff46bb2bbed4efda4c820e63a3f3d0a2df5238eda7",
       "pipeline": "kmc+as",
-      "row_sha256": "51710cc69aa14f0bbf07a2b1e9859d71b6c9061d3af35668110c52cdc2b4fd55",
+      "row_sha256": "ebf72a790e540f3b0d81c3c40bc40538dd739117ac5ba3403124962ce0eb6b76",
       "section_bases": {
         ".text": 2147714384
       },
@@ -26322,10 +26322,10 @@
         {
           "emitted_size": 16,
           "name": ".text",
-          "owned_size": 8,
+          "owned_size": 16,
           "rom_start": 233808,
-          "sha256": "e8e6d5aa1889fdd522893d64a54074f9a1028bfe982b45e213372af11b631728",
-          "unowned_zero_tail": 8,
+          "sha256": "97a520f9daed13f7f53158c87c04205149a271e424e09f52a4c696c4889a7e7c",
+          "unowned_zero_tail": 0,
           "vram": 2147714384
         }
       ],
@@ -26445,7 +26445,7 @@
         "-D_LANGUAGE_C",
         "-DLEAF_NAME=func_800378C0"
       ],
-      "id": "matching_kmc_as.tsv:82df5a4a9d1a115d",
+      "id": "matching_kmc_as.tsv:8ce702410d37b327",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -26460,7 +26460,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "54c02fe1ed1de635228211adb31dcc843657a4e1e16fc42d83444d0141468237",
       "pipeline": "kmc+as",
-      "row_sha256": "82df5a4a9d1a115d5e365411f4f2555face276aca8727d501c1ff512cc9b94c0",
+      "row_sha256": "8ce702410d37b327b2b37bb70df64588f956cb6a965e919af46f9f88a6a7faf6",
       "section_bases": {
         ".text": 2147711168
       },
@@ -26468,10 +26468,10 @@
         {
           "emitted_size": 64,
           "name": ".text",
-          "owned_size": 52,
+          "owned_size": 64,
           "rom_start": 230592,
-          "sha256": "a6757da8cd2a99b6b1aaf929cee7d2008817169e5bc8a8d95bbb6064ea0c8bc0",
-          "unowned_zero_tail": 12,
+          "sha256": "bdfec8844fa0a77fa0c608f8891b87f912407e339cfefa7b9ec559cfe1f1ccf4",
+          "unowned_zero_tail": 0,
           "vram": 2147711168
         }
       ],
@@ -27074,7 +27074,7 @@
         "-DLEAF_NAME=func_80037E9C",
         "-DSEED_NAME=randomSeed"
       ],
-      "id": "matching_kmc_as.tsv:e4894c439e3d1cb3",
+      "id": "matching_kmc_as.tsv:14ce61a87cd7c354",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -27089,7 +27089,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "23e75a44d54a5903b9661514a1ca7f8a45c558e863cd7f7a2d94ce23eb82740a",
       "pipeline": "kmc+as",
-      "row_sha256": "e4894c439e3d1cb37312c3f32bc45e38de9f283c4c61f7d74f449a5b2c023e22",
+      "row_sha256": "14ce61a87cd7c354ae63d97570cad2dbf263a47e7880bc49552db70498d01dce",
       "section_bases": {
         ".text": 2147712668
       },
@@ -27097,10 +27097,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 72,
+          "owned_size": 80,
           "rom_start": 232092,
-          "sha256": "7e9be40af569724768dbf60ac588320c55bbc96dcae0c1c81bccfd7be54647ff",
-          "unowned_zero_tail": 8,
+          "sha256": "73c5b893f66e9e8063868ce2d0286663374c89d9debeee6da88f916924fa241b",
+          "unowned_zero_tail": 0,
           "vram": 2147712668
         }
       ],
@@ -27217,7 +27217,7 @@
         "-DFIRST_BUFFER_NAME=firstBuffer",
         "-DSECOND_BUFFER_NAME=secondBuffer"
       ],
-      "id": "matching_kmc_as.tsv:56ba3090d07ab9ef",
+      "id": "matching_kmc_as.tsv:fcc316c80d0e8848",
       "includes": [
         "tools/ultralib/include",
         "tools/ultralib/include/PR",
@@ -27232,7 +27232,7 @@
       "normalization": null,
       "object_sha256_at_discovery": "16ecd0f7792cbb10d686d2e1617fee9d3c89a9b58d861700ea5b1b9c03dfea55",
       "pipeline": "kmc+as",
-      "row_sha256": "56ba3090d07ab9ef8abed127e216409afa411fbb785d905204dcece03ab8c2e6",
+      "row_sha256": "fcc316c80d0e88489f66348bf75bcc6749c98bd926fe353e72e9a40ddaae51d7",
       "section_bases": {
         ".text": 2147600880
       },
@@ -27240,10 +27240,10 @@
         {
           "emitted_size": 80,
           "name": ".text",
-          "owned_size": 68,
+          "owned_size": 80,
           "rom_start": 120304,
-          "sha256": "55a0482cdfa28196d5d7ac63867c0f7100b686a9d61760d93660c275aa79c393",
-          "unowned_zero_tail": 12,
+          "sha256": "04079839141959099b841a1d2f2228a40d6192912e23f2ec68ff940dae2995a0",
+          "unowned_zero_tail": 0,
           "vram": 2147600880
         }
       ],
@@ -29299,7 +29299,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "1f147a2535cd8e77678787c4ff2a28b1d2eb1c30fa65eb5b7c39b6a82d70d042",
+      "object_sha256_at_discovery": "13ad835aaea81755756e82e83065b901a3cd5e36d1eff816cf9500def0bde9e9",
       "pipeline": "sn",
       "row_sha256": "0771a873fe63ef9ee499967ec5d87c996bc41ea569df1e09a68a28e0a6960f55",
       "section_bases": {
@@ -29345,7 +29345,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "8eaf0a45db3fc2b39dbcd741a1427a1d223152ba00b68b0e60f45a37396b851e",
+      "object_sha256_at_discovery": "108c97eea990f309f857e75e149888544b1cc803455ce9ea2dda3b6d36ee2c3c",
       "pipeline": "sn",
       "row_sha256": "b1c3d79bd336e33501d7e801054ccf9ce875b172b84dcab6aa8b4dd20eae07ce",
       "section_bases": {
@@ -29391,7 +29391,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "10c10b40b4b638531688f0ed49a83982ca90ea441228088f986e4aa38488608d",
+      "object_sha256_at_discovery": "12a3ea2e83523676c3dc046d821177671443668964ce9dc460c654d19ab3cb4c",
       "pipeline": "sn",
       "row_sha256": "765ef753bc8d9c9b5bb5227cdab095d03568631f921386ad327e6369da1f9880",
       "section_bases": {
@@ -29432,7 +29432,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "bb0066560b7a277150fd62f76bdaddbd7ec1453549e8081b615b5d0c37477c25",
+      "object_sha256_at_discovery": "e0b81c8fb528f6edd3336fce96316057a4fa21f62e6e18895ee5e0efb599752a",
       "pipeline": "sn",
       "row_sha256": "958fc1d48b612f5fa42033784e0f6bd6b85192e004adb14b3529a2dcf70480e6",
       "section_bases": {
@@ -29481,7 +29481,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "b5cc77d3538952dd4a21829a2a4f456a0d4861313cab468f204e9d43f07eecbf",
+      "object_sha256_at_discovery": "5d5eeeda859fef315148524ba2e7cf28b5e1a38b576a65aaa6d01bf9d34f07d2",
       "pipeline": "sn",
       "row_sha256": "0a1a58f35871bdae8e9b42f20189bcfd455da242c69268faea64d1e7a24b0d1d",
       "section_bases": {
@@ -29522,7 +29522,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "7a9e3bcc72893e5022909ab02c443671c7aa8c6d0e563c638be501616b4e7591",
+      "object_sha256_at_discovery": "5e9233bdb1d18d017bbed9521a751d253ca5a336ff1c3397fcd97cf22ce22a0a",
       "pipeline": "sn",
       "row_sha256": "41b303558d5460dae73e8c4ccb9a627aa4eb2be53a3a8860bb092dcddc4f92bc",
       "section_bases": {
@@ -29564,7 +29564,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "a4f4b8f821e662df4c80202a2b54347e193f6d2edaa05857597e0c4e3b2eede0",
+      "object_sha256_at_discovery": "93046140932449981f54b167952a4050653e74987e7b16d53a888b5b6c4113fd",
       "pipeline": "sn",
       "row_sha256": "267882f11863d2b3c1d00fdc86681492ea5e3fdcadbab2a5cae9da552bab8dc5",
       "section_bases": {
@@ -29610,7 +29610,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "70a450bd3d9f7b6dc02669f301c9abcace41c3178e8385f96a99cc13bd755f40",
+      "object_sha256_at_discovery": "5ce4449014c204f67e90f4f87795561c72aaa630b715a1c9cb47a633a0a033da",
       "pipeline": "sn",
       "row_sha256": "fd062c261861d9e84b02414d42aff14bda6f5c1ef18afbc858ae85f4cbc3154e",
       "section_bases": {
@@ -29689,7 +29689,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "b1cc742ea24c253d0103852b33c03a47eff137744ad39c9278f2e9260157888a",
+      "object_sha256_at_discovery": "4b513df1565e9d60717bf6722d7514377d471d46ade11f10404d1453d70ad9bf",
       "pipeline": "sn",
       "row_sha256": "abe66a9ad1f9a43602d753bb671afd64866ba990a95c61b0d89cda5288dd4af5",
       "section_bases": {
@@ -29727,7 +29727,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "ebe863c0d5288f1c98a04683962c6518fc842926dd022cd86e285b7348215611",
+      "object_sha256_at_discovery": "3a488cadc2e82c5a7c53c9e19606bf698c6f459fc2705e5a3f0387f29ae5df4e",
       "pipeline": "sn",
       "row_sha256": "fffc1f8cad329da34f13510fa0a7a4443f7e1f7397366519a24e08b9ecf1abae",
       "section_bases": {
@@ -29773,7 +29773,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "shadow-operands",
-      "object_sha256_at_discovery": "b6ebf16e0b1a3716af2dd109892df479f7134a4c613f7ba8aad14876340ec7cf",
+      "object_sha256_at_discovery": "159f11f0fddc468d226d7bf70c29b33a08368b6888044da68ea62e521fa83fcf",
       "pipeline": "sn",
       "row_sha256": "3ce4c6f44a7bbe6848fcd8f923165995593998d70e4c8d7b1919331b13829a3a",
       "section_bases": {
@@ -29847,7 +29847,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "debug-regions",
-      "object_sha256_at_discovery": "f2d7905251da725e3dd42818b67011ff33fc304ecaec97531851fd9764f798b4",
+      "object_sha256_at_discovery": "d73a8f9d1ed2705505ae71f32a88624e06ae5adc3b3f84faa12c4773b4facedc",
       "pipeline": "sn",
       "row_sha256": "9ac17f0b3d9d2e0bf7c8243af42b11c2ff5285da7a9cbf02e06f8a4048919150",
       "section_bases": {
@@ -29886,13 +29886,13 @@
         "-mgp32",
         "-mfp32"
       ],
-      "id": "matching_as.tsv:8f2d104b2dddd29d",
+      "id": "matching_as.tsv:036648166df5a55d",
       "includes": [],
       "manifest": "config/matching_as.tsv",
       "normalization": null,
       "object_sha256_at_discovery": "5ca637a10a2ad09d6e3c8d05b14322cee98087253dc498064f4cb7841989b0e0",
       "pipeline": "as",
-      "row_sha256": "8f2d104b2dddd29de56801f79c5ef5891a95b3105dd366a695cbb59d327e2e4f",
+      "row_sha256": "036648166df5a55d22cdb9946e60bd4a317e90f838f2ec66603a2f41c7f149d0",
       "section_bases": {
         ".text": 2147676768
       },
@@ -29900,10 +29900,10 @@
         {
           "emitted_size": 800,
           "name": ".text",
-          "owned_size": 796,
+          "owned_size": 800,
           "rom_start": 196192,
-          "sha256": "7a8576245f42a86f8db2583eda5f1e2ae908120fa2abda59d18eb9e53c614ad5",
-          "unowned_zero_tail": 4,
+          "sha256": "3b658d3205867a5ab71eb35781e21e272b6dfa47afce083646da1960d1f5af19",
+          "unowned_zero_tail": 0,
           "vram": 2147676768
         }
       ],

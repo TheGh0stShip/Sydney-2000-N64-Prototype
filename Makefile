@@ -6,7 +6,7 @@ N64DK_PYTHON ?= $(N64DK_ROOT)/.venv/bin/python
 N64DK_TOOLCHAIN ?= ../BattleTanx/.toolchain
 N64DK := PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) -m n64dk
 
-.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check verify-runtime source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets clean
+.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check verify-runtime source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory verify-archive-directory archive-directory-test clean
 
 all: setup
 
@@ -15,7 +15,7 @@ setup: $(BUILD_DIR)/main_segment.bin
 $(BUILD_DIR)/main_segment.bin: $(BASEROM) tools/extract.py
 	$(PYTHON) tools/extract.py $(BASEROM) $(BUILD_DIR)
 
-verify: $(BASEROM) report-test source-image-test data-ledger-check inventory-check verify-matching verify-runtime
+verify: $(BASEROM) report-test source-image-test archive-directory-test verify-archive-directory data-ledger-check inventory-check verify-matching verify-runtime
 	$(PYTHON) tools/verify.py $(BASEROM)
 
 inventory: $(BASEROM)
@@ -47,6 +47,15 @@ validate-render-queue: $(BASEROM)
 # Startup runtime image only; other overlay banks need their own mappings.
 verify-runtime: $(BASEROM) runtime-survey-check
 	$(N64DK) match-batch config/runtime/matching_sn.tsv=sn config/runtime/matching_kmc.tsv=kmc+as --project . --vram-delta 0x7FF5C710
+
+archive-directory:
+	$(PYTHON) tools/build_archive_directory.py
+
+verify-archive-directory: $(BASEROM)
+	$(PYTHON) tools/build_archive_directory.py --verify-rom $(BASEROM)
+
+archive-directory-test:
+	$(PYTHON) tools/test_archive_directory.py
 
 source-link-plan: $(BASEROM)
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) tools/build_source_image.py discover --rom $(BASEROM)

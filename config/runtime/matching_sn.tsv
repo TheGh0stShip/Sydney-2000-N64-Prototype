@@ -41,3 +41,10 @@
 0x156A34	0x24	src/runtime/initialize_runtime_free_list.c	--symbol=runtimeFreeList:0x800F26B0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	a3625fc2ff6ed59f380acb322d02a371e36a534853ed67b2634eb5a9a38dad8b
 0x17E878	0x24	src/runtime/initialize_runtime_object_list.c	--symbol=runtimeObjectList:0x800FCB30 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	1b7e33b19fb81a696b369a20e10bf9930b59dc6201b3a6d2141e5959b60a2e12
 0x180444	0x24	src/runtime/initialize_runtime_asset_list.c	--symbol=runtimeAssetList:0x800FCB90 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	1e3e8be5e9752518000997fcc35f4e1a8f055a0b9a0f9de78fac08d08186f4e6
+0x146838	0x30	src/runtime/initialize_runtime_audio.c	--symbol=runtimeAudioSettings:0x800F1AE0 --symbol=runtimeAudioHeap:0x800F1B84 --symbol=func_8001D894:0x8001D894 --symbol=func_8001E0EC:0x8001E0EC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	edabf50c2f70270b7a59bc220b4e52abc31d3aa6af027210a6132e2511873193
+0x14E534	0x40	src/runtime/read_virtual_input.c	--symbol=selectedDisplayConfiguration:0x800F2778 --symbol=func_800BBAA4:0x800BBAA4 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0f7aa0148c5f98269b1b73e1e0b5912616776cedebff8e3d3ea7075a498bcfc7
+0x15FD10	0x30	src/runtime/initialize_input_descriptors.c	--symbol=runtimeInputDescriptors:0x80101850 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	11f66215a65a24bd08a8ff0cf3d4412b48ff6b9cc48dff179710f242627b0041
+0x14EE24	0x4C	src/runtime/build_output_record_pointers.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	7aec8ed62ac4b8b3190c94ba14c102b4ebfa58721aaead3838a449071f78589c
+0x1525F4	0x44	src/runtime/activate_runtime_object_fields.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	b37eda01d17469965081f1085ae6d9811427010d25744e13544434c4401877a2
+0x1468BC	0x5C	src/runtime/run_audio_state_callbacks.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	af5ffb59c6a005788fd292921ab4bcd4248af2ba083b37d9bdbe2fbbb418e758
+0x14FC24	0x48	src/runtime/detach_runtime_object.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6970932a4c884b06d353e3cf9551fa54c040b9eae82cd23ba1c96a0247e36eb7
