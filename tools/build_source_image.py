@@ -98,6 +98,8 @@ def units(project: Path) -> list[Unit]:
                     normalization = 'ad30-stack-slots'
                 elif flag == '--normalize-16120-prologue':
                     normalization = '16120-prologue'
+                elif flag == '--normalize-d880-registers':
+                    normalization = 'd880-registers'
                 else:
                     flags.append(flag)
             if name == 'matching_ido_normalized.tsv':
@@ -137,7 +139,8 @@ def compile_unit(unit: Unit, project: Path, cfg, work: Path) -> tuple[Elf, str]:
             function = {'shadow-operands': mod.normalize_shadow_operands,
                         'debug-regions': mod.normalize_debug_regions,
                         'ad30-stack-slots': mod.normalize_ad30_stack_slots,
-                        '16120-prologue': mod.normalize_16120_prologue}[unit.normalization]
+                        '16120-prologue': mod.normalize_16120_prologue,
+                        'd880-registers': mod.normalize_d880_registers}[unit.normalization]
         function(elf)
     return elf, raw_hash
 

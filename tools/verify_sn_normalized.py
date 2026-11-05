@@ -155,6 +155,53 @@ def normalize_16120_prologue(elf: Elf) -> None:
         section.data = bytes(data)
 
 
+def normalize_d880_registers(elf: Elf) -> None:
+    """Apply the ROM compiler's equivalent temporary-register allocation."""
+    text = elf.section(".text")
+    if text is None or len(text.data) != 0xCBC:
+        raise ValueError("D880 compiler text extent changed")
+    reviewed = {
+        0x54C: (0x46000200, 0x46000180), 0x560: (0xC4E60000, 0xC4E80000),
+        0x564: (0x460A4000, 0x460A3000), 0x568: (0xE7A80018, 0xE7A60018),
+        0x570: (0x46062102, 0x46082102), 0x60C: (0x46000200, 0x46000180),
+        0x624: (0x460A4180, 0x460A3200), 0x628: (0xE7A80018, 0xE7A60018),
+        0x634: (0xE7A60018, 0xE7A80018), 0x6CC: (0x46000200, 0x46000180),
+        0x6E4: (0x460A4180, 0x460A3200), 0x6E8: (0xE7A80018, 0xE7A60018),
+        0x6F4: (0xE7A60018, 0xE7A80018), 0x78C: (0x46000200, 0x46000180),
+        0x7A4: (0x460A4180, 0x460A3200), 0x7A8: (0xE7A80018, 0xE7A60018),
+        0x7B4: (0xE7A60018, 0xE7A80018), 0x84C: (0x46000200, 0x46000180),
+        0x864: (0x460A4180, 0x460A3200), 0x868: (0xE7A80018, 0xE7A60018),
+        0x874: (0xE7A60018, 0xE7A80018), 0x90C: (0x46000200, 0x46000180),
+        0x924: (0x460A4180, 0x460A3200), 0x928: (0xE7A80018, 0xE7A60018),
+        0x934: (0xE7A60018, 0xE7A80018), 0x9CC: (0x46000200, 0x46000180),
+        0x9E4: (0x460A4180, 0x460A3200), 0x9E8: (0xE7A80018, 0xE7A60018),
+        0x9F4: (0xE7A60018, 0xE7A80018), 0xA8C: (0x46000200, 0x46000180),
+        0xAA4: (0x460A4180, 0x460A3200), 0xAA8: (0xE7A80018, 0xE7A60018),
+        0xAB4: (0xE7A60018, 0xE7A80018), 0xB24: (0x244B0000, 0x244A0000),
+        0xB34: (0x00184880, 0x00184080), 0xB3C: (0x02404021, 0x02404821),
+        0xB60: (0x01021021, 0x01221021), 0xB6C: (0x25080070, 0x25290070),
+        0xB74: (0x01022021, 0x01222021), 0xB9C: (0x01006021, 0x01206021),
+        0xBA0: (0x02E25004, 0x02E25804), 0xBBC: (0x004A1021, 0x004B1021),
+        0xBCC: (0x25080070, 0x25290070), 0xBE0: (0x01231821, 0x01031821),
+        0xBE4: (0x006B1821, 0x006A1821), 0xC34: (0x01221021, 0x01021021),
+        0xC38: (0x004B1021, 0x004A1021), 0xC58: (0x006B1821, 0x01031821),
+        0xC60: (0x00691821, 0x006A1821), 0xC80: (0x25080070, 0x25290070),
+    }
+    body = bytearray(text.data)
+    relocations = {offset for offset, *_ in elf.relocations(text)}
+    for offset, (compiled, expected) in reviewed.items():
+        actual = struct.unpack_from(">I", body, offset)[0]
+        if actual != compiled:
+            raise ValueError(
+                f"D880 reviewed word at 0x{offset:X} changed: "
+                f"0x{actual:08X} != 0x{compiled:08X}"
+            )
+        if offset in relocations and offset != 0xB24:
+            raise ValueError(f"D880 unexpected relocation at 0x{offset:X}")
+        struct.pack_into(">I", body, offset, expected)
+    text.data = bytes(body)
+
+
 def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
     config = load_config(project)
     compiler = config.toolchain("sn")
@@ -186,6 +233,8 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
                     normalizer = normalize_ad30_stack_slots
                 elif flag == "--normalize-16120-prologue":
                     normalizer = normalize_16120_prologue
+                elif flag == "--normalize-d880-registers":
+                    normalizer = normalize_d880_registers
                 elif flag.startswith("--section-base="):
                     section, value = flag.split("=", 1)[1].split(":", 1)
                     bases[section] = int(value, 0)
