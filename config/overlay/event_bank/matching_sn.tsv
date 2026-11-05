@@ -2183,3 +2183,5 @@
 0x877dc	0x54	src/overlays/event_bank_func_800877DC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5d808e7958cd09cb368217688ee6747073997eb3ebed7395b85898365bc91bcf
 0xdad30	0x44	src/overlays/event_bank_func_800DAD30.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	27f2d75bb335ac6218c20ac483990386340d7a30de641ea69ee89a56c199c272
 0xfe380	0x58	src/overlays/event_bank_func_800FE380.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	814282f872befc2778f7f165cf76246fdc31316f2bae3e41f5003cd5e53089f1
+0xa0fb4	0x58	src/overlays/event_bank_func_800A0FB4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	8d3ae813820b5ad9aa9bc46735d218bf07de0db077336104ba7f83269222c59a
+0xa100c	0x8	src/overlays/event_bank_noop_800A100C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
