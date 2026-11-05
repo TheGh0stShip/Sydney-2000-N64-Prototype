@@ -116,6 +116,45 @@ def normalize_ad30_stack_slots(elf: Elf) -> None:
     text.data = bytes(body)
 
 
+def normalize_16120_prologue(elf: Elf) -> None:
+    """Reproduce the ROM compiler's equivalent prologue schedule."""
+    text = elf.section(".text")
+    if text is None or len(text.data) != 0x11AC:
+        raise ValueError("16120 compiler text extent changed")
+    order = {
+        0x24: 0x30, 0x28: 0x34, 0x2C: 0x38, 0x30: 0x24, 0x34: 0x28,
+        0x38: 0x2C, 0x3C: 0x40, 0x40: 0x44, 0x44: 0x48, 0x48: 0x3C,
+    }
+    expected = {
+        0x24: 0x3C020000, 0x28: 0xAFB500B4, 0x2C: 0x24550000,
+        0x30: 0x3C020000, 0x34: 0xAFB600B8, 0x38: 0x0040B021,
+        0x3C: 0x3C020000, 0x40: 0xAFA400E0, 0x44: 0x8C440000,
+        0x48: 0x8EC30000,
+    }
+    original = text.data
+    body = bytearray(original)
+    for old, word in expected.items():
+        actual = struct.unpack_from(">I", original, old)[0]
+        if actual != word:
+            raise ValueError(
+                f"16120 reviewed word at 0x{old:X} changed: "
+                f"0x{actual:08X} != 0x{word:08X}"
+            )
+        body[order[old]:order[old] + 4] = original[old:old + 4]
+    text.data = bytes(body)
+
+    for section in elf.sections:
+        if section.info != text.index or section.type not in (9, 4):
+            continue
+        step = 8 if section.type == 9 else 12
+        data = bytearray(section.data)
+        for pos in range(0, len(data), step):
+            offset = struct.unpack_from(">I", data, pos)[0]
+            if offset in order:
+                struct.pack_into(">I", data, pos, order[offset])
+        section.data = bytes(data)
+
+
 def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
     config = load_config(project)
     compiler = config.toolchain("sn")
@@ -145,6 +184,8 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
                     normalizer = normalize_debug_regions
                 elif flag == "--normalize-ad30-stack-slots":
                     normalizer = normalize_ad30_stack_slots
+                elif flag == "--normalize-16120-prologue":
+                    normalizer = normalize_16120_prologue
                 elif flag.startswith("--section-base="):
                     section, value = flag.split("=", 1)[1].split(":", 1)
                     bases[section] = int(value, 0)
