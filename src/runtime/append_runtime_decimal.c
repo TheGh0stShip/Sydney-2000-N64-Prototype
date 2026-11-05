@@ -48,7 +48,8 @@ static __inline__ s32 splitDecimal(f32 value,u16 places,s32 *integer,s32 *fracti
     if((f32)part<0.0f) *fraction=-part;
     return negative;
 }
-void func_800B2F44(void *object,f32 value,u16 places,s16 width) {
+void func_800B2F44(void *object,f32 value,u16 places,s32 rawWidth) {
+    s16 width=rawWidth;
     s32 whole,fraction;
     s32 negative=splitDecimal(value,places,&whole,&fraction);
     func_800B2DD8(object,whole,-width,negative && whole==0);

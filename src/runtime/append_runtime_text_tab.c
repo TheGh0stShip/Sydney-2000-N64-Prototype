@@ -17,7 +17,7 @@ extern u16 tabStep;
 extern u16 runTabCount;
 extern u16 runTabValues[];
 extern s16 tabStops[];
-void func_800B2468(void) {
+void func_800B2468(void *unusedObject) {
     u16 index;
     if(runOutput>&runBufferEnd) return;
     if(!customTabsEnabled) {
