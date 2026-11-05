@@ -5,6 +5,7 @@
 0x6F66C	0x4	src/overlays/closing_return_stack_136.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	23020bbaac429c151f7facd9b6df01641f079e317c792134f79d91ac4cfe7b44
 0x6FC24	0x4	src/overlays/closing_return_stack_88.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b6465877b90a18a85e33cd665b35cc6640fa0486610037da349d4bf5870b9c94
 0x6FE10	0x4	src/overlays/closing_return_stack_184.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	516284a8d7c814a35ecb660573df4ff8bac3aef6aae9e7e0c0ef9593b8f126d1
+0x6FE14	0x254	src/overlays/closing_release_medal_objects.c	--symbol=func_800AC308:0x800AC308 --symbol=func_800AACB0:0x800AACB0 --symbol=func_800AA658:0x800AA658 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3338fa38f98720f9fd5c98e1a8cf5bfa3851ddb7911b320d94ceb335265cde04
 0x70068	0x8	src/overlays/ceremony_noop_event.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
 0x700A8	0x90	src/overlays/ceremony_initialize_event_record.c	--symbol=func_800B3870:0x800B3870 --symbol=func_800AC334:0x800AC334 --symbol=func_800AC37C:0x800AC37C --symbol=func_800A9B78:0x800A9B78 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	61112b25445433a8207adef7c765c81801aa6e25da31182d6aaf6bde7d26a28b
 0x6F2E4	0x120	src/overlays/ceremony_shutdown.c	--symbol=ceremonyGlobalObject:0x800F3BC0 --symbol=ceremonyAudioState:0x800F1AE0 --symbol=ceremonyInputState:0x800F2AD8 --symbol=ceremonyOutputState:0x800F26E0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ce377fdf3c048a46d7250b4b10f19f5fc3480c71e82f045729875cf4d8ecad59
