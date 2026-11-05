@@ -176,8 +176,14 @@ size/offset/auxiliary words and terminated 64-byte names. Record addresses,
 `make verify-archive-directory` compares the completed component against the
 original afterward. `make archive-directory-test` checks packing and rejects
 invalid metadata. Outputs live in `build/rom_components/file_directory.bin` and
-its provenance JSON. No payloads or executable blobs are copied, and these
-metadata bytes add no code-decompilation credit.
+its provenance JSON. These metadata bytes add no code-decompilation credit.
+
+`make archive-assets` extracts the 6,046 unique payload objects into individually
+hashed build inputs, validates them against the typed directory inventory, and
+reassembles the complete `0x224B78..0x1DC1CE2` payload span. Duplicate aliases
+share their canonical object and the 2,093 alignment bytes are regenerated as
+`0xFF`. These preserved proprietary-format assets are explicitly classified as
+extracted assets, not decompiled code or source-authored data.
 
 ## Typed initialized-data sources
 
@@ -227,7 +233,7 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 3,343,142 bytes; 30,211,290 bytes remain unowned.
+The current partial owns 32,298,128 bytes; 1,256,304 bytes remain unowned.
 The generated gap ledger records all 98 uncovered intervals. The startup-runtime
 provider contributes 27,600 exact bytes from 157 matching compilation units;
 the remainder of that mixed code/data image is still explicitly unowned.
@@ -242,7 +248,7 @@ These are reconstruction extents, not a whole-game decompilation percentage.
 `make reconstructed-rom` is the completion gate. It refuses a full ROM filename
 while any byte is unowned or the final SHA-1 differs from the accepted image.
 IPL3, executable overlays, the remaining runtime code/data, and asset
-payloads still need explicit reconstruction providers. Tests include a partial
+remaining overlay/runtime regions still need explicit reconstruction providers. Tests include a partial
 image whose SHA-1 happens to match an expected fixture, ensuring that holes still
 prevent completion. Run `make reconstruction-test` for those checks.
 

@@ -6,7 +6,7 @@ N64DK_PYTHON ?= $(N64DK_ROOT)/.venv/bin/python
 N64DK_TOOLCHAIN ?= ../BattleTanx/.toolchain
 N64DK := PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) -m n64dk
 
-.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check overlay-survey overlay-survey-check verify-runtime verify-overlays runtime-link-plan runtime-pieces ceremony-link-plan ceremony-pieces closing-link-plan closing-pieces source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory verify-archive-directory archive-directory-test initialized-data initialized-data-verify initialized-data-test initialized-data-check reconstruction reconstruction-verify reconstructed-rom reconstruction-test validate-runtime-priority validate-runtime-memory rsp-tools rsp-pieces rsp-verify rsp-check rsp-test clean
+.PHONY: all setup verify verify-matching inventory inventory-check report report-check report-test data-ledger data-ledger-check validate-aligned-heap validate-scene-lights validate-render-queue runtime-survey runtime-survey-check overlay-survey overlay-survey-check verify-runtime verify-overlays runtime-link-plan runtime-pieces ceremony-link-plan ceremony-pieces closing-link-plan closing-pieces source-link-plan source-pieces resident-partial source-image-verify source-image-test validate-mapped-inputs validate-texture-sheets archive-directory archive-assets verify-archive-assets archive-assets-test verify-archive-directory archive-directory-test initialized-data initialized-data-verify initialized-data-test initialized-data-check reconstruction reconstruction-verify reconstructed-rom reconstruction-test validate-runtime-priority validate-runtime-memory rsp-tools rsp-pieces rsp-verify rsp-check rsp-test clean
 
 all: setup
 
@@ -15,7 +15,7 @@ setup: $(BUILD_DIR)/main_segment.bin
 $(BUILD_DIR)/main_segment.bin: $(BASEROM) tools/extract.py
 	$(PYTHON) tools/extract.py $(BASEROM) $(BUILD_DIR)
 
-verify: $(BASEROM) rsp-test rsp-verify report-test source-image-test initialized-data-test reconstruction-test initialized-data-verify archive-directory-test verify-archive-directory data-ledger-check inventory-check verify-matching verify-runtime verify-overlays
+verify: $(BASEROM) rsp-test rsp-verify report-test source-image-test initialized-data-test reconstruction-test initialized-data-verify archive-directory-test archive-assets-test verify-archive-directory verify-archive-assets data-ledger-check inventory-check verify-matching verify-runtime verify-overlays
 	$(PYTHON) tools/verify.py $(BASEROM)
 
 inventory: $(BASEROM)
@@ -76,6 +76,16 @@ verify-archive-directory: $(BASEROM)
 archive-directory-test:
 	$(PYTHON) tools/test_archive_directory.py
 
+archive-assets: $(BASEROM)
+	$(PYTHON) tools/build_archive_payload.py extract --rom $(BASEROM)
+	$(PYTHON) tools/build_archive_payload.py build
+
+verify-archive-assets: archive-assets
+	$(PYTHON) tools/build_archive_payload.py build --verify-rom $(BASEROM)
+
+archive-assets-test:
+	$(PYTHON) tools/test_archive_payload.py
+
 initialized-data:
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) N64DK_TOOLCHAIN=$(abspath $(N64DK_TOOLCHAIN)) $(N64DK_PYTHON) tools/build_initialized_data.py build
 
@@ -89,14 +99,14 @@ initialized-data-test:
 	$(PYTHON) tools/test_initialized_data.py
 
 # Composition reads source artifacts only; verification may read ROM afterward.
-reconstruction: source-pieces runtime-pieces ceremony-pieces closing-pieces initialized-data rsp-pieces archive-directory
+reconstruction: source-pieces runtime-pieces ceremony-pieces closing-pieces initialized-data rsp-pieces archive-directory archive-assets
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/compose_reconstruction.py
 
-reconstruction-verify: source-pieces runtime-pieces ceremony-pieces closing-pieces initialized-data rsp-pieces archive-directory $(BASEROM)
+reconstruction-verify: source-pieces runtime-pieces ceremony-pieces closing-pieces initialized-data rsp-pieces archive-directory archive-assets $(BASEROM)
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/compose_reconstruction.py --verify-rom $(BASEROM)
 
 # This must fail while any ROM byte is unowned or the final SHA-1 differs.
-reconstructed-rom: source-pieces runtime-pieces ceremony-pieces closing-pieces initialized-data rsp-pieces archive-directory
+reconstructed-rom: source-pieces runtime-pieces ceremony-pieces closing-pieces initialized-data rsp-pieces archive-directory archive-assets
 	PYTHONPATH=$(abspath $(N64DK_ROOT)) $(N64DK_PYTHON) tools/compose_reconstruction.py --require-complete
 
 reconstruction-test:

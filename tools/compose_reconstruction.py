@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compose verified source artifacts into an explicitly partial preservation ROM.
+"""Compose verified source and extracted-asset artifacts into a preservation ROM.
 
 No original ROM supplies bytes. Only frozen resident source pieces, typed
 initialized-data pieces, symbolic RSP microcode, and reconstructed archive-directory metadata are
@@ -21,6 +21,7 @@ ROM_SHA1 = '711c79790a713e65cc2ecb4857f35898b8e92985'
 RESIDENT_START, RESIDENT_END, RESIDENT_DELTA = 0x1000, 0x69070, 0x7FFFF400
 RUNTIME_START, RUNTIME_END, RUNTIME_DELTA = 0x127640, 0x1A3AB0, 0x7FF5C710
 DIRECTORY_START, DIRECTORY_END, DIRECTORY_RECORDS = 0x1A3AB0, 0x224B78, 6955
+PAYLOAD_START, PAYLOAD_END = 0x224B78, 0x1DC1CE2
 TARGET = {'architecture': 'mips', 'byte_order': 'big', 'pointer_bits': 32, 'abi': 'o32'}
 REGIONS = ((0, 0x40, 'header'), (0x40, 0x1000, 'IPL3 executable'),
            (0x1000, 0x69070, 'resident code and initialized data'),
@@ -534,15 +535,50 @@ def load_directory(evidence, artifact):
                                     'source': metadata['source']})]
 
 
+def load_archive_payload(evidence, artifact):
+    if not artifact.is_file():
+        raise ValueError('archive payload artifact missing; run make archive-assets')
+    metadata = evidence.json(artifact)
+    if (metadata.get('version') != 1 or metadata.get('kind') != 'extracted named archive assets' or
+            not metadata.get('complete_component') or metadata.get('complete_rom') is not False):
+        raise ValueError('unsupported archive payload artifact kind')
+    if (metadata['rom_start'], metadata['rom_end'], metadata['size']) != (
+            PAYLOAD_START, PAYLOAD_END, PAYLOAD_END - PAYLOAD_START):
+        raise ValueError('archive payload escapes its assigned extent')
+    evidence.repo(metadata['inventory'], metadata['inventory_sha256'])
+    evidence.repo('tools/build_archive_payload.py', metadata['generator_sha256'])
+    asset_dir = evidence.project / 'build/archive_assets/files'
+    if metadata['asset_count'] != len(metadata['inputs']):
+        raise ValueError('archive payload asset count changed')
+    for item in metadata['inputs']:
+        path = safe_path(asset_dir, item['file'])
+        data = evidence.read(path, item['sha256'])
+        if len(data) != item['size'] or hashlib.sha1(data).hexdigest() != item['sha1']:
+            raise ValueError(f'archive asset failed validation: {item["file"]}')
+    import build_archive_payload as payload
+    rebuilt, expected_inputs = payload.assemble(
+        safe_path(evidence.project, metadata['inventory']), asset_dir)
+    if expected_inputs != metadata['inputs']:
+        raise ValueError('archive payload input manifest differs from inventory/assets')
+    data = piece_bytes(evidence, artifact, metadata, metadata['size'], metadata['sha256'])
+    if data != rebuilt:
+        raise ValueError('archive payload artifact differs from its named assets')
+    return [(PAYLOAD_START, data, {'owner': 'archive-assets',
+                                  'kind': 'extracted named archive assets',
+                                  'source': metadata['inventory']})]
+
+
 def compose(project, resident, initialized, directory, output, verify_rom=None,
-            require_complete=False, rsp=None, runtime=None, ceremony=None, closing=None):
+            require_complete=False, rsp=None, runtime=None, ceremony=None, closing=None,
+            payload=None):
     evidence = Evidence(project)
     evidence.repo('tools/compose_reconstruction.py', sha256(Path(__file__).read_bytes()))
     rsp = rsp or project / 'build/rsp/rsp.json'
     runtime = runtime or project / 'build/runtime_image/source_image.json'
     ceremony = ceremony or project / 'build/overlay_ceremony/source_image.json'
     closing = closing or project / 'build/overlay_closing/source_image.json'
-    for path in (resident, initialized, directory, rsp, runtime, ceremony, closing):
+    payload = payload or project / 'build/rom_components/archive_payload.json'
+    for path in (resident, initialized, directory, rsp, runtime, ceremony, closing, payload):
         if not path.resolve().is_relative_to(project.resolve()):
             raise ValueError('component metadata must be inside the project')
     data_intervals = classified_data(evidence)
@@ -553,6 +589,7 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
               load_ceremony(evidence, ceremony) +
               load_closing(evidence, closing) +
               load_directory(evidence, directory) +
+              load_archive_payload(evidence, payload) +
               load_static_layout(evidence))
     image, provenance = RomImage(ROM_SIZE), []
     for start, data, source in pieces:
@@ -616,6 +653,7 @@ def main():
     parser.add_argument('--ceremony', type=Path, default=ROOT / 'build/overlay_ceremony/source_image.json')
     parser.add_argument('--closing', type=Path, default=ROOT / 'build/overlay_closing/source_image.json')
     parser.add_argument('--directory', type=Path, default=ROOT / 'build/rom_components/file_directory.json')
+    parser.add_argument('--payload', type=Path, default=ROOT / 'build/rom_components/archive_payload.json')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/reconstruction')
     parser.add_argument('--verify-rom', type=Path)
     parser.add_argument('--require-complete', action='store_true')
@@ -624,7 +662,7 @@ def main():
             args.directory.resolve(), args.output.resolve(),
             args.verify_rom.resolve() if args.verify_rom else None, args.require_complete,
             args.rsp.resolve(), args.runtime.resolve(), args.ceremony.resolve(),
-            args.closing.resolve())
+            args.closing.resolve(), args.payload.resolve())
 
 
 if __name__ == '__main__':
