@@ -6,7 +6,9 @@ start	end	size	class	category	kind	name	evidence
 0x2EC0	0x2F90	208	code	program	rsp_text	rspboot	symbolic ARMIPS source: 204 instruction bytes plus four alignment bytes
 0x2F90	0x4320	5008	code	program	rsp_text	f3dex2_fifo_2_08	pinned symbolic F3DEX source including IMEM overlays; full source-built comparison
 0x4320	0x4F80	3168	code	program	rsp_text	n_aspMain	symbolic ARMIPS source; full source-built comparison
-0x4F80	0x39170	213488	code	program	.text	text_80004380	datamap section
+0x4F80	0x28A68	146152	code	program	.text	text_80004380	datamap section; ends at func_80027DE0
+0x28A68	0x28C34	460	data	program	.rodata	delay_coefficients_80027E68	typed u16[230] referenced by func_80027DB4
+0x28C34	0x39170	66876	code	program	.text	text_80028034	datamap section
 0x39170	0x69070	196352	data	program	.data	data_80038570	datamap section
 0x69070	0x6EA00	22928	unknown	-	-	gap_69070	-
 0x6EA00	0x70800	7680	referenced	loader_range	raw	rom_6EA00	records 0x80072A6C in 0x800AD9BC

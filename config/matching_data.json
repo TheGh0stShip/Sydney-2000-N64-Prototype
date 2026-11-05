@@ -1,8 +1,8 @@
 {
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
-  "total_data": 204164,
-  "matched_data": 7392,
+  "total_data": 204624,
+  "matched_data": 7852,
   "ranges": [
     {
       "rom_start": 4536,
@@ -167,6 +167,12 @@
       "sha256": "be62569c07df8fb1c51c0a5acf7c52a7b30a9ba17bcca7d2b641c4da965fea12"
     },
     {
+      "rom_start": 166504,
+      "rom_end": 166964,
+      "size": 460,
+      "sha256": "f4d68e4bd7d204fe43cfe0e8301083689d8bbb13d040b6b05e3e5863a6754ea7"
+    },
+    {
       "rom_start": 233840,
       "rom_end": 234896,
       "size": 1056,
@@ -230,7 +236,7 @@
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "ab986189e5d5038d14b6126d69402ebf5148d2fdc2f9a18172a75612843b1c6c"
+      "sha256": "0fa608a4078c7f3751844890f47c8c590d92928a433f81711f04300f29970ee2"
     },
     {
       "path": "config/link_units.json",
@@ -286,7 +292,7 @@
     },
     {
       "path": "config/survey/ledger.tsv",
-      "sha256": "561cdfed26f9e916adaa9ce91720c3883271593d9afbbab92bb53d452ca4816c"
+      "sha256": "8b7bba67e40984d5ad784c0a72fa18bc4fab261e7f88646ca37653839cfa6d9a"
     },
     {
       "path": "config/survey/symbol_addrs.txt",
@@ -299,6 +305,10 @@
     {
       "path": "src/boot/entry.s",
       "sha256": "25292d580f2b51369ab8d73a52cf77e6797260bdb0917d8451305b120de3b9dc"
+    },
+    {
+      "path": "src/data/audio_delay_coefficients.c",
+      "sha256": "44c2274055c261593664575736909b173726fb4e773940ba9066645b78e521a0"
     },
     {
       "path": "src/data/scene_light_state.c",
@@ -4583,6 +4593,29 @@
       "sha256": "c6851b4e3b0d89b2de736074fa8ec03d9c705b3c688370fead97c74d38959ecf"
     },
     {
+      "source": "src/data/audio_delay_coefficients.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "audio_delay_coefficients",
+      "section": ".rodata",
+      "rom_start": 166504,
+      "rom_end": 166964,
+      "size": 460,
+      "vram_start": 2147647080,
+      "sha256": "f4d68e4bd7d204fe43cfe0e8301083689d8bbb13d040b6b05e3e5863a6754ea7",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "0bf1bc61f6115e3d533be53a064afdde8aa36c3f54fda4c1e2a6daf5cb8767e2",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "tools/f3dex2/f3dex2.s",
       "pipeline": "armips-rsp",
       "manifest": "config/rsp/units.json",
@@ -4624,7 +4657,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "936c8bf669a02c8b2c340ee102dc08444403568b49dec4be16c4ca7ba028e8f4",
+      "object_sha256": "c71dadcfa091eacc923621eb1cad033a3972474eb58105ff0e2c220642ffabfe",
       "provider": "typed-initialized-data"
     },
     {
@@ -4967,10 +5000,10 @@
     }
   ],
   "verification": {
-    "units": 652,
-    "exact_units": 652,
+    "units": 653,
+    "exact_units": 653,
     "text_units": 648,
-    "data_only_units": 1,
+    "data_only_units": 2,
     "rsp_programs": 3
   },
   "source_image_provider": {
@@ -5195,7 +5228,11 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "ab986189e5d5038d14b6126d69402ebf5148d2fdc2f9a18172a75612843b1c6c"
+        "sha256": "0fa608a4078c7f3751844890f47c8c590d92928a433f81711f04300f29970ee2"
+      },
+      {
+        "path": "src/data/audio_delay_coefficients.c",
+        "sha256": "44c2274055c261593664575736909b173726fb4e773940ba9066645b78e521a0"
       },
       {
         "path": "src/data/scene_light_state.c",
@@ -5414,6 +5451,21 @@
     ],
     "units": [
       {
+        "unit_id": "audio_delay_coefficients",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/audio_delay_coefficients.c",
+        "object_sha256": "0bf1bc61f6115e3d533be53a064afdde8aa36c3f54fda4c1e2a6daf5cb8767e2",
+        "symbols": {}
+      },
+      {
         "unit_id": "scene_light_state",
         "pipeline": "sn",
         "compiler_flags": [
@@ -5425,11 +5477,11 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "936c8bf669a02c8b2c340ee102dc08444403568b49dec4be16c4ca7ba028e8f4",
+        "object_sha256": "c71dadcfa091eacc923621eb1cad033a3972474eb58105ff0e2c220642ffabfe",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 168,
+    "unique_initialized_bytes": 628,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -5575,10 +5627,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-tv343o4g/rspboot/code.bin",
+          "/tmp/sydney-rsp-tyful4i6/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-tv343o4g/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-tv343o4g/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-tyful4i6/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-tyful4i6/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -5593,10 +5645,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-tv343o4g/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-tyful4i6/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-tv343o4g/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-tyful4i6/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -5607,9 +5659,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-tv343o4g/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-tyful4i6/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-tv343o4g/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-tyful4i6/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
@@ -5728,6 +5780,6 @@
   },
   "classification": {
     "path": "config/survey/ledger.tsv",
-    "sha256": "561cdfed26f9e916adaa9ce91720c3883271593d9afbbab92bb53d452ca4816c"
+    "sha256": "8b7bba67e40984d5ad784c0a72fa18bc4fab261e7f88646ca37653839cfa6d9a"
   }
 }

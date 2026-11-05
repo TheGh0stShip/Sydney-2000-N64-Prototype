@@ -17,6 +17,34 @@
   ],
   "units": [
     {
+      "id": "audio_delay_coefficients",
+      "source": "src/data/audio_delay_coefficients.c",
+      "inputs": {
+        "src/data/audio_delay_coefficients.c": "44c2274055c261593664575736909b173726fb4e773940ba9066645b78e521a0"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".rodata",
+          "segment": "resident",
+          "rom_start": 166504,
+          "vram": 2147647080,
+          "size": 460,
+          "sha256": "f4d68e4bd7d204fe43cfe0e8301083689d8bbb13d040b6b05e3e5863a6754ea7"
+        }
+      ]
+    },
+    {
       "id": "scene_light_state",
       "source": "src/data/scene_light_state.c",
       "inputs": {
