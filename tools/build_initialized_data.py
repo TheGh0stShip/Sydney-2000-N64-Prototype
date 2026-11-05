@@ -20,6 +20,12 @@ TARGET = {'architecture': 'mips', 'byte_order': 'big', 'pointer_bits': 32, 'abi'
 INITIALIZED_NAMES = {'.data', '.rodata', '.rdata', '.sdata', '.lit4', '.lit8'}
 
 
+def initialized_name(name: str) -> bool:
+    return name in INITIALIZED_NAMES or any(
+        name.startswith(prefix + '.') for prefix in INITIALIZED_NAMES
+    )
+
+
 def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
@@ -74,7 +80,7 @@ def validate_manifest(config: dict, project: Path) -> None:
                 raise ValueError('symbol does not fit a 32-bit N64 address')
         names = set()
         for section in unit['sections']:
-            if section['name'] not in INITIALIZED_NAMES or section['name'] in names:
+            if not initialized_name(section['name']) or section['name'] in names:
                 raise ValueError('unexpected or duplicate initialized section declaration')
             names.add(section['name'])
             segment = maps[section['segment']]
@@ -127,6 +133,8 @@ def extract_pieces(elf, flags: dict[str, int], unit: dict) -> list[Piece]:
     bases = {name: section['vram'] for name, section in declarations.items()}
     found, result = set(), []
     for section in elf.sections:
+        if section.name in ('.reginfo', '.MIPS.abiflags'):
+            continue
         if section.size and (section.name == '.text' or flags.get(section.name, 0) & 4):
             raise ValueError(f'{unit["id"]}: executable text is forbidden in data-only units')
         if not section.size or section.type == 8:

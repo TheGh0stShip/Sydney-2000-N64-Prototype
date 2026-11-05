@@ -2,7 +2,7 @@
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
   "total_data": 204624,
-  "matched_data": 89412,
+  "matched_data": 190048,
   "ranges": [
     {
       "rom_start": 4156,
@@ -18,21 +18,99 @@
     },
     {
       "rom_start": 233840,
-      "rom_end": 235584,
-      "size": 1744,
-      "sha256": "71ee0710fcf94e3721b1485840d2235bc0f472bcc9e40ed2e5dfd1185e5664d6"
+      "rom_end": 279152,
+      "size": 45312,
+      "sha256": "d06a70ea290bc4d8b49ea1830dd06270de6872ee94cdd5bc3c1331c0473ab1e0"
     },
     {
-      "rom_start": 280904,
+      "rom_start": 279316,
       "rom_end": 281072,
-      "size": 168,
-      "sha256": "e3c2af35d1dfc500e16f826a071cc311bf55003a3de77de7ea3376c6b6fa2857"
+      "size": 1756,
+      "sha256": "c0601bc1bac97e69da3ef3e2898aafe64aec5ae4f3ccbdb7649471f76da4ca0e"
+    },
+    {
+      "rom_start": 281332,
+      "rom_end": 283072,
+      "size": 1740,
+      "sha256": "7922f0740fe5f5240b5a7cab0fbfd582cf95a3b2d1f0fe1e39df427a22736b85"
+    },
+    {
+      "rom_start": 283148,
+      "rom_end": 287408,
+      "size": 4260,
+      "sha256": "6bfd6a22f89151edacbcdb2f0ed879b95194b575df9fe2e323fbb8ba87bbaebd"
+    },
+    {
+      "rom_start": 287412,
+      "rom_end": 295956,
+      "size": 8544,
+      "sha256": "c2dece9c9f14c67b8aafabdcb80793f1cffe95a801e15d648fd214a0522ee825"
     },
     {
       "rom_start": 296372,
       "rom_end": 373760,
       "size": 77388,
       "sha256": "ce0c6251de7c85ffe20ff76fd8fb4a8ffc7951602097b66e99fa3d7d4a908243"
+    },
+    {
+      "rom_start": 374276,
+      "rom_end": 374532,
+      "size": 256,
+      "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
+    },
+    {
+      "rom_start": 374644,
+      "rom_end": 374920,
+      "size": 276,
+      "sha256": "d489001ff88ed206b56f44bd0789a8332510f33bf40a312a7b2e5d60c3fe3e03"
+    },
+    {
+      "rom_start": 374952,
+      "rom_end": 394660,
+      "size": 19708,
+      "sha256": "67d9a9195a771294c33ef2db2581e192a999b917e9358e77c1e1da7028404e6d"
+    },
+    {
+      "rom_start": 394804,
+      "rom_end": 404724,
+      "size": 9920,
+      "sha256": "d28508191d050553eb5349e4295f76f9cb76becbcc5e3d4b35c30337ba4d620d"
+    },
+    {
+      "rom_start": 404768,
+      "rom_end": 405556,
+      "size": 788,
+      "sha256": "3e84c247e11701fb5451865acb6262c8495d47c5f397a772a7bc01c9ce9f5b12"
+    },
+    {
+      "rom_start": 405680,
+      "rom_end": 409888,
+      "size": 4208,
+      "sha256": "31fb5d4b4a6f5fa99617cd77dfab4ca388c9a6b1ae3ea5917c76d1b450c0e95b"
+    },
+    {
+      "rom_start": 412468,
+      "rom_end": 414520,
+      "size": 2052,
+      "sha256": "e68ca6f7790371a3d94c9b985c0cfe5e1d756fe145e2e8775afd3cb3c2911711"
+    },
+    {
+      "rom_start": 414524,
+      "rom_end": 416672,
+      "size": 2148,
+      "sha256": "a7335569d48864edd0dc5b8765cde893b39e47dabcd03ea55f255db814916a38"
+    },
+    {
+      "rom_start": 416844,
+      "rom_end": 417272,
+      "size": 428,
+      "sha256": "fced892c73c66d68fdbb01bb68464549f19996231e05ceddce888520d3b70227"
+    },
+    {
+      "rom_start": 421328,
+      "rom_end": 422480,
+      "size": 1152,
+      "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
     },
     {
       "rom_start": 422688,
@@ -86,7 +164,7 @@
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "847c5cdb86f5279776a3aa493ed1da761349dd74de7132cbb98d4ef7a9330a46"
+      "sha256": "097f34b07f6b15db2559a8cc8b1ffb727119f9aa1a2e5b49b9a5bcd3c3621457"
     },
     {
       "path": "config/link_units.json",
@@ -167,6 +245,10 @@
     {
       "path": "src/data/resident_zero_800479B4.c",
       "sha256": "1c788e70bcd546c596fb3a3571a327924d82cbbab644a272f28103285e80939f"
+    },
+    {
+      "path": "src/data/resident_zero_extents.c",
+      "sha256": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
     },
     {
       "path": "src/data/scene_light_state.c",
@@ -2258,7 +2340,7 @@
     },
     {
       "path": "tools/build_initialized_data.py",
-      "sha256": "ef038755fab11903269ae18cf615740dfac86ffa2f81506e7804c05bc66c965f"
+      "sha256": "86b5a12f4ad86355f9473aee9cbc07d5af2d17214cb635600ecc1fabf3901480"
     },
     {
       "path": "tools/build_rsp.py",
@@ -3658,7 +3740,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "fcc335d3dc456335aecb2f3be340d1110641fc651f4c906f0303205505aa93f1",
+      "object_sha256": "0effb2f71daf2ab6b70eb28153f855690c1d1143971fcf5887c0a73e852816d1",
       "provider": "typed-initialized-data"
     },
     {
@@ -4497,7 +4579,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "ac6d795fe3d62a0deb33a423d29c19c911d958a12a672ff391adb705bdc6efa9",
+      "object_sha256": "e0fab6b9e0ebca9d3cd6c64a7da1022a182b9f3a0f47f53a57a77ea9f7b8b722",
       "provider": "typed-initialized-data"
     },
     {
@@ -4520,7 +4602,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "fc06ce8f8005f52ad6ec296d36857cf3ab539fd9d9c429b624c34a9774bd40e6",
+      "object_sha256": "02aeeabd6c9c357f3fe616cdd0748f8a55e94cd128ca1fa0398b3dbfa81caa06",
       "provider": "typed-initialized-data"
     },
     {
@@ -4546,6 +4628,50 @@
       ]
     },
     {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_80038C40",
+      "rom_start": 235584,
+      "rom_end": 279152,
+      "size": 43568,
+      "vram_start": 2147716160,
+      "sha256": "0035fd21e2a61d052df3b55c2a7befe639fd4a846d8e10248070e380b6adbc6b",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_80043714",
+      "rom_start": 279316,
+      "rom_end": 281072,
+      "size": 1756,
+      "vram_start": 2147759892,
+      "sha256": "c0601bc1bac97e69da3ef3e2898aafe64aec5ae4f3ccbdb7649471f76da4ca0e",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/data/scene_light_state.c",
       "pipeline": "sn",
       "manifest": "config/data/units.json",
@@ -4565,7 +4691,73 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "21d66a8f51c6394035bbc174cf671aa9e59ba231bedc5df872a4c274057dd996",
+      "object_sha256": "72e0327693a36da4575c96faea1f045cb37664cb0e156f3df8e8242be4e5efe6",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_80043EF4",
+      "rom_start": 281332,
+      "rom_end": 283072,
+      "size": 1740,
+      "vram_start": 2147761908,
+      "sha256": "7922f0740fe5f5240b5a7cab0fbfd582cf95a3b2d1f0fe1e39df427a22736b85",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8004460C",
+      "rom_start": 283148,
+      "rom_end": 287408,
+      "size": 4260,
+      "vram_start": 2147763724,
+      "sha256": "6bfd6a22f89151edacbcdb2f0ed879b95194b575df9fe2e323fbb8ba87bbaebd",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_800456B4",
+      "rom_start": 287412,
+      "rom_end": 295956,
+      "size": 8544,
+      "vram_start": 2147767988,
+      "sha256": "c2dece9c9f14c67b8aafabdcb80793f1cffe95a801e15d648fd214a0522ee825",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
       "provider": "typed-initialized-data"
     },
     {
@@ -4588,7 +4780,227 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "6d467fd55982a1b97ecfd4587cf823045a569e4f0853e4569480a1e26a9905ea",
+      "object_sha256": "87aec65adebccd174d69303ed35477760ea47e81a6f1d78c94a54a92e128d72b",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8005AA04",
+      "rom_start": 374276,
+      "rom_end": 374532,
+      "size": 256,
+      "vram_start": 2147854852,
+      "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8005AB74",
+      "rom_start": 374644,
+      "rom_end": 374920,
+      "size": 276,
+      "vram_start": 2147855220,
+      "sha256": "d489001ff88ed206b56f44bd0789a8332510f33bf40a312a7b2e5d60c3fe3e03",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8005ACA8",
+      "rom_start": 374952,
+      "rom_end": 394660,
+      "size": 19708,
+      "vram_start": 2147855528,
+      "sha256": "67d9a9195a771294c33ef2db2581e192a999b917e9358e77c1e1da7028404e6d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8005FA34",
+      "rom_start": 394804,
+      "rom_end": 404724,
+      "size": 9920,
+      "vram_start": 2147875380,
+      "sha256": "d28508191d050553eb5349e4295f76f9cb76becbcc5e3d4b35c30337ba4d620d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_80062120",
+      "rom_start": 404768,
+      "rom_end": 405556,
+      "size": 788,
+      "vram_start": 2147885344,
+      "sha256": "3e84c247e11701fb5451865acb6262c8495d47c5f397a772a7bc01c9ce9f5b12",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_800624B0",
+      "rom_start": 405680,
+      "rom_end": 409888,
+      "size": 4208,
+      "vram_start": 2147886256,
+      "sha256": "31fb5d4b4a6f5fa99617cd77dfab4ca388c9a6b1ae3ea5917c76d1b450c0e95b",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_80063F34",
+      "rom_start": 412468,
+      "rom_end": 414520,
+      "size": 2052,
+      "vram_start": 2147893044,
+      "sha256": "e68ca6f7790371a3d94c9b985c0cfe5e1d756fe145e2e8775afd3cb3c2911711",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8006473C",
+      "rom_start": 414524,
+      "rom_end": 416672,
+      "size": 2148,
+      "vram_start": 2147895100,
+      "sha256": "a7335569d48864edd0dc5b8765cde893b39e47dabcd03ea55f255db814916a38",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_8006504C",
+      "rom_start": 416844,
+      "rom_end": 417272,
+      "size": 428,
+      "vram_start": 2147897420,
+      "sha256": "fced892c73c66d68fdbb01bb68464549f19996231e05ceddce888520d3b70227",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_zero_extents.c",
+      "pipeline": "kmc+as",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_zero_extents",
+      "section": ".data.zero_800661D0",
+      "rom_start": 421328,
+      "rom_end": 422480,
+      "size": 1152,
+      "vram_start": 2147901904,
+      "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32"
+      ],
+      "symbols": {},
+      "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
       "provider": "typed-initialized-data"
     },
     {
@@ -4931,10 +5343,10 @@
     }
   ],
   "verification": {
-    "units": 656,
-    "exact_units": 656,
+    "units": 657,
+    "exact_units": 657,
     "text_units": 648,
-    "data_only_units": 5,
+    "data_only_units": 6,
     "rsp_programs": 3
   },
   "source_image_provider": {
@@ -5159,7 +5571,7 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "847c5cdb86f5279776a3aa493ed1da761349dd74de7132cbb98d4ef7a9330a46"
+        "sha256": "097f34b07f6b15db2559a8cc8b1ffb727119f9aa1a2e5b49b9a5bcd3c3621457"
       },
       {
         "path": "src/data/audio_delay_coefficients.c",
@@ -5174,6 +5586,10 @@
         "sha256": "1c788e70bcd546c596fb3a3571a327924d82cbbab644a272f28103285e80939f"
       },
       {
+        "path": "src/data/resident_zero_extents.c",
+        "sha256": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+      },
+      {
         "path": "src/data/scene_light_state.c",
         "sha256": "a86b84ccc5e6f0ece0217776fe919fc4647469bf40b8220bbfd7eaaeab6bf622"
       },
@@ -5183,7 +5599,7 @@
       },
       {
         "path": "tools/build_initialized_data.py",
-        "sha256": "ef038755fab11903269ae18cf615740dfac86ffa2f81506e7804c05bc66c965f"
+        "sha256": "86b5a12f4ad86355f9473aee9cbc07d5af2d17214cb635600ecc1fabf3901480"
       }
     ],
     "toolkit_inputs": [
@@ -5405,7 +5821,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "fcc335d3dc456335aecb2f3be340d1110641fc651f4c906f0303205505aa93f1",
+        "object_sha256": "0effb2f71daf2ab6b70eb28153f855690c1d1143971fcf5887c0a73e852816d1",
         "symbols": {}
       },
       {
@@ -5420,7 +5836,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "ac6d795fe3d62a0deb33a423d29c19c911d958a12a672ff391adb705bdc6efa9",
+        "object_sha256": "e0fab6b9e0ebca9d3cd6c64a7da1022a182b9f3a0f47f53a57a77ea9f7b8b722",
         "symbols": {}
       },
       {
@@ -5435,7 +5851,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "fc06ce8f8005f52ad6ec296d36857cf3ab539fd9d9c429b624c34a9774bd40e6",
+        "object_sha256": "02aeeabd6c9c357f3fe616cdd0748f8a55e94cd128ca1fa0398b3dbfa81caa06",
         "symbols": {}
       },
       {
@@ -5450,7 +5866,21 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "6d467fd55982a1b97ecfd4587cf823045a569e4f0853e4569480a1e26a9905ea",
+        "object_sha256": "87aec65adebccd174d69303ed35477760ea47e81a6f1d78c94a54a92e128d72b",
+        "symbols": {}
+      },
+      {
+        "unit_id": "resident_zero_extents",
+        "pipeline": "kmc+as",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mips3",
+          "-mgp32",
+          "-mfp32"
+        ],
+        "source": "src/data/resident_zero_extents.c",
+        "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
         "symbols": {}
       },
       {
@@ -5465,11 +5895,11 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "21d66a8f51c6394035bbc174cf671aa9e59ba231bedc5df872a4c274057dd996",
+        "object_sha256": "72e0327693a36da4575c96faea1f045cb37664cb0e156f3df8e8242be4e5efe6",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 87572,
+    "unique_initialized_bytes": 188208,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -5615,10 +6045,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-str0tkkb/rspboot/code.bin",
+          "/tmp/sydney-rsp-ab9dxidt/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-str0tkkb/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-str0tkkb/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-ab9dxidt/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-ab9dxidt/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -5633,10 +6063,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-str0tkkb/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-ab9dxidt/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-str0tkkb/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-ab9dxidt/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -5647,9 +6077,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-str0tkkb/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-ab9dxidt/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-str0tkkb/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-ab9dxidt/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",

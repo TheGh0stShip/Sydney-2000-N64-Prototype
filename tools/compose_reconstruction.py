@@ -322,7 +322,9 @@ def load_initialized(evidence, artifact, data_intervals):
         for path, digest in unit['inputs'].items():
             evidence.repo(path, digest)
         for section in unit['sections']:
-            if section['name'] not in {'.data', '.rodata', '.rdata', '.sdata', '.lit4', '.lit8'}:
+            initialized = {'.data', '.rodata', '.rdata', '.sdata', '.lit4', '.lit8'}
+            if (section['name'] not in initialized and
+                    not any(section['name'].startswith(name + '.') for name in initialized)):
                 raise ValueError('typed-data artifact cannot own executable or unknown sections')
             key = unit['id'], section['name']
             if key in expected:

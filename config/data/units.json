@@ -115,6 +115,145 @@
       ]
     },
     {
+      "id": "resident_zero_extents",
+      "source": "src/data/resident_zero_extents.c",
+      "inputs": {
+            "src/data/resident_zero_extents.c": "a3b64dcaa6ec2910aaa560314f6a73a4178a1704a7627e33900de43d804de7e4"
+      },
+      "pipeline": "kmc+as",
+      "flags": [
+            "-O2",
+            "-G0",
+            "-mips3",
+            "-mgp32",
+            "-mfp32"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+            {
+                  "name": ".data.zero_80038C40",
+                  "segment": "resident",
+                  "rom_start": 235584,
+                  "vram": 2147716160,
+                  "size": 43568,
+                  "sha256": "0035fd21e2a61d052df3b55c2a7befe639fd4a846d8e10248070e380b6adbc6b"
+            },
+            {
+                  "name": ".data.zero_80043714",
+                  "segment": "resident",
+                  "rom_start": 279316,
+                  "vram": 2147759892,
+                  "size": 1756,
+                  "sha256": "c0601bc1bac97e69da3ef3e2898aafe64aec5ae4f3ccbdb7649471f76da4ca0e"
+            },
+            {
+                  "name": ".data.zero_80043EF4",
+                  "segment": "resident",
+                  "rom_start": 281332,
+                  "vram": 2147761908,
+                  "size": 1740,
+                  "sha256": "7922f0740fe5f5240b5a7cab0fbfd582cf95a3b2d1f0fe1e39df427a22736b85"
+            },
+            {
+                  "name": ".data.zero_8004460C",
+                  "segment": "resident",
+                  "rom_start": 283148,
+                  "vram": 2147763724,
+                  "size": 4260,
+                  "sha256": "6bfd6a22f89151edacbcdb2f0ed879b95194b575df9fe2e323fbb8ba87bbaebd"
+            },
+            {
+                  "name": ".data.zero_800456B4",
+                  "segment": "resident",
+                  "rom_start": 287412,
+                  "vram": 2147767988,
+                  "size": 8544,
+                  "sha256": "c2dece9c9f14c67b8aafabdcb80793f1cffe95a801e15d648fd214a0522ee825"
+            },
+            {
+                  "name": ".data.zero_8005AA04",
+                  "segment": "resident",
+                  "rom_start": 374276,
+                  "vram": 2147854852,
+                  "size": 256,
+                  "sha256": "5341e6b2646979a70e57653007a1f310169421ec9bdd9f1a5648f75ade005af1"
+            },
+            {
+                  "name": ".data.zero_8005AB74",
+                  "segment": "resident",
+                  "rom_start": 374644,
+                  "vram": 2147855220,
+                  "size": 276,
+                  "sha256": "d489001ff88ed206b56f44bd0789a8332510f33bf40a312a7b2e5d60c3fe3e03"
+            },
+            {
+                  "name": ".data.zero_8005ACA8",
+                  "segment": "resident",
+                  "rom_start": 374952,
+                  "vram": 2147855528,
+                  "size": 19708,
+                  "sha256": "67d9a9195a771294c33ef2db2581e192a999b917e9358e77c1e1da7028404e6d"
+            },
+            {
+                  "name": ".data.zero_8005FA34",
+                  "segment": "resident",
+                  "rom_start": 394804,
+                  "vram": 2147875380,
+                  "size": 9920,
+                  "sha256": "d28508191d050553eb5349e4295f76f9cb76becbcc5e3d4b35c30337ba4d620d"
+            },
+            {
+                  "name": ".data.zero_80062120",
+                  "segment": "resident",
+                  "rom_start": 404768,
+                  "vram": 2147885344,
+                  "size": 788,
+                  "sha256": "3e84c247e11701fb5451865acb6262c8495d47c5f397a772a7bc01c9ce9f5b12"
+            },
+            {
+                  "name": ".data.zero_800624B0",
+                  "segment": "resident",
+                  "rom_start": 405680,
+                  "vram": 2147886256,
+                  "size": 4208,
+                  "sha256": "31fb5d4b4a6f5fa99617cd77dfab4ca388c9a6b1ae3ea5917c76d1b450c0e95b"
+            },
+            {
+                  "name": ".data.zero_80063F34",
+                  "segment": "resident",
+                  "rom_start": 412468,
+                  "vram": 2147893044,
+                  "size": 2052,
+                  "sha256": "e68ca6f7790371a3d94c9b985c0cfe5e1d756fe145e2e8775afd3cb3c2911711"
+            },
+            {
+                  "name": ".data.zero_8006473C",
+                  "segment": "resident",
+                  "rom_start": 414524,
+                  "vram": 2147895100,
+                  "size": 2148,
+                  "sha256": "a7335569d48864edd0dc5b8765cde893b39e47dabcd03ea55f255db814916a38"
+            },
+            {
+                  "name": ".data.zero_8006504C",
+                  "segment": "resident",
+                  "rom_start": 416844,
+                  "vram": 2147897420,
+                  "size": 428,
+                  "sha256": "fced892c73c66d68fdbb01bb68464549f19996231e05ceddce888520d3b70227"
+            },
+            {
+                  "name": ".data.zero_800661D0",
+                  "segment": "resident",
+                  "rom_start": 421328,
+                  "vram": 2147901904,
+                  "size": 1152,
+                  "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
+            }
+      ]
+},
+    {
       "id": "scene_light_state",
       "source": "src/data/scene_light_state.c",
       "inputs": {
