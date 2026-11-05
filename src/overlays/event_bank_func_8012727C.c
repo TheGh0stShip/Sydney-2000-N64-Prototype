@@ -1,152 +1,74 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8012727C\n.ent func_8012727C\n"
-    "func_8012727C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $20,32($29)\n"
-    "move $20,$5\n"
-    "addiu $4,$17,24688\n"
-    "li $5,2\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "jal func_800CCE84\n"
-    "sw $16,16($29)\n"
-    "addiu $4,$17,23288\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $4,$17,21888\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $4,$17,20488\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $4,$17,19088\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $4,$17,17136\n"
-    "jal func_800CE1EC\n"
-    "li $5,2\n"
-    "addiu $4,$17,15208\n"
-    "jal func_800CC4B4\n"
-    "li $5,2\n"
-    "addiu $19,$17,4340\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-23408\n"
-    "sw $2,180($19)\n"
-    "addiu $2,$17,4580\n"
-    "beqz $2,L_80127340\n"
-    "addiu $16,$17,15180\n"
-    "beql $2,$16,L_80127344\n"
-    "move $4,$19\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_80127320:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_80127320\n"
-    "addiu $16,$16,-212\n"
-    "L_80127340:\n"
-    "move $4,$19\n"
-    "L_80127344:\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,4120\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,3900\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,3680\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,3460\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,3248\n"
-    "jal func_800CE380\n"
-    "li $5,2\n"
-    "addiu $4,$17,2340\n"
-    "jal func_800CD8A0\n"
-    "li $5,2\n"
-    "addiu $4,$17,2124\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,1912\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,1700\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $16,$17,1488\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $2,$17,852\n"
-    "beql $2,$0,L_80127424\n"
-    "addiu $16,$17,640\n"
-    "beql $2,$16,L_80127424\n"
-    "addiu $16,$17,640\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_80127400:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_80127400\n"
-    "addiu $16,$16,-212\n"
-    "addiu $16,$17,640\n"
-    "L_80127424:\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $2,$17,216\n"
-    "beqz $2,L_8012746C\n"
-    "addiu $4,$17,4\n"
-    "beq $2,$16,L_8012746C\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_80127448:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_80127448\n"
-    "addiu $16,$16,-212\n"
-    "addiu $4,$17,4\n"
-    "L_8012746C:\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "andi $2,$20,0x1\n"
-    "beqz $2,L_80127488\n"
-    "nop\n"
-    "jal func_80004380\n"
-    "move $4,$17\n"
-    "L_80127488:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8012727C\n.set at\n.set reorder\n");
+typedef struct VtEntry {
+    short offset;
+    short pad;
+    void (*func)(void *, ...);
+} VtEntry;
+
+extern char D_8008A490[];
+extern char D_80086598[];
+extern void func_800CCE84(void *object, int mode);
+extern void func_800D3460(void *object, int mode);
+extern void func_800CE1EC(void *object, int mode);
+extern void func_800CC4B4(void *object, int mode);
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800CE380(void *object, int mode);
+extern void func_800CD8A0(void *object, int mode);
+extern void func_80004380(void *object);
+
+#define DESTROY_ARRAY(base, count) \
+    q = (base); \
+    if (q != 0) { \
+        p = (base) + (count) * 212; \
+        if (q != p) { \
+            char *arr = q; \
+            do { \
+                p -= 212; \
+                vt = *(VtEntry **)(p + 180); \
+                vt[1].func(p + vt[1].offset, 2); \
+            } while (arr != p); \
+        } \
+    }
+
+#define DESTROY_WITH_VTABLE(o) \
+    { \
+        char *part = (o); \
+        *(void **)(part + 180) = D_80086598; \
+        func_800ADDA4(part, 2); \
+    }
+
+void func_8012727C(char *self, int flags)
+{
+    char *p;
+    char *q;
+    char *head;
+    VtEntry *vt;
+
+    func_800CCE84(self + 24688, 2);
+    func_800D3460(self + 23288, 2);
+    func_800D3460(self + 21888, 2);
+    func_800D3460(self + 20488, 2);
+    func_800D3460(self + 19088, 2);
+    func_800CE1EC(self + 17136, 2);
+    func_800CC4B4(self + 15208, 2);
+    head = self + 4340;
+    *(void **)(head + 180) = D_8008A490;
+    DESTROY_ARRAY(self + 4580, 50);
+    DESTROY_WITH_VTABLE(head);
+    DESTROY_WITH_VTABLE(self + 4120);
+    DESTROY_WITH_VTABLE(self + 3900);
+    DESTROY_WITH_VTABLE(self + 3680);
+    DESTROY_WITH_VTABLE(self + 3460);
+    func_800CE380(self + 3248, 2);
+    func_800CD8A0(self + 2340, 2);
+    func_800ADDA4(self + 2124, 2);
+    func_800ADDA4(self + 1912, 2);
+    func_800ADDA4(self + 1700, 2);
+    func_800ADDA4(self + 1488, 2);
+    DESTROY_ARRAY(self + 852, 3);
+    func_800ADDA4(self + 640, 2);
+    DESTROY_ARRAY(self + 216, 2);
+    func_800ADDA4(self + 4, 2);
+    if (flags & 1) {
+        func_80004380(self);
+    }
+}

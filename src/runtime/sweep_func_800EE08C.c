@@ -1,60 +1,26 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EE08C\n.ent func_800EE08C\n"
-    "func_800EE08C:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $20,32($29)\n"
-    "move $20,$4\n"
-    "sw $16,16($29)\n"
-    "li $16,1\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $19,28($29)\n"
-    "li $19,6\n"
-    "lui $2,0x8010\n"
-    "sw $22,40($29)\n"
-    "addiu $22,$2,-480\n"
-    "lui $2,0x8010\n"
-    "sw $21,36($29)\n"
-    "addiu $21,$2,-360\n"
-    "sw $31,44($29)\n"
-    "L_800EE0D4:\n"
-    "andi $3,$20,0xffff\n"
-    "beqz $3,L_800EE118\n"
-    "and $2,$3,$16\n"
-    "bnez $2,L_800EE0FC\n"
-    "andi $2,$17,0xff\n"
-    "L_800EE0E8:\n"
-    "sll $16,$16,0x1\n"
-    "and $2,$3,$16\n"
-    "beqz $2,L_800EE0E8\n"
-    "addiu $17,$17,1\n"
-    "andi $2,$17,0xff\n"
-    "L_800EE0FC:\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$2,$22\n"
-    "lhu $4,0($2)\n"
-    "jal func_800D98FC\n"
-    "xor $20,$20,$16\n"
-    "j L_800EE11C\n"
-    "sw $2,0($18)\n"
-    "L_800EE118:\n"
-    "sw $21,0($18)\n"
-    "L_800EE11C:\n"
-    "addiu $19,$19,-1\n"
-    "andi $2,$19,0xff\n"
-    "bnez $2,L_800EE0D4\n"
-    "addiu $18,$18,4\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800EE08C\n.set at\n.set reorder\n");
+extern int func_800D98FC(int);
+extern unsigned short D_800FFE20[];
+extern char D_800FFE98[];
+
+void func_800EE08C(unsigned short mask, int *out)
+{
+    unsigned int bit;
+    unsigned char idx;
+    unsigned char n;
+
+    bit = 1;
+    idx = 0;
+    for (n = 6; n != 0; n--) {
+        if (mask != 0) {
+            while ((mask & bit) == 0) {
+                bit <<= 1;
+                idx++;
+            }
+            mask ^= bit;
+            *out = func_800D98FC(D_800FFE20[idx]);
+        } else {
+            *out = (int)D_800FFE98;
+        }
+        out++;
+    }
+}

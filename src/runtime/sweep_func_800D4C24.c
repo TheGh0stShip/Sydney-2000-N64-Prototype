@@ -1,156 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D4C24\n.ent func_800D4C24\n"
-    "func_800D4C24:\n"
-    "addiu $29,$29,-48\n"
-    "sw $20,40($29)\n"
-    "move $20,$4\n"
-    "sw $31,44($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "sw $5,2752($20)\n"
-    "move $3,$5\n"
-    "li $2,2\n"
-    "bne $3,$2,L_800D4D48\n"
-    "sw $0,2764($20)\n"
-    "lui $16,0x8010\n"
-    "addiu $16,$16,11956\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "li $2,6\n"
-    "sb $2,2320($20)\n"
-    "jal func_800B2158\n"
-    "sb $2,2761($20)\n"
-    "addiu $4,$16,440\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,220\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,-1540\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,-1320\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,-1100\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $19,$16,-880\n"
-    "move $4,$19\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "addiu $18,$16,-660\n"
-    "move $4,$18\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "addiu $17,$16,-440\n"
-    "move $4,$17\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "addiu $16,$16,-220\n"
-    "move $4,$16\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "move $4,$19\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "move $4,$18\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "move $4,$17\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "move $4,$16\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "lui $5,0xc396\n"
-    "ori $5,$5,0x8000\n"
-    "lui $6,0xc2f0\n"
-    "lui $7,0x4396\n"
-    "ori $7,$7,0x8000\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-24536($1)\n"
-    "j L_800D4DF4\n"
-    "addiu $4,$20,2520\n"
-    "L_800D4D48:\n"
-    "lui $16,0x8010\n"
-    "addiu $16,$16,10416\n"
-    "move $4,$16\n"
-    "li $5,1\n"
-    "move $2,$5\n"
-    "sb $2,2320($20)\n"
-    "jal func_800B2158\n"
-    "sb $2,2761($20)\n"
-    "addiu $18,$16,220\n"
-    "move $4,$18\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "addiu $17,$16,440\n"
-    "move $4,$17\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "move $4,$16\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "move $4,$18\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "move $4,$17\n"
-    "jal func_800B3214\n"
-    "lui $5,0x8\n"
-    "addiu $4,$16,660\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,880\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,1100\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $4,$16,1320\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "lui $5,0xc31f\n"
-    "lui $6,0xc220\n"
-    "lui $7,0x431f\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-24532($1)\n"
-    "addiu $4,$20,2520\n"
-    "L_800D4DF4:\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "lui $4,0x800f\n"
-    "lbu $3,2320($20)\n"
-    "addiu $4,$4,22492\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$4\n"
-    "lh $2,2($2)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-24528($1)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sub.s $f0,$f0,$f2\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$4\n"
-    "swc1 $f0,2700($20)\n"
-    "lh $2,2($2)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,2624($20)\n"
-    "lw $31,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D4C24\n.set at\n.set reorder\n");
+typedef struct {
+    char data[220];
+} Widget;
+
+typedef struct {
+    short unk0;
+    short width;
+    char pad[20];
+} Layout;
+
+extern Widget D_801028B0[11];
+extern Layout D_800F57DC[];
+extern void func_800B2158(Widget *, int);
+extern void func_800B3214(Widget *, int);
+extern void func_8001A1D8(char *, float, float, float, float);
+
+void func_800D4C24(char *obj, int mode)
+{
+    *(int *)(obj + 2752) = mode;
+    *(int *)(obj + 2764) = 0;
+    if (*(int *)(obj + 2752) == 2) {
+        *(unsigned char *)(obj + 2320) = 6;
+        *(unsigned char *)(obj + 2761) = 6;
+        func_800B2158(&D_801028B0[7], 0);
+        func_800B2158(&D_801028B0[9], 0);
+        func_800B2158(&D_801028B0[8], 0);
+        func_800B2158(&D_801028B0[0], 0);
+        func_800B2158(&D_801028B0[1], 0);
+        func_800B2158(&D_801028B0[2], 0);
+        func_800B2158(&D_801028B0[3], 1);
+        func_800B2158(&D_801028B0[4], 1);
+        func_800B2158(&D_801028B0[5], 1);
+        func_800B2158(&D_801028B0[6], 1);
+        func_800B3214(&D_801028B0[3], 0x80000);
+        func_800B3214(&D_801028B0[4], 0x80000);
+        func_800B3214(&D_801028B0[5], 0x80000);
+        func_800B3214(&D_801028B0[6], 0x80000);
+        func_8001A1D8(obj + 2520, -301.0f, -120.0f, 301.0f, 120.0f);
+    } else {
+        *(unsigned char *)(obj + 2320) = 1;
+        *(unsigned char *)(obj + 2761) = 1;
+        func_800B2158(&D_801028B0[0], 1);
+        func_800B2158(&D_801028B0[1], 1);
+        func_800B2158(&D_801028B0[2], 1);
+        func_800B3214(&D_801028B0[0], 0x80000);
+        func_800B3214(&D_801028B0[1], 0x80000);
+        func_800B3214(&D_801028B0[2], 0x80000);
+        func_800B2158(&D_801028B0[3], 0);
+        func_800B2158(&D_801028B0[4], 0);
+        func_800B2158(&D_801028B0[5], 0);
+        func_800B2158(&D_801028B0[6], 0);
+        func_8001A1D8(obj + 2520, -159.0f, -40.0f, 159.0f, 40.0f);
+    }
+    *(float *)(obj + 2700) = D_800F57DC[*(unsigned char *)(obj + 2320)].width - 2.0f;
+    *(float *)(obj + 2624) = D_800F57DC[*(unsigned char *)(obj + 2320)].width - 2.0f;
+}

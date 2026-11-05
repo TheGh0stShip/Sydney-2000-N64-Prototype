@@ -1,60 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B1BE8\n.ent func_800B1BE8\n"
-    "func_800B1BE8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lw $2,792($16)\n"
-    "bnez $2,L_800B1CB0\n"
-    "addiu $5,$16,792\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "li $6,212\n"
-    "lui $7,0x8008\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,25492\n"
-    "lw $5,792($16)\n"
-    "jal func_800AAA58\n"
-    "li $4,212\n"
-    "jal func_800CE3A8\n"
-    "move $4,$2\n"
-    "move $5,$0\n"
-    "move $6,$5\n"
-    "li $2,-4\n"
-    "sw $2,16($29)\n"
-    "li $2,2\n"
-    "sw $2,20($29)\n"
-    "lw $4,792($16)\n"
-    "jal func_800CE468\n"
-    "li $7,56\n"
-    "lw $4,792($16)\n"
-    "li $2,3\n"
-    "sb $2,201($4)\n"
-    "lw $2,192($4)\n"
-    "lui $3,0x2\n"
-    "or $2,$2,$3\n"
-    "sw $2,192($4)\n"
-    "lw $3,792($16)\n"
-    "li $2,1\n"
-    "sb $2,176($3)\n"
-    "lw $3,792($16)\n"
-    "lw $2,180($3)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,792($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_800B1CB0:\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B1BE8\n.set at\n.set reorder\n");
+typedef struct { char pad[16]; short off1; short p1; void (*fn1)(char *, char *); char pad2[40]; short off2; short p2; void (*fn2)(char *); } VTbl;
+extern char D_800F2758[];
+extern char D_80086394[];
+extern void func_800AA804(void *, char **, int, void *);
+extern char *func_800AAA58(int, char *);
+extern void func_800CE3A8(char *);
+extern void func_800CE468(char *, int, int, int, int, int);
+void func_800B1BE8(char *obj)
+{
+    char *child;
+    VTbl *v;
+    if (*(char **)(obj + 792) != 0) {
+        return;
+    }
+    func_800AA804(D_800F2758, (char **)(obj + 792), 212, D_80086394);
+    func_800CE3A8(func_800AAA58(212, *(char **)(obj + 792)));
+    func_800CE468(*(char **)(obj + 792), 0, 0, 56, -4, 2);
+    {
+        char *c = *(char **)(obj + 792);
+        *(char *)(c + 201) = 3;
+        *(int *)(c + 192) |= 0x20000;
+    }
+    *(char *)(*(char **)(obj + 792) + 176) = 1;
+    child = *(char **)(obj + 792);
+    v = *(VTbl **)(child + 180);
+    v->fn1(child + v->off1, obj);
+    child = *(char **)(obj + 792);
+    v = *(VTbl **)(child + 180);
+    v->fn2(child + v->off2);
+}

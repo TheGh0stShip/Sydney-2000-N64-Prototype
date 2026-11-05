@@ -1,35 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80123B1C\n.ent func_80123B1C\n"
-    "func_80123B1C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "addiu $4,$17,216\n"
-    "sw $31,24($29)\n"
-    "jal func_800D29E0\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "andi $2,$16,0xff\n"
-    "L_80123B40:\n"
-    "sll $4,$2,0x3\n"
-    "subu $4,$4,$2\n"
-    "sll $4,$4,0x3\n"
-    "subu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addiu $4,$4,1616\n"
-    "addu $4,$17,$4\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,10\n"
-    "bnel $2,$0,L_80123B40\n"
-    "andi $2,$16,0xff\n"
-    "sb $0,3846($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80123B1C\n.set at\n.set reorder\n");
+extern void func_800D29E0(char *obj);
+extern void func_800B2158(char *slot, int arg);
+
+void func_80123B1C(char *obj)
+{
+    unsigned char i;
+
+    func_800D29E0(obj + 216);
+    for (i = 0; i < 10; i++) {
+        func_800B2158(obj + 1616 + i * 220, 0);
+    }
+    *(unsigned char *)(obj + 3846) = 0;
+}

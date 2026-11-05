@@ -1,135 +1,73 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008F568\n.ent func_8008F568\n"
-    "func_8008F568:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$18,5048\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "sw $31,32($29)\n"
-    "jal func_800ADDA4\n"
-    "sw $17,20($29)\n"
-    "addiu $2,$18,4412\n"
-    "beql $2,$0,L_8008F5D8\n"
-    "addiu $16,$18,4200\n"
-    "beql $2,$16,L_8008F5D8\n"
-    "addiu $16,$18,4200\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_8008F5B4:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8008F5B4\n"
-    "addiu $16,$16,-212\n"
-    "addiu $16,$18,4200\n"
-    "L_8008F5D8:\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $2,$18,3564\n"
-    "beql $2,$0,L_8008F624\n"
-    "addiu $2,$18,2928\n"
-    "beql $2,$16,L_8008F624\n"
-    "addiu $2,$18,2928\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_8008F600:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8008F600\n"
-    "addiu $16,$16,-212\n"
-    "addiu $2,$18,2928\n"
-    "L_8008F624:\n"
-    "beqz $2,L_8008F658\n"
-    "addiu $16,$18,3564\n"
-    "beq $2,$16,L_8008F658\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_8008F638:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8008F638\n"
-    "addiu $16,$16,-212\n"
-    "L_8008F658:\n"
-    "addiu $4,$18,2704\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$18,2492\n"
-    "jal func_800CE380\n"
-    "li $5,2\n"
-    "addiu $4,$18,1584\n"
-    "jal func_800CD8A0\n"
-    "li $5,2\n"
-    "addiu $17,$18,1324\n"
-    "move $4,$17\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($17)\n"
-    "addiu $2,$18,664\n"
-    "beql $2,$0,L_8008F6E0\n"
-    "addiu $2,$18,4\n"
-    "move $16,$17\n"
-    "beql $2,$16,L_8008F6E0\n"
-    "addiu $2,$18,4\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-220\n"
-    "L_8008F6BC:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bnel $17,$16,L_8008F6BC\n"
-    "addiu $16,$16,-220\n"
-    "addiu $2,$18,4\n"
-    "L_8008F6E0:\n"
-    "beqz $2,L_8008F714\n"
-    "addiu $16,$18,664\n"
-    "beq $2,$16,L_8008F714\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-220\n"
-    "L_8008F6F4:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8008F6F4\n"
-    "addiu $16,$16,-220\n"
-    "L_8008F714:\n"
-    "andi $2,$19,0x1\n"
-    "beqz $2,L_8008F728\n"
-    "nop\n"
-    "jal func_80004380\n"
-    "move $4,$18\n"
-    "L_8008F728:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8008F568\n.set at\n.set reorder\n");
+typedef struct VTableEntry {
+    char pad[8];
+    short offset;
+    void (*destroy)(void *object, int mode);
+} VTableEntry;
+
+extern unsigned char D_80086598[];
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800CE380(void *object, int mode);
+extern void func_800CD8A0(void *object, int mode);
+extern void func_80004380(void *object);
+
+void func_8008F568(unsigned char *object, int mode)
+{
+    unsigned char *entry;
+    unsigned char *part;
+    unsigned char *child;
+    VTableEntry *vtable;
+
+    func_800ADDA4(object + 5048, 2);
+    if (object + 4412 != 0) {
+        entry = object + 5048;
+        while (object + 4412 != entry) {
+            entry -= 212;
+            vtable = *(VTableEntry **)(entry + 180);
+            vtable->destroy(entry + vtable->offset, 2);
+        }
+    }
+    func_800ADDA4(object + 4200, 2);
+    if (object + 3564 != 0) {
+        entry = object + 4200;
+        while (object + 3564 != entry) {
+            entry -= 212;
+            vtable = *(VTableEntry **)(entry + 180);
+            vtable->destroy(entry + vtable->offset, 2);
+        }
+    }
+    if (object + 2928 != 0) {
+        entry = object + 3564;
+        while (object + 2928 != entry) {
+            entry -= 212;
+            vtable = *(VTableEntry **)(entry + 180);
+            vtable->destroy(entry + vtable->offset, 2);
+        }
+    }
+    child = object + 2704;
+    *(void **)(child + 180) = D_80086598;
+    func_800ADDA4(child, 2);
+    func_800CE380(object + 2492, 2);
+    func_800CD8A0(object + 1584, 2);
+    part = object + 1324;
+    *(void **)(part + 180) = D_80086598;
+    func_800ADDA4(part, 2);
+    if (object + 664 != 0) {
+        entry = part;
+        while (object + 664 != entry) {
+            entry -= 220;
+            vtable = *(VTableEntry **)(entry + 180);
+            vtable->destroy(entry + vtable->offset, 2);
+        }
+    }
+    if (object + 4 != 0) {
+        entry = object + 664;
+        while (object + 4 != entry) {
+            entry -= 220;
+            vtable = *(VTableEntry **)(entry + 180);
+            vtable->destroy(entry + vtable->offset, 2);
+        }
+    }
+    if (mode & 1) {
+        func_80004380(object);
+    }
+}

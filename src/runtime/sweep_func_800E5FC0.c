@@ -1,126 +1,87 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E5FC0\n.ent func_800E5FC0\n"
-    "func_800E5FC0:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "li $4,1\n"
-    "sh $5,24($29)\n"
-    "addiu $5,$29,24\n"
-    "move $2,$6\n"
-    "addiu $6,$17,196\n"
-    "sll $7,$2,0x10\n"
-    "sra $7,$7,0x10\n"
-    "sw $18,40($29)\n"
-    "move $18,$2\n"
-    "sw $31,44($29)\n"
-    "jal func_800125DC\n"
-    "sw $16,32($29)\n"
-    "move $5,$0\n"
-    "lw $4,196($17)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,28\n"
-    "lhu $2,24($29)\n"
-    "beqz $2,L_800E606C\n"
-    "move $4,$0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-16912($1)\n"
-    "lui $5,0xff\n"
-    "ori $5,$5,0xff\n"
-    "move $3,$2\n"
-    "L_800E602C:\n"
-    "lw $2,28($29)\n"
-    "addiu $4,$4,1\n"
-    "sw $0,12($2)\n"
-    "swc1 $f0,16($2)\n"
-    "sw $0,20($2)\n"
-    "sw $0,28($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "sw $5,24($2)\n"
-    "addiu $2,$2,36\n"
-    "sw $2,28($29)\n"
-    "sltu $2,$4,$3\n"
-    "bnez $2,L_800E602C\n"
-    "nop\n"
-    "L_800E606C:\n"
-    "lw $4,196($17)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-16936\n"
-    "move $5,$0\n"
-    "andi $16,$2,0xffff\n"
-    "lw $4,196($17)\n"
-    "jal func_80017CF4\n"
-    "move $6,$16\n"
-    "move $4,$16\n"
-    "li $5,-1\n"
-    "lui $6,0xff00\n"
-    "move $7,$5\n"
-    "li $2,10\n"
-    "jal func_80017930\n"
-    "sw $2,16($29)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$17,212\n"
-    "andi $3,$18,0xffff\n"
-    "sll $2,$3,0x1\n"
-    "addu $16,$2,$3\n"
-    "sll $6,$16,0x1\n"
-    "lui $7,0x8009\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,-16924\n"
-    "beqz $16,L_800E6108\n"
-    "move $4,$0\n"
-    "move $6,$16\n"
-    "sll $2,$4,0x1\n"
-    "L_800E60EC:\n"
-    "lw $3,212($17)\n"
-    "addiu $4,$4,1\n"
-    "addu $2,$2,$3\n"
-    "sh $0,0($2)\n"
-    "sltu $2,$4,$6\n"
-    "bnez $2,L_800E60EC\n"
-    "sll $2,$4,0x1\n"
-    "L_800E6108:\n"
-    "move $5,$0\n"
-    "lw $4,196($17)\n"
-    "lw $7,212($17)\n"
-    "jal func_80017C20\n"
-    "andi $6,$18,0xffff\n"
-    "lui $2,0x8010\n"
-    "addiu $16,$2,13520\n"
-    "addiu $4,$16,20\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-16908($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-16904($1)\n"
-    "move $5,$4\n"
-    "sb $0,13520($2)\n"
-    "li $2,4\n"
-    "sw $2,4($16)\n"
-    "li $2,128\n"
-    "sb $2,1($16)\n"
-    "sb $2,2($16)\n"
-    "li $2,255\n"
-    "sb $2,3($16)\n"
-    "li $2,1\n"
-    "sw $2,40($16)\n"
-    "swc1 $f0,20($16)\n"
-    "swc1 $f0,24($16)\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f2,28($16)\n"
-    "jal func_8000673C\n"
-    "move $4,$16\n"
-    "lw $31,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800E5FC0\n.set at\n.set reorder\n");
+typedef struct {
+    int a;
+    int b;
+    int c;
+    int d;
+    float scale;
+    int e;
+    int color;
+    int f;
+    int g;
+} Vertex;
+typedef struct {
+    char pad0[196];
+    void *mesh;
+    char pad1[212 - 200];
+    short *indices;
+} Water;
+typedef struct {
+    unsigned char kind;
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+    int mode;
+    char pad0[20 - 8];
+    float vec[3];
+    char pad1[40 - 32];
+    int enabled;
+} Light;
+
+extern char D_800F2758[];
+extern Light D_801034D0;
+extern void func_800125DC(int, unsigned short *, void **, short);
+extern void func_80017C4C(void *, int, Vertex **);
+extern void func_80017C3C(void *);
+extern int func_8000EB20(char *);
+extern void func_80017CF4(void *, int, unsigned short);
+extern void func_80017930(unsigned short, int, int, int, int);
+extern void func_800AA804(void *, short **, int, char *);
+extern void func_80017C20(void *, int, unsigned short, short *);
+extern void func_800AD6D0(float *, float *);
+extern void func_8000673C(Light *);
+
+void func_800E5FC0(Water *self, unsigned short vertexCount, unsigned short triCount)
+{
+    unsigned short count;
+    Vertex *v;
+    unsigned int i;
+    unsigned short tex;
+    unsigned int n;
+
+    count = vertexCount;
+    func_800125DC(1, &count, &self->mesh, triCount);
+    func_80017C4C(self->mesh, 0, &v);
+    for (i = 0; i < count; i++) {
+        v->d = 0;
+        v->scale = 1.0f;
+        v->e = 0;
+        v->f = 0;
+        v->g = 0;
+        v->a = 0;
+        v->b = 0;
+        v->c = 0;
+        v->color = 0xFF00FF;
+        v++;
+    }
+    func_80017C3C(self->mesh);
+    tex = func_8000EB20("RIVER_WATER");
+    func_80017CF4(self->mesh, 0, tex);
+    func_80017930(tex, -1, 0xFF000000, -1, 10);
+    n = triCount * 3;
+    func_800AA804(D_800F2758, &self->indices, n * 2, "KAYAKFAC");
+    for (i = 0; i < (unsigned int)(triCount * 3); i++) {
+        self->indices[i] = 0;
+    }
+    func_80017C20(self->mesh, 0, triCount, self->indices);
+    D_801034D0.kind = 0;
+    D_801034D0.mode = 4;
+    D_801034D0.r = 128;
+    D_801034D0.g = 128;
+    D_801034D0.b = 255;
+    D_801034D0.enabled = 1;
+    D_801034D0.vec[0] = 32.767f;
+    D_801034D0.vec[1] = 32.767f;
+    D_801034D0.vec[2] = -32.767f;
+    func_800AD6D0(D_801034D0.vec, D_801034D0.vec);
+    func_8000673C(&D_801034D0);
+}

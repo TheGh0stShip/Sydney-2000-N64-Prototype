@@ -1,72 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D3D34\n.ent func_800D3D34\n"
-    "func_800D3D34:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,2244($17)\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800D3E20\n"
-    "nop\n"
-    "lbu $2,2240($17)\n"
-    "beqz $2,L_800D3DB4\n"
-    "lui $2,0x800f\n"
-    "addiu $3,$17,1252\n"
-    "lwc1 $f0,19420($2)\n"
-    "addiu $2,$2,19420\n"
-    "addiu $16,$17,684\n"
-    "move $4,$16\n"
-    "swc1 $f0,64($3)\n"
-    "lwc1 $f0,4($2)\n"
-    "lui $5,0x800f\n"
-    "swc1 $f0,68($3)\n"
-    "lwc1 $f0,8($2)\n"
-    "addiu $5,$5,19672\n"
-    "jal func_800D6ED0\n"
-    "swc1 $f0,72($3)\n"
-    "move $4,$16\n"
-    "jal func_800B3254\n"
-    "lui $5,0x8\n"
-    "addiu $4,$17,920\n"
-    "lui $5,0x800f\n"
-    "j L_800D3E04\n"
-    "addiu $5,$5,19632\n"
-    "L_800D3DB4:\n"
-    "lui $2,0x800f\n"
-    "addiu $3,$17,1252\n"
-    "lwc1 $f0,19408($2)\n"
-    "addiu $2,$2,19408\n"
-    "addiu $16,$17,684\n"
-    "move $4,$16\n"
-    "swc1 $f0,64($3)\n"
-    "lwc1 $f0,4($2)\n"
-    "lui $5,0x800f\n"
-    "swc1 $f0,68($3)\n"
-    "lwc1 $f0,8($2)\n"
-    "addiu $5,$5,19632\n"
-    "jal func_800D6ED0\n"
-    "swc1 $f0,72($3)\n"
-    "move $4,$16\n"
-    "jal func_800B3254\n"
-    "lui $5,0x8\n"
-    "addiu $4,$17,920\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,19672\n"
-    "L_800D3E04:\n"
-    "jal func_800D6ED0\n"
-    "nop\n"
-    "jal func_800AD9E8\n"
-    "addiu $4,$17,1156\n"
-    "lbu $2,2240($17)\n"
-    "sltiu $2,$2,1\n"
-    "sb $2,2240($17)\n"
-    "L_800D3E20:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D3D34\n.set at\n.set reorder\n");
+typedef struct Vec3 {
+    float x, y, z;
+} Vec3;
+
+typedef struct Body {
+    char pad[64];
+    Vec3 color;
+} Body;
+
+typedef struct Unit {
+    char pad0[684];
+    char slotA[236];
+    char slotB[236];
+    char sub[96];
+    Body body;
+    char pad1[912];
+    unsigned char lit;
+    char pad2[3];
+    int state;
+} Unit;
+
+extern Vec3 D_800F4BD0;
+extern Vec3 D_800F4BDC;
+extern char D_800F4CB0[];
+extern char D_800F4CD8[];
+extern void func_800D6ED0(void *, void *);
+extern void func_800B3254(void *, int);
+extern void func_800AD9E8(void *);
+
+void func_800D3D34(Unit *unit)
+{
+    Body *body;
+
+    if (unit->state == 2) {
+        return;
+    }
+    if (unit->lit) {
+        body = &unit->body;
+        body->color.x = D_800F4BDC.x;
+        body->color.y = D_800F4BDC.y;
+        body->color.z = D_800F4BDC.z;
+        func_800D6ED0(unit->slotA, D_800F4CD8);
+        func_800B3254(unit->slotA, 0x80000);
+        func_800D6ED0(unit->slotB, D_800F4CB0);
+    } else {
+        body = &unit->body;
+        body->color.x = D_800F4BD0.x;
+        body->color.y = D_800F4BD0.y;
+        body->color.z = D_800F4BD0.z;
+        func_800D6ED0(unit->slotA, D_800F4CB0);
+        func_800B3254(unit->slotA, 0x80000);
+        func_800D6ED0(unit->slotB, D_800F4CD8);
+    }
+    func_800AD9E8(unit->sub);
+    unit->lit = !unit->lit;
+}

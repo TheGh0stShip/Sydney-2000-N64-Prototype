@@ -1,49 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DC5FC\n.ent func_800DC5FC\n"
-    "func_800DC5FC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "andi $2,$18,0xff\n"
-    "L_800DC620:\n"
-    "sll $3,$2,0x1\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $17,$19,$3\n"
-    "lw $2,684($17)\n"
-    "beql $2,$0,L_800DC678\n"
-    "addiu $18,$18,1\n"
-    "addiu $16,$3,488\n"
-    "addu $16,$19,$16\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,196\n"
-    "lw $2,668($17)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sw $0,684($17)\n"
-    "addiu $18,$18,1\n"
-    "L_800DC678:\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnel $2,$0,L_800DC620\n"
-    "andi $2,$18,0xff\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DC5FC\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *self);
+} VtEntry;
+
+typedef struct {
+    char pad[72];
+    VtEntry stop;
+} Vtable;
+
+typedef struct {
+    char pad0[180];
+    Vtable *vtable;
+    int pad1[3];
+    int handle;
+    char pad2[12];
+} Emitter;
+
+typedef struct {
+    char pad[488];
+    Emitter emitters[5];
+} EmitterBank;
+
+extern void func_8001A248(int *handle);
+
+void func_800DC5FC(EmitterBank *bank)
+{
+    unsigned char i;
+    Emitter *emitter;
+
+    for (i = 0; i < 5; i++) {
+        if (bank->emitters[i].handle != 0) {
+            emitter = &bank->emitters[i];
+            func_8001A248(&emitter->handle);
+            bank->emitters[i].vtable->stop.func((char *)emitter + bank->emitters[i].vtable->stop.offset);
+            bank->emitters[i].handle = 0;
+        }
+    }
+}

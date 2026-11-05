@@ -1,115 +1,66 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CF4EC\n.ent func_800CF4EC\n"
-    "func_800CF4EC:\n"
-    "addiu $29,$29,-248\n"
-    "sw $16,224($29)\n"
-    "move $16,$4\n"
-    "sw $17,228($29)\n"
-    "addiu $17,$16,4552\n"
-    "move $4,$17\n"
-    "li $5,23\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2048($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2052($1)\n"
-    "addiu $6,$29,16\n"
-    "sw $18,232($29)\n"
-    "addiu $18,$29,208\n"
-    "sw $31,236($29)\n"
-    "sdc1 $f20,240($29)\n"
-    "sw $0,208($29)\n"
-    "swc1 $f0,4($18)\n"
-    "jal func_800B97D4\n"
-    "swc1 $f2,8($18)\n"
-    "move $4,$17\n"
-    "li $5,31\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,84($29)\n"
-    "lwc1 $f4,88($29)\n"
-    "addiu $6,$29,16\n"
-    "swc1 $f0,160($29)\n"
-    "swc1 $f2,164($29)\n"
-    "jal func_800B97D4\n"
-    "swc1 $f4,168($29)\n"
-    "addiu $17,$16,4572\n"
-    "move $4,$17\n"
-    "addiu $5,$29,160\n"
-    "addiu $6,$29,176\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,84($29)\n"
-    "lwc1 $f4,88($29)\n"
-    "li $7,1\n"
-    "swc1 $f0,144($29)\n"
-    "swc1 $f2,148($29)\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f4,152($29)\n"
-    "move $4,$17\n"
-    "lwc1 $f0,180($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,2056($1)\n"
-    "addiu $5,$29,144\n"
-    "add.s $f0,$f0,$f20\n"
-    "addiu $6,$29,192\n"
-    "li $7,1\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f0,180($29)\n"
-    "addiu $17,$29,96\n"
-    "lwc1 $f4,200($29)\n"
-    "lwc1 $f6,176($29)\n"
-    "add.s $f4,$f4,$f20\n"
-    "lwc1 $f0,192($29)\n"
-    "lwc1 $f2,180($29)\n"
-    "sub.s $f6,$f6,$f0\n"
-    "lwc1 $f0,196($29)\n"
-    "move $4,$17\n"
-    "sub.s $f2,$f2,$f0\n"
-    "lwc1 $f0,184($29)\n"
-    "addiu $5,$29,128\n"
-    "sub.s $f0,$f0,$f4\n"
-    "swc1 $f4,200($29)\n"
-    "swc1 $f6,96($29)\n"
-    "swc1 $f2,100($29)\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f0,104($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2060($1)\n"
-    "lwc1 $f6,128($29)\n"
-    "mul.s $f6,$f6,$f2\n"
-    "lwc1 $f4,132($29)\n"
-    "mul.s $f4,$f4,$f2\n"
-    "move $4,$17\n"
-    "lwc1 $f0,136($29)\n"
-    "addiu $16,$16,17660\n"
-    "mul.s $f0,$f0,$f2\n"
-    "move $5,$16\n"
-    "move $6,$18\n"
-    "swc1 $f6,112($29)\n"
-    "swc1 $f4,116($29)\n"
-    "jal func_800AC9B8\n"
-    "swc1 $f0,120($29)\n"
-    "lwc1 $f6,192($29)\n"
-    "lwc1 $f0,112($29)\n"
-    "lwc1 $f4,196($29)\n"
-    "add.s $f6,$f6,$f0\n"
-    "lwc1 $f0,116($29)\n"
-    "lwc1 $f2,200($29)\n"
-    "add.s $f4,$f4,$f0\n"
-    "lwc1 $f0,120($29)\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f6,112($29)\n"
-    "swc1 $f4,116($29)\n"
-    "swc1 $f2,120($29)\n"
-    "swc1 $f6,64($16)\n"
-    "lwc1 $f0,116($29)\n"
-    "swc1 $f0,68($16)\n"
-    "lwc1 $f0,120($29)\n"
-    "swc1 $f0,72($16)\n"
-    "lw $31,236($29)\n"
-    "lw $18,232($29)\n"
-    "lw $17,228($29)\n"
-    "lw $16,224($29)\n"
-    "ldc1 $f20,240($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,248\n"
-    ".end func_800CF4EC\n.set at\n.set reorder\n");
+#define D_80070800 (*(float *)0x80070800)
+#define D_80070804 (*(float *)0x80070804)
+#define D_80070808 (*(float *)0x80070808)
+#define D_8007080C (*(float *)0x8007080C)
+
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+extern void func_800B97D4(void *skeleton, int bone, float *out);
+extern void func_800AD2A8(void *camera, Vec3 *in, Vec3 *out, int mode);
+extern void func_800AD6D0(Vec3 *in, Vec3 *out);
+extern void func_800AC9B8(Vec3 *v, void *transform, Vec3 *basis);
+
+void func_800CF4EC(unsigned char *object)
+{
+    float frame[20];
+    Vec3 diff;
+    Vec3 step;
+    Vec3 dir;
+    Vec3 tail;
+    Vec3 head;
+    Vec3 far;
+    Vec3 near;
+    Vec3 basis;
+    float lift;
+    float scale;
+    Vec3 *up;
+    Vec3 *delta;
+    float *target;
+
+    up = &basis;
+    up->x = 0.0f;
+    up->y = D_80070800;
+    up->z = D_80070804;
+    func_800B97D4(object + 4552, 23, frame);
+    head.x = frame[16];
+    head.y = frame[17];
+    head.z = frame[18];
+    func_800B97D4(object + 4552, 31, frame);
+    tail.x = frame[16];
+    tail.y = frame[17];
+    tail.z = frame[18];
+    func_800AD2A8(object + 4572, &head, &far, 1);
+    far.y += D_80070808;
+    lift = D_80070808;
+    func_800AD2A8(object + 4572, &tail, &near, 1);
+    near.z += lift;
+    diff.x = far.x - near.x;
+    diff.y = far.y - near.y;
+    diff.z = far.z - near.z;
+    delta = &diff;
+    func_800AD6D0(delta, &dir);
+    scale = D_8007080C;
+    step.x = dir.x * scale;
+    step.y = dir.y * scale;
+    step.z = dir.z * scale;
+    func_800AC9B8(delta, object + 17660, up);
+    step.x = near.x + step.x;
+    step.y = near.y + step.y;
+    step.z = near.z + step.z;
+    target = (float *)(object + 17660);
+    target[16] = step.x;
+    target[17] = step.y;
+    target[18] = step.z;
+}

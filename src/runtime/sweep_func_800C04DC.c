@@ -1,58 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C04DC\n.ent func_800C04DC\n"
-    "func_800C04DC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "andi $2,$18,0xff\n"
-    "L_800C0500:\n"
-    "sll $3,$2,0x1\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $16,$19,$3\n"
-    "lw $2,384($16)\n"
-    "beqz $2,L_800C055C\n"
-    "addiu $2,$3,188\n"
-    "lw $3,368($16)\n"
-    "addu $17,$19,$2\n"
-    "lh $4,72($3)\n"
-    "lw $2,76($3)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,384($16)\n"
-    "beql $2,$0,L_800C0560\n"
-    "addiu $18,$18,1\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,196\n"
-    "sw $0,384($16)\n"
-    "L_800C055C:\n"
-    "addiu $18,$18,1\n"
-    "L_800C0560:\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,4\n"
-    "bnez $2,L_800C0500\n"
-    "andi $2,$18,0xff\n"
-    "lw $2,1232($19)\n"
-    "beqz $2,L_800C0584\n"
-    "nop\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$19,1036\n"
-    "L_800C0584:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C04DC\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char pad[12];
+    int sound;
+    unsigned char rest[12];
+} Part;
+
+typedef struct {
+    unsigned char header[188];
+    Part parts[4];
+} Owner;
+
+void func_8001A248(void *sound);
+void func_800ADC1C(void *object);
+
+void func_800C04DC(Owner *owner)
+{
+    unsigned char i;
+
+    for (i = 0; i < 4; i++) {
+        if (owner->parts[i].sound != 0) {
+            Part *p = &owner->parts[i];
+            Method *m = (Method *)(owner->parts[i].vtable + 72);
+
+            m->fn((unsigned char *)p + m->offset);
+            if (owner->parts[i].sound != 0) {
+                func_8001A248(&p->sound);
+                owner->parts[i].sound = 0;
+            }
+        }
+    }
+    if (*(int *)((unsigned char *)owner + 1232) != 0) {
+        func_800ADC1C((unsigned char *)owner + 1036);
+    }
+}

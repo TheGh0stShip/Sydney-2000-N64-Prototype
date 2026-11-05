@@ -1,108 +1,94 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9F2C\n.ent func_800E9F2C\n"
-    "func_800E9F2C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "move $2,$5\n"
-    "sw $18,24($29)\n"
-    "move $18,$6\n"
-    "sw $17,20($29)\n"
-    "move $17,$7\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$16,20\n"
-    "sll $6,$2,0x1\n"
-    "addu $6,$6,$2\n"
-    "sll $6,$6,0x2\n"
-    "subu $6,$6,$2\n"
-    "sll $6,$6,0x2\n"
-    "lui $7,0x8009\n"
-    "addiu $7,$7,-16080\n"
-    "sw $31,28($29)\n"
-    "sw $0,16($16)\n"
-    "sw $0,20($16)\n"
-    "jal func_800AA804\n"
-    "sw $2,16($16)\n"
-    "move $4,$0\n"
-    "move $3,$4\n"
-    "L_800E9F90:\n"
-    "lw $2,16($16)\n"
-    "sltu $2,$4,$2\n"
-    "beqz $2,L_800E9FBC\n"
-    "addiu $4,$4,1\n"
-    "lw $2,20($16)\n"
-    "addu $2,$3,$2\n"
-    "addiu $3,$3,44\n"
-    "sb $0,0($2)\n"
-    "sb $0,1($2)\n"
-    "j L_800E9F90\n"
-    "sh $0,2($2)\n"
-    "L_800E9FBC:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800E9FFC\n"
-    "move $4,$0\n"
-    "lw $2,4($16)\n"
-    "sh $0,0($16)\n"
-    "beqz $2,L_800E9FFC\n"
-    "sh $0,2($16)\n"
-    "L_800E9FD8:\n"
-    "lw $2,8($16)\n"
-    "sll $3,$4,0x6\n"
-    "addu $3,$3,$2\n"
-    "sh $0,0($3)\n"
-    "lw $2,4($16)\n"
-    "addiu $4,$4,1\n"
-    "sltu $2,$4,$2\n"
-    "bnez $2,L_800E9FD8\n"
-    "nop\n"
-    "L_800E9FFC:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$16,8\n"
-    "sll $6,$18,0x6\n"
-    "lui $7,0x8009\n"
-    "addiu $7,$7,-16096\n"
-    "sw $0,8($16)\n"
-    "sh $0,0($16)\n"
-    "sw $0,4($16)\n"
-    "sw $0,12($16)\n"
-    "sh $0,2($16)\n"
-    "jal func_800AA804\n"
-    "sw $18,4($16)\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800EA074\n"
-    "nop\n"
-    "lw $2,4($16)\n"
-    "move $4,$0\n"
-    "sh $0,0($16)\n"
-    "beqz $2,L_800EA074\n"
-    "sh $0,2($16)\n"
-    "L_800EA050:\n"
-    "lw $2,8($16)\n"
-    "sll $3,$4,0x6\n"
-    "addu $3,$3,$2\n"
-    "sh $0,0($3)\n"
-    "lw $2,4($16)\n"
-    "addiu $4,$4,1\n"
-    "sltu $2,$4,$2\n"
-    "bnez $2,L_800EA050\n"
-    "nop\n"
-    "L_800EA074:\n"
-    "beqz $17,L_800EA094\n"
-    "nop\n"
-    "lw $2,188($17)\n"
-    "sw $2,12($16)\n"
-    "lw $2,184($17)\n"
-    "sw $16,188($17)\n"
-    "addiu $2,$2,1\n"
-    "sw $2,184($17)\n"
-    "L_800EA094:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E9F2C\n.set at\n.set reorder\n");
+typedef struct {
+    char a;
+    char b;
+    short c;
+    char pad[40];
+} Slot;
+
+typedef struct {
+    short used;
+    char pad[62];
+} Node;
+
+typedef struct Pool {
+    unsigned short a;
+    unsigned short b;
+    unsigned int nNodes;
+    Node *nodes;
+    struct Pool *next;
+    unsigned int nSlots;
+    Slot *slots;
+} Pool;
+
+typedef struct {
+    char pad[184];
+    int count;
+    Pool *head;
+} PoolList;
+
+extern char D_800F2758[];
+extern void func_8008C120(void);
+extern void func_8008C130(void);
+extern void func_800AA804(void *, void *, unsigned int, void (*)(void));
+
+static __inline__ void pool_clear(Pool *p)
+{
+    p->nodes = 0;
+    p->a = 0;
+    p->nNodes = 0;
+    p->next = 0;
+    p->b = 0;
+}
+
+static __inline__ void pool_reset_nodes(Pool *p)
+{
+    unsigned int i;
+
+    if (p->nodes != 0) {
+        p->a = 0;
+        p->b = 0;
+        for (i = 0; i < p->nNodes; i++) {
+            p->nodes[i].used = 0;
+        }
+    }
+}
+
+static __inline__ void pool_reset(Pool *p)
+{
+    unsigned int i;
+    unsigned int off;
+    Slot *s;
+
+    i = 0;
+    off = 0;
+    while (1) {
+        if (!(i < p->nSlots)) {
+            break;
+        }
+        s = (Slot *)(off + (unsigned int)p->slots);
+        i++;
+        off += sizeof(Slot);
+        s->a = 0;
+        s->b = 0;
+        s->c = 0;
+    }
+    pool_reset_nodes(p);
+}
+
+void func_800E9F2C(Pool *p, unsigned int nSlots, unsigned int nNodes, PoolList *list)
+{
+    p->nSlots = 0;
+    p->slots = 0;
+    p->nSlots = nSlots;
+    func_800AA804(D_800F2758, &p->slots, nSlots * sizeof(Slot), func_8008C130);
+    pool_reset(p);
+    pool_clear(p);
+    p->nNodes = nNodes;
+    func_800AA804(D_800F2758, &p->nodes, nNodes * sizeof(Node), func_8008C120);
+    pool_reset_nodes(p);
+    if (list != 0) {
+        p->next = list->head;
+        list->head = p;
+        list->count++;
+    }
+}

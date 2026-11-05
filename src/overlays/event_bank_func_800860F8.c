@@ -1,134 +1,129 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800860F8\n.ent func_800860F8\n"
-    "func_800860F8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,16676($19)\n"
-    "bnez $2,L_800862D8\n"
-    "addiu $4,$19,16652\n"
-    "lw $3,12($4)\n"
-    "lw $2,8($4)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800861E8\n"
-    "move $18,$0\n"
-    "lhu $2,18($4)\n"
-    "addiu $2,$2,-1\n"
-    "sh $2,18($4)\n"
-    "addiu $2,$3,-4\n"
-    "sw $2,12($4)\n"
-    "lw $18,-4($3)\n"
-    "li $4,1516\n"
-    "sw $0,-4($3)\n"
-    "jal func_800AAA58\n"
-    "move $5,$18\n"
-    "move $16,$2\n"
-    "jal func_800BA1FC\n"
-    "move $4,$16\n"
-    "addiu $4,$16,652\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,5072\n"
-    "jal func_800AED80\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$16,824\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-29272\n"
-    "sb $0,428($16)\n"
-    "sh $0,638($16)\n"
-    "sb $0,202($16)\n"
-    "sw $0,644($16)\n"
-    "sw $0,648($16)\n"
-    "sw $0,728($16)\n"
-    "jal func_800ADED4\n"
-    "sw $2,180($16)\n"
-    "addiu $17,$16,1036\n"
-    "jal func_800ADED4\n"
-    "move $4,$17\n"
-    "addiu $4,$16,1276\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-26800\n"
-    "sw $2,180($17)\n"
-    "li $2,85\n"
-    "sw $2,1036($16)\n"
-    "jal func_800ADED4\n"
-    "sw $0,1272($16)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,4784($1)\n"
-    "li $2,98\n"
-    "sw $2,0($16)\n"
-    "swc1 $f0,1496($16)\n"
-    "L_800861E8:\n"
-    "beqz $18,L_800862D8\n"
-    "move $5,$19\n"
-    "lw $2,180($18)\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$18,$4\n"
-    "beqz $18,L_800862D8\n"
-    "lui $9,0x8007\n"
-    "lw $16,16672($19)\n"
-    "lbu $2,30512($9)\n"
-    "li $3,1\n"
-    "sw $18,16676($19)\n"
-    "lbu $8,733($16)\n"
-    "lbu $6,424($16)\n"
-    "lbu $5,425($16)\n"
-    "addiu $8,$8,1\n"
-    "andi $10,$8,0xff\n"
-    "sll $7,$10,0x3\n"
-    "addu $4,$7,$19\n"
-    "addiu $4,$4,1564\n"
-    "sllv $3,$3,$10\n"
-    "or $2,$2,$3\n"
-    "sb $2,30512($9)\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,10864\n"
-    "addu $7,$7,$2\n"
-    "andi $2,$5,0x7\n"
-    "sb $2,636($18)\n"
-    "li $2,4\n"
-    "sw $4,644($18)\n"
-    "addiu $4,$18,404\n"
-    "sw $7,648($18)\n"
-    "sb $8,733($18)\n"
-    "sb $6,424($18)\n"
-    "sb $5,425($18)\n"
-    "sb $2,426($18)\n"
-    "sb $10,427($18)\n"
-    "lbu $2,1549($19)\n"
-    "sll $6,$6,0x18\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$19,$2\n"
-    "sw $18,1084($2)\n"
-    "lbu $2,1549($19)\n"
-    "sra $6,$6,0x18\n"
-    "addiu $2,$2,1\n"
-    "jal func_8009A828\n"
-    "sb $2,1549($19)\n"
-    "lui $5,0xfbff\n"
-    "ori $5,$5,0xffff\n"
-    "lw $2,728($16)\n"
-    "move $4,$18\n"
-    "sw $2,728($18)\n"
-    "lw $2,192($18)\n"
-    "lui $3,0x100\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "jal func_8007B444\n"
-    "sw $2,192($18)\n"
-    "sw $0,748($18)\n"
-    "L_800862D8:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800860F8\n.set at\n.set reorder\n");
+typedef struct VtEntry {
+    short offset;
+    short pad;
+    void (*func)(void *, ...);
+} VtEntry;
+
+#define VTABLE(o) ((VtEntry *)*(void **)((char *)(o) + 180))
+
+typedef struct Pool {
+    char pad[8];
+    char **bottom;
+    char **top;
+    unsigned short capacity;
+    unsigned short count;
+} Pool;
+
+typedef struct Pair {
+    int a;
+    int b;
+} Pair;
+
+typedef struct Bank {
+    char pad0[1084];
+    char *list[116];
+    char pad1[1];
+    unsigned char listCount;
+    char pad2[14];
+    Pair pairs[1];
+} Bank;
+
+extern char *func_800AAA58(int, char *);
+extern void func_800BA1FC(char *);
+extern void func_800AED80(void *);
+extern void func_800ADED4(void *);
+extern void func_8009A828(void *, int, int);
+extern void func_8007B444(char *);
+extern char D_800713D0[];
+extern char D_80078DA8[];
+extern char D_80089750[];
+extern unsigned char D_80077730;
+extern Pair D_800F2A70[];
+
+static __inline__ char *spawn_from_pool(char *base)
+{
+    Pool *pool;
+    char *obj;
+    char *made;
+    char *sub;
+
+    pool = (Pool *)(base + 16652);
+    obj = 0;
+    if (pool->top > pool->bottom) {
+        pool->count--;
+        pool->top--;
+        obj = *pool->top;
+        *pool->top = 0;
+
+        made = func_800AAA58(1516, obj);
+        func_800BA1FC(made);
+        *(void **)(made + 180) = D_800713D0;
+        func_800AED80(made + 652);
+        made[428] = 0;
+        *(short *)(made + 638) = 0;
+        made[202] = 0;
+        *(int *)(made + 644) = 0;
+        *(int *)(made + 648) = 0;
+        *(int *)(made + 728) = 0;
+        *(void **)(made + 180) = D_80078DA8;
+        func_800ADED4(made + 824);
+        sub = made + 1036;
+        func_800ADED4(sub);
+        *(void **)(sub + 180) = D_80089750;
+        *(int *)(made + 1036) = 85;
+        *(int *)(made + 1272) = 0;
+        func_800ADED4(made + 1276);
+        *(int *)made = 98;
+        *(float *)(made + 1496) = -648.192138671875f;
+    }
+
+    if (obj != 0) {
+        VTABLE(obj)[2].func(obj + VTABLE(obj)[2].offset, base);
+    }
+    return obj;
+}
+
+static __inline__ void attach_slot(char *obj, Pair *own, Pair *shared, int next, int kind, int flags, int slot)
+{
+    D_80077730 |= 1 << slot;
+    *(Pair **)(obj + 644) = own;
+    *(Pair **)(obj + 648) = shared;
+    obj[636] = flags & 7;
+    obj[733] = next;
+    obj[424] = kind;
+    obj[425] = flags;
+    obj[426] = 4;
+    obj[427] = slot;
+}
+
+void func_800860F8(char *base)
+{
+    char *obj;
+    char *prev;
+    int next;
+    unsigned char slot;
+    int kind;
+    int flags;
+
+    if (((char **)(base + 16672))[1] != 0) {
+        return;
+    }
+
+    obj = spawn_from_pool(base);
+    if (obj != 0) {
+        prev = ((char **)(base + 16672))[0];
+        ((char **)(base + 16672))[1] = obj;
+        next = prev[733] + 1;
+        kind = prev[424];
+        flags = prev[425];
+        slot = next;
+        attach_slot(obj, &((Bank *)base)->pairs[slot], &D_800F2A70[slot], next, kind, flags, slot);
+        ((Bank *)base)->list[((Bank *)base)->listCount] = obj;
+        ((Bank *)base)->listCount++;
+        func_8009A828(obj + 404, flags, (signed char)kind);
+        *(int *)(obj + 728) = *(int *)(prev + 728);
+        *(int *)(obj + 192) = (*(int *)(obj + 192) | 0x1000000) & ~0x4000000;
+        func_8007B444(obj);
+        *(int *)(obj + 748) = 0;
+    }
+}

@@ -1,43 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AC0B4\n.ent func_800AC0B4\n"
-    "func_800AC0B4:\n"
-    "addiu $29,$29,-24\n"
-    "lui $4,0x800f\n"
-    "sw $31,16($29)\n"
-    "jal func_800C013C\n"
-    "addiu $4,$4,15296\n"
-    "lui $2,0x800f\n"
-    "lw $3,10012($2)\n"
-    "sltiu $2,$3,8\n"
-    "beqz $2,L_800AC12C\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,24056\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "j L_800AC130\n"
-    "li $4,192\n"
-    "j L_800AC130\n"
-    "li $4,200\n"
-    "j L_800AC130\n"
-    "li $4,202\n"
-    "j L_800AC130\n"
-    "li $4,207\n"
-    "j L_800AC130\n"
-    "li $4,208\n"
-    "j L_800AC130\n"
-    "li $4,198\n"
-    "j L_800AC130\n"
-    "li $4,223\n"
-    "L_800AC12C:\n"
-    "li $4,201\n"
-    "L_800AC130:\n"
-    "jal func_8001DF58\n"
-    "nop\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AC0B4\n.set at\n.set reorder\n");
+extern int D_800F271C;
+extern char D_800F3BC0[];
+extern void func_800C013C(void *);
+extern void func_8001DF58(int);
+void func_800AC0B4(void)
+{
+    int id;
+    func_800C013C(D_800F3BC0);
+    switch (D_800F271C) {
+    case 6: id = 192; break;
+    case 2: id = 200; break;
+    case 3: id = 202; break;
+    case 4: id = 207; break;
+    case 7: id = 208; break;
+    case 5: id = 198; break;
+    case 0: id = 223; break;
+    default: id = 201; break;
+    }
+    func_8001DF58(id);
+}

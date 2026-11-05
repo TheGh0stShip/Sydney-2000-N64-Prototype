@@ -1,51 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D26AC\n.ent func_800D26AC\n"
-    "func_800D26AC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lbu $2,5384($16)\n"
-    "andi $2,$2,0x1\n"
-    "bnez $2,L_800D2750\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,2128\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,2340\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,2552\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,644\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,212\n"
-    "addiu $4,$16,424\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,856\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,1068\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,1280\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-24880($1)\n"
-    "lbu $2,5384($16)\n"
-    "lbu $3,5385($16)\n"
-    "ori $2,$2,0x1\n"
-    "ori $3,$3,0x1\n"
-    "swc1 $f0,160($16)\n"
-    "sb $2,5384($16)\n"
-    "sb $3,5385($16)\n"
-    "L_800D2750:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D26AC\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    void (*fn)(void *self);
+} VirtualSlot;
+
+extern void func_800ADC38(void *part);
+extern void func_800B2158(void *part, int mode);
+
+void func_800D26AC(unsigned char *self)
+{
+    VirtualSlot *slot;
+
+    if (self[5384] & 1) {
+        return;
+    }
+    slot = (VirtualSlot *)(*(unsigned char **)(self + 180) + 64);
+    slot->fn(self + slot->offset);
+    func_800ADC38(self + 2128);
+    func_800ADC38(self + 2340);
+    func_800ADC38(self + 2552);
+    func_800ADC38(self + 644);
+    func_800ADC38(self + 212);
+    func_800B2158(self + 424, 1);
+    func_800ADC38(self + 856);
+    func_800ADC38(self + 1068);
+    func_800ADC38(self + 1280);
+    *(float *)(self + 160) = 696.0f;
+    self[5384] |= 1;
+    self[5385] |= 1;
+}

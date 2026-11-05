@@ -1,57 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E739C\n.ent func_800E739C\n"
-    "func_800E739C:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "sw $31,44($29)\n"
-    "sw $22,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lhu $2,24($19)\n"
-    "move $20,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$20,$2\n"
-    "lw $18,4($2)\n"
-    "lhu $2,2($18)\n"
-    "sw $0,44($19)\n"
-    "lbu $17,1($18)\n"
-    "beqz $17,L_800E7438\n"
-    "addu $16,$18,$2\n"
-    "li $22,1\n"
-    "li $21,-2\n"
-    "L_800E73F4:\n"
-    "move $4,$20\n"
-    "move $5,$19\n"
-    "addiu $6,$18,408\n"
-    "jal func_800E7180\n"
-    "addiu $7,$16,4\n"
-    "sll $2,$2,0x10\n"
-    "sra $2,$2,0x10\n"
-    "bne $2,$22,L_800E7420\n"
-    "addiu $17,$17,-1\n"
-    "j L_800E7438\n"
-    "sw $16,44($19)\n"
-    "L_800E7420:\n"
-    "lbu $2,4($16)\n"
-    "addu $2,$16,$2\n"
-    "addiu $16,$2,6\n"
-    "andi $2,$17,0xff\n"
-    "bnez $2,L_800E73F4\n"
-    "and $16,$16,$21\n"
-    "L_800E7438:\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800E739C\n.set at\n.set reorder\n");
+extern short func_800E7180(void *, void *, void *, void *);
+
+typedef struct {
+    int unk0;
+    unsigned char *tbl[1];
+} Owner800E739C;
+
+void func_800E739C(Owner800E739C *obj, char *ent)
+{
+    unsigned char *hdr;
+    unsigned char *p;
+    unsigned char n;
+    short r;
+
+    hdr = obj->tbl[*(unsigned short *)(ent + 24)];
+    p = hdr + *(unsigned short *)(hdr + 2);
+    *(void **)(ent + 44) = 0;
+    n = hdr[1];
+    while (n != 0) {
+        r = func_800E7180(obj, ent, hdr + 408, p + 4);
+        if (r == 1) {
+            *(void **)(ent + 44) = p;
+            return;
+        }
+        p = p + p[4] + 6;
+        p = (unsigned char *)((int)p & ~1);
+        n--;
+    }
+}

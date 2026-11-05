@@ -1,84 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6FE4\n.ent func_800D6FE4\n"
-    "func_800D6FE4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800D704C\n"
-    "move $16,$4\n"
-    "slti $2,$3,6\n"
-    "beqz $2,L_800D7024\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800D7038\n"
-    "nop\n"
-    "j L_800D70E4\n"
-    "nop\n"
-    "L_800D7024:\n"
-    "li $2,7\n"
-    "beq $3,$2,L_800D70DC\n"
-    "nop\n"
-    "j L_800D70E4\n"
-    "nop\n"
-    "L_800D7038:\n"
-    "lw $5,16($17)\n"
-    "jal func_800D6F80\n"
-    "move $4,$16\n"
-    "j L_800D70E4\n"
-    "nop\n"
-    "L_800D704C:\n"
-    "lw $2,220($16)\n"
-    "blez $2,L_800D7074\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800D70C0\n"
-    "sw $2,220($16)\n"
-    "move $4,$16\n"
-    "jal func_800B2158\n"
-    "li $5,1\n"
-    "j L_800D70C0\n"
-    "nop\n"
-    "L_800D7074:\n"
-    "lw $2,232($16)\n"
-    "beqz $2,L_800D70A4\n"
-    "nop\n"
-    "lw $2,228($16)\n"
-    "addiu $3,$2,-256\n"
-    "bgtz $3,L_800D70A4\n"
-    "sw $3,228($16)\n"
-    "lw $2,232($16)\n"
-    "move $4,$16\n"
-    "addu $2,$3,$2\n"
-    "jal func_800B34C4\n"
-    "sw $2,228($16)\n"
-    "L_800D70A4:\n"
-    "lw $2,224($16)\n"
-    "blez $2,L_800D70C0\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800D70C0\n"
-    "sw $2,224($16)\n"
-    "jal func_800D6EA0\n"
-    "move $4,$16\n"
-    "L_800D70C0:\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "j L_800D70E4\n"
-    "nop\n"
-    "L_800D70DC:\n"
-    "jal func_800D6EA0\n"
-    "move $4,$16\n"
-    "L_800D70E4:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D6FE4\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(); } VEntry;
+typedef struct { char pad[32]; VEntry tick; } VTable;
+typedef struct {
+    char pad0[16];
+    int time;
+    char pad1[180 - 20];
+    VTable *vt;
+    char pad2[220 - 184];
+    int lifeTimer;
+    int fadeTimer;
+    int blinkTimer;
+    int blinkPeriod;
+} Obj;
+typedef struct { int type; int time; char pad[8]; int arg; } Msg;
+
+extern void func_800D6F80(Obj *, int);
+extern void func_800B2158(Obj *, int);
+extern void func_800B34C4(Obj *);
+extern void func_800D6EA0(Obj *);
+
+void func_800D6FE4(Obj *self, Msg *msg)
+{
+    switch (msg->type) {
+    case 3:
+        func_800D6F80(self, msg->arg);
+        break;
+    case 5:
+        if (self->lifeTimer > 0) {
+            self->lifeTimer -= 256;
+            if (self->lifeTimer <= 0) {
+                func_800B2158(self, 1);
+            }
+        } else {
+            if (self->blinkPeriod != 0) {
+                self->blinkTimer -= 256;
+                if (self->blinkTimer <= 0) {
+                    self->blinkTimer += self->blinkPeriod;
+                    func_800B34C4(self);
+                }
+            }
+            if (self->fadeTimer > 0) {
+                self->fadeTimer -= 256;
+                if (self->fadeTimer <= 0) {
+                    func_800D6EA0(self);
+                }
+            }
+        }
+        self->vt->tick.fn((char *)self + self->vt->tick.offset);
+        break;
+    case 7:
+        func_800D6EA0(self);
+        break;
+    }
+    self->time = msg->time;
+}

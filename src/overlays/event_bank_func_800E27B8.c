@@ -1,47 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E27B8\n.ent func_800E27B8\n"
-    "func_800E27B8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10968\n"
-    "lui $2,0x800f\n"
-    "sw $0,10020($2)\n"
-    "lui $2,0x800f\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "sw $0,10024($2)\n"
-    "jal func_800BC274\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,9952\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,2\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,1\n"
-    "addiu $16,$17,20560\n"
-    "jal func_80099FE4\n"
-    "move $4,$16\n"
-    "jal func_80099728\n"
-    "move $4,$16\n"
-    "move $16,$0\n"
-    "move $4,$17\n"
-    "L_800E282C:\n"
-    "jal func_80074E5C\n"
-    "andi $5,$16,0xff\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnez $2,L_800E282C\n"
-    "move $4,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E27B8\n.set at\n.set reorder\n");
+extern void func_800BC274(void *);
+extern void func_800AACB0(void *, int, int);
+extern void func_80099FE4(void *);
+extern void func_80099728(void *);
+extern void func_80074E5C(char *, int);
+extern volatile int D_800F2724;
+extern volatile int D_800F2728;
+extern char D_800F2AD8[];
+extern char D_800F26E0[];
+
+void func_800E27B8(char *obj)
+{
+    unsigned char i;
+
+    D_800F2724 = 0;
+    D_800F2728 = 0;
+    func_800BC274(D_800F2AD8);
+    func_800AACB0(D_800F26E0, 0, 2);
+    func_800AACB0(D_800F26E0, 0, 1);
+    func_80099FE4(obj + 20560);
+    func_80099728(obj + 20560);
+    for (i = 0; i < 8; i++) {
+        func_80074E5C(obj, i);
+    }
+}

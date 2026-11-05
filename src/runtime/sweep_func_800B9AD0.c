@@ -1,45 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9AD0\n.ent func_800B9AD0\n"
-    "func_800B9AD0:\n"
-    "lw $3,196($4)\n"
-    "lw $2,28($3)\n"
-    "lhu $2,0($2)\n"
-    "beqz $3,L_800B9B54\n"
-    "li $6,31\n"
-    "li $8,1\n"
-    "andi $9,$2,0xffff\n"
-    "L_800B9AEC:\n"
-    "lw $7,224($4)\n"
-    "sllv $3,$8,$6\n"
-    "and $2,$3,$7\n"
-    "beql $2,$0,L_800B9B4C\n"
-    "addiu $6,$6,-1\n"
-    "slt $2,$6,$9\n"
-    "beql $2,$0,L_800B9B4C\n"
-    "addiu $6,$6,-1\n"
-    "move $5,$6\n"
-    "or $2,$7,$3\n"
-    "beqz $6,L_800B9B48\n"
-    "sw $2,224($4)\n"
-    "lw $7,196($4)\n"
-    "L_800B9B20:\n"
-    "lw $2,28($7)\n"
-    "lw $3,4($2)\n"
-    "sll $2,$5,0x4\n"
-    "addu $2,$2,$3\n"
-    "lb $5,13($2)\n"
-    "lw $2,224($4)\n"
-    "sllv $3,$8,$5\n"
-    "or $2,$2,$3\n"
-    "bnez $5,L_800B9B20\n"
-    "sw $2,224($4)\n"
-    "L_800B9B48:\n"
-    "addiu $6,$6,-1\n"
-    "L_800B9B4C:\n"
-    "bgez $6,L_800B9AEC\n"
-    "nop\n"
-    "L_800B9B54:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800B9AD0\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[13];
+    signed char parent;
+    char pad14[2];
+} BoneLink;
+
+typedef struct {
+    unsigned short count;
+    char pad2[2];
+    BoneLink *links;
+} Skeleton;
+
+typedef struct {
+    char pad0[28];
+    Skeleton *skeleton;
+} Model;
+
+typedef struct {
+    char pad0[196];
+    Model *model;
+    char pad200[24];
+    unsigned int mask;
+} Rig;
+
+void func_800B9AD0(Rig *self)
+{
+    Model *model = self->model;
+    unsigned short count = model->skeleton->count;
+    int i;
+    int bone;
+    unsigned int bit;
+
+    if (model == 0) {
+        return;
+    }
+    for (i = 31; i >= 0; i--) {
+        bit = 1 << i;
+        if ((bit & self->mask) && i < count) {
+            bone = i;
+            self->mask |= bit;
+            while (bone != 0) {
+                bone = self->model->skeleton->links[bone].parent;
+                self->mask |= 1 << bone;
+            }
+        }
+    }
+}

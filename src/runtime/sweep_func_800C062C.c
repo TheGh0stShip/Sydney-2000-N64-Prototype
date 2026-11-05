@@ -1,46 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C062C\n.ent func_800C062C\n"
-    "func_800C062C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-32104\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$18,1036\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800ADDA4\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,188\n"
-    "beqz $2,L_800C06A4\n"
-    "move $4,$18\n"
-    "beq $2,$16,L_800C06A4\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800C0680:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800C0680\n"
-    "addiu $16,$16,-212\n"
-    "move $4,$18\n"
-    "L_800C06A4:\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C062C\n.set at\n.set reorder\n");
+extern void func_800ADDA4(void *object, int arg);
+extern void func_800AC3A4(void *object, int arg);
+extern unsigned char D_80088298[];
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *, int);
+} Method;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char rest[28];
+} Part;
+
+void func_800C062C(unsigned char *object, int arg)
+{
+    Part *parts;
+    Part *p;
+
+    *(void **)(object + 180) = D_80088298;
+    func_800ADDA4(object + 1036, 2);
+    parts = (Part *)(object + 188);
+    if (parts != 0) {
+        p = parts + 4;
+        if (parts != p) {
+            Part *first = parts;
+            do {
+                Method *m;
+                p--;
+                m = (Method *)(p->vtable + 8);
+                m->fn((unsigned char *)p + m->offset, 2);
+            } while (first != p);
+        }
+    }
+    func_800AC3A4(object, arg);
+}

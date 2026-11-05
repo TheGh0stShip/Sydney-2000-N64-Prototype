@@ -1,65 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E4458\n.ent func_800E4458\n"
-    "func_800E4458:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "li $2,10\n"
-    "sw $31,24($29)\n"
-    "bne $5,$2,L_800E4494\n"
-    "sw $16,16($29)\n"
-    "jal func_800B31EC\n"
-    "move $4,$0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,12\n"
-    "j L_800E4514\n"
-    "li $2,1\n"
-    "L_800E4494:\n"
-    "slti $2,$5,10\n"
-    "bnez $2,L_800E4524\n"
-    "slti $2,$5,37\n"
-    "beqz $2,L_800E4524\n"
-    "slti $2,$5,29\n"
-    "bnez $2,L_800E4524\n"
-    "move $4,$17\n"
-    "jal func_800E42B0\n"
-    "addiu $5,$5,-29\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lbu $2,1266($2)\n"
-    "beqz $2,L_800E451C\n"
-    "move $4,$17\n"
-    "jal func_800B31F8\n"
-    "nop\n"
-    "li $4,282\n"
-    "jal func_800B3208\n"
-    "move $16,$2\n"
-    "lw $4,188($17)\n"
-    "jal func_800E9774\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "li $5,14\n"
-    "lui $3,0x8010\n"
-    "li $2,3\n"
-    "jal func_800D53A0\n"
-    "sh $2,-7954($3)\n"
-    "jal func_800B3208\n"
-    "andi $4,$16,0xffff\n"
-    "li $2,1\n"
-    "L_800E4514:\n"
-    "j L_800E4524\n"
-    "sb $2,19102($17)\n"
-    "L_800E451C:\n"
-    "jal func_800DFFF4\n"
-    "li $5,1\n"
-    "L_800E4524:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E4458\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern char D_800F5900[];
+extern short D_800FE0EE;
+extern void func_800B31EC(int mode);
+extern int func_800B31F8(void);
+extern void func_800B3208(int sound);
+extern void func_800D53A0(void *queue, int event);
+extern void func_800DFFF4(unsigned char *object, int mode);
+extern void func_800E42B0(unsigned char *object, int index);
+extern void func_800E9774(int handle);
+
+void func_800E4458(unsigned char *object, int choice)
+{
+    int previous;
+
+    if (choice == 10) {
+        func_800B31EC(0);
+        func_800D53A0(D_800F5900, 12);
+        object[19102] = 1;
+    } else if (choice < 10) {
+    } else if (choice < 37) {
+        if (choice >= 29) {
+            func_800E42B0(object, choice - 29);
+            if (D_800FC270[1266] != 0) {
+                previous = func_800B31F8();
+                func_800B3208(282);
+                func_800E9774(*(int *)(object + 188));
+                D_800FE0EE = 3;
+                func_800D53A0(D_800F5900, 14);
+                func_800B3208(previous & 0xFFFF);
+                object[19102] = 1;
+            } else {
+                func_800DFFF4(object, 1);
+            }
+        }
+    }
+}

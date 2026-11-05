@@ -1,63 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D9E3C\n.ent func_800D9E3C\n"
-    "func_800D9E3C:\n"
-    "move $8,$4\n"
-    "lui $6,0x7fff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "srl $2,$3,0x1a\n"
-    "move $4,$2\n"
-    "move $9,$2\n"
-    "sltiu $2,$4,32\n"
-    "beqz $2,L_800D9EC8\n"
-    "sw $3,10004($5)\n"
-    "li $7,1\n"
-    "andi $6,$4,0xff\n"
-    "L_800D9E94:\n"
-    "lw $5,0($8)\n"
-    "sllv $3,$7,$6\n"
-    "and $2,$5,$3\n"
-    "bnez $2,L_800D9EB8\n"
-    "addiu $4,$4,1\n"
-    "L_800D9EA8:\n"
-    "or $2,$5,$3\n"
-    "sw $2,0($8)\n"
-    "jr $31\n"
-    "move $2,$6\n"
-    "L_800D9EB8:\n"
-    "andi $2,$4,0xff\n"
-    "sltiu $2,$2,32\n"
-    "bnez $2,L_800D9E94\n"
-    "andi $6,$4,0xff\n"
-    "L_800D9EC8:\n"
-    "andi $2,$9,0xff\n"
-    "beqz $2,L_800D9F04\n"
-    "move $4,$0\n"
-    "li $9,1\n"
-    "move $7,$2\n"
-    "andi $6,$4,0xff\n"
-    "lw $5,0($8)\n"
-    "L_800D9EE4:\n"
-    "sllv $3,$9,$6\n"
-    "and $2,$5,$3\n"
-    "beqz $2,L_800D9EA8\n"
-    "addiu $4,$4,1\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$7\n"
-    "bnez $2,L_800D9EE4\n"
-    "andi $6,$4,0xff\n"
-    "L_800D9F04:\n"
-    "jr $31\n"
-    "move $2,$0\n"
-    ".end func_800D9E3C\n.set at\n.set reorder\n");
+extern unsigned int D_800F2714;
+
+unsigned char func_800D9E3C(unsigned int *mask)
+{
+    unsigned char start;
+    unsigned char i;
+
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    start = D_800F2714 >> 26;
+    for (i = start; i < 32; i++) {
+        if (!(*mask & (1 << i))) {
+            *mask |= 1 << i;
+            return i;
+        }
+    }
+    for (i = 0; i < start; i++) {
+        if (!(*mask & (1 << i))) {
+            *mask |= 1 << i;
+            return i;
+        }
+    }
+    return 0;
+}

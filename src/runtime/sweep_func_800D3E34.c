@@ -1,54 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D3E34\n.ent func_800D3E34\n"
-    "func_800D3E34:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,180($17)\n"
-    "move $16,$0\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1156\n"
-    "andi $2,$16,0xff\n"
-    "L_800D3E6C:\n"
-    "addiu $16,$16,1\n"
-    "sll $4,$2,0x1\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $2,$4,$17\n"
-    "addiu $4,$4,1368\n"
-    "lw $2,1548($2)\n"
-    "addu $4,$17,$4\n"
-    "lh $3,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,4\n"
-    "bnez $2,L_800D3E6C\n"
-    "andi $2,$16,0xff\n"
-    "jal func_800D6EA0\n"
-    "addiu $4,$17,212\n"
-    "jal func_800D6EA0\n"
-    "addiu $4,$17,448\n"
-    "jal func_800D6EA0\n"
-    "addiu $4,$17,684\n"
-    "jal func_800D6EA0\n"
-    "addiu $4,$17,920\n"
-    "lbu $2,2240($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D3E34\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} VEntry;
+
+typedef struct VTable {
+    char pad[72];
+    VEntry entry;
+} VTable;
+
+typedef struct Part {
+    char pad[180];
+    VTable *vtbl;
+    char pad2[28];
+} Part;
+
+typedef struct Unit {
+    char pad0[180];
+    VTable *vtbl;
+    char pad1[28];
+    char slots[4][236];
+    char sub[212];
+    Part parts[4];
+    char pad3[24];
+    unsigned char result;
+} Unit;
+
+extern void func_800ADC1C(void *);
+extern void func_800D6EA0(void *);
+
+int func_800D3E34(Unit *unit)
+{
+    unsigned char i;
+
+    unit->vtbl->entry.fn((char *)unit + unit->vtbl->entry.offset);
+    func_800ADC1C(unit->sub);
+    i = 0;
+    do {
+        VTable *vt = ((Part *)((char *)unit->parts + i * sizeof(Part)))->vtbl;
+        Part *part = &unit->parts[i];
+        i++;
+        vt->entry.fn((char *)part + vt->entry.offset);
+    } while (i < 4);
+    func_800D6EA0(unit->slots[0]);
+    func_800D6EA0(unit->slots[1]);
+    func_800D6EA0(unit->slots[2]);
+    func_800D6EA0(unit->slots[3]);
+    return unit->result;
+}

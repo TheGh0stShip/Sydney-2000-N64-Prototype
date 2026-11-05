@@ -1,64 +1,26 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CCD60\n.ent func_800CCD60\n"
-    "func_800CCD60:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$16,196\n"
-    "move $4,$17\n"
-    "lui $5,0x8009\n"
-    "sw $31,32($29)\n"
-    "sdc1 $f20,40($29)\n"
-    "jal func_80019680\n"
-    "addiu $5,$5,-26400\n"
-    "mtc1 $0,$f20\n"
-    "lui $7,0x4240\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26296($1)\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "move $4,$17\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mfc1 $5,$f20\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26292($1)\n"
-    "mfc1 $6,$f20\n"
-    "mfc1 $7,$f0\n"
-    "move $4,$17\n"
-    "sw $0,20($29)\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "move $4,$17\n"
-    "li $5,255\n"
-    "move $6,$5\n"
-    "move $7,$5\n"
-    "li $2,200\n"
-    "jal func_80019338\n"
-    "sw $2,16($29)\n"
-    "li $2,2\n"
-    "sb $2,201($16)\n"
-    "lw $2,192($16)\n"
-    "lui $3,0x2\n"
-    "or $2,$2,$3\n"
-    "li $3,1\n"
-    "sw $2,192($16)\n"
-    "ori $2,$2,0x2\n"
-    "sw $2,192($16)\n"
-    "addiu $2,$16,96\n"
-    "sb $3,176($16)\n"
-    "swc1 $f20,64($2)\n"
-    "swc1 $f20,68($2)\n"
-    "swc1 $f20,72($2)\n"
-    "lw $2,192($16)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($16)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800CCD60\n.set at\n.set reorder\n");
+extern char D_800898E0[];
+
+int func_80019680(void *sprite, char *name);
+void func_8001A1D8(void *sprite, float a, float b, float x, float y);
+void func_8001A210(void *sprite, float a, float b, float sx, float sy, int flags);
+void func_80019338(void *sprite, int r, int g, int b, int a);
+
+void func_800CCD60(unsigned char *object)
+{
+    void *sprite = object + 196;
+    float *vel;
+
+    func_80019680(sprite, D_800898E0);
+    func_8001A1D8(sprite, 0.0f, 0.0f, 48.0f, 26.0f);
+    func_8001A210(sprite, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_80019338(sprite, 255, 255, 255, 200);
+    object[201] = 2;
+    *(int *)(object + 192) |= 0x20000;
+    object[176] = 1;
+    *(int *)(object + 192) |= 2;
+    vel = (float *)(object + 96);
+    vel[16] = 0.0f;
+    vel[17] = 0.0f;
+    vel[18] = 0.0f;
+    *(int *)(object + 192) |= 4;
+}

@@ -1,89 +1,81 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D7F5C\n.ent func_800D7F5C\n"
-    "func_800D7F5C:\n"
-    "addiu $29,$29,-48\n"
-    "sw $20,32($29)\n"
-    "move $20,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$0\n"
-    "sw $21,36($29)\n"
-    "lui $21,0x800f\n"
-    "sw $31,40($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "L_800D7F88:\n"
-    "andi $3,$19,0xff\n"
-    "sltiu $2,$3,30\n"
-    "beqz $2,L_800D8020\n"
-    "sll $2,$3,0x2\n"
-    "addu $18,$20,$2\n"
-    "lw $16,232($18)\n"
-    "beqz $16,L_800D8018\n"
-    "addiu $17,$20,352\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "addiu $4,$21,9952\n"
-    "move $5,$16\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($17)\n"
-    "lhu $3,16($17)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800D8014\n"
-    "li $5,2\n"
-    "lw $2,180($16)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,12($17)\n"
-    "sw $16,0($2)\n"
-    "lw $2,12($17)\n"
-    "lhu $3,18($17)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($17)\n"
-    "sh $3,18($17)\n"
-    "L_800D8014:\n"
-    "sw $0,232($18)\n"
-    "L_800D8018:\n"
-    "j L_800D7F88\n"
-    "addiu $19,$19,1\n"
-    "L_800D8020:\n"
-    "lw $17,352($20)\n"
-    "beqz $17,L_800D8068\n"
-    "addiu $16,$20,352\n"
-    "sw $0,352($20)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800D8044\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,356\n"
-    "L_800D8044:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800D8058\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,360\n"
-    "L_800D8058:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,352($20)\n"
-    "L_800D8068:\n"
-    "sh $0,374($20)\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D7F5C\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)(char *, int);
+} VEntry;
+
+typedef struct {
+    char *heap;
+    void *bufA;
+    void *bufB;
+    char **top;
+    unsigned short cap;
+    unsigned short count;
+    short pad14;
+    short flag;
+} FreeList;
+
+typedef struct {
+    char pad0[232];
+    char *items[30];
+    FreeList pool;
+} Owner;
+
+extern char D_800F26E0[];
+extern void func_800AACB0(char *, char *, int);
+extern void func_800AA658(char *, void *);
+
+#define VCALL(p, n, arg) \
+    (v = &(*(VEntry **)((p) + 180))[n], v->fn((p) + v->delta, (arg)))
+
+static __inline__ void pool_release(FreeList *pool)
+{
+    char *heap;
+
+    heap = pool->heap;
+    if (heap != 0) {
+        pool->heap = 0;
+        if (pool->bufA != 0) {
+            func_800AA658(heap, &pool->bufA);
+        }
+        if (pool->bufB != 0) {
+            func_800AA658(heap, &pool->bufB);
+        }
+        pool->cap = 0;
+        pool->count = 0;
+        pool->top = 0;
+        pool->heap = 0;
+    }
+}
+
+void func_800D7F5C(Owner *obj)
+{
+    unsigned char i;
+    char *e;
+    FreeList *pool;
+    VEntry *v;
+
+    i = 0;
+    while (1) {
+        if (!(i < 30)) {
+            break;
+        }
+        e = obj->items[i];
+        if (e != 0) {
+            pool = &obj->pool;
+            v = &(*(VEntry **)(e + 180))[3];
+            ((void (*)(char *))v->fn)(e + v->delta);
+            func_800AACB0(D_800F26E0, e, 0);
+            if (pool->count < pool->cap) {
+                VCALL(e, 1, 2);
+                *pool->top = e;
+                pool->top++;
+                pool->count++;
+            }
+            obj->items[i] = 0;
+        }
+        i++;
+    }
+    pool_release(&obj->pool);
+    obj->pool.flag = 0;
+}

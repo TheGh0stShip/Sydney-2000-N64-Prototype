@@ -1,32 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C6B70\n.ent func_800C6B70\n"
-    "func_800C6B70:\n"
-    "move $5,$0\n"
-    "lui $2,0x800f\n"
-    "lw $6,16628($2)\n"
-    "L_800C6B7C:\n"
-    "andi $3,$5,0xff\n"
-    "sltiu $2,$3,2\n"
-    "beqz $2,L_800C6BCC\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$4,$2\n"
-    "lw $3,244($2)\n"
-    "lw $2,196($3)\n"
-    "bne $2,$6,L_800C6B7C\n"
-    "addiu $5,$5,1\n"
-    "lw $2,780($4)\n"
-    "addiu $2,$2,1\n"
-    "sw $2,780($4)\n"
-    "sltiu $2,$2,9\n"
-    "bnez $2,L_800C6B7C\n"
-    "nop\n"
-    "lw $2,192($3)\n"
-    "xori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "j L_800C6B7C\n"
-    "sw $0,780($4)\n"
-    "L_800C6BCC:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800C6B70\n.set at\n.set reorder\n");
+extern int D_800F40F4;
+
+typedef struct {
+    char pad0[192];
+    int flags;
+    int group;
+} BlinkChild;
+
+typedef struct {
+    char pad0[244];
+    BlinkChild *children[134];
+    unsigned int counter;
+} BlinkOwner;
+
+void func_800C6B70(BlinkOwner *self)
+{
+    int i = 0;
+    int target = D_800F40F4;
+    BlinkChild *child;
+    unsigned char idx;
+
+    for (;; i++) {
+        idx = i;
+        if (idx >= 2) {
+            return;
+        }
+        child = self->children[idx];
+        if (child->group == target) {
+            if (++self->counter >= 9) {
+                child->flags ^= 4;
+                self->counter = 0;
+            }
+        }
+    }
+}

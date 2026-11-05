@@ -1,46 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009F8B4\n.ent func_8009F8B4\n"
-    "func_8009F8B4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,19288\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_8009F84C\n"
-    "sw $2,180($16)\n"
-    "addiu $17,$16,940\n"
-    "jal func_800ADC1C\n"
-    "move $4,$17\n"
-    "addiu $4,$16,1204\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "move $4,$17\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,700\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,476\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,212\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,19416\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($4)\n"
-    "move $4,$16\n"
-    "jal func_800ADE84\n"
-    "move $5,$18\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009F8B4\n.set at\n.set reorder\n");
+extern char D_80084B58[];
+extern char D_80084BD8[];
+extern void func_8009F84C(char *);
+extern void func_800ADC1C(char *);
+extern void func_800D3460(char *, int);
+extern void func_800ADE84(char *, int);
+void func_8009F8B4(char *obj, int mode)
+{
+    *(char **)(obj + 180) = D_80084B58;
+    func_8009F84C(obj);
+    func_800ADC1C(obj + 940);
+    func_800D3460(obj + 1204, 2);
+    func_800ADE84(obj + 940, 2);
+    func_800ADE84(obj + 700, 2);
+    func_800ADE84(obj + 476, 2);
+    {
+        char *sub = obj + 212;
+        *(char **)(sub + 180) = D_80084BD8;
+        func_800ADE84(sub, 2);
+    }
+    func_800ADE84(obj, mode);
+}

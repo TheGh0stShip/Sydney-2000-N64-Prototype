@@ -1,124 +1,87 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80085CF0\n.ent func_80085CF0\n"
-    "func_80085CF0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "andi $2,$18,0xff\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$19,$2\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $17,16672($2)\n"
-    "beqz $17,L_80085E98\n"
-    "move $5,$17\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "addiu $16,$17,1036\n"
-    "beql $16,$0,L_80085D84\n"
-    "addiu $16,$17,824\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $4,196($16)\n"
-    "beqz $4,L_80085D84\n"
-    "addiu $16,$17,824\n"
-    "jal func_800172CC\n"
-    "li $5,1\n"
-    "addiu $16,$17,824\n"
-    "L_80085D84:\n"
-    "beql $16,$0,L_80085DB8\n"
-    "addiu $16,$17,1276\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "addiu $16,$17,1276\n"
-    "L_80085DB8:\n"
-    "beqz $16,L_80085DE8\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_80085DE8:\n"
-    "lbu $5,424($17)\n"
-    "li $2,8\n"
-    "beq $5,$2,L_80085E10\n"
-    "lui $2,0x8010\n"
-    "sll $3,$5,0x4\n"
-    "subu $3,$3,$5\n"
-    "lw $2,-15760($2)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sw $0,72($2)\n"
-    "L_80085E10:\n"
-    "andi $2,$18,0xff\n"
-    "sll $2,$2,0x2\n"
-    "addu $18,$19,$2\n"
-    "lw $17,16672($18)\n"
-    "lw $2,180($17)\n"
-    "addiu $16,$19,16652\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_80085E94\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "L_80085E94:\n"
-    "sw $0,16672($18)\n"
-    "L_80085E98:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80085CF0\n.set at\n.set reorder\n");
+typedef struct VtEntry {
+    short offset;
+    short pad;
+    void (*func)(void *, ...);
+} VtEntry;
+
+#define VCALL(o, slot) ((VtEntry *)*(void **)((char *)(o) + 180))[slot].func((char *)(o) + ((VtEntry *)*(void **)((char *)(o) + 180))[slot].offset)
+#define VCALL1(o, slot, a) ((VtEntry *)*(void **)((char *)(o) + 180))[slot].func((char *)(o) + ((VtEntry *)*(void **)((char *)(o) + 180))[slot].offset, a)
+
+typedef struct Pool {
+    char pad[12];
+    void **top;
+    unsigned short capacity;
+    unsigned short count;
+} Pool;
+
+typedef struct Bank {
+    char pad[16672];
+    char *slots[4];
+} Bank;
+
+extern void func_800AACB0(void *, void *, int);
+extern void func_800172CC(void *, int);
+extern char D_800F26E0[];
+typedef struct Entry {
+    char pad[12];
+    int active;
+    char pad2[44];
+} Entry;
+
+typedef struct Table {
+    char header[60];
+    Entry entries[1];
+} Table;
+
+extern Table *D_800FC270;
+
+void func_80085CF0(char *base, unsigned char index)
+{
+    char *obj;
+    char *victim;
+    char *sub;
+    unsigned char kind;
+    Pool *pool;
+
+    obj = ((Bank *)base)->slots[index];
+    if (obj == 0) {
+        return;
+    }
+    func_800AACB0(D_800F26E0, obj, 0);
+
+    sub = obj + 1036;
+    if (sub != 0) {
+        VCALL(sub, 3);
+        VCALL(sub, 9);
+        if (*(void **)(sub + 196) != 0) {
+            func_800172CC(*(void **)(sub + 196), 1);
+        }
+    }
+    sub = obj + 824;
+    if (sub != 0) {
+        VCALL(sub, 3);
+        VCALL(sub, 9);
+    }
+    sub = obj + 1276;
+    if (sub != 0) {
+        VCALL(sub, 3);
+        VCALL(sub, 9);
+    }
+
+    kind = obj[424];
+    if (kind != 8) {
+        D_800FC270->entries[kind].active = 0;
+    }
+
+    victim = ((Bank *)base)->slots[index];
+    pool = (Pool *)(base + 16652);
+    VCALL(victim, 3);
+    func_800AACB0(D_800F26E0, victim, 0);
+    if (pool->count < pool->capacity) {
+        VCALL1(victim, 1, 2);
+        *pool->top = victim;
+        pool->top++;
+        pool->count++;
+    }
+    ((Bank *)base)->slots[index] = 0;
+}

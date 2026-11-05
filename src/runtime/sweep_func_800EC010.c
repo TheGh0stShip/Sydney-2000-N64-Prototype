@@ -1,96 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EC010\n.ent func_800EC010\n"
-    "func_800EC010:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "lui $4,0x8010\n"
-    "sw $31,20($29)\n"
-    "jal func_800EA638\n"
-    "addiu $4,$4,-720\n"
-    "jal func_800EA520\n"
-    "move $4,$16\n"
-    "move $4,$0\n"
-    "move $3,$16\n"
-    "L_800EC03C:\n"
-    "sw $0,192($3)\n"
-    "addiu $4,$4,1\n"
-    "sltiu $2,$4,6\n"
-    "bnez $2,L_800EC03C\n"
-    "addiu $3,$3,4\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15152\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15072($1)\n"
-    "addiu $4,$16,192\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15140\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15068($1)\n"
-    "addiu $4,$16,196\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15124\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15064($1)\n"
-    "addiu $4,$16,200\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15108\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15060($1)\n"
-    "addiu $4,$16,204\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15096\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15056($1)\n"
-    "addiu $4,$16,208\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15084\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15052($1)\n"
-    "addiu $4,$16,212\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "addiu $4,$16,216\n"
-    "li $5,16\n"
-    "li $6,32\n"
-    "jal func_800E9F2C\n"
-    "move $7,$16\n"
-    "addiu $4,$16,244\n"
-    "li $5,2\n"
-    "li $6,64\n"
-    "jal func_800E9F2C\n"
-    "move $7,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EC010\n.set at\n.set reorder\n");
+extern char D_800FFD30[];
+extern void func_800EA638(void *);
+extern void func_800EA520(void *);
+extern unsigned short func_8000EB20(const char *);
+extern void func_80015F98(void *, float, float, unsigned short);
+extern void func_800E9F2C(void *, int, int, void *);
+
+typedef struct Effects {
+    char pad[192];
+    void *sounds[6];
+    char groupA[28];
+    char groupB[28];
+} Effects;
+
+void func_800EC010(Effects *fx)
+{
+    unsigned int i;
+
+    func_800EA638(D_800FFD30);
+    func_800EA520(fx);
+    for (i = 0; i < 6; i++) {
+        fx->sounds[i] = 0;
+    }
+    func_80015F98(&fx->sounds[0], 29.4903011f, 29.4903011f, func_8000EB20("SKEET_SMOKE"));
+    func_80015F98(&fx->sounds[1], 81.9174957f, 81.9174957f, func_8000EB20("SKEET_SMASH1"));
+    func_80015F98(&fx->sounds[2], 32.7669983f, 32.7669983f, func_8000EB20("SKEET_SMASH2"));
+    func_80015F98(&fx->sounds[3], 9.83010006f, 9.83010006f, func_8000EB20("SKEET_BIT1"));
+    func_80015F98(&fx->sounds[4], 4.91505003f, 4.91505003f, func_8000EB20("SKEET_BIT2"));
+    func_80015F98(&fx->sounds[5], 1.63835001f, 1.63835001f, func_8000EB20("SKEET_BIT3"));
+    func_800E9F2C(fx->groupA, 16, 32, fx);
+    func_800E9F2C(fx->groupB, 2, 64, fx);
+}

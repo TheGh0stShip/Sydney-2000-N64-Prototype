@@ -1,42 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80071E00\n.ent func_80071E00\n"
-    "func_80071E00:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $4,$17,1628\n"
-    "li $5,2\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "sw $31,28($29)\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,1408\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,1188\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,968\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,312\n"
-    "jal func_800BB1F4\n"
-    "li $5,2\n"
-    "move $4,$17\n"
-    "jal func_800AC3A4\n"
-    "move $5,$18\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80071E00\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[180];
+    void *vtable;
+    char pad2[36];
+} Part;
+
+typedef struct {
+    char pad[312];
+    char anim[656];
+    Part parts[4];
+} Obj;
+
+extern char D_80086598[];
+extern void func_800ADDA4(void *, int);
+extern void func_800BB1F4(void *, int);
+extern void func_800AC3A4(void *, int);
+
+static __inline__ void part_init(Part *p)
+{
+    p->vtable = D_80086598;
+    func_800ADDA4(p, 2);
+}
+
+void func_80071E00(Obj *self, int arg)
+{
+    part_init(&self->parts[3]);
+    part_init(&self->parts[2]);
+    part_init(&self->parts[1]);
+    part_init(&self->parts[0]);
+    func_800BB1F4(self->anim, 2);
+    func_800AC3A4(self, arg);
+}

@@ -1,71 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9964\n.ent func_800B9964\n"
-    "func_800B9964:\n"
-    "addiu $29,$29,-72\n"
-    "sw $17,52($29)\n"
-    "move $17,$4\n"
-    "sw $18,56($29)\n"
-    "addiu $18,$17,20\n"
-    "move $4,$18\n"
-    "sw $16,48($29)\n"
-    "move $16,$6\n"
-    "addiu $6,$29,16\n"
-    "sw $19,60($29)\n"
-    "move $19,$7\n"
-    "sw $31,64($29)\n"
-    "jal func_800AD2A8\n"
-    "move $7,$0\n"
-    "lw $2,0($16)\n"
-    "beqz $2,L_800B9A08\n"
-    "move $4,$18\n"
-    "move $5,$19\n"
-    "addiu $6,$29,32\n"
-    "jal func_800AD2A8\n"
-    "move $7,$0\n"
-    "lwc1 $f0,368($17)\n"
-    "lwc1 $f2,32($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$17,368\n"
-    "swc1 $f0,368($17)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,36($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,40($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,368($17)\n"
-    "swc1 $f0,392($17)\n"
-    "lwc1 $f0,4($2)\n"
-    "addiu $3,$17,392\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,8($2)\n"
-    "swc1 $f0,8($3)\n"
-    "L_800B9A08:\n"
-    "lwc1 $f0,16($29)\n"
-    "lwc1 $f2,368($17)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $3,$29,16\n"
-    "addiu $4,$17,368\n"
-    "swc1 $f0,84($17)\n"
-    "lwc1 $f0,4($3)\n"
-    "lwc1 $f2,4($4)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$17,84\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "lwc1 $f2,8($4)\n"
-    "add.s $f0,$f0,$f2\n"
-    "move $4,$17\n"
-    "jal func_800B9480\n"
-    "swc1 $f0,8($2)\n"
-    "lw $31,64($29)\n"
-    "lw $19,60($29)\n"
-    "lw $18,56($29)\n"
-    "lw $17,52($29)\n"
-    "lw $16,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_800B9964\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+void func_800AD2A8(void *mtx, void *in, Vec3 *out, int flag);
+void func_800B9480(void *obj);
+
+void func_800B9964(char *obj, void *offset, int *moved, void *delta)
+{
+    Vec3 local;
+    Vec3 step;
+
+    func_800AD2A8(obj + 20, offset, &local, 0);
+    if (*moved != 0) {
+        Vec3 *base;
+        Vec3 *saved;
+
+        func_800AD2A8(obj + 20, delta, &step, 0);
+        base = (Vec3 *)(obj + 368);
+        base->x += step.x;
+        base->y += step.y;
+        base->z += step.z;
+        saved = (Vec3 *)(obj + 392);
+        saved->x = base->x;
+        saved->y = base->y;
+        saved->z = base->z;
+    }
+    {
+        Vec3 *a = &local;
+        Vec3 *b = (Vec3 *)(obj + 368);
+        Vec3 *out = (Vec3 *)(obj + 84);
+
+        out->x = a->x + b->x;
+        out->y = a->y + b->y;
+        out->z = a->z + b->z;
+    }
+    func_800B9480(obj);
+}

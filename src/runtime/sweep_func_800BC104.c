@@ -1,40 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BC104\n.ent func_800BC104\n"
-    "func_800BC104:\n"
-    "move $6,$0\n"
-    "lui $8,0x8010\n"
-    "li $7,-1\n"
-    "L_800BC110:\n"
-    "andi $5,$6,0xff\n"
-    "sltiu $2,$5,12\n"
-    "beqz $2,L_800BC178\n"
-    "sltiu $2,$5,8\n"
-    "beqz $2,L_800BC158\n"
-    "sll $2,$5,0x4\n"
-    "subu $2,$2,$5\n"
-    "lw $3,-15760($8)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x3\n"
-    "lb $3,76($3)\n"
-    "addu $2,$2,$4\n"
-    "sb $3,16($2)\n"
-    "j L_800BC170\n"
-    "sb $3,17($2)\n"
-    "L_800BC158:\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$4\n"
-    "sb $7,16($2)\n"
-    "sb $7,17($2)\n"
-    "L_800BC170:\n"
-    "j L_800BC110\n"
-    "addiu $6,$6,1\n"
-    "L_800BC178:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800BC104\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[56];
+    signed char value;
+    char pad1[3];
+} SlotSourceEntry;
+
+typedef struct {
+    char header[20];
+    SlotSourceEntry entries[8];
+} SlotSourceTable;
+
+extern SlotSourceTable *D_800FC270;
+
+typedef struct {
+    char pad0[16];
+    signed char first;
+    signed char second;
+    char pad1[24 - 18];
+} SlotEntry;
+
+void func_800BC104(SlotEntry *slots)
+{
+    int i = 0;
+    unsigned char idx;
+    int value;
+
+    for (;; i++) {
+        idx = i;
+        if (idx >= 12) {
+            return;
+        }
+        if (idx < 8) {
+            value = D_800FC270->entries[idx].value;
+            slots[idx].first = value;
+            slots[idx].second = value;
+        } else {
+            slots[idx].first = -1;
+            slots[idx].second = -1;
+        }
+    }
+}

@@ -1,152 +1,102 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008D3C0\n.ent func_8008D3C0\n"
-    "func_8008D3C0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$17,26356\n"
-    "move $4,$16\n"
-    "li $2,0x8000\n"
-    "sw $18,24($29)\n"
-    "addu $18,$17,$2\n"
-    "li $2,1\n"
-    "sw $31,28($29)\n"
-    "sdc1 $f20,32($29)\n"
-    "jal func_800AC334\n"
-    "sw $2,1088($18)\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "jal func_800CEE04\n"
-    "addiu $4,$17,31844\n"
-    "jal func_80076B94\n"
-    "move $4,$17\n"
-    "jal func_80097504\n"
-    "addiu $4,$17,26580\n"
-    "li $16,0x8184\n"
-    "addu $16,$17,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,23196\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_8009F84C\n"
-    "move $4,$16\n"
-    "lw $16,23004($17)\n"
-    "mtc1 $0,$f20\n"
-    "beqz $16,L_8008D5C8\n"
-    "li $2,8\n"
-    "lbu $4,424($16)\n"
-    "beq $4,$2,L_8008D478\n"
-    "lui $2,0x8010\n"
-    "sll $3,$4,0x4\n"
-    "subu $3,$3,$4\n"
-    "lw $2,-15760($2)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sw $0,72($2)\n"
-    "L_8008D478:\n"
-    "lbu $3,426($16)\n"
-    "slti $2,$3,4\n"
-    "beqz $2,L_8008D4B0\n"
-    "lui $2,0x8010\n"
-    "beqz $3,L_8008D4B0\n"
-    "lui $4,0x8010\n"
-    "lb $3,1045($18)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "lw $3,-15760($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "lwc1 $f20,2580($3)\n"
-    "lui $2,0x8010\n"
-    "L_8008D4B0:\n"
-    "lw $4,-15760($2)\n"
-    "lw $3,2560($4)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8008D4DC\n"
-    "lui $2,0x8010\n"
-    "lwc1 $f0,3560($4)\n"
-    "c.lt.s $f0,$f20\n"
-    "nop\n"
-    "bc1tl L_8008D4DC\n"
-    "swc1 $f20,3560($4)\n"
-    "lui $2,0x8010\n"
-    "L_8008D4DC:\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_8008D50C\n"
-    "li $2,0x8000\n"
-    "beqz $3,L_8008D508\n"
-    "li $2,1\n"
-    "beq $3,$2,L_8008D508\n"
-    "li $2,2\n"
-    "bne $3,$2,L_8008D53C\n"
-    "lui $2,0x8010\n"
-    "L_8008D508:\n"
-    "li $2,0x8000\n"
-    "L_8008D50C:\n"
-    "addu $2,$17,$2\n"
-    "lbu $3,1047($2)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_8008D538\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1280($2)\n"
-    "c.lt.s $f0,$f20\n"
-    "nop\n"
-    "bc1tl L_8008D538\n"
-    "swc1 $f20,1280($2)\n"
-    "L_8008D538:\n"
-    "lui $2,0x8010\n"
-    "L_8008D53C:\n"
-    "lw $4,-15760($2)\n"
-    "lw $3,2560($4)\n"
-    "li $2,4\n"
-    "bnel $3,$2,L_8008D568\n"
-    "lui $4,0x800f\n"
-    "lwc1 $f0,1324($4)\n"
-    "c.lt.s $f0,$f20\n"
-    "nop\n"
-    "bc1tl L_8008D564\n"
-    "swc1 $f20,1324($4)\n"
-    "L_8008D564:\n"
-    "lui $4,0x800f\n"
-    "L_8008D568:\n"
-    "jal func_800BC274\n"
-    "addiu $4,$4,10968\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$16\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_800AC308\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$17,23004\n"
-    "L_8008D5C8:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8008D3C0\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F2AD8[];
+extern unsigned char D_800F26E0[];
+extern unsigned char D_800F2758[];
+extern void func_800AC334(void *obj);
+extern void func_800ADC1C(void *obj);
+extern void func_800CEE04(void *obj);
+extern void func_80076B94(void *obj);
+extern void func_80097504(void *obj);
+extern void func_8009F84C(void *obj);
+extern void func_800BC274(void *obj);
+extern void func_800AACB0(void *list, void *object, int mode);
+extern void func_800AC308(void *obj);
+extern void func_800AA658(void *list, void *slot);
+
+typedef struct {
+    int active;
+    char pad[56];
+} GameRow;
+
+typedef struct {
+    float value;
+    char pad[8];
+} GameSpeed;
+
+typedef struct {
+    char pad0[72];
+    GameRow rows[40];
+    char pad1[2580 - 72 - 40 * 60];
+    GameSpeed speeds[4];
+} Game;
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)();
+} VEntry;
+
+void func_8008D3C0(unsigned char *object)
+{
+    unsigned char *hi;
+    unsigned char *p;
+    unsigned char *player;
+    VEntry *entry;
+    float best;
+    int mode;
+    int idx;
+    int state;
+    int slot;
+
+    best = 0.0f;
+    hi = object + 0x8000;
+    *(int *)(hi + 1088) = 1;
+    p = object + 26356;
+    func_800AC334(p);
+    func_800ADC1C(p);
+    func_800CEE04(object + 31844);
+    func_80076B94(object);
+    func_80097504(object + 26580);
+    p = (unsigned char *)0x8184;
+    p += (int)object;
+    func_800AC334(p);
+    func_800ADC1C(p);
+    p = object + 23196;
+    func_800AC334(p);
+    func_8009F84C(p);
+    player = *(unsigned char **)(object + 23004);
+    if (player == 0) {
+        return;
+    }
+    slot = player[424];
+    if (slot != 8) {
+        ((Game *)D_800FC270)->rows[slot].active = 0;
+    }
+    state = player[426];
+    if (state < 4) {
+        if (state != 0) {
+            idx = (signed char)hi[1045];
+            best = ((Game *)D_800FC270)->speeds[idx].value;
+        }
+    }
+    if (*(int *)(D_800FC270 + 2560) == 5 && *(float *)(D_800FC270 + 3560) < best) {
+        *(float *)(D_800FC270 + 3560) = best;
+    }
+    mode = *(int *)(D_800FC270 + 2560);
+    if (mode == 4 || mode == 0 || mode == 1 || mode == 2) {
+        if (object[0x8000 + 1047] != 4 && *(float *)(D_800FC270 + 1280) < best) {
+            *(float *)(D_800FC270 + 1280) = best;
+        }
+    }
+    if (*(int *)(D_800FC270 + 2560) == 4 && *(float *)(D_800FC270 + 1324) < best) {
+        *(float *)(D_800FC270 + 1324) = best;
+    }
+    func_800BC274(D_800F2AD8);
+    func_800AACB0(D_800F26E0, player, 0);
+    entry = (VEntry *)(*(unsigned char **)(player + 180) + 24);
+    entry->func(player + entry->offset);
+    func_800AC308(player);
+    entry = (VEntry *)(*(unsigned char **)(player + 180) + 8);
+    entry->func(player + entry->offset, 2);
+    func_800AA658(D_800F2758, object + 23004);
+}

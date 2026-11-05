@@ -1,26 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E5078\n.ent func_800E5078\n"
-    "func_800E5078:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "sw $31,28($29)\n"
-    "jal func_800E9290\n"
-    "move $16,$4\n"
-    "lui $3,0x8010\n"
-    "li $2,39\n"
-    "lui $5,0x8010\n"
-    "move $4,$16\n"
-    "addiu $5,$5,-7424\n"
-    "li $6,1\n"
-    "move $7,$6\n"
-    "sw $2,-7392($3)\n"
-    "sw $0,16($29)\n"
-    "jal func_800B18BC\n"
-    "sw $0,20($29)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "li $2,39\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E5078\n.set at\n.set reorder\n");
+extern char D_800FE300[];
+extern int D_800FE320;
+extern void func_800E9290(void);
+extern void func_800B18BC(void *object, void *table, int a, int b, int c, int d);
+
+int func_800E5078(void *object)
+{
+    func_800E9290();
+    D_800FE320 = 39;
+    func_800B18BC(object, D_800FE300, 1, 1, 0, 0);
+    return 39;
+}

@@ -1,114 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F073C\n.ent func_800F073C\n"
-    "func_800F073C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lwc1 $f0,476($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f6,-13728($1)\n"
-    "sub.s $f0,$f0,$f6\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-13724($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800F0770\n"
-    "swc1 $f0,476($4)\n"
-    "swc1 $f4,476($4)\n"
-    "L_800F0770:\n"
-    "lwc1 $f0,476($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-13720($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800F078C\n"
-    "swc1 $f2,476($4)\n"
-    "L_800F078C:\n"
-    "lwc1 $f0,480($4)\n"
-    "sub.s $f0,$f0,$f6\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800F07A8\n"
-    "swc1 $f0,480($4)\n"
-    "swc1 $f4,480($4)\n"
-    "L_800F07A8:\n"
-    "lwc1 $f0,480($4)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800F07BC\n"
-    "swc1 $f2,480($4)\n"
-    "L_800F07BC:\n"
-    "lwc1 $f0,484($4)\n"
-    "sub.s $f0,$f0,$f6\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800F07D8\n"
-    "swc1 $f0,484($4)\n"
-    "swc1 $f4,484($4)\n"
-    "L_800F07D8:\n"
-    "lwc1 $f0,484($4)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800F07EC\n"
-    "swc1 $f2,484($4)\n"
-    "L_800F07EC:\n"
-    "lwc1 $f0,476($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-13716($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800F0818\n"
-    "sub.s $f0,$f0,$f2\n"
-    "trunc.w.s $f8,$f0\n"
-    "mfc1 $3,$f8\n"
-    "j L_800F0828\n"
-    "nop\n"
-    "L_800F0818:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f8,$f0\n"
-    "mfc1 $3,$f8\n"
-    "or $3,$3,$2\n"
-    "L_800F0828:\n"
-    "lwc1 $f0,480($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-13712($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800F0854\n"
-    "sb $3,433($4)\n"
-    "trunc.w.s $f8,$f0\n"
-    "mfc1 $3,$f8\n"
-    "j L_800F0868\n"
-    "nop\n"
-    "L_800F0854:\n"
-    "sub.s $f0,$f0,$f2\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f8,$f0\n"
-    "mfc1 $3,$f8\n"
-    "or $3,$3,$2\n"
-    "L_800F0868:\n"
-    "lwc1 $f0,484($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-13708($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800F0894\n"
-    "sb $3,434($4)\n"
-    "trunc.w.s $f8,$f0\n"
-    "mfc1 $3,$f8\n"
-    "j L_800F08AC\n"
-    "sb $3,435($4)\n"
-    "L_800F0894:\n"
-    "sub.s $f0,$f0,$f2\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f8,$f0\n"
-    "mfc1 $3,$f8\n"
-    "or $3,$3,$2\n"
-    "sb $3,435($4)\n"
-    "L_800F08AC:\n"
-    "jal func_80006B24\n"
-    "addiu $4,$4,432\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800F073C\n.set at\n.set reorder\n");
+extern void func_80006B24(unsigned char *);
+
+void func_800F073C(char *obj)
+{
+    *(float *)(obj + 476) -= 3.0f;
+    if (*(float *)(obj + 476) < 4.0f) {
+        *(float *)(obj + 476) = 4.0f;
+    }
+    if (255.0f < *(float *)(obj + 476)) {
+        *(float *)(obj + 476) = 255.0f;
+    }
+    *(float *)(obj + 480) -= 3.0f;
+    if (*(float *)(obj + 480) < 4.0f) {
+        *(float *)(obj + 480) = 4.0f;
+    }
+    if (255.0f < *(float *)(obj + 480)) {
+        *(float *)(obj + 480) = 255.0f;
+    }
+    *(float *)(obj + 484) -= 3.0f;
+    if (*(float *)(obj + 484) < 4.0f) {
+        *(float *)(obj + 484) = 4.0f;
+    }
+    if (255.0f < *(float *)(obj + 484)) {
+        *(float *)(obj + 484) = 255.0f;
+    }
+    obj[433] = (unsigned int)*(float *)(obj + 476);
+    obj[434] = (unsigned int)*(float *)(obj + 480);
+    obj[435] = (unsigned int)*(float *)(obj + 484);
+    func_80006B24((unsigned char *)obj + 432);
+}

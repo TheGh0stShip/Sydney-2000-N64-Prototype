@@ -1,70 +1,39 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E2788\n.ent func_800E2788\n"
-    "func_800E2788:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "move $5,$0\n"
-    "lui $2,0x8010\n"
-    "move $6,$2\n"
-    "lw $2,-15760($6)\n"
-    "li $7,3\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "sw $0,1524($2)\n"
-    "L_800E27B4:\n"
-    "lw $2,-15760($6)\n"
-    "addu $2,$2,$5\n"
-    "sb $0,1512($2)\n"
-    "lw $4,-15760($6)\n"
-    "sll $2,$5,0x2\n"
-    "addu $2,$4,$2\n"
-    "lw $3,524($2)\n"
-    "bne $3,$7,L_800E27F4\n"
-    "sw $0,2476($2)\n"
-    "lw $2,1524($4)\n"
-    "addu $2,$4,$2\n"
-    "sb $5,1500($2)\n"
-    "lw $3,-15760($6)\n"
-    "lw $2,1524($3)\n"
-    "addiu $2,$2,1\n"
-    "sw $2,1524($3)\n"
-    "L_800E27F4:\n"
-    "addiu $5,$5,1\n"
-    "sltiu $2,$5,12\n"
-    "bnez $2,L_800E27B4\n"
-    "lui $4,0x8010\n"
-    "move $5,$0\n"
-    "L_800E2808:\n"
-    "lw $2,-15760($4)\n"
-    "sll $3,$5,0x2\n"
-    "addu $2,$2,$3\n"
-    "sb $5,1372($2)\n"
-    "lw $2,-15760($4)\n"
-    "addiu $5,$5,1\n"
-    "addu $2,$2,$3\n"
-    "sb $0,1375($2)\n"
-    "sb $0,1374($2)\n"
-    "sb $0,1373($2)\n"
-    "sltiu $2,$5,32\n"
-    "bnez $2,L_800E2808\n"
-    "lui $16,0x8010\n"
-    "move $5,$0\n"
-    "lw $4,-15760($16)\n"
-    "li $6,948\n"
-    "jal func_800B3AFC\n"
-    "addiu $4,$4,1528\n"
-    "move $4,$17\n"
-    "li $5,1\n"
-    "lw $3,-15760($16)\n"
-    "move $2,$5\n"
-    "jal L_800E287C\n"
-    "sb $2,1266($3)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    "L_800E287C:\n"
-    ".end func_800E2788\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[524];
+    int state[12];
+    char pad1[1266 - 572];
+    unsigned char flag;
+    char pad2[1372 - 1267];
+    unsigned char slots[32][4];
+    unsigned char order[12];
+    unsigned char seen[12];
+    int count;
+    char block[948];
+    int timers[12];
+} Ctx;
+
+extern Ctx *D_800FC270;
+extern void func_800B3AFC(void *, int, int);
+extern void func_800E287C(void *, int);
+
+void func_800E2788(void *self)
+{
+    unsigned int i;
+
+    D_800FC270->count = 0;
+    for (i = 0; i < 12; i++) {
+        D_800FC270->seen[i] = 0;
+        D_800FC270->timers[i] = 0;
+        if (D_800FC270->state[i] == 3) {
+            D_800FC270->order[D_800FC270->count] = i;
+            D_800FC270->count++;
+        }
+    }
+    for (i = 0; i < 32; i++) {
+        D_800FC270->slots[i][0] = i;
+        D_800FC270->slots[i][1] = D_800FC270->slots[i][2] = D_800FC270->slots[i][3] = 0;
+    }
+    func_800B3AFC(D_800FC270->block, 0, 948);
+    D_800FC270->flag = 1;
+    func_800E287C(self, 1);
+}

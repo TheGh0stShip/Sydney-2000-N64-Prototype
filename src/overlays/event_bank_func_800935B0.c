@@ -1,97 +1,68 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800935B0\n.ent func_800935B0\n"
-    "func_800935B0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "lbu $3,30123($16)\n"
-    "slti $2,$3,5\n"
-    "beqz $2,L_800936F4\n"
-    "slti $2,$3,2\n"
-    "beqz $2,L_800935E8\n"
-    "nop\n"
-    "bnez $3,L_800936F4\n"
-    "nop\n"
-    "L_800935E8:\n"
-    "lw $2,22988($16)\n"
-    "lbu $3,426($2)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_80093608\n"
-    "move $4,$0\n"
-    "li $2,2\n"
-    "bne $3,$2,L_8009360C\n"
-    "nop\n"
-    "L_80093608:\n"
-    "li $4,1\n"
-    "L_8009360C:\n"
-    "beqz $4,L_800936F4\n"
-    "li $2,2\n"
-    "lbu $3,30123($16)\n"
-    "beq $3,$2,L_800936F4\n"
-    "addiu $18,$16,24188\n"
-    "move $4,$18\n"
-    "lw $7,22988($16)\n"
-    "li $2,-1\n"
-    "sw $2,16($29)\n"
-    "sw $2,20($29)\n"
-    "lw $5,22988($16)\n"
-    "lui $6,0x3f14\n"
-    "ori $6,$6,0x7ae1\n"
-    "jal func_800971EC\n"
-    "addiu $7,$7,4276\n"
-    "move $4,$18\n"
-    "lw $2,22988($16)\n"
-    "li $5,5\n"
-    "lw $6,420($2)\n"
-    "jal func_80096860\n"
-    "move $7,$0\n"
-    "move $4,$18\n"
-    "li $5,5\n"
-    "lui $17,0x8010\n"
-    "lb $6,30120($16)\n"
-    "lw $3,30204($16)\n"
-    "sll $2,$6,0x3\n"
-    "subu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $7,$6,0x1\n"
-    "lw $3,30200($16)\n"
-    "lh $2,2($2)\n"
-    "addu $7,$7,$6\n"
-    "sw $2,16($29)\n"
-    "lw $2,-15760($17)\n"
-    "sll $7,$7,0x2\n"
-    "sw $0,20($29)\n"
-    "addu $2,$2,$7\n"
-    "lw $6,2580($2)\n"
-    "jal func_80096C8C\n"
-    "addu $7,$3,$7\n"
-    "lbu $2,30123($16)\n"
-    "li $4,4\n"
-    "beq $2,$4,L_800936E0\n"
-    "nop\n"
-    "lw $3,-15760($17)\n"
-    "lw $2,2560($3)\n"
-    "bne $2,$4,L_800936F4\n"
-    "li $2,1\n"
-    "lw $3,2564($3)\n"
-    "bne $3,$2,L_800936F4\n"
-    "nop\n"
-    "L_800936E0:\n"
-    "lw $2,-15760($17)\n"
-    "move $4,$18\n"
-    "lw $6,3344($2)\n"
-    "jal func_80096F54\n"
-    "li $5,5\n"
-    "L_800936F4:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800935B0\n.set at\n.set reorder\n");
+extern void func_800971EC(void *a, void *b, float c, void *d, int e, int f);
+extern void func_80096860(void *a, int b, int c, int d);
+extern void func_80096C8C(void *a, int b, int c, void *d, int e, int f);
+extern void func_80096F54(void *a, int b, int c);
+
+typedef struct {
+    int value;
+    int pad[2];
+} Score;
+
+typedef struct {
+    unsigned char pad0[2560];
+    int mode;
+    int subMode;
+    unsigned char pad1[12];
+    Score scores[63];
+    unsigned char pad2[3344 - 2580 - 63 * 12];
+    int sound;
+} Globals;
+
+extern Globals *D_800FC270;
+
+static __inline__ int IsPlayerActive(unsigned char *player)
+{
+    int active = 0;
+
+    if (player[426] == 1) {
+        goto yes;
+    }
+    if (player[426] != 2) {
+        goto done;
+    }
+yes:
+    active = 1;
+done:
+    return active;
+}
+
+void func_800935B0(unsigned char *object)
+{
+    unsigned char *anim;
+    int active;
+    unsigned char *player;
+    int index;
+    int state;
+
+    state = object[30123];
+    if (state >= 5 || (state < 2 && state != 0)) {
+        return;
+    }
+    player = *(unsigned char **)(object + 22988);
+    active = IsPlayerActive(player);
+    if (!active || object[30123] == 2) {
+        return;
+    }
+    anim = object + 24188;
+    func_800971EC(anim, *(void **)(object + 22988), 0.58f,
+                  *(unsigned char **)(object + 22988) + 4276, -1, -1);
+    func_80096860(anim, 5, *(int *)(*(unsigned char **)(object + 22988) + 420), 0);
+    index = (signed char)object[30120];
+    func_80096C8C(anim, 5, D_800FC270->scores[index].value,
+                  *(unsigned char **)(object + 30200) + index * 12,
+                  *(short *)(*(unsigned char **)(object + 30204) + index * 28 + 2), 0);
+    if (object[30123] == 4
+        || (D_800FC270->mode == 4 && D_800FC270->subMode == 1)) {
+        func_80096F54(anim, 5, D_800FC270->sound);
+    }
+}

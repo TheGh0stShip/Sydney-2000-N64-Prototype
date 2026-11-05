@@ -1,115 +1,67 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80099FE4\n.ent func_80099FE4\n"
-    "func_80099FE4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,4492($17)\n"
-    "andi $2,$2,0x1e\n"
-    "beqz $2,L_8009A094\n"
-    "nop\n"
-    "addiu $16,$17,2344\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$17,2124\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$17,1904\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,140\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,352\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,564\n"
-    "addiu $4,$17,2564\n"
-    "lbu $2,1927($4)\n"
-    "andi $2,$2,0xfb\n"
-    "jal func_800CC310\n"
-    "sb $2,1927($4)\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,776\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,988\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1200\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1412\n"
-    "L_8009A094:\n"
-    "lbu $2,4492($17)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_8009A170\n"
-    "move $18,$0\n"
-    "L_8009A0A4:\n"
-    "lbu $2,4493($17)\n"
-    "andi $3,$18,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_8009A170\n"
-    "sll $16,$3,0x3\n"
-    "subu $16,$16,$3\n"
-    "sll $16,$16,0x2\n"
-    "addiu $16,$16,1680\n"
-    "addu $16,$17,$16\n"
-    "lw $3,24($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,0($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $4,4($16)\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "lw $3,12($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,16($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,8($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,20($16)\n"
-    "lw $2,180($3)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "j L_8009A0A4\n"
-    "nop\n"
-    "L_8009A170:\n"
-    "sb $0,4492($17)\n"
-    "sb $0,4495($17)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80099FE4\n.set at\n.set reorder\n");
+typedef struct VtEntry {
+    short offset;
+    short pad;
+    void (*func)(void *, ...);
+} VtEntry;
+
+#define VCALL(o, slot) ((VtEntry *)*(void **)((char *)(o) + 180))[slot].func((char *)(o) + ((VtEntry *)*(void **)((char *)(o) + 180))[slot].offset)
+
+typedef struct Row {
+    char *a;
+    void *anim;
+    char *c;
+    char *d;
+    char *e;
+    char *f;
+    char *g;
+} Row;
+
+extern void func_800B35F0(void *object);
+extern void func_800AC334(void *object);
+extern void func_800ADC1C(void *object);
+extern void func_800CC310(void *object);
+extern void func_800B2158(void *object, int value);
+
+void func_80099FE4(unsigned char *self)
+{
+    unsigned char i;
+    unsigned char *sub;
+    Row *row;
+
+    if (self[4492] & 0x1E) {
+        func_800B35F0(self + 2344);
+        func_800AC334(self + 2344);
+        func_800B35F0(self + 2124);
+        func_800AC334(self + 2124);
+        func_800B35F0(self + 1904);
+        func_800AC334(self + 1904);
+        func_800ADC1C(self + 140);
+        func_800ADC1C(self + 352);
+        func_800ADC1C(self + 564);
+        sub = self + 2564;
+        sub[1927] &= 0xFB;
+        func_800CC310(sub);
+        func_800ADC1C(self + 776);
+        func_800ADC1C(self + 988);
+        func_800ADC1C(self + 1200);
+        func_800ADC1C(self + 1412);
+    }
+    if (self[4492] & 1) {
+        i = 0;
+next:
+        if (i < self[4493]) {
+            row = (Row *)(self + 1680) + i;
+            VCALL(row->g, 9);
+            VCALL(row->a, 9);
+            func_800B2158(row->anim, 0);
+            VCALL(row->d, 9);
+            VCALL(row->e, 9);
+            VCALL(row->c, 9);
+            VCALL(row->f, 9);
+            i++;
+            goto next;
+        }
+    }
+    self[4492] = 0;
+    self[4495] = 0;
+}

@@ -1,56 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C3AB0\n.ent func_800C3AB0\n"
-    "func_800C3AB0:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,220($4)\n"
-    "move $16,$5\n"
-    "lw $5,28($2)\n"
-    "lw $3,4($5)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800C3B14\n"
-    "move $4,$0\n"
-    "slti $2,$3,2\n"
-    "beqz $2,L_800C3AF4\n"
-    "li $2,2\n"
-    "beqz $3,L_800C3B04\n"
-    "nop\n"
-    "j L_800C3B2C\n"
-    "nop\n"
-    "L_800C3AF4:\n"
-    "beq $3,$2,L_800C3B24\n"
-    "nop\n"
-    "j L_800C3B2C\n"
-    "nop\n"
-    "L_800C3B04:\n"
-    "lw $2,0($5)\n"
-    "lw $4,0($2)\n"
-    "j L_800C3B2C\n"
-    "nop\n"
-    "L_800C3B14:\n"
-    "lw $2,0($5)\n"
-    "lh $4,0($2)\n"
-    "j L_800C3B2C\n"
-    "nop\n"
-    "L_800C3B24:\n"
-    "lw $2,0($5)\n"
-    "lb $4,0($2)\n"
-    "L_800C3B2C:\n"
-    "lw $2,8($5)\n"
-    "lw $3,12($5)\n"
-    "and $2,$4,$2\n"
-    "sltu $4,$0,$2\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$2,$3\n"
-    "lhu $4,0($2)\n"
-    "jal func_800D98FC\n"
-    "nop\n"
-    "sw $2,0($16)\n"
-    "move $2,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800C3AB0\n.set at\n.set reorder\n");
+typedef struct {
+    void *value;
+    int type;
+    int mask;
+    unsigned short *table;
+} Flag;
+
+int func_800D98FC(int id);
+
+int *func_800C3AB0(char *obj, int *out)
+{
+    Flag *flag = *(Flag **)(*(char **)(obj + 220) + 28);
+    int v = 0;
+
+    switch (flag->type) {
+    case 0:
+        v = *(int *)flag->value;
+        break;
+    case 1:
+        v = *(short *)flag->value;
+        break;
+    case 2:
+        v = *(signed char *)flag->value;
+        break;
+    }
+    {
+        int bits = v & flag->mask;
+        v = bits != 0;
+    }
+    *out = func_800D98FC(flag->table[v]);
+    return out;
+}

@@ -1,74 +1,60 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BB680\n.ent func_800BB680\n"
-    "func_800BB680:\n"
-    "addiu $29,$29,-112\n"
-    "sw $16,96($29)\n"
-    "sw $17,100($29)\n"
-    "move $17,$5\n"
-    "sw $31,104($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800BB738\n"
-    "move $16,$4\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800BB738\n"
-    "li $5,39\n"
-    "lw $3,388($16)\n"
-    "lw $2,180($3)\n"
-    "addiu $6,$29,16\n"
-    "lh $4,40($2)\n"
-    "lw $2,44($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,376($16)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$16,376\n"
-    "swc1 $f0,80($29)\n"
-    "lwc1 $f0,84($29)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,84($29)\n"
-    "lwc1 $f0,88($29)\n"
-    "lwc1 $f2,8($2)\n"
-    "addiu $4,$29,16\n"
-    "add.s $f0,$f0,$f2\n"
-    "lui $5,0x4049\n"
-    "ori $5,$5,0xfdb\n"
-    "li $6,3\n"
-    "jal func_800AD434\n"
-    "swc1 $f0,88($29)\n"
-    "addiu $4,$29,16\n"
-    "addiu $6,$16,20\n"
-    "lw $5,388($16)\n"
-    "li $7,1\n"
-    "jal func_800AC5CC\n"
-    "addiu $5,$5,20\n"
-    "lw $5,4($17)\n"
-    "jal func_800AE1EC\n"
-    "move $4,$16\n"
-    "L_800BB738:\n"
-    "lw $2,4($17)\n"
-    "lw $3,296($16)\n"
-    "bnez $3,L_800BB774\n"
-    "sw $2,16($16)\n"
-    "lw $2,268($16)\n"
-    "beqz $2,L_800BB75C\n"
-    "nop\n"
-    "jal func_800ADFAC\n"
-    "move $4,$16\n"
-    "L_800BB75C:\n"
-    "lhu $2,196($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800BB774\n"
-    "nop\n"
-    "jal func_800AE304\n"
-    "move $4,$16\n"
-    "L_800BB774:\n"
-    "lw $31,104($29)\n"
-    "lw $17,100($29)\n"
-    "lw $16,96($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,112\n"
-    ".end func_800BB680\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+typedef struct {
+    float m[16];
+    Vec3 pos;
+} Pose;
+
+typedef struct {
+    int type;
+    int arg;
+} Message;
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *, int, Pose *);
+} Method;
+
+void func_800AD434(Pose *pose, float angle, int axis);
+void func_800AC5CC(Pose *pose, void *parent, void *out, int flag);
+void func_800AE1EC(void *obj, int arg);
+void func_800ADFAC(void *obj);
+void func_800AE304(void *obj);
+
+void func_800BB680(char *obj, Message *msg)
+{
+    Pose pose;
+
+    switch (msg->type) {
+    case 3:
+        break;
+    case 5:
+        {
+            char *other = *(char **)(obj + 388);
+            Method *m = (Method *)(*(char **)(other + 180) + 40);
+            Vec3 *ofs;
+
+            m->fn(other + m->offset, 39, &pose);
+            ofs = (Vec3 *)(obj + 376);
+            pose.pos.x += ofs->x;
+            pose.pos.y += ofs->y;
+            pose.pos.z += ofs->z;
+            func_800AD434(&pose, 3.1415927f, 3);
+            func_800AC5CC(&pose, *(char **)(obj + 388) + 20, obj + 20, 1);
+            func_800AE1EC(obj, msg->arg);
+        }
+        break;
+    }
+    *(int *)(obj + 16) = msg->arg;
+    if (*(int *)(obj + 296) == 0) {
+        if (*(int *)(obj + 268) != 0) {
+            func_800ADFAC(obj);
+        }
+        if (*(unsigned short *)(obj + 196) & 1) {
+            func_800AE304(obj);
+        }
+    }
+}

@@ -1,74 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DFB48\n.ent func_800DFB48\n"
-    "func_800DFB48:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "lui $2,0x8010\n"
-    "lw $4,-2940($2)\n"
-    "sll $2,$5,0x2\n"
-    "sw $31,20($29)\n"
-    "addu $2,$4,$2\n"
-    "lw $3,4($2)\n"
-    "lui $2,0x8010\n"
-    "beqz $3,L_800DFBB0\n"
-    "sw $5,-2748($2)\n"
-    "move $3,$0\n"
-    "move $6,$4\n"
-    "lui $2,0x8010\n"
-    "addiu $4,$2,-2744\n"
-    "L_800DFB88:\n"
-    "addu $2,$3,$5\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$6,$2\n"
-    "lhu $2,0($2)\n"
-    "addiu $3,$3,1\n"
-    "sh $2,0($4)\n"
-    "beqz $3,L_800DFB88\n"
-    "addiu $4,$4,2\n"
-    "j L_800DFBD4\n"
-    "li $4,89\n"
-    "L_800DFBB0:\n"
-    "move $3,$0\n"
-    "li $4,3\n"
-    "lui $2,0x8010\n"
-    "addiu $2,$2,-2744\n"
-    "L_800DFBC0:\n"
-    "sh $4,0($2)\n"
-    "addiu $3,$3,1\n"
-    "beqz $3,L_800DFBC0\n"
-    "addiu $2,$2,2\n"
-    "li $4,89\n"
-    "L_800DFBD4:\n"
-    "lui $3,0x8010\n"
-    "lui $2,0x8010\n"
-    "addiu $2,$2,-2744\n"
-    "sw $2,-7636($3)\n"
-    "addiu $3,$3,-7636\n"
-    "sw $0,8($3)\n"
-    "jal func_800D98FC\n"
-    "sw $0,12($3)\n"
-    "li $4,3\n"
-    "lui $3,0x8010\n"
-    "sw $2,-12916($3)\n"
-    "addiu $3,$3,-12916\n"
-    "sw $0,4($3)\n"
-    "lui $3,0x8010\n"
-    "li $2,2\n"
-    "jal func_800B31EC\n"
-    "sh $2,-7606($3)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,16\n"
-    "lw $3,188($16)\n"
-    "li $2,1\n"
-    "sb $2,19102($16)\n"
-    "li $2,-1\n"
-    "sw $2,29364($3)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800DFB48\n.set at\n.set reorder\n");
+typedef struct { short *data; int pad; int a; int b; } Track;
+typedef struct { int value; int b; } Slot;
+typedef struct {
+    char pad0[188];
+    char *game;
+    char pad1[19102 - 192];
+    unsigned char ready;
+} Scene;
+
+typedef union { short codes[1]; struct { int count; int enabled[1]; } s; } Table;
+extern Table *D_800FF484;
+extern int D_800FF544;
+extern short D_800FF548[1];
+extern Track D_800FE22C;
+extern short D_800FE24A;
+extern Slot D_800FCD8C;
+extern char D_800F5900[];
+extern int func_800D98FC(int);
+extern void func_800B31EC(int);
+extern void func_800D53A0(void *, int);
+
+void func_800DFB48(Scene *self, int index)
+{
+    unsigned int i;
+
+    D_800FF544 = index;
+    if (D_800FF484->s.enabled[index] != 0) {
+        for (i = 0; i < 1; i++) {
+            D_800FF548[i] = D_800FF484->codes[i + index];
+        }
+    } else {
+        for (i = 0; i < 1; i++) {
+            D_800FF548[i] = 3;
+        }
+    }
+    D_800FE22C.data = D_800FF548;
+    D_800FE22C.a = 0;
+    D_800FE22C.b = 0;
+    D_800FCD8C.value = func_800D98FC(89);
+    D_800FCD8C.b = 0;
+    D_800FE24A = 2;
+    func_800B31EC(3);
+    func_800D53A0(D_800F5900, 16);
+    self->ready = 1;
+    *(int *)(self->game + 29364) = -1;
+}

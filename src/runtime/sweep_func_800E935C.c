@@ -1,83 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E935C\n.ent func_800E935C\n"
-    "func_800E935C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $16,24($29)\n"
-    "addiu $16,$18,27652\n"
-    "move $4,$16\n"
-    "li $5,0xffff\n"
-    "sw $31,36($29)\n"
-    "jal func_8001A330\n"
-    "sw $17,28($29)\n"
-    "lui $5,0xc2ce\n"
-    "lui $6,0xc0e0\n"
-    "lui $7,0x42ce\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-16272($1)\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mtc1 $0,$f0\n"
-    "mfc1 $5,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-16268($1)\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "mfc1 $7,$f0\n"
-    "move $6,$5\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "move $4,$16\n"
-    "lui $5,0xff80\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0x8080\n"
-    "move $4,$16\n"
-    "lui $5,0x78ff\n"
-    "ori $5,$5,0xffff\n"
-    "lw $2,27652($18)\n"
-    "addiu $16,$18,27656\n"
-    "sw $2,27852($18)\n"
-    "li $2,1\n"
-    "sb $2,201($16)\n"
-    "lw $2,192($16)\n"
-    "lui $3,0x2\n"
-    "or $2,$2,$3\n"
-    "jal func_800191E0\n"
-    "sw $2,192($16)\n"
-    "move $4,$16\n"
-    "jal func_800ADC54\n"
-    "li $5,1\n"
-    "lui $17,0x800f\n"
-    "addiu $17,$17,22784\n"
-    "move $5,$17\n"
-    "lw $2,192($16)\n"
-    "lw $3,180($16)\n"
-    "ori $2,$2,0x2\n"
-    "sw $2,192($16)\n"
-    "lh $4,16($3)\n"
-    "lw $2,20($3)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "lw $5,216($17)\n"
-    "li $17,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$17,$5\n"
-    "li $2,128\n"
-    "sb $17,176($16)\n"
-    "sh $2,27868($18)\n"
-    "li $2,-1\n"
-    "sh $2,27870($18)\n"
-    "li $2,-1\n"
-    "sh $0,27872($18)\n"
-    "sw $2,29364($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E935C\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)(char *, void *);
+} VEntry;
+
+extern char D_800F5900[];
+extern void func_8001A330(char *, int);
+extern void func_8001A1D8(char *, float, float, float, float);
+extern void func_8001A210(char *, float, float, float, float, int);
+extern void func_800191E0(char *, unsigned int);
+extern void func_800ADC54(char *, int);
+
+void func_800E935C(char *obj)
+{
+    char *sprite;
+    char *node;
+    VEntry *v;
+
+    sprite = obj + 27652;
+    func_8001A330(sprite, 0xFFFF);
+    func_8001A1D8(sprite, -103.0f, -7.0f, 103.0f, 7.0f);
+    func_8001A210(sprite, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_800191E0(sprite, 0xFF808080);
+    *(int *)(obj + 27852) = *(int *)(obj + 27652);
+    node = obj + 27656;
+    node[201] = 1;
+    *(int *)(node + 192) |= 0x20000;
+    func_800191E0(sprite, 0x78FFFFFF);
+    func_800ADC54(node, 1);
+    *(int *)(node + 192) |= 2;
+    v = &(*(VEntry **)(node + 180))[2];
+    v->fn(node + v->delta, D_800F5900);
+    func_800ADC54(node, 1 << *(int *)(D_800F5900 + 216));
+    node[176] = 1;
+    *(short *)(obj + 27868) = 128;
+    *(short *)(obj + 27870) = -1;
+    *(short *)(obj + 27872) = 0;
+    *(int *)(obj + 29364) = -1;
+}

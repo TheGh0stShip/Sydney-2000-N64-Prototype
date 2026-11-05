@@ -1,126 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EABD4\n.ent func_800EABD4\n"
-    "func_800EABD4:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "lui $4,0x8010\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "sdc1 $f20,40($29)\n"
-    "jal func_800EA638\n"
-    "addiu $4,$4,-720\n"
-    "jal func_800EA520\n"
-    "move $4,$18\n"
-    "move $4,$0\n"
-    "move $3,$18\n"
-    "L_800EAC0C:\n"
-    "sw $0,192($3)\n"
-    "addiu $4,$4,1\n"
-    "sltiu $2,$4,7\n"
-    "bnez $2,L_800EAC0C\n"
-    "addiu $3,$3,4\n"
-    "lui $16,0x8009\n"
-    "addiu $16,$16,-15756\n"
-    "jal func_8000EB20\n"
-    "move $4,$16\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15696($1)\n"
-    "addiu $4,$18,192\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "jal func_8000EB20\n"
-    "move $4,$16\n"
-    "addiu $4,$18,196\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f20,-15692($1)\n"
-    "andi $7,$2,0xffff\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "li $17,4\n"
-    "jal func_80013208\n"
-    "sw $17,16($29)\n"
-    "lui $16,0x8009\n"
-    "addiu $16,$16,-15744\n"
-    "jal func_8000EB20\n"
-    "move $4,$16\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15688($1)\n"
-    "addiu $4,$18,200\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "jal func_8000EB20\n"
-    "move $4,$16\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-15684($1)\n"
-    "addiu $4,$18,204\n"
-    "mfc1 $5,$f0\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80015F98\n"
-    "move $6,$5\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15732\n"
-    "addiu $4,$18,212\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80013208\n"
-    "sw $17,16($29)\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15720\n"
-    "addiu $4,$18,216\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80013208\n"
-    "sw $17,16($29)\n"
-    "lui $4,0x8009\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-15708\n"
-    "addiu $4,$18,208\n"
-    "mfc1 $5,$f20\n"
-    "andi $7,$2,0xffff\n"
-    "sw $17,16($29)\n"
-    "jal func_80013208\n"
-    "move $6,$5\n"
-    "addiu $4,$18,220\n"
-    "li $5,8\n"
-    "li $6,256\n"
-    "jal func_800E9F2C\n"
-    "move $7,$18\n"
-    "addiu $4,$18,248\n"
-    "li $5,8\n"
-    "li $6,128\n"
-    "jal func_800E9F2C\n"
-    "move $7,$18\n"
-    "addiu $4,$18,276\n"
-    "li $5,8\n"
-    "li $6,128\n"
-    "jal func_800E9F2C\n"
-    "move $7,$18\n"
-    "addiu $4,$18,304\n"
-    "li $5,8\n"
-    "li $6,256\n"
-    "jal func_800E9F2C\n"
-    "move $7,$18\n"
-    "addiu $4,$18,332\n"
-    "li $5,8\n"
-    "li $6,80\n"
-    "jal func_800E9F2C\n"
-    "move $7,$18\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800EABD4\n.set at\n.set reorder\n");
+extern void func_800EA638(void *);
+extern void func_800EA520(void *);
+extern unsigned short func_8000EB20(const char *);
+extern void func_80015F98(void *, float, float, unsigned short);
+extern void func_80013208(void *, float, float, unsigned short, int);
+extern void func_800E9F2C(void *, int, int, void *);
+extern char D_800FFD30[];
+
+void func_800EABD4(char *obj)
+{
+    unsigned int i;
+
+    func_800EA638(D_800FFD30);
+    func_800EA520(obj);
+    for (i = 0; i < 7; i++) {
+        ((int *)(obj + 192))[i] = 0;
+    }
+    func_80015F98(obj + 192, 29.490301f, 29.490301f, func_8000EB20("SPLASH_3"));
+    func_80013208(obj + 196, 39.3204f, 39.3204f, func_8000EB20("SPLASH_3"), 4);
+    func_80015F98(obj + 200, 2.9490302f, 2.9490302f, func_8000EB20("BUBBLE_1"));
+    func_80015F98(obj + 204, 2.29369f, 2.29369f, func_8000EB20("BUBBLE_1"));
+    func_80013208(obj + 212, 39.3204f, 39.3204f, func_8000EB20("RIPPLE_1"), 4);
+    func_80013208(obj + 216, 39.3204f, 39.3204f, func_8000EB20("RIPPLE_2"), 4);
+    func_80013208(obj + 208, 39.3204f, 39.3204f, func_8000EB20("SPLASH_1"), 4);
+    func_800E9F2C(obj + 220, 8, 256, obj);
+    func_800E9F2C(obj + 248, 8, 128, obj);
+    func_800E9F2C(obj + 276, 8, 128, obj);
+    func_800E9F2C(obj + 304, 8, 256, obj);
+    func_800E9F2C(obj + 332, 8, 80, obj);
+}

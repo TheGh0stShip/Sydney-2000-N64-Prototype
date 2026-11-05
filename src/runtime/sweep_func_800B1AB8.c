@@ -1,42 +1,19 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B1AB8\n.ent func_800B1AB8\n"
-    "func_800B1AB8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,20($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,3($5)\n"
-    "andi $2,$2,0x10\n"
-    "beqz $2,L_800B1B28\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,130\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "lui $2,0x800f\n"
-    "lw $2,9824($2)\n"
-    "lw $4,4($2)\n"
-    "jal func_800E97D4\n"
-    "li $5,300\n"
-    "j L_800B1B34\n"
-    "nop\n"
-    "L_800B1B28:\n"
-    "lbu $5,0($5)\n"
-    "jal func_800B1550\n"
-    "nop\n"
-    "L_800B1B34:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B1AB8\n.set at\n.set reorder\n");
+extern unsigned char D_800F1AE0[];
+extern char *D_800F2660;
+extern int func_8001D4B8(void *bank, int id, int a, int b);
+extern void func_8001D640(void *bank, int handle, int volume);
+extern void func_800E97D4(int, int);
+extern void func_800B1550(void *, int);
+
+void func_800B1AB8(void *self, unsigned char *input)
+{
+    int handle;
+
+    if (input[3] & 0x10) {
+        handle = func_8001D4B8(D_800F1AE0, 130, 0, 1);
+        func_8001D640(D_800F1AE0, handle, (int)((long long)*(int *)(D_800F1AE0 + 104) * 32767) >> 15);
+        func_800E97D4(*(int *)(D_800F2660 + 4), 300);
+    } else {
+        func_800B1550(self, input[0]);
+    }
+}

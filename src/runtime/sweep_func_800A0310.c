@@ -1,54 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0310\n.ent func_800A0310\n"
-    "func_800A0310:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x800f\n"
-    "addiu $17,$17,10072\n"
-    "sw $31,24($29)\n"
-    "lw $2,188($16)\n"
-    "move $4,$17\n"
-    "sll $6,$2,0x1\n"
-    "addu $6,$6,$2\n"
-    "sll $6,$6,0x2\n"
-    "addu $6,$6,$2\n"
-    "lw $2,184($16)\n"
-    "sll $6,$6,0x2\n"
-    "mult $2,$6\n"
-    "addiu $5,$16,196\n"
-    "lui $7,0x8008\n"
-    "addiu $7,$7,19504\n"
-    "mflo $6\n"
-    "jal func_800AA804\n"
-    "sw $0,196($16)\n"
-    "lw $4,184($16)\n"
-    "lw $3,188($16)\n"
-    "addiu $5,$4,-1\n"
-    "addiu $2,$3,-2\n"
-    "mult $5,$2\n"
-    "lui $7,0x8008\n"
-    "mflo $2\n"
-    "addiu $3,$3,-1\n"
-    "addiu $4,$4,-2\n"
-    "mult $3,$4\n"
-    "addiu $7,$7,19516\n"
-    "sw $0,204($16)\n"
-    "addiu $5,$16,204\n"
-    "move $4,$17\n"
-    "mflo $3\n"
-    "addu $2,$2,$3\n"
-    "sh $2,192($16)\n"
-    "andi $6,$2,0xffff\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x3\n"
-    "jal func_800A0224\n"
-    "move $4,$16\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A0310\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[184];
+    int rows;
+    int cols;
+    unsigned short edgeCount;
+    char pad2[196 - 194];
+    void *cells;
+    char pad3[204 - 200];
+    void *edges;
+} Grid;
+extern char D_800F2758[];
+extern char D_80084C30[];
+extern char D_80084C3C[];
+extern int func_800AA804(void *, void *, int, void *);
+extern void func_800A0224(Grid *);
+
+void func_800A0310(Grid *g)
+{
+    int rowBytes = g->cols * 52;
+
+    g->cells = 0;
+    func_800AA804(D_800F2758, &g->cells, g->rows * rowBytes, D_80084C30);
+    g->edges = 0;
+    g->edgeCount = (g->rows - 1) * (g->cols - 2) + (g->cols - 1) * (g->rows - 2);
+    func_800AA804(D_800F2758, &g->edges, g->edgeCount * 8, D_80084C3C);
+    func_800A0224(g);
+}

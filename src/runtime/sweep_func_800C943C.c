@@ -1,62 +1,57 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C943C\n.ent func_800C943C\n"
-    "func_800C943C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-29472\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$18,1960\n"
-    "move $4,$16\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800AC308\n"
-    "sw $2,180($18)\n"
-    "move $4,$16\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $2,$18,616\n"
-    "beql $2,$0,L_800C94B4\n"
-    "addiu $2,$18,188\n"
-    "beql $2,$16,L_800C94B4\n"
-    "addiu $2,$18,188\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-224\n"
-    "L_800C949C:\n"
-    "move $4,$16\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "bne $17,$16,L_800C949C\n"
-    "addiu $16,$16,-224\n"
-    "addiu $2,$18,188\n"
-    "L_800C94B4:\n"
-    "beqz $2,L_800C94E8\n"
-    "addiu $16,$18,612\n"
-    "beq $2,$16,L_800C94E8\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800C94C8:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800C94C8\n"
-    "addiu $16,$16,-212\n"
-    "L_800C94E8:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C943C\n.set at\n.set reorder\n");
+extern void func_800ADE84(void *object, int arg);
+extern void func_800AC308(void *object);
+extern void func_800AC3A4(void *object, int arg);
+extern unsigned char D_80088CE0[];
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *, int);
+} Method;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char rest[28];
+} Part;
+
+typedef struct {
+    unsigned char data[224];
+} Slot;
+
+void func_800C943C(unsigned char *object, int arg)
+{
+    Part *parts;
+    Part *p;
+    Slot *slots;
+    Slot *s;
+
+    *(void **)(object + 180) = D_80088CE0;
+    func_800AC308(object + 1960);
+    func_800ADE84(object + 1960, 2);
+    slots = (Slot *)(object + 616);
+    if (slots != 0) {
+        s = slots + 6;
+        if (slots != s) {
+            Slot *first = slots;
+            do {
+                s--;
+                func_800ADE84(s, 2);
+            } while (first != s);
+        }
+    }
+    parts = (Part *)(object + 188);
+    if (parts != 0) {
+        p = parts + 2;
+        if (parts != p) {
+            Part *first = parts;
+            do {
+                Method *m;
+                p--;
+                m = (Method *)(p->vtable + 8);
+                m->fn((unsigned char *)p + m->offset, 2);
+            } while (first != p);
+        }
+    }
+    func_800AC3A4(object, arg);
+}

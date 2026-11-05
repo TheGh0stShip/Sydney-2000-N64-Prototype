@@ -1,44 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BCCDC\n.ent func_800BCCDC\n"
-    "func_800BCCDC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "lui $2,0x8007\n"
-    "andi $5,$5,0xff\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "addiu $10,$2,2048\n"
-    "lwl $7,0($10)\n"
-    "lwr $7,3($10)\n"
-    "swl $7,16($29)\n"
-    "swr $7,19($29)\n"
-    "addu $2,$29,$5\n"
-    "lbu $16,16($2)\n"
-    "li $5,5\n"
-    "sw $0,17128($17)\n"
-    "addu $16,$16,$6\n"
-    "jal func_8008393C\n"
-    "addiu $6,$17,17128\n"
-    "andi $16,$16,0xff\n"
-    "sll $2,$16,0x2\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,17128($17)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2600($1)\n"
-    "addu $3,$3,$2\n"
-    "sw $3,17124($17)\n"
-    "lb $2,4($3)\n"
-    "sw $2,17556($17)\n"
-    "lwc1 $f0,0($3)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "trunc.w.s $f4,$f0\n"
-    "swc1 $f4,17564($17)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800BCCDC\n.set at\n.set reorder\n");
+#define D_80070A28 (*(float *)0x80070A28)
+typedef struct {
+    unsigned char v[4];
+} ByteQuad;
+
+typedef struct {
+    float scale;
+    signed char count;
+    unsigned char pad[15];
+} Entry;
+
+extern ByteQuad D_80070800;
+extern void func_8008393C(void *object, int kind, void *out);
+
+void func_800BCCDC(unsigned char *object, unsigned char sel, int delta)
+{
+    ByteQuad table = D_80070800;
+    unsigned char idx = table.v[sel] + delta;
+
+    *(int *)(object + 17128) = 0;
+    func_8008393C(object, 5, object + 17128);
+    {
+        float rate = D_80070A28;
+        Entry *entry = *(Entry **)(object + 17128) + idx;
+
+        *(Entry **)(object + 17124) = entry;
+        *(int *)(object + 17556) = entry->count;
+        *(int *)(object + 17564) = (int)(entry->scale * rate);
+    }
+}

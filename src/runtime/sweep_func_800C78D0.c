@@ -1,60 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C78D0\n.ent func_800C78D0\n"
-    "func_800C78D0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "andi $3,$17,0xff\n"
-    "L_800C78F0:\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addiu $3,$2,184\n"
-    "addu $2,$18,$2\n"
-    "lw $2,380($2)\n"
-    "beqz $2,L_800C7928\n"
-    "addu $16,$18,$3\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,196\n"
-    "L_800C7928:\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "addiu $17,$17,1\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnez $2,L_800C78F0\n"
-    "andi $3,$17,0xff\n"
-    "addiu $16,$18,1292\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$18,1512\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C78D0\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char pad[12];
+    int sound;
+    unsigned char rest[12];
+} Part;
+
+typedef struct {
+    unsigned char header[184];
+    Part parts[5];
+} Owner;
+
+void func_8001A248(void *sound);
+void func_800B35F0(void *object);
+void func_800AC334(void *object);
+
+void func_800C78D0(unsigned char *object)
+{
+    unsigned char i;
+    unsigned char *sub;
+
+    for (i = 0; i < 5; i++) {
+        Part *p;
+        Method *m;
+
+        p = &((Part *)(object + 184))[i];
+        if (((Owner *)object)->parts[i].sound != 0) {
+            func_8001A248(&p->sound);
+        }
+        m = (Method *)(p->vtable + 24);
+        m->fn((unsigned char *)p + m->offset);
+        m = (Method *)(p->vtable + 72);
+        m->fn((unsigned char *)p + m->offset);
+    }
+    sub = object + 1292;
+    func_800B35F0(sub);
+    func_800AC334(sub);
+    sub = object + 1512;
+    func_800B35F0(sub);
+    func_800AC334(sub);
+}

@@ -1,61 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C03CC\n.ent func_800C03CC\n"
-    "func_800C03CC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$6\n"
-    "sw $31,24($29)\n"
-    "sdc1 $f20,32($29)\n"
-    "lwc1 $f0,0($5)\n"
-    "lui $6,0xbdb6\n"
-    "ori $6,$6,0xddb7\n"
-    "addiu $2,$16,20\n"
-    "swc1 $f0,64($2)\n"
-    "lwc1 $f0,4($5)\n"
-    "addiu $4,$16,272\n"
-    "swc1 $f0,68($2)\n"
-    "lwc1 $f0,8($5)\n"
-    "move $5,$17\n"
-    "jal func_800AEC30\n"
-    "swc1 $f0,72($2)\n"
-    "jal func_800AD7D0\n"
-    "move $4,$17\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2784($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,2788($1)\n"
-    "div.s $f2,$f2,$f0\n"
-    "mul.s $f2,$f2,$f20\n"
-    "trunc.w.s $f4,$f2\n"
-    "swc1 $f4,264($16)\n"
-    "jal func_800AD7D0\n"
-    "move $4,$17\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2792($1)\n"
-    "li $2,-7680\n"
-    "sw $2,260($16)\n"
-    "li $2,1\n"
-    "sw $2,212($16)\n"
-    "lw $2,232($16)\n"
-    "div.s $f2,$f2,$f0\n"
-    "mul.s $f2,$f2,$f20\n"
-    "li $3,-129\n"
-    "and $2,$2,$3\n"
-    "sw $2,232($16)\n"
-    "lw $2,180($16)\n"
-    "trunc.w.s $f4,$f2\n"
-    "swc1 $f4,268($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C03CC\n.set at\n.set reorder\n");
+#define D_80070AE0 (*(float *)0x80070AE0)
+#define D_80070AE4 (*(float *)0x80070AE4)
+#define D_80070AE8 (*(float *)0x80070AE8)
+
+typedef struct VtEntry {
+    short offset;
+    short pad;
+    void (*func)(void *, ...);
+} VtEntry;
+
+#define VCALL(o, slot) ((VtEntry *)*(void **)((char *)(o) + 180))[slot].func((char *)(o) + ((VtEntry *)*(void **)((char *)(o) + 180))[slot].offset)
+
+extern void func_800AEC30(void *object, float *dir, float angle);
+extern float func_800AD7D0(float *v);
+
+void func_800C03CC(unsigned char *object, float *pos, float *dir)
+{
+    float *target;
+    float scale;
+
+    target = (float *)(object + 20);
+    target[16] = pos[0];
+    target[17] = pos[1];
+    target[18] = pos[2];
+    func_800AEC30(object + 272, dir, -0.089290075f);
+    *(int *)(object + 264) = (int)(D_80070AE0 / func_800AD7D0(dir) * D_80070AE4);
+    scale = D_80070AE4;
+    *(int *)(object + 268) = (int)(D_80070AE8 / func_800AD7D0(dir) * scale);
+    *(int *)(object + 260) = -7680;
+    *(int *)(object + 212) = 1;
+    *(unsigned int *)(object + 232) &= ~0x80;
+    VCALL(object, 8);
+}

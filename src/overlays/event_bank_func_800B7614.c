@@ -1,97 +1,51 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B7614\n.ent func_800B7614\n"
-    "func_800B7614:\n"
-    "addiu $29,$29,-208\n"
-    "sw $17,196($29)\n"
-    "move $17,$4\n"
-    "sw $16,192($29)\n"
-    "addiu $16,$17,4552\n"
-    "move $4,$16\n"
-    "li $5,23\n"
-    "sw $31,200($29)\n"
-    "jal func_800B97D4\n"
-    "addiu $6,$29,16\n"
-    "move $4,$16\n"
-    "li $5,31\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,84($29)\n"
-    "lwc1 $f4,88($29)\n"
-    "addiu $6,$29,16\n"
-    "swc1 $f0,112($29)\n"
-    "swc1 $f2,116($29)\n"
-    "jal func_800B97D4\n"
-    "swc1 $f4,120($29)\n"
-    "addiu $16,$17,4572\n"
-    "move $4,$16\n"
-    "addiu $5,$29,112\n"
-    "addiu $6,$29,176\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,84($29)\n"
-    "lwc1 $f4,88($29)\n"
-    "li $7,1\n"
-    "swc1 $f0,96($29)\n"
-    "swc1 $f2,100($29)\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f4,104($29)\n"
-    "move $4,$16\n"
-    "addiu $5,$29,96\n"
-    "addiu $6,$29,160\n"
-    "jal func_800AD2A8\n"
-    "li $7,1\n"
-    "lwc1 $f8,176($29)\n"
-    "lwc1 $f0,160($29)\n"
-    "sub.s $f8,$f8,$f0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2304($1)\n"
-    "mul.s $f12,$f8,$f6\n"
-    "lwc1 $f4,180($29)\n"
-    "lwc1 $f0,164($29)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "addiu $4,$29,144\n"
-    "lui $2,0x800f\n"
-    "mul.s $f10,$f4,$f6\n"
-    "addiu $16,$17,17392\n"
-    "lwc1 $f2,168($29)\n"
-    "lwc1 $f0,184($29)\n"
-    "lw $6,9852($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "move $5,$16\n"
-    "swc1 $f8,128($29)\n"
-    "mul.s $f6,$f0,$f6\n"
-    "swc1 $f4,132($29)\n"
-    "swc1 $f0,136($29)\n"
-    "swc1 $f12,144($29)\n"
-    "swc1 $f10,148($29)\n"
-    "jal func_800AC9B8\n"
-    "swc1 $f6,152($29)\n"
-    "lwc1 $f6,160($29)\n"
-    "lwc1 $f0,144($29)\n"
-    "lwc1 $f2,164($29)\n"
-    "add.s $f6,$f6,$f0\n"
-    "lwc1 $f0,148($29)\n"
-    "lwc1 $f4,152($29)\n"
-    "add.s $f2,$f2,$f0\n"
-    "lwc1 $f0,168($29)\n"
-    "lui $5,0x3fc9\n"
-    "ori $5,$5,0xfd9\n"
-    "add.s $f0,$f0,$f4\n"
-    "swc1 $f6,144($29)\n"
-    "swc1 $f2,148($29)\n"
-    "swc1 $f0,152($29)\n"
-    "swc1 $f6,64($16)\n"
-    "lwc1 $f0,148($29)\n"
-    "move $4,$16\n"
-    "swc1 $f0,68($4)\n"
-    "lwc1 $f0,152($29)\n"
-    "li $6,3\n"
-    "jal func_800AD434\n"
-    "swc1 $f0,72($4)\n"
-    "jal func_800AD9E8\n"
-    "addiu $4,$17,17372\n"
-    "lw $31,200($29)\n"
-    "lw $17,196($29)\n"
-    "lw $16,192($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,208\n"
-    ".end func_800B7614\n.set at\n.set reorder\n");
+#define D_80070900 (*(float *)0x80070900)
+
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+extern void *D_800F267C;
+extern void func_800B97D4(void *skeleton, int bone, float *out);
+extern void func_800AD2A8(void *camera, Vec3 *in, Vec3 *out, int mode);
+extern void func_800AC9B8(Vec3 *v, void *transform, void *basis);
+extern void func_800AD434(void *object, float angle, int mode);
+extern void func_800AD9E8(void *object);
+
+void func_800B7614(unsigned char *object)
+{
+    float frame[20];
+    Vec3 tail;
+    Vec3 head;
+    Vec3 diff;
+    Vec3 step;
+    Vec3 near;
+    Vec3 far;
+    float *target;
+
+    func_800B97D4(object + 4552, 23, frame);
+    head.x = frame[16];
+    head.y = frame[17];
+    head.z = frame[18];
+    func_800B97D4(object + 4552, 31, frame);
+    tail.x = frame[16];
+    tail.y = frame[17];
+    tail.z = frame[18];
+    func_800AD2A8(object + 4572, &head, &far, 1);
+    func_800AD2A8(object + 4572, &tail, &near, 1);
+    diff.x = far.x - near.x;
+    diff.y = far.y - near.y;
+    diff.z = far.z - near.z;
+    step.x = diff.x * D_80070900;
+    step.y = diff.y * D_80070900;
+    step.z = diff.z * D_80070900;
+    func_800AC9B8(&step, object + 17392, D_800F267C);
+    step.x = near.x + step.x;
+    step.y = near.y + step.y;
+    step.z = near.z + step.z;
+    target = (float *)(object + 17392);
+    target[16] = step.x;
+    target[17] = step.y;
+    target[18] = step.z;
+    func_800AD434(target, 1.5707961f, 3);
+    func_800AD9E8(object + 17372);
+}

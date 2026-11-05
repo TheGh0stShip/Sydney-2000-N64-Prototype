@@ -1,63 +1,34 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C8644\n.ent func_800C8644\n"
-    "func_800C8644:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "sw $31,24($29)\n"
-    "lw $2,764($16)\n"
-    "addiu $5,$5,-1\n"
-    "beq $2,$5,L_800C8700\n"
-    "move $17,$6\n"
-    "li $2,1023\n"
-    "bne $5,$2,L_800C8680\n"
-    "sw $5,764($16)\n"
-    "lw $2,192($16)\n"
-    "j L_800C86D8\n"
-    "sb $0,777($16)\n"
-    "L_800C8680:\n"
-    "lbu $2,778($16)\n"
-    "bnez $2,L_800C8698\n"
-    "li $2,1\n"
-    "jal func_800C8278\n"
-    "move $4,$16\n"
-    "li $2,1\n"
-    "L_800C8698:\n"
-    "sw $2,768($16)\n"
-    "beqz $17,L_800C86D4\n"
-    "sb $2,777($16)\n"
-    "lwc1 $f0,780($16)\n"
-    "addiu $3,$16,780\n"
-    "swc1 $f0,368($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$16,368\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,8($2)\n"
-    "lw $2,192($16)\n"
-    "li $3,-5\n"
-    "j L_800C86DC\n"
-    "and $2,$2,$3\n"
-    "L_800C86D4:\n"
-    "lw $2,192($16)\n"
-    "L_800C86D8:\n"
-    "ori $2,$2,0x4\n"
-    "L_800C86DC:\n"
-    "sw $2,192($16)\n"
-    "li $2,15\n"
-    "sw $2,756($16)\n"
-    "lw $2,192($16)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29708($1)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($16)\n"
-    "swc1 $f0,772($16)\n"
-    "L_800C8700:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C8644\n.set at\n.set reorder\n");
+void func_800C8278(void *obj);
+
+
+void func_800C8644(char *obj, int id, int keepPos)
+{
+    id--;
+    if (*(int *)(obj + 764) == id) {
+        return;
+    }
+    *(int *)(obj + 764) = id;
+    if (id == 1023) {
+        obj[777] = 0;
+        *(int *)(obj + 192) |= 4;
+    } else {
+        if (obj[778] == 0) {
+            func_800C8278(obj);
+        }
+        *(int *)(obj + 768) = 1;
+        obj[777] = 1;
+        if (keepPos) {
+            float *src = (float *)(obj + 780);
+            float *dst = (float *)(obj + 368);
+            dst[0] = src[0];
+            dst[1] = src[1];
+            dst[2] = src[2];
+            *(int *)(obj + 192) &= ~4;
+        } else {
+            *(int *)(obj + 192) |= 4;
+        }
+    }
+    *(int *)(obj + 756) = 15;
+    *(int *)(obj + 192) |= 4;
+    *(float *)(obj + 772) = 180.21849060058594f;
+}

@@ -1,73 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D51A4\n.ent func_800D51A4\n"
-    "func_800D51A4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,648($17)\n"
-    "bnez $2,L_800D5284\n"
-    "li $2,1\n"
-    "sh $6,2762($17)\n"
-    "lbu $2,2763($17)\n"
-    "sw $5,2752($17)\n"
-    "sw $5,2756($17)\n"
-    "lw $5,2772($17)\n"
-    "li $18,-1\n"
-    "beq $5,$18,L_800D5214\n"
-    "sb $2,2760($17)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "jal func_8001D6CC\n"
-    "move $7,$6\n"
-    "lw $3,100($16)\n"
-    "move $4,$16\n"
-    "move $5,$2\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "L_800D5214:\n"
-    "lui $4,0x8004\n"
-    "jal func_800083B8\n"
-    "addiu $4,$4,17904\n"
-    "lw $3,2752($17)\n"
-    "bnez $3,L_800D5244\n"
-    "li $2,1\n"
-    "lh $2,2762($17)\n"
-    "bne $2,$18,L_800D525C\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,22492\n"
-    "j L_800D5254\n"
-    "li $3,42\n"
-    "L_800D5244:\n"
-    "bne $3,$2,L_800D525C\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,22492\n"
-    "li $3,100\n"
-    "L_800D5254:\n"
-    "sw $3,16($2)\n"
-    "sw $0,20($2)\n"
-    "L_800D525C:\n"
-    "jal func_800B31DC\n"
-    "nop\n"
-    "li $4,3\n"
-    "jal func_800B31EC\n"
-    "sw $2,2748($17)\n"
-    "jal func_800D496C\n"
-    "move $4,$17\n"
-    "li $2,1\n"
-    "sw $2,648($17)\n"
-    "li $2,1\n"
-    "L_800D5284:\n"
-    "sw $2,644($17)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D51A4\n.set at\n.set reorder\n");
+extern char D_800F1AE0[];
+extern char D_800445F0[];
+extern int D_800F57DC[];
+extern int func_8001D6CC(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+extern void func_800083B8(void *);
+extern int func_800B31DC(void);
+extern void func_800B31EC(int);
+extern void func_800D496C(char *);
+
+void func_800D51A4(char *obj, int mode, short id)
+{
+    int voice;
+
+    if (*(int *)(obj + 648) == 0) {
+        *(short *)(obj + 2762) = id;
+        *(int *)(obj + 2752) = mode;
+        *(int *)(obj + 2756) = mode;
+        *(unsigned char *)(obj + 2760) = *(unsigned char *)(obj + 2763);
+        if (*(int *)(obj + 2772) != -1) {
+            voice = func_8001D6CC(D_800F1AE0, *(int *)(obj + 2772), 0, 0);
+            *(volatile int *)(D_800F1AE0 + 100);
+            func_8001D640(D_800F1AE0, voice, 0);
+        }
+        func_800083B8(D_800445F0);
+        if (*(int *)(obj + 2752) == 0) {
+            if (*(short *)(obj + 2762) == -1) {
+                D_800F57DC[4] = 42;
+                D_800F57DC[5] = 0;
+            }
+        } else if (*(int *)(obj + 2752) == 1) {
+            D_800F57DC[4] = 100;
+            D_800F57DC[5] = 0;
+        }
+        *(int *)(obj + 2748) = func_800B31DC();
+        func_800B31EC(3);
+        func_800D496C(obj);
+        *(int *)(obj + 648) = 1;
+    }
+    *(int *)(obj + 644) = 1;
+}

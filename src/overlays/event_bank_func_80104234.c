@@ -1,80 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80104234\n.ent func_80104234\n"
-    "func_80104234:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $7,0x7fff\n"
-    "li $2,32\n"
-    "sw $31,28($29)\n"
-    "sh $2,430($16)\n"
-    "li $2,24\n"
-    "lui $6,0x800f\n"
-    "ori $7,$7,0xffff\n"
-    "sh $2,432($16)\n"
-    "lw $4,5104($6)\n"
-    "li $5,8\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $4,$2,0x3\n"
-    "subu $4,$4,$2\n"
-    "and $4,$4,$7\n"
-    "sll $3,$4,0x2\n"
-    "sw $4,5104($6)\n"
-    "lbu $2,1228($16)\n"
-    "addu $3,$3,$4\n"
-    "subu $5,$5,$2\n"
-    "sra $5,$5,0x1\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$5\n"
-    "mflo $7\n"
-    "li $2,10\n"
-    "srl $4,$4,0xf\n"
-    "mult $4,$2\n"
-    "addiu $5,$16,434\n"
-    "sw $3,5104($6)\n"
-    "srl $2,$7,0x10\n"
-    "mflo $9\n"
-    "beqz $2,L_80104310\n"
-    "srl $4,$9,0x10\n"
-    "li $6,22\n"
-    "li $3,51\n"
-    "L_801042F8:\n"
-    "beql $2,$4,L_80104304\n"
-    "sh $3,0($5)\n"
-    "sh $6,0($5)\n"
-    "L_80104304:\n"
-    "addiu $2,$2,-1\n"
-    "bnez $2,L_801042F8\n"
-    "addiu $5,$5,2\n"
-    "L_80104310:\n"
-    "li $2,53\n"
-    "sh $2,0($5)\n"
-    "li $2,-1\n"
-    "sh $2,2($5)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,788($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80104234\n.set at\n.set reorder\n");
+extern unsigned int D_800F13F0;
+extern void func_800B9E9C(void *obj, int slot, int index, int value, int a);
+
+static __inline__ int func_rand(int range)
+{
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    return (unsigned int)((D_800F13F0 >> 15) * range) >> 16;
+}
+
+void func_80104234(char *obj)
+{
+    int pick;
+    int count;
+    short *p;
+
+    *(short *)(obj + 430) = 32;
+    *(short *)(obj + 432) = 24;
+    pick = func_rand(10);
+    count = func_rand((8 - *(unsigned char *)(obj + 1228)) >> 1);
+    p = (short *)(obj + 434);
+    while (count != 0) {
+        if (count != pick) {
+            *p = 22;
+        } else {
+            *p = 51;
+        }
+        count--;
+        p++;
+    }
+    p[0] = 53;
+    p[1] = -1;
+    *(unsigned char *)(obj + 429) = 0;
+    func_800B9E9C(obj, *(short *)(obj + 430), -1, *(int *)(obj + 632), 0);
+    *(float *)(obj + 632) = *(float *)(obj + 788);
+}

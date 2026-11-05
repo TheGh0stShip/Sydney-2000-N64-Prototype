@@ -1,48 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BB070\n.ent func_800BB070\n"
-    "func_800BB070:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $19,28($29)\n"
-    "move $19,$6\n"
-    "addiu $2,$7,-1\n"
-    "sltiu $2,$2,2\n"
-    "sw $31,32($29)\n"
-    "beqz $2,L_800BB0A4\n"
-    "sw $16,16($29)\n"
-    "sw $18,380($17)\n"
-    "L_800BB0A4:\n"
-    "beqz $7,L_800BB0B4\n"
-    "li $2,2\n"
-    "bne $7,$2,L_800BB0F4\n"
-    "nop\n"
-    "L_800BB0B4:\n"
-    "addiu $16,$17,20\n"
-    "move $4,$16\n"
-    "jal func_800AC718\n"
-    "addiu $5,$17,428\n"
-    "move $4,$17\n"
-    "move $5,$18\n"
-    "jal func_800B48CC\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "jal func_800AC718\n"
-    "addiu $5,$17,444\n"
-    "bnez $19,L_800BB0F4\n"
-    "sw $18,376($17)\n"
-    "sw $0,460($17)\n"
-    "jal func_800BAF90\n"
-    "move $4,$17\n"
-    "L_800BB0F4:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800BB070\n.set at\n.set reorder\n");
+extern void func_800AC718(void *dst, void *src);
+extern void func_800B48CC(void *self, int value, int flag);
+extern void func_800BAF90(void *self);
+
+void func_800BB070(unsigned char *self, int value, int keep, unsigned int mode)
+{
+    if (mode - 1 < 2) {
+        *(int *)(self + 380) = value;
+    }
+    if (mode == 0 || mode == 2) {
+        func_800AC718(self + 20, self + 428);
+        func_800B48CC(self, value, 0);
+        func_800AC718(self + 20, self + 444);
+        *(int *)(self + 376) = value;
+        if (keep == 0) {
+            *(int *)(self + 460) = 0;
+            func_800BAF90(self);
+        }
+    }
+}

@@ -1,45 +1,34 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011F7A4\n.ent func_8011F7A4\n"
-    "func_8011F7A4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,3180($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,3184($1)\n"
-    "sdc1 $f20,24($29)\n"
-    "mtc1 $0,$f20\n"
-    "li $6,1\n"
-    "sw $31,20($29)\n"
-    "swc1 $f20,4312($16)\n"
-    "swc1 $f20,4324($16)\n"
-    "swc1 $f0,4308($16)\n"
-    "swc1 $f2,4316($16)\n"
-    "swc1 $f0,4320($16)\n"
-    "swc1 $f2,4328($16)\n"
-    "swc1 $f20,4288($16)\n"
-    "swc1 $f20,4280($16)\n"
-    "swc1 $f20,4276($16)\n"
-    "swc1 $f20,4272($16)\n"
-    "swc1 $f20,4268($16)\n"
-    "jal func_800815C0\n"
-    "swc1 $f20,4264($16)\n"
-    "addiu $4,$16,4380\n"
-    "addiu $5,$16,20\n"
-    "li $6,76\n"
-    "sw $0,4296($16)\n"
-    "swc1 $f20,4376($16)\n"
-    "swc1 $f20,4372($16)\n"
-    "swc1 $f20,4368($16)\n"
-    "swc1 $f20,4364($16)\n"
-    "swc1 $f20,4360($16)\n"
-    "jal func_800B3870\n"
-    "swc1 $f20,4356($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011F7A4\n.set at\n.set reorder\n");
+extern void func_800815C0(void *object, int mode, int enabled);
+extern void func_800B3870(void *destination, void *source, int size);
+
+void func_8011F7A4(unsigned char *object, int mode)
+{
+    float zero;
+    float low;
+    float high;
+
+    low = *(float *)0x80080C6C;
+    high = *(float *)0x80080C70;
+    zero = 0.0f;
+    *(float *)(object + 4312) = zero;
+    *(float *)(object + 4324) = zero;
+    *(float *)(object + 4308) = low;
+    *(float *)(object + 4316) = high;
+    *(float *)(object + 4320) = low;
+    *(float *)(object + 4328) = high;
+    *(float *)(object + 4288) = zero;
+    *(float *)(object + 4280) = zero;
+    *(float *)(object + 4276) = zero;
+    *(float *)(object + 4272) = zero;
+    *(float *)(object + 4268) = zero;
+    *(float *)(object + 4264) = zero;
+    func_800815C0(object, mode, 1);
+    *(int *)(object + 4296) = 0;
+    *(float *)(object + 4376) = zero;
+    *(float *)(object + 4372) = zero;
+    *(float *)(object + 4368) = zero;
+    *(float *)(object + 4364) = zero;
+    *(float *)(object + 4360) = zero;
+    *(float *)(object + 4356) = zero;
+    func_800B3870(object + 4380, object + 20, 76);
+}

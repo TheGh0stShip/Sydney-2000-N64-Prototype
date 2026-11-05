@@ -1,105 +1,63 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DEF98\n.ent func_800DEF98\n"
-    "func_800DEF98:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$5\n"
-    "sw $31,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,0($17)\n"
-    "addiu $3,$2,-3\n"
-    "sltiu $2,$3,18\n"
-    "beqz $2,L_800DF0FC\n"
-    "move $18,$4\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-19880\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800DF0FC\n"
-    "sb $0,520($2)\n"
-    "lui $2,0x800f\n"
-    "sb $0,19102($18)\n"
-    "lw $5,25572($2)\n"
-    "lw $6,16($17)\n"
-    "jal func_800DEAA0\n"
-    "move $4,$18\n"
-    "j L_800DF0FC\n"
-    "nop\n"
-    "move $4,$18\n"
-    "jal func_800DEC78\n"
-    "move $5,$17\n"
-    "j L_800DF0FC\n"
-    "nop\n"
-    "lw $16,12($17)\n"
-    "lw $2,180($16)\n"
-    "move $5,$18\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,3\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $5,4($17)\n"
-    "jal func_800AB2A4\n"
-    "move $7,$16\n"
-    "j L_800DF0FC\n"
-    "nop\n"
-    "lw $16,12($17)\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,4512\n"
-    "jal func_80096398\n"
-    "move $5,$16\n"
-    "jal func_80015EAC\n"
-    "li $4,12\n"
-    "lw $4,188($18)\n"
-    "jal func_800E8714\n"
-    "nop\n"
-    "lw $4,188($18)\n"
-    "jal func_800E9A48\n"
-    "li $5,1\n"
-    "lw $3,16($17)\n"
-    "li $2,57\n"
-    "bne $3,$2,L_800DF0D4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,7\n"
-    "sw $0,16($29)\n"
-    "j L_800DF0E8\n"
-    "sw $3,20($29)\n"
-    "L_800DF0D4:\n"
-    "addiu $4,$4,9952\n"
-    "li $6,7\n"
-    "li $2,15\n"
-    "sw $0,16($29)\n"
-    "sw $2,20($29)\n"
-    "L_800DF0E8:\n"
-    "lw $5,4($17)\n"
-    "jal func_800AB2A4\n"
-    "move $7,$18\n"
-    "jal func_800177AC\n"
-    "nop\n"
-    "L_800DF0FC:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DEF98\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(); } VEntry;
+typedef struct { char pad[16]; VEntry attach; VEntry detach; } VTable;
+typedef struct { char pad[180]; VTable *vt; } Obj;
+typedef struct {
+    char pad0[16];
+    int time;
+    char pad1[188 - 20];
+    void *hud;
+    char pad2[19102 - 192];
+    unsigned char busy;
+} Scene;
+typedef struct { int type; int time; char pad[4]; Obj *obj; int arg; } Msg;
+
+extern char *D_800FC270;
+extern int D_800F63E4;
+extern char D_800F26E0[];
+extern char D_800F11A0[];
+extern void func_800DEAA0(Scene *, int, int);
+extern void func_800DEC78(Scene *, Msg *);
+extern void func_800AB2A4(void *, int, int, void *, int, int);
+extern void func_80096398(void *, Obj *);
+extern void func_80015EAC(int);
+extern void func_800E8714(void *);
+extern void func_800E9A48(void *, int);
+extern void func_800177AC(void);
+
+void func_800DEF98(Scene *self, Msg *msg)
+{
+    Obj *obj;
+
+    switch (msg->type) {
+    case 3:
+        D_800FC270[520] = 0;
+        break;
+    case 7:
+        self->busy = 0;
+        func_800DEAA0(self, D_800F63E4, msg->arg);
+        break;
+    case 5:
+        func_800DEC78(self, msg);
+        break;
+    case 19:
+        obj = msg->obj;
+        obj->vt->attach.fn((char *)obj + obj->vt->attach.offset, self);
+        func_800AB2A4(D_800F26E0, msg->time, 3, obj, 0, 0);
+        break;
+    case 20:
+        obj = msg->obj;
+        obj->vt->detach.fn((char *)obj + obj->vt->detach.offset);
+        func_80096398(D_800F11A0, obj);
+        func_80015EAC(12);
+        func_800E8714(self->hud);
+        func_800E9A48(self->hud, 1);
+        if (msg->arg == 57) {
+            func_800AB2A4(D_800F26E0, msg->time, 7, self, 0, 57);
+        } else {
+            func_800AB2A4(D_800F26E0, msg->time, 7, self, 0, 15);
+        }
+        func_800177AC();
+        break;
+    }
+    self->time = msg->time;
+}

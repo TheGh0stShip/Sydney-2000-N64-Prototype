@@ -1,53 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DAF34\n.ent func_800DAF34\n"
-    "func_800DAF34:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "lui $2,0x8010\n"
-    "lw $4,-15760($2)\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $3,2560($4)\n"
-    "li $2,6\n"
-    "beq $3,$2,L_800DAFD8\n"
-    "nop\n"
-    "lw $2,2564($4)\n"
-    "beqz $2,L_800DAFD8\n"
-    "li $2,-1\n"
-    "lw $3,24988($18)\n"
-    "bne $3,$2,L_800DAFD8\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,213\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "move $7,$6\n"
-    "move $4,$16\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "lw $3,104($4)\n"
-    "li $2,32767\n"
-    "mult $3,$2\n"
-    "move $5,$17\n"
-    "li $7,75\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "sw $17,24988($18)\n"
-    "L_800DAFD8:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DAF34\n.set at\n.set reorder\n");
+extern int func_8001D4B8(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+extern void func_8001D5D8(void *, int, int, int, int, int);
+extern char *D_800FC270;
+extern char D_800F1AE0[];
+
+void func_800DAF34(char *obj)
+{
+    char *game;
+    int voice;
+
+    game = D_800FC270;
+    if (*(int *)(game + 2560) != 6 && *(int *)(game + 2564) != 0 &&
+        *(int *)(obj + 24988) == -1) {
+        voice = func_8001D4B8(D_800F1AE0, 213, 0, 0);
+        func_8001D640(D_800F1AE0, voice, 0);
+        func_8001D5D8(D_800F1AE0, voice,
+                      (int)((long long)*(int *)(D_800F1AE0 + 104) * 32767) >> 15,
+                      75, 0, 0);
+        *(int *)(obj + 24988) = voice;
+    }
+}

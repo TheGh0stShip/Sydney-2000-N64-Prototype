@@ -1,61 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D9280\n.ent func_800D9280\n"
-    "func_800D9280:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "lui $2,0x8009\n"
-    "sw $31,24($29)\n"
-    "lw $3,500($16)\n"
-    "addiu $2,$2,-22440\n"
-    "beqz $3,L_800D92EC\n"
-    "sw $2,180($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,500($16)\n"
-    "lw $2,180($3)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,500\n"
-    "L_800D92EC:\n"
-    "lw $3,504($16)\n"
-    "beql $3,$0,L_800D933C\n"
-    "move $4,$16\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,504($16)\n"
-    "lw $2,180($3)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,504\n"
-    "move $4,$16\n"
-    "L_800D933C:\n"
-    "jal func_800BA1B4\n"
-    "move $5,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D9280\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short offset;
+    short pad;
+    void (*fn)(void *, int);
+} VEntry;
+
+typedef struct VTable {
+    char pad[8];
+    VEntry destroy;
+    char pad2[8];
+    short release_offset;
+    short release_pad;
+    void (*release)(void *);
+} VTable;
+
+typedef struct Child {
+    char pad[180];
+    VTable *vtbl;
+} Child;
+
+typedef struct Obj {
+    char pad[180];
+    VTable *vtbl;
+    char pad2[316];
+    Child *a;
+    Child *b;
+} Obj;
+
+extern VTable D_8008A858;
+extern char D_800F2758[];
+extern void func_800AA658(void *, Child **);
+extern void func_800BA1B4(Obj *, int);
+
+void func_800D9280(Obj *obj, int flags)
+{
+    obj->vtbl = &D_8008A858;
+    if (obj->a != 0) {
+        obj->a->vtbl->release((char *)obj->a + obj->a->vtbl->release_offset);
+        obj->a->vtbl->destroy.fn((char *)obj->a + obj->a->vtbl->destroy.offset, 2);
+        func_800AA658(D_800F2758, &obj->a);
+    }
+    if (obj->b != 0) {
+        obj->b->vtbl->release((char *)obj->b + obj->b->vtbl->release_offset);
+        obj->b->vtbl->destroy.fn((char *)obj->b + obj->b->vtbl->destroy.offset, 2);
+        func_800AA658(D_800F2758, &obj->b);
+    }
+    func_800BA1B4(obj, flags);
+}

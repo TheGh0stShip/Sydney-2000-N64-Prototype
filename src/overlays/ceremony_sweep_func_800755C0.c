@@ -1,70 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800755C0\n.ent func_800755C0\n"
-    "func_800755C0:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$16,2764\n"
-    "sw $31,32($29)\n"
-    "sdc1 $f20,40($29)\n"
-    "jal func_800ADC38\n"
-    "move $4,$17\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,4204\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,4416\n"
-    "move $4,$17\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,5968($1)\n"
-    "move $5,$0\n"
-    "mfc1 $7,$f20\n"
-    "li $6,-1\n"
-    "sw $0,16($29)\n"
-    "jal func_800B9FA4\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "move $5,$0\n"
-    "mfc1 $7,$f20\n"
-    "li $6,-1\n"
-    "jal func_800B9E9C\n"
-    "sw $0,16($29)\n"
-    "lui $2,0x8007\n"
-    "addiu $5,$16,2784\n"
-    "lwc1 $f0,17104($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5972($1)\n"
-    "addiu $2,$2,17104\n"
-    "swc1 $f0,64($5)\n"
-    "lwc1 $f0,4($2)\n"
-    "swc1 $f0,68($5)\n"
-    "lwc1 $f0,8($2)\n"
-    "swc1 $f0,72($5)\n"
-    "lwc1 $f0,2852($16)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,2852($16)\n"
-    "lwc1 $f0,64($5)\n"
-    "addiu $4,$16,3188\n"
-    "swc1 $f0,3132($16)\n"
-    "lwc1 $f0,68($5)\n"
-    "addiu $2,$16,3132\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,72($5)\n"
-    "li $6,76\n"
-    "jal func_800B3870\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $4,$16,4660\n"
-    "li $5,1\n"
-    "li $2,5\n"
-    "sb $2,10336($16)\n"
-    "li $2,0xd200\n"
-    "jal func_800A9BE8\n"
-    "sw $2,10340($16)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800755C0\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3f;
+
+extern Vec3f D_800742D0;
+extern void func_800ADC38(void *);
+extern void func_800B9FA4(void *, int, int, float, int, int);
+extern void func_800B9E9C(void *, int, int, float, int);
+extern void func_800B3870(void *, void *, int);
+extern void func_800A9BE8(void *, int);
+
+void func_800755C0(char *self)
+{
+    char *anim = self + 2764;
+    char *pos;
+    float k;
+    Vec3f *dst;
+
+    func_800ADC38(anim);
+    func_800ADC38(self + 4204);
+    func_800ADC38(self + 4416);
+    k = *(float *)0x80071750;
+    func_800B9FA4(anim, 0, -1, k, 0, 0);
+    func_800B9E9C(anim, 0, -1, k, 0);
+    pos = self + 2784;
+    ((Vec3f *)(pos + 64))->x = D_800742D0.x;
+    ((Vec3f *)(pos + 64))->y = D_800742D0.y;
+    ((Vec3f *)(pos + 64))->z = D_800742D0.z;
+    *(float *)(self + 2852) -= *(float *)0x80071754;
+    dst = (Vec3f *)(self + 3132);
+    dst->x = ((Vec3f *)(pos + 64))->x;
+    dst->y = ((Vec3f *)(pos + 64))->y;
+    dst->z = ((Vec3f *)(pos + 64))->z;
+    func_800B3870(self + 3188, pos, 76);
+    *(unsigned char *)(self + 10336) = 5;
+    *(int *)(self + 10340) = 0xD200;
+    func_800A9BE8(self + 4660, 1);
+}

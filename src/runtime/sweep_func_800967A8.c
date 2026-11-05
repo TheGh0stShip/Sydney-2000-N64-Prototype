@@ -1,51 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800967A8\n.ent func_800967A8\n"
-    "func_800967A8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $4,$16,1772\n"
-    "li $5,2\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x8008\n"
-    "addiu $17,$17,26008\n"
-    "sw $31,28($29)\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,1552\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,1332\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,1112\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,900\n"
-    "jal func_800CE380\n"
-    "li $5,2\n"
-    "addiu $4,$16,688\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,476\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,264\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "move $5,$18\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800967A8\n.set at\n.set reorder\n");
+extern char D_80086598[];
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800CE380(void *object, int mode);
+
+#define DESTROY_WITH_VTABLE(o) \
+    p = (o); \
+    *(void **)(p + 180) = D_80086598; \
+    func_800ADDA4(p, 2)
+
+void func_800967A8(char *self, int mode)
+{
+    char *p;
+
+    DESTROY_WITH_VTABLE(self + 1772);
+    DESTROY_WITH_VTABLE(self + 1552);
+    DESTROY_WITH_VTABLE(self + 1332);
+    DESTROY_WITH_VTABLE(self + 1112);
+    func_800CE380(self + 900, 2);
+    func_800ADDA4(self + 688, 2);
+    func_800ADDA4(self + 476, 2);
+    func_800ADDA4(self + 264, 2);
+    func_800ADDA4(self, mode);
+}

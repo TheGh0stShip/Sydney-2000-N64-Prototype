@@ -1,81 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D277C\n.ent func_800D277C\n"
-    "func_800D277C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $4,$16,3456\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-25016\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800CC4B4\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$16,3236\n"
-    "li $5,2\n"
-    "lui $17,0x8008\n"
-    "addiu $17,$17,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,3016\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,2796\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,2552\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,2340\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,2128\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1916\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1704\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1492\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1280\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1068\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,856\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,644\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,26096\n"
-    "jal func_800ADDA4\n"
-    "sw $2,180($4)\n"
-    "addiu $4,$16,424\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,212\n"
-    "jal func_800CE380\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "move $5,$18\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D277C\n.set at\n.set reorder\n");
+extern char D_80089E48[];
+extern char D_80086598[];
+extern char D_800865F0[];
+extern void func_800CC4B4(void *, int);
+extern void func_800ADDA4(void *, int);
+extern void func_800CE380(void *, int);
+
+#define VTBL(p) (*(void **)((char *)(p) + 180))
+
+void func_800D277C(char *obj, int flags)
+{
+    char *sub;
+
+    VTBL(obj) = D_80089E48;
+    func_800CC4B4(obj + 3456, 2);
+    sub = obj + 3236;
+    VTBL(sub) = D_80086598;
+    func_800ADDA4(sub, 2);
+    sub = obj + 3016;
+    VTBL(sub) = D_80086598;
+    func_800ADDA4(sub, 2);
+    sub = obj + 2796;
+    VTBL(sub) = D_80086598;
+    func_800ADDA4(sub, 2);
+    func_800ADDA4(obj + 2552, 2);
+    func_800ADDA4(obj + 2340, 2);
+    func_800ADDA4(obj + 2128, 2);
+    func_800ADDA4(obj + 1916, 2);
+    func_800ADDA4(obj + 1704, 2);
+    func_800ADDA4(obj + 1492, 2);
+    func_800ADDA4(obj + 1280, 2);
+    func_800ADDA4(obj + 1068, 2);
+    func_800ADDA4(obj + 856, 2);
+    sub = obj + 644;
+    VTBL(sub) = D_800865F0;
+    func_800ADDA4(sub, 2);
+    sub = obj + 424;
+    VTBL(sub) = D_80086598;
+    func_800ADDA4(sub, 2);
+    func_800CE380(obj + 212, 2);
+    func_800ADDA4(obj, flags);
+}

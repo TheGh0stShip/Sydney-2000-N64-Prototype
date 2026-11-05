@@ -1,50 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C6CCC\n.ent func_800C6CCC\n"
-    "func_800C6CCC:\n"
-    "lui $2,0x800f\n"
-    "lw $3,10012($2)\n"
-    "li $2,7\n"
-    "bne $3,$2,L_800C6D48\n"
-    "move $4,$0\n"
-    "lui $2,0x800f\n"
-    "addiu $11,$2,16640\n"
-    "li $7,1\n"
-    "lui $6,0x8010\n"
-    "li $10,13\n"
-    "li $9,29\n"
-    "li $8,3\n"
-    "li $5,3440\n"
-    "L_800C6D00:\n"
-    "addu $2,$4,$11\n"
-    "sb $7,0($2)\n"
-    "lw $2,-15760($6)\n"
-    "addiu $3,$4,5\n"
-    "addu $2,$2,$4\n"
-    "sb $10,500($2)\n"
-    "lw $2,-15760($6)\n"
-    "addiu $4,$4,1\n"
-    "addu $2,$2,$5\n"
-    "sh $3,0($2)\n"
-    "sh $9,2($2)\n"
-    "sh $8,4($2)\n"
-    "sb $7,9($2)\n"
-    "sltiu $2,$4,8\n"
-    "bnez $2,L_800C6D00\n"
-    "addiu $5,$5,12\n"
-    "jr $31\n"
-    "nop\n"
-    "L_800C6D48:\n"
-    "lui $5,0x8010\n"
-    "li $3,-1\n"
-    "L_800C6D50:\n"
-    "lw $2,-15760($5)\n"
-    "addu $2,$2,$4\n"
-    "addiu $4,$4,1\n"
-    "sb $3,500($2)\n"
-    "sltiu $2,$4,8\n"
-    "bnez $2,L_800C6D50\n"
-    "nop\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800C6CCC\n.set at\n.set reorder\n");
+typedef struct {
+    short id;
+    short kind;
+    short count;
+    char pad6[3];
+    char active;
+    char pad10[2];
+} SlotSetup;
+
+extern int D_800F271C;
+extern unsigned char D_800F4100[];
+typedef struct {
+    char pad0[500];
+    signed char slotState[8];
+    char pad508[3440 - 508];
+    SlotSetup setups[8];
+} SlotTable;
+
+extern SlotTable *D_800FC270;
+
+void func_800C6CCC(void)
+{
+    unsigned int i;
+    SlotSetup *setup;
+
+    if (D_800F271C == 7) {
+        for (i = 0; i < 8; i++) {
+            D_800F4100[i] = 1;
+            D_800FC270->slotState[i] = 13;
+            setup = &D_800FC270->setups[i];
+            setup->id = i + 5;
+            setup->kind = 29;
+            setup->count = 3;
+            setup->active = 1;
+        }
+    } else {
+        for (i = 0; i < 8; i++) {
+            D_800FC270->slotState[i] = -1;
+        }
+    }
+}

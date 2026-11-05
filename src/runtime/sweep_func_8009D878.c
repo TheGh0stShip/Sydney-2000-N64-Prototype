@@ -1,35 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D878\n.ent func_8009D878\n"
-    "func_8009D878:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,19712\n"
-    "sw $17,20($29)\n"
-    "addiu $17,$4,24688\n"
-    "sw $31,24($29)\n"
-    "lw $2,180($17)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$17\n"
-    "lw $5,216($16)\n"
-    "li $16,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$16,$5\n"
-    "move $4,$17\n"
-    "lw $2,192($4)\n"
-    "li $3,-5\n"
-    "sb $16,176($4)\n"
-    "and $2,$2,$3\n"
-    "jal func_800ADC38\n"
-    "sw $2,192($4)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009D878\n.set at\n.set reorder\n");
+typedef struct { char pad[16]; short offset; short pad2; void (*fn)(char *, void *); } VEntry;
+extern char D_800F4D00[];
+extern void func_800ADC54(char *, int);
+extern void func_800ADC38(char *);
+void func_8009D878(char *base)
+{
+    char *g = D_800F4D00;
+    char *obj = base + 24688;
+    VEntry *v = *(VEntry **)(obj + 180);
+    v->fn(obj + v->offset, g);
+    func_800ADC54(obj, 1 << *(int *)(g + 216));
+    *(char *)(obj + 176) = 1;
+    *(int *)(obj + 192) &= ~4;
+    func_800ADC38(obj);
+}

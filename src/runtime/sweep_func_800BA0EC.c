@@ -1,62 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BA0EC\n.ent func_800BA0EC\n"
-    "func_800BA0EC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,328($16)\n"
-    "beqz $2,L_800BA114\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,328\n"
-    "L_800BA114:\n"
-    "lw $2,340($16)\n"
-    "beqz $2,L_800BA12C\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,340\n"
-    "L_800BA12C:\n"
-    "lw $2,352($16)\n"
-    "beqz $2,L_800BA144\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,352\n"
-    "L_800BA144:\n"
-    "lw $2,216($16)\n"
-    "beqz $2,L_800BA15C\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,216\n"
-    "L_800BA15C:\n"
-    "lw $2,220($16)\n"
-    "beqz $2,L_800BA174\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,220\n"
-    "L_800BA174:\n"
-    "lw $2,344($16)\n"
-    "beqz $2,L_800BA18C\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,344\n"
-    "L_800BA18C:\n"
-    "lw $2,348($16)\n"
-    "beqz $2,L_800BA1A4\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,348\n"
-    "L_800BA1A4:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800BA0EC\n.set at\n.set reorder\n");
+extern void *D_800F2A30;
+
+void func_800AA658(void *heap, void *slot);
+
+void func_800BA0EC(char *obj)
+{
+    if (*(void **)(obj + 328) != 0) {
+        func_800AA658(D_800F2A30, obj + 328);
+    }
+    if (*(void **)(obj + 340) != 0) {
+        func_800AA658(D_800F2A30, obj + 340);
+    }
+    if (*(void **)(obj + 352) != 0) {
+        func_800AA658(D_800F2A30, obj + 352);
+    }
+    if (*(void **)(obj + 216) != 0) {
+        func_800AA658(D_800F2A30, obj + 216);
+    }
+    if (*(void **)(obj + 220) != 0) {
+        func_800AA658(D_800F2A30, obj + 220);
+    }
+    if (*(void **)(obj + 344) != 0) {
+        func_800AA658(D_800F2A30, obj + 344);
+    }
+    if (*(void **)(obj + 348) != 0) {
+        func_800AA658(D_800F2A30, obj + 348);
+    }
+}

@@ -1,103 +1,54 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E1078\n.ent func_800E1078\n"
-    "func_800E1078:\n"
-    "addiu $29,$29,-56\n"
-    "sw $20,32($29)\n"
-    "move $20,$4\n"
-    "sw $22,40($29)\n"
-    "li $22,132\n"
-    "sw $21,36($29)\n"
-    "lui $21,0x800f\n"
-    "sw $18,24($29)\n"
-    "li $18,18956\n"
-    "sw $16,16($29)\n"
-    "move $16,$20\n"
-    "sw $19,28($29)\n"
-    "move $19,$0\n"
-    "lui $2,0x8009\n"
-    "sw $23,44($29)\n"
-    "addiu $23,$2,-18008\n"
-    "sw $17,20($29)\n"
-    "move $17,$23\n"
-    "sw $31,48($29)\n"
-    "L_800E10C4:\n"
-    "addu $5,$20,$18\n"
-    "addiu $6,$21,10072\n"
-    "lw $4,0($17)\n"
-    "li $7,1\n"
-    "jal func_80005A3C\n"
-    "sw $0,18956($16)\n"
-    "beqz $2,L_800E1118\n"
-    "lui $3,0x5453\n"
-    "lw $4,18956($16)\n"
-    "lw $2,0($4)\n"
-    "ori $3,$3,0x5433\n"
-    "bnel $2,$3,L_800E1110\n"
-    "lui $4,0x8009\n"
-    "move $3,$4\n"
-    "addiu $2,$4,4\n"
-    "addu $3,$3,$22\n"
-    "sw $2,19004($16)\n"
-    "j L_800E119C\n"
-    "sw $3,19052($16)\n"
-    "L_800E1110:\n"
-    "j L_800E1120\n"
-    "addiu $4,$4,-19008\n"
-    "L_800E1118:\n"
-    "lui $4,0x8009\n"
-    "addiu $4,$4,-18988\n"
-    "L_800E1120:\n"
-    "jal func_800320B0\n"
-    "nop\n"
-    "lw $2,18956($16)\n"
-    "beqz $2,L_800E1140\n"
-    "addiu $4,$21,10072\n"
-    "jal func_800AA658\n"
-    "addu $5,$20,$18\n"
-    "sw $0,18956($16)\n"
-    "L_800E1140:\n"
-    "addiu $4,$21,10072\n"
-    "addiu $5,$19,18956\n"
-    "addu $5,$20,$5\n"
-    "addiu $6,$22,128\n"
-    "lui $7,0x8009\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,-18972\n"
-    "bnez $2,L_800E11B8\n"
-    "lui $5,0x8009\n"
-    "addiu $5,$5,-17888\n"
-    "lw $2,18956($16)\n"
-    "li $6,128\n"
-    "addiu $2,$2,4\n"
-    "sw $2,19004($16)\n"
-    "lw $2,18956($16)\n"
-    "lw $4,19004($16)\n"
-    "addu $2,$2,$22\n"
-    "jal func_800B3870\n"
-    "sw $2,19052($16)\n"
-    "move $5,$0\n"
-    "lw $4,19052($16)\n"
-    "jal func_800B3AFC\n"
-    "li $6,128\n"
-    "L_800E119C:\n"
-    "addiu $18,$18,4\n"
-    "addiu $16,$16,4\n"
-    "addiu $17,$17,4\n"
-    "addiu $2,$23,48\n"
-    "sltu $2,$17,$2\n"
-    "bnez $2,L_800E10C4\n"
-    "addiu $19,$19,4\n"
-    "L_800E11B8:\n"
-    "lw $31,48($29)\n"
-    "lw $23,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800E1078\n.set at\n.set reorder\n");
+typedef struct Sheet {
+    char pad[18956];
+    int *files[12];
+    int *headers[12];
+    int *bodies[12];
+} Sheet;
+
+extern char *const D_8008B9A8[12];
+extern char D_800F2758[];
+extern char D_8008B5C0[];
+extern char D_8008B5D4[];
+extern char D_8008B5E4[];
+extern char D_8008BA20[];
+extern int func_80005A3C(char *, int **, void *, int);
+extern void func_800320B0(char *);
+extern void func_800AA658(void *, int **);
+extern int func_800AA804(void *, int **, int, char *);
+extern void func_800B3870(void *, void *, int);
+extern void func_800B3AFC(void *, int, int);
+
+#define HEADER_SIZE 4
+#define BODY_SIZE 128
+
+void func_800E1078(Sheet *sheet)
+{
+    unsigned int i;
+    int body;
+
+    body = HEADER_SIZE + BODY_SIZE;
+    for (i = 0; i < 12; i++) {
+        sheet->files[i] = 0;
+        if (func_80005A3C(D_8008B9A8[i], &sheet->files[i], D_800F2758, 1)) {
+            if (*sheet->files[i] == 0x54535433) {
+                sheet->headers[i] = sheet->files[i] + 1;
+                sheet->bodies[i] = (int *)((char *)sheet->files[i] + body);
+                continue;
+            }
+            func_800320B0(D_8008B5C0);
+        } else {
+            func_800320B0(D_8008B5D4);
+        }
+        if (sheet->files[i] != 0) {
+            func_800AA658(D_800F2758, &sheet->files[i]);
+            sheet->files[i] = 0;
+        }
+        if (func_800AA804(D_800F2758, &sheet->files[i], body + BODY_SIZE, D_8008B5E4)) {
+            break;
+        }
+        sheet->headers[i] = sheet->files[i] + 1;
+        sheet->bodies[i] = (int *)((char *)sheet->files[i] + body);
+        func_800B3870(sheet->headers[i], D_8008BA20, BODY_SIZE);
+        func_800B3AFC(sheet->bodies[i], 0, BODY_SIZE);
+    }
+}

@@ -1,48 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BF42C\n.ent func_800BF42C\n"
-    "func_800BF42C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $2,4($17)\n"
-    "lw $3,16($16)\n"
-    "subu $2,$2,$3\n"
-    "sra $4,$2,0x8\n"
-    "lw $3,0($17)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800BF47C\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800BF47C\n"
-    "nop\n"
-    "beqz $4,L_800BF4B8\n"
-    "nop\n"
-    "jal func_800BE630\n"
-    "move $4,$16\n"
-    "L_800BF47C:\n"
-    "lw $2,4($17)\n"
-    "lw $3,296($16)\n"
-    "bnez $3,L_800BF4B8\n"
-    "sw $2,16($16)\n"
-    "lw $2,268($16)\n"
-    "beqz $2,L_800BF4A0\n"
-    "nop\n"
-    "jal func_800ADFAC\n"
-    "move $4,$16\n"
-    "L_800BF4A0:\n"
-    "lhu $2,196($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800BF4B8\n"
-    "nop\n"
-    "jal func_800AE304\n"
-    "move $4,$16\n"
-    "L_800BF4B8:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800BF42C\n.set at\n.set reorder\n");
+extern void func_800BE630(void *self);
+extern void func_800ADFAC(void *self);
+extern void func_800AE304(void *self);
+
+void func_800BF42C(unsigned char *self, int *message)
+{
+    int elapsed = (message[1] - *(int *)(self + 16)) >> 8;
+
+    switch (message[0]) {
+    case 3:
+        break;
+    case 5:
+        if (elapsed == 0) {
+            return;
+        }
+        func_800BE630(self);
+        break;
+    }
+    *(int *)(self + 16) = message[1];
+    if (*(int *)(self + 296) != 0) {
+        return;
+    }
+    if (*(int *)(self + 268) != 0) {
+        func_800ADFAC(self);
+    }
+    if (*(unsigned short *)(self + 196) & 1) {
+        func_800AE304(self);
+    }
+}

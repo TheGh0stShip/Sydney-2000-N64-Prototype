@@ -1,45 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80126F44\n.ent func_80126F44\n"
-    "func_80126F44:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "andi $2,$16,0xff\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "lw $18,4($17)\n"
-    "sltiu $2,$2,3\n"
-    "beqz $2,L_80126FC0\n"
-    "sb $16,26980($17)\n"
-    "lbu $3,426($17)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_80126FC0\n"
-    "li $2,5\n"
-    "lbu $3,1556($18)\n"
-    "beq $3,$2,L_80126F98\n"
-    "move $4,$0\n"
-    "xori $2,$3,0x2\n"
-    "sltu $4,$4,$2\n"
-    "L_80126F98:\n"
-    "beqz $4,L_80126FAC\n"
-    "addiu $4,$17,2076\n"
-    "addiu $5,$16,1\n"
-    "jal func_8009D3D8\n"
-    "andi $5,$5,0xff\n"
-    "L_80126FAC:\n"
-    "move $4,$18\n"
-    "lbu $5,743($17)\n"
-    "addiu $6,$16,-1\n"
-    "jal func_800760F8\n"
-    "andi $6,$6,0xff\n"
-    "L_80126FC0:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80126F44\n.set at\n.set reorder\n");
+extern void func_8009D3D8(void *object, unsigned char value);
+extern void func_800760F8(void *object, unsigned char slot, unsigned char value);
+
+void func_80126F44(unsigned char *self, unsigned char level)
+{
+    unsigned char *owner;
+    int show;
+
+    owner = *(unsigned char **)(self + 4);
+    self[26980] = level;
+    if (level < 3 && self[426] != 4) {
+        show = 0;
+        if (owner[1556] != 5) {
+            show = owner[1556] != 2;
+        }
+        if (show) {
+            func_8009D3D8(self + 2076, level + 1);
+        }
+        func_800760F8(owner, self[743], level - 1);
+    }
+}

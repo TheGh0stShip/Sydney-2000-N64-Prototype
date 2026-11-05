@@ -1,66 +1,68 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EA184\n.ent func_800EA184\n"
-    "func_800EA184:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800EA1AC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,8\n"
-    "L_800EA1AC:\n"
-    "move $4,$0\n"
-    "move $3,$4\n"
-    "sw $0,8($16)\n"
-    "sh $0,0($16)\n"
-    "sw $0,4($16)\n"
-    "sw $0,12($16)\n"
-    "sh $0,2($16)\n"
-    "L_800EA1C8:\n"
-    "lw $2,16($16)\n"
-    "sltu $2,$4,$2\n"
-    "beqz $2,L_800EA1F4\n"
-    "addiu $4,$4,1\n"
-    "lw $2,20($16)\n"
-    "addu $2,$3,$2\n"
-    "addiu $3,$3,44\n"
-    "sb $0,0($2)\n"
-    "sb $0,1($2)\n"
-    "j L_800EA1C8\n"
-    "sh $0,2($2)\n"
-    "L_800EA1F4:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800EA238\n"
-    "nop\n"
-    "lw $2,4($16)\n"
-    "move $4,$0\n"
-    "sh $0,0($16)\n"
-    "beqz $2,L_800EA238\n"
-    "sh $0,2($16)\n"
-    "L_800EA214:\n"
-    "lw $2,8($16)\n"
-    "sll $3,$4,0x6\n"
-    "addu $3,$3,$2\n"
-    "sh $0,0($3)\n"
-    "lw $2,4($16)\n"
-    "addiu $4,$4,1\n"
-    "sltu $2,$4,$2\n"
-    "bnez $2,L_800EA214\n"
-    "nop\n"
-    "L_800EA238:\n"
-    "lw $2,20($16)\n"
-    "beqz $2,L_800EA250\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,20\n"
-    "L_800EA250:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EA184\n.set at\n.set reorder\n");
+typedef struct {
+    char a;
+    char b;
+    short c;
+    char pad[40];
+} Slot;
+
+typedef struct {
+    short used;
+    char pad[62];
+} Node;
+
+typedef struct {
+    unsigned short a;
+    unsigned short b;
+    unsigned int nNodes;
+    Node *nodes;
+    int unkC;
+    unsigned int nSlots;
+    Slot *slots;
+} Pool;
+
+extern char D_800F2758[];
+extern void func_800AA658(void *, void *);
+
+static __inline__ void pool_clear(Pool *p)
+{
+    p->nodes = 0;
+    p->a = 0;
+    p->nNodes = 0;
+    p->unkC = 0;
+    p->b = 0;
+}
+
+void func_800EA184(Pool *p)
+{
+    unsigned int i;
+    unsigned int off;
+    Slot *s;
+
+    if (p->nodes != 0) {
+        func_800AA658(D_800F2758, &p->nodes);
+    }
+    pool_clear(p);
+    i = 0;
+    off = 0;
+    while (1) {
+        if (!(i < p->nSlots)) {
+            break;
+        }
+        s = (Slot *)(off + (unsigned int)p->slots);
+        i++;
+        off += sizeof(Slot);
+        s->a = 0;
+        s->b = 0;
+        s->c = 0;
+    }
+    if (p->nodes != 0) {
+        p->a = 0;
+        p->b = 0;
+        for (i = 0; i < p->nNodes; i++) {
+            p->nodes[i].used = 0;
+        }
+    }
+    if (p->slots != 0) {
+        func_800AA658(D_800F2758, &p->slots);
+    }
+}

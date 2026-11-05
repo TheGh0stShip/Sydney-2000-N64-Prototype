@@ -1,55 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9C18\n.ent func_800E9C18\n"
-    "func_800E9C18:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "sw $17,28($29)\n"
-    "move $17,$5\n"
-    "sw $31,32($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800E9C7C\n"
-    "move $16,$4\n"
-    "slti $2,$3,6\n"
-    "beqz $2,L_800E9C58\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800E9C6C\n"
-    "move $4,$16\n"
-    "j L_800E9CB0\n"
-    "nop\n"
-    "L_800E9C58:\n"
-    "li $2,7\n"
-    "beq $3,$2,L_800E9C8C\n"
-    "lui $2,0x800f\n"
-    "j L_800E9CB0\n"
-    "nop\n"
-    "L_800E9C6C:\n"
-    "jal func_800E9B88\n"
-    "move $5,$0\n"
-    "j L_800E9CB0\n"
-    "nop\n"
-    "L_800E9C7C:\n"
-    "jal func_800E97F0\n"
-    "move $4,$16\n"
-    "j L_800E9CB0\n"
-    "nop\n"
-    "L_800E9C8C:\n"
-    "lw $5,10052($2)\n"
-    "lui $4,0x800f\n"
-    "sw $0,16($29)\n"
-    "lw $2,16($17)\n"
-    "addiu $4,$4,9952\n"
-    "sw $2,20($29)\n"
-    "lw $7,640($16)\n"
-    "jal func_800AB2A4\n"
-    "li $6,7\n"
-    "L_800E9CB0:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E9C18\n.set at\n.set reorder\n");
+typedef struct Msg {
+    int type;
+    int value;
+    int pad[2];
+    int arg;
+} Msg;
+
+typedef struct Obj {
+    char pad[16];
+    int value;
+    char pad2[620];
+    int target;
+} Obj;
+
+extern void func_800E9B88(Obj *, int);
+extern void func_800E97F0(Obj *);
+extern void func_800AB2A4(void *, int, int, int, int, int);
+extern char D_800F26E0[];
+extern int D_800F2744;
+
+void func_800E9C18(Obj *obj, Msg *msg)
+{
+    switch (msg->type) {
+    case 3:
+        func_800E9B88(obj, 0);
+        break;
+    case 5:
+        func_800E97F0(obj);
+        break;
+    case 7:
+        func_800AB2A4(D_800F26E0, D_800F2744, 7, obj->target, 0, msg->arg);
+        break;
+    }
+    obj->value = msg->value;
+}

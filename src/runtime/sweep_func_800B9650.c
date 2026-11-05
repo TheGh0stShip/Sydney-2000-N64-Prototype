@@ -1,63 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9650\n.ent func_800B9650\n"
-    "func_800B9650:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "lui $2,0x800f\n"
-    "sw $18,24($29)\n"
-    "addiu $18,$2,10072\n"
-    "move $4,$18\n"
-    "addiu $5,$16,344\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "lw $17,244($16)\n"
-    "lui $7,0x8008\n"
-    "lh $6,24($17)\n"
-    "addiu $7,$7,27920\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x2\n"
-    "bnez $2,L_800B9714\n"
-    "move $2,$0\n"
-    "move $4,$18\n"
-    "addiu $5,$16,348\n"
-    "lh $6,24($17)\n"
-    "lui $7,0x8008\n"
-    "addiu $7,$7,27932\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x2\n"
-    "bnez $2,L_800B9714\n"
-    "move $2,$0\n"
-    "lh $2,24($17)\n"
-    "blez $2,L_800B970C\n"
-    "move $4,$0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,27944($1)\n"
-    "L_800B96D0:\n"
-    "lw $2,344($16)\n"
-    "sll $3,$4,0x2\n"
-    "addu $2,$3,$2\n"
-    "swc1 $f0,0($2)\n"
-    "lw $2,348($16)\n"
-    "addu $2,$3,$2\n"
-    "sw $0,0($2)\n"
-    "lw $2,340($16)\n"
-    "addu $3,$3,$2\n"
-    "sw $0,0($3)\n"
-    "lh $2,24($17)\n"
-    "addiu $4,$4,1\n"
-    "slt $2,$4,$2\n"
-    "bnez $2,L_800B96D0\n"
-    "nop\n"
-    "L_800B970C:\n"
-    "li $2,1\n"
-    "sw $2,332($16)\n"
-    "L_800B9714:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B9650\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[24];
+    short count;
+} Info;
+
+extern char D_800F2758[];
+
+int func_800AA804(void *heap, void *slot, int size, char *name);
+
+int func_800B9650(char *obj)
+{
+    Info *info = *(Info **)(obj + 244);
+    int i;
+
+    if (func_800AA804(D_800F2758, obj + 344, info->count * 4, "MinBulge") != 0) {
+        return 0;
+    }
+    if (func_800AA804(D_800F2758, obj + 348, info->count * 4, "MaxBulge") != 0) {
+        return 0;
+    }
+    for (i = 0; i < info->count; i++) {
+        (*(float **)(obj + 344))[i] = 1.0f;
+        (*(int **)(obj + 348))[i] = 0;
+        (*(int **)(obj + 340))[i] = 0;
+    }
+    *(int *)(obj + 332) = 1;
+    return 1;
+}

@@ -1,60 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C0168\n.ent func_800C0168\n"
-    "func_800C0168:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,6880\n"
-    "lui $5,0x800c\n"
-    "addiu $5,$5,692\n"
-    "lui $2,0x800f\n"
-    "sw $18,24($29)\n"
-    "addiu $18,$2,10072\n"
-    "sw $31,28($29)\n"
-    "jal func_800A3028\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,7044\n"
-    "jal func_8001DFF4\n"
-    "move $4,$16\n"
-    "jal func_8001E0F4\n"
-    "move $4,$16\n"
-    "jal func_8001E02C\n"
-    "move $4,$16\n"
-    "lw $2,184($17)\n"
-    "beqz $2,L_800C01D0\n"
-    "move $4,$18\n"
-    "jal func_800AA658\n"
-    "addiu $5,$17,184\n"
-    "L_800C01D0:\n"
-    "lui $2,0x800f\n"
-    "sb $0,207($17)\n"
-    "sb $0,208($17)\n"
-    "sb $0,209($17)\n"
-    "sb $0,206($17)\n"
-    "lw $3,14468($2)\n"
-    "li $2,54\n"
-    "sw $0,184($17)\n"
-    "sw $0,188($17)\n"
-    "sw $0,192($17)\n"
-    "sw $0,196($17)\n"
-    "sh $0,200($17)\n"
-    "sh $0,202($17)\n"
-    "sh $0,204($17)\n"
-    "bnez $3,L_800C0214\n"
-    "sw $2,0($17)\n"
-    "li $3,1\n"
-    "L_800C0214:\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-32464\n"
-    "sw $3,228($17)\n"
-    "sw $2,224($17)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C0168\n.set at\n.set reorder\n");
+extern unsigned char D_800F1AE0[];
+extern unsigned char D_800F1B84[];
+extern unsigned char D_800F2758[];
+extern int D_800F3884;
+extern char D_800C02B4[];
+extern char D_80088130[];
+extern void func_800A3028(void *bank, void *callback);
+extern void func_8001DFF4(void *voice);
+extern void func_8001E0F4(void *voice);
+extern void func_8001E02C(void *voice);
+extern void func_800AA658(void *list, void *node);
+
+void func_800C0168(unsigned char *self)
+{
+    int enabled;
+    unsigned char *list = D_800F2758;
+
+    func_800A3028(D_800F1AE0, D_800C02B4);
+    func_8001DFF4(D_800F1B84);
+    func_8001E0F4(D_800F1B84);
+    func_8001E02C(D_800F1B84);
+    if (*(int *)(self + 184) != 0) {
+        func_800AA658(list, self + 184);
+    }
+    self[207] = 0;
+    self[208] = 0;
+    self[209] = 0;
+    self[206] = 0;
+    enabled = D_800F3884;
+    *(int *)(self + 184) = 0;
+    *(int *)(self + 188) = 0;
+    *(int *)(self + 192) = 0;
+    *(int *)(self + 196) = 0;
+    *(short *)(self + 200) = 0;
+    *(short *)(self + 202) = 0;
+    *(short *)(self + 204) = 0;
+    *(int *)self = 54;
+    if (enabled == 0) {
+        enabled = 1;
+    }
+    *(int *)(self + 228) = enabled;
+    *(void **)(self + 224) = D_80088130;
+}

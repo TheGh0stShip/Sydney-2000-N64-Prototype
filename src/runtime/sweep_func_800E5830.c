@@ -1,128 +1,92 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E5830\n.ent func_800E5830\n"
-    "func_800E5830:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $19,28($29)\n"
-    "move $19,$6\n"
-    "sw $21,36($29)\n"
-    "move $21,$7\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10072\n"
-    "move $4,$16\n"
-    "addiu $5,$17,224\n"
-    "sll $6,$18,0x1\n"
-    "addu $6,$6,$18\n"
-    "sll $6,$6,0x3\n"
-    "addu $6,$6,$18\n"
-    "sll $6,$6,0x2\n"
-    "lui $7,0x8009\n"
-    "addiu $7,$7,-17088\n"
-    "addiu $2,$18,2\n"
-    "mult $2,$19\n"
-    "sw $31,40($29)\n"
-    "sw $20,32($29)\n"
-    "sw $18,220($17)\n"
-    "sw $0,224($17)\n"
-    "mflo $20\n"
-    "jal func_800AA804\n"
-    "sw $0,228($17)\n"
-    "move $4,$16\n"
-    "addiu $5,$17,228\n"
-    "sll $6,$18,0x3\n"
-    "lui $7,0x8009\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,-17080\n"
-    "move $5,$0\n"
-    "li $6,-7680\n"
-    "move $4,$5\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-17064($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-17060($1)\n"
-    "L_800E58DC:\n"
-    "sltu $2,$5,$18\n"
-    "beqz $2,L_800E5978\n"
-    "sll $3,$5,0x3\n"
-    "lw $2,224($17)\n"
-    "addu $2,$4,$2\n"
-    "sw $0,12($2)\n"
-    "lw $2,228($17)\n"
-    "addu $2,$3,$2\n"
-    "sw $0,4($2)\n"
-    "lw $2,224($17)\n"
-    "addu $2,$4,$2\n"
-    "swc1 $f2,84($2)\n"
-    "lw $2,228($17)\n"
-    "addu $3,$3,$2\n"
-    "sw $6,0($3)\n"
-    "lw $2,224($17)\n"
-    "addu $2,$4,$2\n"
-    "swc1 $f0,76($2)\n"
-    "lw $2,224($17)\n"
-    "addu $2,$4,$2\n"
-    "addiu $2,$2,16\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "lw $2,224($17)\n"
-    "addu $2,$4,$2\n"
-    "addiu $2,$2,28\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "lw $2,224($17)\n"
-    "addiu $5,$5,1\n"
-    "addu $2,$4,$2\n"
-    "addiu $2,$2,40\n"
-    "addiu $4,$4,100\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "j L_800E58DC\n"
-    "sw $0,8($2)\n"
-    "L_800E5978:\n"
-    "sw $0,244($17)\n"
-    "sw $0,240($17)\n"
-    "sw $0,236($17)\n"
-    "sw $21,256($17)\n"
-    "beqz $19,L_800E59EC\n"
-    "sw $19,252($17)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$17,236\n"
-    "andi $2,$20,0xffff\n"
-    "sll $6,$2,0x3\n"
-    "addu $6,$6,$2\n"
-    "sll $6,$6,0x2\n"
-    "lui $7,0x8009\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,-17072\n"
-    "sll $3,$19,0x3\n"
-    "addu $3,$3,$19\n"
-    "lw $2,236($17)\n"
-    "lw $4,232($17)\n"
-    "sll $3,$3,0x2\n"
-    "sw $0,212($17)\n"
-    "sw $0,216($17)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,240($17)\n"
-    "addu $2,$2,$3\n"
-    "ori $4,$4,0x80\n"
-    "sw $2,244($17)\n"
-    "sw $4,232($17)\n"
-    "L_800E59EC:\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800E5830\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+typedef struct {
+    char pad0[12];
+    int active;
+    Vec3 pos;
+    Vec3 vel;
+    Vec3 acc;
+    char pad1[24];
+    float scale;
+    char pad2[4];
+    float alpha;
+    char pad3[12];
+} Particle;
+
+typedef struct {
+    int life;
+    int state;
+} ParticleLife;
+
+typedef struct {
+    char data[36];
+} ParticleVtx;
+
+typedef struct {
+    char pad0[212];
+    int vtxIndex;
+    int vtxCount;
+    unsigned int nParticles;
+    Particle *particles;
+    ParticleLife *lives;
+    unsigned int flags;
+    ParticleVtx *vtx0;
+    ParticleVtx *vtx1;
+    ParticleVtx *vtx2;
+    char pad1[4];
+    unsigned int nVtx;
+    int user;
+} Emitter;
+
+extern char D_800F2758[];
+extern void func_800AA804(void *, void *, unsigned int, const char *);
+
+static __inline__ void vec_zero(Vec3 *v)
+{
+    v->x = 0;
+    v->y = 0;
+    v->z = 0;
+}
+
+void func_800E5830(Emitter *e, unsigned int n, unsigned int nVtx, int user)
+{
+    unsigned int i;
+    unsigned int total;
+
+    total = (n + 2) * nVtx;
+    e->nParticles = n;
+    e->particles = 0;
+    e->lives = 0;
+    func_800AA804(D_800F2758, &e->particles, n * sizeof(Particle), "PART_FX");
+    func_800AA804(D_800F2758, &e->lives, n * sizeof(ParticleLife), "PART_LF");
+    i = 0;
+    while (1) {
+        if (!(i < n)) {
+            break;
+        }
+        e->particles[i].active = 0;
+        e->lives[i].state = 0;
+        e->particles[i].alpha = 255.0f;
+        e->lives[i].life = -7680;
+        e->particles[i].scale = 1.0f;
+        vec_zero(&e->particles[i].pos);
+        vec_zero(&e->particles[i].vel);
+        vec_zero(&e->particles[i].acc);
+        i++;
+    }
+    e->vtx2 = 0;
+    e->vtx1 = 0;
+    e->vtx0 = 0;
+    e->user = user;
+    e->nVtx = nVtx;
+    if (nVtx != 0) {
+        func_800AA804(D_800F2758, &e->vtx0, (unsigned short)total * sizeof(ParticleVtx), "PARTVTX");
+        e->vtxIndex = 0;
+        e->vtxCount = 0;
+        e->vtx1 = e->vtx0 + nVtx;
+        e->vtx2 = e->vtx1 + nVtx;
+        e->flags |= 0x80;
+    }
+}

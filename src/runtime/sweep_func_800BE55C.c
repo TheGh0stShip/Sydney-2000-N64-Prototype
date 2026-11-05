@@ -1,45 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BE55C\n.ent func_800BE55C\n"
-    "func_800BE55C:\n"
-    "lui $2,0x800f\n"
-    "addiu $4,$2,14480\n"
-    "lbu $3,800($4)\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$4\n"
-    "lui $3,0x800f\n"
-    "lw $2,36($2)\n"
-    "lw $3,10052($3)\n"
-    "slt $2,$3,$2\n"
-    "beqz $2,L_800BE5D0\n"
-    "move $5,$3\n"
-    "L_800BE590:\n"
-    "lbu $2,800($4)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,800($4)\n"
-    "andi $2,$2,0xff\n"
-    "sltiu $2,$2,20\n"
-    "beql $2,$0,L_800BE5AC\n"
-    "sb $0,800($4)\n"
-    "L_800BE5AC:\n"
-    "lbu $2,800($4)\n"
-    "sll $3,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x3\n"
-    "addu $3,$3,$4\n"
-    "lw $2,36($3)\n"
-    "slt $2,$5,$2\n"
-    "bnez $2,L_800BE590\n"
-    "nop\n"
-    "L_800BE5D0:\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,14480\n"
-    "lbu $4,800($2)\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $3,$3,0x3\n"
-    "jr $31\n"
-    "addu $2,$3,$2\n"
-    ".end func_800BE55C\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[36];
+    int time;
+} Entry;
+
+typedef struct {
+    Entry entries[20];
+    unsigned char cursor;
+} EntryRing;
+
+extern EntryRing D_800F3890;
+extern int D_800F2744;
+
+Entry *func_800BE55C(void)
+{
+    EntryRing *ring = &D_800F3890;
+    int now;
+
+    if (ring->entries[ring->cursor].time > D_800F2744) {
+        now = D_800F2744;
+        do {
+            if (++ring->cursor >= 20) {
+                ring->cursor = 0;
+            }
+        } while (now < (ring->cursor + ring->entries)->time);
+    }
+    return &D_800F3890.entries[D_800F3890.cursor];
+}

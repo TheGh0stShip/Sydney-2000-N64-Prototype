@@ -1,54 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BB25C\n.ent func_800BB25C\n"
-    "func_800BB25C:\n"
-    "addiu $29,$29,-128\n"
-    "sw $17,116($29)\n"
-    "move $17,$4\n"
-    "sw $31,120($29)\n"
-    "sw $16,112($29)\n"
-    "lwc1 $f2,428($17)\n"
-    "mtc1 $0,$f0\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800BB2A0\n"
-    "addiu $4,$17,396\n"
-    "addiu $5,$17,412\n"
-    "mfc1 $6,$f2\n"
-    "addiu $16,$29,96\n"
-    "jal func_800ACF20\n"
-    "move $7,$16\n"
-    "move $4,$16\n"
-    "L_800BB2A0:\n"
-    "jal func_800AD1BC\n"
-    "addiu $5,$29,16\n"
-    "lwc1 $f0,84($17)\n"
-    "addiu $2,$17,84\n"
-    "swc1 $f0,80($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "swc1 $f0,84($29)\n"
-    "lwc1 $f0,8($2)\n"
-    "move $4,$17\n"
-    "swc1 $f0,88($29)\n"
-    "lw $5,376($17)\n"
-    "jal func_800B48CC\n"
-    "move $6,$0\n"
-    "addiu $16,$17,20\n"
-    "move $4,$16\n"
-    "jal func_800AC718\n"
-    "addiu $5,$17,412\n"
-    "lwc1 $f0,428($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,28428($1)\n"
-    "move $4,$16\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $5,$29,16\n"
-    "li $6,76\n"
-    "jal func_800B3870\n"
-    "swc1 $f0,428($17)\n"
-    "lw $31,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,128\n"
-    ".end func_800BB25C\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+typedef struct {
+    float m[16];
+    Vec3 pos;
+} Pose;
+
+void func_800ACF20(void *from, void *to, float t, void *out);
+void func_800AD1BC(void *quat, void *mtx);
+void func_800B48CC(void *obj, int a, int b);
+void func_800AC718(void *dst, void *src);
+void func_800B3870(void *dst, void *src, int size);
+
+void func_800BB25C(char *obj)
+{
+    Pose pose;
+    float quat[4];
+    void *q;
+    float *src;
+
+    if (*(float *)(obj + 428) != 0.0f) {
+        func_800ACF20(obj + 396, obj + 412, *(float *)(obj + 428), quat);
+        q = quat;
+    } else {
+        q = obj + 396;
+    }
+    func_800AD1BC(q, &pose);
+    src = (float *)(obj + 84);
+    pose.pos.x = src[0];
+    pose.pos.y = src[1];
+    pose.pos.z = src[2];
+    func_800B48CC(obj, *(int *)(obj + 376), 0);
+    func_800AC718(obj + 20, obj + 412);
+    *(float *)(obj + 428) += 0.005f;
+    func_800B3870(obj + 20, &pose, sizeof(Pose));
+}

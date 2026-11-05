@@ -1,24 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BC274\n.ent func_800BC274\n"
-    "func_800BC274:\n"
-    "move $5,$0\n"
-    "li $6,-1\n"
-    "move $3,$4\n"
-    "L_800BC280:\n"
-    "sltiu $2,$5,12\n"
-    "beqz $2,L_800BC2AC\n"
-    "addiu $5,$5,1\n"
-    "sw $0,0($3)\n"
-    "sw $0,4($3)\n"
-    "sb $6,16($3)\n"
-    "sb $6,17($3)\n"
-    "sh $0,18($3)\n"
-    "sh $0,20($3)\n"
-    "j L_800BC280\n"
-    "addiu $3,$3,24\n"
-    "L_800BC2AC:\n"
-    "sw $0,288($4)\n"
-    "jr $31\n"
-    "sw $0,292($4)\n"
-    ".end func_800BC274\n.set at\n.set reorder\n");
+typedef struct {
+    int a;
+    int b;
+    char pad[8];
+    signed char c;
+    signed char d;
+    short e;
+    short f;
+    short pad2;
+} Entry;
+
+typedef struct {
+    Entry entries[12];
+    int count;
+    int extra;
+} Table;
+
+void func_800BC274(Table *t)
+{
+    unsigned int i;
+    signed char none;
+    Entry *e;
+
+    i = 0;
+    none = -1;
+    e = t->entries;
+next:
+    if (i < 12) {
+        i++;
+        e->a = 0;
+        e->b = 0;
+        e->c = none;
+        e->d = none;
+        e->e = 0;
+        e->f = 0;
+        e++;
+        goto next;
+    }
+    t->count = 0;
+    t->extra = 0;
+}

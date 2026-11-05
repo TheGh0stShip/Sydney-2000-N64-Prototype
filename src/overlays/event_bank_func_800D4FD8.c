@@ -1,39 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D4FD8\n.ent func_800D4FD8\n"
-    "func_800D4FD8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lbu $3,19744($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,17780($16)\n"
-    "addu $2,$16,$2\n"
-    "sw $3,17984($2)\n"
-    "lw $2,19700($16)\n"
-    "sw $0,19808($16)\n"
-    "sh $0,19720($16)\n"
-    "sh $0,19718($16)\n"
-    "sh $0,19716($16)\n"
-    "jal func_80071BBC\n"
-    "sw $2,19724($16)\n"
-    "lwc1 $f2,19740($16)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2472($1)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "sw $0,19820($16)\n"
-    "sw $0,19824($16)\n"
-    "trunc.w.s $f4,$f2\n"
-    "swc1 $f4,19736($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D4FD8\n.set at\n.set reorder\n");
+#define D_800709A8 (*(float *)0x800709A8)
+
+typedef struct {
+    int value;
+    unsigned char pad[208];
+} Slot;
+
+extern void func_80071BBC(void);
+
+void func_800D4FD8(unsigned char *object)
+{
+    float scaled;
+
+    {
+        int i = object[19744];
+        Slot *slot = (Slot *)(object + 17984);
+
+        slot[i].value = *(int *)(object + 17780);
+    }
+    *(int *)(object + 19808) = 0;
+    *(short *)(object + 19720) = 0;
+    *(short *)(object + 19718) = 0;
+    *(short *)(object + 19716) = 0;
+    *(int *)(object + 19724) = *(int *)(object + 19700);
+    func_80071BBC();
+    scaled = *(float *)(object + 19740) * D_800709A8;
+    *(int *)(object + 19820) = 0;
+    *(int *)(object + 19824) = 0;
+    *(int *)(object + 19736) = (int)scaled;
+}

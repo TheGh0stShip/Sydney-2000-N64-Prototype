@@ -1,130 +1,71 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D47A0\n.ent func_800D47A0\n"
-    "func_800D47A0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,648($17)\n"
-    "beqz $2,L_800D4954\n"
-    "sw $0,644($17)\n"
-    "jal func_8000F420\n"
-    "nop\n"
-    "lui $2,0x800f\n"
-    "addiu $18,$2,10968\n"
-    "jal func_800BC274\n"
-    "move $4,$18\n"
-    "lui $2,0x800f\n"
-    "addiu $16,$2,9952\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,2\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,1\n"
-    "lw $2,2752($17)\n"
-    "li $4,2\n"
-    "beq $2,$4,L_800D48D0\n"
-    "nop\n"
-    "lw $2,2764($17)\n"
-    "bnel $2,$0,L_800D4820\n"
-    "sw $0,2764($17)\n"
-    "L_800D4820:\n"
-    "lbu $2,2320($17)\n"
-    "li $3,1\n"
-    "beq $2,$3,L_800D4884\n"
-    "nop\n"
-    "bne $2,$4,L_800D4884\n"
-    "nop\n"
-    "lw $2,2752($17)\n"
-    "bne $2,$3,L_800D4854\n"
-    "lui $2,0x800f\n"
-    "move $4,$16\n"
-    "lw $5,10052($2)\n"
-    "j L_800D4860\n"
-    "li $2,55\n"
-    "L_800D4854:\n"
-    "move $4,$16\n"
-    "lw $5,10052($2)\n"
-    "li $2,7\n"
-    "L_800D4860:\n"
-    "sw $0,16($29)\n"
-    "sw $2,20($29)\n"
-    "lw $7,640($17)\n"
-    "jal func_800AB2A4\n"
-    "li $6,7\n"
-    "jal func_800177F8\n"
-    "nop\n"
-    "j L_800D48E0\n"
-    "nop\n"
-    "L_800D4884:\n"
-    "lw $3,2752($17)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800D48A8\n"
-    "lui $2,0x800f\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lw $5,10052($2)\n"
-    "j L_800D48B8\n"
-    "li $2,56\n"
-    "L_800D48A8:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lw $5,10052($2)\n"
-    "li $2,8\n"
-    "L_800D48B8:\n"
-    "sw $0,16($29)\n"
-    "sw $2,20($29)\n"
-    "lw $7,640($17)\n"
-    "jal func_800AB2A4\n"
-    "li $6,7\n"
-    "lui $4,0x800f\n"
-    "L_800D48D0:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10968\n"
-    "jal func_800BC2B8\n"
-    "addiu $5,$17,2060\n"
-    "L_800D48E0:\n"
-    "jal func_800D4B30\n"
-    "move $4,$17\n"
-    "lw $4,2748($17)\n"
-    "jal func_800B31EC\n"
-    "nop\n"
-    "lw $5,2772($17)\n"
-    "li $2,-1\n"
-    "beq $5,$2,L_800D4938\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "jal func_8001D6CC\n"
-    "move $7,$6\n"
-    "lw $4,100($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "L_800D4938:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,6880\n"
-    "jal func_800A3404\n"
-    "move $5,$0\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "sw $0,648($17)\n"
-    "L_800D4954:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D47A0\n.set at\n.set reorder\n");
+extern char D_800F2AD8[];
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern char D_800F1AE0[];
+extern void func_8000F420(void);
+extern void func_800BC274(char *);
+extern void func_800AACB0(char *, char *, int);
+extern void func_800AB2A4(char *, int, int, int, int, int);
+extern void func_800177F8(void);
+extern void func_800BC2B8(char *, char *);
+extern void func_800D4B30(char *);
+extern void func_800B31EC(int);
+extern int func_8001D6CC(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+extern void func_800A3404(char *, int);
+extern void func_800B4794(int);
+
+void func_800D47A0(char *obj)
+{
+    int voice;
+    char *mgr;
+    unsigned char kind;
+
+    *(int *)(obj + 644) = 0;
+    if (*(int *)(obj + 648) == 0) {
+        return;
+    }
+    func_8000F420();
+    mgr = D_800F2AD8;
+    func_800BC274(mgr);
+    func_800AACB0(D_800F26E0, 0, 2);
+    func_800AACB0(D_800F26E0, 0, 1);
+    if (*(int *)(obj + 2752) == 2) {
+        func_800BC2B8(D_800F2AD8, obj + 2060);
+    } else {
+        if (*(int *)(obj + 2764) != 0) {
+            *(int *)(obj + 2764) = 0;
+        }
+        kind = *(unsigned char *)(obj + 2320);
+        if (kind == 1) {
+            goto normal;
+        } else if (kind == 2) {
+            if (*(int *)(obj + 2752) == 1) {
+                func_800AB2A4(D_800F26E0, D_800F2744, 7, *(int *)(obj + 640), 0, 55);
+            } else {
+                func_800AB2A4(D_800F26E0, D_800F2744, 7, *(int *)(obj + 640), 0, 7);
+            }
+            func_800177F8();
+            goto done;
+        } else {
+        normal:
+            if (*(int *)(obj + 2752) == 1) {
+                func_800AB2A4(D_800F26E0, D_800F2744, 7, *(int *)(obj + 640), 0, 56);
+            } else {
+                func_800AB2A4(D_800F26E0, D_800F2744, 7, *(int *)(obj + 640), 0, 8);
+            }
+            func_800BC2B8(D_800F2AD8, obj + 2060);
+        }
+    }
+done:
+    func_800D4B30(obj);
+    func_800B31EC(*(int *)(obj + 2748));
+    if (*(int *)(obj + 2772) != -1) {
+        voice = func_8001D6CC(D_800F1AE0, *(int *)(obj + 2772), 0, 0);
+        func_8001D640(D_800F1AE0, voice,
+                      (int)((long long)*(int *)(D_800F1AE0 + 100) * 32767) >> 15);
+    }
+    func_800A3404(D_800F1AE0, 0);
+    func_800B4794(0);
+    *(int *)(obj + 648) = 0;
+}

@@ -1,113 +1,82 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80093A20\n.ent func_80093A20\n"
-    "func_80093A20:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "addiu $4,$18,24188\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "jal func_80097504\n"
-    "sw $16,24($29)\n"
-    "addiu $16,$18,29452\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $17,22988($18)\n"
-    "beqz $17,L_80093BAC\n"
-    "li $2,8\n"
-    "lbu $4,424($17)\n"
-    "beq $4,$2,L_80093A84\n"
-    "lui $2,0x8010\n"
-    "sll $3,$4,0x4\n"
-    "subu $3,$3,$4\n"
-    "lw $2,-15760($2)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sw $0,72($2)\n"
-    "L_80093A84:\n"
-    "jal func_8007620C\n"
-    "move $4,$18\n"
-    "addiu $16,$17,812\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "addiu $16,$17,2212\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,3612\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,3832\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,4052\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,4264($17)\n"
-    "beqz $2,L_80093B20\n"
-    "lui $16,0x800f\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,4264\n"
-    "lui $16,0x800f\n"
-    "L_80093B20:\n"
-    "addiu $16,$16,10968\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "move $7,$6\n"
-    "lb $5,427($17)\n"
-    "li $2,5\n"
-    "jal func_800BBD78\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "li $6,1\n"
-    "move $7,$0\n"
-    "lb $5,427($17)\n"
-    "li $2,2\n"
-    "jal func_800BBD78\n"
-    "sw $2,16($29)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,180($17)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,22988\n"
-    "L_80093BAC:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80093A20\n.set at\n.set reorder\n");
+typedef struct Entry {
+    char pad[12];
+    int active;
+    char pad2[44];
+} Entry;
+
+typedef struct Table {
+    char header[60];
+    Entry entries[1];
+} Table;
+
+extern Table *D_800FC270;
+extern unsigned char D_800F2AD8[];
+extern unsigned char D_800F26E0[];
+extern unsigned char D_800F2758[];
+extern void func_80097504(void *obj);
+extern void func_800AC334(void *obj);
+extern void func_800ADC1C(void *obj);
+extern void func_8007620C(void *obj);
+extern void func_800D29E0(void *obj);
+extern void func_800B35F0(void *obj);
+extern void func_8001A248(void *obj);
+extern void func_800BBD78(void *list, int id, int a, int b, int c);
+extern void func_800AACB0(void *list, void *object, int mode);
+extern void func_800AA658(void *list, void *slot);
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)();
+} VEntry;
+
+void func_80093A20(unsigned char *object)
+{
+    unsigned char *p;
+    unsigned char *player;
+    VEntry *entry;
+    int idx;
+
+    func_80097504(object + 24188);
+    p = object + 29452;
+    func_800AC334(p);
+    func_800ADC1C(p);
+    player = *(unsigned char **)(object + 22988);
+    if (player == 0) {
+        return;
+    }
+    idx = player[424];
+    if (idx != 8) {
+        D_800FC270->entries[idx].active = 0;
+    }
+    func_8007620C(object);
+    p = player + 812;
+    func_800AC334(p);
+    func_800D29E0(p);
+    p = player + 2212;
+    func_800AC334(p);
+    func_800D29E0(p);
+    func_800ADC1C(p);
+    p = player + 3612;
+    func_800AC334(p);
+    func_800B35F0(p);
+    func_800ADC1C(p);
+    p = player + 3832;
+    func_800AC334(p);
+    func_800B35F0(p);
+    func_800ADC1C(p);
+    p = player + 4052;
+    func_800AC334(p);
+    func_800ADC1C(p);
+    if (*(int *)(player + 4264) != 0) {
+        func_8001A248(player + 4264);
+    }
+    func_800BBD78(D_800F2AD8, (signed char)player[427], 0, 0, 5);
+    func_800BBD78(D_800F2AD8, (signed char)player[427], 1, 0, 2);
+    func_800AACB0(D_800F26E0, player, 0);
+    entry = (VEntry *)(*(unsigned char **)(player + 180) + 24);
+    entry->func(player + entry->offset);
+    entry = (VEntry *)(*(unsigned char **)(player + 180) + 8);
+    entry->func(player + entry->offset, 2);
+    func_800AA658(D_800F2758, object + 22988);
+}

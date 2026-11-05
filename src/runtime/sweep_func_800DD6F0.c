@@ -1,96 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DD6F0\n.ent func_800DD6F0\n"
-    "func_800DD6F0:\n"
-    "addiu $29,$29,-24\n"
-    "move $8,$4\n"
-    "lui $2,0x8010\n"
-    "move $6,$0\n"
-    "sw $16,16($29)\n"
-    "lw $16,-13196($2)\n"
-    "lui $7,0x8\n"
-    "sw $31,20($29)\n"
-    "andi $4,$6,0xff\n"
-    "L_800DD714:\n"
-    "sll $3,$4,0x1\n"
-    "addu $3,$3,$4\n"
-    "sll $3,$3,0x1\n"
-    "addu $3,$8,$3\n"
-    "andi $2,$6,0xff\n"
-    "addiu $2,$2,5\n"
-    "sll $4,$4,0x5\n"
-    "addu $4,$4,$16\n"
-    "sh $2,598($3)\n"
-    "sh $0,600($3)\n"
-    "addiu $3,$4,320\n"
-    "lw $2,4($3)\n"
-    "addiu $4,$4,64\n"
-    "or $2,$2,$7\n"
-    "sw $2,4($3)\n"
-    "lw $2,4($4)\n"
-    "addiu $6,$6,1\n"
-    "or $2,$2,$7\n"
-    "sw $2,4($4)\n"
-    "andi $2,$6,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnez $2,L_800DD714\n"
-    "andi $4,$6,0xff\n"
-    "lhu $2,596($8)\n"
-    "beqz $2,L_800DD7B8\n"
-    "move $6,$0\n"
-    "lui $4,0xfff7\n"
-    "ori $4,$4,0xffff\n"
-    "andi $2,$6,0xff\n"
-    "L_800DD788:\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$16\n"
-    "addiu $2,$2,64\n"
-    "lw $3,4($2)\n"
-    "addiu $6,$6,1\n"
-    "and $3,$3,$4\n"
-    "sw $3,4($2)\n"
-    "lhu $3,596($8)\n"
-    "andi $2,$6,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800DD788\n"
-    "andi $2,$6,0xff\n"
-    "L_800DD7B8:\n"
-    "lui $2,0xff7f\n"
-    "ori $2,$2,0xffff\n"
-    "lw $3,36($16)\n"
-    "lw $4,580($16)\n"
-    "and $3,$3,$2\n"
-    "and $4,$4,$2\n"
-    "sw $3,36($16)\n"
-    "beqz $5,L_800DD814\n"
-    "sw $4,580($16)\n"
-    "andi $3,$6,0xff\n"
-    "beqz $3,L_800DD814\n"
-    "andi $2,$6,0xff\n"
-    "addiu $2,$2,1\n"
-    "sh $2,14($16)\n"
-    "sll $2,$3,0x5\n"
-    "addu $2,$2,$16\n"
-    "lw $4,32($2)\n"
-    "beql $4,$0,L_800DD82C\n"
-    "lui $4,0x800f\n"
-    "jal func_800C6C90\n"
-    "nop\n"
-    "j L_800DD82C\n"
-    "lui $4,0x800f\n"
-    "L_800DD814:\n"
-    "lui $4,0x800f\n"
-    "jal func_800BC180\n"
-    "addiu $4,$4,10968\n"
-    "li $2,1\n"
-    "sh $2,14($16)\n"
-    "lui $4,0x800f\n"
-    "L_800DD82C:\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,3\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800DD6F0\n.set at\n.set reorder\n");
+typedef struct {
+    int unk0;
+    int flags;
+    char pad[24];
+} Ent800DD6F0;
+
+typedef struct {
+    char pad[598];
+    short id;
+    short unk2;
+} Slot800DD6F0;
+
+extern void func_800C6C90(int);
+extern void func_800BC180(void *);
+extern void func_800D53A0(void *, int);
+extern char *D_800FCC74;
+extern char D_800F2AD8[];
+extern char D_800F5900[];
+
+void func_800DD6F0(char *obj, int arg)
+{
+    char *g;
+    unsigned char i;
+    Slot800DD6F0 *s;
+
+    g = D_800FCC74;
+    for (i = 0; i < 8; i++) {
+        s = (Slot800DD6F0 *)(obj + i * 6);
+        s->id = i + 5;
+        s->unk2 = 0;
+        ((Ent800DD6F0 *)(g + 320))[i].flags |= 0x80000;
+        ((Ent800DD6F0 *)(g + 64))[i].flags |= 0x80000;
+    }
+    for (i = 0; i < *(unsigned short *)(obj + 596); i++) {
+        ((Ent800DD6F0 *)(g + 64))[i].flags &= ~0x80000;
+    }
+    ((Ent800DD6F0 *)(g + 32))->flags &= ~0x800000;
+    ((Ent800DD6F0 *)(g + 576))->flags &= ~0x800000;
+    if (arg != 0 && i != 0) {
+        *(short *)(g + 14) = i + 1;
+        if (((Ent800DD6F0 *)(g + 32))[i].unk0 != 0) {
+            func_800C6C90(((Ent800DD6F0 *)(g + 32))[i].unk0);
+        }
+    } else {
+        func_800BC180(D_800F2AD8);
+        *(short *)(g + 14) = 1;
+    }
+    func_800D53A0(D_800F5900, 3);
+}

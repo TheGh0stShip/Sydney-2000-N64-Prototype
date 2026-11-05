@@ -1,99 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DF828\n.ent func_800DF828\n"
-    "func_800DF828:\n"
-    "addiu $29,$29,-40\n"
-    "sw $20,32($29)\n"
-    "move $20,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "L_800DF850:\n"
-    "andi $3,$17,0xff\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $19,$2,$20\n"
-    "addiu $2,$2,11088\n"
-    "addu $18,$20,$2\n"
-    "andi $2,$16,0xff\n"
-    "L_800DF878:\n"
-    "addiu $16,$16,1\n"
-    "sll $4,$2,0x1\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $2,$4,$19\n"
-    "lw $2,11268($2)\n"
-    "addu $4,$18,$4\n"
-    "lh $3,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,3\n"
-    "bnez $2,L_800DF878\n"
-    "andi $2,$16,0xff\n"
-    "addiu $17,$17,1\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,12\n"
-    "bnez $2,L_800DF850\n"
-    "move $16,$0\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$20,18720\n"
-    "move $17,$0\n"
-    "lui $2,0x8010\n"
-    "addiu $18,$2,13360\n"
-    "andi $2,$17,0xff\n"
-    "L_800DF8F0:\n"
-    "sll $2,$2,0x2\n"
-    "addu $16,$2,$18\n"
-    "lw $2,0($16)\n"
-    "beql $2,$0,L_800DF914\n"
-    "addiu $17,$17,1\n"
-    "jal func_8001A248\n"
-    "move $4,$16\n"
-    "sw $0,0($16)\n"
-    "addiu $17,$17,1\n"
-    "L_800DF914:\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,6\n"
-    "bnez $2,L_800DF8F0\n"
-    "andi $2,$17,0xff\n"
-    "move $17,$0\n"
-    "lui $2,0x8010\n"
-    "addiu $18,$2,13392\n"
-    "andi $2,$17,0xff\n"
-    "L_800DF934:\n"
-    "sll $2,$2,0x2\n"
-    "addu $16,$2,$18\n"
-    "lw $2,0($16)\n"
-    "beql $2,$0,L_800DF958\n"
-    "addiu $17,$17,1\n"
-    "jal func_8001A248\n"
-    "move $4,$16\n"
-    "sw $0,0($16)\n"
-    "addiu $17,$17,1\n"
-    "L_800DF958:\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,6\n"
-    "bnel $2,$0,L_800DF934\n"
-    "andi $2,$17,0xff\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DF828\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)(char *);
+} VEntry;
+
+typedef struct {
+    char pad[180];
+    VEntry *vtable;
+    char pad2[28];
+} Actor;
+
+typedef struct {
+    char pad[11088];
+    Actor actors[12][3];
+} Stage;
+
+extern int D_80103430[];
+extern int D_80103450[];
+extern void func_800ADC1C(char *);
+extern void func_8001A248(int *);
+
+void func_800DF828(Stage *obj)
+{
+    unsigned char i;
+    unsigned char j;
+
+    for (i = 0; i < 12; i++) {
+        for (j = 0; j < 3; j++) {
+            (obj->actors[i] + j)->vtable[9].fn((char *)&obj->actors[i][j] +
+                                               (obj->actors[i] + j)->vtable[9].delta);
+        }
+    }
+    func_800ADC1C((char *)obj + 18720);
+    for (i = 0; i < 6; i++) {
+        if (D_80103430[i] != 0) {
+            func_8001A248(&D_80103430[i]);
+            D_80103430[i] = 0;
+        }
+    }
+    for (i = 0; i < 6; i++) {
+        if (D_80103450[i] != 0) {
+            func_8001A248(&D_80103450[i]);
+            D_80103450[i] = 0;
+        }
+    }
+}

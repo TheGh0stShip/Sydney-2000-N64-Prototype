@@ -1,62 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E5E84\n.ent func_800E5E84\n"
-    "func_800E5E84:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $4,240($19)\n"
-    "lw $2,252($19)\n"
-    "lw $5,236($19)\n"
-    "sll $6,$2,0x3\n"
-    "addu $6,$6,$2\n"
-    "jal func_800B3870\n"
-    "sll $6,$6,0x2\n"
-    "lw $3,252($19)\n"
-    "lw $2,220($19)\n"
-    "mult $2,$3\n"
-    "mflo $7\n"
-    "beqz $7,L_800E5F3C\n"
-    "move $18,$0\n"
-    "L_800E5ED4:\n"
-    "beqz $3,L_800E5F1C\n"
-    "move $16,$0\n"
-    "move $17,$16\n"
-    "L_800E5EE0:\n"
-    "li $6,36\n"
-    "addu $2,$18,$16\n"
-    "addiu $16,$16,1\n"
-    "sll $4,$2,0x3\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "lw $2,244($19)\n"
-    "lw $5,236($19)\n"
-    "addu $4,$2,$4\n"
-    "jal func_800B3870\n"
-    "addu $5,$5,$17\n"
-    "lw $2,252($19)\n"
-    "sltu $2,$16,$2\n"
-    "bnez $2,L_800E5EE0\n"
-    "addiu $17,$17,36\n"
-    "L_800E5F1C:\n"
-    "lw $3,252($19)\n"
-    "lw $2,220($19)\n"
-    "mult $2,$3\n"
-    "addu $18,$18,$3\n"
-    "mflo $7\n"
-    "sltu $2,$18,$7\n"
-    "bnez $2,L_800E5ED4\n"
-    "nop\n"
-    "L_800E5F3C:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E5E84\n.set at\n.set reorder\n");
+typedef struct {
+    char data[36];
+} Cell;
+
+extern void func_800B3870(void *, void *, unsigned int);
+
+void func_800E5E84(char *obj)
+{
+    unsigned int i;
+    unsigned int j;
+
+    func_800B3870(*(Cell **)(obj + 240), *(Cell **)(obj + 236),
+                  *(unsigned int *)(obj + 252) * sizeof(Cell));
+    for (i = 0; i < *(unsigned int *)(obj + 220) * *(unsigned int *)(obj + 252);
+         i += *(unsigned int *)(obj + 252)) {
+        for (j = 0; j < *(unsigned int *)(obj + 252); j++) {
+            func_800B3870(&(*(Cell **)(obj + 244))[i + j], &(*(Cell **)(obj + 236))[j],
+                          sizeof(Cell));
+        }
+    }
+}

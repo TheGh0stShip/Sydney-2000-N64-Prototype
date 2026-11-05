@@ -1,13 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80081010\n.ent func_80081010\n"
-    "func_80081010:\n"
-    "addiu $29,$29,-168\n"
-    "sw $17,156($29)\n"
-    "move $17,$4\n"
-    "move $4,$0\n"
-    "move $5,$4\n"
-    "addiu $6,$29,24\n"
-    "move $7,$4\n"
-    "sw $31,160($29)\n"
-    ".end func_80081010\n.set at\n.set reorder\n");
+extern void func_800DA804(int a, int b, void *result, int c, int d);
+extern signed char func_8009B670(void *object);
+extern void func_800C0110(void *object, int value, int a, int b);
+extern int D_80071580[];
+extern unsigned char D_800F3BC0[];
+
+void func_80081010(unsigned char *object)
+{
+    unsigned char result[128];
+    unsigned char *hi;
+    signed char index;
+    int value;
+
+    func_800DA804(0, 0, result, 0, 0);
+    hi = object + 0x8000;
+    if (hi[3229] != 3) {
+        index = func_8009B670(*(void **)(object + 21356));
+        value = D_80071580[index];
+        if (hi[3229] != 3 && hi[3229] != 4) {
+            func_800C0110(D_800F3BC0, value, 15360, 0x12C00);
+        }
+    }
+}

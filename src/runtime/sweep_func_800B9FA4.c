@@ -1,56 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9FA4\n.ent func_800B9FA4\n"
-    "func_800B9FA4:\n"
-    "addiu $29,$29,-64\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "lw $2,80($29)\n"
-    "move $3,$5\n"
-    "sw $16,32($29)\n"
-    "lw $16,84($29)\n"
-    "sw $31,40($29)\n"
-    "sdc1 $f22,56($29)\n"
-    "sdc1 $f20,48($29)\n"
-    "lwc1 $f20,372($17)\n"
-    "lwc1 $f22,396($17)\n"
-    "addiu $5,$17,244\n"
-    "sw $6,16($29)\n"
-    "move $6,$0\n"
-    "sw $7,20($29)\n"
-    "move $7,$3\n"
-    "jal func_800B7368\n"
-    "sw $2,24($29)\n"
-    "lwc1 $f0,84($17)\n"
-    "addiu $3,$17,84\n"
-    "swc1 $f0,368($17)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$17,368\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,84($17)\n"
-    "swc1 $f0,392($17)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$17,392\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "beqz $16,L_800BA040\n"
-    "swc1 $f0,8($2)\n"
-    "mtc1 $0,$f0\n"
-    "swc1 $f0,396($17)\n"
-    "j L_800BA048\n"
-    "swc1 $f0,372($17)\n"
-    "L_800BA040:\n"
-    "swc1 $f20,372($17)\n"
-    "swc1 $f22,396($17)\n"
-    "L_800BA048:\n"
-    "lw $31,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f22,56($29)\n"
-    "ldc1 $f20,48($29)\n"
-    "move $2,$0\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800B9FA4\n.set at\n.set reorder\n");
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vec3;
+
+#define VEC3_COPY(dstAddr, srcAddr) \
+    { \
+        Vec3 *dst_ = (Vec3 *)(dstAddr); \
+        Vec3 *src_ = (Vec3 *)(srcAddr); \
+        dst_->x = src_->x; \
+        dst_->y = src_->y; \
+        dst_->z = src_->z; \
+    }
+
+extern void func_800B7368(void *self, void *state, int flag, int a, int b, int c, int d);
+
+int func_800B9FA4(unsigned char *self, int a, int b, int c, int d, int keepSpeed)
+{
+    float speedA = *(float *)(self + 372);
+    float speedB = *(float *)(self + 396);
+
+    func_800B7368(self, self + 244, 0, a, b, c, d);
+    VEC3_COPY(self + 368, self + 84);
+    VEC3_COPY(self + 392, self + 84);
+    if (keepSpeed != 0) {
+        *(float *)(self + 372) = *(float *)(self + 396) = 0.0f;
+    } else {
+        *(float *)(self + 372) = speedA;
+        *(float *)(self + 396) = speedB;
+    }
+    return 0;
+}

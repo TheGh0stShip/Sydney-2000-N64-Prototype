@@ -1,37 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B19D8\n.ent func_800B19D8\n"
-    "func_800B19D8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $16,4($17)\n"
-    "jal func_800DCCF4\n"
-    "move $4,$16\n"
-    "lbu $3,477($16)\n"
-    "lw $4,220($17)\n"
-    "sll $3,$3,0x5\n"
-    "addu $3,$3,$2\n"
-    "lh $4,14($4)\n"
-    "lh $3,14($3)\n"
-    "slt $2,$3,$4\n"
-    "bnez $2,L_800B1A20\n"
-    "subu $2,$4,$3\n"
-    "subu $2,$3,$4\n"
-    "L_800B1A20:\n"
-    "mtc1 $2,$f2\n"
-    "cvt.s.w $f2,$f2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,25952($1)\n"
-    "add.s $f2,$f2,$f0\n"
-    "lwc1 $f0,772($17)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,160($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B19D8\n.set at\n.set reorder\n");
+typedef struct { char pad[14]; short height; char pad2[16]; } Node;
+extern Node *func_800DCCF4(void *);
+
+void func_800B19D8(char *obj)
+{
+    char *owner = *(char **)(obj + 4);
+    Node *nodes = func_800DCCF4(owner);
+    short a = (*(Node **)(obj + 220))->height;
+    short b = nodes[*(unsigned char *)(owner + 477)].height;
+    float fd;
+    fd = (a > b) ? a - b : b - a;
+    fd += 658.0f;
+
+    *(float *)(obj + 160) = *(float *)(obj + 772) + fd;
+}

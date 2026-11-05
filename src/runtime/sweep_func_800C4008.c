@@ -1,72 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C4008\n.ent func_800C4008\n"
-    "func_800C4008:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "lui $2,0x8010\n"
-    "sw $19,28($29)\n"
-    "addiu $19,$2,6496\n"
-    "sw $20,32($29)\n"
-    "addiu $20,$19,196\n"
-    "sw $31,36($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "andi $2,$17,0xff\n"
-    "L_800C4038:\n"
-    "sll $3,$2,0x1\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $18,$3,0x2\n"
-    "addu $16,$18,$19\n"
-    "lw $2,196($16)\n"
-    "beql $2,$0,L_800C409C\n"
-    "addiu $17,$17,1\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_8001A248\n"
-    "addu $4,$18,$20\n"
-    "sw $0,196($16)\n"
-    "addiu $17,$17,1\n"
-    "L_800C409C:\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnez $2,L_800C4038\n"
-    "andi $2,$17,0xff\n"
-    "lui $16,0x800f\n"
-    "lw $2,16624($16)\n"
-    "beqz $2,L_800C40C8\n"
-    "addiu $4,$16,16624\n"
-    "jal func_8001A248\n"
-    "nop\n"
-    "sw $0,16624($16)\n"
-    "L_800C40C8:\n"
-    "lui $16,0x800f\n"
-    "lw $2,16628($16)\n"
-    "beqz $2,L_800C40E4\n"
-    "addiu $4,$16,16628\n"
-    "jal func_8001A248\n"
-    "nop\n"
-    "sw $0,16628($16)\n"
-    "L_800C40E4:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C4008\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char pad[12];
+    int sound;
+    unsigned char rest[12];
+} Part;
+
+extern Part D_80101960[8];
+extern int D_800F40F0;
+extern int D_800F40F4;
+
+void func_8001A248(void *sound);
+
+void func_800C4008(void)
+{
+    unsigned char i;
+
+    for (i = 0; i < 8; i++) {
+        Part *p = &D_80101960[i];
+        Method *m;
+
+        if (p->sound != 0) {
+            m = (Method *)(p->vtable + 72);
+            m->fn((unsigned char *)p + m->offset);
+            m = (Method *)(p->vtable + 24);
+            m->fn((unsigned char *)p + m->offset);
+            func_8001A248(&D_80101960[i].sound);
+            p->sound = 0;
+        }
+    }
+    if (D_800F40F0 != 0) {
+        func_8001A248(&D_800F40F0);
+        D_800F40F0 = 0;
+    }
+    if (D_800F40F4 != 0) {
+        func_8001A248(&D_800F40F4);
+        D_800F40F4 = 0;
+    }
+}

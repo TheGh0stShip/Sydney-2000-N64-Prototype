@@ -1,78 +1,57 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3E60\n.ent func_800E3E60\n"
-    "func_800E3E60:\n"
-    "move $8,$0\n"
-    "sltiu $2,$5,11\n"
-    "beqz $2,L_800E3F00\n"
-    "move $9,$8\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-18440\n"
-    "sll $3,$5,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $9,32\n"
-    "j L_800E3F00\n"
-    "addiu $8,$2,1552\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $9,32\n"
-    "j L_800E3F00\n"
-    "addiu $8,$2,1712\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $9,32\n"
-    "j L_800E3F00\n"
-    "addiu $8,$2,1872\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $9,32\n"
-    "j L_800E3F00\n"
-    "addiu $8,$2,2032\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $9,30\n"
-    "j L_800E3F00\n"
-    "addiu $8,$2,2192\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $9,18\n"
-    "addiu $8,$2,2364\n"
-    "L_800E3F00:\n"
-    "beqz $8,L_800E3F60\n"
-    "nop\n"
-    "beqz $9,L_800E3F60\n"
-    "move $4,$0\n"
-    "srl $3,$4,0x2\n"
-    "L_800E3F14:\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $5,$2,$8\n"
-    "andi $3,$4,0x3\n"
-    "addu $2,$5,$3\n"
-    "lbu $2,0($2)\n"
-    "bnel $2,$6,L_800E3F54\n"
-    "addiu $4,$4,1\n"
-    "bnel $7,$0,L_800E3F40\n"
-    "sw $4,0($7)\n"
-    "L_800E3F40:\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,4($2)\n"
-    "jr $31\n"
-    "nop\n"
-    "L_800E3F54:\n"
-    "sltu $2,$4,$9\n"
-    "bnez $2,L_800E3F14\n"
-    "srl $3,$4,0x2\n"
-    "L_800E3F60:\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-18396($1)\n"
-    "jr $31\n"
-    "sw $0,0($7)\n"
-    ".end func_800E3E60\n.set at\n.set reorder\n");
+typedef struct { unsigned char ids[4]; float vals[4]; } Group;
+
+extern char *D_800FC270;
+
+float func_800E3E60(void *self, unsigned int table, int id, unsigned int *outIndex)
+{
+    Group *groups = 0;
+    unsigned int count = 0;
+    unsigned int i;
+
+    switch (table) {
+    case 0:
+    case 1:
+    case 7:
+    case 9:
+    case 10:
+        break;
+    case 2:
+        count = 32;
+        groups = (Group *)(D_800FC270 + 1552);
+        break;
+    case 3:
+        count = 32;
+        groups = (Group *)(D_800FC270 + 1712);
+        break;
+    case 4:
+        count = 32;
+        groups = (Group *)(D_800FC270 + 1872);
+        break;
+    case 5:
+        count = 32;
+        groups = (Group *)(D_800FC270 + 2032);
+        break;
+    case 6:
+        count = 30;
+        groups = (Group *)(D_800FC270 + 2192);
+        break;
+    case 8:
+        count = 18;
+        groups = (Group *)(D_800FC270 + 2364);
+        break;
+    }
+    if (groups != 0 && count != 0) {
+        i = 0;
+        do {
+                        if (groups[i / 4].ids[i % 4] == id) {
+                if (outIndex != 0) {
+                    *outIndex = i;
+                }
+                return groups[i / 4].vals[i % 4];
+            }
+            i++;
+        } while (i < count);
+    }
+    *outIndex = 0;
+    return -1.0f;
+}

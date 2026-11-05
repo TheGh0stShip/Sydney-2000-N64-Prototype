@@ -1,82 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C792C\n.ent func_800C792C\n"
-    "func_800C792C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,2100\n"
-    "sw $18,24($29)\n"
-    "addiu $18,$17,17136\n"
-    "move $5,$18\n"
-    "move $6,$0\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "sdc1 $f20,32($29)\n"
-    "jal func_80013E7C\n"
-    "sw $0,17136($17)\n"
-    "beqz $2,L_800C7A40\n"
-    "addiu $16,$17,17164\n"
-    "lw $2,17136($17)\n"
-    "lw $2,12($2)\n"
-    "move $4,$16\n"
-    "lw $2,0($2)\n"
-    "li $5,1\n"
-    "sw $2,17160($17)\n"
-    "jal func_800ADC54\n"
-    "sw $2,17360($17)\n"
-    "jal func_800ADC38\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "jal func_800AC37C\n"
-    "move $5,$17\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,2144\n"
-    "move $5,$18\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2188($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,2192($1)\n"
-    "move $6,$0\n"
-    "swc1 $f20,17256($17)\n"
-    "jal func_80013E7C\n"
-    "swc1 $f0,17252($17)\n"
-    "beqz $2,L_800C7A40\n"
-    "addiu $16,$17,17380\n"
-    "lw $2,17136($17)\n"
-    "lw $2,12($2)\n"
-    "move $4,$16\n"
-    "lw $2,0($2)\n"
-    "li $5,1\n"
-    "sw $2,17376($17)\n"
-    "jal func_800ADC54\n"
-    "sw $2,17576($17)\n"
-    "jal func_800ADC38\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "jal func_800AC37C\n"
-    "move $5,$17\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2196($1)\n"
-    "lw $2,17596($17)\n"
-    "swc1 $f2,17468($17)\n"
-    "lb $2,0($2)\n"
-    "addiu $2,$2,-1\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2200($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f20,17472($17)\n"
-    "swc1 $f0,17468($17)\n"
-    "L_800C7A40:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C792C\n.set at\n.set reorder\n");
+#define D_8007088C (*(float *)0x8007088C)
+#define D_80070890 (*(float *)0x80070890)
+#define D_80070894 (*(float *)0x80070894)
+#define D_80070898 (*(float *)0x80070898)
+
+extern int func_80013E7C(void *name, void *out, int flags);
+extern void func_800ADC54(void *object, int mode);
+extern void func_800ADC38(void *object);
+extern void func_800AC37C(void *object, void *source);
+extern char D_80070834[];
+extern char D_80070860[];
+
+void func_800C792C(unsigned char *object)
+{
+    unsigned char *part;
+    int value;
+    float width;
+    float spacing;
+    float height;
+    float offset;
+
+    *(int *)(object + 17136) = 0;
+    if (func_80013E7C(D_80070834, object + 17136, 0) == 0) {
+        return;
+    }
+    part = object + 17164;
+    value = **(int **)(*(unsigned char **)(object + 17136) + 12);
+    *(int *)(object + 17160) = value;
+    *(int *)(object + 17360) = value;
+    func_800ADC54(part, 1);
+    func_800ADC38(part);
+    func_800AC37C(part, object);
+    height = D_8007088C;
+    width = D_80070890;
+    *(float *)(object + 17256) = width;
+    *(float *)(object + 17252) = height;
+
+    if (func_80013E7C(D_80070860, object + 17136, 0) == 0) {
+        return;
+    }
+    part = object + 17380;
+    value = **(int **)(*(unsigned char **)(object + 17136) + 12);
+    *(int *)(object + 17376) = value;
+    *(int *)(object + 17576) = value;
+    func_800ADC54(part, 1);
+    func_800ADC38(part);
+    func_800AC37C(part, object);
+    spacing = D_80070894;
+    *(float *)(object + 17468) = spacing;
+    offset = (**(signed char **)(object + 17596) - 1) * spacing + D_80070898;
+    *(float *)(object + 17472) = width;
+    *(float *)(object + 17468) = offset;
+}

@@ -1,100 +1,51 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F0038\n.ent func_800F0038\n"
-    "func_800F0038:\n"
-    "move $6,$0\n"
-    "li $7,5\n"
-    "move $5,$6\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-13748($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f6,-13744($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f8,-13740($1)\n"
-    "L_800F005C:\n"
-    "lw $2,496($4)\n"
-    "sltu $2,$6,$2\n"
-    "beqz $2,L_800F01A0\n"
-    "nop\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "sw $6,0($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,28($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,28($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,32($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,32($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,36($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,36($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "addiu $2,$2,28\n"
-    "lwc1 $f0,0($2)\n"
-    "lwc1 $f2,8($2)\n"
-    "div.s $f0,$f0,$f6\n"
-    "swc1 $f0,0($2)\n"
-    "lwc1 $f0,4($2)\n"
-    "div.s $f2,$f2,$f6\n"
-    "swc1 $f2,8($2)\n"
-    "div.s $f0,$f0,$f6\n"
-    "swc1 $f0,4($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,16($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,16($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,20($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,20($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,24($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,24($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,52($2)\n"
-    "mul.s $f0,$f0,$f8\n"
-    "div.s $f0,$f0,$f6\n"
-    "swc1 $f0,52($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,56($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,56($2)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,80($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,80($2)\n"
-    "lw $2,424($4)\n"
-    "addu $3,$5,$2\n"
-    "lw $2,64($3)\n"
-    "bnel $2,$7,L_800F0198\n"
-    "addiu $5,$5,92\n"
-    "lwc1 $f0,84($3)\n"
-    "mul.s $f0,$f0,$f8\n"
-    "swc1 $f0,84($3)\n"
-    "lw $2,424($4)\n"
-    "addu $2,$5,$2\n"
-    "lwc1 $f0,88($2)\n"
-    "mul.s $f0,$f0,$f8\n"
-    "swc1 $f0,88($2)\n"
-    "addiu $5,$5,92\n"
-    "L_800F0198:\n"
-    "j L_800F005C\n"
-    "addiu $6,$6,1\n"
-    "L_800F01A0:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800F0038\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned int index;
+    char pad4[12];
+    float scale[3];
+    float pos[3];
+    char pad28[12];
+    float angle;
+    float len;
+    char pad3C[4];
+    int type;
+    char pad44[12];
+    float speed;
+    float arc0;
+    float arc1;
+} Node800F0038;
+
+static __inline__ void vec_div_800F0038(float *p, float d)
+{
+    p[0] /= d;
+    p[1] /= d;
+    p[2] /= d;
+}
+
+void func_800F0038(char *obj)
+{
+    unsigned int i;
+
+    i = 0;
+    while (1) {
+        if (i >= *(unsigned int *)(obj + 496)) {
+            break;
+        }
+        (*(Node800F0038 **)(obj + 424))[i].index = i;
+        (*(Node800F0038 **)(obj + 424))[i].pos[0] *= 32.767f;
+        (*(Node800F0038 **)(obj + 424))[i].pos[1] *= 32.767f;
+        (*(Node800F0038 **)(obj + 424))[i].pos[2] *= 32.767f;
+        vec_div_800F0038((*(Node800F0038 **)(obj + 424))[i].pos, 30.0f);
+        (*(Node800F0038 **)(obj + 424))[i].scale[0] *= 32.767f;
+        (*(Node800F0038 **)(obj + 424))[i].scale[1] *= 32.767f;
+        (*(Node800F0038 **)(obj + 424))[i].scale[2] *= 32.767f;
+        (*(Node800F0038 **)(obj + 424))[i].angle =
+            (*(Node800F0038 **)(obj + 424))[i].angle * 0.017453291f / 30.0f;
+        (*(Node800F0038 **)(obj + 424))[i].len *= 32.767f;
+        (*(Node800F0038 **)(obj + 424))[i].speed *= 32.767f;
+        if ((*(Node800F0038 **)(obj + 424))[i].type == 5) {
+            (*(Node800F0038 **)(obj + 424))[i].arc0 *= 0.017453291f;
+            (*(Node800F0038 **)(obj + 424))[i].arc1 *= 0.017453291f;
+        }
+        i++;
+    }
+}

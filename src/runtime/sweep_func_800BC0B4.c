@@ -1,27 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BC0B4\n.ent func_800BC0B4\n"
-    "func_800BC0B4:\n"
-    "lui $2,0x800f\n"
-    "addiu $4,$2,10864\n"
-    "li $5,13\n"
-    "addiu $3,$4,7\n"
-    "L_800BC0C4:\n"
-    "andi $2,$5,0xff\n"
-    "beqz $2,L_800BC0FC\n"
-    "addiu $5,$5,-1\n"
-    "sb $0,0($4)\n"
-    "sb $0,-6($3)\n"
-    "sb $0,-5($3)\n"
-    "sb $0,-4($3)\n"
-    "sb $0,-3($3)\n"
-    "sb $0,-2($3)\n"
-    "sb $0,-1($3)\n"
-    "sb $0,0($3)\n"
-    "addiu $3,$3,8\n"
-    "j L_800BC0C4\n"
-    "addiu $4,$4,8\n"
-    "L_800BC0FC:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800BC0B4\n.set at\n.set reorder\n");
+extern unsigned char D_800F2A70[13][8];
+
+void func_800BC0B4(void)
+{
+    unsigned char n;
+    unsigned char *p;
+
+    p = D_800F2A70[0];
+    n = 13;
+    while (1) {
+        if (n == 0) {
+            break;
+        }
+        n--;
+        p[0] = 0;
+        p[1] = 0;
+        p[2] = 0;
+        p[3] = 0;
+        p[4] = 0;
+        p[5] = 0;
+        p[6] = 0;
+        p[7] = 0;
+        p += 8;
+    }
+}

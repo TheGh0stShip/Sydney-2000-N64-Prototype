@@ -1,74 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E8DA0\n.ent func_800E8DA0\n"
-    "func_800E8DA0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "addiu $17,$16,23368\n"
-    "move $4,$17\n"
-    "li $2,-1\n"
-    "sw $31,24($29)\n"
-    "jal func_800C0300\n"
-    "sw $2,28536($16)\n"
-    "lui $5,0x800f\n"
-    "lw $2,180($17)\n"
-    "addiu $5,$5,22784\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "addiu $4,$16,24632\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "addiu $6,$6,-2828\n"
-    "li $2,1\n"
-    "jal func_800C0AD4\n"
-    "sb $2,176($17)\n"
-    "addiu $4,$16,24864\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "jal func_800C0AD4\n"
-    "addiu $6,$6,-2812\n"
-    "addiu $4,$16,25096\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "jal func_800C0AD4\n"
-    "addiu $6,$6,-2796\n"
-    "addiu $4,$16,25328\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "jal func_800C0AD4\n"
-    "addiu $6,$6,-2780\n"
-    "addiu $4,$16,25560\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "jal func_800C0AD4\n"
-    "addiu $6,$6,-2764\n"
-    "addiu $4,$16,25792\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "addiu $6,$6,-2884\n"
-    "li $2,5\n"
-    "jal func_800C0AD4\n"
-    "sw $2,28536($16)\n"
-    "addiu $4,$16,26024\n"
-    "move $5,$16\n"
-    "lui $6,0x8010\n"
-    "jal func_800C0AD4\n"
-    "addiu $6,$6,-2868\n"
-    "move $4,$16\n"
-    "jal func_800E9A48\n"
-    "move $5,$0\n"
-    "addiu $4,$16,28540\n"
-    "move $5,$16\n"
-    "lui $6,0x8009\n"
-    "jal func_800C8120\n"
-    "addiu $6,$6,-16336\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E8DA0\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *, void *);
+} VEntry800E8DA0;
+
+extern void func_800C0300(void *);
+extern void func_800C0AD4(void *, void *, void *);
+extern void func_800E9A48(void *, int);
+extern void func_800C8120(void *, void *, void *);
+extern void func_8008C030(void);
+extern char D_800F5900[];
+extern char D_800FF4F4[];
+extern char D_800FF504[];
+extern char D_800FF514[];
+extern char D_800FF524[];
+extern char D_800FF534[];
+extern char D_800FF4BC[];
+extern char D_800FF4CC[];
+
+void func_800E8DA0(char *obj)
+{
+    char *sub;
+    VEntry800E8DA0 *v;
+
+    sub = obj + 23368;
+    *(int *)(obj + 28536) = -1;
+    func_800C0300(sub);
+    v = (VEntry800E8DA0 *)(*(char **)(sub + 180) + 16);
+    v->func(sub + v->offset, D_800F5900);
+    *(char *)(sub + 176) = 1;
+    func_800C0AD4(obj + 24632, obj, D_800FF4F4);
+    func_800C0AD4(obj + 24864, obj, D_800FF504);
+    func_800C0AD4(obj + 25096, obj, D_800FF514);
+    func_800C0AD4(obj + 25328, obj, D_800FF524);
+    func_800C0AD4(obj + 25560, obj, D_800FF534);
+    *(int *)(obj + 28536) = 5;
+    func_800C0AD4(obj + 25792, obj, D_800FF4BC);
+    func_800C0AD4(obj + 26024, obj, D_800FF4CC);
+    func_800E9A48(obj, 0);
+    func_800C8120(obj + 28540, obj, (void *)func_8008C030);
+}

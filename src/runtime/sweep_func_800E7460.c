@@ -1,66 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E7460\n.ent func_800E7460\n"
-    "func_800E7460:\n"
-    "lui $3,0x8010\n"
-    "addiu $8,$3,13568\n"
-    "move $4,$5\n"
-    "addiu $7,$7,-2\n"
-    "addu $2,$7,$6\n"
-    "sll $2,$2,0x1\n"
-    "addiu $2,$2,1\n"
-    "sb $2,13568($3)\n"
-    "addiu $8,$8,1\n"
-    "andi $9,$6,0xff\n"
-    "beqz $9,L_800E74AC\n"
-    "move $3,$0\n"
-    "L_800E7490:\n"
-    "sb $4,0($8)\n"
-    "addiu $8,$8,1\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltu $2,$2,$9\n"
-    "bnez $2,L_800E7490\n"
-    "addiu $4,$4,1\n"
-    "L_800E74AC:\n"
-    "addiu $4,$4,8\n"
-    "andi $9,$7,0xff\n"
-    "beqz $9,L_800E74D8\n"
-    "move $3,$0\n"
-    "L_800E74BC:\n"
-    "sb $4,0($8)\n"
-    "addiu $8,$8,1\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltu $2,$2,$9\n"
-    "bnez $2,L_800E74BC\n"
-    "addiu $4,$4,9\n"
-    "L_800E74D8:\n"
-    "andi $6,$6,0xff\n"
-    "beqz $6,L_800E7500\n"
-    "move $3,$0\n"
-    "L_800E74E4:\n"
-    "sb $4,0($8)\n"
-    "addiu $8,$8,1\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltu $2,$2,$6\n"
-    "bnez $2,L_800E74E4\n"
-    "addiu $4,$4,-1\n"
-    "L_800E7500:\n"
-    "addiu $4,$4,-8\n"
-    "andi $7,$7,0xff\n"
-    "beqz $7,L_800E752C\n"
-    "move $3,$0\n"
-    "L_800E7510:\n"
-    "sb $4,0($8)\n"
-    "addiu $8,$8,1\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltu $2,$2,$7\n"
-    "bnez $2,L_800E7510\n"
-    "addiu $4,$4,-9\n"
-    "L_800E752C:\n"
-    "jr $31\n"
-    "sb $5,0($8)\n"
-    ".end func_800E7460\n.set at\n.set reorder\n");
+extern unsigned char D_80103500[];
+
+void func_800E7460(int unused, int start, int width, int height)
+{
+    unsigned char *p = D_80103500;
+    int v = start;
+    unsigned char i;
+
+    height -= 2;
+    *p++ = (height + width) * 2 + 1;
+    for (i = 0; i < (unsigned char)width; i++) {
+        *p++ = v;
+        v++;
+    }
+    v += 8;
+    for (i = 0; i < (unsigned char)height; i++) {
+        *p++ = v;
+        v += 9;
+    }
+    for (i = 0; i < (unsigned char)width; i++) {
+        *p++ = v;
+        v--;
+    }
+    v -= 8;
+    for (i = 0; i < (unsigned char)height; i++) {
+        *p++ = v;
+        v -= 9;
+    }
+    *p = start;
+}

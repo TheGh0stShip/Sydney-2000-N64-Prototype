@@ -1,69 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3FA4\n.ent func_800E3FA4\n"
-    "func_800E3FA4:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $16,16($29)\n"
-    "move $16,$17\n"
-    "sw $19,28($29)\n"
-    "lui $19,0x8010\n"
-    "sw $31,32($29)\n"
-    "L_800E3FCC:\n"
-    "lw $4,-15760($19)\n"
-    "sll $2,$16,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,1372($2)\n"
-    "lhu $2,1264($4)\n"
-    "beql $3,$2,L_800E3FE8\n"
-    "li $17,1\n"
-    "L_800E3FE8:\n"
-    "move $4,$18\n"
-    "move $5,$16\n"
-    "jal func_800E37F4\n"
-    "move $6,$16\n"
-    "addiu $16,$16,1\n"
-    "sltiu $2,$16,6\n"
-    "bnez $2,L_800E3FCC\n"
-    "nop\n"
-    "bnez $17,L_800E4054\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "move $16,$0\n"
-    "move $3,$2\n"
-    "lhu $4,1264($3)\n"
-    "L_800E4020:\n"
-    "lbu $2,1372($3)\n"
-    "beq $2,$4,L_800E4040\n"
-    "sltiu $2,$16,32\n"
-    "addiu $16,$16,1\n"
-    "sltiu $2,$16,32\n"
-    "bnez $2,L_800E4020\n"
-    "addiu $3,$3,4\n"
-    "sltiu $2,$16,32\n"
-    "L_800E4040:\n"
-    "beqz $2,L_800E4054\n"
-    "move $4,$18\n"
-    "move $5,$16\n"
-    "jal func_800E37F4\n"
-    "li $6,5\n"
-    "L_800E4054:\n"
-    "jal func_800B31EC\n"
-    "move $4,$0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,20\n"
-    "li $2,1\n"
-    "sb $2,19102($18)\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E3FA4\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char id;
+    char pad[3];
+} Entry;
+
+typedef struct {
+    char pad0[1264];
+    unsigned short curId;
+    char pad1[106];
+    Entry entries[32];
+} Game;
+
+extern Game *D_800FC270;
+extern char D_800F5900[];
+extern void func_800E37F4(char *, unsigned int, unsigned int);
+extern void func_800B31EC(int);
+extern void func_800D53A0(char *, int);
+
+void func_800E3FA4(char *obj)
+{
+    unsigned int i;
+    int found;
+
+    found = 0;
+    for (i = 0; i < 6; i++) {
+        if (D_800FC270->entries[i].id == D_800FC270->curId) {
+            found = 1;
+        }
+        func_800E37F4(obj, i, i);
+    }
+    if (!found) {
+        for (i = 0; i < 32; i++) {
+            if (D_800FC270->entries[i].id == D_800FC270->curId) {
+                break;
+            }
+        }
+        if (i < 32) {
+            func_800E37F4(obj, i, 5);
+        }
+    }
+    func_800B31EC(0);
+    func_800D53A0(D_800F5900, 20);
+    *(unsigned char *)(obj + 19102) = 1;
+}

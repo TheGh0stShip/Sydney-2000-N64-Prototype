@@ -1,67 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D4B30\n.ent func_800D4B30\n"
-    "func_800D4B30:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "lui $2,0x8010\n"
-    "sw $18,24($29)\n"
-    "addiu $18,$2,10416\n"
-    "sw $31,32($29)\n"
-    "sw $16,16($29)\n"
-    "andi $2,$17,0xff\n"
-    "L_800D4B5C:\n"
-    "sll $16,$2,0x3\n"
-    "subu $16,$16,$2\n"
-    "sll $16,$16,0x3\n"
-    "subu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$18\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "addiu $17,$17,1\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,10\n"
-    "bnez $2,L_800D4B5C\n"
-    "andi $2,$17,0xff\n"
-    "addiu $16,$19,2324\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "sb $0,176($4)\n"
-    "addiu $16,$19,2536\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "sb $0,176($4)\n"
-    "jal func_80017D64\n"
-    "move $4,$0\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D4B30\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(); } VEntry;
+typedef struct { char pad[24]; VEntry update; char pad2[72 - 32]; VEntry draw; } VTable;
+typedef struct Obj { char pad[176]; unsigned char active; char pad1[3]; VTable *vt; char pad2[220 - 184]; } Obj;
+
+extern Obj D_801028B0[];
+extern void func_800B35F0(Obj *);
+extern void func_800ADC1C(Obj *);
+extern void func_80017D64(int);
+
+static __inline__ void obj_reset(Obj *o)
+{
+    o->vt->update.fn((char *)o + o->vt->update.offset);
+    o->active = 0;
+    func_800ADC1C(o);
+}
+
+void func_800D4B30(char *self)
+{
+    unsigned char i;
+    Obj *o;
+
+    for (i = 0; i < 10; i++) {
+        o = &D_801028B0[i];
+        func_800B35F0(o);
+        o->vt->update.fn((char *)o + o->vt->update.offset);
+        o->vt->draw.fn((char *)o + o->vt->draw.offset);
+    }
+    obj_reset((Obj *)(self + 2324));
+    obj_reset((Obj *)(self + 2536));
+    func_80017D64(0);
+}

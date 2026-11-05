@@ -1,66 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D11E8\n.ent func_800D11E8\n"
-    "func_800D11E8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "addiu $4,$17,900\n"
-    "sw $31,24($29)\n"
-    "jal func_800AC334\n"
-    "sw $16,16($29)\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,264\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,476\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,688\n"
-    "lw $2,180($17)\n"
-    "move $16,$0\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "jal func_800CE594\n"
-    "sb $0,176($17)\n"
-    "andi $4,$16,0xff\n"
-    "L_800D1240:\n"
-    "sll $4,$4,0x2\n"
-    "addiu $4,$4,212\n"
-    "jal func_8001A248\n"
-    "addu $4,$17,$4\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnel $2,$0,L_800D1240\n"
-    "andi $4,$16,0xff\n"
-    "move $16,$0\n"
-    "andi $4,$16,0xff\n"
-    "L_800D126C:\n"
-    "sll $4,$4,0x2\n"
-    "addiu $4,$4,244\n"
-    "jal func_8001A248\n"
-    "addu $4,$17,$4\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,3\n"
-    "bnel $2,$0,L_800D126C\n"
-    "andi $4,$16,0xff\n"
-    "move $16,$0\n"
-    "andi $4,$16,0xff\n"
-    "L_800D1298:\n"
-    "sll $4,$4,0x2\n"
-    "addiu $4,$4,256\n"
-    "jal func_8001A248\n"
-    "addu $4,$17,$4\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,2\n"
-    "bnel $2,$0,L_800D1298\n"
-    "andi $4,$16,0xff\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D11E8\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+void func_800AC334(void *object);
+void func_800CE594(void);
+void func_8001A248(void *sound);
+
+void func_800D11E8(unsigned char *object)
+{
+    Method *m;
+    unsigned char i;
+
+    func_800AC334(object + 900);
+    func_800AC334(object + 264);
+    func_800AC334(object + 476);
+    func_800AC334(object + 688);
+    m = (Method *)(*(unsigned char **)(object + 180) + 24);
+    m->fn(object + m->offset);
+    object[176] = 0;
+    func_800CE594();
+    for (i = 0; i < 8; i++) {
+        func_8001A248((int *)(object + 212) + i);
+    }
+    for (i = 0; i < 3; i++) {
+        func_8001A248((int *)(object + 244) + i);
+    }
+    for (i = 0; i < 2; i++) {
+        func_8001A248((int *)(object + 256) + i);
+    }
+}

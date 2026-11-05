@@ -1,61 +1,34 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C8574\n.ent func_800C8574\n"
-    "func_800C8574:\n"
-    "addiu $29,$29,-80\n"
-    "sw $16,64($29)\n"
-    "move $16,$4\n"
-    "sw $31,76($29)\n"
-    "sw $18,72($29)\n"
-    "sw $17,68($29)\n"
-    "lbu $2,778($16)\n"
-    "beqz $2,L_800C8604\n"
-    "addiu $6,$29,24\n"
-    "addiu $18,$29,56\n"
-    "move $7,$18\n"
-    "addiu $17,$29,40\n"
-    "sw $17,16($29)\n"
-    "jal func_800B9BD4\n"
-    "sw $0,20($29)\n"
-    "beqz $2,L_800C85CC\n"
-    "move $4,$16\n"
-    "sw $0,16($29)\n"
-    "lw $5,752($16)\n"
-    "lui $7,0x3f80\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "L_800C85CC:\n"
-    "move $4,$16\n"
-    "addiu $5,$29,24\n"
-    "move $6,$18\n"
-    "jal func_800B9964\n"
-    "move $7,$17\n"
-    "lw $2,768($16)\n"
-    "beqz $2,L_800C85FC\n"
-    "addiu $4,$16,20\n"
-    "lui $5,0x3d0e\n"
-    "ori $5,$5,0xfa34\n"
-    "jal func_800AD434\n"
-    "li $6,3\n"
-    "L_800C85FC:\n"
-    "jal func_800B9480\n"
-    "move $4,$16\n"
-    "L_800C8604:\n"
-    "lw $2,756($16)\n"
-    "addiu $2,$2,-1\n"
-    "bnez $2,L_800C862C\n"
-    "sw $2,756($16)\n"
-    "jal func_800C8278\n"
-    "move $4,$16\n"
-    "lw $2,192($16)\n"
-    "li $3,-5\n"
-    "and $2,$2,$3\n"
-    "sw $2,192($16)\n"
-    "L_800C862C:\n"
-    "lw $31,76($29)\n"
-    "lw $18,72($29)\n"
-    "lw $17,68($29)\n"
-    "lw $16,64($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_800C8574\n.set at\n.set reorder\n");
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vec3;
+
+extern int func_800B9BD4(void *self, int arg, void *a, void *b, void *c, int flag);
+extern void func_800B9E9C(void *self, int target, int index, float scale, int flag);
+extern void func_800B9964(void *self, void *a, void *b, void *c);
+extern void func_800AD434(void *object, float angle, int mode);
+extern void func_800B9480(void *self);
+extern void func_800C8278(void *self);
+
+void func_800C8574(unsigned char *self, int arg)
+{
+    Vec3 a;
+    Vec3 c;
+    float b[2];
+
+    if (self[778] != 0) {
+        if (func_800B9BD4(self, arg, &a, b, &c, 0) != 0) {
+            func_800B9E9C(self, *(int *)(self + 752), -1, 1.0f, 0);
+        }
+        func_800B9964(self, &a, b, &c);
+        if (*(int *)(self + 768) != 0) {
+            func_800AD434(self + 20, 0.034906581f, 3);
+        }
+        func_800B9480(self);
+    }
+    if (--*(int *)(self + 756) == 0) {
+        func_800C8278(self);
+        *(int *)(self + 192) &= ~4;
+    }
+}

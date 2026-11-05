@@ -1,62 +1,60 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9A48\n.ent func_800E9A48\n"
-    "func_800E9A48:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "beqz $5,L_800E9AB0\n"
-    "sw $31,20($29)\n"
-    "addiu $5,$16,26488\n"
-    "lw $2,188($5)\n"
-    "bnez $2,L_800E9A74\n"
-    "li $3,1\n"
-    "lw $2,184($5)\n"
-    "sltu $3,$0,$2\n"
-    "L_800E9A74:\n"
-    "bnez $3,L_800E9B08\n"
-    "nop\n"
-    "lw $2,26668($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$5,$4\n"
-    "lw $2,26900($16)\n"
-    "addiu $3,$16,26720\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "j L_800E9B00\n"
-    "li $4,1\n"
-    "L_800E9AB0:\n"
-    "addiu $5,$16,26488\n"
-    "lw $2,188($5)\n"
-    "bnez $2,L_800E9AC8\n"
-    "li $3,1\n"
-    "lw $2,184($5)\n"
-    "sltu $3,$0,$2\n"
-    "L_800E9AC8:\n"
-    "beqz $3,L_800E9B08\n"
-    "nop\n"
-    "lw $2,26668($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$5,$4\n"
-    "lw $2,26900($16)\n"
-    "addiu $3,$16,26720\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "move $4,$0\n"
-    "L_800E9B00:\n"
-    "jal func_8001A024\n"
-    "nop\n"
-    "L_800E9B08:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800E9A48\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *self);
+} VtEntry;
+
+typedef struct {
+    char pad[64];
+    VtEntry start;
+    VtEntry stop;
+} Vtable;
+
+typedef struct {
+    char pad[180];
+    Vtable *vtable;
+    int queued;
+    int playing;
+    char tail[40];
+} Channel;
+
+typedef struct {
+    char pad[26488];
+    Channel music;
+    Channel ambience;
+} AudioOwner;
+
+extern void func_8001A024(int paused);
+
+void func_800E9A48(AudioOwner *owner, int resume)
+{
+    Channel *music;
+    Channel *ambience;
+    int active;
+
+    if (resume) {
+        music = &owner->music;
+        active = 1;
+        if (music->playing == 0) {
+            active = music->queued != 0;
+        }
+        if (!active) {
+            owner->music.vtable->start.func((char *)music + owner->music.vtable->start.offset);
+            ambience = &owner->ambience;
+            owner->ambience.vtable->start.func((char *)ambience + owner->ambience.vtable->start.offset);
+            func_8001A024(1);
+        }
+    } else {
+        music = &owner->music;
+        active = 1;
+        if (music->playing == 0) {
+            active = music->queued != 0;
+        }
+        if (active) {
+            owner->music.vtable->stop.func((char *)music + owner->music.vtable->stop.offset);
+            ambience = &owner->ambience;
+            owner->ambience.vtable->stop.func((char *)ambience + owner->ambience.vtable->stop.offset);
+            func_8001A024(0);
+        }
+    }
+}

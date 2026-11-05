@@ -1,68 +1,64 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008DA2C\n.ent func_8008DA2C\n"
-    "func_8008DA2C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "move $5,$0\n"
-    "sw $31,28($29)\n"
-    "lw $4,188($16)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,16\n"
-    "move $6,$0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,15900($1)\n"
-    "L_8008DA58:\n"
-    "lw $2,456($16)\n"
-    "sltu $2,$6,$2\n"
-    "beqz $2,L_8008DAFC\n"
-    "move $5,$0\n"
-    "L_8008DA68:\n"
-    "lw $3,452($16)\n"
-    "sltu $2,$5,$3\n"
-    "mult $6,$3\n"
-    "beqz $2,L_8008DAF4\n"
-    "nop\n"
-    "lw $3,412($16)\n"
-    "mflo $7\n"
-    "sll $2,$7,0x5\n"
-    "addu $3,$3,$2\n"
-    "sll $2,$5,0x5\n"
-    "addu $3,$3,$2\n"
-    "lh $2,16($3)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lw $4,16($29)\n"
-    "swc1 $f0,12($4)\n"
-    "lh $2,18($3)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "swc1 $f0,16($4)\n"
-    "lh $2,20($3)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "swc1 $f0,20($4)\n"
-    "lwc1 $f0,24($3)\n"
-    "addiu $5,$5,1\n"
-    "swc1 $f0,28($4)\n"
-    "lwc1 $f0,28($3)\n"
-    "addiu $2,$4,36\n"
-    "sw $2,16($29)\n"
-    "j L_8008DA68\n"
-    "swc1 $f0,32($4)\n"
-    "L_8008DAF4:\n"
-    "j L_8008DA58\n"
-    "addiu $6,$6,1\n"
-    "L_8008DAFC:\n"
-    "lw $4,188($16)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8008DA2C\n.set at\n.set reorder\n");
+typedef struct Vertex {
+    char pad[16];
+    short x;
+    short y;
+    short z;
+    short pad2;
+    float u;
+    float v;
+} Vertex;
+
+typedef struct OutVertex {
+    char pad[12];
+    float x;
+    float y;
+    float z;
+    char pad2[4];
+    float u;
+    float v;
+} OutVertex;
+
+typedef struct Grid {
+    char pad[188];
+    void *buffer;
+    char pad2[220];
+    Vertex *verts;
+    char pad3[36];
+    unsigned int cols;
+    unsigned int rows;
+} Grid;
+
+extern void func_80017C4C(void *buffer, int flags, void *out);
+extern void func_80017C3C(void *buffer);
+
+void func_8008DA2C(Grid *self)
+{
+    OutVertex *out;
+    Vertex *src;
+    unsigned int row;
+    unsigned int col;
+    float scale;
+
+    func_80017C4C(self->buffer, 0, &out);
+    scale = 1.0f / 4096.0f;
+    row = 0;
+next_row:
+    if (row < self->rows) {
+        col = 0;
+next_col:
+        if (col < self->cols) {
+            src = &(self->verts + row * self->cols)[col];
+            out->x = src->x * scale;
+            out->y = src->y * scale;
+            out->z = src->z * scale;
+            out->u = src->u;
+            out->v = src->v;
+            out++;
+            col++;
+            goto next_col;
+        }
+        row++;
+        goto next_row;
+    }
+    func_80017C3C(self->buffer);
+}

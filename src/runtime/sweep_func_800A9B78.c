@@ -1,37 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A9B78\n.ent func_800A9B78\n"
-    "func_800A9B78:\n"
-    "addiu $29,$29,-24\n"
-    "move $8,$7\n"
-    "lw $7,40($29)\n"
-    "addiu $2,$7,-1\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800A9B98\n"
-    "sw $31,16($29)\n"
-    "sw $5,212($4)\n"
-    "L_800A9B98:\n"
-    "beqz $7,L_800A9BA8\n"
-    "li $2,2\n"
-    "bne $7,$2,L_800A9BAC\n"
-    "nop\n"
-    "L_800A9BA8:\n"
-    "sw $5,208($4)\n"
-    "L_800A9BAC:\n"
-    "beqz $6,L_800A9BDC\n"
-    "nop\n"
-    "lw $3,192($4)\n"
-    "beqz $3,L_800A9BDC\n"
-    "nop\n"
-    "beqz $5,L_800A9BDC\n"
-    "move $6,$8\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_800A9BDC:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A9B78\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(); } VEntry;
+typedef struct { char pad[72]; VEntry notify; } VTable;
+typedef struct Obj { char pad[180]; VTable *vt; char pad2[192 - 184]; struct Obj *child; char pad3[208 - 196]; int a; int b; } Obj;
+
+void func_800A9B78(Obj *obj, int value, int propagate, int extra, int mode)
+{
+    Obj *child;
+
+    if ((unsigned int)(mode - 1) < 2) {
+        obj->b = value;
+    }
+    if (mode == 0 || mode == 2) {
+        obj->a = value;
+    }
+    if (propagate) {
+        child = obj->child;
+        if (child != 0 && value != 0) {
+            child->vt->notify.fn((char *)child + child->vt->notify.offset, value, extra, mode);
+        }
+    }
+}

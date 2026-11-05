@@ -1,73 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C8B38\n.ent func_800C8B38\n"
-    "func_800C8B38:\n"
-    "addiu $29,$29,-64\n"
-    "sw $19,44($29)\n"
-    "move $19,$4\n"
-    "sw $18,40($29)\n"
-    "move $18,$0\n"
-    "sw $21,52($29)\n"
-    "lui $21,0x8009\n"
-    "sw $20,48($29)\n"
-    "li $20,2\n"
-    "sw $31,56($29)\n"
-    "sw $17,36($29)\n"
-    "sw $16,32($29)\n"
-    "sw $0,24($29)\n"
-    "L_800C8B6C:\n"
-    "andi $3,$18,0xff\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_800C8C1C\n"
-    "addiu $4,$21,-29584\n"
-    "sll $17,$3,0x3\n"
-    "subu $17,$17,$3\n"
-    "sll $17,$17,0x5\n"
-    "addiu $16,$17,616\n"
-    "addu $16,$19,$16\n"
-    "jal func_8000EB20\n"
-    "sw $0,24($29)\n"
-    "addiu $4,$29,24\n"
-    "addiu $18,$18,1\n"
-    "lui $5,0x3fd1\n"
-    "ori $5,$5,0xb573\n"
-    "lui $6,0x4183\n"
-    "ori $6,$6,0x1168\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80013208\n"
-    "sw $20,16($29)\n"
-    "move $4,$16\n"
-    "lw $2,24($29)\n"
-    "li $5,1\n"
-    "jal func_800ADC54\n"
-    "sw $2,196($16)\n"
-    "lw $2,192($16)\n"
-    "lw $3,180($16)\n"
-    "ori $2,$2,0x12\n"
-    "sw $2,192($16)\n"
-    "lh $4,64($3)\n"
-    "lw $2,68($3)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "addiu $4,$16,20\n"
-    "lui $5,0x3fc9\n"
-    "ori $5,$5,0xfd9\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29572($1)\n"
-    "li $6,3\n"
-    "jal func_800AD4E0\n"
-    "swc1 $f0,88($16)\n"
-    "addu $17,$19,$17\n"
-    "j L_800C8B6C\n"
-    "sh $0,828($17)\n"
-    "L_800C8C1C:\n"
-    "lw $31,56($29)\n"
-    "lw $21,52($29)\n"
-    "lw $20,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800C8B38\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+typedef struct {
+    unsigned char pad0[20];
+    unsigned char matrix[68];
+    float scale;
+    unsigned char pad1[88];
+    unsigned char *vtable;
+    unsigned char pad2[8];
+    int flags;
+    int sprite;
+    unsigned char pad3[12];
+    short state;
+    unsigned char pad4[10];
+} Beam;
+
+typedef struct {
+    unsigned char header[616];
+    Beam beams[6];
+} Gym;
+
+int func_8000EB20(char *name);
+void func_80013208(int *handle, float a, float b, int id, int mode);
+void func_800ADC54(void *obj, int arg);
+void func_800AD4E0(void *mtx, float angle, int axis);
+
+void func_800C8B38(Gym *object)
+{
+    unsigned char i;
+    int handle = 0;
+
+    i = 0;
+    while (1) {
+        Beam *beam;
+        Method *m;
+        int id;
+
+        if (i >= 6) {
+            break;
+        }
+        beam = &object->beams[i];
+        handle = 0;
+        id = func_8000EB20("VGYM_BEAM");
+        func_80013208(&handle, 1.6383498907089233f, 16.383499145507812f, id & 0xFFFF, 2);
+        beam->sprite = handle;
+        func_800ADC54(beam, 1);
+        beam->flags |= 0x12;
+        m = (Method *)(beam->vtable + 64);
+        m->fn((unsigned char *)beam + m->offset);
+        beam->scale = -32.767f;
+        func_800AD4E0(beam->matrix, 1.5707961320877075f, 3);
+        object->beams[i].state = 0;
+        i++;
+    }
+}

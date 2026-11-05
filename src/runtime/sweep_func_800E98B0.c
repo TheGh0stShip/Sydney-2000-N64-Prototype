@@ -1,56 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E98B0\n.ent func_800E98B0\n"
-    "func_800E98B0:\n"
-    "move $4,$0\n"
-    "lui $2,0x8010\n"
-    "addiu $5,$2,-2744\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x8010\n"
-    "lw $2,-2940($2)\n"
-    "lw $3,-2748($3)\n"
-    "move $7,$2\n"
-    "move $6,$3\n"
-    "sll $2,$6,0x2\n"
-    "addu $2,$7,$2\n"
-    "li $3,1\n"
-    "sw $3,4($2)\n"
-    "L_800E98E4:\n"
-    "lhu $3,0($5)\n"
-    "addiu $5,$5,2\n"
-    "addu $2,$4,$6\n"
-    "addiu $4,$4,1\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$7,$2\n"
-    "beqz $4,L_800E98E4\n"
-    "sh $3,0($2)\n"
-    "lui $2,0x8010\n"
-    "lw $3,-2748($2)\n"
-    "lui $4,0x8010\n"
-    "sll $2,$3,0x5\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $3,-2940($4)\n"
-    "sll $2,$2,0x4\n"
-    "addu $3,$3,$2\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addiu $3,$3,8\n"
-    "addiu $4,$2,524\n"
-    "addiu $2,$2,2524\n"
-    "L_800E9940:\n"
-    "lw $8,0($4)\n"
-    "lw $9,4($4)\n"
-    "lw $10,8($4)\n"
-    "lw $11,12($4)\n"
-    "sw $8,0($3)\n"
-    "sw $9,4($3)\n"
-    "sw $10,8($3)\n"
-    "sw $11,12($3)\n"
-    "addiu $4,$4,16\n"
-    "bne $4,$2,L_800E9940\n"
-    "addiu $3,$3,16\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800E98B0\n.set at\n.set reorder\n");
+typedef struct {
+    int data[500];
+} StreamBuffer;
+
+typedef struct {
+    unsigned short slots[2];
+    int used[1];
+    StreamBuffer buffers[1];
+} StreamTable;
+
+typedef struct {
+    unsigned char pad[524];
+    StreamBuffer buffer;
+} GameState;
+
+extern StreamTable *D_800FF484;
+extern unsigned int D_800FF544;
+extern unsigned short D_800FF548[];
+extern GameState *D_800FC270;
+
+void func_800E98B0(void)
+{
+    unsigned int i;
+    unsigned short *source;
+
+    i = 0;
+    source = D_800FF548;
+    D_800FF484->used[D_800FF544] = 1;
+    for (; i < 1; i++) {
+        D_800FF484->slots[i + D_800FF544] = *source++;
+    }
+    D_800FF484->buffers[D_800FF544] = D_800FC270->buffer;
+}

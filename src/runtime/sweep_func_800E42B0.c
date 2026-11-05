@@ -1,45 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E42B0\n.ent func_800E42B0\n"
-    "func_800E42B0:\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,-2940($3)\n"
-    "addiu $4,$2,524\n"
-    "sll $2,$5,0x5\n"
-    "subu $2,$2,$5\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x4\n"
-    "addu $3,$3,$2\n"
-    "addiu $2,$3,8\n"
-    "addiu $3,$3,2008\n"
-    "L_800E42E4:\n"
-    "lw $7,0($2)\n"
-    "lw $8,4($2)\n"
-    "lw $9,8($2)\n"
-    "lw $10,12($2)\n"
-    "sw $7,0($4)\n"
-    "sw $8,4($4)\n"
-    "sw $9,8($4)\n"
-    "sw $10,12($4)\n"
-    "addiu $2,$2,16\n"
-    "bne $2,$3,L_800E42E4\n"
-    "addiu $4,$4,16\n"
-    "lui $4,0x8010\n"
-    "lw $3,-15760($4)\n"
-    "lbu $2,1265($3)\n"
-    "sb $2,28($3)\n"
-    "lw $2,-15760($4)\n"
-    "lhu $3,1256($2)\n"
-    "lhu $4,1258($2)\n"
-    "lhu $5,1260($2)\n"
-    "lbu $6,1267($2)\n"
-    "sh $0,26($2)\n"
-    "sh $3,20($2)\n"
-    "sh $4,22($2)\n"
-    "sh $5,24($2)\n"
-    "jr $31\n"
-    "sb $6,3411($2)\n"
-    ".end func_800E42B0\n.set at\n.set reorder\n");
+typedef struct Block {
+    int data[500];
+} Block;
+
+typedef struct BlockBank {
+    int header[2];
+    Block blocks[1];
+} BlockBank;
+
+extern char *D_800FC270;
+extern BlockBank *D_800FF484;
+
+void func_800E42B0(int unused, int index)
+{
+    *(Block *)(D_800FC270 + 524) = D_800FF484->blocks[index];
+    D_800FC270[28] = D_800FC270[1265];
+    *(short *)(D_800FC270 + 26) = 0;
+    *(short *)(D_800FC270 + 20) = *(unsigned short *)(D_800FC270 + 1256);
+    *(short *)(D_800FC270 + 22) = *(unsigned short *)(D_800FC270 + 1258);
+    *(short *)(D_800FC270 + 24) = *(unsigned short *)(D_800FC270 + 1260);
+    D_800FC270[3411] = D_800FC270[1267];
+}

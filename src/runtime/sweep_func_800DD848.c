@@ -1,93 +1,93 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DD848\n.ent func_800DD848\n"
-    "func_800DD848:\n"
-    "addiu $29,$29,-32\n"
-    "lui $2,0x8010\n"
-    "sw $16,16($29)\n"
-    "lw $16,-13196($2)\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $5,32($16)\n"
-    "beqz $5,L_800DD884\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lhu $3,596($4)\n"
-    "lw $4,688($5)\n"
-    "addu $2,$2,$3\n"
-    "j L_800DD89C\n"
-    "sb $4,500($2)\n"
-    "L_800DD884:\n"
-    "lui $4,0x8009\n"
-    "addiu $4,$4,-20436\n"
-    "li $5,1830\n"
-    "lui $6,0x8009\n"
-    "jal func_800AAA60\n"
-    "addiu $6,$6,-20388\n"
-    "L_800DD89C:\n"
-    "move $6,$0\n"
-    "li $17,-1\n"
-    "lui $10,0xfff7\n"
-    "ori $10,$10,0xffff\n"
-    "move $12,$17\n"
-    "lui $11,0x8\n"
-    "lui $2,0x8010\n"
-    "lw $7,-2940($2)\n"
-    "move $9,$16\n"
-    "lui $2,0x8010\n"
-    "addiu $5,$2,-12916\n"
-    "move $8,$7\n"
-    "L_800DD8CC:\n"
-    "addiu $2,$6,29\n"
-    "addiu $3,$9,320\n"
-    "sw $8,0($5)\n"
-    "sw $2,4($5)\n"
-    "lw $2,4($3)\n"
-    "and $4,$2,$10\n"
-    "sw $4,4($3)\n"
-    "lw $2,4($7)\n"
-    "beql $2,$0,L_800DD904\n"
-    "or $2,$4,$11\n"
-    "beql $17,$12,L_800DD908\n"
-    "move $17,$6\n"
-    "j L_800DD90C\n"
-    "addiu $7,$7,4\n"
-    "L_800DD904:\n"
-    "sw $2,4($3)\n"
-    "L_800DD908:\n"
-    "addiu $7,$7,4\n"
-    "L_800DD90C:\n"
-    "addiu $9,$9,32\n"
-    "addiu $5,$5,8\n"
-    "addiu $6,$6,1\n"
-    "blez $6,L_800DD8CC\n"
-    "addiu $8,$8,2\n"
-    "li $2,-1\n"
-    "bne $17,$2,L_800DD948\n"
-    "lui $4,0x800f\n"
-    "lui $4,0x8009\n"
-    "addiu $4,$4,-20436\n"
-    "li $5,1858\n"
-    "lui $6,0x8009\n"
-    "jal func_800AAA60\n"
-    "addiu $6,$6,-20352\n"
-    "lui $4,0x800f\n"
-    "L_800DD948:\n"
-    "addiu $4,$4,22784\n"
-    "li $5,3\n"
-    "addiu $2,$17,10\n"
-    "lui $6,0x80\n"
-    "sh $2,14($16)\n"
-    "lw $2,36($16)\n"
-    "lw $3,580($16)\n"
-    "or $2,$2,$6\n"
-    "or $3,$3,$6\n"
-    "sw $2,36($16)\n"
-    "jal func_800D53A0\n"
-    "sw $3,580($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800DD848\n.set at\n.set reorder\n");
+typedef struct Link {
+    short *ref;
+    int id;
+} Link;
+
+typedef struct Row {
+    char pad[4];
+    unsigned int flags;
+    char pad2[24];
+} Row;
+
+typedef struct Player {
+    char pad[688];
+    int slot;
+} Player;
+
+typedef struct Menu {
+    char pad0[14];
+    short choice;
+    char pad1[16];
+    Player *player;
+    unsigned int flags;
+    char pad2[280];
+    Row rows[1];
+    char pad3[228];
+    unsigned int flags2;
+} Menu;
+
+typedef struct Slots {
+    short ids[2];
+    int valid[1];
+} Slots;
+
+typedef struct Caller {
+    char pad[596];
+    unsigned short index;
+} Caller;
+
+extern Menu *D_800FCC74;
+extern char *D_800FC270;
+extern Slots *D_800FF484;
+extern Link D_800FCD8C[];
+extern char D_8008B02C[];
+extern char D_8008B05C[];
+extern char D_8008B080[];
+extern char D_800F5900[];
+extern void func_800AAA60(const char *, int, const char *);
+extern void func_800D53A0(void *, int);
+
+#define NUM_SLOTS 1
+
+void func_800DD848(Caller *caller)
+{
+    Menu *menu = D_800FCC74;
+    int found;
+    int i;
+    Row *row;
+    unsigned int flags;
+
+    if (menu->player != 0) {
+        char *state = D_800FC270;
+        int slot;
+
+        state += caller->index;
+        slot = menu->player->slot;
+        state[500] = slot;
+    } else {
+        func_800AAA60(D_8008B02C, 1830, D_8008B05C);
+    }
+    i = 0;
+    found = -1;
+    for (; i < NUM_SLOTS; i++) {
+        D_800FCD8C[i].ref = &D_800FF484->ids[i];
+        D_800FCD8C[i].id = i + 29;
+        row = (Row *)((char *)menu + i * sizeof(Row)) + 10;
+        flags = row->flags & ~0x80000;
+        row->flags = flags;
+        if (D_800FF484->valid[i] != 0) {
+            if (found == -1) {
+                found = i;
+            }
+        } else {
+            row->flags = flags | 0x80000;
+        }
+    }
+    if (found == -1) {
+        func_800AAA60(D_8008B02C, 1858, D_8008B080);
+    }
+    menu->choice = found + 10;
+    menu->flags |= 0x800000;
+    menu->flags2 |= 0x800000;
+    func_800D53A0(D_800F5900, 3);
+}

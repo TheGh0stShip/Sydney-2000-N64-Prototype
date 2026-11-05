@@ -1,33 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EF480\n.ent func_800EF480\n"
-    "func_800EF480:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lwc1 $f0,800($4)\n"
-    "lwc1 $f2,816($4)\n"
-    "mul.s $f2,$f0,$f2\n"
-    "mtc1 $5,$f4\n"
-    "mtc1 $0,$f0\n"
-    "mtc1 $6,$f6\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800EF4BC\n"
-    "nop\n"
-    "sub.s $f0,$f6,$f4\n"
-    "mul.s $f2,$f2,$f0\n"
-    "add.s $f2,$f2,$f4\n"
-    "L_800EF4BC:\n"
-    "lw $2,764($4)\n"
-    "beqz $2,L_800EF4D0\n"
-    "nop\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29776($1)\n"
-    "L_800EF4D0:\n"
-    "mfc1 $5,$f2\n"
-    "jal func_800B8C70\n"
-    "swc1 $f2,632($4)\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EF480\n.set at\n.set reorder\n");
+#define D_80078BB0 (*(float *)0x80078BB0)
+
+extern void func_800B8C70(unsigned char *object, float value);
+
+void func_800EF480(unsigned char *object, float lo, float hi)
+{
+    float t = *(float *)(object + 800) * *(float *)(object + 816);
+
+    if (0.0f < t) {
+        t *= hi - lo;
+        t += lo;
+    }
+    if (*(int *)(object + 764) != 0) {
+        t = D_80078BB0;
+    }
+    *(float *)(object + 632) = t;
+    func_800B8C70(object, t);
+}

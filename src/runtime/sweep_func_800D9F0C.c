@@ -1,107 +1,71 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D9F0C\n.ent func_800D9F0C\n"
-    "func_800D9F0C:\n"
-    "lui $2,0x8010\n"
-    "addiu $3,$2,13040\n"
-    "li $5,30\n"
-    "li $6,-1\n"
-    "L_800D9F1C:\n"
-    "sh $0,0($3)\n"
-    "move $4,$0\n"
-    "andi $2,$4,0xff\n"
-    "L_800D9F28:\n"
-    "addu $2,$3,$2\n"
-    "sb $6,2($2)\n"
-    "addiu $4,$4,1\n"
-    "andi $2,$4,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnez $2,L_800D9F28\n"
-    "andi $2,$4,0xff\n"
-    "addiu $5,$5,-1\n"
-    "andi $2,$5,0xff\n"
-    "bnez $2,L_800D9F1C\n"
-    "addiu $3,$3,10\n"
-    "move $5,$0\n"
-    "lui $4,0x8010\n"
-    "lui $2,0x8009\n"
-    "addiu $7,$2,-21728\n"
-    "lui $2,0x8010\n"
-    "addiu $6,$2,13040\n"
-    "L_800D9F6C:\n"
-    "andi $3,$5,0xff\n"
-    "sltiu $2,$3,8\n"
-    "beqz $2,L_800D9FF8\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lw $3,-15760($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "lbu $3,32($3)\n"
-    "sltiu $2,$3,5\n"
-    "beqz $2,L_800D9FF0\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$7\n"
-    "lw $2,0($2)\n"
-    "jr $2\n"
-    "nop\n"
-    "andi $3,$5,0xff\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lw $3,-15760($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "lb $3,76($3)\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x1\n"
-    "addu $3,$2,$6\n"
-    "lhu $2,0($3)\n"
-    "addu $2,$3,$2\n"
-    "sb $5,2($2)\n"
-    "lhu $2,0($3)\n"
-    "addiu $2,$2,1\n"
-    "sh $2,0($3)\n"
-    "L_800D9FF0:\n"
-    "j L_800D9F6C\n"
-    "addiu $5,$5,1\n"
-    "L_800D9FF8:\n"
-    "lui $2,0x8010\n"
-    "sb $0,13352($2)\n"
-    "li $5,8\n"
-    "lui $3,0x8010\n"
-    "addiu $9,$3,13040\n"
-    "lui $3,0x8010\n"
-    "addiu $8,$3,13344\n"
-    "move $6,$2\n"
-    "move $4,$0\n"
-    "L_800DA01C:\n"
-    "andi $7,$5,0xff\n"
-    "andi $2,$4,0xff\n"
-    "L_800DA024:\n"
-    "sll $3,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x1\n"
-    "addu $3,$3,$9\n"
-    "lhu $2,0($3)\n"
-    "bnel $2,$7,L_800DA05C\n"
-    "addiu $4,$4,1\n"
-    "lbu $2,13352($6)\n"
-    "addu $2,$2,$8\n"
-    "sb $4,0($2)\n"
-    "lbu $2,13352($6)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,13352($6)\n"
-    "addiu $4,$4,1\n"
-    "L_800DA05C:\n"
-    "andi $2,$4,0xff\n"
-    "sltiu $2,$2,29\n"
-    "bnez $2,L_800DA024\n"
-    "andi $2,$4,0xff\n"
-    "addiu $5,$5,-1\n"
-    "andi $2,$5,0xff\n"
-    "bnez $2,L_800DA01C\n"
-    "move $4,$0\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800D9F0C\n.set at\n.set reorder\n");
+typedef struct Group {
+    unsigned short count;
+    signed char members[8];
+} Group;
+
+typedef struct Racer {
+    unsigned char status;
+    char pad0[43];
+    signed char group;
+    char pad1[15];
+} Racer;
+
+typedef struct RaceState {
+    char pad0[32];
+    Racer racers[8];
+} RaceState;
+
+extern Group D_801032F0[30];
+extern unsigned char D_80103420[8];
+extern unsigned char D_80103428;
+extern RaceState *D_800FC270;
+
+void func_800D9F0C(void)
+{
+    Group *g;
+    unsigned char i;
+    unsigned char j;
+
+    g = D_801032F0;
+    i = 30;
+    do {
+        g->count = 0;
+        for (j = 0; j < 8; j++) {
+            g->members[j] = -1;
+        }
+        g++;
+        i--;
+    } while (i);
+
+    i = 0;
+    while (1) {
+        if (i >= 8) {
+            break;
+        }
+        switch (D_800FC270->racers[i].status) {
+        case 0:
+            break;
+        case 1:
+        case 2:
+            g = &D_801032F0[D_800FC270->racers[i].group];
+            g->members[g->count] = i;
+            g->count++;
+            break;
+        case 3:
+            break;
+        case 4:
+            break;
+        }
+        i++;
+    }
+
+    D_80103428 = 0;
+    for (i = 8; i != 0; i--) {
+        for (j = 0; j < 29; j++) {
+            if (D_801032F0[j].count == i) {
+                D_80103420[D_80103428] = j;
+                D_80103428++;
+            }
+        }
+    }
+}
