@@ -1,26 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D2110\n.ent func_800D2110\n"
-    "func_800D2110:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2816\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,17568\n"
-    ".word 0x1040000D\n"
-    "move $19,$5\n"
-    "addiu $16,$18,18204\n"
-    ".word 0x1050000A\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    ".end func_800D2110\n.set at\n.set reorder\n");
+typedef struct {
+    short pad0[4];
+    short thisOffset;
+    short pad1;
+    void (*destroy)(void *self, int flags);
+} EventVTableEntry;
+
+extern void func_800ADE84(void *object, int flags);
+extern void func_80081DC8(unsigned char *object, int flags);
+extern unsigned char D_80070B00[];
+
+void func_800D2110(unsigned char *object, int flags)
+{
+    unsigned char *entry;
+    EventVTableEntry *vt;
+
+    *(void **)(object + 180) = D_80070B00;
+    if (object + 17568 != 0) {
+        entry = object + 18204;
+        while (object + 17568 != entry) {
+            entry -= 212;
+            vt = *(EventVTableEntry **)(entry + 180);
+            vt->destroy(entry + vt->thisOffset, 2);
+        }
+    }
+    func_800ADE84(object + 17356, 2);
+    func_800ADE84(object + 17140, 2);
+    func_80081DC8(object, flags);
+}

@@ -1,35 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D0C20\n.ent func_800D0C20\n"
-    "func_800D0C20:\n"
-    "addiu $29,$29,-24\n"
-    "move $3,$4\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "sw $31,20($29)\n"
-    "sw $5,1912($3)\n"
-    "li $5,195\n"
-    "sw $6,1916($3)\n"
-    "move $6,$0\n"
-    "lw $8,40($29)\n"
-    "li $2,5\n"
-    "sb $7,1920($3)\n"
-    "move $7,$6\n"
-    "sb $2,1908($3)\n"
-    "jal func_8001D4B8\n"
-    "sb $8,1921($3)\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $9\n"
-    "jal func_8001D640\n"
-    "sra $6,$9,0xf\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D0C20\n.set at\n.set reorder\n");
+struct Sound {
+    char pad[104];
+    int volume;
+};
+
+struct Cue {
+    char pad[1908];
+    unsigned char state;
+    char pad2[3];
+    int arg0;
+    int arg1;
+    unsigned char flag0;
+    unsigned char flag1;
+};
+
+extern struct Sound D_800F1AE0;
+extern int func_8001D4B8(struct Sound *, int, int, int);
+extern void func_8001D640(struct Sound *, int, int);
+
+void func_800D0C20(struct Cue *self, int a, int b, unsigned char c, unsigned char d)
+{
+    int handle;
+
+    self->arg0 = a;
+    self->arg1 = b;
+    self->flag0 = c;
+    self->state = 5;
+    self->flag1 = d;
+    handle = func_8001D4B8(&D_800F1AE0, 195, 0, 0);
+    func_8001D640(&D_800F1AE0, handle, (int)((long long)D_800F1AE0.volume * 32767) >> 15);
+}

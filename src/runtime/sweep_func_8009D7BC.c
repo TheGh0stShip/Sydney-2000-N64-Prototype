@@ -1,45 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D7BC\n.ent func_8009D7BC\n"
-    "func_8009D7BC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,19080($17)\n"
-    "bnez $2,L_8009D818\n"
-    "addiu $4,$17,19088\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6240\n"
-    "move $5,$16\n"
-    "move $6,$0\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "li $7,-1\n"
-    "addu $2,$2,$3\n"
-    "jal func_800D33A0\n"
-    "sh $2,2($16)\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "subu $2,$2,$3\n"
-    "j L_8009D840\n"
-    "sh $2,2($16)\n"
-    "L_8009D818:\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6240\n"
-    "move $5,$16\n"
-    "move $6,$0\n"
-    "li $7,-1\n"
-    "lh $17,2($16)\n"
-    "li $2,120\n"
-    "jal func_800D33A0\n"
-    "sh $2,2($16)\n"
-    "sh $17,2($16)\n"
-    "L_8009D840:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009D7BC\n.set at\n.set reorder\n");
+/* Draw a layer; in fixed mode it is drawn at a fixed height of 120,
+ * otherwise shifted by the object's vertical offset. */
+typedef struct View {
+    short x;
+    short y;
+} View;
+
+extern void func_800D33A0(void *layer, View *view, int a, int b);
+extern View D_800F1860;
+
+void func_8009D7BC(char *obj)
+{
+    int off;
+    int saved;
+
+    if (*(int *)(obj + 19080) == 0) {
+        off = *(short *)(obj + 19076);
+        D_800F1860.y += off;
+        func_800D33A0(obj + 19088, &D_800F1860, 0, -1);
+        off = *(short *)(obj + 19076);
+        D_800F1860.y -= off;
+    } else {
+        saved = D_800F1860.y;
+        D_800F1860.y = 120;
+        func_800D33A0(obj + 19088, &D_800F1860, 0, -1);
+        D_800F1860.y = saved;
+    }
+}

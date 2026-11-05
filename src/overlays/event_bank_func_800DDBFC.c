@@ -1,70 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DDBFC\n.ent func_800DDBFC\n"
-    "func_800DDBFC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $2,1552($17)\n"
-    "bnez $2,L_800DDCE4\n"
-    "li $2,5\n"
-    "lbu $3,1557($17)\n"
-    "beq $3,$2,L_800DDC3C\n"
-    "addiu $4,$17,12884\n"
-    "lui $5,0x8007\n"
-    "addiu $5,$5,31300\n"
-    "move $6,$0\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "L_800DDC3C:\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,227\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $9\n"
-    "jal func_8001D640\n"
-    "sra $6,$9,0xf\n"
-    "move $4,$17\n"
-    "li $5,92\n"
-    "li $6,14\n"
-    "move $7,$0\n"
-    "lui $2,0x8007\n"
-    "lw $3,25280($4)\n"
-    "lbu $8,31648($2)\n"
-    "li $2,11\n"
-    "sb $2,1551($4)\n"
-    "sw $3,25276($4)\n"
-    "addiu $3,$3,11520\n"
-    "sw $3,25288($4)\n"
-    "jal func_800AC25C\n"
-    "sb $8,1552($4)\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beqz $2,L_800DDCE4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "lui $2,0x8007\n"
-    "lw $7,30908($2)\n"
-    "li $6,14\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "L_800DDCE4:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DDBFC\n.set at\n.set reorder\n");
+typedef struct State {
+    char pad0[1551];
+    unsigned char mode;
+    unsigned char done;
+    char pad1[4];
+    unsigned char kind;
+    char pad2[12884 - 1558];
+    char sub[25276 - 12884];
+    int timeStart;
+    int timeNow;
+    int pad3;
+    int timeEnd;
+} State;
+
+extern char D_80077A44[];
+extern char D_800F1AE0[];
+extern unsigned char D_80077BA0;
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern int D_800778BC;
+
+extern void func_800D33A0(void *p, void *q, int a, int b);
+extern int func_8001D4B8(void *p, int a, int b, int c);
+extern void func_8001D640(void *p, int handle, int volume);
+extern void func_800AC25C(void *p, int a, int b, int c);
+extern int func_80017D54(void);
+extern void func_800AB2A4(void *p, int a, int b, int c, int d, int e);
+
+static inline int scale_volume(int volume, int scale)
+{
+    return (volume * scale) >> 15;
+}
+
+void func_800DDBFC(State *state)
+{
+    int handle;
+    int now;
+
+    if (state->done != 0) {
+        return;
+    }
+    if (state->kind != 5) {
+        func_800D33A0(state->sub, D_80077A44, 0, -1);
+    }
+    handle = func_8001D4B8(D_800F1AE0, 227, 0, 1);
+    func_8001D640(D_800F1AE0, handle, scale_volume(*(int *)(D_800F1AE0 + 104), 32767));
+    now = state->timeNow;
+    state->timeStart = now;
+    state->timeEnd = now + 11520;
+    state->done = D_80077BA0;
+    state->mode = 11;
+    func_800AC25C(state, 92, 14, 0);
+    if (func_80017D54() != 0) {
+        func_800AB2A4(D_800F26E0, D_800F2744, 14, D_800778BC, 0, 0);
+    }
+}

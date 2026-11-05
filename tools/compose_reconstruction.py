@@ -410,7 +410,10 @@ def load_mapped_segment(evidence, artifact, segment, plan_name, start_bound, end
             raise ValueError('runtime piece source attribution differs from frozen plan')
         start, size = piece['rom_start'], piece['owned_size']
         require_region(start, size, start_bound, end_bound, segment + ' source')
-        if piece['vram'] != start + delta:
+        # Text may be linked at an overlay's true runtime address while the
+        # manifest independently freezes its ROM ownership.  Other sections
+        # still require the segment-wide mapping.
+        if piece['name'] != '.text' and piece['vram'] != start + delta:
             raise ValueError(f'{segment} piece ROM/VRAM mapping changed')
         data = piece_bytes(evidence, artifact, piece, size, section['sha256'])
         owner = 'runtime-source:' + piece['unit_id'] + ':' + piece['name']

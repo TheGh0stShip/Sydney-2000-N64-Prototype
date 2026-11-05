@@ -1,35 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80087BE4\n.ent func_80087BE4\n"
-    "func_80087BE4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "sw $31,24($29)\n"
-    "L_80087BFC:\n"
-    "lbu $2,1555($17)\n"
-    "andi $3,$16,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_80087C40\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $4,16672($2)\n"
-    "beql $4,$0,L_80087BFC\n"
-    "addiu $16,$16,1\n"
-    "lui $5,0xc1de\n"
-    "ori $5,$5,0xd0cb\n"
-    "lui $6,0x4183\n"
-    "ori $6,$6,0x1168\n"
-    "jal func_800CB7A8\n"
-    "addiu $4,$4,1036\n"
-    "j func_8007682C\n"
-    "addiu $16,$16,1\n"
-    "L_80087C40:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80087BE4\n.set at\n.set reorder\n");
+extern void func_800CB7A8(void *obj, float x, float y);
+
+typedef struct EventBankObj {
+    unsigned char pad0[1555];
+    unsigned char entryCount;
+    unsigned char pad1[16672 - 1556];
+    unsigned char *entries[8];
+} EventBankObj;
+
+void func_80087BE4(EventBankObj *object)
+{
+    unsigned char i;
+    unsigned char *entry;
+
+    i = 0;
+loop:
+    if (i < object->entryCount) {
+        entry = object->entries[i];
+        if (entry != 0) {
+            func_800CB7A8(entry + 1036, -27.85194969177246f, 16.383499145507812f);
+        }
+        i++;
+        goto loop;
+    }
+}

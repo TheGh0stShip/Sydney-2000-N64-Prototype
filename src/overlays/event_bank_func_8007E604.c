@@ -1,79 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8007E604\n.ent func_8007E604\n"
-    "func_8007E604:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "li $2,0x8000\n"
-    "addu $4,$18,$2\n"
-    "li $3,2\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $5,21356($18)\n"
-    "lbu $2,3229($4)\n"
-    "lbu $9,424($5)\n"
-    "beq $2,$3,L_8007E70C\n"
-    "nop\n"
-    "lbu $3,3224($4)\n"
-    "lui $4,0x8010\n"
-    "lw $8,-15760($4)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addiu $2,$2,2576\n"
-    "addu $17,$8,$2\n"
-    "sll $2,$9,0x18\n"
-    "sra $2,$2,0x18\n"
-    "li $3,8\n"
-    "beq $2,$3,L_8007E690\n"
-    "sll $6,$9,0x4\n"
-    "addiu $4,$18,21396\n"
-    "subu $6,$6,$9\n"
-    "sll $6,$6,0x2\n"
-    "addiu $6,$6,20\n"
-    "lbu $5,425($5)\n"
-    "lw $7,4($17)\n"
-    "j func_8007541C\n"
-    "addu $6,$8,$6\n"
-    "L_8007E690:\n"
-    "lbu $16,425($5)\n"
-    "jal func_800D98FC\n"
-    "li $4,13\n"
-    "addiu $4,$18,21396\n"
-    "move $6,$2\n"
-    "lw $7,4($17)\n"
-    "move $5,$16\n"
-    "jal func_800D0C98\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,19712\n"
-    "addiu $17,$18,21396\n"
-    "lw $2,180($17)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$17\n"
-    "lw $5,216($16)\n"
-    "li $16,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$16,$5\n"
-    "move $4,$17\n"
-    "jal func_800D0B9C\n"
-    "sb $16,176($4)\n"
-    "addiu $16,$18,31156\n"
-    "jal func_800CCAE0\n"
-    "move $4,$16\n"
-    "lui $5,0xbf80\n"
-    "jal func_800CC99C\n"
-    "move $4,$16\n"
-    "L_8007E70C:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8007E604\n.set at\n.set reorder\n");
+typedef struct VTEntry {
+    short pad0[8];
+    short offset;
+    short pad1;
+    void (*fn)(void *self, void *arg);
+} VTEntry;
+
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F4D00[];
+extern int func_800D98FC(int id);
+extern void func_800D0C98(void *obj, int a, void *b, int c);
+extern void func_800ADC54(void *obj, int mask);
+extern void func_800D0B9C(void *obj);
+extern void func_800CCAE0(void *obj);
+extern void func_800CC99C(void *obj, float value);
+
+void func_8007E604(unsigned char *object)
+{
+    unsigned char *hi = object + 0x8000;
+    unsigned char *info = *(unsigned char **)(object + 21356);
+    unsigned char index = info[424];
+    unsigned char *base;
+    unsigned char *entry;
+    unsigned char *sub;
+    VTEntry *vt;
+    void *data;
+    unsigned char *tbl;
+
+    if (hi[3229] != 2) {
+    base = D_800FC270;
+    entry = base + (hi[3224] * 12 + 2576);
+    if ((signed char)index != 8) {
+        data = base + (index * 60 + 20);
+        func_800D0C98(object + 21396, info[425], data, *(int *)(entry + 4));
+    } else {
+        int sel = info[425];
+        data = (void *)func_800D98FC(13);
+        func_800D0C98(object + 21396, sel, data, *(int *)(entry + 4));
+    }
+    tbl = D_800F4D00;
+    sub = object + 21396;
+    vt = *(VTEntry **)(sub + 180);
+    vt->fn(sub + vt->offset, tbl);
+    func_800ADC54(sub, 1 << *(int *)(tbl + 216));
+    sub[176] = 1;
+    func_800D0B9C(sub);
+    func_800CCAE0(object + 31156);
+    func_800CC99C(object + 31156, -1.0f);
+    }
+}

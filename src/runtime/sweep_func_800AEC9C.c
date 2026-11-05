@@ -1,31 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AEC9C\n.ent func_800AEC9C\n"
-    "func_800AEC9C:\n"
-    "addiu $3,$4,44\n"
-    "addiu $2,$4,16\n"
-    "sw $0,0($4)\n"
-    "sw $0,72($4)\n"
-    "sw $0,28($4)\n"
-    "sw $0,40($4)\n"
-    "sw $0,68($4)\n"
-    "sw $0,44($4)\n"
-    "sw $0,4($3)\n"
-    "sw $0,8($3)\n"
-    "sw $0,16($4)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "li $2,1\n"
-    "sw $2,0($4)\n"
-    "lwc1 $f0,0($5)\n"
-    "swc1 $f0,44($4)\n"
-    "lwc1 $f0,4($5)\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,8($5)\n"
-    "lui $2,0x800f\n"
-    "swc1 $f0,8($3)\n"
-    "sw $0,8($4)\n"
-    "lw $2,10052($2)\n"
-    "jr $31\n"
-    "sw $2,40($4)\n"
-    ".end func_800AEC9C\n.set at\n.set reorder\n");
+extern int D_800F2744;
+
+void func_800AEC9C(unsigned char *object, float *position)
+{
+    float *current = (float *)(object + 44);
+    float *velocity = (float *)(object + 16);
+
+    *(int *)(object + 0) = 0;
+    *(int *)(object + 72) = 0;
+    *(int *)(object + 28) = 0;
+    *(int *)(object + 40) = 0;
+    *(int *)(object + 68) = 0;
+    current[0] = 0.0f;
+    current[1] = 0.0f;
+    current[2] = 0.0f;
+    velocity[0] = 0.0f;
+    velocity[1] = 0.0f;
+    velocity[2] = 0.0f;
+    *(int *)(object + 0) = 1;
+    current[0] = position[0];
+    current[1] = position[1];
+    current[2] = position[2];
+    *(int *)(object + 8) = 0;
+    *(int *)(object + 40) = D_800F2744;
+}

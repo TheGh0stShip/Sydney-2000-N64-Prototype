@@ -1,25 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80079458\n.ent func_80079458\n"
-    "func_80079458:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,20($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $3,1556($4)\n"
-    "li $2,5\n"
-    ".word 0x14620027\n"
-    "move $7,$6\n"
-    "lui $8,0x1\n"
-    "addu $16,$4,$8\n"
-    "lbu $2,2822($16)\n"
-    "sltiu $2,$2,2\n"
-    ".word 0x10400021\n"
-    "andi $5,$5,0xff\n"
-    "lbu $2,3385($16)\n"
-    ".word 0x14A2001E\n"
-    "andi $2,$7,0xff\n"
-    "lbu $6,3386($16)\n"
-    ".word 0x14C2001B\n"
-    "sll $2,$6,0x2\n"
-    "sll $3,$5,0x3\n"
-    ".end func_80079458\n.set at\n.set reorder\n");
+typedef struct Match {
+    char pad0[1556];
+    unsigned char mode;
+    char pad1[0x10B06 - 1557];
+    unsigned char phase;
+    char pad2[0x10D28 - 0x10B07];
+    int table[2][2];
+    char pad3[0x10D39 - 0x10D38];
+    unsigned char row;
+    unsigned char col;
+} Match;
+
+extern unsigned int D_800F13F0;
+extern void func_80074794(Match *self, int row, int col, int value);
+
+void func_80079458(Match *self, unsigned char row, unsigned char col)
+{
+    int cur;
+
+    if (self->mode == 5 && self->phase < 2 && row == self->row) {
+        cur = self->col;
+        if (cur == col) {
+            func_80074794(self, row, cur, self->table[row][cur]);
+            self->col++;
+            D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+            self->row = D_800F13F0 >> 30;
+        }
+    }
+}

@@ -1,49 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008F0BC\n.ent func_8008F0BC\n"
-    "func_8008F0BC:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "sw $31,16($29)\n"
-    "lbu $3,1047($2)\n"
-    "beqz $3,L_8008F0E8\n"
-    "li $2,5\n"
-    "beq $3,$2,L_8008F0E8\n"
-    "li $2,1\n"
-    "bne $3,$2,L_8008F154\n"
-    "nop\n"
-    "L_8008F0E8:\n"
-    "lui $2,0x8010\n"
-    "lw $5,-15760($2)\n"
-    "lw $3,2560($5)\n"
-    "slti $2,$3,6\n"
-    "beqz $2,L_8008F154\n"
-    "nop\n"
-    "bltz $3,L_8008F154\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,1047($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8008F134\n"
-    "nop\n"
-    "lw $2,2564($5)\n"
-    "beqz $2,L_8008F154\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80076DD8\n"
-    "li $5,209\n"
-    "L_8008F134:\n"
-    "lw $2,2564($5)\n"
-    "beqz $2,L_8008F154\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,220\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8008F154:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8008F0BC\n.set at\n.set reorder\n");
+typedef struct EventState {
+    char pad0[2560];
+    int phase;
+    int soundEnabled;
+} EventState;
+
+extern EventState *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *bank, int id, int a, int b);
+
+void func_8008F0BC(unsigned char *object)
+{
+    unsigned char mode = object[0x8000 + 1047];
+    EventState *state;
+    int phase;
+
+    if (mode == 0 || mode == 5 || mode == 1) {
+        state = D_800FC270;
+        phase = state->phase;
+        if (phase < 6) {
+            if (phase >= 0) {
+                if (object[0x8000 + 1047] == 5) {
+                    if (state->soundEnabled) {
+                        func_800C0110(D_800F3BC0, 209, 0, 0);
+                    }
+                } else if (state->soundEnabled) {
+                    func_800C0110(D_800F3BC0, 220, 0, 0);
+                }
+            }
+        }
+    }
+}

@@ -1,84 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C9EF8\n.ent func_800C9EF8\n"
-    "func_800C9EF8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $3,585($17)\n"
-    "andi $2,$18,0xff\n"
-    "sltu $2,$3,$2\n"
-    "bnel $2,$0,L_800C9F28\n"
-    "move $18,$3\n"
-    "L_800C9F28:\n"
-    "lbu $2,584($17)\n"
-    "andi $5,$18,0xff\n"
-    "beq $2,$5,L_800CA000\n"
-    "nop\n"
-    "beqz $5,L_800C9F6C\n"
-    "move $4,$0\n"
-    "andi $2,$4,0xff\n"
-    "L_800C9F44:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $3,204($2)\n"
-    "lw $2,576($17)\n"
-    "addiu $4,$4,1\n"
-    "sw $2,196($3)\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$5\n"
-    "bnez $2,L_800C9F44\n"
-    "andi $2,$4,0xff\n"
-    "L_800C9F6C:\n"
-    "lbu $3,585($17)\n"
-    "andi $2,$18,0xff\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800C9FB0\n"
-    "move $4,$18\n"
-    "andi $2,$4,0xff\n"
-    "L_800C9F84:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $3,204($2)\n"
-    "lw $2,580($17)\n"
-    "addiu $4,$4,1\n"
-    "sw $2,196($3)\n"
-    "lbu $3,585($17)\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800C9F84\n"
-    "andi $2,$4,0xff\n"
-    "L_800C9FB0:\n"
-    "lbu $2,584($17)\n"
-    "andi $3,$18,0xff\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800C9FFC\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,204\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "L_800C9FFC:\n"
-    "sb $18,584($17)\n"
-    "L_800CA000:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C9EF8\n.set at\n.set reorder\n");
+struct Sound {
+    char pad[104];
+    int volume;
+};
+
+struct Pip {
+    char pad[196];
+    int color;
+};
+
+struct Meter {
+    char pad[204];
+    struct Pip *pips[93];
+    int onColor;
+    int offColor;
+    unsigned char level;
+    unsigned char maxLevel;
+};
+
+extern struct Sound D_800F1AE0;
+extern int func_8001D4B8(struct Sound *, int, int, int);
+extern void func_8001D640(struct Sound *, int, int);
+
+void func_800C9EF8(struct Meter *self, unsigned char level)
+{
+    unsigned char i;
+
+    if (level > self->maxLevel) {
+        level = self->maxLevel;
+    }
+    if (self->level == level) {
+        return;
+    }
+    for (i = 0; i < level; i++) {
+        self->pips[i]->color = self->onColor;
+    }
+    for (i = level; i < self->maxLevel; i++) {
+        self->pips[i]->color = self->offColor;
+    }
+    if (self->level < level) {
+        int handle = func_8001D4B8(&D_800F1AE0, 204, 0, 1);
+
+        func_8001D640(&D_800F1AE0, handle, (int)((long long)D_800F1AE0.volume * 32767) >> 15);
+    }
+    self->level = level;
+}

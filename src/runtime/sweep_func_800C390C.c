@@ -1,72 +1,69 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C390C\n.ent func_800C390C\n"
-    "func_800C390C:\n"
-    "addiu $29,$29,-24\n"
-    "move $7,$4\n"
-    "sw $31,16($29)\n"
-    "lw $3,220($7)\n"
-    "lhu $4,6($3)\n"
-    "addiu $2,$4,-15\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800C39DC\n"
-    "li $2,3\n"
-    "lw $3,28($3)\n"
-    "lw $2,12($3)\n"
-    "beqz $2,L_800C39D8\n"
-    "li $2,16\n"
-    "bne $4,$2,L_800C395C\n"
-    "move $4,$7\n"
-    "sw $0,12($3)\n"
-    "jal func_800C3764\n"
-    "sw $0,4($3)\n"
-    "j L_800C39EC\n"
-    "li $2,1\n"
-    "L_800C395C:\n"
-    "lw $2,4($3)\n"
-    "blez $2,L_800C3970\n"
-    "addiu $2,$2,-1\n"
-    "j L_800C3974\n"
-    "sw $2,4($3)\n"
-    "L_800C3970:\n"
-    "sw $0,12($3)\n"
-    "L_800C3974:\n"
-    "lw $2,220($7)\n"
-    "lw $3,28($2)\n"
-    "lw $2,12($3)\n"
-    "beqz $2,L_800C39C0\n"
-    "nop\n"
-    "lw $3,4($3)\n"
-    "sll $2,$3,0x4\n"
-    "addu $2,$2,$3\n"
-    "lw $3,712($7)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,160($3)\n"
-    "lw $4,712($7)\n"
-    "lw $2,192($4)\n"
-    "li $3,-5\n"
-    "and $2,$2,$3\n"
-    "sw $2,192($4)\n"
-    "j L_800C39D0\n"
-    "sw $0,780($7)\n"
-    "L_800C39C0:\n"
-    "lw $3,712($7)\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "L_800C39D0:\n"
-    "j L_800C39EC\n"
-    "li $2,1\n"
-    "L_800C39D8:\n"
-    "li $2,3\n"
-    "L_800C39DC:\n"
-    "bne $4,$2,L_800C39EC\n"
-    "move $2,$0\n"
-    "jal func_800C69F4\n"
-    "move $4,$7\n"
-    "L_800C39EC:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800C390C\n.set at\n.set reorder\n");
+struct Blink {
+    int pad0;
+    int count;
+    int pad8;
+    int active;
+};
+
+struct Message {
+    char pad[6];
+    unsigned short code;
+    char pad2[20];
+    struct Blink *blink;
+};
+
+struct Sprite {
+    char pad[160];
+    float alpha;
+    char pad2[28];
+    int flags;
+};
+
+struct Widget {
+    char pad[220];
+    struct Message *msg;
+    char pad2[712 - 224];
+    struct Sprite *sprite;
+    char pad3[780 - 716];
+    int timer;
+};
+
+extern void func_800C3764(struct Widget *);
+extern int func_800C69F4(struct Widget *, int, int);
+
+int func_800C390C(struct Widget *self, int arg1, int arg2)
+{
+    struct Message *msg = self->msg;
+    int code = msg->code;
+
+    if (code == 15 || code == 16) {
+        struct Blink *blink = msg->blink;
+
+        if (blink->active) {
+            if (code == 16) {
+                blink->active = 0;
+                blink->count = 0;
+                func_800C3764(self);
+            } else {
+                if (blink->count > 0) {
+                    blink->count--;
+                } else {
+                    blink->active = 0;
+                }
+                blink = self->msg->blink;
+                if (blink->active) {
+                    self->sprite->alpha = blink->count * 17;
+                    self->sprite->flags &= ~4;
+                    self->timer = 0;
+                } else {
+                    self->sprite->flags |= 4;
+                }
+            }
+            return 1;
+        }
+    }
+    if (code == 3) {
+        return func_800C69F4(self, arg1, arg2);
+    }
+    return 0;
+}

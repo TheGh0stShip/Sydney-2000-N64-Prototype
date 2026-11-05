@@ -1,80 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D570\n.ent func_8009D570\n"
-    "func_8009D570:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "jal func_800CD840\n"
-    "addiu $4,$16,2340\n"
-    "lw $2,200($16)\n"
-    "beqz $2,L_8009D59C\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,200\n"
-    "L_8009D59C:\n"
-    "lw $2,1896($16)\n"
-    "beqz $2,L_8009D5B0\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,1896\n"
-    "L_8009D5B0:\n"
-    "lw $2,412($16)\n"
-    "beqz $2,L_8009D5C4\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,412\n"
-    "L_8009D5C4:\n"
-    "lw $2,624($16)\n"
-    "beqz $2,L_8009D5D8\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,624\n"
-    "L_8009D5D8:\n"
-    "lw $2,2108($16)\n"
-    "beqz $2,L_8009D5EC\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,2108\n"
-    "L_8009D5EC:\n"
-    "lw $2,836($16)\n"
-    "beqz $2,L_8009D600\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,836\n"
-    "L_8009D600:\n"
-    "lw $2,1048($16)\n"
-    "beqz $2,L_8009D614\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,1048\n"
-    "L_8009D614:\n"
-    "lw $2,1260($16)\n"
-    "beqz $2,L_8009D628\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,1260\n"
-    "L_8009D628:\n"
-    "lw $2,1472($16)\n"
-    "beql $2,$0,L_8009D640\n"
-    "addiu $16,$16,19088\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,1472\n"
-    "addiu $16,$16,19088\n"
-    "L_8009D640:\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "sb $0,176($16)\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8009D570\n.set at\n.set reorder\n");
+/* Tear down a screen: release all loaded resources, run the layer's
+ * virtual cleanup, then reset its state. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self);
+} VEntry;
+
+typedef struct Layer {
+    char pad0[176];
+    unsigned char active;
+    char pad1[3];
+    VEntry *vtbl;
+} Layer;
+
+extern void func_800CD840(void *p);
+extern void func_8001A248(void *res);
+extern void func_800ADC1C(Layer *layer);
+extern void func_800D29E0(Layer *layer);
+
+#define RES(off) (*(int *)(screen + (off)))
+#define FREE_RES(off) if (RES(off) != 0) func_8001A248(screen + (off))
+
+void func_8009D570(char *screen)
+{
+    Layer *layer;
+
+    func_800CD840(screen + 2340);
+    FREE_RES(200);
+    FREE_RES(1896);
+    FREE_RES(412);
+    FREE_RES(624);
+    FREE_RES(2108);
+    FREE_RES(836);
+    FREE_RES(1048);
+    FREE_RES(1260);
+    FREE_RES(1472);
+    layer = (Layer *)(screen + 19088);
+    layer->vtbl[3].fn((char *)layer + layer->vtbl[3].delta);
+    layer->active = 0;
+    func_800ADC1C(layer);
+    func_800D29E0(layer);
+}

@@ -1,35 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EBE9C\n.ent func_800EBE9C\n"
-    "func_800EBE9C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lbu $2,1040($16)\n"
-    "lbu $3,1041($16)\n"
-    "sltu $2,$2,$3\n"
-    ".word 0x1040001A\n"
-    "nop\n"
-    "lbu $3,1040($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $5,928($2)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lbu $3,1040($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $5,932($2)\n"
-    "jal func_800B9A68\n"
-    "move $4,$16\n"
-    "lbu $3,1040($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    ".end func_800EBE9C\n.set at\n.set reorder\n");
+extern void func_800B9E9C(void *object, int animation, int mode, float scale,
+                          int extra);
+extern void func_800B9A68(void *object, int animation);
+
+void func_800EBE9C(unsigned char *object)
+{
+    unsigned int offset;
+    unsigned char *entry;
+
+    if (object[1040] < object[1041]) {
+        offset = object[1040] * 12;
+        entry = object + offset;
+        func_800B9E9C(object, *(int *)(entry + 928), -1,
+                      *(float *)(object + 632), 0);
+        offset = object[1040] * 12;
+        entry = object + offset;
+        func_800B9A68(object, *(int *)(entry + 932));
+        offset = object[1040] * 12;
+        entry = object + offset;
+        object[1089] = entry[939];
+    }
+}

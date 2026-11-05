@@ -1,183 +1,134 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C5C04\n.ent func_800C5C04\n"
-    "func_800C5C04:\n"
-    "addiu $29,$29,-168\n"
-    "sw $17,156($29)\n"
-    "move $17,$4\n"
-    "sw $31,160($29)\n"
-    "sw $16,152($29)\n"
-    "lw $2,18008($17)\n"
-    "bgtz $2,L_800C5EA8\n"
-    "nop\n"
-    "lbu $2,18106($17)\n"
-    "beqz $2,L_800C5EA8\n"
-    "lui $6,0x7fff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "srl $2,$3,0x13\n"
-    "mtc1 $2,$f2\n"
-    "cvt.d.w $f2,$f2\n"
-    "bgez $2,L_800C5C80\n"
-    "sw $3,10004($5)\n"
-    "lui $1,0x8007\n"
-    "ldc1 $f0,2320($1)\n"
-    "add.d $f2,$f2,$f0\n"
-    "L_800C5C80:\n"
-    "cvt.s.d $f0,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2328($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2332($1)\n"
-    "mul.s $f0,$f0,$f6\n"
-    "addiu $16,$29,24\n"
-    "move $4,$16\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2336($1)\n"
-    "mfc1 $5,$f0\n"
-    "li $6,3\n"
-    "sw $0,108($29)\n"
-    "sw $0,112($29)\n"
-    "swc1 $f4,104($29)\n"
-    "sw $0,36($16)\n"
-    "sw $0,32($16)\n"
-    "sw $0,24($16)\n"
-    "sw $0,16($16)\n"
-    "sw $0,8($16)\n"
-    "sw $0,4($16)\n"
-    "sw $0,72($16)\n"
-    "sw $0,68($16)\n"
-    "sw $0,64($16)\n"
-    "swc1 $f4,40($16)\n"
-    "swc1 $f4,20($16)\n"
-    "jal func_800AD388\n"
-    "swc1 $f4,24($29)\n"
-    "move $4,$16\n"
-    "addiu $5,$29,104\n"
-    "addiu $6,$29,120\n"
-    "jal func_800AD2A8\n"
-    "move $7,$0\n"
-    "lwc1 $f2,18020($17)\n"
-    "lwc1 $f0,124($29)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "lwc1 $f0,18020($17)\n"
-    "move $4,$16\n"
-    "swc1 $f2,18160($17)\n"
-    "lwc1 $f2,120($29)\n"
-    "li $5,135\n"
-    "mul.s $f0,$f0,$f2\n"
-    "move $6,$0\n"
-    "lw $2,18012($17)\n"
-    "li $7,1\n"
-    "sw $2,18008($17)\n"
-    "jal func_8001D4B8\n"
-    "swc1 $f0,18156($17)\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "addiu $16,$17,17784\n"
-    "move $4,$16\n"
-    "li $2,256\n"
-    "jal func_800ADC38\n"
-    "sw $2,18016($17)\n"
-    "lui $2,0x8007\n"
-    "lwc1 $f10,9184($2)\n"
-    "lwc1 $f4,17236($17)\n"
-    "sub.s $f4,$f10,$f4\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2340($1)\n"
-    "addiu $2,$2,9184\n"
-    "swc1 $f4,120($29)\n"
-    "neg.s $f4,$f4\n"
-    "mul.s $f16,$f4,$f6\n"
-    "addiu $3,$17,17236\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,4($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "neg.s $f12,$f0\n"
-    "mul.s $f14,$f12,$f6\n"
-    "swc1 $f0,124($29)\n"
-    "lwc1 $f2,8($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "neg.s $f8,$f2\n"
-    "mul.s $f6,$f8,$f6\n"
-    "swc1 $f4,120($29)\n"
-    "swc1 $f12,124($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2344($1)\n"
-    "add.s $f10,$f10,$f16\n"
-    "swc1 $f16,104($29)\n"
-    "swc1 $f2,128($29)\n"
-    "add.s $f0,$f14,$f0\n"
-    "swc1 $f8,128($29)\n"
-    "swc1 $f14,108($29)\n"
-    "swc1 $f0,108($29)\n"
-    "swc1 $f6,112($29)\n"
-    "swc1 $f10,17868($17)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,108($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $3,$17,17868\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,112($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "move $4,$16\n"
-    "jal func_800AD9E8\n"
-    "swc1 $f0,8($3)\n"
-    "addiu $2,$17,17172\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,136($29)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $4,$17,17364\n"
-    "swc1 $f0,140($29)\n"
-    "lwc1 $f0,72($2)\n"
-    "addiu $5,$29,136\n"
-    "jal func_80071C4C\n"
-    "swc1 $f0,144($29)\n"
-    "andi $2,$2,0xff\n"
-    "beqz $2,L_800C5E70\n"
-    "li $2,1\n"
-    "sb $2,18104($17)\n"
-    "L_800C5E70:\n"
-    "lbu $2,18106($17)\n"
-    "addiu $2,$2,-1\n"
-    "sb $2,18106($17)\n"
-    "andi $2,$2,0xff\n"
-    "bnez $2,L_800C5E90\n"
-    "move $4,$17\n"
-    "li $2,3\n"
-    "sw $2,18000($17)\n"
-    "L_800C5E90:\n"
-    "li $5,35\n"
-    "lbu $6,18106($4)\n"
-    "move $7,$0\n"
-    "sw $0,16($29)\n"
-    "jal func_80083624\n"
-    "sw $0,20($29)\n"
-    "L_800C5EA8:\n"
-    "lw $31,160($29)\n"
-    "lw $17,156($29)\n"
-    "lw $16,152($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,168\n"
-    ".end func_800C5C04\n.set at\n.set reorder\n");
+extern unsigned int D_800F2714;
+extern unsigned char D_800F1AE0[];
+extern float D_800723E0[3];
+extern void func_800AD388(void *matrix, float angle, int axis);
+extern void func_800AD2A8(void *matrix, void *in, void *out, int flags);
+extern int func_8001D4B8(void *bank, int sound, int a, int b);
+extern void func_8001D640(void *bank, int voice, int volume);
+extern void func_800ADC38(void *object);
+extern void func_800AD9E8(void *object);
+extern int func_80071C4C(void *group, void *point);
+extern void func_80083624(void *self, int message, int arg, int a, int b, int c);
+
+#define UINT_FIX (*(const double *)0x80070910)
+#define RAND_SCALE (*(const float *)0x80070918)
+#define ANGLE_SCALE (*(const float *)0x8007091C)
+#define ONE (*(const float *)0x80070920)
+#define PULL_SCALE (*(const float *)0x80070924)
+#define PULL_LIFT (*(const float *)0x80070928)
+
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+typedef struct {
+    float m[4][4];
+    Vec3 t;
+} Matrix;
+
+static inline int scale_volume(int volume, int level)
+{
+    return (volume * level) >> 15;
+}
+
+static inline void mat_identity(Matrix *m, float one)
+{
+    m->m[2][1] = 0.0f;
+    m->m[2][0] = 0.0f;
+    m->m[1][2] = 0.0f;
+    m->m[1][0] = 0.0f;
+    m->m[0][2] = 0.0f;
+    m->m[0][1] = 0.0f;
+    m->t.z = 0.0f;
+    m->t.y = 0.0f;
+    m->t.x = 0.0f;
+    m->m[2][2] = one;
+    m->m[1][1] = one;
+    m->m[0][0] = one;
+}
+
+typedef struct {
+    char pad[64];
+    Vec3 pos;
+} Body;
+
+static inline void copy_body_pos(Vec3 *out, Body *body)
+{
+    out->x = body->pos.x;
+    out->y = body->pos.y;
+    out->z = body->pos.z;
+}
+
+void func_800C5C04(unsigned char *p)
+{
+    Matrix rot;
+    Vec3 dir;
+    Vec3 out;
+    Vec3 point;
+    unsigned int seed;
+    int bits;
+    double d;
+    float one;
+    float k;
+    float tx;
+    int voice;
+    Vec3 *pos;
+    Vec3 *dst;
+    Vec3 *target;
+    Matrix *m;
+    float angle;
+
+    if (*(int *)(p + 18008) > 0 || p[18106] == 0) {
+        return;
+    }
+    seed = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    bits = seed >> 19;
+    d = bits;
+    D_800F2714 = seed;
+    if (bits < 0) {
+        d += UINT_FIX;
+    }
+    angle = (float)d * RAND_SCALE * ANGLE_SCALE;
+    one = ONE;
+    dir.x = one;
+    dir.y = 0.0f;
+    dir.z = 0.0f;
+    m = &rot;
+    mat_identity(m, one);
+    func_800AD388(m, angle, 3);
+    func_800AD2A8(m, &dir, &out, 0);
+    *(float *)(p + 18160) = *(float *)(p + 18020) * out.y;
+    *(float *)(p + 18156) = *(float *)(p + 18020) * out.x;
+    *(int *)(p + 18008) = *(int *)(p + 18012);
+    voice = func_8001D4B8(D_800F1AE0, 135, 0, 1);
+    func_8001D640(D_800F1AE0, voice, scale_volume(*(int *)(D_800F1AE0 + 104), 32767));
+    *(int *)(p + 18016) = 256;
+    func_800ADC38(p + 17784);
+    target = (Vec3 *)D_800723E0;
+    pos = &((Body *)(p + 17172))->pos;
+    k = PULL_SCALE;
+    tx = target->x;
+    out.x = tx - pos->x;
+    out.y = target->y - pos->y;
+    out.z = target->z - pos->z;
+    out.x = -out.x;
+    out.y = -out.y;
+    out.z = -out.z;
+    dir.x = out.x * k;
+    dir.y = out.y * k;
+    dir.z = out.z * k;
+    dir.y += PULL_LIFT;
+    dst = (Vec3 *)(p + 17868);
+    dst->x = tx + dir.x;
+    dst->y = target->y + dir.y;
+    dst->z = target->z + dir.z;
+    func_800AD9E8(p + 17784);
+    copy_body_pos(&point, (Body *)(p + 17172));
+    if ((unsigned char)func_80071C4C(p + 17364, &point)) {
+        p[18104] = 1;
+    }
+    if (--p[18106] == 0) {
+        *(int *)(p + 18000) = 3;
+    }
+    func_80083624(p, 35, p[18106], 0, 0, 0);
+}

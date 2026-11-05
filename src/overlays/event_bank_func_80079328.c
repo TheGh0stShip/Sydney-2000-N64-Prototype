@@ -1,46 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80079328\n.ent func_80079328\n"
-    "func_80079328:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lbu $3,1556($16)\n"
-    "li $2,2\n"
-    "beq $3,$2,L_80079398\n"
-    "li $2,5\n"
-    "beq $3,$2,L_80079398\n"
-    "addiu $4,$16,1584\n"
-    "lw $2,736($4)\n"
-    "beql $2,$0,L_80079368\n"
-    "addiu $4,$16,28608\n"
-    "jal func_800831A8\n"
-    "nop\n"
-    "addiu $4,$16,28608\n"
-    "L_80079368:\n"
-    "lw $2,736($4)\n"
-    "beqz $2,L_80079380\n"
-    "move $3,$0\n"
-    "lbu $2,426($4)\n"
-    "xori $2,$2,0x4\n"
-    "sltu $3,$3,$2\n"
-    "L_80079380:\n"
-    ".word 0x10600016\n"
-    "nop\n"
-    "jal func_800831A8\n"
-    "nop\n"
-    "j func_8007607C\n"
-    "nop\n"
-    "L_80079398:\n"
-    "addiu $4,$16,1584\n"
-    "lw $2,736($4)\n"
-    "beql $2,$0,L_800793B4\n"
-    "addiu $4,$16,28608\n"
-    "jal func_8008382C\n"
-    "nop\n"
-    "addiu $4,$16,28608\n"
-    "L_800793B4:\n"
-    "lw $2,736($4)\n"
-    ".word 0x10400004\n"
-    ".end func_80079328\n.set at\n.set reorder\n");
+typedef struct Player {
+    char pad0[426];
+    unsigned char state;
+    char pad1AB[736 - 427];
+    int active;
+} Player;
+
+extern void func_800831A8(Player *p);
+extern void func_8008382C(Player *p);
+
+void func_80079328(char *self)
+{
+    unsigned char mode = self[1556];
+    Player *p;
+    int ok;
+
+    if (mode != 2 && mode != 5) {
+        p = (Player *)(self + 1584);
+        if (p->active) {
+            func_800831A8(p);
+        }
+        p = (Player *)(self + 28608);
+        ok = 0;
+        if (p->active) {
+            ok = p->state != 4;
+        }
+        if (ok) {
+            func_800831A8(p);
+        }
+    } else {
+        p = (Player *)(self + 1584);
+        if (p->active) {
+            func_8008382C(p);
+        }
+        p = (Player *)(self + 28608);
+        ok = 0;
+        if (p->active) {
+            ok = p->state != 4;
+        }
+        if (ok) {
+            func_8008382C(p);
+        }
+    }
+}

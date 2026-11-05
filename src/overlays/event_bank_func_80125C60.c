@@ -1,64 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80125C60\n.ent func_80125C60\n"
-    "func_80125C60:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $20,32($29)\n"
-    "lui $20,0x800f\n"
-    "sw $31,36($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "andi $17,$18,0xff\n"
-    "sltiu $2,$17,3\n"
-    "beqz $2,L_80125D00\n"
-    "sll $17,$17,0x2\n"
-    "addu $16,$19,$17\n"
-    "lw $2,26984($16)\n"
-    "lw $4,612($2)\n"
-    "jal func_8001786C\n"
-    "addiu $18,$18,1\n"
-    "lw $4,26984($16)\n"
-    "jal func_8007BF18\n"
-    "addiu $17,$17,26984\n"
-    "lw $3,26984($16)\n"
-    "lw $2,180($3)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,26984($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "addiu $4,$20,10072\n"
-    "jal func_800AA658\n"
-    "addu $5,$19,$17\n"
-    "j func_8008238C\n"
-    "andi $17,$18,0xff\n"
-    "L_80125D00:\n"
-    "lbu $3,426($19)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_80125D18\n"
-    "nop\n"
-    "jal func_80083520\n"
-    "move $4,$19\n"
-    "L_80125D18:\n"
-    "jal func_8009D570\n"
-    "addiu $4,$19,2076\n"
-    "sw $0,736($19)\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80125C60\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Racer {
+    char pad000[0xB4];
+    VEntry *vtable;
+    char pad0B8[0x264 - 0xB8];
+    int sound;
+} Racer;
+
+typedef struct Race {
+    char pad0000[0x1AA];
+    unsigned char mode;
+    char pad01AB[0x2E0 - 0x1AB];
+    int active;
+    char pad02E4[0x81C - 0x2E4];
+    char hud[0x6968 - 0x81C];
+    Racer *racers[3];
+} Race;
+
+extern char D_800F2758[];
+
+extern void func_8001786C(int sound);
+extern void func_8007BF18(Racer *racer);
+extern void func_800AA658(void *pool, void *slot);
+extern void func_80083520(Race *race);
+extern void func_8009D570(void *hud);
+
+void func_80125C60(Race *race) {
+    unsigned char i;
+
+    i = 0;
+    for (;;) {
+        Racer *r;
+        VEntry *vt;
+
+        if (i >= 3) {
+            break;
+        }
+        func_8001786C(race->racers[i]->sound);
+        func_8007BF18(race->racers[i]);
+        r = race->racers[i];
+        vt = r->vtable;
+        vt[1].fn((char *)r + vt[1].delta, 2);
+        r = race->racers[i];
+        vt = r->vtable;
+        ((void (*)(void *))vt[3].fn)((char *)r + vt[3].delta);
+        func_800AA658(D_800F2758, &race->racers[i]);
+        i++;
+    }
+    if (race->mode != 4) {
+        func_80083520(race);
+    }
+    func_8009D570(race->hud);
+    race->active = 0;
+}

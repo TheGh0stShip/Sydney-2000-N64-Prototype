@@ -1,82 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C9230\n.ent func_800C9230\n"
-    "func_800C9230:\n"
-    "addiu $29,$29,-64\n"
-    "sdc1 $f20,56($29)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f20,-29484($1)\n"
-    "sw $18,40($29)\n"
-    "move $18,$4\n"
-    "sw $17,36($29)\n"
-    "move $17,$0\n"
-    "sw $19,44($29)\n"
-    "addiu $19,$29,16\n"
-    "sw $31,48($29)\n"
-    "sw $16,32($29)\n"
-    "L_800C9260:\n"
-    "andi $16,$17,0xff\n"
-    "sltiu $2,$16,2\n"
-    "beqz $2,L_800C9334\n"
-    "sll $2,$16,0x1\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$18,$2\n"
-    "lw $2,384($3)\n"
-    "beqz $2,L_800C932C\n"
-    "move $5,$0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29480($1)\n"
-    "sw $0,24($29)\n"
-    "swc1 $f20,16($29)\n"
-    "swc1 $f0,20($29)\n"
-    "lw $4,384($3)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,24\n"
-    "move $4,$0\n"
-    "sll $2,$16,0x2\n"
-    "addu $6,$19,$2\n"
-    "lw $5,24($29)\n"
-    "L_800C92C8:\n"
-    "andi $2,$4,0xff\n"
-    "sll $3,$2,0x3\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$5\n"
-    "lwc1 $f2,28($3)\n"
-    "lwc1 $f0,0($6)\n"
-    "addiu $4,$4,1\n"
-    "add.s $f2,$f2,$f0\n"
-    "andi $2,$4,0xff\n"
-    "sltiu $2,$2,4\n"
-    "bnez $2,L_800C92C8\n"
-    "swc1 $f2,28($3)\n"
-    "andi $3,$17,0xff\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$18,$2\n"
-    "lw $4,384($2)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "L_800C932C:\n"
-    "j L_800C9260\n"
-    "addiu $17,$17,1\n"
-    "L_800C9334:\n"
-    "lw $31,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f20,56($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800C9230\n.set at\n.set reorder\n");
+struct Vertex {
+    char pad[28];
+    float y;
+    char pad2[4];
+};
+
+struct Part {
+    void *model;
+    char pad[208];
+};
+
+struct Lift {
+    char pad[384];
+    struct Part parts[2];
+};
+
+extern void func_80017C4C(void *model, int index, struct Vertex **verts);
+extern void func_80017C3C(void *model);
+
+void func_800C9230(struct Lift *self)
+{
+    unsigned char i;
+
+    for (i = 0;; i++) {
+        unsigned char j;
+
+        if (i >= 2) {
+            break;
+        }
+        if (self->parts[i].model != 0) {
+            struct Vertex *verts = 0;
+            float offsets[2] = { 0.001f, -0.001f };
+
+            func_80017C4C(self->parts[i].model, 0, &verts);
+            for (j = 0; j < 4; j++) {
+                verts[j].y += offsets[i];
+            }
+            func_80017C3C(self->parts[i].model);
+        }
+    }
+}

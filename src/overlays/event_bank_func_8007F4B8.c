@@ -1,103 +1,100 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8007F4B8\n.ent func_8007F4B8\n"
-    "func_8007F4B8:\n"
-    "addiu $29,$29,-176\n"
-    "sw $17,156($29)\n"
-    "move $17,$4\n"
-    "sw $16,152($29)\n"
-    "addiu $16,$17,21396\n"
-    "sw $31,172($29)\n"
-    "sw $20,168($29)\n"
-    "sw $19,164($29)\n"
-    "sw $18,160($29)\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800CFFC4\n"
-    "sb $0,176($4)\n"
-    "jal func_800CCB0C\n"
-    "addiu $4,$17,31156\n"
-    "addiu $16,$17,13200\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $0,176($16)\n"
-    "addiu $16,$17,11564\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $0,176($16)\n"
-    "addiu $16,$17,11800\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $0,176($16)\n"
-    "addiu $16,$17,696\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "li $2,0x87ec\n"
-    "addu $4,$17,$2\n"
-    "sb $0,176($16)\n"
-    "lw $2,4($4)\n"
-    "beql $2,$0,L_8007F59C\n"
-    "move $4,$17\n"
-    "jal func_800AC334\n"
-    "nop\n"
-    "move $4,$17\n"
-    "L_8007F59C:\n"
-    "jal func_800751CC\n"
-    "move $5,$0\n"
-    "jal func_800AC308\n"
-    "move $4,$17\n"
-    "lui $4,0x8010\n"
-    "li $2,0x8000\n"
-    "addu $5,$17,$2\n"
-    "lw $3,-15760($4)\n"
-    "lbu $2,3224($5)\n"
-    "lbu $3,2572($3)\n"
-    "addiu $2,$2,1\n"
-    "slt $2,$2,$3\n"
-    ".word 0x1040001F\n"
-    "move $16,$5\n"
-    "li $19,8\n"
-    "li $18,1\n"
-    "lbu $3,3224($16)\n"
-    "lw $4,-15760($4)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lb $3,2576($2)\n"
-    "beq $3,$19,L_8007F618\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $2,32($2)\n"
-    "beq $2,$18,L_8007F620\n"
-    "nop\n"
-    "L_8007F618:\n"
-    "jal func_800764C4\n"
-    "move $4,$17\n"
-    "L_8007F620:\n"
-    "lbu $2,3224($16)\n"
-    "lui $4,0x8010\n"
-    "addiu $2,$2,1\n"
-    "sb $2,3224($16)\n"
-    "lw $3,-15760($4)\n"
-    ".end func_8007F4B8\n.set at\n.set reorder\n");
+typedef struct VTSlot {
+    short offset;
+    short pad;
+    void (*fn)(void *self);
+} VTSlot;
+
+typedef struct Actor {
+    unsigned char pad[176];
+    unsigned char active;
+    unsigned char pad2[3];
+    VTSlot *vt;
+} Actor;
+
+extern unsigned char *D_800FC270;
+extern void func_800CFFC4(void *actor);
+extern void func_800CCB0C(void *sound);
+extern void func_800D29E0(void *actor);
+extern void func_800AC334(void *state);
+extern void func_800751CC(unsigned char *object, int arg);
+extern void func_800AC308(unsigned char *object);
+extern void func_8007F754(unsigned char *object);
+extern void func_800DA804(int a, int b, void *buf, int c, int d);
+
+
+#define ROUND_INDEX ((object + 0x8000)[3224])
+#define STAGE_INDEX ((object + 0x8000)[3225])
+#define STAGE_COUNT ((object + 0x8000)[3226])
+
+void func_8007F4B8(unsigned char *object)
+{
+    unsigned char buf[128];
+    Actor *actor;
+    unsigned char *state;
+
+    actor = (Actor *)(object + 21396);
+    actor->vt[3].fn((unsigned char *)actor + actor->vt[3].offset);
+    actor->active = 0;
+    func_800CFFC4(actor);
+    func_800CCB0C(object + 31156);
+
+    actor = (Actor *)(object + 13200);
+    func_800D29E0(actor);
+    actor->vt[3].fn((unsigned char *)actor + actor->vt[3].offset);
+    actor->active = 0;
+
+    actor = (Actor *)(object + 11564);
+    actor->vt[3].fn((unsigned char *)actor + actor->vt[3].offset);
+    actor->active = 0;
+
+    actor = (Actor *)(object + 11800);
+    actor->vt[3].fn((unsigned char *)actor + actor->vt[3].offset);
+    actor->active = 0;
+
+    actor = (Actor *)(object + 696);
+    actor->vt[3].fn((unsigned char *)actor + actor->vt[3].offset);
+    actor->active = 0;
+
+    state = object + 0x87EC;
+    if (*(int *)(state + 4) != 0) {
+        func_800AC334(state);
+    }
+    func_800751CC(object, 0);
+    func_800AC308(object);
+
+    while (ROUND_INDEX + 1 < D_800FC270[2572]) {
+        unsigned char *base = D_800FC270;
+        unsigned char *slot = base + ROUND_INDEX * 12;
+        signed char kind = slot[2576];
+
+        if (kind == 8) {
+            func_8007F754(object);
+        } else {
+            unsigned char *team = base + kind * 60;
+            if (team[32] != 1) {
+                func_8007F754(object);
+            }
+        }
+        ROUND_INDEX++;
+    }
+    while (STAGE_INDEX + 1 != STAGE_COUNT) {
+        ROUND_INDEX = 0;
+        STAGE_INDEX++;
+        while (ROUND_INDEX + 1 < D_800FC270[2572]) {
+            unsigned char *base = D_800FC270;
+            unsigned char *slot = base + ROUND_INDEX * 12;
+            signed char kind = slot[2576];
+
+            if (kind == 8) {
+                func_8007F754(object);
+            } else {
+                unsigned char *team = base + kind * 60;
+                if (team[32] != 1) {
+                    func_8007F754(object);
+                }
+            }
+            ROUND_INDEX++;
+        }
+    }
+    func_800DA804(0, 0, buf, 0, 0);
+}

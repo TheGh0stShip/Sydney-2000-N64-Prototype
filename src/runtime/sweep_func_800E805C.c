@@ -1,54 +1,61 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E805C\n.ent func_800E805C\n"
-    "func_800E805C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "sw $31,24($29)\n"
-    "jal func_800AE4FC\n"
-    "move $17,$5\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-16472($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-16468($1)\n"
-    "li $2,5\n"
-    "sw $2,236($16)\n"
-    "sw $2,240($16)\n"
-    "lui $2,0x8010\n"
-    "sw $17,376($16)\n"
-    "swc1 $f0,248($16)\n"
-    "swc1 $f2,244($16)\n"
-    "lwc1 $f0,1348($17)\n"
-    "move $3,$17\n"
-    "sw $0,392($16)\n"
-    "sb $0,396($16)\n"
-    "swc1 $f0,380($16)\n"
-    "swc1 $f0,388($16)\n"
-    "lwc1 $f0,-2960($2)\n"
-    "lwc1 $f2,84($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$2,-2960\n"
-    "addiu $3,$3,84\n"
-    "swc1 $f0,84($16)\n"
-    "lwc1 $f2,4($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "add.s $f2,$f2,$f0\n"
-    "move $4,$16\n"
-    "addiu $5,$4,84\n"
-    "swc1 $f2,4($5)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,8($3)\n"
-    "lui $3,0x8010\n"
-    "add.s $f0,$f0,$f2\n"
-    "li $2,1\n"
-    "sw $2,-2948($3)\n"
-    "jal func_800E7AE0\n"
-    "swc1 $f0,8($5)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E805C\n.set at\n.set reorder\n");
+typedef struct Vec3 {
+    float x;
+    float y;
+    float z;
+} Vec3;
+
+struct Target {
+    char pad[84];
+    Vec3 pos;
+    char pad2[1348 - 96];
+    float radius;
+};
+
+struct Chaser {
+    char pad[84];
+    Vec3 pos;
+    char pad2[236 - 96];
+    int timerA;
+    int timerB;
+    float speed;
+    float accel;
+    char pad3[376 - 252];
+    struct Target *target;
+    float radiusA;
+    char pad4[4];
+    float radiusB;
+    int count;
+    unsigned char done;
+};
+
+extern Vec3 D_800FF470;
+extern int D_800FF47C;
+extern void func_800AE4FC(struct Chaser *);
+extern void func_800E7AE0(struct Chaser *);
+
+static __inline__ void vec3_add(Vec3 *out, Vec3 *a, Vec3 *b)
+{
+    out->x = a->x + b->x;
+    out->y = a->y + b->y;
+    out->z = a->z + b->z;
+}
+
+void func_800E805C(struct Chaser *self, struct Target *target)
+{
+    float radius;
+
+    func_800AE4FC(self);
+    self->timerA = 5;
+    self->timerB = 5;
+    self->target = target;
+    self->accel = 0.8f;
+    self->speed = 0.837757945f;
+    radius = target->radius;
+    self->count = 0;
+    self->done = 0;
+    self->radiusA = radius;
+    self->radiusB = radius;
+    vec3_add(&self->pos, &D_800FF470, &self->target->pos);
+    D_800FF47C = 1;
+    func_800E7AE0(self);
+}

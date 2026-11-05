@@ -1,84 +1,86 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80114D74\n.ent func_80114D74\n"
-    "func_80114D74:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9972\n"
-    "move $5,$19\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800AB934\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "jal func_800A3218\n"
-    "move $4,$16\n"
-    "jal func_800A3240\n"
-    "move $4,$16\n"
-    "jal func_800BAC24\n"
-    "move $18,$0\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$19,5192\n"
-    "andi $3,$18,0xff\n"
-    "sltiu $2,$3,18\n"
-    "beqz $2,L_80114E20\n"
-    "sll $16,$3,0x3\n"
-    "subu $16,$16,$3\n"
-    "sll $16,$16,0x3\n"
-    "subu $16,$16,$3\n"
-    "sll $16,$16,0x2\n"
-    "addu $17,$16,$19\n"
-    "addiu $17,$17,784\n"
-    "lw $2,180($17)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "addiu $16,$16,784\n"
-    "addu $4,$19,$16\n"
-    "jal func_800B35F0\n"
-    "sb $0,176($17)\n"
-    "j func_8007E88C\n"
-    "andi $3,$18,0xff\n"
-    "L_80114E20:\n"
-    "lui $4,0x800f\n"
-    "jal func_800D52A8\n"
-    "addiu $4,$4,19712\n"
-    "jal func_800DB124\n"
-    "li $4,1\n"
-    "lui $4,0x800f\n"
-    "jal func_800BC274\n"
-    "addiu $4,$4,10968\n"
-    "lui $4,0x800f\n"
-    "jal func_800AB240\n"
-    "addiu $4,$4,9952\n"
-    "jal func_800AC308\n"
-    "move $4,$19\n"
-    "jal func_800AC334\n"
-    "addiu $4,$19,216\n"
-    "lw $4,184($19)\n"
-    "jal func_80017B24\n"
-    "nop\n"
-    "jal func_80006A18\n"
-    "addiu $4,$19,5404\n"
-    "jal func_80006A18\n"
-    "addiu $4,$19,5448\n"
-    "jal func_80017A90\n"
-    "lui $4,0x8000\n"
-    "jal func_80014384\n"
-    "nop\n"
-    "jal func_800137FC\n"
-    "nop\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80114D74\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self);
+} VEntry;
+
+typedef struct Slot {
+    char pad00[0xB0];
+    unsigned char visible;
+    char padB1[0xB4 - 0xB1];
+    VEntry *vtable;
+    char padB8[0xDC - 0xB8];
+} Slot;
+
+typedef struct Arena {
+    char pad0000[0xB8];
+    int music;
+    char pad00BC[0xD8 - 0xBC];
+    char camera[0x310 - 0xD8];
+    Slot slots[18];
+    char pad1288[0x1448 - 0x1288];
+    char overlay[0x151C - 0x1448];
+    char lightA[0x1548 - 0x151C];
+    char lightB[1];
+} Arena;
+
+extern char D_800F1AE0[];
+extern char D_800F26E0[];
+extern char D_800F26F4[];
+extern char D_800F2AD8[];
+extern char D_800F4D00[];
+
+extern void func_800AB934(void *list, Arena *arena);
+extern void func_800A3218(void *p);
+extern void func_800A3240(void *p);
+extern void func_800BAC24(void);
+extern void func_800ADC1C(void *p);
+extern void func_800B35F0(Slot *slot);
+extern void func_800D52A8(void *p);
+extern void func_800DB124(int arg);
+extern void func_800BC274(void *p);
+extern void func_800AB240(void *p);
+extern void func_800AC308(void *p);
+extern void func_800AC334(void *p);
+extern void func_80017B24(int music);
+extern void func_80006A18(void *p);
+extern void func_80017A90(unsigned int mask);
+extern void func_80014384(void);
+extern void func_800137FC(void);
+
+void func_80114D74(Arena *arena) {
+    unsigned char i;
+
+    func_800AB934(D_800F26F4, arena);
+    func_800A3218(D_800F1AE0);
+    func_800A3240(D_800F1AE0);
+    func_800BAC24();
+    func_800ADC1C(arena->overlay);
+    i = 0;
+    for (;;) {
+        Slot *slot;
+        unsigned int off;
+
+        if (i >= 18) {
+            break;
+        }
+        off = i * sizeof(Slot);
+        slot = (Slot *)(off + (unsigned int)arena + 0x310);
+        slot->vtable[3].fn((char *)slot + slot->vtable[3].delta);
+        slot->visible = 0;
+        func_800B35F0(&arena->slots[i]);
+        i++;
+    }
+    func_800D52A8(D_800F4D00);
+    func_800DB124(1);
+    func_800BC274(D_800F2AD8);
+    func_800AB240(D_800F26E0);
+    func_800AC308(arena);
+    func_800AC334(arena->camera);
+    func_80017B24(arena->music);
+    func_80006A18(arena->lightA);
+    func_80006A18(arena->lightB);
+    func_80017A90(0x80000000);
+    func_80014384();
+    func_800137FC();
+}

@@ -1,136 +1,94 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3050\n.ent func_800E3050\n"
-    "func_800E3050:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $20,32($29)\n"
-    "move $20,$5\n"
-    "addiu $4,$17,25424\n"
-    "li $5,2\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,5120\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "jal func_800AF064\n"
-    "sw $2,180($17)\n"
-    "addiu $4,$17,23124\n"
-    "jal func_800CC4B4\n"
-    "li $5,2\n"
-    "addiu $4,$17,22904\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,22684\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,22464\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,21972\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,21760\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,21548\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,21336\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,21124\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,20912\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,20700\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,19952\n"
-    "jal func_800CCE84\n"
-    "li $5,2\n"
-    "addiu $4,$17,14520\n"
-    "jal func_8007F1A4\n"
-    "li $5,2\n"
-    "addiu $4,$17,14284\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,12884\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $18,$17,2016\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-23408\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$17,2256\n"
-    "beql $2,$0,L_800E31AC\n"
-    "lui $2,0x8008\n"
-    "addiu $16,$17,12856\n"
-    "beql $2,$16,L_800E31AC\n"
-    "lui $2,0x8008\n"
-    "move $19,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800E3188:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bnel $19,$16,L_800E3188\n"
-    "addiu $16,$16,-212\n"
-    "lui $2,0x8008\n"
-    "L_800E31AC:\n"
-    "addiu $2,$2,26008\n"
-    "sw $2,180($18)\n"
-    "move $4,$18\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,1632\n"
-    "jal func_800D8170\n"
-    "li $5,2\n"
-    "addiu $3,$17,1564\n"
-    "beqz $3,L_800E31EC\n"
-    "addiu $2,$17,1628\n"
-    "beq $3,$2,L_800E31F0\n"
-    "addiu $4,$17,1360\n"
-    "addiu $2,$2,-8\n"
-    "L_800E31E4:\n"
-    "bne $3,$2,L_800E31E4\n"
-    "addiu $2,$2,-8\n"
-    "L_800E31EC:\n"
-    "addiu $4,$17,1360\n"
-    "L_800E31F0:\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$17,1116\n"
-    "jal func_800A9C2C\n"
-    "li $5,2\n"
-    "addiu $4,$17,600\n"
-    "jal func_800BF4D4\n"
-    "li $5,2\n"
-    "addiu $4,$17,224\n"
-    "jal func_800AE4D8\n"
-    "li $5,2\n"
-    "move $4,$17\n"
-    "jal func_800AC3A4\n"
-    "move $5,$20\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E3050\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short offset;
+    short pad;
+    void (*fn)();
+} VEntry;
+
+typedef struct VObject {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} VObject;
+
+extern VEntry D_80071400[];
+extern VEntry D_80086598[];
+extern VEntry D_8008A490[];
+
+extern void func_800AF064(void *p, int flag);
+extern void func_800CC4B4(void *p, int flag);
+extern void func_800ADDA4(void *p, int flag);
+extern void func_800CCE84(void *p, int flag);
+extern void func_8007F1A4(void *p, int flag);
+extern void func_800D3460(void *p, int flag);
+extern void func_800D8170(void *p, int flag);
+extern void func_800AC3A4(void *p, int flag);
+extern void func_800A9C2C(void *p, int flag);
+extern void func_800BF4D4(void *p, int flag);
+extern void func_800AE4D8(void *p, int flag);
+
+static inline void base_dtor(VObject *p, int flag)
+{
+    p->vtbl = D_80086598;
+    func_800ADDA4(p, flag);
+}
+
+static inline void list_dtor(VObject *list, int flag)
+{
+    VObject *arr;
+    VObject *it;
+
+    list->vtbl = D_8008A490;
+    arr = (VObject *)((char *)list + 240);
+    if (arr != 0) {
+        VObject *first;
+        it = arr + 50;
+        if (arr != it) {
+            first = arr;
+            do {
+                it--;
+                it->vtbl[1].fn((char *)it + it->vtbl[1].offset, 2);
+            } while (first != it);
+        }
+    }
+    base_dtor(list, flag);
+}
+
+void func_800E3050(unsigned char *state, int flag)
+{
+    double *slots;
+    double *s;
+
+    ((VObject *)state)->vtbl = D_80071400;
+    func_800AF064(state + 25424, 2);
+    func_800CC4B4(state + 23124, 2);
+    base_dtor((VObject *)(state + 22904), 2);
+    base_dtor((VObject *)(state + 22684), 2);
+    base_dtor((VObject *)(state + 22464), 2);
+    func_800ADDA4(state + 21972, 2);
+    func_800ADDA4(state + 21760, 2);
+    func_800ADDA4(state + 21548, 2);
+    func_800ADDA4(state + 21336, 2);
+    func_800ADDA4(state + 21124, 2);
+    func_800ADDA4(state + 20912, 2);
+    func_800ADDA4(state + 20700, 2);
+    func_800CCE84(state + 19952, 2);
+    func_8007F1A4(state + 14520, 2);
+    base_dtor((VObject *)(state + 14284), 2);
+    func_800D3460(state + 12884, 2);
+
+    list_dtor((VObject *)(state + 2016), 2);
+
+    func_800D8170(state + 1632, 2);
+    slots = (double *)(state + 1564);
+    if (slots != 0) {
+        s = slots + 8;
+        while (slots != s) {
+            s--;
+        }
+    }
+    func_800AC3A4(state + 1360, 2);
+    func_800A9C2C(state + 1116, 2);
+    func_800BF4D4(state + 600, 2);
+    func_800AE4D8(state + 224, 2);
+    func_800AC3A4(state, flag);
+}

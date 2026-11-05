@@ -1,43 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D678\n.ent func_8009D678\n"
-    "func_8009D678:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "lui $2,0x800f\n"
-    "addiu $4,$2,6360\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "sw $5,36($29)\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($4)\n"
-    "addu $2,$2,$3\n"
-    "sh $2,2($4)\n"
-    "lw $3,36($29)\n"
-    "lui $2,0x8010\n"
-    "beqz $6,L_8009D6C4\n"
-    "sw $3,1776($2)\n"
-    "li $2,3840\n"
-    "j L_8009D6C8\n"
-    "sw $2,32($4)\n"
-    "L_8009D6C4:\n"
-    "sw $0,32($4)\n"
-    "L_8009D6C8:\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6360\n"
-    "addiu $4,$17,19088\n"
-    "move $5,$16\n"
-    "move $6,$0\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "subu $2,$2,$3\n"
-    "sh $2,2($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009D678\n.set at\n.set reorder\n");
+/* Draw a layer shifted by the object's vertical offset, with an optional
+ * highlight width and the given colour word. */
+typedef struct View {
+    short x;
+    short y;
+    char pad[28];
+    int width;
+} View;
+
+extern void func_800D33A0(void *layer, View *view, int a, int b);
+extern int D_801006F0;
+extern View D_800F18D8;
+
+void func_8009D678(char *obj, int color, int highlight)
+{
+    int off;
+
+    off = *(short *)(obj + 19076);
+    D_800F18D8.y += off;
+    D_801006F0 = *(volatile int *)&color;
+    if (highlight) {
+        D_800F18D8.width = 3840;
+    } else {
+        D_800F18D8.width = 0;
+    }
+    func_800D33A0(obj + 19088, &D_800F18D8, 0, -1);
+    off = *(short *)(obj + 19076);
+    D_800F18D8.y -= off;
+}

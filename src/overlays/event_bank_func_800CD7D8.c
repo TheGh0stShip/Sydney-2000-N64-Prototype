@@ -1,55 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CD7D8\n.ent func_800CD7D8\n"
-    "func_800CD7D8:\n"
-    "addiu $29,$29,-208\n"
-    "sw $17,196($29)\n"
-    "move $17,$4\n"
-    "sw $16,192($29)\n"
-    "addiu $16,$17,4552\n"
-    "move $4,$16\n"
-    "li $5,23\n"
-    "sw $31,200($29)\n"
-    "jal func_800B97D4\n"
-    "addiu $6,$29,16\n"
-    "move $4,$16\n"
-    "li $5,31\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,84($29)\n"
-    "lwc1 $f4,88($29)\n"
-    "addiu $6,$29,16\n"
-    "swc1 $f0,112($29)\n"
-    "swc1 $f2,116($29)\n"
-    "jal func_800B97D4\n"
-    "swc1 $f4,120($29)\n"
-    "addiu $16,$17,4572\n"
-    "move $4,$16\n"
-    "addiu $5,$29,112\n"
-    "addiu $6,$29,176\n"
-    "lwc1 $f0,80($29)\n"
-    "lwc1 $f2,84($29)\n"
-    "lwc1 $f4,88($29)\n"
-    "li $7,1\n"
-    "swc1 $f0,96($29)\n"
-    "swc1 $f2,100($29)\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f4,104($29)\n"
-    "move $4,$16\n"
-    "addiu $5,$29,96\n"
-    "addiu $6,$29,160\n"
-    "jal func_800AD2A8\n"
-    "li $7,1\n"
-    "lwc1 $f8,176($29)\n"
-    "lwc1 $f0,160($29)\n"
-    "sub.s $f8,$f8,$f0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2240($1)\n"
-    "mul.s $f12,$f8,$f6\n"
-    "lwc1 $f4,180($29)\n"
-    "lwc1 $f0,164($29)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "addiu $4,$29,144\n"
-    "lui $2,0x800f\n"
-    "mul.s $f10,$f4,$f6\n"
-    "addiu $16,$17,17176\n"
-    ".end func_800CD7D8\n.set at\n.set reorder\n");
+#define D_800708C0 (*(float *)0x800708C0)
+
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+extern void *D_800F267C;
+extern void func_800B97D4(void *skeleton, int bone, float *out);
+extern void func_800AD2A8(void *camera, Vec3 *in, Vec3 *out, int mode);
+extern void func_800AC9B8(Vec3 *v, void *transform, void *basis);
+extern void func_800AD434(void *transform, float angle, int axis);
+extern void func_800AD9E8(void *timer);
+
+void func_800CD7D8(unsigned char *object)
+{
+    float frame[16 + 4];
+    Vec3 tail;
+    Vec3 head;
+    Vec3 diff;
+    Vec3 step;
+    Vec3 near;
+    Vec3 far;
+    float scale;
+    float *target;
+
+    func_800B97D4(object + 4552, 23, frame);
+    head.x = frame[16];
+    head.y = frame[17];
+    head.z = frame[18];
+    func_800B97D4(object + 4552, 31, frame);
+    tail.x = frame[16];
+    tail.y = frame[17];
+    tail.z = frame[18];
+    func_800AD2A8(object + 4572, &head, &far, 1);
+    func_800AD2A8(object + 4572, &tail, &near, 1);
+    diff.x = far.x - near.x;
+    diff.y = far.y - near.y;
+    diff.z = far.z - near.z;
+    scale = D_800708C0;
+    step.x = diff.x * scale;
+    step.y = diff.y * scale;
+    step.z = diff.z * scale;
+    func_800AC9B8(&step, object + 17176, D_800F267C);
+    step.x = near.x + step.x;
+    step.y = near.y + step.y;
+    step.z = near.z + step.z;
+    target = (float *)(object + 17176);
+    target[16] = step.x;
+    target[17] = step.y;
+    target[18] = step.z;
+    func_800AD434(object + 17176, 1.5707961f, 3);
+    func_800AD9E8(object + 17156);
+}

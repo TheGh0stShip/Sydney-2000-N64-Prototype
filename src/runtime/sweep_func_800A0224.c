@@ -1,46 +1,52 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0224\n.ent func_800A0224\n"
-    "func_800A0224:\n"
-    "move $6,$0\n"
-    "move $5,$6\n"
-    "L_800A022C:\n"
-    "lw $3,184($4)\n"
-    "lw $2,188($4)\n"
-    "mult $3,$2\n"
-    "mflo $7\n"
-    "slt $2,$6,$7\n"
-    "beqz $2,L_800A0298\n"
-    "addiu $6,$6,1\n"
-    "lw $2,196($4)\n"
-    "addu $2,$5,$2\n"
-    "addiu $2,$2,24\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "lw $2,196($4)\n"
-    "addu $2,$5,$2\n"
-    "addiu $2,$2,12\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "lw $2,196($4)\n"
-    "addu $2,$5,$2\n"
-    "addiu $2,$2,36\n"
-    "addiu $5,$5,52\n"
-    "sw $0,0($2)\n"
-    "sw $0,4($2)\n"
-    "j L_800A022C\n"
-    "sw $0,8($2)\n"
-    "L_800A0298:\n"
-    "li $2,-1\n"
-    "sh $2,258($4)\n"
-    "sh $2,256($4)\n"
-    "lw $2,240($4)\n"
-    "li $3,-2\n"
-    "and $2,$2,$3\n"
-    "li $3,-3\n"
-    "and $2,$2,$3\n"
-    "jr $31\n"
-    "sw $2,240($4)\n"
-    ".end func_800A0224\n.set at\n.set reorder\n");
+/* Reset every grid cell's vectors and clear the grid selection state. */
+typedef struct Vec3 { float x, y, z; } Vec3;
+
+typedef struct Cell {
+    char pad[12];
+    Vec3 b;
+    Vec3 a;
+    Vec3 c;
+    int pad30;
+} Cell;
+
+typedef struct Grid {
+    char pad0[184];
+    int width;
+    int height;
+    int pad0C0;
+    Cell *cells;
+    char pad1[240 - 200];
+    unsigned int flags;
+    char pad2[256 - 244];
+    short selA;
+    short selB;
+} Grid;
+
+static __inline__ void vec3_zero(Vec3 *v)
+{
+    v->x = 0;
+    v->y = 0;
+    v->z = 0;
+}
+
+void func_800A0224(Grid *grid)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+loop:
+    if (i < grid->width * grid->height) {
+        i++;
+        vec3_zero(&((Cell *)(j + (int)grid->cells))->a);
+        vec3_zero(&((Cell *)(j + (int)grid->cells))->b);
+        vec3_zero(&((Cell *)(j + (int)grid->cells))->c);
+        j += sizeof(Cell);
+        goto loop;
+    }
+    grid->selB = -1;
+    grid->selA = -1;
+    grid->flags &= ~1;
+    grid->flags &= ~2;
+}

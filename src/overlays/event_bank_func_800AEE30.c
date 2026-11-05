@@ -1,55 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AEE30\n.ent func_800AEE30\n"
-    "func_800AEE30:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "li $2,0x8000\n"
-    "addu $2,$16,$2\n"
-    "sw $31,20($29)\n"
-    "lbu $3,286($2)\n"
-    "beqz $3,L_800AEE64\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800AEE64\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800AEED4\n"
-    "nop\n"
-    "L_800AEE64:\n"
-    "li $2,0x8000\n"
-    "addu $2,$16,$2\n"
-    "lbu $3,286($2)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800AEE98\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800AEE9C\n"
-    "li $5,471\n"
-    "j func_8007718C\n"
-    "li $5,464\n"
-    "L_800AEE98:\n"
-    "li $5,471\n"
-    "L_800AEE9C:\n"
-    "bltz $5,L_800AEEC4\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800AEEC4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800AEEC4:\n"
-    "li $2,0x8000\n"
-    "addu $2,$16,$2\n"
-    "li $3,1\n"
-    "sw $3,348($2)\n"
-    "L_800AEED4:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AEE30\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[0xA00];
+    int mode;
+    int soundEnabled;
+} GameState;
+
+typedef struct {
+    char pad[0x8000 + 286];
+    unsigned char state;
+    char pad2[348 - 287];
+    int played;
+} Owner;
+
+extern GameState *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern void func_800C0110(void *bank, int sound, int a, int b);
+
+void func_800AEE30(Owner *self)
+{
+    int sound;
+
+    if (self->state == 0 || self->state == 5 || self->state == 1) {
+        sound = -1;
+        if (self->state != 5) {
+            if (D_800FC270->mode == 4) {
+                sound = 464;
+            } else {
+                sound = 471;
+            }
+        } else {
+            sound = 471;
+        }
+        if (sound >= 0 && D_800FC270->soundEnabled) {
+            func_800C0110(D_800F3BC0, sound, 0, 0);
+        }
+        self->played = 1;
+    }
+}

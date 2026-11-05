@@ -1,48 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A69E8\n.ent func_800A69E8\n"
-    "func_800A69E8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "andi $2,$18,0xff\n"
-    "L_800A6A0C:\n"
-    "sll $16,$2,0x1\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $17,$16,$19\n"
-    "addiu $17,$17,188\n"
-    "addiu $16,$16,188\n"
-    "lw $2,180($17)\n"
-    "addu $16,$19,$16\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($17)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnel $2,$0,L_800A6A0C\n"
-    "andi $2,$18,0xff\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A69E8\n.set at\n.set reorder\n");
+/* Run two virtual methods (slots 3 and 9) on each of the five children. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self);
+} VEntry;
+
+typedef struct Child {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} Child;
+
+typedef struct Owner {
+    char pad[188];
+    Child children[5];
+} Owner;
+
+#define VCALL(obj, slot) ((&(obj))->vtbl[slot].fn((char *)&(obj) + (&(obj))->vtbl[slot].delta))
+
+void func_800A69E8(Owner *owner)
+{
+    unsigned char i;
+
+    for (i = 0; i < 5; i++) {
+        VCALL(owner->children[i], 3);
+        VCALL(owner->children[i], 9);
+    }
+}

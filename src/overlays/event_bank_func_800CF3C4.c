@@ -1,79 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CF3C4\n.ent func_800CF3C4\n"
-    "func_800CF3C4:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "addiu $4,$29,16\n"
-    "sw $16,24($29)\n"
-    "move $16,$5\n"
-    "move $5,$0\n"
-    "sw $17,28($29)\n"
-    "move $17,$6\n"
-    "sw $31,36($29)\n"
-    "jal func_80037F30\n"
-    "li $6,4\n"
-    "move $4,$18\n"
-    "li $5,18\n"
-    "li $2,3\n"
-    "andi $16,$16,0xff\n"
-    "sb $2,19($29)\n"
-    "addu $2,$29,$16\n"
-    "lbu $16,16($2)\n"
-    "addiu $6,$18,17132\n"
-    "sw $0,17132($18)\n"
-    "jal func_8008393C\n"
-    "addu $16,$16,$17\n"
-    "andi $16,$16,0xff\n"
-    "sll $2,$16,0x1\n"
-    "addu $2,$2,$16\n"
-    "lw $3,17132($18)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "sw $3,17128($18)\n"
-    "lb $3,0($3)\n"
-    "bnez $3,L_800CF488\n"
-    "sll $2,$3,0x4\n"
-    "lui $5,0x7fff\n"
-    "lw $4,17876($18)\n"
-    "ori $5,$5,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$5\n"
-    "sw $3,17876($18)\n"
-    "srl $3,$3,0x1d\n"
-    "addiu $3,$3,2\n"
-    "sll $2,$3,0x4\n"
-    "L_800CF488:\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x9\n"
-    "sw $2,3856($18)\n"
-    "lw $2,17128($18)\n"
-    "lb $2,10($2)\n"
-    "lw $3,17128($18)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,17364($18)\n"
-    "lb $2,9($3)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,17360($18)\n"
-    "lb $2,8($3)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,17356($18)\n"
-    "lwc1 $f0,4($3)\n"
-    "swc1 $f0,17388($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    ".end func_800CF3C4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef unsigned int u32;
+
+extern void func_80037F30(void *dst, int value, int size);
+extern void func_8008393C(void *object, int count, void **out);
+
+void func_800CF3C4(u8 *object, u8 selector, int offset)
+{
+    u8 choices[4];
+    u8 index;
+    s8 *entry;
+    s8 *first;
+    u32 state;
+    register int scale asm("$3");
+
+    func_80037F30(choices, 0, 4);
+    choices[3] = 3;
+    index = choices[selector] + offset;
+    *(void **)(object + 17132) = 0;
+    func_8008393C(object, 18, (void **)(object + 17132));
+    entry = *(s8 **)(object + 17132) + index * 12;
+    *(s8 **)(object + 17128) = entry;
+
+    scale = entry[0];
+    if (scale == 0) {
+        state = *(u32 *)(object + 17876);
+        scale = (state * 16807) & 0x7fffffff;
+        *(u32 *)(object + 17876) = scale;
+        scale = ((u32)scale >> 29) + 2;
+    }
+    *(volatile int *)(object + 3856) = ((scale << 4) - scale) << 9;
+
+    first = *(s8 * volatile *)(object + 17128);
+    *(float *)(object + 17364) = first[10];
+    entry = *(s8 * volatile *)(object + 17128);
+    *(float *)(object + 17360) = entry[9];
+    *(float *)(object + 17356) = entry[8];
+    *(float *)(object + 17388) = *(float *)(entry + 4);
+}

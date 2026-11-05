@@ -1,44 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A848C\n.ent func_800A848C\n"
-    "func_800A848C:\n"
-    "addiu $29,$29,-56\n"
-    "sw $17,44($29)\n"
-    "move $17,$6\n"
-    "sll $5,$5,0x2\n"
-    "addu $4,$4,$5\n"
-    "sw $31,48($29)\n"
-    "sw $16,40($29)\n"
-    "lw $2,268($4)\n"
-    "move $5,$0\n"
-    "lw $16,196($2)\n"
-    "addiu $6,$29,32\n"
-    "sw $0,32($29)\n"
-    "jal func_80017C4C\n"
-    "move $4,$16\n"
-    "bltz $2,L_800A8508\n"
-    "li $2,32\n"
-    "bne $17,$2,L_800A84E0\n"
-    "lui $3,0x800f\n"
-    "lui $4,0x8008\n"
-    "j L_800A84F0\n"
-    "addiu $4,$4,22908\n"
-    "L_800A84E0:\n"
-    "addiu $3,$3,25600\n"
-    "sll $2,$17,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $4,0($2)\n"
-    "L_800A84F0:\n"
-    "jal func_8000EB20\n"
-    "nop\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "L_800A8508:\n"
-    "lw $31,48($29)\n"
-    "lw $17,44($29)\n"
-    "lw $16,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800A848C\n.set at\n.set reorder\n");
+/* Set the text of a slot's label widget to the name for the given id. */
+typedef struct Widget {
+    char pad[196];
+    void *handle;
+} Widget;
+
+typedef struct Panel {
+    char pad[268];
+    Widget *slots[1];
+} Panel;
+
+extern int func_80017C4C(void *handle, int a, int *out);
+extern int func_8000EB20(char *str);
+extern void func_80017CF4(void *handle, int a, unsigned short text);
+extern char *D_800F6400[];
+
+void func_800A848C(Panel *panel, int slot, int id)
+{
+    void *handle;
+    int info[4];
+    int out;
+
+    handle = panel->slots[slot]->handle;
+    out = 0;
+    if (func_80017C4C(handle, 0, &out) >= 0) {
+        unsigned short text;
+
+        if (id == 32) {
+            text = func_8000EB20("LYMPICFLAG");
+        } else {
+            text = func_8000EB20(D_800F6400[id]);
+        }
+        func_80017CF4(handle, 0, text);
+    }
+}

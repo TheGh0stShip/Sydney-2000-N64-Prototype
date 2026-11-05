@@ -1,29 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800780E0\n.ent func_800780E0\n"
-    "func_800780E0:\n"
-    "addiu $29,$29,-24\n"
-    "lui $2,0x8010\n"
-    "lw $6,-15760($2)\n"
-    "sw $31,16($29)\n"
-    "lw $3,2560($6)\n"
-    "li $2,5\n"
-    ".word 0x14620012\n"
-    "li $7,-1\n"
-    "andi $3,$5,0xff\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x4\n"
-    "addu $2,$2,$4\n"
-    "lbu $3,2010($2)\n"
-    "li $2,3\n"
-    ".word 0x14620006\n"
-    ".end func_800780E0\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern void func_800C0110(void *object, int value, int a, int b);
+
+void func_800780E0(unsigned char *object, int index)
+{
+    int value = -1;
+
+    if ((*(int *)(D_800FC270 + 2560) != 5 ||
+         object[(index & 0xFF) * 27024 + 2010] == 3) &&
+        *(int *)(D_800FC270 + 2564) == 1) {
+        value = 288;
+    }
+    if (*(int *)(D_800FC270 + 2564) != 0) {
+        func_800C0110(D_800F3BC0, value, 0, 0);
+    }
+}

@@ -1,67 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B33E8\n.ent func_800B33E8\n"
-    "func_800B33E8:\n"
-    "li $4,1\n"
-    "mtc1 $0,$f0\n"
-    "c.lt.s $f12,$f0\n"
-    "nop\n"
-    "bc1f L_800B3404\n"
-    "move $9,$0\n"
-    "move $9,$4\n"
-    "L_800B3404:\n"
-    "trunc.w.s $f4,$f12\n"
-    "mfc1 $8,$f4\n"
-    "andi $2,$5,0xffff\n"
-    "beql $2,$0,L_800B3418\n"
-    "li $5,8\n"
-    "L_800B3418:\n"
-    "mtc1 $8,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "andi $2,$5,0xff\n"
-    "beqz $2,L_800B3454\n"
-    "sub.s $f12,$f12,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,26088($1)\n"
-    "sll $2,$4,0x2\n"
-    "L_800B3438:\n"
-    "addu $2,$2,$4\n"
-    "sll $4,$2,0x1\n"
-    "addiu $5,$5,-1\n"
-    "andi $2,$5,0xff\n"
-    "mul.s $f12,$f12,$f0\n"
-    "bnez $2,L_800B3438\n"
-    "sll $2,$4,0x2\n"
-    "L_800B3454:\n"
-    "trunc.w.s $f4,$f12\n"
-    "mfc1 $3,$f4\n"
-    "mtc1 $3,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "sub.s $f12,$f12,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,26092($1)\n"
-    "c.lt.s $f0,$f12\n"
-    "nop\n"
-    "bc1tl L_800B3480\n"
-    "addiu $3,$3,1\n"
-    "L_800B3480:\n"
-    "slt $2,$3,$4\n"
-    "bnez $2,L_800B3494\n"
-    "nop\n"
-    "move $3,$0\n"
-    "addiu $8,$8,1\n"
-    "L_800B3494:\n"
-    "mtc1 $0,$f2\n"
-    "mtc1 $3,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "sw $8,0($6)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800B34BC\n"
-    "sw $3,0($7)\n"
-    "negu $2,$3\n"
-    "sw $2,0($7)\n"
-    "L_800B34BC:\n"
-    "jr $31\n"
-    "move $2,$9\n"
-    ".end func_800B33E8\n.set at\n.set reorder\n");
+int func_800B33E8(float value, unsigned short digits, int *whole, int *frac) {
+    int neg;
+    int ip;
+    int fp;
+    int scale;
+    unsigned char n;
+
+    scale = 1;
+    neg = 0;
+    if (value < 0.0f) {
+        neg = 1;
+    }
+    ip = (int)value;
+    if (digits == 0) {
+        digits = 8;
+    }
+    value -= (float)ip;
+    for (n = digits; n != 0; n--) {
+        scale *= 10;
+        value *= 10.0f;
+    }
+    fp = (int)value;
+    value -= (float)fp;
+    if (value > 0.5f) {
+        fp++;
+    }
+    if (fp >= scale) {
+        fp = 0;
+        ip++;
+    }
+    *whole = ip;
+    *frac = fp;
+    if ((float)fp < 0.0f) {
+        *frac = -fp;
+    }
+    return neg;
+}

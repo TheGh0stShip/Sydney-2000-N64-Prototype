@@ -1,57 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800790E8\n.ent func_800790E8\n"
-    "func_800790E8:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $21,36($29)\n"
-    "move $21,$5\n"
-    "sw $22,40($29)\n"
-    "lui $22,0x8010\n"
-    "lui $2,0x8007\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$2,26292\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x1\n"
-    "ori $17,$17,0xd70\n"
-    "lui $2,0x8007\n"
-    "sw $18,24($29)\n"
-    "addiu $18,$2,26256\n"
-    "sw $20,32($29)\n"
-    "addiu $20,$16,36\n"
-    "sw $31,44($29)\n"
-    "L_80079134:\n"
-    "beql $21,$0,L_8007917C\n"
-    "addiu $16,$16,4\n"
-    "lw $2,-15760($22)\n"
-    "lw $3,2560($2)\n"
-    "bltz $3,L_80079178\n"
-    "slti $2,$3,3\n"
-    "bnez $2,L_8007916C\n"
-    "addu $5,$19,$17\n"
-    "slti $2,$3,7\n"
-    "beql $2,$0,L_8007917C\n"
-    "addiu $16,$16,4\n"
-    "lw $4,0($18)\n"
-    "j func_80075E10\n"
-    "nop\n"
-    "L_8007916C:\n"
-    "lw $4,0($16)\n"
-    "jal func_80013E7C\n"
-    "move $6,$0\n"
-    "L_80079178:\n"
-    "addiu $16,$16,4\n"
-    "L_8007917C:\n"
-    "addiu $17,$17,4\n"
-    "slt $2,$16,$20\n"
-    "bnez $2,L_80079134\n"
-    "addiu $18,$18,4\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    ".end func_800790E8\n.set at\n.set reorder\n");
+typedef struct GameState {
+    char pad0[2560];
+    int level;
+} GameState;
+
+extern GameState *D_800FC270;
+extern void *D_800766B4[];
+extern void *D_80076690[];
+extern void func_80013E7C(void *res, void *dst, int flags);
+
+void func_800790E8(char *self, int enable)
+{
+    int i;
+
+    for (i = 0; i < 9; i++) {
+        if (enable) {
+            int level = D_800FC270->level;
+            if (level >= 0) {
+                if (level >= 3) {
+                    if (level < 7) {
+                        func_80013E7C(D_80076690[i], self + 0x10D70 + i * 4, 0);
+                    }
+                } else {
+                    func_80013E7C(D_800766B4[i], self + 0x10D70 + i * 4, 0);
+                }
+            }
+        }
+    }
+}

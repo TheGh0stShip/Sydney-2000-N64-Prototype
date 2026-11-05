@@ -1,74 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B11E0\n.ent func_800B11E0\n"
-    "func_800B11E0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $31,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $2,3($5)\n"
-    "andi $2,$2,0x10\n"
-    "beqz $2,L_800B12C8\n"
-    "move $17,$4\n"
-    "lw $2,220($17)\n"
-    "lw $2,4($2)\n"
-    "lui $3,0x8\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800B1258\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,89\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "j L_800B12D4\n"
-    "nop\n"
-    "L_800B1258:\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,130\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "lw $2,220($17)\n"
-    "lw $7,4($17)\n"
-    "lhu $2,30($2)\n"
-    "li $6,10\n"
-    "sw $0,16($29)\n"
-    "andi $2,$2,0xffff\n"
-    "jal func_800AB2A4\n"
-    "sw $2,20($29)\n"
-    "j L_800B12D4\n"
-    "nop\n"
-    "L_800B12C8:\n"
-    "lbu $5,0($5)\n"
-    "jal func_800B1550\n"
-    "move $4,$17\n"
-    "L_800B12D4:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800B11E0\n.set at\n.set reorder\n");
+/* Input handler: on a confirm press play the appropriate sound (and, when
+ * allowed, post a select event); otherwise forward the key code. */
+typedef struct Sound {
+    char pad[104];
+    int volume;
+} Sound;
+
+typedef struct Def {
+    int pad0;
+    unsigned int flags;
+    char pad8[30 - 8];
+    unsigned short eventId;
+} Def;
+
+typedef struct Widget {
+    int pad0;
+    int owner;
+    char pad8[220 - 8];
+    Def *def;
+} Widget;
+
+typedef struct Clock {
+    int pad;
+    int frame;
+} Clock;
+
+extern int func_8001D4B8(Sound *snd, int id, int a, int b);
+extern void func_8001D640(Sound *snd, int voice, int volume);
+extern void func_800AB2A4(void *queue, int frame, int type, int owner, int a, int b);
+extern void func_800B1550(Widget *w, int key);
+extern Sound D_800F1AE0;
+extern char D_800F26E0[];
+extern Clock D_800F2740;
+
+static __inline__ int scale_volume(int volume, int level)
+{
+    return (volume * level) >> 15;
+}
+
+static __inline__ void play_sound(int id)
+{
+    int voice;
+
+    voice = func_8001D4B8(&D_800F1AE0, id, 0, 1);
+    func_8001D640(&D_800F1AE0, voice, scale_volume(D_800F1AE0.volume, 32767));
+}
+
+static __inline__ void post_event(int type, int owner, unsigned short id)
+{
+    func_800AB2A4(D_800F26E0, D_800F2740.frame, type, owner, 0, id);
+}
+
+void func_800B11E0(Widget *w, unsigned char *input)
+{
+    if (input[3] & 0x10) {
+        if (w->def->flags & 0x80000) {
+            play_sound(89);
+        } else {
+            play_sound(130);
+            post_event(10, w->owner, w->def->eventId);
+        }
+    } else {
+        func_800B1550(w, input[0]);
+    }
+}

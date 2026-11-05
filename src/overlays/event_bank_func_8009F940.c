@@ -1,70 +1,87 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009F940\n.ent func_8009F940\n"
-    "func_8009F940:\n"
-    "addiu $29,$29,-40\n"
-    "sw $20,32($29)\n"
-    "move $20,$4\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,23716($20)\n"
-    ".word 0x14400052\n"
-    "addiu $4,$20,23672\n"
-    "lw $3,12($4)\n"
-    "lw $2,8($4)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_8009F9FC\n"
-    "move $19,$0\n"
-    "lhu $2,18($4)\n"
-    "addiu $2,$2,-1\n"
-    "sh $2,18($4)\n"
-    "addiu $2,$3,-4\n"
-    "sw $2,12($4)\n"
-    "lw $19,-4($3)\n"
-    "li $4,1500\n"
-    "sw $0,-4($3)\n"
-    "jal func_800AAA58\n"
-    "move $5,$19\n"
-    "move $16,$2\n"
-    "jal func_800BA1FC\n"
-    "move $4,$16\n"
-    "addiu $4,$16,652\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4800\n"
-    "jal func_800AED80\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$16,1124\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-29648\n"
-    "sb $0,428($16)\n"
-    "sh $0,638($16)\n"
-    "sb $0,202($16)\n"
-    "sw $0,644($16)\n"
-    "sw $0,648($16)\n"
-    "sw $0,728($16)\n"
-    "jal func_800ADED4\n"
-    "sw $2,180($16)\n"
-    "li $2,102\n"
-    "sw $2,0($16)\n"
-    "L_8009F9FC:\n"
-    ".word 0x1260002C\n"
-    "move $5,$20\n"
-    "lw $2,180($19)\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$19,$4\n"
-    ".word 0x12600025\n"
-    "nop\n"
-    "lw $5,17948($20)\n"
-    "lw $18,23712($20)\n"
-    "sw $19,23716($20)\n"
-    "lbu $17,424($18)\n"
-    "lbu $16,425($18)\n"
-    "jal func_8007D398\n"
-    "move $4,$19\n"
-    "addiu $4,$19,404\n"
-    ".end func_8009F940\n.set at\n.set reorder\n");
+typedef struct VtblEntry {
+    short delta;
+    short index;
+    void (*func)(void *self, void *arg);
+} VtblEntry;
+
+typedef struct Pool {
+    char pad[8];
+    char **base;
+    char **top;
+    short unk10;
+    unsigned short count;
+} Pool;
+
+extern char D_800712C0[];
+extern char D_80078C30[];
+extern char D_800F2A78[];
+extern char *func_800AAA58(int size, void *place);
+extern void func_800BA1FC(void *obj);
+extern void func_800AED80(void *obj);
+extern void func_800ADED4(void *obj);
+extern void func_8007D398(void *obj, void *arg);
+extern void func_8009A828(void *obj, int a, int b);
+extern void func_8007C84C(void *obj);
+
+void func_8009F940(char *owner)
+{
+    Pool *pool;
+    char *src;
+    char *entry;
+    char *obj;
+    char *result;
+    short b;
+    unsigned char a;
+    char **top;
+
+    if (*(char **)(owner + 23716) != 0) {
+        return;
+    }
+
+    pool = (Pool *)(owner + 23672);
+    entry = 0;
+    if (pool->top > pool->base) {
+        pool->count--;
+        entry = *--pool->top;
+        *pool->top = 0;
+        obj = func_800AAA58(1500, entry);
+        func_800BA1FC(obj);
+        *(char **)(obj + 180) = D_800712C0;
+        func_800AED80(obj + 652);
+        obj[428] = 0;
+        *(short *)(obj + 638) = 0;
+        obj[202] = 0;
+        *(int *)(obj + 644) = 0;
+        *(int *)(obj + 648) = 0;
+        *(int *)(obj + 728) = 0;
+        *(char **)(obj + 180) = D_80078C30;
+        func_800ADED4(obj + 1124);
+        *(int *)obj = 102;
+    }
+
+    if (entry != 0) {
+        VtblEntry *vt = *(VtblEntry **)(entry + 180);
+        vt[2].func(entry + vt[2].delta, owner);
+    }
+
+    result = entry;
+    if (result != 0) {
+        src = *(char **)(owner + 23712);
+        entry = result;
+        *(char **)(owner + 23716) = entry;
+        a = ((unsigned char *)src)[424];
+        b = ((unsigned char *)src)[425];
+        func_8007D398(entry, *(void **)(owner + 17948));
+        *(char **)(entry + 644) = owner + 24056;
+        *(char **)(entry + 648) = D_800F2A78;
+        entry[426] = 4;
+        entry[427] = 1;
+        entry[425] = b;
+        entry[424] = a;
+        entry[636] = b & 7;
+        func_8009A828(entry + 404, b, (signed char)a);
+        *(int *)(entry + 728) = *(int *)(src + 728);
+        *(unsigned int *)(entry + 192) = (*(unsigned int *)(entry + 192) | 0x1000000) & ~0x4000000;
+        func_8007C84C(entry);
+    }
+}

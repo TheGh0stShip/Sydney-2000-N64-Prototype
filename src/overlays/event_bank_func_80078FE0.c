@@ -1,28 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80078FE0\n.ent func_80078FE0\n"
-    "func_80078FE0:\n"
-    "addiu $29,$29,-56\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "sw $16,32($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10968\n"
-    "move $4,$16\n"
-    "li $5,12\n"
-    "li $6,1\n"
-    "move $7,$17\n"
-    "lui $2,0x1\n"
-    "addu $2,$17,$2\n"
-    "sw $31,48($29)\n"
-    "sw $19,44($29)\n"
-    "sw $18,40($29)\n"
-    "lbu $18,2820($2)\n"
-    "li $19,2\n"
-    "sw $19,16($29)\n"
-    "jal func_800BBD78\n"
-    "sllv $18,$18,$6\n"
-    "move $4,$16\n"
-    "li $5,13\n"
-    "li $6,1\n"
-    ".end func_80078FE0\n.set at\n.set reorder\n");
+extern char D_800F2AD8[];
+extern void func_800BBD78(void *list, int id, int on, void *owner, int kind);
+extern void func_800BC180(void *list);
+extern void func_800D771C(void *obj);
+extern void func_8009B0E4(int id, int a, void *obj, int b, int c, int d, int e);
+
+void func_80078FE0(char *self)
+{
+    unsigned char slot = self[0x10B04] << 1;
+
+    func_800BBD78(D_800F2AD8, 12, 1, self, 2);
+    func_800BBD78(D_800F2AD8, 13, 1, self, 2);
+    func_800BC180(D_800F2AD8);
+    func_800D771C(self + 0xD954);
+    *(int *)(self + 1552) = 28;
+    *(int *)(self + 1216) = 0x1C200;
+    func_8009B0E4(235, 0, self + 0xD954, 4, 1, 0, slot);
+}

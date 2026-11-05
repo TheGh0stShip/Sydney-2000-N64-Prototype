@@ -1,145 +1,120 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DF87C\n.ent func_800DF87C\n"
-    "func_800DF87C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_80077514\n"
-    "sw $16,16($29)\n"
-    "jal func_8009BDC4\n"
-    "lui $16,0x800f\n"
-    "lui $4,0x800f\n"
-    "jal func_800BC274\n"
-    "addiu $4,$4,10968\n"
-    "jal func_800BC0B4\n"
-    "addiu $16,$16,9952\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,2\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,1\n"
-    "move $4,$18\n"
-    "li $5,107\n"
-    "li $6,7\n"
-    "jal func_800AC25C\n"
-    "move $7,$0\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beqz $2,L_800DF934\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,29296\n"
-    "jal func_800AEFA0\n"
-    "addiu $16,$18,1632\n"
-    "jal func_800D7F5C\n"
-    "move $4,$16\n"
-    "move $3,$0\n"
-    "L_800DF918:\n"
-    "sw $0,184($16)\n"
-    "addiu $3,$3,1\n"
-    "sltiu $2,$3,8\n"
-    "bnez $2,L_800DF918\n"
-    "addiu $16,$16,4\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,1632\n"
-    "L_800DF934:\n"
-    "jal func_80098D08\n"
-    "addiu $4,$18,20560\n"
-    "addiu $16,$18,19952\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800CCE4C\n"
-    "sb $0,176($4)\n"
-    "lw $2,1560($18)\n"
-    "beqz $2,L_800DF984\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,1560\n"
-    "L_800DF984:\n"
-    "jal func_800A8850\n"
-    "addiu $4,$18,1116\n"
-    "lui $4,0x8007\n"
-    "jal func_800AEFA0\n"
-    "addiu $4,$4,31632\n"
-    "addiu $16,$18,14284\n"
-    "jal func_800D6EA0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$18,12884\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,2016\n"
-    "lw $4,192($18)\n"
-    "jal func_80017B24\n"
-    "lui $19,0x800f\n"
-    "lui $4,0x800f\n"
-    "jal func_800D52A8\n"
-    "addiu $4,$4,19712\n"
-    "lw $17,9904($19)\n"
-    "beqz $17,L_800DFA28\n"
-    "addiu $16,$19,9904\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800DFA04\n"
-    "sw $0,9904($19)\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,4\n"
-    "L_800DFA04:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800DFA18\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,8\n"
-    "L_800DFA18:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,9904($19)\n"
-    "L_800DFA28:\n"
-    "jal func_800BAC24\n"
-    "addiu $16,$18,14520\n"
-    "jal func_800AEFA0\n"
-    "addiu $4,$18,25424\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_8007E7A0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,1116\n"
-    "jal func_8009C100\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$18\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "li $2,2\n"
-    "sb $0,1551($18)\n"
-    "sw $2,172($18)\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DF87C\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short offset;
+    short pad;
+    void (*fn)();
+} VEntry;
+
+typedef struct VObject {
+    char pad[180];
+    VEntry *vtbl;
+} VObject;
+
+typedef struct Link {
+    void *list;
+    void *a;
+    void *b;
+    int c;
+    short d;
+    short e;
+} Link;
+
+extern char D_800F2AD8[];
+extern char D_800F26E0[];
+extern char D_800F7270[];
+extern char D_800F2758[];
+extern char D_80077B90[];
+extern char D_800F4D00[];
+extern Link D_800F26B0;
+
+extern void func_80077514(void);
+extern void func_8009BDC4(void);
+extern void func_800BC274(void *p);
+extern void func_800BC0B4(void);
+extern void func_800AACB0(void *p, void *q, int n);
+extern void func_800AC25C(void *p, int a, int b, int c);
+extern int func_80017D54(void);
+extern void func_800AEFA0(void *p);
+extern void func_800D7F5C(void *p);
+extern void func_800AC334(void *p);
+extern void func_80098D08(void *p);
+extern void func_800ADC1C(void *p);
+extern void func_800CCE4C(void *p);
+extern void func_800AA658(void *list, void *slot);
+extern void func_800A8850(void *p);
+extern void func_800D6EA0(void *p);
+extern void func_800D29E0(void *p);
+extern void func_80017B24(int value);
+extern void func_800D52A8(void *p);
+extern void func_800BAC24(void);
+extern void func_8007E7A0(void *p);
+extern void func_8009C100(void);
+
+#define VCALL(obj, idx) (obj)->vtbl[idx].fn((char *)(obj) + (obj)->vtbl[idx].offset)
+
+void func_800DF87C(unsigned char *state)
+{
+    unsigned char *p;
+    VObject *v;
+    unsigned int i;
+    void *list;
+    Link *link;
+
+    func_80077514();
+    func_8009BDC4();
+    func_800BC274(D_800F2AD8);
+    func_800BC0B4();
+    func_800AACB0(D_800F26E0, 0, 2);
+    func_800AACB0(D_800F26E0, 0, 1);
+    func_800AC25C(state, 107, 7, 0);
+    if (func_80017D54() != 0) {
+        p = state + 1632;
+        func_800AEFA0(D_800F7270);
+        func_800D7F5C(p);
+        for (i = 0; i < 8; i++) {
+            ((int *)(p + 184))[i] = 0;
+        }
+        func_800AC334(state + 1632);
+    }
+    func_80098D08(state + 20560);
+    v = (VObject *)(state + 19952);
+    func_800ADC1C(v);
+    VCALL(v, 3);
+    ((unsigned char *)v)[176] = 0;
+    func_800CCE4C(v);
+    if (*(int *)(state + 1560) != 0) {
+        func_800AA658(D_800F2758, state + 1560);
+    }
+    func_800A8850(state + 1116);
+    func_800AEFA0(D_80077B90);
+    func_800D6EA0(state + 14284);
+    func_800AC334(state + 14284);
+    func_800D29E0(state + 12884);
+    func_800AC334(state + 12884);
+    func_800AC334(state + 2016);
+    func_80017B24(*(int *)(state + 192));
+    func_800D52A8(D_800F4D00);
+    link = &D_800F26B0;
+    list = link->list;
+    if (list != 0) {
+        link->list = 0;
+        if (link->a != 0) {
+            func_800AA658(list, &link->a);
+        }
+        if (link->b != 0) {
+            func_800AA658(list, &link->b);
+        }
+        link->d = 0;
+        link->e = 0;
+        link->c = 0;
+        link->list = 0;
+    }
+    func_800BAC24();
+    func_800AEFA0(state + 25424);
+    func_800AC334(state + 14520);
+    func_8007E7A0(state + 14520);
+    func_800AC334(state + 1116);
+    func_8009C100();
+    func_800AACB0(D_800F26E0, state, 0);
+    state[1551] = 0;
+    *(int *)(state + 172) = 2;
+}

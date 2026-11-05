@@ -1,30 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AD820\n.ent func_800AD820\n"
-    "func_800AD820:\n"
-    "lwc1 $f2,4($4)\n"
-    "lwc1 $f0,8($5)\n"
-    "mul.s $f4,$f2,$f0\n"
-    "lwc1 $f2,8($4)\n"
-    "lwc1 $f0,4($5)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "sub.s $f0,$f4,$f2\n"
-    "swc1 $f0,0($6)\n"
-    "lwc1 $f2,8($4)\n"
-    "lwc1 $f0,0($5)\n"
-    "mul.s $f4,$f2,$f0\n"
-    "lwc1 $f2,0($4)\n"
-    "lwc1 $f0,8($5)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "sub.s $f0,$f4,$f2\n"
-    "swc1 $f0,4($6)\n"
-    "lwc1 $f2,0($4)\n"
-    "lwc1 $f0,4($5)\n"
-    "mul.s $f4,$f2,$f0\n"
-    "lwc1 $f2,4($4)\n"
-    "lwc1 $f0,0($5)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "sub.s $f0,$f4,$f2\n"
-    "jr $31\n"
-    "swc1 $f0,8($6)\n"
-    ".end func_800AD820\n.set at\n.set reorder\n");
+/* Vector cross product: out = a x b. */
+typedef struct { float x, y, z; } Vec3;
+
+void func_800AD820(Vec3 *a, Vec3 *b, Vec3 *out)
+{
+    float p, q;
+
+    p = a->y * b->z;
+    q = a->z * b->y;
+    out->x = p - q;
+    p = a->z * b->x;
+    q = a->x * b->z;
+    out->y = p - q;
+    p = a->x * b->y;
+    q = a->y * b->x;
+    out->z = p - q;
+}

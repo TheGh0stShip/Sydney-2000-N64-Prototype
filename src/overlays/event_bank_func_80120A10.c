@@ -1,65 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80120A10\n.ent func_80120A10\n"
-    "func_80120A10:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $21,36($29)\n"
-    "move $21,$5\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,2648\n"
-    "addiu $4,$19,260\n"
-    "sw $31,40($29)\n"
-    "sw $20,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "jal func_800A02C0\n"
-    "sw $2,180($19)\n"
-    "move $18,$0\n"
-    "lui $20,0x800f\n"
-    "li $17,216\n"
-    "move $16,$19\n"
-    "L_80120A5C:\n"
-    "lw $3,216($16)\n"
-    "beql $3,$0,L_80120A90\n"
-    "addiu $17,$17,4\n"
-    "lw $2,180($3)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "addiu $4,$20,10072\n"
-    "jal func_800AA658\n"
-    "addu $5,$19,$17\n"
-    "addiu $17,$17,4\n"
-    "L_80120A90:\n"
-    "addiu $18,$18,1\n"
-    "slti $2,$18,11\n"
-    "bnez $2,L_80120A5C\n"
-    "addiu $16,$16,4\n"
-    "lw $2,212($19)\n"
-    "beqz $2,L_80120AB8\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,212\n"
-    "L_80120AB8:\n"
-    "addiu $4,$19,260\n"
-    "jal func_800A03D4\n"
-    "li $5,2\n"
-    "move $4,$19\n"
-    "jal func_800AC3A4\n"
-    "move $5,$21\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80120A10\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Item {
+    char pad00[0xB4];
+    VEntry *vtable;
+} Item;
+
+typedef struct Inventory {
+    char pad000[0xB4];
+    VEntry *vtable;
+    char pad0B8[0xD4 - 0xB8];
+    Item *cursor;
+    Item *items[11];
+    char list[1];
+} Inventory;
+
+extern VEntry D_80080A58[];
+extern char D_800F2758[];
+
+extern void func_800A02C0(void *list);
+extern void func_800A03D4(void *list, int flags);
+extern void func_800AA658(void *pool, Item **slot);
+extern void func_800AC3A4(Inventory *inv, int flags);
+
+void func_80120A10(Inventory *inv, int flags) {
+    int i;
+
+    inv->vtable = D_80080A58;
+    func_800A02C0(inv->list);
+    for (i = 0; i < 11; i++) {
+        if (inv->items[i] != 0) {
+            Item *item = inv->items[i];
+            item->vtable[1].fn((char *)item + item->vtable[1].delta, 2);
+            func_800AA658(D_800F2758, &inv->items[i]);
+        }
+    }
+    if (inv->cursor != 0) {
+        func_800AA658(D_800F2758, &inv->cursor);
+    }
+    func_800A03D4(inv->list, 2);
+    func_800AC3A4(inv, flags);
+}

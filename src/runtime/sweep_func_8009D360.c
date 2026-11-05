@@ -1,35 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D360\n.ent func_8009D360\n"
-    "func_8009D360:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "lui $2,0x8010\n"
-    "andi $5,$5,0xff\n"
-    "sw $5,1776($2)\n"
-    "addiu $2,$2,1776\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6400\n"
-    "addiu $4,$17,21888\n"
-    "move $5,$16\n"
-    "sw $31,24($29)\n"
-    "sw $6,4($2)\n"
-    "move $6,$0\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "li $7,-1\n"
-    "addu $2,$2,$3\n"
-    "jal func_800D33A0\n"
-    "sh $2,2($16)\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "subu $2,$2,$3\n"
-    "sh $2,2($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009D360\n.set at\n.set reorder\n");
+/* Draw a layer with a temporary vertical offset applied to the shared viewport. */
+typedef struct View {
+    short x;
+    short y;
+} View;
+
+typedef struct Params {
+    int mode;
+    int value;
+} Params;
+
+extern void func_800D33A0(void *layer, View *view, int a, int b);
+extern Params D_801006F0;
+extern View D_800F1900;
+
+void func_8009D360(char *obj, unsigned char mode, int value)
+{
+    int off;
+
+    D_801006F0.mode = mode;
+    D_801006F0.value = value;
+    off = *(short *)(obj + 19076);
+    D_800F1900.y += off;
+    func_800D33A0(obj + 21888, &D_800F1900, 0, -1);
+    off = *(short *)(obj + 19076);
+    D_800F1900.y -= off;
+}

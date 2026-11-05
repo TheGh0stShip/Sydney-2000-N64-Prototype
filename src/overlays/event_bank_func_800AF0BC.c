@@ -1,49 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AF0BC\n.ent func_800AF0BC\n"
-    "func_800AF0BC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $4,11704($16)\n"
-    "jal func_8009B670\n"
-    "nop\n"
-    "li $2,0x8000\n"
-    "addu $2,$16,$2\n"
-    "lbu $2,286($2)\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800AF154\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800AF120\n"
-    "li $2,1\n"
-    "lw $4,11704($16)\n"
-    "lbu $3,426($4)\n"
-    "bne $3,$2,L_800AF120\n"
-    "move $3,$0\n"
-    "lbu $5,424($4)\n"
-    "j func_80077420\n"
-    "lui $2,0x8010\n"
-    "L_800AF120:\n"
-    "lw $2,11704($16)\n"
-    "li $3,34\n"
-    "lbu $5,425($2)\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800AF154\n"
-    "addu $5,$3,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800AF154:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AF0BC\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[0xA00];
+    int mode;
+    int soundEnabled;
+} GameState;
+
+typedef struct {
+    char pad[424];
+    unsigned char soundA;
+    unsigned char soundB;
+    unsigned char kind;
+} Player;
+
+typedef struct {
+    char pad[11704];
+    Player *player;
+    char pad2[0x8000 + 286 - 11708];
+    unsigned char state;
+} Owner;
+
+extern GameState *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern void func_8009B670(Player *object);
+extern void func_800C0110(void *bank, int sound, int a, int b);
+
+void func_800AF0BC(Owner *self)
+{
+    int index;
+    int base;
+    int sound;
+
+    func_8009B670(self->player);
+    if (self->state < 2) {
+        if (D_800FC270->mode == 5 && self->player->kind == 1) {
+            index = 0;
+            base = self->player->soundA;
+        } else {
+            index = 34;
+            base = self->player->soundB;
+        }
+        sound = index + base;
+        if (D_800FC270->soundEnabled) {
+            func_800C0110(D_800F3BC0, sound, 0, 0);
+        }
+    }
+}

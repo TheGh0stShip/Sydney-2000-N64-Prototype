@@ -1,38 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E4234\n.ent func_800E4234\n"
-    "func_800E4234:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $20,32($29)\n"
-    "lui $20,0x800f\n"
-    "sw $17,20($29)\n"
-    "li $17,18956\n"
-    "sw $16,16($29)\n"
-    "move $16,$19\n"
-    "sw $31,36($29)\n"
-    "L_800E4264:\n"
-    "lw $2,18956($16)\n"
-    "beqz $2,L_800E427C\n"
-    "addiu $4,$20,10072\n"
-    "jal func_800AA658\n"
-    "addu $5,$19,$17\n"
-    "sw $0,18956($16)\n"
-    "L_800E427C:\n"
-    "addiu $17,$17,4\n"
-    "addiu $18,$18,1\n"
-    "sltiu $2,$18,12\n"
-    "bnez $2,L_800E4264\n"
-    "addiu $16,$16,4\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E4234\n.set at\n.set reorder\n");
+extern unsigned char D_800F2758[];
+extern void func_800AA658(void *, void *);
+
+struct Owner {
+    char pad[18956];
+    void *slots[12];
+};
+
+void func_800E4234(struct Owner *self)
+{
+    unsigned int i = 0;
+
+    do {
+        if (self->slots[i] != 0) {
+            func_800AA658(D_800F2758, &self->slots[i]);
+            self->slots[i] = 0;
+        }
+        i++;
+    } while (i < 12);
+}

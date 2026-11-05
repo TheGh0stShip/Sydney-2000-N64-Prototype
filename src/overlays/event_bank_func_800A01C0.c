@@ -1,31 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A01C0\n.ent func_800A01C0\n"
-    "func_800A01C0:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lbu $3,24041($16)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_800A0204\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800A0204\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A0204\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,184\n"
-    "li $6,3840\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_800A0204:\n"
-    "lbu $3,24038($16)\n"
-    "lui $6,0x8010\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($6)\n"
-    "addiu $2,$2,2576\n"
-    "addu $4,$3,$2\n"
-    ".end func_800A01C0\n.set at\n.set reorder\n");
+extern char *D_800FC270;
+extern char D_800F3BC0[];
+extern int D_80075754[];
+extern void func_800C0110(void *queue, int id, int a2, int a3);
+
+typedef struct SlotEntry {
+    char pad[8];
+    signed char index;
+    char pad2[3];
+} SlotEntry;
+
+void func_800A01C0(unsigned char *obj)
+{
+    unsigned char mode;
+    SlotEntry *entry;
+    int value;
+    int k;
+
+    mode = obj[24041];
+    if (mode != 4 && mode != 2 && mode != 3) {
+        func_800C0110(D_800F3BC0, 184, 3840, 0);
+    }
+
+    entry = (SlotEntry *)(D_800FC270 + 2576) + obj[24038];
+    if (entry->index == 0) {
+        *(int *)(obj + 24136) = *(int *)(obj + 24128);
+        *(int *)(obj + 24140) = *(int *)(obj + 24132);
+    }
+
+    if (*(int *)(obj + 24036) & 0x00FFFF00) {
+        k = entry->index;
+        value = D_80075754[k];
+        if (k == D_800FC270[2572] - 1 && obj[24037] == 1) {
+            value = 100;
+        }
+        mode = obj[24041];
+        if (mode != 4 && mode != 2 && mode != 3) {
+            func_800C0110(D_800F3BC0, value, 7680, 0);
+        }
+    }
+}

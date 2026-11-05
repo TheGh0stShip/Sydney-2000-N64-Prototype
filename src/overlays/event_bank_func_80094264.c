@@ -1,56 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80094264\n.ent func_80094264\n"
-    "func_80094264:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $4,22988($16)\n"
-    "jal func_8009B670\n"
-    "nop\n"
-    "lbu $2,30123($16)\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_80094310\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800942C4\n"
-    "move $4,$0\n"
-    "lw $2,22988($16)\n"
-    "lbu $3,426($2)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800942C0\n"
-    "li $2,2\n"
-    "bne $3,$2,L_800942C4\n"
-    "nop\n"
-    "L_800942C0:\n"
-    "li $4,1\n"
-    "L_800942C4:\n"
-    "beqz $4,L_800942DC\n"
-    "move $3,$0\n"
-    "lw $2,22988($16)\n"
-    "lbu $5,424($2)\n"
-    "j func_8007503C\n"
-    "lui $2,0x8010\n"
-    "L_800942DC:\n"
-    "lw $2,22988($16)\n"
-    "li $3,33\n"
-    "lbu $5,425($2)\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80094310\n"
-    "addu $5,$3,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_80094310:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80094264\n.set at\n.set reorder\n");
+typedef struct EventState {
+    char pad0[2560];
+    int phase;
+    int soundEnabled;
+} EventState;
+
+typedef struct EventRace {
+    char pad0[424];
+    unsigned char winSound;
+    unsigned char loseSound;
+    unsigned char state;
+} EventRace;
+
+extern EventState *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_8009B670(EventRace *race);
+extern void func_800C0110(void *bank, int id, int a, int b);
+
+void func_80094264(unsigned char *object)
+{
+    int won;
+    int base;
+    int index;
+    int id;
+
+    func_8009B670(*(EventRace **)(object + 22988));
+    if (object[30123] < 2) {
+        won = 0;
+        if (D_800FC270->phase == 5) {
+            unsigned char s = (*(EventRace **)(object + 22988))->state;
+            if (s == 1) {
+                won = 1;
+            } else if (s == 2) {
+                won = 1;
+            }
+        }
+        if (won) {
+            base = 0;
+            index = (*(EventRace **)(object + 22988))->winSound;
+        } else {
+            base = 33;
+            index = (*(EventRace **)(object + 22988))->loseSound;
+        }
+        id = base + index;
+        if (D_800FC270->soundEnabled) {
+            func_800C0110(D_800F3BC0, id, 0, 0);
+        }
+    }
+}

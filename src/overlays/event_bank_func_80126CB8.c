@@ -1,24 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80126CB8\n.ent func_80126CB8\n"
-    "func_80126CB8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $3,426($4)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_80126CF0\n"
-    "nop\n"
-    "lw $2,740($4)\n"
-    "bnez $2,L_80126CE4\n"
-    "addiu $4,$4,1048\n"
-    "j func_800833E8\n"
-    "li $5,22\n"
-    "L_80126CE4:\n"
-    "li $5,23\n"
-    "jal func_800A9BE8\n"
-    "nop\n"
-    "L_80126CF0:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80126CB8\n.set at\n.set reorder\n");
+extern void func_800A9BE8(void *channel, int sound);
+
+void func_80126CB8(unsigned char *object)
+{
+    if (object[426] != 4) {
+        if (*(int *)(object + 740) == 0) {
+            func_800A9BE8(object + 1048, 22);
+        } else {
+            func_800A9BE8(object + 1048, 23);
+        }
+    }
+}

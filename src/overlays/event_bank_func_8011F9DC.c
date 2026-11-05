@@ -1,63 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011F9DC\n.ent func_8011F9DC\n"
-    "func_8011F9DC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,3032\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "jal func_8008204C\n"
-    "sw $2,180($17)\n"
-    "jal func_80082044\n"
-    "move $4,$17\n"
-    "addiu $2,$17,3832\n"
-    "beqz $2,L_8011FA50\n"
-    "addiu $16,$17,4256\n"
-    "beql $2,$16,L_8011FA54\n"
-    "addiu $2,$17,440\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_8011FA30:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_8011FA30\n"
-    "addiu $16,$16,-212\n"
-    "L_8011FA50:\n"
-    "addiu $2,$17,440\n"
-    "L_8011FA54:\n"
-    "beqz $2,L_8011FA88\n"
-    "addiu $16,$17,3832\n"
-    "beq $2,$16,L_8011FA88\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_8011FA68:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_8011FA68\n"
-    "addiu $16,$16,-212\n"
-    "L_8011FA88:\n"
-    "move $4,$17\n"
-    "jal func_800BA1B4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8011F9DC\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Sprite {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0xD4 - 0xB8];
+} Sprite;
+
+typedef struct Board {
+    char pad000[0xB4];
+    VEntry *vtable;
+    char pad0B8[0x1B8 - 0xB8];
+    Sprite cells[16];
+    Sprite markers[2];
+} Board;
+
+extern VEntry D_80080BD8[];
+
+extern void func_8008204C(Board *board);
+extern void func_80082044(Board *board);
+extern void func_800BA1B4(Board *board, int flags);
+
+#define DESTROY_ARRAY(arr, n, T)                                            \
+    if ((arr) != 0) {                                                       \
+        T *p = &(arr)[n];                                                   \
+        if ((arr) != p) {                                                   \
+            T *begin = (arr);                                               \
+            do {                                                            \
+                p--;                                                        \
+                p->vtable[1].fn((char *)p + p->vtable[1].delta, 2);         \
+            } while (begin != p);                                           \
+        }                                                                   \
+    }
+
+void func_8011F9DC(Board *board, int flags) {
+    board->vtable = D_80080BD8;
+    func_8008204C(board);
+    func_80082044(board);
+    DESTROY_ARRAY(board->markers, 2, Sprite)
+    DESTROY_ARRAY(board->cells, 16, Sprite)
+    func_800BA1B4(board, flags);
+}

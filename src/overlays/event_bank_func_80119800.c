@@ -1,106 +1,87 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80119800\n.ent func_80119800\n"
-    "func_80119800:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "addiu $4,$18,208\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800E5788\n"
-    "sw $16,16($29)\n"
-    "jal func_800A6334\n"
-    "move $4,$18\n"
-    "lw $2,200($18)\n"
-    "beqz $2,L_801198B4\n"
-    "lui $2,0x8010\n"
-    "lw $2,196($18)\n"
-    "beqz $2,L_801198A0\n"
-    "move $17,$0\n"
-    "move $16,$17\n"
-    "L_80119844:\n"
-    "lw $2,200($18)\n"
-    "addu $4,$16,$2\n"
-    "lw $2,196($4)\n"
-    "beqz $2,L_8011988C\n"
-    "nop\n"
-    "jal func_800AC308\n"
-    "nop\n"
-    "lw $4,200($18)\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($4)\n"
-    "lh $3,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "lw $4,200($18)\n"
-    "li $5,2\n"
-    "jal func_800ADE84\n"
-    "addu $4,$4,$16\n"
-    "L_8011988C:\n"
-    "lw $2,196($18)\n"
-    "addiu $17,$17,1\n"
-    "sltu $2,$17,$2\n"
-    "bnez $2,L_80119844\n"
-    "addiu $16,$16,212\n"
-    "L_801198A0:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,200\n"
-    "lui $2,0x8010\n"
-    "L_801198B4:\n"
-    "lw $2,-15760($2)\n"
-    "lbu $3,3416($2)\n"
-    "li $2,2\n"
-    "bne $3,$2,L_801198FC\n"
-    "addiu $17,$18,2492\n"
-    "addiu $16,$18,1172\n"
-    "jal func_800A69E8\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "lw $2,204($18)\n"
-    "beqz $2,L_801198F8\n"
-    "addiu $16,$18,5248\n"
-    "jal func_800A6C28\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "L_801198F8:\n"
-    "addiu $17,$18,2492\n"
-    "L_801198FC:\n"
-    "jal func_800A731C\n"
-    "move $4,$17\n"
-    "jal func_800AC334\n"
-    "move $4,$17\n"
-    "addiu $16,$18,2912\n"
-    "jal func_800A7418\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$18,748\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$18,960\n"
-    "jal func_800A731C\n"
-    "move $4,$17\n"
-    "jal func_800AC334\n"
-    "move $4,$17\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beqz $2,L_80119960\n"
-    "addiu $16,$18,1172\n"
-    "jal func_800A69E8\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "L_80119960:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80119800\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self);
+} VEntry;
+
+typedef struct Element {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0x0C];
+    int active;
+    char padC8[0x0C];
+} Element;
+
+typedef struct Game {
+    char pad000[0xD58];
+    unsigned char mode;
+} Game;
+
+typedef struct Scene {
+    char pad0000[0xC4];
+    unsigned int elementCount;
+    Element *elements;
+    int hasExtra;
+    char pad00D0[0x2EC - 0xD0];
+    char partA[0x3C0 - 0x2EC];
+    char partB[0x494 - 0x3C0];
+    char panel[0x9BC - 0x494];
+    char menu[0xB60 - 0x9BC];
+    char cursor[0x1480 - 0xB60];
+    char extraPanel[1];
+} Scene;
+
+extern char D_800F2758[];
+extern Game *D_800FC270;
+
+extern void func_800E5788(void *p);
+extern void func_800A6334(Scene *scene);
+extern void func_800AC308(Element *e);
+extern void func_800ADE84(void *p, int arg);
+extern void func_800AA658(void *list, Element **elements);
+extern void func_800A69E8(void *p);
+extern void func_800A6C28(void *p);
+extern void func_800AC334(void *p);
+extern void func_800A731C(void *p);
+extern void func_800A7418(void *p);
+extern void func_800ADC1C(void *p);
+extern int func_80017D54(void);
+
+void func_80119800(Scene *scene) {
+    unsigned int i;
+    VEntry *vt;
+
+    func_800E5788((char *)scene + 0xD0);
+    func_800A6334(scene);
+    if (scene->elements != 0) {
+        for (i = 0; i < scene->elementCount; i++) {
+            if (scene->elements[i].active != 0) {
+                func_800AC308(&scene->elements[i]);
+                vt = scene->elements[i].vtable;
+                vt[3].fn((char *)&scene->elements[i] + vt[3].delta);
+                func_800ADE84(&scene->elements[i], 2);
+            }
+        }
+        func_800AA658(D_800F2758, &scene->elements);
+    }
+    if (D_800FC270->mode == 2) {
+        func_800A69E8(scene->panel);
+        func_800AC334(scene->panel);
+        if (scene->hasExtra != 0) {
+            func_800A6C28(scene->extraPanel);
+            func_800AC334(scene->extraPanel);
+        }
+    }
+    func_800A731C(scene->menu);
+    func_800AC334(scene->menu);
+    func_800A7418(scene->cursor);
+    func_800AC334(scene->cursor);
+    func_800ADC1C(scene->partA);
+    func_800ADC1C(scene->partB);
+    func_800A731C(scene->menu);
+    func_800AC334(scene->menu);
+    if (func_80017D54() != 0) {
+        func_800A69E8(scene->panel);
+        func_800AC334(scene->panel);
+    }
+}

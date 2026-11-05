@@ -1,47 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008DBB8\n.ent func_8008DBB8\n"
-    "func_8008DBB8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_8008DC24\n"
-    "move $16,$4\n"
-    "slti $2,$3,6\n"
-    "beqz $2,L_8008DC3C\n"
-    "li $2,3\n"
-    "bne $3,$2,L_8008DC3C\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lw $5,12($17)\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $5,16($17)\n"
-    "jal func_8008CCE0\n"
-    "move $4,$16\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,192\n"
-    "j L_8008DC3C\n"
-    "nop\n"
-    "L_8008DC24:\n"
-    "lw $5,4($17)\n"
-    "lw $2,16($16)\n"
-    "move $4,$16\n"
-    "subu $5,$5,$2\n"
-    "jal func_8008D054\n"
-    "sra $5,$5,0x8\n"
-    "L_8008DC3C:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8008DBB8\n.set at\n.set reorder\n");
+/* Message handler: on a tick message advance by elapsed time, on a
+ * configure message forward settings to the object; always record time. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self, int arg);
+} VEntry;
+
+typedef struct Msg {
+    int type;
+    int time;
+    int pad08;
+    int arg0;
+    int arg1;
+} Msg;
+
+typedef struct Actor {
+    char pad0[16];
+    int lastTime;
+    char pad1[180 - 20];
+    VEntry *vtbl;
+    char pad2[192 - 184];
+    char sub[1];
+} Actor;
+
+extern void func_8008D054(Actor *a, int ticks);
+extern void func_8008CCE0(Actor *a, int arg);
+extern void func_800ADC38(void *sub);
+
+void func_8008DBB8(Actor *a, Msg *msg)
+{
+    switch (msg->type) {
+    case 3:
+        a->vtbl[2].fn((char *)a + a->vtbl[2].delta, msg->arg0);
+        func_8008CCE0(a, msg->arg1);
+        func_800ADC38(a->sub);
+        break;
+    case 5:
+        func_8008D054(a, (msg->time - a->lastTime) >> 8);
+        break;
+    case 6:
+        /* handled elsewhere */
+        break;
+    }
+    a->lastTime = msg->time;
+}

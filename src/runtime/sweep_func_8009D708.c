@@ -1,52 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D708\n.ent func_8009D708\n"
-    "func_8009D708:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $31,28($29)\n"
-    "beqz $6,L_8009D764\n"
-    "sw $16,16($29)\n"
-    "addiu $4,$17,19088\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6280\n"
-    "move $5,$16\n"
-    "move $6,$0\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "li $7,-1\n"
-    "addu $2,$2,$3\n"
-    "jal func_800D33A0\n"
-    "sh $2,2($16)\n"
-    "lh $3,19076($17)\n"
-    "lhu $2,2($16)\n"
-    "subu $2,$2,$3\n"
-    "sh $2,2($16)\n"
-    "L_8009D764:\n"
-    "beqz $18,L_8009D7A4\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,183\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "L_8009D7A4:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009D708\n.set at\n.set reorder\n");
+/* Optionally draw the layer (shifted by the object's offset) and optionally
+ * start a sound at full volume scaled by the channel volume. */
+typedef struct View {
+    short x;
+    short y;
+} View;
+
+typedef struct Sound {
+    char pad[104];
+    int volume;
+} Sound;
+
+extern void func_800D33A0(void *layer, View *view, int a, int b);
+extern int func_8001D4B8(Sound *snd, int id, int a, int b);
+extern void func_8001D640(Sound *snd, int voice, int volume);
+extern View D_800F1888;
+extern Sound D_800F1AE0;
+
+static __inline__ int scale_volume(int volume, int level)
+{
+    return (volume * level) >> 15;
+}
+
+void func_8009D708(char *obj, int playSound, int draw)
+{
+    int off;
+    int voice;
+
+    if (draw) {
+        off = *(short *)(obj + 19076);
+        D_800F1888.y += off;
+        func_800D33A0(obj + 19088, &D_800F1888, 0, -1);
+        off = *(short *)(obj + 19076);
+        D_800F1888.y -= off;
+    }
+    if (playSound) {
+        voice = func_8001D4B8(&D_800F1AE0, 183, 0, 1);
+        func_8001D640(&D_800F1AE0, voice, scale_volume(D_800F1AE0.volume, 32767));
+    }
+}

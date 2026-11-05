@@ -1,66 +1,63 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D0C98\n.ent func_800D0C98\n"
-    "func_800D0C98:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$16,212\n"
-    "move $4,$17\n"
-    "andi $3,$5,0xff\n"
-    "move $5,$0\n"
-    "sw $19,36($29)\n"
-    "li $19,1\n"
-    "li $2,2\n"
-    "sw $18,32($29)\n"
-    "move $18,$6\n"
-    "move $6,$3\n"
-    "sw $7,60($29)\n"
-    "li $7,-65\n"
-    "sw $31,40($29)\n"
-    "sw $19,16($29)\n"
-    "jal func_800CE468\n"
-    "sw $2,20($29)\n"
-    "lw $2,392($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,8644\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,9068\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,8856\n"
-    "move $4,$0\n"
-    "lui $17,0x8010\n"
-    "jal func_800B31EC\n"
-    "sw $18,10352($17)\n"
-    "addiu $4,$16,1924\n"
-    "lui $5,0x800f\n"
-    "jal func_800B360C\n"
-    "addiu $5,$5,18784\n"
-    "addiu $4,$16,2364\n"
-    "lui $5,0x800f\n"
-    "lw $2,60($29)\n"
-    "addiu $5,$5,18832\n"
-    "jal func_800B360C\n"
-    "sw $2,10352($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25392($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25388($1)\n"
-    "addiu $2,$16,96\n"
-    "sw $0,72($2)\n"
-    "swc1 $f0,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "sb $19,1908($16)\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D0C98\n.set at\n.set reorder\n");
+typedef struct VtEntry {
+    short delta;
+    short index;
+    void (*fn)(void *);
+} VtEntry;
+
+struct Item {
+    char pad[180];
+    VtEntry *vtbl;
+};
+
+struct Body {
+    char pad[64];
+    float x;
+    float y;
+    float z;
+};
+
+struct Screen {
+    char pad[96];
+    struct Body body;
+    char pad2[212 - 96 - 76];
+    struct Item icon;
+    char pad3[1908 - 212 - 184];
+    unsigned char state;
+    char pad4[1924 - 1909];
+    char text0[2364 - 1924];
+    char text1[8644 - 2364];
+    char timer0[212];
+    char timer1[212];
+    char timer2[212];
+};
+
+extern int D_80102870;
+extern unsigned char D_800F4960[];
+extern unsigned char D_800F4990[];
+extern void func_800CE468(struct Item *, unsigned char, unsigned char, short, short, int);
+extern void func_800ADC38(void *);
+extern void func_800B31EC(int);
+extern void func_800B360C(void *, void *);
+
+void func_800D0C98(struct Screen *self, unsigned char icon, int mode, int restore)
+{
+    int *saved = &restore;
+    struct Body *body;
+    struct Item *item = &self->icon;
+
+    func_800CE468(item, 0, icon, -65, 1, 2);
+    self->icon.vtbl[8].fn((char *)item + self->icon.vtbl[8].delta);
+    func_800ADC38(self->timer0);
+    func_800ADC38(self->timer2);
+    func_800ADC38(self->timer1);
+    D_80102870 = mode;
+    func_800B31EC(0);
+    func_800B360C(self->text0, D_800F4960);
+    D_80102870 = *saved;
+    func_800B360C(self->text1, D_800F4990);
+    body = &self->body;
+    body->x = 442.0f;
+    body->y = 210.0f;
+    body->z = 0;
+    self->state = 1;
+}

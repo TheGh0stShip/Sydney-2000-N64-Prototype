@@ -96,11 +96,14 @@ class PlanTests(unittest.TestCase):
             payload = b'\x12\x34\x00\x00'
             unit = image.Unit('unit', 'manifest', 'row', 'source.c', image.START, 4,
                               image.digest(payload), None, [], None)
-            section = dict(name='.text', vram=image.START + image.DELTA,
+            # Overlay text may relocate at a runtime address unrelated to the
+            # bank-wide delta while still owning the manifest's ROM range.
+            text_vram = image.START + image.DELTA + 0x1000
+            section = dict(name='.text', vram=text_vram,
                            rom_start=image.START, owned_size=4, emitted_size=4,
                            unowned_zero_tail=0, sha256=image.digest(payload))
             record = dict(id='unit', row_sha256='row', source_sha256=image.file_hash(project / 'source.c'),
-                          section_bases={'.text': image.START + image.DELTA},
+                          section_bases={'.text': text_vram},
                           symbols={}, sections=[section], discarded_sections=[])
             plan = dict(version=image.VERSION, resident_rom_start=image.START,
                         resident_rom_end=image.END, inputs={}, units=[record])

@@ -320,7 +320,11 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
         trimmed = raw[size:]
         if any(trimmed):
             raise ValueError(f'{unit.key}: nonzero unowned tail in {name}')
-        offset = bases[name] - DELTA
+        # Overlay text can execute at a runtime address that is not described
+        # by the bank-wide ROM-to-VRAM delta.  In that case --section-base
+        # supplies the relocation address, while the manifest remains the
+        # authoritative owner of the text's ROM bytes.
+        offset = unit.rom_start if name == '.text' else bases[name] - DELTA
         if offset < START or offset + size > END:
             raise ValueError(f'{unit.key}: {name} placement escapes resident segment')
         if raw[:size] != rom[offset:offset + size]:
@@ -396,7 +400,7 @@ def build_one(unit: Unit, record, project: Path, cfg, work: Path):
             raise ValueError(f'{unit.key}: discarded section changed: {section["name"]}')
     for section in record['sections']:
         name = section['name']
-        if section['rom_start'] != section['vram'] - DELTA or section['owned_size'] < 0:
+        if (name != '.text' and section['rom_start'] != section['vram'] - DELTA) or section['owned_size'] < 0:
             raise ValueError(f'{unit.key}: inconsistent {name} ROM/VRAM ownership')
         if name == '.text' and (section['rom_start'] != unit.rom_start or
                                 section['owned_size'] != unit.text_size):

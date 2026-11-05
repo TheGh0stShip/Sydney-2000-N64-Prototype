@@ -1,75 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800779F0\n.ent func_800779F0\n"
-    "func_800779F0:\n"
-    "addiu $29,$29,-32\n"
-    "lui $2,0x8010\n"
-    "lw $4,-15760($2)\n"
-    "li $7,-1\n"
-    "sw $16,16($29)\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $3,2560($4)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_80077A40\n"
-    "move $16,$7\n"
-    "lw $3,2564($4)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_80077A40\n"
-    "li $2,1\n"
-    "bne $3,$2,L_80077A8C\n"
-    "lui $17,0x8010\n"
-    "li $7,148\n"
-    "j func_8007472C\n"
-    "li $16,229\n"
-    "L_80077A40:\n"
-    "lui $6,0x7fff\n"
-    "ori $6,$6,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,10004($5)\n"
-    "srl $3,$3,0x1d\n"
-    "beqz $3,L_80077A88\n"
-    "li $7,148\n"
-    "li $7,149\n"
-    "L_80077A88:\n"
-    "lui $17,0x8010\n"
-    "L_80077A8C:\n"
-    "lw $2,-15760($17)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80077AB0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "li $6,3072\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_80077AB0:\n"
-    "li $2,-1\n"
-    "beq $16,$2,L_80077AE0\n"
-    "nop\n"
-    "lw $2,-15760($17)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80077AE0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$16\n"
-    "li $6,18432\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_80077AE0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800779F0\n.set at\n.set reorder\n");
+typedef struct GameState {
+    char pad0[2560];
+    int mode;
+    int sound;
+} GameState;
+
+extern GameState *D_800FC270;
+extern unsigned int D_800F2714;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *bank, int id, int volume, int flags);
+
+void func_800779F0(void)
+{
+    int first = -1;
+    int second = -1;
+
+    if (D_800FC270->mode == 4 && D_800FC270->sound != 5) {
+        if (D_800FC270->sound == 1) {
+            first = 148;
+            second = 229;
+        }
+    } else {
+        D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+        first = 148;
+        if (D_800F2714 >> 29) {
+            first = 149;
+        }
+    }
+    if (D_800FC270->sound) {
+        func_800C0110(D_800F3BC0, first, 3072, 0);
+    }
+    if (second != -1 && D_800FC270->sound) {
+        func_800C0110(D_800F3BC0, second, 18432, 0);
+    }
+}

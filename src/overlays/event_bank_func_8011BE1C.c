@@ -1,102 +1,71 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011BE1C\n.ent func_8011BE1C\n"
-    "func_8011BE1C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,2640\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,2136\n"
-    "beqz $2,L_8011BE84\n"
-    "move $19,$5\n"
-    "addiu $16,$18,2696\n"
-    "beql $2,$16,L_8011BE88\n"
-    "addiu $16,$18,1848\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-280\n"
-    "L_8011BE64:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8011BE64\n"
-    "addiu $16,$16,-280\n"
-    "L_8011BE84:\n"
-    "addiu $16,$18,1848\n"
-    "L_8011BE88:\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,3104\n"
-    "sw $2,180($16)\n"
-    "move $4,$16\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $2,$18,1312\n"
-    "beql $2,$0,L_8011BEE0\n"
-    "addiu $2,$18,752\n"
-    "beql $2,$16,L_8011BEE0\n"
-    "addiu $2,$18,752\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-268\n"
-    "L_8011BEBC:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bnel $17,$16,L_8011BEBC\n"
-    "addiu $16,$16,-268\n"
-    "addiu $2,$18,752\n"
-    "L_8011BEE0:\n"
-    "beqz $2,L_8011BF18\n"
-    "addiu $16,$18,1312\n"
-    "beql $2,$16,L_8011BF1C\n"
-    "addiu $2,$18,184\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-280\n"
-    "L_8011BEF8:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8011BEF8\n"
-    "addiu $16,$16,-280\n"
-    "L_8011BF18:\n"
-    "addiu $2,$18,184\n"
-    "L_8011BF1C:\n"
-    "beqz $2,L_8011BF50\n"
-    "addiu $16,$18,752\n"
-    "beq $2,$16,L_8011BF50\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-284\n"
-    "L_8011BF30:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_8011BF30\n"
-    "addiu $16,$16,-284\n"
-    "L_8011BF50:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8011BE1C\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Widget280 {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0x118 - 0xB8];
+} Widget280;
+
+typedef struct Widget284 {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0x11C - 0xB8];
+} Widget284;
+
+typedef struct Widget268 {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0x10C - 0xB8];
+} Widget268;
+
+typedef struct Label {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0x120 - 0xB8];
+} Label;
+
+typedef struct Screen {
+    char pad000[0xB4];
+    VEntry *vtable;
+    Widget284 icons[2];
+    Widget280 buttons[2];
+    Widget268 sliders[2];
+    Label title;
+    Widget280 tabs[2];
+} Screen;
+
+extern VEntry D_80080A50[];
+extern VEntry D_80080C20[];
+
+extern void func_800ADE84(void *obj, int flags);
+extern void func_800AC3A4(Screen *screen, int flags);
+
+#define DESTROY_ARRAY(arr, n, T)                                            \
+    if ((arr) != 0) {                                                       \
+        T *p = &(arr)[n];                                                   \
+        if ((arr) != p) {                                                   \
+            T *begin = (arr);                                               \
+            do {                                                            \
+                p--;                                                        \
+                p->vtable[1].fn((char *)p + p->vtable[1].delta, 2);         \
+            } while (begin != p);                                           \
+        }                                                                   \
+    }
+
+void func_8011BE1C(Screen *screen, int flags) {
+    screen->vtable = D_80080A50;
+    DESTROY_ARRAY(screen->tabs, 2, Widget280)
+    {
+        Label *title = &screen->title;
+        title->vtable = D_80080C20;
+        func_800ADE84(title, 2);
+    }
+    DESTROY_ARRAY(screen->sliders, 2, Widget268)
+    DESTROY_ARRAY(screen->buttons, 2, Widget280)
+    DESTROY_ARRAY(screen->icons, 2, Widget284)
+    func_800AC3A4(screen, flags);
+}

@@ -1,103 +1,89 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80118440\n.ent func_80118440\n"
-    "func_80118440:\n"
-    "addiu $29,$29,-48\n"
-    "sw $21,36($29)\n"
-    "move $21,$4\n"
-    "lui $2,0x8008\n"
-    "lw $3,-5164($2)\n"
-    "addiu $5,$2,-5164\n"
-    "sw $31,44($29)\n"
-    "sw $22,40($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "beqz $3,L_80118484\n"
-    "sw $16,16($29)\n"
-    "lui $4,0x800f\n"
-    "jal func_800AA658\n"
-    "addiu $4,$4,10072\n"
-    "L_80118484:\n"
-    "lw $2,3284($21)\n"
-    "beqz $2,L_8011853C\n"
-    "move $20,$0\n"
-    "lui $2,0x8008\n"
-    "addiu $22,$2,2632\n"
-    "move $19,$20\n"
-    "lw $2,3276($21)\n"
-    "sltu $2,$20,$2\n"
-    "beql $2,$0,L_80118530\n"
-    "lui $4,0x800f\n"
-    "lw $4,3284($21)\n"
-    "jal func_800AC308\n"
-    "addu $4,$4,$19\n"
-    "lw $4,3284($21)\n"
-    "addu $4,$19,$4\n"
-    "lw $2,180($4)\n"
-    "lh $3,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "lw $2,3284($21)\n"
-    "addu $17,$19,$2\n"
-    "addiu $2,$17,212\n"
-    "beqz $2,L_80118518\n"
-    "sw $22,180($17)\n"
-    "addiu $16,$17,732\n"
-    "beq $2,$16,L_80118518\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-260\n"
-    "L_801184F8:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_801184F8\n"
-    "addiu $16,$16,-260\n"
-    "L_80118518:\n"
-    "move $4,$17\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $19,$19,760\n"
-    "j func_8007E40C\n"
-    "addiu $20,$20,1\n"
-    "L_80118530:\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$21,3284\n"
-    "L_8011853C:\n"
-    "lui $2,0x8008\n"
-    "lw $3,-5168($2)\n"
-    "beqz $3,L_80118558\n"
-    "addiu $5,$2,-5168\n"
-    "lui $4,0x800f\n"
-    "jal func_800AA658\n"
-    "addiu $4,$4,10072\n"
-    "L_80118558:\n"
-    "addiu $16,$21,736\n"
-    "jal func_800E79A8\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$21,196\n"
-    "jal func_800E5788\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800A6334\n"
-    "move $4,$21\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80118440\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Part {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0x104 - 0xB8];
+} Part;
+
+typedef struct Panel {
+    char pad00[0xB4];
+    VEntry *vtable;
+    char padB8[0xD4 - 0xB8];
+    Part parts[2];
+    char pad2DC[0x2F8 - 0x2DC];
+} Panel;
+
+typedef struct Menu {
+    char pad000[0xC4];
+    char header[0x2E0 - 0xC4];
+    char body[0xCCC - 0x2E0];
+    unsigned int panelCount;
+    char padCD0[0xCD4 - 0xCD0];
+    Panel *panels;
+} Menu;
+
+extern void *D_8007EBD0;
+extern void *D_8007EBD4;
+extern VEntry D_80080A48[];
+extern char D_800F2758[];
+
+extern void func_800AA658(void *pool, void *slot);
+extern void func_800AC308(void *p);
+extern void func_800ADE84(void *p, int flags);
+extern void func_800E79A8(void *p);
+extern void func_800AC334(void *p);
+extern void func_800E5788(void *p);
+extern void func_800A6334(Menu *menu);
+
+static inline void panel_destroy(Panel *panel) {
+    panel->vtable = D_80080A48;
+    if (panel->parts != 0) {
+        Part *p = &panel->parts[2];
+        if (panel->parts != p) {
+            Part *begin = panel->parts;
+            do {
+                p--;
+                p->vtable[1].fn((char *)p + p->vtable[1].delta, 2);
+            } while (begin != p);
+        }
+    }
+    func_800ADE84(panel, 2);
+}
+
+void func_80118440(Menu *menu) {
+    unsigned int i;
+
+    if (D_8007EBD4 != 0) {
+        func_800AA658(D_800F2758, &D_8007EBD4);
+    }
+    if (menu->panels != 0) {
+        i = 0;
+        for (;;) {
+            VEntry *vt;
+
+            if (i >= menu->panelCount) {
+                break;
+            }
+
+            func_800AC308(&menu->panels[i]);
+            vt = menu->panels[i].vtable;
+            ((void (*)(void *))vt[3].fn)((char *)&menu->panels[i] + vt[3].delta);
+            panel_destroy(&menu->panels[i]);
+            i++;
+        }
+        func_800AA658(D_800F2758, &menu->panels);
+    }
+    if (D_8007EBD0 != 0) {
+        func_800AA658(D_800F2758, &D_8007EBD0);
+    }
+    func_800E79A8(menu->body);
+    func_800AC334(menu->body);
+    func_800E5788(menu->header);
+    func_800AC334(menu->header);
+    func_800A6334(menu);
+}

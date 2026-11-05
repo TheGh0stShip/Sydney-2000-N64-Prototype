@@ -1,56 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008E9C4\n.ent func_8008E9C4\n"
-    "func_8008E9C4:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "sw $31,16($29)\n"
-    "lbu $3,1047($2)\n"
-    "beqz $3,L_8008E9F0\n"
-    "li $2,5\n"
-    "beq $3,$2,L_8008E9F0\n"
-    "li $2,1\n"
-    "bne $3,$2,L_8008EA74\n"
-    "nop\n"
-    "L_8008E9F0:\n"
-    "lui $2,0x8010\n"
-    "lw $5,-15760($2)\n"
-    "lw $3,2560($5)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_8008EA54\n"
-    "nop\n"
-    "lw $4,23004($4)\n"
-    "lw $2,768($4)\n"
-    "beqz $2,L_8008EA30\n"
-    "nop\n"
-    "lw $2,2564($5)\n"
-    "beqz $2,L_8008EA74\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800766F8\n"
-    "li $5,122\n"
-    "L_8008EA30:\n"
-    "lw $2,772($4)\n"
-    "beqz $2,L_8008EA54\n"
-    "nop\n"
-    "lw $2,2564($5)\n"
-    "beqz $2,L_8008EA74\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800766F8\n"
-    "li $5,343\n"
-    "L_8008EA54:\n"
-    "lw $2,2564($5)\n"
-    "beqz $2,L_8008EA74\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,111\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8008EA74:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8008E9C4\n.set at\n.set reorder\n");
+typedef struct EventState {
+    char pad0[2560];
+    int phase;
+    int soundEnabled;
+} EventState;
+
+typedef struct EventRace {
+    char pad0[768];
+    int falseStart;
+    int disqualified;
+} EventRace;
+
+extern EventState *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *bank, int id, int a, int b);
+
+void func_8008E9C4(unsigned char *object)
+{
+    unsigned char mode = object[0x8000 + 1047];
+    EventState *state;
+    EventRace *race;
+
+    if (mode == 0 || mode == 5 || mode == 1) {
+        state = D_800FC270;
+        if (state->phase == 4) {
+            race = *(EventRace **)(object + 23004);
+            if (race->falseStart) {
+                if (state->soundEnabled) {
+                    func_800C0110(D_800F3BC0, 122, 0, 0);
+                }
+                return;
+            }
+            if (race->disqualified) {
+                if (state->soundEnabled) {
+                    func_800C0110(D_800F3BC0, 343, 0, 0);
+                }
+                return;
+            }
+        }
+        if (state->soundEnabled) {
+            func_800C0110(D_800F3BC0, 111, 0, 0);
+        }
+    }
+}

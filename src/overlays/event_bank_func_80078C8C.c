@@ -1,44 +1,52 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80078C8C\n.ent func_80078C8C\n"
-    "func_80078C8C:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $3,1556($17)\n"
-    "beqz $3,L_80078CBC\n"
-    "li $2,5\n"
-    ".word 0x1462001F\n"
-    "li $2,4\n"
-    "L_80078CBC:\n"
-    "lui $2,0x1\n"
-    "addu $16,$17,$2\n"
-    "lui $19,0x8010\n"
-    "lui $18,0x800f\n"
-    "lw $2,-15760($19)\n"
-    "lbu $3,2820($16)\n"
-    "lbu $2,2572($2)\n"
-    "sltu $3,$3,$2\n"
-    ".word 0x10600024\n"
-    "nop\n"
-    "lw $2,2844($16)\n"
-    "bnez $2,L_80078D00\n"
-    "nop\n"
-    "jal func_80073E64\n"
-    "move $4,$17\n"
-    "j func_800759AC\n"
-    "li $5,1\n"
-    "L_80078D00:\n"
-    "jal func_80075A2C\n"
-    "move $4,$17\n"
-    "li $5,1\n"
-    "addiu $6,$18,6040\n"
-    "lbu $4,2820($16)\n"
-    "move $7,$0\n"
-    "jal func_800DA804\n"
-    "sw $0,16($29)\n"
-    ".end func_80078C8C\n.set at\n.set reorder\n");
+typedef struct Slot {
+    short id;
+    char pad2[10];
+} Slot;
+
+typedef struct GameState {
+    char pad0[2572];
+    unsigned char count;
+    unsigned char stride;
+    char pad1[2578 - 2574];
+    Slot slots[1];
+} GameState;
+
+typedef struct Ext {
+    char pad0[2820];
+    unsigned char index;
+    char pad1[2844 - 2821];
+    int pending;
+} Ext;
+
+extern GameState *D_800FC270;
+extern char D_800F1798[];
+extern void func_80073E64(char *self);
+extern void func_80075A2C(char *self);
+extern void func_800DA804(int index, int flag, void *data, int a, int b);
+
+static inline int Ext_hasMore(Ext *ext)
+{
+    return ext->index < D_800FC270->count;
+}
+
+void func_80078C8C(char *self)
+{
+    int mode = ((unsigned char *)self)[1556];
+    Ext *ext;
+
+    if (mode == 0 || mode == 5) {
+        ext = (Ext *)(self + 0x10000);
+        while (Ext_hasMore(ext)) {
+            if (ext->pending == 0) {
+                func_80073E64(self);
+            } else {
+                func_80075A2C(self);
+            }
+            func_800DA804(ext->index, 1, D_800F1798, 0, 0);
+            ext->pending = 0;
+            ext->index++;
+        }
+    } else if (mode == 4) {
+        D_800FC270->slots[((Ext *)(self + 0x10000))->index * D_800FC270->stride].id = -1;
+    }
+}
