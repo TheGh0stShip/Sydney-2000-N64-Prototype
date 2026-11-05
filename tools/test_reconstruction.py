@@ -169,6 +169,7 @@ class CompositionTests(unittest.TestCase):
                  patch.object(reconstruction, 'load_resident', return_value=[piece]), \
                  patch.object(reconstruction, 'load_initialized', return_value=[]), \
                  patch.object(reconstruction, 'load_rsp', return_value=[]), \
+                 patch.object(reconstruction, 'load_runtime', return_value=[]), \
                  patch.object(reconstruction, 'load_directory', return_value=[]):
                 with self.assertRaisesRegex(ValueError, '6 unowned bytes in 2 gaps'):
                     reconstruction.compose(project, project / 'resident.json',

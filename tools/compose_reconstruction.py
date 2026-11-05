@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ROM_SIZE = 0x2000000
 ROM_SHA1 = '711c79790a713e65cc2ecb4857f35898b8e92985'
 RESIDENT_START, RESIDENT_END, RESIDENT_DELTA = 0x1000, 0x69070, 0x7FFFF400
+RUNTIME_START, RUNTIME_END, RUNTIME_DELTA = 0x127640, 0x1A3AB0, 0x7FF5C710
 DIRECTORY_START, DIRECTORY_END, DIRECTORY_RECORDS = 0x1A3AB0, 0x224B78, 6955
 TARGET = {'architecture': 'mips', 'byte_order': 'big', 'pointer_bits': 32, 'abi': 'o32'}
 REGIONS = ((0, 0x40, 'header'), (0x40, 0x1000, 'IPL3 executable'),
@@ -357,6 +358,56 @@ def load_initialized(evidence, artifact, data_intervals):
     return produced
 
 
+def load_runtime(evidence, artifact):
+    if not artifact.is_file():
+        raise ValueError('runtime source artifacts missing; run make runtime-pieces')
+    metadata = evidence.json(artifact)
+    if (metadata.get('version') != 1 or metadata.get('complete_rom') is not False or
+            metadata.get('artifact_kind') != 'source-relocated runtime partial image' or
+            metadata.get('segment') != 'runtime'):
+        raise ValueError('unsupported runtime reconstruction artifact kind')
+    if (metadata.get('rom_start'), metadata.get('rom_end')) != (RUNTIME_START, RUNTIME_END):
+        raise ValueError('runtime artifact uses an unsupported address map')
+    plan = evidence.json(evidence.project / 'config/runtime_link_units.json',
+                         metadata['link_plan_sha256'])
+    if (plan.get('version') != 1 or plan.get('rom_sha1') != ROM_SHA1 or
+            plan.get('segment') != 'runtime' or
+            (plan.get('rom_start'), plan.get('rom_end')) != (RUNTIME_START, RUNTIME_END)):
+        raise ValueError('unsupported runtime link plan')
+    evidence.check_inputs(plan['inputs'])
+    units = {unit['id']: unit for unit in plan['units']}
+    expected = {(unit['id'], section['name']): (unit, section)
+                for unit in plan['units'] for section in unit['sections']}
+    if len(units) != len(plan['units']) or len(expected) != sum(
+            len(unit['sections']) for unit in plan['units']):
+        raise ValueError('duplicate runtime source declarations')
+    produced, seen, provider = [], set(), RomImage(RUNTIME_END)
+    for piece in metadata['pieces']:
+        key = piece['unit_id'], piece['name']
+        if key not in expected or key in seen:
+            raise ValueError('unexpected/duplicate runtime source piece')
+        seen.add(key)
+        unit, section = expected[key]
+        for field in ('rom_start', 'vram', 'owned_size', 'emitted_size',
+                      'unowned_zero_tail', 'sha256'):
+            if piece[field] != section[field]:
+                raise ValueError(f'runtime piece differs from frozen section: {field}')
+        if piece['source'] != unit['source'] or piece['source_sha256'] != unit['source_sha256']:
+            raise ValueError('runtime piece source attribution differs from frozen plan')
+        start, size = piece['rom_start'], piece['owned_size']
+        require_region(start, size, RUNTIME_START, RUNTIME_END, 'runtime source')
+        if piece['vram'] != start + RUNTIME_DELTA:
+            raise ValueError('runtime piece ROM/VRAM mapping changed')
+        data = piece_bytes(evidence, artifact, piece, size, section['sha256'])
+        owner = 'runtime-source:' + piece['unit_id'] + ':' + piece['name']
+        provider.add(start, data, owner)
+        produced.append((start, data, {'owner': owner, 'kind': 'runtime source section',
+                                       'source': unit['source'], 'section': piece['name']}))
+    if seen != set(expected) or sum(provider.owned) != metadata['covered_bytes']:
+        raise ValueError('runtime artifact is missing source pieces or has incorrect coverage')
+    return produced
+
+
 
 def load_rsp(evidence, artifact, data_intervals):
     if not artifact.is_file():
@@ -422,17 +473,20 @@ def load_directory(evidence, artifact):
                                     'source': metadata['source']})]
 
 
-def compose(project, resident, initialized, directory, output, verify_rom=None, require_complete=False, rsp=None):
+def compose(project, resident, initialized, directory, output, verify_rom=None,
+            require_complete=False, rsp=None, runtime=None):
     evidence = Evidence(project)
     evidence.repo('tools/compose_reconstruction.py', sha256(Path(__file__).read_bytes()))
     rsp = rsp or project / 'build/rsp/rsp.json'
-    for path in (resident, initialized, directory, rsp):
+    runtime = runtime or project / 'build/runtime_image/source_image.json'
+    for path in (resident, initialized, directory, rsp, runtime):
         if not path.resolve().is_relative_to(project.resolve()):
             raise ValueError('component metadata must be inside the project')
     data_intervals = classified_data(evidence)
     pieces = (load_resident(evidence, resident, data_intervals) +
               load_initialized(evidence, initialized, data_intervals) +
               load_rsp(evidence, rsp, data_intervals) +
+              load_runtime(evidence, runtime) +
               load_directory(evidence, directory))
     image, provenance = RomImage(ROM_SIZE), []
     for start, data, source in pieces:
@@ -492,6 +546,7 @@ def main():
     parser.add_argument('--resident', type=Path, default=ROOT / 'build/source_image/source_image.json')
     parser.add_argument('--initialized', type=Path, default=ROOT / 'build/initialized_data/initialized_data.json')
     parser.add_argument('--rsp', type=Path, default=ROOT / 'build/rsp/rsp.json')
+    parser.add_argument('--runtime', type=Path, default=ROOT / 'build/runtime_image/source_image.json')
     parser.add_argument('--directory', type=Path, default=ROOT / 'build/rom_components/file_directory.json')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/reconstruction')
     parser.add_argument('--verify-rom', type=Path)
@@ -499,7 +554,8 @@ def main():
     args = parser.parse_args()
     compose(args.project.resolve(), args.resident.resolve(), args.initialized.resolve(),
             args.directory.resolve(), args.output.resolve(),
-            args.verify_rom.resolve() if args.verify_rom else None, args.require_complete, args.rsp.resolve())
+            args.verify_rom.resolve() if args.verify_rom else None, args.require_complete,
+            args.rsp.resolve(), args.runtime.resolve())
 
 
 if __name__ == '__main__':

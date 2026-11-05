@@ -26,6 +26,8 @@ from n64dk.match.toolchain import load_config
 ROOT = Path(__file__).resolve().parents[1]
 DELTA = 0x7FFFF400
 START, END = 0x1000, 0x69070
+SEGMENT = 'resident'
+MANIFEST_DIR = 'config'
 VERSION = 1
 ROM_SECTIONS = ('.text', '.rodata', '.rdata', '.data', '.sdata', '.lit4', '.lit8')
 PROFILES = {
@@ -74,11 +76,12 @@ class Unit:
 
 def units(project: Path) -> list[Unit]:
     result = []
-    actual = {p.name for p in (project / 'config').glob('matching*.tsv')}
+    manifest_root = project / MANIFEST_DIR
+    actual = {p.name for p in manifest_root.glob('matching*.tsv')}
     if actual != set(PROFILES):
         raise ValueError(f'manifest profile set changed: {sorted(actual ^ set(PROFILES))}')
     for name, (pipeline, includes) in PROFILES.items():
-        for line in (project / 'config' / name).read_text().splitlines():
+        for line in (manifest_root / name).read_text().splitlines():
             if not line or line.startswith('#'):
                 continue
             fields = line.split('\t')
@@ -110,7 +113,7 @@ def units(project: Path) -> list[Unit]:
             key = f'{name}:{row_hash[:16]}'
             if any(u.key == key for u in result):
                 raise ValueError(f'duplicate row: {key}')
-            result.append(Unit(key, 'config/' + name, row_hash, source,
+            result.append(Unit(key, MANIFEST_DIR + '/' + name, row_hash, source,
                                int(start, 0), int(size, 0), expected,
                                split_flags(flags, row_pipeline), includes, normalization))
     return result
@@ -363,7 +366,9 @@ def discover(project: Path, plan_path: Path, rom_path: Path, jobs: int) -> None:
                          '\n'.join(record['unit'] + ': ' + record['error'] for record in failures))
     check_fresh(snapshot, inputs_snapshot(project, items))
     save_json(plan_path, {'version': VERSION, 'rom_sha1': EXPECTED_SHA1,
-                         'resident_rom_start': START, 'resident_rom_end': END,
+                         'segment': SEGMENT, 'rom_start': START, 'rom_end': END,
+                         'resident_rom_start': START if SEGMENT == 'resident' else None,
+                         'resident_rom_end': END if SEGMENT == 'resident' else None,
                          'inputs': snapshot, 'units': records})
     print(f'froze {len(records)} source units in {plan_path}')
 
@@ -413,7 +418,10 @@ def build_one(unit: Unit, record, project: Path, cfg, work: Path):
 def build_image(project: Path, plan_path: Path, output: Path, jobs: int,
                 verify_rom: Path | None = None) -> None:
     plan = load_json(plan_path)
-    if plan.get('version') != VERSION or (plan.get('resident_rom_start'), plan.get('resident_rom_end')) != (START, END):
+    extent = (plan.get('rom_start', plan.get('resident_rom_start')),
+              plan.get('rom_end', plan.get('resident_rom_end')))
+    if (plan.get('version') != VERSION or extent != (START, END) or
+            plan.get('segment', 'resident') != SEGMENT):
         raise ValueError('unsupported link plan schema or resident map')
     items = units(project)
     snapshot = inputs_snapshot(project, items)
@@ -459,10 +467,11 @@ def build_image(project: Path, plan_path: Path, output: Path, jobs: int,
             data = (output / piece['file']).read_bytes()
             if rom[start:start + size] != data:
                 raise ValueError(f'{piece["unit_id"]}: emitted source piece differs from verification ROM')
-    (output / 'resident.partial.bin').write_bytes(image.data)
-    (output / 'resident.ownership.bin').write_bytes(image.owned)
+    (output / f'{SEGMENT}.partial.bin').write_bytes(image.data)
+    (output / f'{SEGMENT}.ownership.bin').write_bytes(image.owned)
     ledger = {'version': VERSION, 'complete_rom': False,
-              'artifact_kind': 'source-relocated resident partial image',
+              'artifact_kind': f'source-relocated {SEGMENT} partial image',
+              'segment': SEGMENT,
               'rom_start': START, 'rom_end': END,
               'covered_bytes': sum(image.owned), 'uncovered_bytes': len(image.owned) - sum(image.owned),
               'overlapping_equal_bytes': image.overlap_bytes, 'gaps': image.gaps(),
@@ -473,7 +482,7 @@ def build_image(project: Path, plan_path: Path, output: Path, jobs: int,
                                      for unit in plan['units']
                                      for section in unit.get('discarded_sections', [])]}
     save_json(output / 'source_image.json', ledger)
-    print(f'built {len(provenance)} source pieces: {ledger["covered_bytes"]} resident bytes; '
+    print(f'built {len(provenance)} source pieces: {ledger["covered_bytes"]} {SEGMENT} bytes; '
           f'{ledger["uncovered_bytes"]} bytes remain unowned (not a complete ROM)')
 
 
@@ -481,12 +490,25 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=('discover', 'build'))
     parser.add_argument('--project', type=Path, default=ROOT)
-    parser.add_argument('--plan', type=Path, default=ROOT / 'config/link_units.json')
+    parser.add_argument('--segment', choices=('resident', 'runtime'), default='resident')
+    parser.add_argument('--plan', type=Path)
     parser.add_argument('--rom', type=Path, default=ROOT / 'baserom.z64', help='discovery input only')
     parser.add_argument('--verify-rom', type=Path, help='optional comparison after source-only build')
-    parser.add_argument('--output', type=Path, default=ROOT / 'build/source_image')
+    parser.add_argument('--output', type=Path)
     parser.add_argument('--jobs', type=int, default=4)
     args = parser.parse_args()
+    global DELTA, START, END, SEGMENT, MANIFEST_DIR, PROFILES
+    if args.segment == 'runtime':
+        DELTA = 0x7FF5C710
+        START, END = 0x127640, 0x1A3AB0
+        SEGMENT = 'runtime'
+        MANIFEST_DIR = 'config/runtime'
+        PROFILES = {'matching_sn.tsv': ('sn', []),
+                    'matching_kmc.tsv': ('kmc+as', [])}
+    args.plan = args.plan or ROOT / ('config/runtime_link_units.json' if SEGMENT == 'runtime'
+                                    else 'config/link_units.json')
+    args.output = args.output or ROOT / ('build/runtime_image' if SEGMENT == 'runtime'
+                                        else 'build/source_image')
     if args.jobs < 1:
         parser.error('--jobs must be positive')
     if args.command == 'discover':
