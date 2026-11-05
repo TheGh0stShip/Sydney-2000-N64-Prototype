@@ -1,53 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E4090\n.ent func_800E4090\n"
-    "func_800E4090:\n"
-    "lui $4,0x8010\n"
-    "lw $3,-15760($4)\n"
-    "li $2,7\n"
-    "addiu $7,$3,2576\n"
-    "beqz $5,L_800E40AC\n"
-    "addiu $8,$3,2464\n"
-    "li $2,3\n"
-    "L_800E40AC:\n"
-    "move $6,$2\n"
-    "bltz $6,L_800E4130\n"
-    "lui $2,0x8010\n"
-    "addiu $12,$2,-12032\n"
-    "move $11,$4\n"
-    "li $10,8\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-18392($1)\n"
-    "li $9,-1\n"
-    "addiu $4,$3,2586\n"
-    "L_800E40D4:\n"
-    "beqz $5,L_800E40E8\n"
-    "addu $2,$8,$6\n"
-    "lbu $3,0($2)\n"
-    "j L_800E40F8\n"
-    "nop\n"
-    "L_800E40E8:\n"
-    "addu $2,$6,$12\n"
-    "lbu $2,0($2)\n"
-    "addu $2,$2,$8\n"
-    "lbu $3,-1($2)\n"
-    "L_800E40F8:\n"
-    "lw $2,-15760($11)\n"
-    "lbu $2,1265($2)\n"
-    "bnel $3,$2,L_800E410C\n"
-    "sb $10,0($7)\n"
-    "sb $0,0($7)\n"
-    "L_800E410C:\n"
-    "sb $3,-9($4)\n"
-    "sh $0,-8($4)\n"
-    "swc1 $f0,-6($4)\n"
-    "sb $9,-2($4)\n"
-    "sb $0,0($4)\n"
-    "addiu $4,$4,12\n"
-    "addiu $6,$6,-1\n"
-    "bgez $6,L_800E40D4\n"
-    "addiu $7,$7,12\n"
-    "L_800E4130:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800E4090\n.set at\n.set reorder\n");
+/* Fill the roster display rows from either the direct lane list or the
+ * remapped order, highlighting every row except the current selection. */
+typedef struct Row {
+    unsigned char highlight;
+    unsigned char id;
+    short timer;
+    float scale;
+    signed char anim;
+    char pad9;
+    unsigned char done;
+    char padB;
+} Row;
+
+typedef struct Game {
+    char pad0[1265];
+    unsigned char selected;
+    char pad1[2464 - 1266];
+    unsigned char lanes[2576 - 2464];
+    Row rows[8];
+} Game;
+
+extern Game *D_800FC270;
+extern unsigned char D_800FD100[];
+
+void func_800E4090(int unused, int direct)
+{
+    Game *g = D_800FC270;
+    Row *row = g->rows;
+    unsigned char *lanes = g->lanes;
+    int count = 7;
+    int i;
+
+    if (direct) {
+        count = 3;
+    }
+    for (i = count; i >= 0; row++, i--) {
+        unsigned char id;
+
+        if (direct) {
+            id = lanes[i];
+        } else {
+            id = lanes[D_800FD100[i] - 1];
+        }
+        if (id == D_800FC270->selected) {
+            row->highlight = 0;
+        } else {
+            row->highlight = 8;
+        }
+        row->id = id;
+        row->timer = 0;
+        row->scale = -1.0f;
+        row->anim = -1;
+        row->done = 0;
+    }
+}

@@ -1,102 +1,70 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CA968\n.ent func_800CA968\n"
-    "func_800CA968:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$18,2944\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-27040\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $2,180($18)\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $2,180($16)\n"
-    "addiu $2,$18,1884\n"
-    "beql $2,$0,L_800CA9F0\n"
-    "addiu $2,$18,1460\n"
-    "beql $2,$16,L_800CA9F0\n"
-    "addiu $2,$18,1460\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800CA9CC:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bnel $17,$16,L_800CA9CC\n"
-    "addiu $16,$16,-212\n"
-    "addiu $2,$18,1460\n"
-    "L_800CA9F0:\n"
-    "beql $2,$0,L_800CAA30\n"
-    "addiu $2,$18,824\n"
-    "addiu $16,$18,1884\n"
-    "beql $2,$16,L_800CAA30\n"
-    "addiu $2,$18,824\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800CAA0C:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bnel $17,$16,L_800CAA0C\n"
-    "addiu $16,$16,-212\n"
-    "addiu $2,$18,824\n"
-    "L_800CAA30:\n"
-    "beqz $2,L_800CAA68\n"
-    "addiu $16,$18,1460\n"
-    "beql $2,$16,L_800CAA6C\n"
-    "addiu $2,$18,188\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800CAA48:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800CAA48\n"
-    "addiu $16,$16,-212\n"
-    "L_800CAA68:\n"
-    "addiu $2,$18,188\n"
-    "L_800CAA6C:\n"
-    "beqz $2,L_800CAAA0\n"
-    "addiu $16,$18,824\n"
-    "beq $2,$16,L_800CAAA0\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800CAA80:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800CAA80\n"
-    "addiu $16,$16,-212\n"
-    "L_800CAAA0:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800CA968\n.set at\n.set reorder\n");
+/* Destructor: reinstall this class's vtables, destroy the trailing member,
+ * destroy four embedded element arrays in reverse order (virtual slot 1,
+ * flag 2), then chain to the base-class destructor. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Elem {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} Elem;
+
+typedef struct Obj {
+    char pad[180];
+    void *vtbl;
+    int pad2;
+    Elem d[3];
+    Elem c[3];
+    Elem b[2];
+    Elem a[5];
+    Elem m;
+} Obj;
+
+extern char D_80089660[];
+extern char D_80086598[];
+extern void func_800ADDA4(Elem *e, int flags);
+extern void func_800AC3A4(Obj *o, int flags);
+
+void func_800CA968(Obj *o, int flags)
+{
+    Elem *p;
+    Elem *m;
+
+    o->vtbl = D_80089660;
+    m = &o->m;
+    m->vtbl = (VEntry *)D_80086598;
+    func_800ADDA4(m, 2);
+    if (o->a != 0) {
+        p = o->a + 5;
+        while (o->a != p) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    if (o->b != 0) {
+        p = o->b + 2;
+        while (o->b != p) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    if (o->c != 0) {
+        p = o->c + 3;
+        while (o->c != p) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    if (o->d != 0) {
+        p = o->d + 3;
+        while (o->d != p) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    func_800AC3A4(o, flags);
+}

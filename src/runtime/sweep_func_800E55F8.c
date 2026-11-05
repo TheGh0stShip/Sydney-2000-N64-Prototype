@@ -1,66 +1,64 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E55F8\n.ent func_800E55F8\n"
-    "func_800E55F8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sltiu $2,$5,7\n"
-    "beqz $2,L_800E5660\n"
-    "sw $31,20($29)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-17136\n"
-    "sll $3,$5,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "j L_800E5660\n"
-    "move $6,$0\n"
-    "j L_800E5660\n"
-    "li $6,1\n"
-    "j L_800E5660\n"
-    "li $6,2\n"
-    "j L_800E5660\n"
-    "li $6,3\n"
-    "j L_800E5660\n"
-    "li $6,4\n"
-    "j L_800E5660\n"
-    "li $6,5\n"
-    "li $6,6\n"
-    "L_800E5660:\n"
-    "lui $3,0x8010\n"
-    "addiu $3,$3,-3152\n"
-    "sll $2,$6,0x1\n"
-    "addu $2,$2,$6\n"
-    "addu $2,$2,$3\n"
-    "lbu $4,0($2)\n"
-    "lui $3,0x8010\n"
-    "sw $4,-3116($3)\n"
-    "lbu $4,1($2)\n"
-    "lui $3,0x8010\n"
-    "sw $4,-3112($3)\n"
-    "lbu $3,2($2)\n"
-    "lui $2,0x8010\n"
-    "sw $3,-3108($2)\n"
-    "sltiu $2,$6,4\n"
-    "bnez $2,L_800E56D4\n"
-    "addiu $16,$16,192\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,192($16)\n"
-    "li $4,1\n"
-    "ori $2,$2,0x4\n"
-    "jal func_80017860\n"
-    "sw $2,192($16)\n"
-    "move $4,$0\n"
-    "move $5,$4\n"
-    "move $6,$4\n"
-    "jal func_80017820\n"
-    "move $7,$4\n"
-    "L_800E56D4:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800E55F8\n.set at\n.set reorder\n");
+/* Select a colour preset for the given mode and publish its RGB channels;
+ * the bright presets also refresh the overlay widget and reset the fog. */
+typedef struct Widget {
+    char pad[192];
+    int flags;
+} Widget;
+
+typedef struct Screen {
+    char pad[192];
+    Widget overlay;
+} Screen;
+
+typedef struct Rgb {
+    unsigned char r;
+    unsigned char g;
+    unsigned char b;
+} Rgb;
+
+extern Rgb D_800FF3B0[];
+extern int D_800FF3D4;
+extern int D_800FF3D8;
+extern int D_800FF3DC;
+extern void func_800ADC1C(Widget *w);
+extern void func_80017860(int on);
+extern void func_80017820(int r, int g, int b, int a);
+
+void func_800E55F8(Screen *s, unsigned int mode, unsigned int preset)
+{
+    Widget *w;
+
+    switch (mode) {
+    case 0:
+        preset = 0;
+        break;
+    case 1:
+        preset = 1;
+        break;
+    case 2:
+        preset = 2;
+        break;
+    case 3:
+        preset = 3;
+        break;
+    case 4:
+        preset = 4;
+        break;
+    case 5:
+        preset = 5;
+        break;
+    case 6:
+        preset = 6;
+        break;
+    }
+    D_800FF3D4 = D_800FF3B0[preset].r;
+    D_800FF3D8 = D_800FF3B0[preset].g;
+    D_800FF3DC = D_800FF3B0[preset].b;
+    if (preset >= 4) {
+        w = &s->overlay;
+        func_800ADC1C(w);
+        w->flags |= 4;
+        func_80017860(1);
+        func_80017820(0, 0, 0, 0);
+    }
+}

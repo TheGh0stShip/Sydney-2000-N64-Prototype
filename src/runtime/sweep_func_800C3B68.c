@@ -1,45 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C3B68\n.ent func_800C3B68\n"
-    "func_800C3B68:\n"
-    "addiu $29,$29,-32\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,220($4)\n"
-    "lw $3,28($2)\n"
-    "move $17,$5\n"
-    "lw $2,4($3)\n"
-    "slti $2,$2,20\n"
-    "bnez $2,L_800C3B9C\n"
-    "move $5,$0\n"
-    "lbu $2,7($3)\n"
-    "addiu $5,$2,-19\n"
-    "L_800C3B9C:\n"
-    "lw $6,8($3)\n"
-    "slti $2,$6,20\n"
-    "bnez $2,L_800C3BD4\n"
-    "sll $2,$6,0x1\n"
-    "addiu $16,$4,812\n"
-    "andi $5,$5,0xff\n"
-    "sll $5,$5,0x1\n"
-    "move $4,$16\n"
-    "lw $2,0($3)\n"
-    "li $6,20\n"
-    "jal func_800DB0F4\n"
-    "addu $5,$2,$5\n"
-    "j L_800C3BE0\n"
-    "sh $0,40($16)\n"
-    "L_800C3BD4:\n"
-    "lw $16,0($3)\n"
-    "addu $2,$2,$16\n"
-    "sh $0,0($2)\n"
-    "L_800C3BE0:\n"
-    "sw $16,0($17)\n"
-    "move $2,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C3B68\n.set at\n.set reorder\n");
+/* Produce a terminated text pointer for the current entry: short strings are
+ * terminated in place, long ones are copied (20 chars, scrolled) into the
+ * object's local buffer. */
+typedef struct Text {
+    short *chars;
+    int scroll;
+    int len;
+} Text;
+
+typedef struct TextOwner {
+    char pad[28];
+    Text *text;
+} TextOwner;
+
+typedef struct Ref {
+    short *p;
+} Ref;
+
+typedef struct Obj {
+    char pad[220];
+    TextOwner *owner;
+    char pad2[812 - 224];
+    short buf[21];
+} Obj;
+
+extern void func_800DB0F4(short *dst, short *src, int n);
+
+Ref *func_800C3B68(Obj *o, Ref *out)
+{
+    Text *t;
+    short *p;
+    unsigned char off;
+
+    t = o->owner->text;
+    off = 0;
+    if (t->scroll >= 20) {
+        off = ((unsigned char *)t)[7] - 19;
+    }
+    if (t->len >= 20) {
+        p = o->buf;
+        func_800DB0F4(p, t->chars + off, 20);
+        p[20] = 0;
+        out->p = p;
+    } else {
+        p = t->chars;
+        p[t->len] = 0;
+        out->p = p;
+    }
+    return out;
+}

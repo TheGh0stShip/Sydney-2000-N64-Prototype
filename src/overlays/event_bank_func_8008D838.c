@@ -1,51 +1,64 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008D838\n.ent func_8008D838\n"
-    "func_8008D838:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $4,23004($16)\n"
-    "jal func_8009B670\n"
-    "nop\n"
-    "li $3,0x8000\n"
-    "addu $3,$16,$3\n"
-    "lbu $3,1047($3)\n"
-    "sltiu $3,$3,2\n"
-    ".word 0x10600050\n"
-    "move $18,$2\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8008D8A8\n"
-    "li $2,3\n"
-    "lw $5,23004($16)\n"
-    "lbu $3,426($5)\n"
-    "beq $3,$2,L_8008D8A8\n"
-    "li $4,4\n"
-    "lbu $5,424($5)\n"
-    "j func_80075548\n"
-    "lui $17,0x8010\n"
-    "L_8008D8A8:\n"
-    "lw $2,23004($16)\n"
-    "li $4,38\n"
-    "lbu $5,425($2)\n"
-    "lui $17,0x8010\n"
-    "lw $2,-15760($17)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8008D8DC\n"
-    "addu $5,$4,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8008D8DC:\n"
-    "lw $3,-15760($17)\n"
-    "lw $5,2560($3)\n"
-    "li $2,4\n"
-    ".end func_8008D838\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern unsigned char func_8009B670(void *obj);
+extern void func_800C0110(void *a, int b, int c, int d);
+
+void func_8008D838(unsigned char *state)
+{
+    unsigned char level;
+    unsigned char *obj;
+    int sound;
+    int variant;
+    int mode;
+    int id;
+
+    level = func_8009B670(*(void **)(state + 0x59DC));
+    if (state[0x8417] >= 2) {
+        return;
+    }
+    if (*(int *)(D_800FC270 + 0xA00) == 5 &&
+        (obj = *(unsigned char **)(state + 0x59DC))[0x1AA] != 3) {
+        sound = 4;
+        variant = obj[0x1A8];
+    } else {
+        sound = 0x26;
+        variant = (*(unsigned char **)(state + 0x59DC))[0x1A9];
+    }
+    id = sound + variant;
+    if (*(int *)(D_800FC270 + 0xA04) != 0) {
+        func_800C0110(D_800F3BC0, id, 0, 0);
+    }
+    mode = *(int *)(D_800FC270 + 0xA00);
+    sound = -1;
+    if (mode != 4) {
+        return;
+    }
+    if (*(int *)(D_800FC270 + 0xA04) == mode) {
+        if ((signed char)state[0x8414] == 1) {
+            sound = 0x211;
+        } else if ((signed char)state[0x8414] == 2) {
+            sound = 0x217;
+        }
+    } else if (*(int *)(D_800FC270 + 0xA04) == 5) {
+        if ((signed char)state[0x8414] != 2) {
+            sound = 0x21D;
+        } else if ((*(unsigned char **)(state + 0x59DC))[0x1AA] == 1) {
+            sound = 0x227;
+        } else {
+            sound = 0x222;
+        }
+    }
+    if (level < 4) {
+        variant = level;
+    } else if (level < 8) {
+        variant = 4;
+    } else {
+        variant = 5;
+    }
+    if (sound >= 0) {
+        id = sound + variant;
+        if (*(int *)(D_800FC270 + 0xA04) != 0) {
+            func_800C0110(D_800F3BC0, id, 0, 0);
+        }
+    }
+}

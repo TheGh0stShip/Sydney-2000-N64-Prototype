@@ -1,112 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80078970\n.ent func_80078970\n"
-    "func_80078970:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "jal func_80075E54\n"
-    "sw $16,24($29)\n"
-    "move $3,$2\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800789D0\n"
-    "slti $2,$3,2\n"
-    "beql $2,$0,L_800789B8\n"
-    "li $2,2\n"
-    "beqz $3,L_800789E4\n"
-    "lui $2,0x8010\n"
-    "j func_80075784\n"
-    "nop\n"
-    "L_800789B8:\n"
-    "bne $3,$2,L_80078AE4\n"
-    "nop\n"
-    "jal func_800757A0\n"
-    "move $4,$17\n"
-    "j func_80075784\n"
-    "nop\n"
-    "L_800789D0:\n"
-    "li $4,1\n"
-    "jal func_8009C0D8\n"
-    "li $5,-1\n"
-    "j func_80075784\n"
-    "nop\n"
-    "L_800789E4:\n"
-    "lw $3,-15760($2)\n"
-    "lw $4,2560($3)\n"
-    "li $2,4\n"
-    "bne $4,$2,L_80078ADC\n"
-    "li $19,2\n"
-    "lw $2,2564($3)\n"
-    "beq $2,$19,L_80078A0C\n"
-    "nop\n"
-    "bne $2,$4,L_80078ADC\n"
-    "nop\n"
-    "L_80078A0C:\n"
-    "lbu $4,1556($17)\n"
-    "jal func_8009BD50\n"
-    "nop\n"
-    "jal func_800834F4\n"
-    "addiu $4,$17,1584\n"
-    "jal func_8009D8F0\n"
-    "addiu $4,$17,3660\n"
-    "lui $2,0x1\n"
-    "addu $18,$17,$2\n"
-    "lbu $2,2841($18)\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_80078A50\n"
-    "nop\n"
-    "jal func_800834F4\n"
-    "addiu $4,$17,28608\n"
-    "jal func_8009D8F0\n"
-    "addiu $4,$17,30684\n"
-    "L_80078A50:\n"
-    "jal func_80073498\n"
-    "move $4,$17\n"
-    "lui $4,0x1\n"
-    "ori $4,$4,0xa2c\n"
-    "jal func_800AC334\n"
-    "addu $4,$17,$4\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10968\n"
-    "move $4,$16\n"
-    "li $5,12\n"
-    "li $6,1\n"
-    "move $7,$17\n"
-    "jal func_800BBD78\n"
-    "sw $19,16($29)\n"
-    "move $4,$16\n"
-    "li $5,13\n"
-    "li $6,1\n"
-    "move $7,$17\n"
-    "jal func_800BBD78\n"
-    "sw $19,16($29)\n"
-    "lui $2,0x800f\n"
-    "sw $0,10024($2)\n"
-    "li $2,-7680\n"
-    "li $4,0xd954\n"
-    "sw $2,2824($18)\n"
-    "sw $0,172($17)\n"
-    "sw $0,2832($18)\n"
-    "lbu $2,1557($17)\n"
-    "addu $4,$17,$4\n"
-    "jal func_800D771C\n"
-    "sb $2,1556($17)\n"
-    "jal func_80075C80\n"
-    "move $4,$17\n"
-    "j func_80075784\n"
-    "nop\n"
-    "L_80078ADC:\n"
-    "jal func_80072EE4\n"
-    "move $4,$17\n"
-    "L_80078AE4:\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80078970\n.set at\n.set reorder\n");
+typedef struct GameState {
+    char pad[2560];
+    int mode;
+    int sound;
+} GameState;
+
+extern GameState *D_800FC270;
+extern unsigned char D_800F2AD8[];
+extern int D_800F2728;
+
+extern int func_80075E54(unsigned char *state);
+extern void func_800757A0(unsigned char *state);
+extern void func_8009C0D8(int a, int b);
+extern void func_8009BD50(int value);
+extern void func_800834F4(void *object);
+extern void func_8009D8F0(void *object);
+extern void func_80073498(unsigned char *state);
+extern void func_800AC334(void *object);
+extern void func_800BBD78(void *list, int id, int flag, void *owner, int arg);
+extern void func_800D771C(void *object);
+extern void func_80075C80(unsigned char *state);
+extern void func_80072EE4(unsigned char *state);
+
+void func_80078970(unsigned char *state)
+{
+    switch (func_80075E54(state)) {
+    case 2:
+        func_800757A0(state);
+        break;
+    case 1:
+        func_8009C0D8(1, -1);
+        break;
+    case 0:
+        if (D_800FC270->mode == 4 &&
+            (D_800FC270->sound == 2 || D_800FC270->sound == 4)) {
+            func_8009BD50(state[1556]);
+            func_800834F4(state + 1584);
+            func_8009D8F0(state + 3660);
+            if (state[65536 + 2841] >= 2) {
+                func_800834F4(state + 28608);
+                func_8009D8F0(state + 30684);
+            }
+            func_80073498(state);
+            func_800AC334(state + 0x10A2C);
+            func_800BBD78(D_800F2AD8, 12, 1, state, 2);
+            func_800BBD78(D_800F2AD8, 13, 1, state, 2);
+            D_800F2728 = 0;
+            *(int *)(state + 65536 + 2824) = -7680;
+            *(int *)(state + 172) = 0;
+            *(int *)(state + 65536 + 2832) = 0;
+            state[1556] = state[1557];
+            func_800D771C(state + 0xD954);
+            func_80075C80(state);
+        } else {
+            func_80072EE4(state);
+        }
+        break;
+    }
+}

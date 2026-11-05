@@ -1,54 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D4FA8\n.ent func_800D4FA8\n"
-    "func_800D4FA8:\n"
-    "addiu $29,$29,-32\n"
-    "lui $2,0x8010\n"
-    "addiu $2,$2,10416\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "beqz $2,L_800D4FF4\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$2,2200\n"
-    "beq $16,$2,L_800D4FF4\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-220\n"
-    "L_800D4FD4:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $16,$17,L_800D4FD4\n"
-    "addiu $16,$16,-220\n"
-    "L_800D4FF4:\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,19712\n"
-    "addiu $4,$16,2536\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-24520\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$16,2324\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,660\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $4,$16,220\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-24216\n"
-    "jal func_800AE4D8\n"
-    "sw $2,180($16)\n"
-    "move $4,$16\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D4FA8\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)();
+} VEntry;
+
+typedef struct {
+    char pad[180];
+    VEntry *vtbl;
+    char pad2[220 - 184];
+} Obj;
+
+extern Obj D_801028B0[10];
+extern char D_800F4D00[];
+extern VEntry D_8008A038[];
+extern VEntry D_8008A168[];
+extern void func_800ADE84(void *, int);
+extern void func_800D3460(void *, int);
+extern void func_800AE4D8(void *, int);
+extern void func_800AC3A4(void *, int);
+
+void func_800D4FA8(void)
+{
+    Obj *p;
+
+    if (D_801028B0 != 0) {
+        p = &D_801028B0[10];
+        while (p != D_801028B0) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    ((Obj *)D_800F4D00)->vtbl = D_8008A038;
+    func_800ADE84(D_800F4D00 + 2536, 2);
+    func_800ADE84(D_800F4D00 + 2324, 2);
+    func_800D3460(D_800F4D00 + 660, 2);
+    ((Obj *)D_800F4D00)->vtbl = D_8008A168;
+    func_800AE4D8(D_800F4D00 + 220, 2);
+    func_800AC3A4(D_800F4D00, 2);
+}

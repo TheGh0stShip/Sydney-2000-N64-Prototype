@@ -1,55 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A095C\n.ent func_800A095C\n"
-    "func_800A095C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $4,23712($16)\n"
-    "li $3,3\n"
-    "lbu $2,426($4)\n"
-    "lbu $17,425($4)\n"
-    "beq $2,$3,L_800A09A8\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800A09AC\n"
-    "addiu $5,$17,34\n"
-    "lbu $5,424($4)\n"
-    "j func_80074BF0\n"
-    "andi $5,$5,0xffff\n"
-    "L_800A09A8:\n"
-    "addiu $5,$17,34\n"
-    "L_800A09AC:\n"
-    "andi $5,$5,0xffff\n"
-    "lbu $3,24041($16)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_800A09E0\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800A09E0\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A09E0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800A09E0:\n"
-    "lui $5,0x8007\n"
-    "addiu $5,$5,22524\n"
-    "andi $2,$17,0xff\n"
-    "addiu $2,$2,149\n"
-    "addiu $4,$16,13020\n"
-    "move $6,$0\n"
-    "li $7,-1\n"
-    "jal func_800D33A0\n"
-    "sw $2,16($5)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A095C\n.set at\n.set reorder\n");
+extern char *D_800FC270;
+extern char D_800F3BC0[];
+extern int D_800757FC[];
+extern void func_800C0110(void *channel, int sound, int arg2, int arg3);
+extern void func_800D33A0(void *queue, void *message, int count, int timeout);
+
+static inline void event_play_sound(char *self, int sound)
+{
+    unsigned char phase = *(unsigned char *)(self + 24041);
+
+    if (phase != 4 && phase != 2 && phase != 3) {
+        func_800C0110(D_800F3BC0, sound, 0, 0);
+    }
+}
+
+void func_800A095C(char *self)
+{
+    unsigned char *player = *(unsigned char **)(self + 23712);
+    unsigned char slot = player[425];
+    unsigned short sound;
+
+    if (player[426] != 3 && *(int *)(D_800FC270 + 2560) == 5) {
+        sound = player[424];
+    } else {
+        sound = slot + 34;
+    }
+    event_play_sound(self, sound);
+    D_800757FC[4] = slot + 149;
+    func_800D33A0(self + 13020, D_800757FC, 0, -1);
+}

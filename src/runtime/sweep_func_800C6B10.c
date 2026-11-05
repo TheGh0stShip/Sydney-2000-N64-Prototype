@@ -1,31 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C6B10\n.ent func_800C6B10\n"
-    "func_800C6B10:\n"
-    "addiu $29,$29,-32\n"
-    "lui $2,0x8010\n"
-    "addiu $2,$2,6496\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "beqz $2,L_800C6B5C\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$2,1696\n"
-    "beq $16,$2,L_800C6B5C\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800C6B3C:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $16,$17,L_800C6B3C\n"
-    "addiu $16,$16,-212\n"
-    "L_800C6B5C:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C6B10\n.set at\n.set reorder\n");
+/* Destroy the static array of eight objects in reverse order, calling each
+ * element's virtual destructor (slot 1) with the "don't free" flag 2. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Elem {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} Elem;
+
+extern Elem D_80101960[8];
+
+void func_800C6B10(void)
+{
+    Elem *p;
+
+    if (D_80101960 != 0) {
+        p = D_80101960 + 8;
+        while (p != D_80101960) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+}

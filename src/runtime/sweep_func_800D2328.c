@@ -1,70 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D2328\n.ent func_800D2328\n"
-    "func_800D2328:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,5384($17)\n"
-    "andi $2,$2,0x1e\n"
-    "beqz $2,L_800D2390\n"
-    "addiu $16,$17,2796\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$17,3016\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1916\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1704\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1492\n"
-    "jal func_800CC310\n"
-    "addiu $4,$17,3456\n"
-    "L_800D2390:\n"
-    "lbu $2,5384($17)\n"
-    "andi $2,$2,0x1\n"
-    "beql $2,$0,L_800D240C\n"
-    "sb $0,5384($17)\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1280\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,1068\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,856\n"
-    "addiu $4,$17,424\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,212\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,644\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,2552\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,2340\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,2128\n"
-    "lw $2,180($17)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$17,3236\n"
-    "sb $0,5384($17)\n"
-    "L_800D240C:\n"
-    "sb $0,5385($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D2328\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)();
+} VEntry;
+
+#define AT(self, off) ((char *)(self) + (off))
+#define FLAGS(self) (*(unsigned char *)AT(self, 5384))
+#define PENDING(self) (*(unsigned char *)AT(self, 5385))
+#define VTBL(self) (*(VEntry **)AT(self, 180))
+
+extern void func_800B35F0(void *);
+extern void func_800AC334(void *);
+extern void func_800ADC1C(void *);
+extern void func_800CC310(void *);
+extern void func_800B2158(void *, int);
+
+void func_800D2328(void *self)
+{
+    void *obj;
+
+    obj = AT(self, 2796);
+    if (FLAGS(self) & 0x1E) {
+        func_800B35F0(obj);
+        func_800AC334(obj);
+        obj = AT(self, 3016);
+        func_800B35F0(obj);
+        func_800AC334(obj);
+        func_800ADC1C(AT(self, 1916));
+        func_800ADC1C(AT(self, 1704));
+        func_800ADC1C(AT(self, 1492));
+        func_800CC310(AT(self, 3456));
+    }
+    if (FLAGS(self) & 1) {
+        func_800ADC1C(AT(self, 1280));
+        func_800ADC1C(AT(self, 1068));
+        func_800ADC1C(AT(self, 856));
+        func_800B2158(AT(self, 424), 0);
+        func_800ADC1C(AT(self, 212));
+        func_800ADC1C(AT(self, 644));
+        func_800ADC1C(AT(self, 2552));
+        func_800ADC1C(AT(self, 2340));
+        func_800ADC1C(AT(self, 2128));
+        VTBL(self)[9].fn(AT(self, VTBL(self)[9].delta));
+        func_800B35F0(AT(self, 3236));
+    }
+    FLAGS(self) = 0;
+    PENDING(self) = 0;
+}

@@ -1,111 +1,90 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DF11C\n.ent func_800DF11C\n"
-    "func_800DF11C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x8010\n"
-    "lw $3,-15760($16)\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lbu $2,3411($3)\n"
-    "sltiu $2,$2,3\n"
-    "bnez $2,L_800DF14C\n"
-    "move $17,$4\n"
-    "li $2,2\n"
-    "sb $2,3411($3)\n"
-    "L_800DF14C:\n"
-    "beqz $6,L_800DF2A0\n"
-    "nop\n"
-    "lw $2,-15760($16)\n"
-    "sw $6,188($17)\n"
-    "addiu $2,$2,20\n"
-    "jal func_800E9290\n"
-    "sw $2,184($17)\n"
-    "jal func_800D9990\n"
-    "nop\n"
-    "lw $3,-15760($16)\n"
-    "li $2,1\n"
-    "sb $2,3449($3)\n"
-    "lw $4,-15760($16)\n"
-    "sw $0,2532($3)\n"
-    "jal func_800D9B34\n"
-    "addiu $4,$4,3440\n"
-    "jal func_800D9A18\n"
-    "nop\n"
-    "lw $2,-15760($16)\n"
-    "sb $0,520($2)\n"
-    "lw $3,-15760($16)\n"
-    "li $2,14\n"
-    "sh $2,20($3)\n"
-    "sh $2,22($3)\n"
-    "sh $2,24($3)\n"
-    "lui $2,0x800f\n"
-    "sh $0,26($3)\n"
-    "lw $3,184($17)\n"
-    "lbu $2,10060($2)\n"
-    "move $4,$0\n"
-    "sb $2,8($3)\n"
-    "lw $3,-15760($16)\n"
-    "L_800DF1CC:\n"
-    "sw $0,1208($3)\n"
-    "addiu $4,$4,1\n"
-    "sltiu $2,$4,12\n"
-    "bnez $2,L_800DF1CC\n"
-    "addiu $3,$3,4\n"
-    "move $4,$0\n"
-    "lui $2,0x8009\n"
-    "addiu $6,$2,-17716\n"
-    "lui $2,0x8009\n"
-    "addiu $5,$2,-17760\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "L_800DF1FC:\n"
-    "lwc1 $f2,0($6)\n"
-    "addiu $6,$6,4\n"
-    "lwc1 $f0,0($5)\n"
-    "addiu $5,$5,4\n"
-    "addiu $4,$4,1\n"
-    "sltiu $2,$4,11\n"
-    "swc1 $f0,1268($3)\n"
-    "swc1 $f2,1312($3)\n"
-    "bnez $2,L_800DF1FC\n"
-    "addiu $3,$3,4\n"
-    "lui $2,0x8010\n"
-    "lui $4,0x800f\n"
-    "lw $2,-15760($2)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-19808($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-19804($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-19800($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f6,-19796($1)\n"
-    "addiu $4,$4,10968\n"
-    "swc1 $f0,1356($2)\n"
-    "swc1 $f2,1360($2)\n"
-    "swc1 $f4,1364($2)\n"
-    "jal func_800BC180\n"
-    "swc1 $f6,1368($2)\n"
-    "jal func_800DFC4C\n"
-    "move $4,$17\n"
-    "lui $3,0x8010\n"
-    "li $2,2\n"
-    "sh $2,-4426($3)\n"
-    "lw $4,188($17)\n"
-    "jal func_800E9774\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,12\n"
-    "li $2,1\n"
-    "sb $2,19102($17)\n"
-    "L_800DF2A0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800DF11C\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[20];
+    unsigned short dims[4];
+    char pad1[520 - 28];
+    unsigned char active;
+    char pad2[1208 - 521];
+    int counters[12];
+    char pad3[1268 - 1256];
+    float tableA[11];
+    float tableB[11];
+    float bands[4];
+    char pad4[2532 - 1372];
+    int timer;
+    char pad5[3411 - 2536];
+    unsigned char stage;
+    char pad6[3440 - 3412];
+    char entry[9];
+    unsigned char entryReady;
+} State;
+
+typedef struct {
+    char pad0[184];
+    unsigned char *dims;
+    int value;
+    char pad1[19102 - 192];
+    unsigned char started;
+} Owner;
+
+extern State *D_800FC270;
+extern unsigned char D_800F274C;
+extern char D_800F2AD8[];
+extern short D_800FEEB6[];
+extern char D_800F5900[];
+extern float D_8008BAA0[11];
+extern float D_8008BACC[11];
+extern void func_800E9290(void);
+extern void func_800D9990(void);
+extern void func_800D9B34(void *);
+extern void func_800D9A18(void);
+extern void func_800BC180(void *);
+extern void func_800DFC4C(void *);
+extern void func_800E9774(int);
+extern void func_800D53A0(void *, int);
+
+void func_800DF11C(Owner *self, int unused, int value)
+{
+    unsigned int i;
+    float *src;
+    float *src2;
+
+    if (D_800FC270->stage >= 3) {
+        D_800FC270->stage = 2;
+    }
+    if (value != 0) {
+        self->value = value;
+        self->dims = (unsigned char *)D_800FC270->dims;
+        func_800E9290();
+        func_800D9990();
+        D_800FC270->timer = 0;
+        D_800FC270->entryReady = 1;
+        func_800D9B34(D_800FC270->entry);
+        func_800D9A18();
+        D_800FC270->active = 0;
+        D_800FC270->dims[0] = 14;
+        D_800FC270->dims[1] = 14;
+        D_800FC270->dims[2] = 14;
+        D_800FC270->dims[3] = 0;
+        self->dims[8] = D_800F274C;
+        for (i = 0; i < 12; i++) {
+            D_800FC270->counters[i] = 0;
+        }
+        for (i = 0, src2 = D_8008BACC, src = D_8008BAA0; i < 11; i++) {
+            float b = *src2++;
+            float a = *src++;
+
+            D_800FC270->tableA[i] = a;
+            D_800FC270->tableB[i] = b;
+        }
+        D_800FC270->bands[0] = 700.0f;
+        D_800FC270->bands[1] = 600.0f;
+        D_800FC270->bands[2] = 500.0f;
+        D_800FC270->bands[3] = 400.0f;
+        func_800BC180(D_800F2AD8);
+        func_800DFC4C(self);
+        D_800FEEB6[0] = 2;
+        func_800E9774(self->value);
+        func_800D53A0(D_800F5900, 12);
+        self->started = 1;
+    }
+}

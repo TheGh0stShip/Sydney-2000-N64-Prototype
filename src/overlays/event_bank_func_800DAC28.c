@@ -1,64 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DAC28\n.ent func_800DAC28\n"
-    "func_800DAC28:\n"
-    "ori $7,$7,0xb000\n"
-    "lbu $2,1555($4)\n"
-    "beqz $2,L_800DACF0\n"
-    "move $6,$0\n"
-    "li $10,1\n"
-    "move $9,$2\n"
-    "andi $2,$6,0xff\n"
-    "L_800DAC44:\n"
-    "sll $3,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$4,$3\n"
-    "lh $2,24766($3)\n"
-    "beql $2,$10,L_800DAC84\n"
-    "addiu $6,$6,1\n"
-    "lw $5,24748($3)\n"
-    "slt $2,$5,$8\n"
-    "bnel $2,$0,L_800DAC70\n"
-    "move $8,$5\n"
-    "L_800DAC70:\n"
-    "lw $3,24756($3)\n"
-    "slt $2,$3,$7\n"
-    "bnel $2,$0,L_800DAC80\n"
-    "move $7,$3\n"
-    "L_800DAC80:\n"
-    "addiu $6,$6,1\n"
-    "L_800DAC84:\n"
-    "andi $2,$6,0xff\n"
-    "sltu $2,$2,$9\n"
-    "bnez $2,L_800DAC44\n"
-    "andi $2,$6,0xff\n"
-    "lbu $2,1555($4)\n"
-    "beqz $2,L_800DACF0\n"
-    "move $6,$0\n"
-    "li $9,1\n"
-    "andi $2,$6,0xff\n"
-    "L_800DACA8:\n"
-    "sll $3,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $5,$4,$3\n"
-    "lh $2,24766($5)\n"
-    "beq $2,$9,L_800DACDC\n"
-    "addiu $6,$6,1\n"
-    "lw $2,24748($5)\n"
-    "lw $3,24756($5)\n"
-    "subu $2,$2,$8\n"
-    "subu $3,$3,$7\n"
-    "sw $2,24752($5)\n"
-    "sw $3,24760($5)\n"
-    "L_800DACDC:\n"
-    "lbu $3,1555($4)\n"
-    "andi $2,$6,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800DACA8\n"
-    "andi $2,$6,0xff\n"
-    "L_800DACF0:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800DAC28\n.set at\n.set reorder\n");
+typedef struct {
+    int x;
+    int rx;
+    int y;
+    int ry;
+    short pad;
+    short flag;
+} Item;
+
+typedef struct {
+    char pad[0x60AC];
+    Item items[1];
+} Obj;
+
+void func_800DAC28(Obj *obj)
+{
+    int minx = 0x4B000;
+    int miny = 0x4B000;
+    unsigned char i;
+
+    for (i = 0; i < ((unsigned char *)obj)[1555]; i++) {
+        if (obj->items[i].flag != 1) {
+            if (obj->items[i].x < minx) {
+                minx = obj->items[i].x;
+            }
+            if (obj->items[i].y < miny) {
+                miny = obj->items[i].y;
+            }
+        }
+    }
+    for (i = 0; i < ((unsigned char *)obj)[1555]; i++) {
+        if (obj->items[i].flag != 1) {
+            obj->items[i].rx = obj->items[i].x - minx;
+            obj->items[i].ry = obj->items[i].y - miny;
+        }
+    }
+}

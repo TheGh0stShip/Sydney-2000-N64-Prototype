@@ -1,95 +1,63 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DFC4C\n.ent func_800DFC4C\n"
-    "func_800DFC4C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "move $6,$0\n"
-    "move $4,$6\n"
-    "lui $2,0x8010\n"
-    "lw $5,-15760($2)\n"
-    "li $7,3\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "move $3,$5\n"
-    "L_800DFC78:\n"
-    "lhu $2,3408($5)\n"
-    "andi $2,$2,0x10\n"
-    "beql $2,$0,L_800DFC8C\n"
-    "sw $0,524($3)\n"
-    "sw $7,524($3)\n"
-    "L_800DFC8C:\n"
-    "addiu $4,$4,1\n"
-    "sltiu $2,$4,12\n"
-    "bnez $2,L_800DFC78\n"
-    "addiu $3,$3,4\n"
-    "lui $5,0x8010\n"
-    "lw $4,-15760($5)\n"
-    "lhu $3,3408($4)\n"
-    "andi $2,$3,0x10\n"
-    "beqz $2,L_800DFCBC\n"
-    "ori $2,$3,0x7\n"
-    "li $6,100\n"
-    "sh $2,3408($4)\n"
-    "L_800DFCBC:\n"
-    "lw $2,-15760($5)\n"
-    "addiu $3,$2,572\n"
-    "addiu $2,$2,824\n"
-    "sb $6,0($3)\n"
-    "L_800DFCCC:\n"
-    "addiu $3,$3,1\n"
-    "bnel $3,$2,L_800DFCCC\n"
-    "sb $6,0($3)\n"
-    "move $5,$0\n"
-    "lui $16,0x8010\n"
-    "lw $4,-15760($16)\n"
-    "li $6,384\n"
-    "jal func_800B3AFC\n"
-    "addiu $4,$4,824\n"
-    "lw $5,-15760($16)\n"
-    "li $6,8\n"
-    "addiu $4,$5,1256\n"
-    "jal func_800B3870\n"
-    "addiu $5,$5,20\n"
-    "lw $2,-15760($16)\n"
-    "lbu $3,28($2)\n"
-    "sb $0,1266($2)\n"
-    "lw $4,-15760($16)\n"
-    "sh $3,1264($2)\n"
-    "lbu $2,3411($4)\n"
-    "sb $2,1267($4)\n"
-    "lw $3,-15760($16)\n"
-    "lhu $2,3408($3)\n"
-    "andi $2,$2,0x10\n"
-    "beqz $2,L_800DFD84\n"
-    "nop\n"
-    "sh $0,2524($3)\n"
-    "L_800DFD38:\n"
-    "lw $2,-15760($16)\n"
-    "sh $0,2528($2)\n"
-    "L_800DFD40:\n"
-    "jal func_800E19B8\n"
-    "move $4,$17\n"
-    "lw $3,-15760($16)\n"
-    "lhu $2,2528($3)\n"
-    "addiu $2,$2,1\n"
-    "sh $2,2528($3)\n"
-    "andi $2,$2,0xffff\n"
-    "sltiu $2,$2,4\n"
-    "bnez $2,L_800DFD40\n"
-    "nop\n"
-    "lhu $2,2524($3)\n"
-    "addiu $2,$2,1\n"
-    "sh $2,2524($3)\n"
-    "andi $2,$2,0xffff\n"
-    "sltiu $2,$2,12\n"
-    "bnez $2,L_800DFD38\n"
-    "nop\n"
-    "L_800DFD84:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800DFC4C\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[20];
+    unsigned char header[8];
+    unsigned char kind;
+    char pad1[524 - 29];
+    int modes[12];
+    unsigned char levels[252];
+    char pad2[1256 - 824];
+    unsigned char info[8];
+    unsigned short infoKind;
+    unsigned char infoZero;
+    unsigned char infoFlag;
+    char pad3[2524 - 1268];
+    unsigned short row;
+    unsigned short pad4;
+    unsigned short col;
+    char pad5[3408 - 2530];
+    unsigned short flags;
+    unsigned char pad6;
+    unsigned char flagByte;
+} State;
+
+extern State *D_800FC270;
+extern void func_800B3AFC(void *, int, int);
+extern void func_800B3870(void *, void *, int);
+extern void func_800E19B8(void *);
+
+void func_800DFC4C(void *arg)
+{
+    unsigned int i;
+    int fill = 0;
+    unsigned char *p;
+    unsigned char *end;
+
+    for (i = 0; i < 12; i++) {
+        if (D_800FC270->flags & 0x10) {
+            D_800FC270->modes[i] = 3;
+        } else {
+            D_800FC270->modes[i] = 0;
+        }
+    }
+    if (D_800FC270->flags & 0x10) {
+        fill = 100;
+        D_800FC270->flags |= 7;
+    }
+    p = D_800FC270->levels;
+    end = p + 252;
+    do {
+        *p++ = fill;
+    } while (p != end);
+    func_800B3AFC((char *)D_800FC270 + 824, 0, 384);
+    func_800B3870(D_800FC270->info, D_800FC270->header, 8);
+    D_800FC270->infoKind = D_800FC270->kind;
+    D_800FC270->infoZero = 0;
+    D_800FC270->infoFlag = D_800FC270->flagByte;
+    if (D_800FC270->flags & 0x10) {
+        for (D_800FC270->row = 0; D_800FC270->row < 12; D_800FC270->row++) {
+            for (D_800FC270->col = 0; D_800FC270->col < 4; D_800FC270->col++) {
+                func_800E19B8(arg);
+            }
+        }
+    }
+}

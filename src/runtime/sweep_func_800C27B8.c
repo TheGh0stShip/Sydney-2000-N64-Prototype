@@ -1,71 +1,54 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C27B8\n.ent func_800C27B8\n"
-    "func_800C27B8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,3($5)\n"
-    "andi $2,$2,0x10\n"
-    "beqz $2,L_800C2894\n"
-    "move $17,$4\n"
-    "lw $2,220($17)\n"
-    "lw $2,4($2)\n"
-    "lui $3,0x8\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800C2830\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,89\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "j L_800C28A0\n"
-    "nop\n"
-    "L_800C2830:\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,130\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "lw $2,220($17)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "move $4,$17\n"
-    "li $5,107\n"
-    "li $6,6\n"
-    "lw $4,4($17)\n"
-    "jal func_800AC25C\n"
-    "move $7,$0\n"
-    "j L_800C28A0\n"
-    "nop\n"
-    "L_800C2894:\n"
-    "lbu $5,0($5)\n"
-    "jal func_800B1550\n"
-    "move $4,$17\n"
-    "L_800C28A0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C27B8\n.set at\n.set reorder\n");
+/* Input handler: on the confirm bit play the accept or reject cue at the
+ * mixer's current volume (reject also notifies the owner and posts event 107);
+ * otherwise forward the raw key to the default handler. */
+typedef struct Event {
+    unsigned char key;
+    char pad[2];
+    unsigned char bits;
+} Event;
+
+typedef struct Mixer {
+    char pad[104];
+    int volume;
+} Mixer;
+
+typedef struct Obj Obj;
+
+typedef struct Desc {
+    char pad[4];
+    int flags;
+    char pad2[28 - 8];
+    void (*reject)(Obj *o);
+} Desc;
+
+struct Obj {
+    char pad[4];
+    void *owner;
+    char pad2[220 - 8];
+    Desc *desc;
+};
+
+extern Mixer D_800F1AE0;
+extern int func_8001D4B8(Mixer *m, int id, int a, int b);
+extern void func_8001D640(Mixer *m, int voice, int vol);
+extern void func_800AC25C(void *owner, int ev, int a, int b);
+extern void func_800B1550(Obj *o, int key);
+
+void func_800C27B8(Obj *o, Event *e)
+{
+    int v;
+
+    if (e->bits & 0x10) {
+        if (o->desc->flags & 0x80000) {
+            v = func_8001D4B8(&D_800F1AE0, 89, 0, 1);
+            func_8001D640(&D_800F1AE0, v, (int)((long long)D_800F1AE0.volume * 32767) >> 15);
+        } else {
+            v = func_8001D4B8(&D_800F1AE0, 130, 0, 1);
+            func_8001D640(&D_800F1AE0, v, (int)((long long)D_800F1AE0.volume * 32767) >> 15);
+            o->desc->reject(o);
+            func_800AC25C(o->owner, 107, 6, 0);
+        }
+    } else {
+        func_800B1550(o, e->key);
+    }
+}

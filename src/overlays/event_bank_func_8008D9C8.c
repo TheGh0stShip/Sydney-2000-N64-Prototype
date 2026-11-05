@@ -1,110 +1,78 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008D9C8\n.ent func_8008D9C8\n"
-    "func_8008D9C8:\n"
-    "addiu $29,$29,-80\n"
-    "sw $18,48($29)\n"
-    "move $18,$4\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "sw $31,52($29)\n"
-    "sw $17,44($29)\n"
-    "sw $16,40($29)\n"
-    "sdc1 $f24,72($29)\n"
-    "sdc1 $f22,64($29)\n"
-    "sdc1 $f20,56($29)\n"
-    "lbu $3,1047($2)\n"
-    "beqz $3,L_8008DA10\n"
-    "li $2,5\n"
-    "beq $3,$2,L_8008DA10\n"
-    "li $2,1\n"
-    ".word 0x1462008C\n"
-    "nop\n"
-    "L_8008DA10:\n"
-    "li $16,-1\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x8007\n"
-    "addiu $3,$3,30312\n"
-    "lw $4,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,4988($1)\n"
-    "lbu $5,3411($4)\n"
-    "lw $4,2560($4)\n"
-    "sll $2,$5,0x3\n"
-    "subu $2,$2,$5\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f20,0($2)\n"
-    "li $2,0x8000\n"
-    "mul.s $f24,$f20,$f0\n"
-    "addu $5,$18,$2\n"
-    "li $3,5\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,4992($1)\n"
-    "lbu $2,1047($5)\n"
-    "mul.s $f22,$f20,$f0\n"
-    "bne $2,$3,L_8008DAA0\n"
-    "move $17,$16\n"
-    "lb $3,1045($5)\n"
-    "lb $4,1044($5)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "addu $2,$2,$4\n"
-    "lw $3,1100($5)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f0,0($2)\n"
-    "j func_80075758\n"
-    "swc1 $f0,32($29)\n"
-    "L_8008DAA0:\n"
-    "addiu $4,$18,23196\n"
-    "addiu $5,$29,16\n"
-    "addiu $6,$29,32\n"
-    "jal func_8009F450\n"
-    "addiu $7,$29,36\n"
-    "lwc1 $f0,32($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,4996($1)\n"
-    "div.s $f0,$f0,$f2\n"
-    "swc1 $f0,32($29)\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "slti $2,$3,6\n"
-    ".word 0x10400042\n"
-    "nop\n"
-    ".word 0x04600040\n"
-    "li $2,0x8000\n"
-    "addu $5,$18,$2\n"
-    "lbu $3,1047($5)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8008DB3C\n"
-    "nop\n"
-    "lb $3,1045($5)\n"
-    "lb $4,1044($5)\n"
-    "mtc1 $0,$f0\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "addu $2,$2,$4\n"
-    "lw $3,1100($5)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f2,0($2)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_8008DB3C\n"
-    "li $16,210\n"
-    "j func_80075874\n"
-    "li $17,225\n"
-    "L_8008DB3C:\n"
-    "lwc1 $f0,32($29)\n"
-    "c.le.s $f0,$f22\n"
-    "nop\n"
-    ".word 0x45000009\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "lbu $3,1047($2)\n"
-    "li $2,5\n"
-    ".word 0x14620021\n"
-    ".end func_8008D9C8\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern float D_80077668[][7];
+extern void func_8009F450(void *a, float *b, float *c, float *d);
+extern void func_800C0110(void *a, int b, int c, int d);
+
+void func_8008D9C8(unsigned char *state)
+{
+    unsigned char kind = state[0x8417];
+    float vec[4];
+    float dist;
+    float aux;
+    float base;
+    float mid;
+    float near;
+    int first;
+    int second;
+    int mode;
+
+    if (kind != 0 && kind != 5 && kind != 1) {
+        return;
+    }
+    first = -1;
+    base = D_80077668[D_800FC270[0xD53]][*(int *)(D_800FC270 + 0xA00)];
+    mid = base * *(float *)0x8007137C;
+    near = base * *(float *)0x80071380;
+    second = first;
+    if (state[0x8417] == 5) {
+        dist = (*(float **)(state + 0x844C))[(signed char)state[0x8415] * 3 + (signed char)state[0x8414]];
+    } else {
+        func_8009F450(state + 0x5A9C, vec, &dist, &aux);
+        dist = dist / *(float *)0x80071384;
+    }
+    mode = *(int *)(D_800FC270 + 0xA00);
+    if (mode < 6) {
+        if (mode >= 0) {
+            if (state[0x8417] == 5 &&
+                (*(float **)(state + 0x844C))[(signed char)state[0x8415] * 3 + (signed char)state[0x8414]] == 0.0f) {
+                first = 0xD2;
+                second = 0xE1;
+            } else if (dist <= near) {
+                if (state[0x8417] == 5) {
+                    first = 0x77;
+                    second = 0xE0;
+                } else {
+                    first = 0xC6;
+                }
+            } else if (dist <= mid) {
+                if (state[0x8417] == 5) {
+                    first = 0x76;
+                    second = 0xDF;
+                } else {
+                    first = 0xC5;
+                }
+            } else if (dist <= base) {
+                if (state[0x8417] == 5) {
+                    first = 0x78;
+                    second = 0xE2;
+                } else {
+                    first = 0xC8;
+                }
+            } else {
+                if (state[0x8417] == 5) {
+                    first = 0x78;
+                    second = 0xE2;
+                } else {
+                    first = 0xC7;
+                }
+            }
+        }
+    }
+    if (first > 0 && *(int *)(D_800FC270 + 0xA04) != 0) {
+        func_800C0110(D_800F3BC0, first, 0, 0);
+    }
+    if (second > 0 && *(int *)(D_800FC270 + 0xA04) != 0) {
+        func_800C0110(D_800F3BC0, second, 0, 0);
+    }
+}

@@ -1,74 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D15C8\n.ent func_800D15C8\n"
-    "func_800D15C8:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $19,36($29)\n"
-    "move $19,$6\n"
-    "sw $20,40($29)\n"
-    "move $20,$7\n"
-    "sw $31,44($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "lw $2,180($16)\n"
-    "move $18,$5\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $2,0x800f\n"
-    "lw $17,25584($2)\n"
-    "lw $2,180($16)\n"
-    "move $5,$17\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "lw $5,216($17)\n"
-    "li $17,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$17,$5\n"
-    "addiu $4,$16,264\n"
-    "jal func_800ADC38\n"
-    "sb $17,176($16)\n"
-    "addiu $17,$16,900\n"
-    "move $4,$17\n"
-    "move $5,$0\n"
-    "li $2,3\n"
-    "sw $2,16($29)\n"
-    "li $2,2\n"
-    "andi $6,$18,0xff\n"
-    "li $7,146\n"
-    "jal func_800CE468\n"
-    "sw $2,20($29)\n"
-    "jal func_800ADC38\n"
-    "move $4,$17\n"
-    "li $4,3\n"
-    "lui $17,0x8010\n"
-    "jal func_800B31EC\n"
-    "sw $19,10368($17)\n"
-    "addiu $4,$16,1112\n"
-    "lui $5,0x800f\n"
-    "jal func_800B360C\n"
-    "addiu $5,$5,19168\n"
-    "addiu $4,$16,1332\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,19192\n"
-    "jal func_800B360C\n"
-    "sw $20,10368($17)\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$16,1552\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$16,1772\n"
-    "lw $31,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D15C8\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)();
+} VEntry;
+
+#define AT(self, off) ((char *)(self) + (off))
+#define VTBL(self) (*(VEntry **)AT(self, 180))
+
+extern char *D_800F63F0;
+extern int D_80102880;
+extern char D_800F4AE0[];
+extern char D_800F4AF8[];
+extern void func_800ADC54(void *, int);
+extern void func_800ADC38(void *);
+extern void func_800CE468(void *, int, int, int, int, int);
+extern void func_800B31EC(int);
+extern void func_800B360C(void *, void *);
+extern void func_800B35F0(void *);
+
+void func_800D15C8(void *self, unsigned char mode, int before, int after)
+{
+    char *ctx;
+    void *panel;
+
+    VTBL(self)[8].fn(AT(self, VTBL(self)[8].delta));
+    ctx = D_800F63F0;
+    VTBL(self)[2].fn(AT(self, VTBL(self)[2].delta), ctx);
+    func_800ADC54(self, 1 << *(int *)(ctx + 216));
+    *(unsigned char *)AT(self, 176) = 1;
+    func_800ADC38(AT(self, 264));
+    panel = AT(self, 900);
+    func_800CE468(panel, 0, mode, 146, 3, 2);
+    func_800ADC38(panel);
+    D_80102880 = before;
+    func_800B31EC(3);
+    func_800B360C(AT(self, 1112), D_800F4AE0);
+    D_80102880 = after;
+    func_800B360C(AT(self, 1332), D_800F4AF8);
+    func_800B35F0(AT(self, 1552));
+    func_800B35F0(AT(self, 1772));
+}

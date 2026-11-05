@@ -1,52 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AEFB4\n.ent func_800AEFB4\n"
-    "func_800AEFB4:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "sw $31,16($29)\n"
-    "lbu $3,286($2)\n"
-    "beqz $3,L_800AEFE0\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800AEFE0\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800AF060\n"
-    "nop\n"
-    "L_800AEFE0:\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,286($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800AF034\n"
-    "li $7,472\n"
-    "lui $6,0x7fff\n"
-    "ori $6,$6,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $7,493\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,11284($5)\n"
-    "L_800AF034:\n"
-    "bltz $7,L_800AF060\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800AF060\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "li $7,3840\n"
-    "L_800AF060:\n"
-    "lw $31,16($29)\n"
-    ".end func_800AEFB4\n.set at\n.set reorder\n");
+extern char *D_800FC270;
+extern int D_800F2C14;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *bank, int id, int a, int b);
+
+void func_800AEFB4(char *self)
+{
+    int sfx;
+    unsigned char s = *(unsigned char *)(self + 0x811E);
+
+    if (s != 0 && s != 5 && s != 1) {
+        return;
+    }
+    sfx = 472;
+    if (*(unsigned char *)(self + 0x811E) == 5) {
+        D_800F2C14 = (D_800F2C14 * 16807) & 0x7FFFFFFF;
+        sfx = 493;
+    }
+    if (sfx >= 0 && *(int *)(D_800FC270 + 2564) != 0) {
+        func_800C0110(D_800F3BC0, sfx, 0, 3840);
+    }
+}

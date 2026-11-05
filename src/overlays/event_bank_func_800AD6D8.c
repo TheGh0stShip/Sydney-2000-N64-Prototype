@@ -1,68 +1,61 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AD6D8\n.ent func_800AD6D8\n"
-    "func_800AD6D8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "jal func_800758C8\n"
-    "sw $16,24($29)\n"
-    "addiu $16,$18,32392\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$18,7244\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_8008204C\n"
-    "move $4,$16\n"
-    "lw $17,11704($18)\n"
-    ".word 0x12200030\n"
-    "li $2,8\n"
-    "lbu $4,424($17)\n"
-    "beq $4,$2,L_800AD74C\n"
-    "lui $2,0x8010\n"
-    "sll $3,$4,0x4\n"
-    "subu $3,$3,$4\n"
-    "lw $2,-15760($2)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sw $0,72($2)\n"
-    "L_800AD74C:\n"
-    "jal func_80075AEC\n"
-    "move $4,$18\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10968\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "move $7,$6\n"
-    "lb $5,427($17)\n"
-    "li $2,5\n"
-    "jal func_800BBD78\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "li $6,1\n"
-    "move $7,$0\n"
-    "lb $5,427($17)\n"
-    "li $2,2\n"
-    "jal func_800BBD78\n"
-    "sw $2,16($29)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,180($17)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    ".end func_800AD6D8\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short offset;
+    short pad;
+    void (*fn)();
+} VEntry;
+
+typedef struct Actor {
+    char pad0[180];
+    VEntry *vtbl;
+    char pad1[424 - 184];
+    unsigned char slot;
+    char pad2[2];
+    signed char team;
+} Actor;
+
+typedef struct SlotEntry {
+    char data[60];
+} SlotEntry;
+
+extern SlotEntry *D_800FC270;
+extern unsigned char D_800F2AD8[];
+extern unsigned char D_800F26E0[];
+extern unsigned char D_800F2758[];
+
+extern void func_800758C8(void *state);
+extern void func_80075AEC(void *state);
+extern void func_8008204C(void *object);
+extern void func_800AACB0(void *list, Actor *actor, int flag);
+extern void func_800AC334(void *object);
+extern void func_800ADC1C(void *object);
+extern void func_800BBD78(void *bank, int team, int a, int b, int c);
+extern void func_800AA658(void *list, void *slot);
+
+#define VCALL(obj, idx) (obj)->vtbl[idx].fn((char *)(obj) + (obj)->vtbl[idx].offset)
+#define VCALL1(obj, idx, a) (obj)->vtbl[idx].fn((char *)(obj) + (obj)->vtbl[idx].offset, a)
+
+void func_800AD6D8(unsigned char *state)
+{
+    Actor *actor;
+
+    func_800758C8(state);
+    func_800AC334(state + 32392);
+    func_800ADC1C(state + 32392);
+    func_800AC334(state + 7244);
+    func_8008204C(state + 7244);
+    actor = *(Actor **)(state + 11704);
+    if (actor != 0) {
+        unsigned char slot = actor->slot;
+        if (slot != 8) {
+            SlotEntry *entry = &D_800FC270[slot];
+            *(int *)(entry->data + 72) = 0;
+        }
+        func_80075AEC(state);
+        func_800BBD78(D_800F2AD8, actor->team, 0, 0, 5);
+        func_800BBD78(D_800F2AD8, actor->team, 1, 0, 2);
+        func_800AACB0(D_800F26E0, actor, 0);
+        VCALL(actor, 3);
+        VCALL1(actor, 1, 2);
+        func_800AA658(D_800F2758, state + 11704);
+    }
+}

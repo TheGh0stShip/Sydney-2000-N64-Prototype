@@ -1,83 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DAAFC\n.ent func_800DAAFC\n"
-    "func_800DAAFC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $4,2560($3)\n"
-    "li $2,4\n"
-    "bne $4,$2,L_800DAB4C\n"
-    "lui $6,0x7fff\n"
-    "lw $3,2564($3)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800DAB90\n"
-    "li $7,414\n"
-    "bne $3,$4,L_800DAB44\n"
-    "li $7,415\n"
-    "li $7,416\n"
-    "j func_80076024\n"
-    "li $16,346\n"
-    "L_800DAB44:\n"
-    "j func_80076024\n"
-    "li $16,345\n"
-    "L_800DAB4C:\n"
-    "ori $6,$6,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,10004($5)\n"
-    "srl $3,$3,0x1d\n"
-    "beqz $3,L_800DAB90\n"
-    "li $7,184\n"
-    "li $7,185\n"
-    "L_800DAB90:\n"
-    "li $16,-1\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800DABCC\n"
-    "li $2,1\n"
-    "lw $3,24968($17)\n"
-    "bne $3,$2,L_800DABD0\n"
-    "li $2,-1\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "li $6,3072\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_800DABCC:\n"
-    "li $2,-1\n"
-    "L_800DABD0:\n"
-    "beq $16,$2,L_800DAC08\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800DAC08\n"
-    "li $2,1\n"
-    "lw $3,24968($17)\n"
-    "bne $3,$2,L_800DAC08\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$16\n"
-    "li $6,18432\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_800DAC08:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800DAAFC\n.set at\n.set reorder\n");
+#define FIELD(obj, off, type) (*(type *)((char *)(obj) + (off)))
+
+extern char *D_800FC270;
+extern char D_800F3BC0[];
+extern unsigned int D_800F2714;
+extern void func_800C0110(void *sound, int id, int a, int b);
+
+void func_800DAAFC(void *obj)
+{
+    int alt;
+    int snd;
+    char *g = D_800FC270;
+    int a = FIELD(g, 2560, int);
+    int m;
+
+    if (a == 4) {
+        m = FIELD(g, 2564, int);
+        if (m == 5) {
+            snd = 414;
+            goto none;
+        } else if (m == a) {
+            snd = 416;
+            alt = 346;
+        } else {
+            snd = 415;
+            alt = 345;
+        }
+    } else {
+        D_800F2714 = (D_800F2714 * 16807) & 0x7fffffff;
+        if ((D_800F2714 >> 29) != 0) {
+            snd = 185;
+        } else {
+            snd = 184;
+        }
+    none:
+        alt = -1;
+    }
+    if (FIELD(D_800FC270, 2564, int) != 0 && FIELD(obj, 24968, int) == 1) {
+        func_800C0110(D_800F3BC0, snd, 0xc00, 0);
+    }
+    if (alt != -1) {
+        if (FIELD(D_800FC270, 2564, int) != 0 && FIELD(obj, 24968, int) == 1) {
+            func_800C0110(D_800F3BC0, alt, 0x4800, 0);
+        }
+    }
+}

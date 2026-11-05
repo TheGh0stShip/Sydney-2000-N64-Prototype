@@ -1,135 +1,66 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E19EC\n.ent func_800E19EC\n"
-    "func_800E19EC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $17,20($29)\n"
-    "li $17,-1\n"
-    "sw $16,16($29)\n"
-    "sw $31,28($29)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800E1A2C\n"
-    "li $16,1\n"
-    "lw $2,25056($18)\n"
-    "lb $5,0($2)\n"
-    "li $2,8\n"
-    "bne $5,$2,L_800E1A78\n"
-    "addiu $7,$5,73\n"
-    "L_800E1A2C:\n"
-    "lui $2,0x8010\n"
-    "lw $3,25056($18)\n"
-    "lw $4,-15760($2)\n"
-    "lbu $7,1($3)\n"
-    "lw $3,2564($4)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800E1A74\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800E1A78\n"
-    "addiu $7,$7,241\n"
-    "lw $2,2560($4)\n"
-    "beqz $2,L_800E1A6C\n"
-    "li $17,332\n"
-    "bne $2,$3,L_800E1A6C\n"
-    "li $17,336\n"
-    "li $17,334\n"
-    "L_800E1A6C:\n"
-    "j func_80076088\n"
-    "move $16,$0\n"
-    "L_800E1A74:\n"
-    "addiu $7,$7,395\n"
-    "L_800E1A78:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E1AAC\n"
-    "li $2,1\n"
-    "lw $3,25320($18)\n"
-    "bne $3,$2,L_800E1AAC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E1AAC:\n"
-    "lw $2,25056($18)\n"
-    "lbu $3,10($2)\n"
-    "andi $2,$3,0xe\n"
-    "beqz $2,L_800E1B5C\n"
-    "andi $2,$3,0x8\n"
-    "beqz $2,L_800E1B10\n"
-    "lui $6,0x7fff\n"
-    "ori $6,$6,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,10004($5)\n"
-    "srl $3,$3,0x1d\n"
-    "beqz $3,L_800E1B20\n"
-    "li $7,428\n"
-    "j func_80076130\n"
-    "li $7,429\n"
-    "L_800E1B10:\n"
-    "andi $2,$3,0x4\n"
-    "beqz $2,L_800E1B20\n"
-    "li $7,196\n"
-    "li $7,427\n"
-    "L_800E1B20:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E1B58\n"
-    "li $2,1\n"
-    "lw $3,25320($18)\n"
-    "bne $3,$2,L_800E1B5C\n"
-    "move $16,$0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E1B58:\n"
-    "move $16,$0\n"
-    "L_800E1B5C:\n"
-    "li $2,-1\n"
-    "beq $17,$2,L_800E1B98\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E1B98\n"
-    "li $2,1\n"
-    "lw $3,25320($18)\n"
-    "bne $3,$2,L_800E1B9C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$17\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E1B98:\n"
-    "li $2,1\n"
-    "L_800E1B9C:\n"
-    "bne $16,$2,L_800E1BAC\n"
-    "nop\n"
-    "jal func_80076420\n"
-    "move $4,$18\n"
-    "L_800E1BAC:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E19EC\n.set at\n.set reorder\n");
+#define FIELD(obj, off, type) (*(type *)((char *)(obj) + (off)))
+
+extern char *D_800FC270;
+extern char D_800F3BC0[];
+extern unsigned int D_800F2714;
+extern void func_800C0110(void *sound, int id, int a, int b);
+extern void func_80076420(void *obj);
+
+#define PLAY(obj, id) \
+    if (FIELD(D_800FC270, 2564, int) != 0 && FIELD(obj, 25320, int) == 1) { \
+        func_800C0110(D_800F3BC0, id, 0, 0); \
+    }
+
+void func_800E19EC(void *obj)
+{
+    int alt = -1;
+    int flag = 1;
+    int snd;
+    int m;
+    unsigned char f;
+    signed char c;
+
+    if (FIELD(D_800FC270, 2560, int) == 5
+        && (c = *FIELD(obj, 25056, signed char *)) != 8) {
+        snd = c + 73;
+    } else {
+        snd = FIELD(obj, 25056, unsigned char *)[1];
+        m = FIELD(D_800FC270, 2564, int);
+        if (m != 5) {
+            snd += 241;
+            if (m == 1) {
+                int n = FIELD(D_800FC270, 2560, int);
+                if (n == 0) {
+                    alt = 332;
+                } else if (n == 1) {
+                    alt = 334;
+                } else {
+                    alt = 336;
+                }
+                flag = 0;
+            }
+        } else {
+            snd += 395;
+        }
+    }
+    PLAY(obj, snd);
+    f = FIELD(obj, 25056, unsigned char *)[10];
+    if (f & 0xe) {
+        if (f & 8) {
+            D_800F2714 = (D_800F2714 * 16807) & 0x7fffffff;
+            snd = (D_800F2714 >> 29) ? 429 : 428;
+        } else if (f & 4) {
+            snd = 427;
+        } else {
+            snd = 196;
+        }
+        PLAY(obj, snd);
+        flag = 0;
+    }
+    if (alt != -1) {
+        PLAY(obj, alt);
+    }
+    if (flag == 1) {
+        func_80076420(obj);
+    }
+}

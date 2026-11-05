@@ -1,60 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D3EFC\n.ent func_800D3EFC\n"
-    "func_800D3EFC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "addiu $2,$17,1368\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "beqz $2,L_800D3F54\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$17,2216\n"
-    "beq $2,$16,L_800D3F54\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800D3F34:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_800D3F34\n"
-    "addiu $16,$16,-212\n"
-    "L_800D3F54:\n"
-    "addiu $4,$17,1156\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$17,920\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,684\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,448\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,212\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "move $4,$17\n"
-    "jal func_800ADDA4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D3EFC\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*fn)();
+} VEntry;
+
+typedef struct {
+    char pad[180];
+    VEntry *vtbl;
+    char pad2[212 - 184];
+} Obj;
+
+typedef struct {
+    char pad[180];
+    VEntry *vtbl;
+    char pad2[236 - 184];
+} Part;
+
+typedef struct {
+    Obj base;
+    Part parts[4];
+    Obj last;
+
+    Obj items[4];
+} Owner;
+
+extern VEntry D_80086598[];
+extern void func_800ADDA4(void *, int);
+
+void func_800D3EFC(Owner *self, int flags)
+{
+    Obj *p;
+    Part *q;
+
+    if (self->items != 0) {
+        p = &self->items[4];
+        while (self->items != p) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    func_800ADDA4(&self->last, 2);
+    q = &self->parts[3];
+    q->vtbl = D_80086598;
+    func_800ADDA4(q, 2);
+    q = &self->parts[2];
+    q->vtbl = D_80086598;
+    func_800ADDA4(q, 2);
+    q = &self->parts[1];
+    q->vtbl = D_80086598;
+    func_800ADDA4(q, 2);
+    q = &self->parts[0];
+    q->vtbl = D_80086598;
+    func_800ADDA4(q, 2);
+    func_800ADDA4(self, flags);
+}

@@ -1,42 +1,39 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CA73C\n.ent func_800CA73C\n"
-    "func_800CA73C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-27176\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,188\n"
-    "beqz $2,L_800CA7A0\n"
-    "move $19,$5\n"
-    "addiu $16,$18,4428\n"
-    "beq $2,$16,L_800CA7A0\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800CA780:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800CA780\n"
-    "addiu $16,$16,-212\n"
-    "L_800CA7A0:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800CA73C\n.set at\n.set reorder\n");
+/* Destructor: reinstall this class's vtable, destroy the embedded array of
+ * twenty elements in reverse order (virtual slot 1, flag 2), then chain to
+ * the base-class destructor. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Elem {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} Elem;
+
+typedef struct Obj {
+    char pad[180];
+    void *vtbl;
+    int pad2;
+    Elem elems[20];
+} Obj;
+
+extern char D_800895D8[];
+extern void func_800AC3A4(Obj *o, int flags);
+
+void func_800CA73C(Obj *o, int flags)
+{
+    Elem *p;
+
+    o->vtbl = D_800895D8;
+    if (o->elems != 0) {
+        p = o->elems + 20;
+        while (o->elems != p) {
+            p--;
+            p->vtbl[1].fn((char *)p + p->vtbl[1].delta, 2);
+        }
+    }
+    func_800AC3A4(o, flags);
+}

@@ -1,93 +1,54 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0088\n.ent func_800A0088\n"
-    "func_800A0088:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lbu $4,24041($16)\n"
-    "li $2,4\n"
-    "beq $4,$2,L_800A01B0\n"
-    "li $2,1\n"
-    "lw $7,24104($16)\n"
-    "bne $7,$2,L_800A01B0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $6,5\n"
-    "bne $3,$6,L_800A00D0\n"
-    "li $5,-1\n"
-    "j func_800743B4\n"
-    "li $5,24\n"
-    "L_800A00D0:\n"
-    "lw $2,2564($2)\n"
-    "bne $2,$7,L_800A010C\n"
-    "nop\n"
-    "bnez $3,L_800A00EC\n"
-    "nop\n"
-    "j func_800743B4\n"
-    "li $5,171\n"
-    "L_800A00EC:\n"
-    "bne $3,$2,L_800A00FC\n"
-    "li $2,2\n"
-    "j func_800743B4\n"
-    "li $5,173\n"
-    "L_800A00FC:\n"
-    "beql $3,$2,L_800A0174\n"
-    "li $5,176\n"
-    "j func_800743B8\n"
-    "li $2,-1\n"
-    "L_800A010C:\n"
-    "bne $2,$6,L_800A0178\n"
-    "li $2,-1\n"
-    "li $2,2\n"
-    "beq $4,$2,L_800A013C\n"
-    "li $2,3\n"
-    "beq $4,$2,L_800A013C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,530\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800A013C:\n"
-    "lbu $3,24041($16)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_800A0170\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800A0170\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A0170\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,105\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800A0170:\n"
-    "li $5,554\n"
-    "L_800A0174:\n"
-    "li $2,-1\n"
-    "L_800A0178:\n"
-    "beq $5,$2,L_800A01AC\n"
-    "li $2,4\n"
-    "lbu $3,24041($16)\n"
-    "beq $3,$2,L_800A01AC\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800A01AC\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A01AC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800A01AC:\n"
-    "sw $0,24104($16)\n"
-    "L_800A01B0:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A0088\n.set at\n.set reorder\n");
+extern char *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *channel, int sound, int arg2, int arg3);
+
+static inline void event_play_sound(char *self, int sound)
+{
+    unsigned char phase = *(unsigned char *)(self + 24041);
+
+    if (phase != 4 && phase != 2 && phase != 3) {
+        func_800C0110(D_800F3BC0, sound, 0, 0);
+    }
+}
+
+void func_800A0088(char *self)
+{
+    int pending;
+    int mode;
+    int other;
+    int sound;
+
+    if (*(unsigned char *)(self + 24041) == 4) {
+        return;
+    }
+    pending = *(int *)(self + 24104);
+    if (pending != 1) {
+        return;
+    }
+    mode = *(int *)(D_800FC270 + 2560);
+    sound = -1;
+    if (mode == 5) {
+        sound = 24;
+    } else {
+        other = *(int *)(D_800FC270 + 2564);
+        if (other == pending) {
+            if (mode == 0) {
+                sound = 171;
+            } else if (mode == other) {
+                sound = 173;
+            } else if (mode == 2) {
+                sound = 176;
+            } else {
+                sound = -1;
+            }
+        } else if (other == 5) {
+            event_play_sound(self, 530);
+            event_play_sound(self, 105);
+            sound = 554;
+        }
+    }
+    if (sound != -1) {
+        event_play_sound(self, sound);
+    }
+    *(int *)(self + 24104) = 0;
+}

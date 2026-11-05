@@ -1,97 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009B378\n.ent func_8009B378\n"
-    "func_8009B378:\n"
-    "addiu $29,$29,-24\n"
-    "move $8,$4\n"
-    "sw $31,16($29)\n"
-    "lw $6,12136($8)\n"
-    "lw $2,744($6)\n"
-    "mtc1 $5,$f6\n"
-    ".word 0x10400059\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x8007\n"
-    "addiu $3,$3,28440\n"
-    "lw $5,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5352($1)\n"
-    "lbu $4,3411($5)\n"
-    "lw $7,2560($5)\n"
-    "sll $2,$4,0x3\n"
-    "subu $2,$2,$4\n"
-    "addu $2,$2,$7\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f2,0($2)\n"
-    "mul.s $f4,$f2,$f0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5356($1)\n"
-    "lw $2,780($6)\n"
-    "mul.s $f0,$f2,$f0\n"
-    "beqz $2,L_8009B400\n"
-    "li $2,4\n"
-    "lw $2,2564($5)\n"
-    ".word 0x1040004B\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075F20\n"
-    "li $5,124\n"
-    "L_8009B400:\n"
-    "bne $7,$2,L_8009B42C\n"
-    "nop\n"
-    "lw $2,784($6)\n"
-    "beqz $2,L_8009B42C\n"
-    "nop\n"
-    "lw $2,2564($5)\n"
-    ".word 0x10400040\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075F20\n"
-    "li $5,562\n"
-    "L_8009B42C:\n"
-    "c.lt.s $f6,$f0\n"
-    "nop\n"
-    "bc1f L_8009B458\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    ".word 0x10400035\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075F20\n"
-    "li $5,118\n"
-    "L_8009B458:\n"
-    "c.lt.s $f6,$f4\n"
-    "nop\n"
-    "bc1f L_8009B484\n"
-    "nop\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    ".word 0x1040002A\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075F20\n"
-    "li $5,117\n"
-    "L_8009B484:\n"
-    "c.lt.s $f6,$f2\n"
-    "nop\n"
-    "bc1f L_8009B4B0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    ".word 0x1040001F\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075F20\n"
-    "li $5,120\n"
-    "L_8009B4B0:\n"
-    "lw $2,12136($8)\n"
-    "lw $2,788($2)\n"
-    ".word 0x10400008\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    ".word 0x10400014\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    ".end func_8009B378\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern float D_80076F18[][7];
+extern void func_800C0110(void *a, int b, int c, int d);
+
+void func_8009B378(unsigned char *state, float dist)
+{
+    unsigned char *info = *(unsigned char **)(state + 0x2F68);
+    unsigned char *cfg;
+    int mode;
+    float base;
+    float hi;
+    float lo;
+
+    if (*(int *)(info + 0x2E8) != 0) {
+        cfg = D_800FC270;
+        mode = *(int *)(cfg + 0xA00);
+        base = D_80076F18[cfg[0xD53]][mode];
+        hi = base * *(float *)0x800714E8;
+        lo = base * *(float *)0x800714EC;
+        if (*(int *)(info + 0x30C) != 0) {
+            if (*(int *)(cfg + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x7C, 0, 0);
+            }
+        } else if (mode == 4 && *(int *)(info + 0x310) != 0) {
+            if (*(int *)(cfg + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x232, 0, 0);
+            }
+        } else if (dist < lo) {
+            if (*(int *)(D_800FC270 + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x76, 0, 0);
+            }
+        } else if (dist < hi) {
+            if (*(int *)(D_800FC270 + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x75, 0, 0);
+            }
+        } else if (dist < base) {
+            if (*(int *)(D_800FC270 + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x78, 0, 0);
+            }
+        } else if (*(int *)(*(unsigned char **)(state + 0x2F68) + 0x314) != 0) {
+            if (*(int *)(D_800FC270 + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x77, 0, 0);
+            }
+        } else {
+            if (*(int *)(D_800FC270 + 0xA04) != 0) {
+                func_800C0110(D_800F3BC0, 0x78, 0, 0);
+            }
+        }
+    } else {
+        if (*(int *)(D_800FC270 + 0xA04) != 0) {
+            func_800C0110(D_800F3BC0, 2, 0, 0);
+        }
+    }
+}

@@ -1,57 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0BD4\n.ent func_800A0BD4\n"
-    "func_800A0BD4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lw $2,23712($4)\n"
-    "lbu $8,426($2)\n"
-    "li $2,1\n"
-    "bne $8,$2,L_800A0C80\n"
-    "li $2,5\n"
-    "lbu $3,24041($4)\n"
-    "beq $3,$2,L_800A0C80\n"
-    "andi $6,$6,0xff\n"
-    "bnez $6,L_800A0C28\n"
-    "lui $3,0x8007\n"
-    "andi $2,$5,0xff\n"
-    "bnez $7,L_800A0C1C\n"
-    "sw $2,23024($3)\n"
-    "lui $3,0x8007\n"
-    "j func_80074EA4\n"
-    "li $2,625\n"
-    "L_800A0C1C:\n"
-    "lui $3,0x8007\n"
-    "j func_80074EA4\n"
-    "li $2,630\n"
-    "L_800A0C28:\n"
-    "bne $6,$8,L_800A0C48\n"
-    "lui $2,0x8007\n"
-    "bnez $7,L_800A0C40\n"
-    "lui $3,0x8007\n"
-    "j func_80074EA4\n"
-    "li $2,626\n"
-    "L_800A0C40:\n"
-    "j func_80074EA4\n"
-    "li $2,627\n"
-    "L_800A0C48:\n"
-    "bnez $7,L_800A0C5C\n"
-    "sw $6,23024($2)\n"
-    "lui $3,0x8007\n"
-    "j func_80074EA4\n"
-    "li $2,628\n"
-    "L_800A0C5C:\n"
-    "lui $3,0x8007\n"
-    "li $2,629\n"
-    "sw $2,22660($3)\n"
-    "lui $5,0x8007\n"
-    "addiu $4,$4,13020\n"
-    "addiu $5,$5,22644\n"
-    "li $6,1\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "L_800A0C80:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A0BD4\n.set at\n.set reorder\n");
+extern int D_800759F0;
+extern int D_80075874;
+extern int D_80075884;
+extern void func_800D33A0(void *queue, void *message, int count, int timeout);
+
+void func_800A0BD4(char *self, unsigned char value, unsigned char side, int alternate)
+{
+    int state = *(unsigned char *)(*(char **)(self + 23712) + 426);
+
+    if (state != 1 || *(unsigned char *)(self + 24041) == 5) {
+        return;
+    }
+    if (side == 0) {
+        D_800759F0 = value;
+        if (alternate == 0) {
+            D_80075884 = 625;
+        } else {
+            D_80075884 = 630;
+        }
+    } else if (side == state) {
+        if (alternate == 0) {
+            D_80075884 = 626;
+        } else {
+            D_80075884 = 627;
+        }
+    } else {
+        D_800759F0 = side;
+        if (alternate == 0) {
+            D_80075884 = 628;
+        } else {
+            D_80075884 = 629;
+        }
+    }
+    func_800D33A0(self + 13020, &D_80075874, 1, -1);
+}

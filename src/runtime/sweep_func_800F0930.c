@@ -1,25 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F0930\n.ent func_800F0930\n"
-    "func_800F0930:\n"
-    "addiu $29,$29,-24\n"
-    "addiu $3,$4,516\n"
-    "beqz $3,L_800F0958\n"
-    "sw $31,16($29)\n"
-    "addiu $2,$4,900\n"
-    "beql $3,$2,L_800F095C\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-16\n"
-    "L_800F0950:\n"
-    "bne $3,$2,L_800F0950\n"
-    "addiu $2,$2,-16\n"
-    "L_800F0958:\n"
-    "lui $2,0x8009\n"
-    "L_800F095C:\n"
-    "addiu $2,$2,-16064\n"
-    "jal func_800AC3A4\n"
-    "sw $2,180($4)\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800F0930\n.set at\n.set reorder\n");
+typedef struct Elem { char pad[16]; } Elem;
+typedef struct Obj { char pad[180]; void *vtable; char pad2[516 - 184]; Elem elems[24]; } Obj;
+extern char D_8008C140[];
+extern void func_800AC3A4(Obj *o);
+
+void func_800F0930(Obj *o)
+{
+    Elem *base = o->elems;
+    if (base != 0) {
+        Elem *p = base + 24;
+        while (base != p) {
+            p--;
+        }
+    }
+    o->vtable = D_8008C140;
+    func_800AC3A4(o);
+}

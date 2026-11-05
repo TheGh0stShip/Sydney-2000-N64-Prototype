@@ -1,63 +1,57 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E45D8\n.ent func_800E45D8\n"
-    "func_800E45D8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-18552\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$18,18720\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,11088\n"
-    "beql $2,$0,L_800E4654\n"
-    "addiu $2,$18,4032\n"
-    "beql $2,$16,L_800E4654\n"
-    "addiu $2,$18,4032\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800E4630:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800E4630\n"
-    "addiu $16,$16,-212\n"
-    "addiu $2,$18,4032\n"
-    "L_800E4654:\n"
-    "beqz $2,L_800E4688\n"
-    "addiu $16,$18,11088\n"
-    "beq $2,$16,L_800E4688\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-1764\n"
-    "L_800E4668:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800E4668\n"
-    "addiu $16,$16,-1764\n"
-    "L_800E4688:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E45D8\n.set at\n.set reorder\n");
+/* Destructor: reinstall this class's vtable, destroy the trailing member,
+ * then the two embedded object arrays in reverse order (virtual slot 1,
+ * flag 2), and chain to the base-class destructor. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Panel {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[1764 - 184];
+} Panel;
+
+typedef struct Item {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} Item;
+
+typedef struct Obj {
+    char pad0[180];
+    void *vtbl;
+    char pad1[4032 - 184];
+    Panel panels[4];
+    Item items[36];
+    char member[1];
+} Obj;
+
+extern char D_8008B788[];
+extern void func_800ADE84(void *member, int flags);
+extern void func_800AC3A4(Obj *o, int flags);
+
+void func_800E45D8(Obj *o, int flags)
+{
+    Item *item;
+    Panel *panel;
+
+    o->vtbl = D_8008B788;
+    func_800ADE84(o->member, 2);
+    if (o->items != 0) {
+        item = o->items + 36;
+        while (o->items != item) {
+            item--;
+            item->vtbl[1].fn((char *)item + item->vtbl[1].delta, 2);
+        }
+    }
+    if (o->panels != 0) {
+        panel = o->panels + 4;
+        while (o->panels != panel) {
+            panel--;
+            panel->vtbl[1].fn((char *)panel + panel->vtbl[1].delta, 2);
+        }
+    }
+    func_800AC3A4(o, flags);
+}

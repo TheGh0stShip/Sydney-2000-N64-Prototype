@@ -1,56 +1,39 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009A76C\n.ent func_8009A76C\n"
-    "func_8009A76C:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "sw $31,16($29)\n"
-    "lbu $3,84($2)\n"
-    "beqz $3,L_8009A798\n"
-    "li $2,5\n"
-    "beq $3,$2,L_8009A798\n"
-    "li $2,1\n"
-    ".word 0x14620026\n"
-    "nop\n"
-    "L_8009A798:\n"
-    "lui $2,0x8010\n"
-    "lw $5,-15760($2)\n"
-    "lw $3,2560($5)\n"
-    ".word 0x04600021\n"
-    "slti $2,$3,3\n"
-    "bnez $2,L_8009A7C0\n"
-    "li $2,0x8000\n"
-    "li $2,5\n"
-    ".word 0x1462001C\n"
-    "li $2,0x8000\n"
-    "L_8009A7C0:\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,84($2)\n"
-    "li $2,5\n"
-    ".word 0x14620017\n"
-    "nop\n"
-    "lw $2,12136($4)\n"
-    "lw $3,776($2)\n"
-    "beqz $3,L_8009A7F4\n"
-    "li $2,2\n"
-    "beq $3,$2,L_8009A80C\n"
-    "nop\n"
-    "j func_8007523C\n"
-    "nop\n"
-    "L_8009A7F4:\n"
-    "lw $2,2564($5)\n"
-    ".word 0x1040000C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075230\n"
-    "li $5,168\n"
-    "L_8009A80C:\n"
-    "lw $2,2564($5)\n"
-    ".word 0x10400006\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,167\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    ".end func_8009A76C\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern void func_800C0110(void *a, int b, int c, int d);
+
+void func_8009A76C(unsigned char *state)
+{
+    unsigned char *cfg;
+    unsigned char kind = state[0x8054];
+    int mode;
+    int sel;
+
+    if (kind != 0 && kind != 5 && kind != 1) {
+        return;
+    }
+    cfg = D_800FC270;
+    mode = *(int *)(cfg + 2560);
+    if (mode < 0) {
+        return;
+    }
+    if (mode >= 3 && mode != 5) {
+        return;
+    }
+    if (state[0x8054] != 5) {
+        return;
+    }
+    sel = *(int *)(*(unsigned char **)(state + 12136) + 776);
+    switch (sel) {
+    case 0:
+        if (*(int *)(cfg + 2564) != 0) {
+            func_800C0110(D_800F3BC0, 168, 0, 7680);
+        }
+        break;
+    case 2:
+        if (*(int *)(cfg + 2564) != 0) {
+            func_800C0110(D_800F3BC0, 167, 0, 7680);
+        }
+        break;
+    }
+}

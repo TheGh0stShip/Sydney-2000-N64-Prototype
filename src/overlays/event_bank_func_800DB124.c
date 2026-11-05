@@ -1,25 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DB124\n.ent func_800DB124\n"
-    "func_800DB124:\n"
-    "ori $7,$7,0xffff\n"
-    "sll $3,$5,0x2\n"
-    "addu $3,$3,$5\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$5\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$8\n"
-    "sw $3,10004($6)\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "addu $8,$2,$8\n"
-    "andi $8,$8,0x7e\n"
-    "sll $2,$8,0x8\n"
-    "jr $31\n"
-    "sw $2,24928($4)\n"
-    ".end func_800DB124\n.set at\n.set reorder\n");
+#define FIELD(obj, off, type) (*(type *)((char *)(obj) + (off)))
+
+extern unsigned int D_800F2714;
+
+static __inline__ unsigned int rand_range(unsigned int range)
+{
+    D_800F2714 = (D_800F2714 * 16807) & 0x7fffffff;
+    return (D_800F2714 >> 15) * range >> 16;
+}
+
+void func_800DB124(char *obj)
+{
+    unsigned int k = 45;
+
+    k += rand_range(k);
+    k &= 0x7e;
+    FIELD(obj, 0x6160, int) = k << 8;
+}

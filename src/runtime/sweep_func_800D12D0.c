@@ -1,112 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D12D0\n.ent func_800D12D0\n"
-    "func_800D12D0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "sw $18,24($29)\n"
-    "addiu $18,$17,1772\n"
-    "sw $31,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "lw $2,260($17)\n"
-    "move $4,$18\n"
-    "sb $16,1992($17)\n"
-    "sw $2,884($17)\n"
-    "jal func_800B35F0\n"
-    "sw $2,672($17)\n"
-    "addiu $19,$17,1552\n"
-    "jal func_800B35F0\n"
-    "move $4,$19\n"
-    "jal func_800B31EC\n"
-    "li $4,3\n"
-    "andi $16,$16,0xff\n"
-    "li $20,2\n"
-    "beq $16,$20,L_800D1390\n"
-    "slti $2,$16,3\n"
-    "beqz $2,L_800D134C\n"
-    "li $2,1\n"
-    "beq $16,$2,L_800D1368\n"
-    "nop\n"
-    "j L_800D1440\n"
-    "nop\n"
-    "L_800D134C:\n"
-    "li $2,3\n"
-    "beq $16,$2,L_800D13BC\n"
-    "li $2,4\n"
-    "beq $16,$2,L_800D13FC\n"
-    "nop\n"
-    "j L_800D1440\n"
-    "nop\n"
-    "L_800D1368:\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,476\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$17,688\n"
-    "lui $2,0x8010\n"
-    "sw $16,10368($2)\n"
-    "move $4,$18\n"
-    "lui $5,0x800f\n"
-    "j L_800D1438\n"
-    "addiu $5,$5,19240\n"
-    "L_800D1390:\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,688\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$17,476\n"
-    "lui $2,0x8010\n"
-    "li $3,1\n"
-    "sw $3,10368($2)\n"
-    "move $4,$19\n"
-    "lui $5,0x800f\n"
-    "j L_800D1438\n"
-    "addiu $5,$5,19216\n"
-    "L_800D13BC:\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$17,476\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$17,688\n"
-    "move $4,$18\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,19240\n"
-    "lui $16,0x8010\n"
-    "li $2,1\n"
-    "jal func_800B360C\n"
-    "sw $2,10368($16)\n"
-    "move $4,$19\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,19216\n"
-    "j L_800D1438\n"
-    "sw $20,10368($16)\n"
-    "L_800D13FC:\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$17,476\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$17,688\n"
-    "move $4,$18\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,19240\n"
-    "lui $16,0x8010\n"
-    "jal func_800B360C\n"
-    "sw $20,10368($16)\n"
-    "move $4,$19\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,19216\n"
-    "li $2,1\n"
-    "sw $2,10368($16)\n"
-    "L_800D1438:\n"
-    "jal func_800B360C\n"
-    "nop\n"
-    "L_800D1440:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D12D0\n.set at\n.set reorder\n");
+#define AT(self, off) ((char *)(self) + (off))
+
+extern int D_80102880;
+extern char D_800F4B10[];
+extern char D_800F4B28[];
+extern void func_800ADC1C(void *);
+extern void func_800ADC38(void *);
+extern void func_800B31EC(int);
+extern void func_800B360C(void *, void *);
+extern void func_800B35F0(void *);
+
+void func_800D12D0(void *self, unsigned char mode)
+{
+    void *right = AT(self, 1772);
+    void *left;
+    int value;
+
+    value = *(int *)AT(self, 260);
+    *(unsigned char *)AT(self, 1992) = mode;
+    *(int *)AT(self, 884) = value;
+    *(int *)AT(self, 672) = value;
+    func_800B35F0(right);
+    left = AT(self, 1552);
+    func_800B35F0(left);
+    func_800B31EC(3);
+    switch (mode) {
+    case 1:
+        func_800ADC1C(AT(self, 476));
+        func_800ADC38(AT(self, 688));
+        D_80102880 = 1;
+        func_800B360C(right, D_800F4B28);
+        break;
+    case 2:
+        func_800ADC1C(AT(self, 688));
+        func_800ADC38(AT(self, 476));
+        D_80102880 = 1;
+        func_800B360C(left, D_800F4B10);
+        break;
+    case 3:
+        func_800ADC38(AT(self, 476));
+        func_800ADC38(AT(self, 688));
+        D_80102880 = 1;
+        func_800B360C(right, D_800F4B28);
+        D_80102880 = 2;
+        func_800B360C(left, D_800F4B10);
+        break;
+    case 4:
+        func_800ADC38(AT(self, 476));
+        func_800ADC38(AT(self, 688));
+        D_80102880 = 2;
+        func_800B360C(right, D_800F4B28);
+        D_80102880 = 1;
+        func_800B360C(left, D_800F4B10);
+        break;
+    }
+}

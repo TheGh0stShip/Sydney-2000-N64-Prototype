@@ -1,35 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E25C4\n.ent func_800E25C4\n"
-    "func_800E25C4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "sw $31,24($29)\n"
-    "L_800E25DC:\n"
-    "lbu $2,1555($17)\n"
-    "andi $3,$16,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_800E2620\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $4,20208($2)\n"
-    "beql $4,$0,L_800E25DC\n"
-    "addiu $16,$16,1\n"
-    "lui $5,0xc223\n"
-    "ori $5,$5,0xd5c2\n"
-    "lui $6,0x3fa7\n"
-    "ori $6,$6,0xc45c\n"
-    "jal func_800CB7A8\n"
-    "addiu $4,$4,1004\n"
-    "j func_80076BEC\n"
-    "addiu $16,$16,1\n"
-    "L_800E2620:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E25C4\n.set at\n.set reorder\n");
+extern void func_800CB7A8(void *p, float a, float b);
+
+void func_800E25C4(char *obj)
+{
+    unsigned char i;
+
+    i = 0;
+loop:
+    if (i < ((unsigned char *)obj)[1555]) {
+        char *p = *(char **)((i << 2) + obj + 20208);
+
+        if (p != 0) {
+            func_800CB7A8(p + 1004, -40.958748f, 1.3106799f);
+        }
+        i++;
+        goto loop;
+    }
+}

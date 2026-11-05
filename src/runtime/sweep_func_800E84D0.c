@@ -1,157 +1,197 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E84D0\n.ent func_800E84D0\n"
-    "func_800E84D0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $20,32($29)\n"
-    "move $20,$5\n"
-    "addiu $4,$17,28540\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-16264\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($17)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-16200\n"
-    "jal func_800BA1B4\n"
-    "sw $2,180($4)\n"
-    "addiu $4,$17,28316\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,28096\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,27876\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,27656\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $2,$17,24632\n"
-    "beqz $2,L_800E8598\n"
-    "addiu $16,$17,27648\n"
-    "beql $2,$16,L_800E859C\n"
-    "addiu $4,$17,23368\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-232\n"
-    "L_800E8578:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_800E8578\n"
-    "addiu $16,$16,-232\n"
-    "L_800E8598:\n"
-    "addiu $4,$17,23368\n"
-    "L_800E859C:\n"
-    "jal func_800C062C\n"
-    "li $5,2\n"
-    "addiu $4,$17,22968\n"
-    "li $5,2\n"
-    "addiu $16,$17,22708\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,27440\n"
-    "jal func_800AE4D8\n"
-    "sw $2,180($16)\n"
-    "move $4,$16\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$17,22520\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-17336\n"
-    "jal func_800AC3A4\n"
-    "sw $2,180($4)\n"
-    "addiu $16,$17,22132\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "addiu $19,$17,3412\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-18552\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($19)\n"
-    "addiu $2,$17,14500\n"
-    "beql $2,$0,L_800E8644\n"
-    "addiu $2,$19,4032\n"
-    "beql $2,$16,L_800E8644\n"
-    "addiu $2,$19,4032\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800E8620:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_800E8620\n"
-    "addiu $16,$16,-212\n"
-    "addiu $2,$19,4032\n"
-    "L_800E8644:\n"
-    "beqz $2,L_800E8678\n"
-    "addiu $16,$19,11088\n"
-    "beq $2,$16,L_800E8678\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-1764\n"
-    "L_800E8658:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_800E8658\n"
-    "addiu $16,$16,-1764\n"
-    "L_800E8678:\n"
-    "move $4,$19\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$17,1220\n"
-    "li $5,2\n"
-    "addiu $16,$17,840\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-20200\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$17,1032\n"
-    "li $5,2\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-20016\n"
-    "jal func_800AC3A4\n"
-    "sw $2,180($4)\n"
-    "move $4,$16\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$17,648\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,23992\n"
-    "jal func_800AC3A4\n"
-    "sw $2,180($4)\n"
-    "addiu $4,$17,260\n"
-    "jal func_800AE4D8\n"
-    "li $5,2\n"
-    "move $4,$17\n"
-    "jal func_800AC3A4\n"
-    "move $5,$20\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E84D0\n.set at\n.set reorder\n");
+/* Destructor of the top-level scene object: reinstall each class vtable on
+ * the way down, destroy every embedded member and object array in reverse
+ * declaration order, then chain to the base-class destructor. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)(void *self, int flags);
+} VEntry;
+
+typedef struct Base {
+    char pad[180];
+    void *vtbl;
+} Base;
+
+typedef struct Panel {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[1764 - 184];
+} Panel;
+
+typedef struct Item {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[212 - 184];
+} Item;
+
+typedef struct Lane {
+    char pad[180];
+    VEntry *vtbl;
+    char rest[232 - 184];
+} Lane;
+
+typedef struct Menu {
+    char pad[180];
+    void *vtbl;
+    char rest[220 - 184];
+} Menu;
+
+typedef struct Board {
+    char pad0[180];
+    void *vtbl;
+    char pad1[4032 - 184];
+    Panel panels[4];
+    Item items[36];
+    char member[388];
+} Board;
+
+typedef struct Meter {
+    char pad0[180];
+    void *vtbl;
+    char pad1[192 - 184];
+    Base gauge;
+    char pad2[380 - 192 - 184];
+    char member[1];
+} Meter;
+
+typedef struct Ticker {
+    char pad0[180];
+    void *vtbl;
+    char pad1[260 - 184];
+    char member[1];
+} Ticker;
+
+typedef struct Scene {
+    char pad0[180];
+    void *vtbl;
+    char pad1[260 - 184];
+    char banner[648 - 260];
+    Base title;
+    char pad2[840 - 648 - 184];
+    Meter meter;
+    char pad3[3412 - 840 - sizeof(Meter)];
+    Board board;
+    Base status;
+    char pad4[22708 - 22520 - 184];
+    Ticker ticker;
+    char pad5[23368 - 22708 - sizeof(Ticker)];
+    char camera[24632 - 23368];
+    Lane lanes[13];
+    char pad6[27656 - 27648];
+    char hud[27876 - 27656];
+    Menu menus[3];
+    char pad7[28540 - 27876 - 3 * 220];
+    Base cursor;
+} Scene;
+
+extern char D_8008C078[];
+extern char D_8008C0B8[];
+extern char D_80086598[];
+extern char D_80086B30[];
+extern char D_8008BC48[];
+extern char D_8008B788[];
+extern char D_8008B118[];
+extern char D_8008B1D0[];
+extern char D_80085DB8[];
+extern void func_800BA1B4(void *obj, int flags);
+extern void func_800ADDA4(void *obj, int flags);
+extern void func_800ADE84(void *obj, int flags);
+extern void func_800C062C(void *obj, int flags);
+extern void func_800AE4D8(void *obj, int flags);
+extern void func_800AC3A4(void *obj, int flags);
+
+static __inline__ void Cursor_dtor(Base *p, int flags)
+{
+    p->vtbl = D_8008C0B8;
+    func_800BA1B4(p, flags);
+}
+
+static __inline__ void Menu_dtor(Menu *p, int flags)
+{
+    p->vtbl = D_80086598;
+    func_800ADDA4(p, flags);
+}
+
+static __inline__ void Ticker_dtor(Ticker *p, int flags)
+{
+    p->vtbl = D_80086B30;
+    func_800AE4D8(p->member, 2);
+    func_800AC3A4(p, flags);
+}
+
+static __inline__ void Status_dtor(Base *p, int flags)
+{
+    p->vtbl = D_8008BC48;
+    func_800AC3A4(p, flags);
+}
+
+static __inline__ void Board_dtor(Board *b, int flags)
+{
+    Item *item;
+    Panel *panel;
+
+    b->vtbl = D_8008B788;
+    func_800ADE84(b->member, 2);
+    if (b->items != 0) {
+        item = b->items + 36;
+        while (b->items != item) {
+            item--;
+            item->vtbl[1].fn((char *)item + item->vtbl[1].delta, 2);
+        }
+    }
+    if (b->panels != 0) {
+        panel = b->panels + 4;
+        while (b->panels != panel) {
+            panel--;
+            panel->vtbl[1].fn((char *)panel + panel->vtbl[1].delta, 2);
+        }
+    }
+    func_800AC3A4(b, flags);
+}
+
+static __inline__ void Gauge_dtor(Base *p, int flags)
+{
+    p->vtbl = D_8008B1D0;
+    func_800AC3A4(p, flags);
+}
+
+static __inline__ void Meter_dtor(Meter *m, int flags)
+{
+    m->vtbl = D_8008B118;
+    func_800ADE84(m->member, 2);
+    Gauge_dtor(&m->gauge, 2);
+    func_800AC3A4(m, flags);
+}
+
+static __inline__ void Title_dtor(Base *p, int flags)
+{
+    p->vtbl = D_80085DB8;
+    func_800AC3A4(p, flags);
+}
+
+void func_800E84D0(Scene *o, int flags)
+{
+    Lane *lane;
+
+    o->vtbl = D_8008C078;
+    Cursor_dtor(&o->cursor, 2);
+    Menu_dtor(&o->menus[2], 2);
+    Menu_dtor(&o->menus[1], 2);
+    Menu_dtor(&o->menus[0], 2);
+    func_800ADE84(o->hud, 2);
+    if (o->lanes != 0) {
+        lane = o->lanes + 13;
+        while (o->lanes != lane) {
+            lane--;
+            lane->vtbl[1].fn((char *)lane + lane->vtbl[1].delta, 2);
+        }
+    }
+    func_800C062C(o->camera, 2);
+    Ticker_dtor(&o->ticker, 2);
+    Status_dtor(&o->status, 2);
+    Board_dtor(&o->board, 2);
+    Meter_dtor(&o->meter, 2);
+    Title_dtor(&o->title, 2);
+    func_800AE4D8(o->banner, 2);
+    func_800AC3A4(o, flags);
+}

@@ -1,90 +1,77 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C3764\n.ent func_800C3764\n"
-    "func_800C3764:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $16,712($18)\n"
-    "beqz $16,L_800C3890\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $4,712($18)\n"
-    "jal func_8001A248\n"
-    "addiu $4,$4,196\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "addiu $17,$18,692\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$16\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($17)\n"
-    "lhu $3,16($17)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800C3844\n"
-    "li $5,2\n"
-    "lw $2,180($16)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,12($17)\n"
-    "sw $16,0($2)\n"
-    "lw $2,12($17)\n"
-    "lhu $3,18($17)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($17)\n"
-    "sh $3,18($17)\n"
-    "L_800C3844:\n"
-    "lw $16,692($18)\n"
-    "beql $16,$0,L_800C3890\n"
-    "sw $0,712($18)\n"
-    "sw $0,692($18)\n"
-    "lw $2,4($17)\n"
-    "beqz $2,L_800C3868\n"
-    "move $4,$16\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,696\n"
-    "L_800C3868:\n"
-    "lw $2,8($17)\n"
-    "beqz $2,L_800C387C\n"
-    "move $4,$16\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,700\n"
-    "L_800C387C:\n"
-    "sh $0,16($17)\n"
-    "sh $0,18($17)\n"
-    "sw $0,12($17)\n"
-    "sw $0,692($18)\n"
-    "sw $0,712($18)\n"
-    "L_800C3890:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C3764\n.set at\n.set reorder\n");
+/* Detach and release the owned child: notify it through several virtual
+ * hooks, unregister it, return it to the free pool if there is room, then
+ * tear down the pool's backing allocations. */
+typedef struct VEntry {
+    short delta;
+    short index;
+    void (*fn)();
+} VEntry;
+
+typedef struct Child {
+    char pad[180];
+    VEntry *vtbl;
+    char pad2[196 - 184];
+    char node[1];
+} Child;
+
+typedef struct Pool {
+    Child *head;
+    void *blockA;
+    void *blockB;
+    Child **cursor;
+    unsigned short capacity;
+    unsigned short count;
+} Pool;
+
+typedef struct Owner {
+    char pad[692];
+    Pool pool;
+    Child *child;
+} Owner;
+
+
+extern char D_800F26E0[];
+extern void func_8001A248(void *node);
+extern void func_800AACB0(void *list, Child *c, int arg);
+extern void func_800AA658(Child *c, void **block);
+
+void func_800C3764(Owner *o)
+{
+    Child *c = o->child;
+    Pool *pool;
+    Child *h;
+
+    if (c == 0) {
+        return;
+    }
+    c->vtbl[3].fn((char *)c + c->vtbl[3].delta);
+    func_8001A248(o->child->node);
+    c->vtbl[3].fn((char *)c + c->vtbl[3].delta);
+    c->vtbl[9].fn((char *)c + c->vtbl[9].delta);
+    pool = &o->pool;
+    c->vtbl[3].fn((char *)c + c->vtbl[3].delta);
+    func_800AACB0(D_800F26E0, c, 0);
+    if (pool->count < pool->capacity) {
+        c->vtbl[1].fn((char *)c + c->vtbl[1].delta, 2);
+        *pool->cursor = c;
+        pool->cursor++;
+        pool->count++;
+    }
+    h = o->pool.head;
+    if (h == 0) {
+        o->child = 0;
+        return;
+    }
+    o->pool.head = 0;
+    if (pool->blockA != 0) {
+        func_800AA658(h, &o->pool.blockA);
+    }
+    if (pool->blockB != 0) {
+        func_800AA658(h, &o->pool.blockB);
+    }
+    pool->capacity = 0;
+    pool->count = 0;
+    pool->cursor = 0;
+    o->pool.head = 0;
+    o->child = 0;
+}

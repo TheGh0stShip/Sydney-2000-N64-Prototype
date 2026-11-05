@@ -1,85 +1,39 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0DB8\n.ent func_800A0DB8\n"
-    "func_800A0DB8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "lbu $3,24041($16)\n"
-    "beqz $3,L_800A0DE8\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800A0E98\n"
-    "li $2,4\n"
-    "L_800A0DE8:\n"
-    "lbu $2,24037($16)\n"
-    "lbu $3,24036($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800A0EC0\n"
-    "lui $19,0x8010\n"
-    "li $18,1\n"
-    "lw $2,-15760($19)\n"
-    "lbu $3,24038($16)\n"
-    "lbu $2,2572($2)\n"
-    "sltu $3,$3,$2\n"
-    "beqz $3,L_800A0E70\n"
-    "nop\n"
-    "lui $17,0x8010\n"
-    "L_800A0E1C:\n"
-    "lbu $2,24124($16)\n"
-    "bnez $2,L_800A0E38\n"
-    "nop\n"
-    "jal func_80074ECC\n"
-    "move $4,$16\n"
-    "j func_80075088\n"
-    "nop\n"
-    "L_800A0E38:\n"
-    "bne $2,$18,L_800A0E48\n"
-    "nop\n"
-    "jal func_80074F88\n"
-    "move $4,$16\n"
-    "L_800A0E48:\n"
-    "lbu $2,24038($16)\n"
-    "sb $0,24124($16)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,24038($16)\n"
-    "lw $3,-15760($17)\n"
-    "lbu $3,2572($3)\n"
-    "andi $2,$2,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A0E1C\n"
-    "nop\n"
-    "L_800A0E70:\n"
-    "lbu $2,24037($16)\n"
-    "lbu $3,24036($16)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,24037($16)\n"
-    "andi $2,$2,0xff\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800A0EC0\n"
-    "nop\n"
-    "j func_80075040\n"
-    "nop\n"
-    "L_800A0E98:\n"
-    "bne $3,$2,L_800A0EC0\n"
-    "lui $4,0x8010\n"
-    "lbu $3,24038($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "lw $3,-15760($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "li $2,-1\n"
-    "sh $2,2578($3)\n"
-    "L_800A0EC0:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A0DB8\n.set at\n.set reorder\n");
+typedef struct EventEntry {
+    unsigned char kind;
+    unsigned char arg;
+    short timer;
+    char pad4[8];
+} EventEntry;
+
+typedef struct EventBank {
+    char pad0[2572];
+    unsigned char count;
+    char pad2573[3];
+    EventEntry entries[1];
+} EventBank;
+
+extern EventBank *D_800FC270;
+extern void func_800A0C8C(unsigned char *self);
+extern void func_800A0D48(unsigned char *self);
+
+void func_800A0DB8(unsigned char *self)
+{
+    unsigned char phase = self[24041];
+
+    if (phase == 0 || phase == 5) {
+        while (self[24037] < self[24036]) {
+            while (self[24038] < D_800FC270->count) {
+                if (self[24124] == 0) {
+                    func_800A0C8C(self);
+                } else if (self[24124] == 1) {
+                    func_800A0D48(self);
+                }
+                self[24124] = 0;
+                self[24038]++;
+            }
+            self[24037]++;
+        }
+    } else if (phase == 4) {
+        D_800FC270->entries[self[24038]].timer = -1;
+    }
+}

@@ -1,37 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0B14\n.ent func_800A0B14\n"
-    "func_800A0B14:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,18060($18)\n"
-    "andi $3,$17,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_800A0B78\n"
-    "addiu $17,$17,1\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "subu $2,$2,$3\n"
-    "lw $16,18056($18)\n"
-    "sll $2,$2,0x3\n"
-    "addu $16,$16,$2\n"
-    "jal func_800811F4\n"
-    "addiu $4,$16,212\n"
-    "jal func_800811F4\n"
-    "addiu $4,$16,472\n"
-    "j func_80074D70\n"
-    "nop\n"
-    "L_800A0B78:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A0B14\n.set at\n.set reorder\n");
+extern void func_800811F4(void *p);
+
+void func_800A0B14(char *self)
+{
+    int i = 0;
+    int k;
+    char *entry;
+
+next:
+    k = i & 0xff;
+    if (k < *(unsigned int *)(self + 18060)) {
+        i++;
+        entry = *(char **)(self + 18056) + k * 760;
+        func_800811F4(entry + 212);
+        func_800811F4(entry + 472);
+        goto next;
+    }
+}

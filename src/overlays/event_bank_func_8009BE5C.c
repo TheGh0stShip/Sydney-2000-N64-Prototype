@@ -1,30 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009BE5C\n.ent func_8009BE5C\n"
-    "func_8009BE5C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lw $3,2560($5)\n"
-    ".word 0x04600019\n"
-    "slti $2,$3,3\n"
-    "bnez $2,L_8009BE84\n"
-    "li $2,0x8000\n"
-    "li $2,5\n"
-    ".word 0x14620014\n"
-    "li $2,0x8000\n"
-    "L_8009BE84:\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,84($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8009BEB0\n"
-    "nop\n"
-    "lw $2,2564($5)\n"
-    ".word 0x1040000C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800768D4\n"
-    "li $5,216\n"
-    "L_8009BEB0:\n"
-    "lw $2,2564($5)\n"
-    ".word 0x10400006\n"
-    ".end func_8009BE5C\n.set at\n.set reorder\n");
+extern unsigned char D_800F3BC0[];
+extern void func_800C0110(void *a, int b, int c, int d);
+
+void func_8009BE5C(unsigned char *state, unsigned char *cfg)
+{
+    int mode = *(int *)(cfg + 2560);
+
+    if (mode < 0) {
+        return;
+    }
+    if (mode >= 3 && mode != 5) {
+        return;
+    }
+    if (state[0x8054] == 5) {
+        if (*(int *)(cfg + 2564) != 0) {
+            func_800C0110(D_800F3BC0, 216, 0, 0);
+        }
+    } else {
+        if (*(int *)(cfg + 2564) != 0) {
+            func_800C0110(D_800F3BC0, 226, 0, 0);
+        }
+    }
+}

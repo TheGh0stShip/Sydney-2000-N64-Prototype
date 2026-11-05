@@ -1,79 +1,82 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DA6F0\n.ent func_800DA6F0\n"
-    "func_800DA6F0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800DA730\n"
-    "li $16,-1\n"
-    "lw $2,24716($17)\n"
-    "lb $5,0($2)\n"
-    "li $2,8\n"
-    ".word 0x14A2005F\n"
-    "addiu $7,$5,33\n"
-    "L_800DA730:\n"
-    "lui $3,0x8010\n"
-    "lw $2,24716($17)\n"
-    "lw $4,-15760($3)\n"
-    "lbu $2,1($2)\n"
-    "lw $3,2560($4)\n"
-    "addiu $7,$2,244\n"
-    "li $2,4\n"
-    ".word 0x14620057\n"
-    "lui $2,0x8010\n"
-    "lbu $2,25009($17)\n"
-    ".word 0x10400054\n"
-    "lui $2,0x8010\n"
-    "lbu $3,1550($17)\n"
-    "lbu $2,1555($17)\n"
-    "mult $3,$2\n"
-    "mflo $3\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addiu $2,$2,2576\n"
-    "addu $4,$4,$2\n"
-    "lb $3,0($4)\n"
-    "li $2,8\n"
-    "bne $3,$2,L_800DA7A4\n"
-    "move $3,$2\n"
-    "addiu $4,$4,12\n"
-    "L_800DA798:\n"
-    "lb $2,0($4)\n"
-    "beql $2,$3,L_800DA798\n"
-    "addiu $4,$4,12\n"
-    "L_800DA7A4:\n"
-    "lh $3,2($4)\n"
-    "li $2,-1\n"
-    ".word 0x1062003D\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2564($2)\n"
-    "li $2,5\n"
-    ".word 0x1462002A\n"
-    "li $2,4\n"
-    "lb $3,8($4)\n"
-    "slti $2,$3,3\n"
-    "bnez $2,L_800DA7EC\n"
-    "li $7,513\n"
-    "slti $2,$3,4\n"
-    ".word 0x1440000E\n"
-    "li $16,305\n"
-    "j func_80075CA8\n"
-    "li $16,300\n"
-    "L_800DA7EC:\n"
-    "bnez $3,L_800DA800\n"
-    "li $2,1\n"
-    "li $7,481\n"
-    "j func_80075CA8\n"
-    "li $16,308\n"
-    "L_800DA800:\n"
-    ".word 0x14620004\n"
-    ".end func_800DA6F0\n.set at\n.set reorder\n");
+#define FIELD(obj, off, type) (*(type *)((char *)(obj) + (off)))
+
+extern char *D_800FC270;
+extern char D_800F3BC0[];
+extern unsigned int D_800F2714;
+extern void func_800C0110(void *sound, int id, int a, int b);
+
+#define PLAY(obj, id) \
+    if (FIELD(D_800FC270, 2564, int) != 0 && FIELD(obj, 24968, int) == 1) { \
+        func_800C0110(D_800F3BC0, id, 0, 0); \
+    }
+
+void func_800DA6F0(void *obj)
+{
+    int alt = -1;
+    int snd;
+    signed char c;
+    char *g;
+    signed char *e;
+
+    if (FIELD(D_800FC270, 2560, int) == 5
+        && (c = *FIELD(obj, 24716, signed char *)) != 8) {
+        snd = c + 33;
+    } else {
+        g = D_800FC270;
+        snd = FIELD(obj, 24716, unsigned char *)[1] + 244;
+        if (FIELD(g, 2560, int) == 4 && FIELD(obj, 25009, unsigned char) != 0) {
+            e = (signed char *)(g + 2576
+                + FIELD(obj, 1550, unsigned char) * FIELD(obj, 1555, unsigned char) * 12);
+            while (e[0] == 8) {
+                e += 12;
+            }
+            if (*(short *)(e + 2) != -1) {
+                if (FIELD(D_800FC270, 2564, int) == 5) {
+                    c = e[8];
+                    snd = 513;
+                    if (c >= 3) {
+                        if (c >= 4) {
+                            alt = 300;
+                        } else {
+                            alt = 305;
+                        }
+                    } else if (c == 0) {
+                        snd = 481;
+                        alt = 308;
+                    } else if (c == 1) {
+                        snd = 417;
+                        alt = 306;
+                    } else {
+                        snd = 449;
+                        alt = 307;
+                    }
+                    snd += ((unsigned char *)e)[1];
+                    D_800F2714 = (D_800F2714 * 16807) & 0x7fffffff;
+                    if ((D_800F2714 >> 28) == 0) {
+                        alt = 299;
+                    }
+                } else if (FIELD(D_800FC270, 2564, int) == 4) {
+                    if (e[8] < 3) {
+                        alt = 311;
+                    } else {
+                        alt = 304;
+                    }
+                } else {
+                    if (e[8] < 3) {
+                        alt = 309;
+                    } else {
+                        alt = 302;
+                    }
+                }
+            } else {
+                alt = 301;
+            }
+        }
+    }
+    PLAY(obj, snd);
+    if (alt != -1 && FIELD(obj, 1550, unsigned char) == 0) {
+        PLAY(obj, 312);
+        PLAY(obj, alt);
+    }
+    FIELD(obj, 24968, int) = 0;
+}

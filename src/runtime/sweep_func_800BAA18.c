@@ -1,62 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BAA18\n.ent func_800BAA18\n"
-    "func_800BAA18:\n"
-    "addiu $29,$29,-56\n"
-    "sw $18,48($29)\n"
-    "sw $17,44($29)\n"
-    "move $17,$7\n"
-    "andi $4,$4,0xffff\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sw $31,52($29)\n"
-    "sw $16,40($29)\n"
-    "lw $3,28($17)\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "lhu $4,2($2)\n"
-    "bnez $5,L_800BAA60\n"
-    "move $18,$6\n"
-    "lhu $3,4($2)\n"
-    "addiu $2,$4,-1\n"
-    "addu $4,$2,$3\n"
-    "L_800BAA60:\n"
-    "lw $3,8($17)\n"
-    "andi $2,$3,0x1\n"
-    "beqz $2,L_800BAAA0\n"
-    "addiu $16,$29,32\n"
-    "lh $2,24($17)\n"
-    "mult $4,$2\n"
-    "move $5,$16\n"
-    "li $6,2\n"
-    "li $4,-2\n"
-    "and $4,$3,$4\n"
-    "mflo $8\n"
-    "sll $2,$8,0x1\n"
-    "jal func_80011250\n"
-    "addu $4,$4,$2\n"
-    "j L_800BAAB8\n"
-    "addiu $5,$29,16\n"
-    "L_800BAAA0:\n"
-    "lh $2,24($17)\n"
-    "mult $4,$2\n"
-    "mflo $8\n"
-    "sll $2,$8,0x1\n"
-    "addu $16,$3,$2\n"
-    "addiu $5,$29,16\n"
-    "L_800BAAB8:\n"
-    "lhu $4,0($16)\n"
-    "lw $2,4($17)\n"
-    "sll $4,$4,0x3\n"
-    "jal func_800B9B5C\n"
-    "addu $4,$2,$4\n"
-    "addiu $4,$29,16\n"
-    "jal func_800AD1BC\n"
-    "move $5,$18\n"
-    "lw $31,52($29)\n"
-    "lw $18,48($29)\n"
-    "lw $17,44($29)\n"
-    "lw $16,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800BAA18\n.set at\n.set reorder\n");
+/* Fetch one keyframe of a track (first or last frame of the clip), reading
+ * the frame index from cartridge space when the data is not resident, and
+ * convert the referenced pose into the caller's matrix. */
+typedef struct Clip {
+    char pad[2];
+    unsigned short start;
+    unsigned short count;
+    char pad2[40 - 6];
+} Clip;
+
+typedef struct Anim {
+    char pad[4];
+    char *poses;
+    unsigned int frames;
+    char pad2[24 - 12];
+    short stride;
+    char pad3[28 - 26];
+    Clip *clips;
+} Anim;
+
+typedef struct Pose {
+    int w[4];
+} Pose;
+
+extern void func_80011250(void *src, void *dst, int n);
+extern void func_800AD1BC(Pose *p, void *out);
+extern void func_800B9B5C(void *src, Pose *p);
+
+void func_800BAA18(unsigned short clip, int first, void *out, Anim *a)
+{
+    Pose pose;
+    unsigned short tmp;
+    unsigned short *idx;
+    int n;
+
+    n = a->clips[clip].start;
+    if (!first) {
+        n += a->clips[clip].count - 1;
+    }
+    if (a->frames & 1) {
+        idx = &tmp;
+        func_80011250((char *)(a->frames & ~1) + n * a->stride * 2, idx, 2);
+    } else {
+        idx = (unsigned short *)(a->frames + n * a->stride * 2);
+    }
+    func_800B9B5C(a->poses + *idx * 8, &pose);
+    func_800AD1BC(&pose, out);
+}

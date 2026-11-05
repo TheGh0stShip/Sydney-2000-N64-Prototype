@@ -1,35 +1,19 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0D48\n.ent func_800A0D48\n"
-    "func_800A0D48:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,23712($16)\n"
-    "beql $2,$0,L_800A0D94\n"
-    "lui $2,0x800f\n"
-    "lbu $3,426($2)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800A0D84\n"
-    "nop\n"
-    "jal func_80074ECC\n"
-    "nop\n"
-    "j func_80074FD4\n"
-    "lui $2,0x800f\n"
-    "L_800A0D84:\n"
-    "lui $5,0xbf80\n"
-    "jal func_800732AC\n"
-    "move $4,$16\n"
-    "lui $2,0x800f\n"
-    "L_800A0D94:\n"
-    "sw $0,10024($2)\n"
-    "li $2,-7680\n"
-    "sw $2,24068($16)\n"
-    "li $2,2\n"
-    "sb $2,24124($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A0D48\n.set at\n.set reorder\n");
+extern int D_800F2728;
+extern void func_800A0C8C(char *self);
+extern void func_800732AC(char *self, float value);
+
+void func_800A0D48(char *self)
+{
+    unsigned char *player = *(unsigned char **)(self + 23712);
+
+    if (player != 0) {
+        if (player[426] != 1) {
+            func_800A0C8C(self);
+        } else {
+            func_800732AC(self, -1.0f);
+        }
+    }
+    D_800F2728 = 0;
+    *(int *)(self + 24068) = -7680;
+    self[24124] = 2;
+}

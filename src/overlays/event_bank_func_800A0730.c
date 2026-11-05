@@ -1,68 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0730\n.ent func_800A0730\n"
-    "func_800A0730:\n"
-    "addiu $29,$29,-24\n"
-    "move $8,$4\n"
-    "sw $31,16($29)\n"
-    "lw $3,24112($8)\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_800A0810\n"
-    "nop\n"
-    "lbu $2,24120($8)\n"
-    "bnez $2,L_800A080C\n"
-    "addiu $2,$2,-1\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,1200\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $9\n"
-    "srl $4,$9,0x10\n"
-    "andi $2,$4,0x1\n"
-    "beqz $2,L_800A07C8\n"
-    "sw $3,5104($5)\n"
-    "lw $2,24116($8)\n"
-    "subu $2,$2,$4\n"
-    "slti $2,$2,8101\n"
-    "bnez $2,L_800A07E0\n"
-    "nop\n"
-    "j func_80074A20\n"
-    "negu $4,$4\n"
-    "L_800A07C8:\n"
-    "lw $3,24116($8)\n"
-    "li $2,0x8d04\n"
-    "addu $3,$3,$4\n"
-    "slt $2,$2,$3\n"
-    "bnel $2,$0,L_800A07E0\n"
-    "negu $4,$4\n"
-    "L_800A07E0:\n"
-    "lw $6,24116($8)\n"
-    "lw $5,24112($8)\n"
-    "li $2,4\n"
-    "sb $2,24120($8)\n"
-    "addu $6,$6,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,6880\n"
-    "jal func_8001D5D0\n"
-    "sw $6,24116($8)\n"
-    "j func_80074A50\n"
-    "nop\n"
-    "L_800A080C:\n"
-    "sb $2,24120($8)\n"
-    "L_800A0810:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A0730\n.set at\n.set reorder\n");
+extern unsigned int D_800F13F0;
+extern char D_800F1AE0[];
+extern void func_8001D5D0(void *channel, int handle, int value);
+
+static inline unsigned int event_random(int range)
+{
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    return ((D_800F13F0 >> 15) * range) >> 16;
+}
+
+void func_800A0730(char *self)
+{
+    int step;
+
+    if (*(int *)(self + 24112) == -1) {
+        return;
+    }
+    if (*(unsigned char *)(self + 24120) == 0) {
+        step = event_random(1200);
+        if (step & 1) {
+            if (*(int *)(self + 24116) - step > 8100) {
+                step = -step;
+            }
+        } else if (*(int *)(self + 24116) + step > 36100) {
+            step = -step;
+        }
+        *(unsigned char *)(self + 24120) = 4;
+        *(int *)(self + 24116) += step;
+        func_8001D5D0(D_800F1AE0, *(int *)(self + 24112), *(int *)(self + 24116));
+    } else {
+        *(unsigned char *)(self + 24120) -= 1;
+    }
+}
