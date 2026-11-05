@@ -121,3 +121,5 @@
 0x150fc0	0x100	src/claude/func_800AD6D0.c	--section-base=.rdata:0x80085ED4 --symbol=sqrtf:0x8002E800 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6792f80b731c6f818b32b44f51bfc43105bab099e3a33f7bfc2a5a76e33cdffd
 0x1509a8	0x104	src/claude/func_800AD0B8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	4cb8f1c33aa1800733a3546a4c8f7d79e1acbf5c9363215ce3d9035e882c6f47
 0x150b98	0xe0	src/claude/func_800AD2A8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b18b071b6015fe8234214e1243f3cf4387d150f8c6a5a828ade04342dcbb9180
+0x1585B0	0x160	src/runtime/apply_timed_motion_properties.c	--symbol=runtimeClock:0x800F272C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ef7749422d67a6af49a80359dc788c94823d00d22d975c708ae4c920e119e772
+0x158710	0x16C	src/runtime/apply_dual_motion_properties.c	--symbol=runtimeClock:0x800F272C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	28e9bd810c2f3e264da246d9cdf95316ed4275381ca6101ccea4b4d12fb59b94
