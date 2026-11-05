@@ -35,3 +35,7 @@ void LEAF_NAME(void) {
     SECOND_GLOBAL = second;
     asm volatile ("# stores complete" : : : "memory");
 }
+
+#ifdef TRAILING_NOP
+asm(".word 0");
+#endif
