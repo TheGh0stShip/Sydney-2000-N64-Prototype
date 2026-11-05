@@ -1,0 +1,149 @@
+{
+  "inputs": {
+    "@n64dk/__init__.py": "d74842f1ba42f280e3df15c7065e955b7e83d71bad088068503217b97f5ebed4",
+    "@n64dk/__main__.py": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e",
+    "@n64dk/analysis/__init__.py": "a74ef479fdcbfc86a09aa5073ef0c12fa554c5ad871c26f2b6165e2e5a200e32",
+    "@n64dk/analysis/datamap.py": "4553dbeea837c7eb606751488d9c3dfe22e2f66520965f0e8bc45dda158e1e9f",
+    "@n64dk/analysis/functions.py": "498b01c332582116a18a7dcfea2afddae456a36ee9a58bd2d748d5ba81a84b52",
+    "@n64dk/assets/__init__.py": "3ad7613ccd30dc375092f1bc2843d2c7a542d078bb0db65e398a3da202d80f5c",
+    "@n64dk/assets/audio.py": "8a933be227c981cf0be2426752230fa7d9bd09831a0129b5a1fa5a3b40bc7158",
+    "@n64dk/assets/compress.py": "38af90397fbf222672b9484ea6bde19a3a0bdd90915f76d73dce7d407d12f324",
+    "@n64dk/assets/gbi.py": "d0b6cafaf61293602c4bb4f134024094a62fb40ff6549f9f6e7933ec0e20e70f",
+    "@n64dk/assets/loaders.py": "8eb432235c4ef67534e5a576af2bd8a594077e8b3fcba5c5fa4f9362d0806a50",
+    "@n64dk/assets/texture.py": "1322d6e8c090e2abc739f54c86a7d59c79dd41679ee2c88366cb65136362eefa",
+    "@n64dk/boot.py": "cfb20e11a42e63957efa39df192c27d1460c043ccc27a520b4c58b908f610841",
+    "@n64dk/cli.py": "e0b22a92a4267c6f388c0e856d379f637063c82cce730bd908960a380fa50a8f",
+    "@n64dk/commands/__init__.py": "e8557d721cb3cf28083c5a37452c783acd62398d8b315c6ed0b0313ae26216dd",
+    "@n64dk/commands/assets_scan.py": "7e477ae69bff2abdde547caabc56fddf99a152503fc84ae76eb5ddbefde10e85",
+    "@n64dk/commands/audio.py": "449149cec290ff111aec19dab1e8c621b57e53cd6357d6f0ceee4670a43e273c",
+    "@n64dk/commands/boot_emu.py": "5625689f8b9756512de5d1f1f2fb8f292177d7e23c1aae7eaf35f8aada8ddcf8",
+    "@n64dk/commands/core.py": "02673b4996fd44f28f908347b1dc1f5c3b3cd4b2a767d7567c6cbd1e1406f1a0",
+    "@n64dk/commands/datamap.py": "86be5c47265e43fbbc1f8ad915328b458cd3986ba348a515df928d5b15b58732",
+    "@n64dk/commands/functions.py": "724801a8d0af9c8fd055a3cc58bf52dad381f6ad68994ff3b557f27d13dbe204",
+    "@n64dk/commands/gfx.py": "e340f05f9ea6aa7bc8906606405d0b6243b24e93a9d724d06c62ef7384ae339b",
+    "@n64dk/commands/match.py": "bc10687be22d11664c474a47828b7f9a8030fa4689edc78b78fc25d7ec24ea41",
+    "@n64dk/commands/sdk.py": "127b2105bed0659477a8c5cfc893e8610720249f3673ffbfd703e637aa0e5e80",
+    "@n64dk/commands/survey.py": "ae1a3bc46a2d0f9d272cec57ce2ff5e299297cd2c7ad7eca31723d451a80e4bc",
+    "@n64dk/elf.py": "da45a0865b2ff6a52019fb6c6843e2b96c43fd7874d87a5b2dfdd288845e5b4a",
+    "@n64dk/emu.py": "e6c6af5d2d6cfd1ffd7f736ae774ea1a9cecfb0ef67dd7c876b9ca763248fffc",
+    "@n64dk/fixtures.py": "7670b00f6a1e4406729473a8e76809ff0514b3264dd00438bcf610f9858d84e1",
+    "@n64dk/gamecodec.py": "a213ef675c971c30839c150475a0da1bbea0cfaf9addecb14bac14125c0cd7a9",
+    "@n64dk/image.py": "5ef467f86dbca69fd1ac7f5620f0bff8745cc38c0c706f2822da7a06447c0467",
+    "@n64dk/ledger.py": "ea81c4a85a30f1e4630b8e603bbe89998d7ce376feb89dd8f1acf12af82c3986",
+    "@n64dk/match/__init__.py": "70f8e41fde00b231e20d7f0ec0d010a5d2fc90534ad115ee070065d459b45400",
+    "@n64dk/match/asn64.py": "4b8728117313eb0ed7458b4ed3555f5f429147c7110d6352cb4860b08d215ca9",
+    "@n64dk/match/compare.py": "5b02e46b2ffc16da3fdd9d3ffd262a5d6f9f9e9e53875eac2447a9e02eef206f",
+    "@n64dk/match/diff.py": "5fd6b08f0733002ae5c76840bb1108d1fc1f9bedc8d51df0d0068e4bbf991d40",
+    "@n64dk/match/engine.py": "7a17aa5eebf9547e2aade9cbb8a3c5fd036762c2278e15265b4004887a127831",
+    "@n64dk/match/manifest.py": "529500ba98e583e69b9c9411f86583fee748f4a6111d5ef2bb377de7058af6f8",
+    "@n64dk/match/normalize.py": "1d99e1a31dada16dad6f168beafeb537eeb66cef2ebb41ad9916a718786a75a0",
+    "@n64dk/match/permuter.py": "be644e3ffe5cc22767fb7e7df41d4cccd79676ac7e10c606b00a1d2e3aa042f7",
+    "@n64dk/match/pipeline.py": "b9d953b95db19e1f0179613734ab2c85c61910a2ac132a33c74d6fbfcdefa736",
+    "@n64dk/match/symbols.py": "536f29cde2e93bc47af7fb8847da608bb8fc2b0d0c25b4ae1651d5d34735869d",
+    "@n64dk/match/toolchain.py": "db8aef6f67bc1dd1871c5a49aee057ae7c60507bd1a61e93e344225deeb4be55",
+    "@n64dk/mips.py": "1d930d9ab9266ebacd3fe2db28a269c3a895eb23e69820ce25672df570f0afe0",
+    "@n64dk/rom.py": "cfa3f49109e8a75d95eec684719258fa29e94ba320adf2f5fd5963f47ef7b76c",
+    "@n64dk/sdk/__init__.py": "6c7c5a03a916aa43b6ab83b00cd1cee7b0000604ef420db7926dcc7479d6e6ad",
+    "@n64dk/sdk/build.py": "5ff7b9f7ddb09a27c2e1284664382bd073cf130b8fd8cff7ce1f7a5a91085f2a",
+    "@n64dk/sdk/db.py": "4f0482123b2eab83585bdba53d03e279cb8627cb5f81ee853ec79eee79cd23b2",
+    "@n64dk/sdk/fingerprint.py": "f1b7eb657079f41124830113999c5e5f07699a9d315d4be39ff6bd3527092dec",
+    "@n64dk/sdk/matcher.py": "b78b2297c35552058413a01d21237187bbabdd034345e4205ea31273213ba57c",
+    "@n64dk/sdk/signature.py": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee",
+    "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
+    "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
+    "config/overlay/matching_sn.tsv": "a1170d38c3537512c34ceefa9c625b1c1940a92b15c5f98d38f51496ed5201e2",
+    "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
+    "config/survey/symbol_addrs.txt": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3",
+    "src/overlays/ceremony_reset_runtime.c": "e893362aff6eb3d8d63ffd49c37647470296fa7cb24432815084511c8928c685",
+    "src/overlays/ceremony_set_runtime_mode.c": "4bd3171bcae3363c0577711cc5b0617e83e98b443554b393f72df8aaaa27fb86",
+    "tools/build_source_image.py": "87300d35822223ccb8f24bf5afbeb82353e944568f059d37730087c5c1aca318",
+    "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
+    "tools/verify_ido_normalized.py": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49",
+    "tools/verify_sn_normalized.py": "a0401769c0a1e27684188481413e4f9ba505f550010d865b8bd6beae3c03855d"
+  },
+  "resident_rom_end": null,
+  "resident_rom_start": null,
+  "rom_end": 460800,
+  "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+  "rom_start": 430192,
+  "segment": "ceremony",
+  "units": [
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sn.tsv:28ce80f6f93eab56",
+      "includes": [],
+      "manifest": "config/overlay/matching_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "4db137899267cdd48982252d57eafdbc9db55848e30214362af30c3d588e6819",
+      "pipeline": "sn",
+      "row_sha256": "28ce80f6f93eab56b18fed47e7e0a4bdb91dafd5a3026a1fe4b851f316ad1e4d",
+      "section_bases": {
+        ".text": 2147963928
+      },
+      "sections": [
+        {
+          "emitted_size": 32,
+          "name": ".text",
+          "owned_size": 32,
+          "rom_start": 449268,
+          "sha256": "abe546f6bec2ff79e9a554f2729873ff0cad047f16201c7b19e3aa7947f84d38",
+          "unowned_zero_tail": 0,
+          "vram": 2147963928
+        }
+      ],
+      "source": "src/overlays/ceremony_reset_runtime.c",
+      "source_sha256": "e893362aff6eb3d8d63ffd49c37647470296fa7cb24432815084511c8928c685",
+      "symbols": {
+        "ceremonyRuntimeObject": 2147959632,
+        "func_800ADED4": 2148196052
+      }
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_sn.tsv:17e389529baeff2e",
+      "includes": [],
+      "manifest": "config/overlay/matching_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "85fce3401ddc3159d7165702fede557dec5d8d2902f38f25e36e43d982159c70",
+      "pipeline": "sn",
+      "row_sha256": "17e389529baeff2ec2984e98115d999a855494aa595131ecfc59c2e16fa7484d",
+      "section_bases": {
+        ".text": 2147963960
+      },
+      "sections": [
+        {
+          "emitted_size": 36,
+          "name": ".text",
+          "owned_size": 36,
+          "rom_start": 449300,
+          "sha256": "0dfd6ea401d876f94cc0f80e7781e972fd16653a33b6fd26a867dcb920aea3bc",
+          "unowned_zero_tail": 0,
+          "vram": 2147963960
+        }
+      ],
+      "source": "src/overlays/ceremony_set_runtime_mode.c",
+      "source_sha256": "4bd3171bcae3363c0577711cc5b0617e83e98b443554b393f72df8aaaa27fb86",
+      "symbols": {
+        "ceremonyRuntimeObject": 2147959632,
+        "func_800ADE84": 2148195972
+      }
+    }
+  ],
+  "version": 1
+}

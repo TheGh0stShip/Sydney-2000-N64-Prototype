@@ -1,0 +1,3 @@
+# Ceremony overlay mapping: ROM to VRAM delta 0x80007924; exact SN GCC2.8 C units.
+0x6DAF4	0x20	src/overlays/ceremony_reset_runtime.c	--symbol=ceremonyRuntimeObject:0x80074350 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	abe546f6bec2ff79e9a554f2729873ff0cad047f16201c7b19e3aa7947f84d38
+0x6DB14	0x24	src/overlays/ceremony_set_runtime_mode.c	--symbol=ceremonyRuntimeObject:0x80074350 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0dfd6ea401d876f94cc0f80e7781e972fd16653a33b6fd26a867dcb920aea3bc
