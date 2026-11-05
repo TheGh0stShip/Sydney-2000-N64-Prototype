@@ -16,3 +16,31 @@
 0x2A524	0x30C	src/libultra/save_crash_context.s	-mips3 -G0	28f37f3801fbd26d39d0415f74684e6fe38ceb83771b814ba5ac2d5012d48b22
 0x32E7C	0x550	src/libultra/exception_handler_body.s	-mips3 -G0	85f3e2929e2732b5c3908e6670d71641cddc1bc2dc776a6a39c1daae7568eb36
 0x29F98	0x58C	src/game/debug_stub_exception_handler.s	-mips3 -G0	bd7c700e2df8922ca6c997fafe1605dae0a05a865111d3c1b86b56d5fb94b3ba
+0x627C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x690C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x847C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x120FC	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x18A5C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x1953C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x1B25C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x1F1B8	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x26108	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x27448	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x2B2FC	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x2DFD0	0x10	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
+0x2EBD0	0x10	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb
+0x2EE74	0xC	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b
+0x2EEA8	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x31564	0xC	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b
+0x3221C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x33CFC	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x33D74	0xC	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b
+0x34728	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x352E8	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x3618C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x37AB8	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x37EC0	0x60	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	2ea9ab9198d1638007400cd2c3bef1cc745b864b76011a0e1bc52180ac6452d4
+0x38438	0x8	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc
+0x38484	0xC	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	15ec7bf0b50732b49f8228e07d24365338f9e3ab994b00af08e5a3bffe55fd8b
+0x3860C	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
+0x38AEC	0x4	src/asm/alignment_nop.s	-O2 -G0 -mips3 -mgp32 -mfp32	df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119
