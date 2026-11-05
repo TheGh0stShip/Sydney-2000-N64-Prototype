@@ -1,0 +1,43 @@
+# Runtime image mapping: ROM to VRAM delta 0x7FF5C710; SN GCC2.8 exact C units.
+0x13F57C	0x10	src/runtime/initialize_runtime_cookie.c	--symbol=runtimeCookie:0x800F13F0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	7e2e7211c190845fa0ab22b4af749ffe1c147cf6669a5b36561b2f03137b9ae6
+0x146C84	0x1C	src/runtime/initialize_audio_mix_gains.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	759a36b46af5d25bc5c7ecd32c1eb4eabc49c08316964e7e512f26c8e10b2320
+0x14DF40	0x8	src/runtime/return_zero.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
+0x14E348	0x8	src/runtime/return_second_value.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	a91128c2a8024e82a5a81ebaa08820d6607d611b8f2b68a6184fa482f74ea427
+0x14E350	0x8	src/runtime/halt_runtime.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	2ef4410053171198e6743c738883703f50b47737936babed43328ff47ff15794
+0x14E914	0x14	src/runtime/get_third_link.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	278314a3e47dce5a9092b85a73a605b53e79e9ba055ee298e0622b57acbdba81
+0x14EF5C	0x18	src/runtime/append_output_word.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	d694ca3b7080a3edf39a6be8b7c0530b7d2d6a7ae20808ffa862b15274e5053a
+0x151544	0x8	src/runtime/set_object_callback_value.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	bb8602052abb0b6e64659e607e435047c5098e3bdb4542b5f473137c40a7e875
+0x156ACC	0x10	src/runtime/get_runtime_context.c	--symbol=runtimeContext:0x800F26CC -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	362bb01e204369bca3246a775cfbbd3260e503a6518ea7d7e20b729b09a465b6
+0x156ADC	0xC	src/runtime/set_runtime_context.c	--symbol=runtimeContext:0x800F26CC -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	dd5f2d0adb6e19b214eb071efe528c24a04002e8eb4e0336d81a1d9dfdc6d3f6
+0x156AE8	0x10	src/runtime/get_runtime_context_mode.c	--symbol=runtimeContext:0x800F26CC --symbol=runtimeContextMode:0x800F26D0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	11861cebb7c62d7cab5c5e8ecbfc34a17446bdf191e93a0511fd8ecd10cc93dd
+0x156AF8	0xC	src/runtime/set_runtime_context_mode.c	--symbol=runtimeContext:0x800F26CC --symbol=runtimeContextMode:0x800F26D0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	0f4015c4197dcddb4b11031aab8e34bd82cecf2c8adf90a26b24fb740c584e17
+0x158074	0x10	src/runtime/get_display_runtime_state.c	--symbol=displayRuntimeState:0x800F2720 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	9460f592b4801ef785f82b431a6de236773d269c7d2ae944b97d46b01e8585fc
+0x158084	0x10	src/runtime/set_display_runtime_state.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	0b1bc05a31eda21c04aee7bf870858f0383816482de883edc7fffd1236c4bafd
+0x15FCA0	0x14	src/runtime/increment_descriptor_refresh_state.c	--symbol=descriptorRefreshState:0x80101938 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	a3b4916c533e80716b702a1654b44dd9e76db171557cb38e279b1440e6a607eb
+0x15FCB4	0xC	src/runtime/set_descriptor_refresh_state.c	--symbol=descriptorRefreshState:0x80101938 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	7c0b9da70bd7233c3b7d0adde5d6aec2298cfac0dbed381112b4300a230a419c
+0x15FCC0	0x10	src/runtime/get_descriptor_refresh_state.c	--symbol=descriptorRefreshState:0x80101938 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	eb2edbd52b4e457667c5a1b197f003c6c0c2e1ef08aced240743e8762f532868
+0x15FCF8	0x18	src/runtime/get_input_descriptor.c	--symbol=runtimeInputDescriptors:0x80101850 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	87d8ad4e04f9bc64ad73fdc9b23b82f86e43eb196d2d40e80180aefc1cbd624b
+0x17B980	0x14	src/runtime/clear_runtime_pair.c	--symbol=runtimePair:0x800F7270 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	5bd5795e47287608f66272fbb80e13fa83d502905550570ed42306428c84feaf
+0x18DF68	0x10	src/runtime/clear_small_record.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	72304c4db7d6f829c8b19e8bdfc35bab43e6b53e27bfea14e3234d048d3d0ea6
+0x14E0F4	0x128	src/runtime/allocate_zeroed_heap_block.c	--symbol=runtimeHeapSourceName:0x80085C00 --symbol=runtimeEmptyHeapAssertion:0x80085C2C --symbol=runtimeOutputAssertion:0x80085C4C --symbol=func_800AAA60:0x800AAA60 --symbol=func_800AA724:0x800AA724 --symbol=func_800AA650:0x800AA650 --symbol=func_800B3AFC:0x800B3AFC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1dff3366201042d6df1d9e7b8620f351c60265f65f661e74be5557a4acb237f0
+0x14E014	0xE0	src/runtime/split_runtime_heap_block.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	96ba56482ed4b2c6ee7fff42f29790aa6e120b1407b16cb17c4e0dd78f54b981
+0x14DF48	0xCC	src/runtime/free_runtime_heap_block.c	--symbol=func_800AA650:0x800AA650 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	63f6b6dfb98b1bf325137291e1f3fffaa93a3b9299e606e843ee4b5815008a07
+0x14EDA0	0x1C	src/runtime/clear_output_context.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	34ec82514c54f3d669e199a3742a25cec2508df9173073c4f270ea82bd93e555
+0x14F0F0	0x1C	src/runtime/clear_extended_output_context.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	4aec754aee31cabf5eff28954836f12a32dc06291e835a726d850259be336c6b
+0x15FD40	0x24	src/runtime/clear_input_descriptor_bytes.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	2d2ac08e3fc0bad2e65b2698714367dcf35553af55f15185cf6c58d093455e49
+0x15FCD0	0x28	src/runtime/set_input_descriptor.c	--symbol=runtimeInputDescriptors:0x80101850 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	472663cb15d7400b359ec411774988f225ec369c80324a30754d38be89026c35
+0x15150C	0x1C	src/runtime/forward_object_reset.c	--symbol=func_80014480:0x80014480 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	bf7fd859442823f8d3465fa0852a23213d7d7fc5fd7850a4fc1f5198789a1307
+0x156EE0	0x1C	src/runtime/forward_runtime_object_reset.c	--symbol=func_800B34F4:0x800B34F4 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	76b3a4c441e93d809c6002f322d6afa1753c3fdb52047668c739f7368d8a5f78
+0x14E8F4	0x20	src/runtime/copy_small_record.c	--symbol=func_800B3870:0x800B3870 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	5baab02cf5faeacb9519f5ad18e116c00c1be366a15a64745255339de45b4a9e
+0x146B08	0x28	src/runtime/initialize_audio_effect_state.c	--symbol=func_8001D964:0x8001D964 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	0d767c5f2a93123ef3833ae8e31b7f376fd286e701e87fc20fdb300414989f8e
+0x14F38C	0x30	src/runtime/initialize_extended_output_context.c	--symbol=func_800AB800:0x800AB800 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	9745a201c228f16b1b0e46bd661546a76abb584a30c1881dee51e3eb5821e0fa
+0x17A790	0x30	src/runtime/initialize_extended_runtime_object.c	--symbol=func_800B35F0:0x800B35F0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	f807ceba11c44c3d049a82c6f45d1758697bf7e12805c6588757edb3e204d4f2
+0x152638	0x38	src/runtime/clear_runtime_object_fields.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	4350b1b965dd40ef5d0e80f650b73138a8f446a3194a8539cb82baf88a2a8e34
+0x152670	0x34	src/runtime/initialize_runtime_object.c	--symbol=func_800AED48:0x800AED48 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	0c5b264830746e853f8f2696bf1288fdde3948a1bf406dcb19726417b2adc1b2
+0x158008	0x38	src/runtime/initialize_runtime_output_system.c	--symbol=runtimeOutputContext:0x800F26E0 --symbol=runtimeExtendedOutputContext:0x800F26F4 --symbol=runtimeOutputCookie:0x800F2714 --symbol=func_800ABA9C:0x800ABA9C --symbol=func_800AB4B0:0x800AB4B0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	827a1d913db1ed94f8ca6b151dea195555c09476345fdcee97724d616f962070
+0x15FC68	0x38	src/runtime/initialize_input_events.c	--symbol=runtimeInputEvents:0x800F2C80 --symbol=runtimeInputReadIndex:0x800F3880 --symbol=runtimeInputWriteIndex:0x800F3882 --symbol=func_800B3AFC:0x800B3AFC -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	8a93627a64dff28fd2134ec69d16a8cb2d2346cc449bdcc0d6daa685a5ce6763
+0x14FC94	0x30	src/runtime/finalize_runtime_object.c	--symbol=runtimeObjectVtable:0x80085E20 --symbol=func_80004380:0x80004380 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	2b4c3299d869d4eb24005847a7fa851605e208841aa7b65863181a096268c7b6
+0x155170	0x24	src/runtime/initialize_runtime_list.c	--symbol=runtimeList:0x800F2690 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	ad9801adb478b9628069b68dc8e9e07ccba9c76f606b0212bb1b3c5dfebfea7c
+0x156A34	0x24	src/runtime/initialize_runtime_free_list.c	--symbol=runtimeFreeList:0x800F26B0 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	a3625fc2ff6ed59f380acb322d02a371e36a534853ed67b2634eb5a9a38dad8b
+0x17E878	0x24	src/runtime/initialize_runtime_object_list.c	--symbol=runtimeObjectList:0x800FCB30 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	1b7e33b19fb81a696b369a20e10bf9930b59dc6201b3a6d2141e5959b60a2e12
+0x180444	0x24	src/runtime/initialize_runtime_asset_list.c	--symbol=runtimeAssetList:0x800FCB90 -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	1e3e8be5e9752518000997fcc35f4e1a8f055a0b9a0f9de78fac08d08186f4e6

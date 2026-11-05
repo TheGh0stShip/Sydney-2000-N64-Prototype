@@ -1,0 +1,3218 @@
+{
+  "version": 1,
+  "provisional": true,
+  "matching_credit": 0,
+  "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+  "mapping": {
+    "rom_start": 1209920,
+    "rom_end": 1718960,
+    "vram_start": 2148023632,
+    "vram_end": 2148532672,
+    "size": 509040
+  },
+  "evidence": {
+    "loader_manifest_row_sha256": "aa96c9d504f343638e3fda7f9bc8d8043250c97fa5f4a97b29f8d59ed8bdd7b6",
+    "resident_catalogue_sha256": "ca8ad17b458c8c4be1535f5307d6684c12341a914c84df9fe8f911bf7284e250",
+    "analysis_module_sha256": "498b01c332582116a18a7dcfea2afddae456a36ee9a58bd2d748d5ba81a84b52",
+    "generator_sha256": "0494105b9c41d2752263798ef4473af85b182d7aaf9e41122c9e09439e68d333",
+    "initializer_ranges": [
+      {
+        "vram_start": 2147492512,
+        "vram_end": 2147492528
+      },
+      {
+        "vram_start": 2148060240,
+        "vram_end": 2148060324
+      }
+    ],
+    "external_helpers": "stubbed; only original startup argument computation executed"
+  },
+  "summary": {
+    "seeded_starts": 50,
+    "candidates": 139,
+    "valid_walks": 139
+  },
+  "functions": [
+    {
+      "name": "func_8008F698",
+      "vram": 2148071064,
+      "rom_start": 1257352,
+      "size": 68,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060240
+        }
+      ],
+      "calls": [
+        2148196052
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_80096320",
+      "vram": 2148098848,
+      "rom_start": 1285136,
+      "size": 72,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060244
+        }
+      ],
+      "calls": [
+        2148189140
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_8009BC8C",
+      "vram": 2148121740,
+      "rom_start": 1308028,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060248
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_8009F404",
+      "vram": 2148135940,
+      "rom_start": 1322228,
+      "size": 76,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060252
+        }
+      ],
+      "calls": [
+        2147674112
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800A1ED8",
+      "vram": 2148146904,
+      "rom_start": 1333192,
+      "size": 76,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060256
+        }
+      ],
+      "calls": [
+        2147674112
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800A2F48",
+      "vram": 2148151112,
+      "rom_start": 1337400,
+      "size": 48,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060260
+        }
+      ],
+      "calls": [
+        2147604628,
+        2147606764
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800A2FCC",
+      "vram": 2148151244,
+      "rom_start": 1337532,
+      "size": 92,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800A30E8",
+      "vram": 2148151528,
+      "rom_start": 1337816,
+      "size": 172,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147509260
+        }
+      ],
+      "calls": [
+        2147602700,
+        2148151244
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800A3218",
+      "vram": 2148151832,
+      "rom_start": 1338120,
+      "size": 40,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147603056
+        }
+      ],
+      "calls": [
+        2147604836
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800A330C",
+      "vram": 2148152076,
+      "rom_start": 1338364,
+      "size": 136,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800A3394",
+      "vram": 2148152212,
+      "rom_start": 1338500,
+      "size": 28,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147604540
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147604980
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800A3404",
+      "vram": 2148152324,
+      "rom_start": 1338612,
+      "size": 120,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147604184,
+        2147604336,
+        2148152076
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AA100",
+      "vram": 2148180224,
+      "rom_start": 1366512,
+      "size": 904,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147552028
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147552176
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147584940
+        }
+      ],
+      "calls": [
+        2148181584,
+        2148181592,
+        2148219644
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AA488",
+      "vram": 2148181128,
+      "rom_start": 1367416,
+      "size": 448,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147504728
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147523896
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147531460
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147607132
+        }
+      ],
+      "calls": [
+        2148181584
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AA650",
+      "vram": 2148181584,
+      "rom_start": 1367872,
+      "size": 8,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AA658",
+      "vram": 2148181592,
+      "rom_start": 1367880,
+      "size": 204,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147500948
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147501448
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504176
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504244
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504596
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147511024
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147511752
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147518308
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147519540
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147520096
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147521180
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147545636
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147545692
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147551964
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147552056
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147560516
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563220
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563232
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563244
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563364
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563388
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563412
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563436
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563460
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563488
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147563972
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564016
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564104
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564168
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564208
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564248
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564272
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564316
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564360
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564416
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564876
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564940
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147564980
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565020
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565044
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565056
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565080
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565100
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565464
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147566260
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147566396
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147578828
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147578852
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147578876
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147579720
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147579744
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587356
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587380
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587404
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587428
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587816
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587840
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587864
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587888
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147588564
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147588588
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147588612
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147588636
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147590792
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147590816
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147590840
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147590864
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147590928
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147591340
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147591364
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147591388
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147591412
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147594756
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147601096
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147601424
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147602280
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147602896
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147603096
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147604876
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147604936
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147605524
+        }
+      ],
+      "calls": [
+        2148181584
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AA724",
+      "vram": 2148181796,
+      "rom_start": 1368084,
+      "size": 224,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AA804",
+      "vram": 2148182020,
+      "rom_start": 1368308,
+      "size": 296,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147501000
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147501116
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147501172
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147501200
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147501228
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147502664
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504080
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504204
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504500
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504680
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147506120
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147506512
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147510432
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147519496
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147519860
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147519964
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147521212
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147527580
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147527604
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147530464
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147530620
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147531412
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147531496
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147546124
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147558980
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147559028
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147559116
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147559156
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147559312
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147559348
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147560696
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565412
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565604
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565628
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147566200
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147566332
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147566356
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147573720
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147573928
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147579624
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147579648
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147584660
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147584692
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147585460
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147585492
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147585516
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147587964
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147588712
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147605340
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147606956
+        }
+      ],
+      "calls": [
+        2148181584,
+        2148181796,
+        2148182624,
+        2148219644
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AA92C",
+      "vram": 2148182316,
+      "rom_start": 1368604,
+      "size": 300,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147711504,
+        2147711568,
+        2147711792
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AAA58",
+      "vram": 2148182616,
+      "rom_start": 1368904,
+      "size": 8,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AAA60",
+      "vram": 2148182624,
+      "rom_start": 1368912,
+      "size": 8,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147565272
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147565820
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147566248
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AAC44",
+      "vram": 2148183108,
+      "rom_start": 1369396,
+      "size": 64,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147514244
+        }
+      ],
+      "calls": [
+        2148252324
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AAED0",
+      "vram": 2148183760,
+      "rom_start": 1370048,
+      "size": 308,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB004",
+      "vram": 2148184068,
+      "rom_start": 1370356,
+      "size": 32,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148218992
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB024",
+      "vram": 2148184100,
+      "rom_start": 1370388,
+      "size": 20,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB038",
+      "vram": 2148184120,
+      "rom_start": 1370408,
+      "size": 264,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147599288,
+        2148183760
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB140",
+      "vram": 2148184384,
+      "rom_start": 1370672,
+      "size": 256,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148184068,
+        2148184100,
+        2148184120
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB2A4",
+      "vram": 2148184740,
+      "rom_start": 1371028,
+      "size": 276,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148185292
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB3B8",
+      "vram": 2148185016,
+      "rom_start": 1371304,
+      "size": 212,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148182020,
+        2148185396,
+        2148219644
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB4B0",
+      "vram": 2148185264,
+      "rom_start": 1371552,
+      "size": 28,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB4CC",
+      "vram": 2148185292,
+      "rom_start": 1371580,
+      "size": 104,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147599288
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB534",
+      "vram": 2148185396,
+      "rom_start": 1371684,
+      "size": 76,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB580",
+      "vram": 2148185472,
+      "rom_start": 1371760,
+      "size": 192,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB66C",
+      "vram": 2148185708,
+      "rom_start": 1371996,
+      "size": 24,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB684",
+      "vram": 2148185732,
+      "rom_start": 1372020,
+      "size": 132,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148181592
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB708",
+      "vram": 2148185864,
+      "rom_start": 1372152,
+      "size": 212,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148182020,
+        2148185708,
+        2148185732
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB800",
+      "vram": 2148186112,
+      "rom_start": 1372400,
+      "size": 28,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AB81C",
+      "vram": 2148186140,
+      "rom_start": 1372428,
+      "size": 172,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148186140
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AB8C8",
+      "vram": 2148186312,
+      "rom_start": 1372600,
+      "size": 108,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148185472,
+        2148186140
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ABA20",
+      "vram": 2148186656,
+      "rom_start": 1372944,
+      "size": 52,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148185864
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ABA9C",
+      "vram": 2148186780,
+      "rom_start": 1373068,
+      "size": 48,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148186112
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AC334",
+      "vram": 2148188980,
+      "rom_start": 1375268,
+      "size": 72,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AC3A4",
+      "vram": 2148189092,
+      "rom_start": 1375380,
+      "size": 48,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147500928
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AC3D4",
+      "vram": 2148189140,
+      "rom_start": 1375428,
+      "size": 172,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AC5CC",
+      "vram": 2148189644,
+      "rom_start": 1375932,
+      "size": 332,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800ACF20",
+      "vram": 2148192032,
+      "rom_start": 1378320,
+      "size": 408,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147676144,
+        2147713696
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AD0B8",
+      "vram": 2148192440,
+      "rom_start": 1378728,
+      "size": 260,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AD1BC",
+      "vram": 2148192700,
+      "rom_start": 1378988,
+      "size": 236,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AD2A8",
+      "vram": 2148192936,
+      "rom_start": 1379224,
+      "size": 224,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147524988
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147525900
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147544268
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147569408
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147569508
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147569604
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147569696
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147569800
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147569900
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AD6D0",
+      "vram": 2148194000,
+      "rom_start": 1380288,
+      "size": 256,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147510256
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147511236
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147524280
+        }
+      ],
+      "calls": [
+        2147674112
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ADB70",
+      "vram": 2148195184,
+      "rom_start": 1381472,
+      "size": 160,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148181592
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ADC1C",
+      "vram": 2148195356,
+      "rom_start": 1381644,
+      "size": 28,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147566720
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ADC54",
+      "vram": 2148195412,
+      "rom_start": 1381700,
+      "size": 8,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800ADDA4",
+      "vram": 2148195748,
+      "rom_start": 1382036,
+      "size": 108,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148189092,
+        2148195184,
+        2148195356
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ADE10",
+      "vram": 2148195856,
+      "rom_start": 1382144,
+      "size": 116,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148189140
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800ADED4",
+      "vram": 2148196052,
+      "rom_start": 1382340,
+      "size": 100,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148189140
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AE4FC",
+      "vram": 2148197628,
+      "rom_start": 1383916,
+      "size": 108,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148199684
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AE568",
+      "vram": 2148197736,
+      "rom_start": 1384024,
+      "size": 68,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148189140,
+        2148197628,
+        2148199808
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800AED04",
+      "vram": 2148199684,
+      "rom_start": 1385972,
+      "size": 68,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AED48",
+      "vram": 2148199752,
+      "rom_start": 1386040,
+      "size": 56,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800AED80",
+      "vram": 2148199808,
+      "rom_start": 1386096,
+      "size": 52,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148199752
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B1880",
+      "vram": 2148210816,
+      "rom_start": 1397104,
+      "size": 36,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060264
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B1D60",
+      "vram": 2148212064,
+      "rom_start": 1398352,
+      "size": 1016,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148213380,
+        2148213864,
+        2148214188,
+        2148214384,
+        2148216280,
+        2148216644,
+        2148217624
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B2158",
+      "vram": 2148213080,
+      "rom_start": 1399368,
+      "size": 300,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B2284",
+      "vram": 2148213380,
+      "rom_start": 1399668,
+      "size": 484,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148214188,
+        2148214384
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B2468",
+      "vram": 2148213864,
+      "rom_start": 1400152,
+      "size": 324,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B25AC",
+      "vram": 2148214188,
+      "rom_start": 1400476,
+      "size": 196,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B2670",
+      "vram": 2148214384,
+      "rom_start": 1400672,
+      "size": 1896,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147586872,
+        2147590484,
+        2148182616,
+        2148195412,
+        2148195856
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B2DD8",
+      "vram": 2148216280,
+      "rom_start": 1402568,
+      "size": 364,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B2F44",
+      "vram": 2148216644,
+      "rom_start": 1402932,
+      "size": 512,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148216280
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B3144",
+      "vram": 2148217156,
+      "rom_start": 1403444,
+      "size": 36,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060268
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B31DC",
+      "vram": 2148217308,
+      "rom_start": 1403596,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B31EC",
+      "vram": 2148217324,
+      "rom_start": 1403612,
+      "size": 12,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B31F8",
+      "vram": 2148217336,
+      "rom_start": 1403624,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B3208",
+      "vram": 2148217352,
+      "rom_start": 1403640,
+      "size": 12,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B32D4",
+      "vram": 2148217556,
+      "rom_start": 1403844,
+      "size": 68,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B3318",
+      "vram": 2148217624,
+      "rom_start": 1403912,
+      "size": 208,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147590484,
+        2148214384
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B34F4",
+      "vram": 2148218100,
+      "rom_start": 1404388,
+      "size": 252,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B35F0",
+      "vram": 2148218352,
+      "rom_start": 1404640,
+      "size": 28,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148218100
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B360C",
+      "vram": 2148218380,
+      "rom_start": 1404668,
+      "size": 152,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148195412,
+        2148212064,
+        2148218100,
+        2148374780
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B3870",
+      "vram": 2148218992,
+      "rom_start": 1405280,
+      "size": 652,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147580812
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B3AFC",
+      "vram": 2148219644,
+      "rom_start": 1405932,
+      "size": 244,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B4470",
+      "vram": 2148222064,
+      "rom_start": 1408352,
+      "size": 264,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147501072
+        }
+      ],
+      "calls": [
+        2147512064,
+        2147553012,
+        2147580692,
+        2148182316,
+        2148184740,
+        2148185016,
+        2148186656,
+        2148379712
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B4578",
+      "vram": 2148222328,
+      "rom_start": 1408616,
+      "size": 416,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147501716
+        }
+      ],
+      "calls": [
+        2148151528,
+        2148184100,
+        2148184384,
+        2148186312,
+        2148252640,
+        2148356196,
+        2148356360
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B4718",
+      "vram": 2148222744,
+      "rom_start": 1409032,
+      "size": 56,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060272
+        }
+      ],
+      "calls": [
+        2148185264,
+        2148186780
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800B4784",
+      "vram": 2148222852,
+      "rom_start": 1409140,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512424
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147512448
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147512468
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147512480
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147512496
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147599328
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B4794",
+      "vram": 2148222868,
+      "rom_start": 1409156,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800B7FE0",
+      "vram": 2148237280,
+      "rom_start": 1423568,
+      "size": 3216,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147554832
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147582724
+        }
+      ],
+      "calls": [
+        2147553872,
+        2148189644,
+        2148192032,
+        2148192440,
+        2148192700,
+        2148192936,
+        2148218992
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800BBAA4",
+      "vram": 2148252324,
+      "rom_start": 1438612,
+      "size": 96,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BBBE0",
+      "vram": 2148252640,
+      "rom_start": 1438928,
+      "size": 308,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148184740
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800BBD14",
+      "vram": 2148252948,
+      "rom_start": 1439236,
+      "size": 100,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BBD78",
+      "vram": 2148253048,
+      "rom_start": 1439336,
+      "size": 160,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BBF58",
+      "vram": 2148253528,
+      "rom_start": 1439816,
+      "size": 176,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060276
+        }
+      ],
+      "calls": [
+        2148254800
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800BC180",
+      "vram": 2148254080,
+      "rom_start": 1440368,
+      "size": 104,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC1E8",
+      "vram": 2148254184,
+      "rom_start": 1440472,
+      "size": 140,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512952
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC378",
+      "vram": 2148254584,
+      "rom_start": 1440872,
+      "size": 56,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512080
+        }
+      ],
+      "calls": [
+        2148219644
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800BC3B0",
+      "vram": 2148254640,
+      "rom_start": 1440928,
+      "size": 20,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512960
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC3C4",
+      "vram": 2148254660,
+      "rom_start": 1440948,
+      "size": 12,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512072
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC3D0",
+      "vram": 2148254672,
+      "rom_start": 1440960,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512880
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC3E0",
+      "vram": 2148254688,
+      "rom_start": 1440976,
+      "size": 40,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512900
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147512928
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC408",
+      "vram": 2148254728,
+      "rom_start": 1441016,
+      "size": 24,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147513436
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC420",
+      "vram": 2148254752,
+      "rom_start": 1441040,
+      "size": 48,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147512156
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BC450",
+      "vram": 2148254800,
+      "rom_start": 1441088,
+      "size": 36,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800BFF10",
+      "vram": 2148269840,
+      "rom_start": 1456128,
+      "size": 156,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060280
+        }
+      ],
+      "calls": [
+        2148189140
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800C6AC0",
+      "vram": 2148297408,
+      "rom_start": 1483696,
+      "size": 80,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060284
+        }
+      ],
+      "calls": [
+        2148196052
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D28B0",
+      "vram": 2148346032,
+      "rom_start": 1532320,
+      "size": 304,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148195856
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D29E0",
+      "vram": 2148346336,
+      "rom_start": 1532624,
+      "size": 308,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147590728,
+        2148363936
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D2B14",
+      "vram": 2148346644,
+      "rom_start": 1532932,
+      "size": 676,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148195412,
+        2148217556,
+        2148346336,
+        2148347320,
+        2148363984
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D2DB8",
+      "vram": 2148347320,
+      "rom_start": 1533608,
+      "size": 668,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147586528,
+        2147590616,
+        2147590672,
+        2147590960,
+        2148348556
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D328C",
+      "vram": 2148348556,
+      "rom_start": 1534844,
+      "size": 192,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147590616
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D33A0",
+      "vram": 2148348832,
+      "rom_start": 1535120,
+      "size": 88,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148218992,
+        2148346644
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D3460",
+      "vram": 2148349024,
+      "rom_start": 1535312,
+      "size": 164,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148195748
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D4E78",
+      "vram": 2148355704,
+      "rom_start": 1541992,
+      "size": 304,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060288
+        }
+      ],
+      "calls": [
+        2148189140,
+        2148195856,
+        2148196052,
+        2148197736,
+        2148346032
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D5064",
+      "vram": 2148356196,
+      "rom_start": 1542484,
+      "size": 164,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148252948,
+        2148253048,
+        2148254080
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D5108",
+      "vram": 2148356360,
+      "rom_start": 1542648,
+      "size": 156,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147546156,
+        2147604032,
+        2147604172,
+        2148152324,
+        2148222868
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D5588",
+      "vram": 2148357512,
+      "rom_start": 1543800,
+      "size": 168,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060292
+        }
+      ],
+      "calls": [
+        2148189140,
+        2148196052,
+        2148197736,
+        2148346032
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D5B00",
+      "vram": 2148358912,
+      "rom_start": 1545200,
+      "size": 3820,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060296
+        }
+      ],
+      "calls": [
+        2147712816
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D6BD0",
+      "vram": 2148363216,
+      "rom_start": 1549504,
+      "size": 716,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147504232
+        },
+        {
+          "kind": "resident_call",
+          "site": 2147504712
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800D6EA0",
+      "vram": 2148363936,
+      "rom_start": 1550224,
+      "size": 48,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148218352
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D6ED0",
+      "vram": 2148363984,
+      "rom_start": 1550272,
+      "size": 176,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148213080,
+        2148217308,
+        2148217324,
+        2148217336,
+        2148217352,
+        2148218380
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D8090",
+      "vram": 2148368528,
+      "rom_start": 1554816,
+      "size": 20,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060300
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800D93C0",
+      "vram": 2148373440,
+      "rom_start": 1559728,
+      "size": 1340,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147501500
+        }
+      ],
+      "calls": [
+        2147506748,
+        2147506852,
+        2148181128,
+        2148181592,
+        2148182020
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D98FC",
+      "vram": 2148374780,
+      "rom_start": 1561068,
+      "size": 60,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800D9938",
+      "vram": 2148374840,
+      "rom_start": 1561128,
+      "size": 88,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148181592
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800D9990",
+      "vram": 2148374928,
+      "rom_start": 1561216,
+      "size": 136,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800D9A18",
+      "vram": 2148375064,
+      "rom_start": 1561352,
+      "size": 284,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147501532
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800DAB98",
+      "vram": 2148379544,
+      "rom_start": 1565832,
+      "size": 112,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800DAC40",
+      "vram": 2148379712,
+      "rom_start": 1566000,
+      "size": 196,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147515160,
+        2148218992,
+        2148374928,
+        2148375064,
+        2148379544
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800DAD10",
+      "vram": 2148379920,
+      "rom_start": 1566208,
+      "size": 632,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147581300,
+        2147586528,
+        2147590616,
+        2147590672,
+        2147590960,
+        2148181592,
+        2148182020,
+        2148373440
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800DAF88",
+      "vram": 2148380552,
+      "rom_start": 1566840,
+      "size": 36,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060304
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800DAFBC",
+      "vram": 2148380604,
+      "rom_start": 1566892,
+      "size": 84,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2147590728
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800DB124",
+      "vram": 2148380964,
+      "rom_start": 1567252,
+      "size": 160,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [
+        2148181592,
+        2148374840,
+        2148380604
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800DCB54",
+      "vram": 2148387668,
+      "rom_start": 1573956,
+      "size": 36,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060308
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800E4F90",
+      "vram": 2148421520,
+      "rom_start": 1607808,
+      "size": 232,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060312
+        }
+      ],
+      "calls": [
+        2147712816
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800E5170",
+      "vram": 2148422000,
+      "rom_start": 1608288,
+      "size": 232,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060316
+        }
+      ],
+      "calls": [
+        2147712816
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800EA0AC",
+      "vram": 2148442284,
+      "rom_start": 1628572,
+      "size": 68,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "initializer",
+          "site": 2148060320
+        }
+      ],
+      "calls": [
+        2148189140,
+        2148443768
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800EA5A4",
+      "vram": 2148443556,
+      "rom_start": 1629844,
+      "size": 88,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147572656
+        }
+      ],
+      "calls": [
+        2147574048
+      ],
+      "tails": []
+    },
+    {
+      "name": "func_800EA678",
+      "vram": 2148443768,
+      "rom_start": 1630056,
+      "size": 16,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "call"
+        }
+      ],
+      "calls": [],
+      "tails": []
+    },
+    {
+      "name": "func_800F0980",
+      "vram": 2148469120,
+      "rom_start": 1655408,
+      "size": 1248,
+      "walk_ok": true,
+      "walk_reason": "",
+      "falls_through": false,
+      "seed": [
+        {
+          "kind": "resident_call",
+          "site": 2147573612
+        }
+      ],
+      "calls": [
+        2147502048,
+        2147568172,
+        2147579936,
+        2147580000,
+        2147581308,
+        2147581316,
+        2147587712,
+        2147590616,
+        2147590672,
+        2147590728,
+        2147591084,
+        2148181592,
+        2148182020,
+        2148182616,
+        2148185472,
+        2148186140,
+        2148188980,
+        2148189140,
+        2148195412,
+        2148196052,
+        2148197736,
+        2148346032,
+        2148346336,
+        2148348832,
+        2148349024,
+        2148379920,
+        2148380964
+      ],
+      "tails": []
+    }
+  ]
+}

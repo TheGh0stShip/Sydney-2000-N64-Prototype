@@ -1,0 +1,2 @@
+/* Runtime-stage N64 MIPS/o32 reconstruction; verified rows live in config/runtime. */
+void func_800AED48(unsigned char *object) { unsigned int *first=(unsigned int *)(object+0x2C); unsigned int *second; *(unsigned int *)object=0; *(unsigned int *)(object+0x48)=0; *(unsigned int *)(object+0x1C)=0; *(unsigned int *)(object+0x28)=0; *(unsigned int *)(object+0x44)=0; first[0]=0; first[1]=0; first[2]=0; second=(unsigned int *)(object+0x10); second[0]=0; second[1]=0; second[2]=0; }

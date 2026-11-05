@@ -10,9 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          submodules: recursive
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - run: python tools/test_decomp_report.py
       - run: python tools/generate_decomp_report.py
       - uses: actions/upload-artifact@v4
         with:
@@ -23,4 +26,9 @@ jobs:
         with:
           name: us_report
           path: build/report.json
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: decomp_gaps
+          path: build/decomp_gaps.json
           if-no-files-found: error

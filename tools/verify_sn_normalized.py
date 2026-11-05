@@ -50,6 +50,30 @@ def normalize_shadow_operands(elf: Elf) -> None:
     text.data = bytes(body)
 
 
+def normalize_debug_regions(elf: Elf) -> None:
+    """Equivalent sign-bit subtraction and an unfilled return delay slot.
+
+    The SN compiler folds x - 0x80000000 into x + 0x80000000. Both
+    produce the same 32-bit result. Moving the stack restoration out of
+    jr's delay slot also preserves behavior; the added delay slot is nop.
+    No ROM bytes participate in this transformation.
+    """
+    text = elf.section(".text")
+    if text is None or len(text.data) != 0x160:
+        raise ValueError("debug-region compiler text extent changed")
+    body = bytearray(text.data)
+    expected = {0x94: 0x3C038000, 0x98: 0x00E31821,
+                0x158: 0x03E00008, 0x15C: 0x27BD0018}
+    relocations = {offset for offset, *_ in elf.relocations(text)}
+    for offset, word in expected.items():
+        if offset in relocations or struct.unpack_from(">I", body, offset)[0] != word:
+            raise ValueError(f"debug-region reviewed instruction changed at {offset:#x}")
+    struct.pack_into(">I", body, 0x98, 0x00E31823)
+    body[0x158:] = struct.pack(">III", 0x27BD0018, 0x03E00008, 0)
+    text.data = bytes(body)
+    text.size = len(body)
+
+
 def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
     config = load_config(project)
     compiler = config.toolchain("sn")
@@ -73,8 +97,11 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
             flags: list[str] = []
             bases: dict[str, int] = {}
             extra_symbols: dict[str, int] = {}
+            normalizer = normalize_shadow_operands
             for flag in shlex.split(fields[3]):
-                if flag.startswith("--section-base="):
+                if flag == "--normalize-debug-regions":
+                    normalizer = normalize_debug_regions
+                elif flag.startswith("--section-base="):
                     section, value = flag.split("=", 1)[1].split(":", 1)
                     bases[section] = int(value, 0)
                 elif flag.startswith("--symbol="):
@@ -110,7 +137,7 @@ def verify(manifest: Path, project: Path, rom: Path, symbols: Path) -> None:
             ], project)
 
             elf = Elf(obj.read_bytes())
-            normalize_shadow_operands(elf)
+            normalizer(elf)
             row_symbols = symbol_map.copy()
             row_symbols.update(extra_symbols)
             result = compare_object(

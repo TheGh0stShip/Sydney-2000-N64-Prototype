@@ -1,0 +1,4827 @@
+{
+  "version": 1,
+  "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
+  "total_data": 206276,
+  "matched_data": 5820,
+  "ranges": [
+    {
+      "rom_start": 4904,
+      "rom_end": 5024,
+      "size": 120,
+      "sha256": "847671447cfcd0798ad7e778396c6b1e36f3a5b92090ac1bf49e6246213817ea"
+    },
+    {
+      "rom_start": 5408,
+      "rom_end": 5816,
+      "size": 408,
+      "sha256": "151c197b0e8ad9e703717d89793cb63180c71314b3663349f20e82e563c9308e"
+    },
+    {
+      "rom_start": 5864,
+      "rom_end": 5924,
+      "size": 60,
+      "sha256": "4871dc81ae65b14320cc9686bcbcead3012df244286e996f57ff893c1b1f8c10"
+    },
+    {
+      "rom_start": 6056,
+      "rom_end": 6176,
+      "size": 120,
+      "sha256": "ad5427198b3446407e1cdf33eb493a619d2cbf00297fa5584563478f2297e047"
+    },
+    {
+      "rom_start": 6272,
+      "rom_end": 6664,
+      "size": 392,
+      "sha256": "7f093348e2f0e897d7c2afbacbb16d551ba7fd9c3e9ad503b9d43b5937d6c627"
+    },
+    {
+      "rom_start": 6672,
+      "rom_end": 6776,
+      "size": 104,
+      "sha256": "ee747ef9e849e186fd856edfc7ad9fc3e8db475a3115aa4cfe5010f28d087ae4"
+    },
+    {
+      "rom_start": 7016,
+      "rom_end": 7088,
+      "size": 72,
+      "sha256": "4e0ee90364e8843ef0ca5f909eeabf3b82a26e0cd16e99edb8749f3b930f7ed9"
+    },
+    {
+      "rom_start": 7848,
+      "rom_end": 7976,
+      "size": 128,
+      "sha256": "7ded8fb94b67504f158d497201e9ffd5422b3b4c3e96638049b5c8808a796347"
+    },
+    {
+      "rom_start": 8672,
+      "rom_end": 8712,
+      "size": 40,
+      "sha256": "8d7c456cbb04764ee25e16d4540affac90de6f28ec286270e92342122e19b9e9"
+    },
+    {
+      "rom_start": 8720,
+      "rom_end": 9492,
+      "size": 772,
+      "sha256": "2e048480c9c651562baa21f978d7eec6a3a4842620aef9469a6957ce13331637"
+    },
+    {
+      "rom_start": 9496,
+      "rom_end": 9500,
+      "size": 4,
+      "sha256": "d63eacc85b09d04343ac68af84351e4ed6b9eb6758af0b637964aa383568d3d8"
+    },
+    {
+      "rom_start": 9504,
+      "rom_end": 9524,
+      "size": 20,
+      "sha256": "41f041ca1bb9f529d3a1084d1614f5af7f04aed1102f84cc0f58fd937b2fc07b"
+    },
+    {
+      "rom_start": 9528,
+      "rom_end": 9644,
+      "size": 116,
+      "sha256": "a903cd053ddb42e24e3e85a2b08c1ffdf338df1dfc3a4774284141b2cfb76a31"
+    },
+    {
+      "rom_start": 9648,
+      "rom_end": 10000,
+      "size": 352,
+      "sha256": "4fe1652b51e668969f315ad20a0e29966f2af70293aaf6589f976db65565a88c"
+    },
+    {
+      "rom_start": 10128,
+      "rom_end": 10312,
+      "size": 184,
+      "sha256": "c90d9ee0ff9fa1677ac5e32a3acf8fa3bb1191797af1e447155036ca0ebe4bfd"
+    },
+    {
+      "rom_start": 10336,
+      "rom_end": 10480,
+      "size": 144,
+      "sha256": "2d16fc3ef1778ab5977c5fd23eed3b852b40273ad10cfebb296ad44b9aae21c9"
+    },
+    {
+      "rom_start": 10488,
+      "rom_end": 10624,
+      "size": 136,
+      "sha256": "803659c21620de36dce460d14fdc92b09322d43af7a69e64d31c844634940bbc"
+    },
+    {
+      "rom_start": 10640,
+      "rom_end": 10736,
+      "size": 96,
+      "sha256": "f2c236f8c68347c6636bd7d0cabda2bea940030e3a59a5cd2358a81c05fc51cc"
+    },
+    {
+      "rom_start": 10784,
+      "rom_end": 11288,
+      "size": 504,
+      "sha256": "7b875c21484b220069b92b5598593f0eef19f6e35b5aa11acaa1cd9175e70e44"
+    },
+    {
+      "rom_start": 11296,
+      "rom_end": 11408,
+      "size": 112,
+      "sha256": "619556f0636b66d9f2555a12c19ba9e3b3a1b9de4799838101cbc0890b95cf11"
+    },
+    {
+      "rom_start": 11488,
+      "rom_end": 11536,
+      "size": 48,
+      "sha256": "2558c73da6ab7573a7c7374284ecdc4c0bc22e5f60987d2f48d0aeca12a2bab6"
+    },
+    {
+      "rom_start": 11808,
+      "rom_end": 11856,
+      "size": 48,
+      "sha256": "be62569c07df8fb1c51c0a5acf7c52a7b30a9ba17bcca7d2b641c4da965fea12"
+    },
+    {
+      "rom_start": 422688,
+      "rom_end": 423344,
+      "size": 656,
+      "sha256": "d3d70faa04bdcb2c734cf021929cdbc8524b158be6889c983dbc7df16d386897"
+    },
+    {
+      "rom_start": 424080,
+      "rom_end": 424144,
+      "size": 64,
+      "sha256": "2b0f7ba5b72a9d3438320833cb02b748a32cbc017287722e854e0056a1b481b0"
+    },
+    {
+      "rom_start": 424160,
+      "rom_end": 424864,
+      "size": 704,
+      "sha256": "c7d83e0ed42c0947f243d909a7583c265fd77e6008bf1c83af6037d21c9a746d"
+    },
+    {
+      "rom_start": 424880,
+      "rom_end": 425024,
+      "size": 144,
+      "sha256": "ea25346a6306ba5e583aa0a048698fe6efaaf596659cf6bb84055cd228fa194f"
+    },
+    {
+      "rom_start": 425072,
+      "rom_end": 425088,
+      "size": 16,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    {
+      "rom_start": 425100,
+      "rom_end": 425116,
+      "size": 16,
+      "sha256": "cc5f6bb5ea2a5926b5167f6a776c7e6a5748abe247b11a0be162fdf06067eacd"
+    },
+    {
+      "rom_start": 425120,
+      "rom_end": 425312,
+      "size": 192,
+      "sha256": "d89b91437449ab2baa02e9c8af1fe9827a9cdce01e57aede928c6b205d363c9e"
+    },
+    {
+      "rom_start": 430128,
+      "rom_end": 430176,
+      "size": 48,
+      "sha256": "3fac1f89c030b9d2fefbb956ea60032fe777a431325db4aac28cea36df49d16e"
+    }
+  ],
+  "inputs": [
+    {
+      "path": "config/link_units.json",
+      "sha256": "38e04f0594fbe1cabd4f7ab9d7a77f936bac2531c3d38b5fc523a97430dadd41"
+    },
+    {
+      "path": "config/matching_as.tsv",
+      "sha256": "79b149532d042abfb0dafae630e81dc1b0b3da961b7d2f345c502c124fb64111"
+    },
+    {
+      "path": "config/matching_ido.tsv",
+      "sha256": "aeda11d4b2c6825cc17dbed6beff1bf6a334d462bbcc0eaa9fca97a165b817ad"
+    },
+    {
+      "path": "config/matching_ido_normalized.tsv",
+      "sha256": "626e8b4f70d913d21694d1773354f2a7a949c9ce26c9c69a7306b42bce659ad5"
+    },
+    {
+      "path": "config/matching_kmc.tsv",
+      "sha256": "8a86b065c91d29ab27579c573b7746650e0f6433d904eb463e1641ce1235c1d8"
+    },
+    {
+      "path": "config/matching_kmc_as.tsv",
+      "sha256": "9c9a5deacd0783852679ae5cdcd2ad95b3a7ea1d3b63331c59fb8b228ecfbb15"
+    },
+    {
+      "path": "config/matching_kmc_builtin.tsv",
+      "sha256": "7e33e170876142aaa4a79e6b1e41777889524ae5e82767f826b4a99c7b715816"
+    },
+    {
+      "path": "config/matching_kmc_hook.tsv",
+      "sha256": "0a58fe767c66561f19b0729906eb9315008513282050ee0459b40035edfda278"
+    },
+    {
+      "path": "config/matching_sn.tsv",
+      "sha256": "be19d69e5b099d27b14fbebd7c8235d36dc2662d7a595efd53d28f8f6b346939"
+    },
+    {
+      "path": "config/matching_sn_normalized.tsv",
+      "sha256": "d2f83f8344f3ed4e7041618a4d9cfa51cb32724516c401b5b37458b025968260"
+    },
+    {
+      "path": "config/segments.toml",
+      "sha256": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488"
+    },
+    {
+      "path": "config/survey/ledger.tsv",
+      "sha256": "07d560bdfd6dbb19392bd628398b7372c55e1dc34381889537b5a3ec656c2587"
+    },
+    {
+      "path": "config/survey/symbol_addrs.txt",
+      "sha256": "6e790f5964e9de4e0e5c86236b398244496175579c3911561b702a7f0be4a29c"
+    },
+    {
+      "path": "src/boot/clear_boot_word.s",
+      "sha256": "6087ca0b7ed8741f738a32efdd622c108615da313dad109af51d7693f26ecacf"
+    },
+    {
+      "path": "src/boot/entry.s",
+      "sha256": "25292d580f2b51369ab8d73a52cf77e6797260bdb0917d8451305b120de3b9dc"
+    },
+    {
+      "path": "src/boot/prepare_boot_tlb_entries.s",
+      "sha256": "83c88e0915f94da3a16b0a21857fb97fac26483fad61714406ba5222ce981964"
+    },
+    {
+      "path": "src/boot/prepare_boot_tlb_tail.s",
+      "sha256": "e1346c4059fd91444a126d3e158412f554c3f0fab91f818ae82a444f08dc282f"
+    },
+    {
+      "path": "src/boot/setup_boot_tlb_entry.s",
+      "sha256": "538b2c8bd352764ecc32227db9ebbef22c5e99eea7a8ddf4846e4c684c09a337"
+    },
+    {
+      "path": "src/boot/store_boot_byte.s",
+      "sha256": "bf68e7022fc18078a89410476276ced4a018ff42b1aeb16996f74010c8c600e0"
+    },
+    {
+      "path": "src/boot/store_boot_pair.s",
+      "sha256": "791aae57ec25982bbe33d1596e0093ce4b34c76c9e58eff9d1b47ca77b7f06ac"
+    },
+    {
+      "path": "src/boot/store_relocated_boot_word.s",
+      "sha256": "f16be05093b60ac2e836a2b513feff98a8d01deada61cad7d6e1e7240a6b4a1d"
+    },
+    {
+      "path": "src/boot/write_boot_tlb_entry.s",
+      "sha256": "a188c4c40863ef564f79c2486173440fb8472a87ddb515bfd341ba06e3b3d7e4"
+    },
+    {
+      "path": "src/game/add_scaled_values.c",
+      "sha256": "16c32f3f7334a65160a7eca95afa7b209240d57dc322bad5715a8ee70c108304"
+    },
+    {
+      "path": "src/game/allocate_aligned_heap_block.c",
+      "sha256": "7822768bc12b156d073791c44211bef518870ddfcd23bddb6cb1300fd0c3ae9b"
+    },
+    {
+      "path": "src/game/allocate_audio_record.c",
+      "sha256": "93a95ae44fbf26e58dbfb4fea69d70f31e0d9699aa7245a6f5d903e3c1ddb58d"
+    },
+    {
+      "path": "src/game/allocate_handle_pair.c",
+      "sha256": "1174b398dd0a19c20b5f7292f7be45af99782fccf2d49b584fd68f3fb54795ff"
+    },
+    {
+      "path": "src/game/allocate_heap_block.c",
+      "sha256": "f7742fc9221704b61e13993dc54dadd82d19430b87d5938d894be2eabc53e990"
+    },
+    {
+      "path": "src/game/allocate_player_scratch.c",
+      "sha256": "775152f1ccf8c42491d0117667ea475325d3d35c7d01120cf0455005cab0fffd"
+    },
+    {
+      "path": "src/game/allocate_zeroed_grid.c",
+      "sha256": "ea38bbcafbd846b730552abbb8030c27be2fbdc72be83d66456ff790eb4dfc4b"
+    },
+    {
+      "path": "src/game/append_global_pointer.c",
+      "sha256": "660a84403a420a08f42b80eb9d01e856c931c8b0d23ba13df332d3f21e299284"
+    },
+    {
+      "path": "src/game/append_global_pointer_if_field.c",
+      "sha256": "a9eb26e7ed96de0835505ceff1c8bc01b5d040fbb0347eb9b6446a8d023035e3"
+    },
+    {
+      "path": "src/game/append_object_queue_entry.c",
+      "sha256": "965b7d2eeb974004d33a5dec98c0615ac6ba99769ddb4595f291e38cb760ae5e"
+    },
+    {
+      "path": "src/game/append_string.c",
+      "sha256": "d7196a86827bdc3fbe574ec2be5e1eb89dd4e3b8db75529464101cbcdc1a7a9e"
+    },
+    {
+      "path": "src/game/apply_packed_color_update.c",
+      "sha256": "3911b952f96e44bef27692fede456725f9e634f4b03e42a934d685bbdedc1555"
+    },
+    {
+      "path": "src/game/argument_offset.c",
+      "sha256": "7ad4e8cb77241b89b164ff45d38ac7b79b34f72c625858673b22dc07618e25a5"
+    },
+    {
+      "path": "src/game/ascii_lowercase.c",
+      "sha256": "1c818aa2008f793a6f110b6601a34332956050ad1325e9edaccb70d02ad17c52"
+    },
+    {
+      "path": "src/game/audio_record.h",
+      "sha256": "47dcc6866f43aa676d7f4ca6fea61593afd1acd686f1ff10d513c08eb3f8732a"
+    },
+    {
+      "path": "src/game/broadcast_message_to_clients.c",
+      "sha256": "79262a2ce7e25123a7ff0d0a2ce942a256f300cedec1f417d9eceb245398b3b1"
+    },
+    {
+      "path": "src/game/build_flagged_model_matrix.c",
+      "sha256": "ad195e492c262b0d696153cdb6407a5668b938a2935534809716d0b46a630446"
+    },
+    {
+      "path": "src/game/build_indexed_triangle_commands.c",
+      "sha256": "7d621dffcc45c24cbbcec5989ed6a206db22c32625a89e878e3bc84f2423e47d"
+    },
+    {
+      "path": "src/game/build_mesh_display_list.c",
+      "sha256": "d9a928d282f2d5de28412ee89471c065062148d3a5e1b5f200144f30046fb239"
+    },
+    {
+      "path": "src/game/build_scaled_model_matrix.c",
+      "sha256": "5d7f5f5d8818aca68068e796409ff13d758df078335f82e9330be4056dfab4a8"
+    },
+    {
+      "path": "src/game/build_scene_light_commands.c",
+      "sha256": "be548f8c3499fae2bc5a5357464b0cb8fae20a1ce6e2700fe9ccc50fd88478ee"
+    },
+    {
+      "path": "src/game/build_texture_display_lists.c",
+      "sha256": "86617121c0d02224215858ece125f6d204dc78b2a52d1dd7d8561d2085611c07"
+    },
+    {
+      "path": "src/game/build_tlb_region_table.c",
+      "sha256": "9deb3a664ed17d348d670dad4b2c651278540738b8a7508dc89cc5af3e681d07"
+    },
+    {
+      "path": "src/game/build_view_lookat_reflection.c",
+      "sha256": "da711729cd7d5e7f20754e6d8b5d80bb5009ac5476e438732be07eabec0a926a"
+    },
+    {
+      "path": "src/game/cache_sweeps.c",
+      "sha256": "52f546d7397346034a2120dd31829e5621b5096ec945e8789523da10aa7e937a"
+    },
+    {
+      "path": "src/game/call_double_helper_constant.c",
+      "sha256": "042cf2198920513f16b65582ab8802d935adce50e675f11add7803decf1c56d7"
+    },
+    {
+      "path": "src/game/call_function_pointer_range.c",
+      "sha256": "dfd67f7d94d96b5da30f7ac520e04d0054064c3fcb8d2bc4e21ed68e29135f60"
+    },
+    {
+      "path": "src/game/call_helper.c",
+      "sha256": "827761388031351882acfde7388cc8cd4496c9ee949b34c9b36b55e4b1a59704"
+    },
+    {
+      "path": "src/game/call_helper_constant.c",
+      "sha256": "b05d7d3f31465e66bcabe1fb81e6579457c747e407b012098295f3c2830a6f9e"
+    },
+    {
+      "path": "src/game/call_helper_global_address.c",
+      "sha256": "d3abdcd344ff6121e98ed0e64fdd0fa42dbd9778e8a1749a9db9e88b9bc7e443"
+    },
+    {
+      "path": "src/game/call_helper_global_and_argument_address.c",
+      "sha256": "719fee9d5d639d310ad1cef435b78e685d2159dc525976da5456295bcf81b93b"
+    },
+    {
+      "path": "src/game/call_helper_global_constant.c",
+      "sha256": "cb4afd73dc3170045449aad49a5418a46d557e3b1dd3f74296de93c764c0fa4a"
+    },
+    {
+      "path": "src/game/call_helper_global_halfword.c",
+      "sha256": "08040d0523340346f31ac2ab1adb128240e023cfd592a17a87b7cb68f7b40b56"
+    },
+    {
+      "path": "src/game/call_helper_if_flag.c",
+      "sha256": "3ff4f1505c58942e494cf546f49ba04603b27f3c59deac5ad00aeb5c9563e25a"
+    },
+    {
+      "path": "src/game/call_helper_if_global_at_least.c",
+      "sha256": "0808bed2d4773391ee4ca9369bfac82d7674ad6caee80f4cda3f56f04ba18b60"
+    },
+    {
+      "path": "src/game/call_helper_if_global_nonzero.c",
+      "sha256": "c2e421575369340d35475c6473f62b90dc19b1e8d3762177c707f1f71dd541b0"
+    },
+    {
+      "path": "src/game/call_helper_if_handle_valid.c",
+      "sha256": "abc6a59145d5f99098e6fb27194eea0e8f388dba3b04f5260790f5417eaf4282"
+    },
+    {
+      "path": "src/game/call_helper_if_subsystem_ready.c",
+      "sha256": "a8259520698d00b86fb8dec06cfd51122a4195d6be37f0075941bd926adf974e"
+    },
+    {
+      "path": "src/game/call_helper_return_argument.c",
+      "sha256": "2db759d1b7dbcececa8b6e637ccb3b201b4193dbfbc3db873cc4e26fdf4dfec7"
+    },
+    {
+      "path": "src/game/call_helper_then_clear.c",
+      "sha256": "58c29bbb274ec6f8d91ce96cba1ab5ee20bb2e60a667d0df398e7a877449272d"
+    },
+    {
+      "path": "src/game/call_helper_then_global_halfword.c",
+      "sha256": "c3081ea1f1101d4710e59e8723b1fa36f69d2f367f4bd21ffe483c98dd633b04"
+    },
+    {
+      "path": "src/game/call_helper_then_optional_global.c",
+      "sha256": "5cde66b9337f91c6be5ff8d77c78bda6f10518af9e4de93e0a05f7d71dde24bf"
+    },
+    {
+      "path": "src/game/call_helper_with_output.c",
+      "sha256": "f03a16372dce7c51c5d61e1e9eb6136aae45b21057573ebbd3797c4b1fd26047"
+    },
+    {
+      "path": "src/game/call_store_failure_status.c",
+      "sha256": "21c17a49b4a9644d76586b5ac761b6499a0694b122c94488121c43a47bdf644f"
+    },
+    {
+      "path": "src/game/call_two_helpers_global_addresses.c",
+      "sha256": "7eb502686efc2ebe96a8028d1a725fa68f8c6539eef48bd77ac4b354e6b2dfa7"
+    },
+    {
+      "path": "src/game/call_void_helper_if_handle_valid.c",
+      "sha256": "523ff41aa6e7089f832076b97fd1e6ca664b403f67a9a1efa43ec7799a05a615"
+    },
+    {
+      "path": "src/game/change_custom_effect.c",
+      "sha256": "41b255ca3092847f58d1cf9795a5c5fcce5e8eb140dd1cda713de06a37754aa1"
+    },
+    {
+      "path": "src/game/check_indexed_record_signature.c",
+      "sha256": "74d16249424df72709c571a53813c399d6a6e7825ea3e78c8ad0d7c7d6e95025"
+    },
+    {
+      "path": "src/game/cleanup_object_resources.c",
+      "sha256": "4cbb46c0de303f39eb64254659e29ca2d7bde33988ed991edd3eddd8db474a7b"
+    },
+    {
+      "path": "src/game/clear_and_copy_global.c",
+      "sha256": "7310d758e318fa9b84bbfb2ff6051635258df30d46a92cb65f79d63c8b7efb5c"
+    },
+    {
+      "path": "src/game/clear_global_and_call_constant.c",
+      "sha256": "9ae1333fe348f5bbd6b973675d07ef7bed160f6f2ecb15ee348c81d0476bbfdd"
+    },
+    {
+      "path": "src/game/clear_global_halfword.c",
+      "sha256": "9c2002596979c186a2bf4dc0643d88e7dec57fcedaaa6cc7b4997da0509b2b17"
+    },
+    {
+      "path": "src/game/clear_global_word.c",
+      "sha256": "628e2001ad4401ef224e9f21f8b943658f83095eb7a4f71a5f32b3cd23fe5146"
+    },
+    {
+      "path": "src/game/clear_halfword_return_zero.c",
+      "sha256": "530ece41b796f4e4ee8417ec40c395316bd826a05f2bbbcfafc32e93665ff531"
+    },
+    {
+      "path": "src/game/clear_indexed_record.c",
+      "sha256": "41c622181882d048bd1e93c1aa7c68cceadcad2c17659572fbd357c0ff0585e7"
+    },
+    {
+      "path": "src/game/clear_indexed_record_field.c",
+      "sha256": "74268c134941192a110c09f467d64f7dac201956ae3fa1404fd113272358d402"
+    },
+    {
+      "path": "src/game/clear_indexed_word_if_set.c",
+      "sha256": "b3d5e64e97817cfc8165051fda813f89229b3d0f270aab1d35be8e055d11e92c"
+    },
+    {
+      "path": "src/game/clear_output_word.c",
+      "sha256": "c2297500b55f18f552f08da5f962593013c0a5d04346835e4a480e3a735b3b85"
+    },
+    {
+      "path": "src/game/clear_record_array_fields.c",
+      "sha256": "158ac55ed3aefdcbf347782045f777533f1e2a4bb54bc11325e2eb7375f2d3fa"
+    },
+    {
+      "path": "src/game/clear_strided_global_array.c",
+      "sha256": "cd40e40839812e668bfd97caad95d9f682f1682db4b14a837d85a3c40b957843"
+    },
+    {
+      "path": "src/game/clear_two_global_words.c",
+      "sha256": "7cb89e217258b6366ec6b079a66e7faf29cd4589b7c7a5638cb10bc61fc53d9a"
+    },
+    {
+      "path": "src/game/compare_bytes.c",
+      "sha256": "3ee89c428d29a20eebe67cf410b247f4b7da1b0327ebe4fe9e30175a14a0ea1d"
+    },
+    {
+      "path": "src/game/compare_strings.c",
+      "sha256": "1555ddfe0773a522a450162585c616be7a962a696574cd1b92cb923b946497a7"
+    },
+    {
+      "path": "src/game/compose_value_helpers.c",
+      "sha256": "aea7898b9632fb114950f28e40aca2bb9fe26ae6ffa845758f1d6370d312aa55"
+    },
+    {
+      "path": "src/game/configure_audio_transition.c",
+      "sha256": "8ae0319e2fa637a2a83293fbf4d5d3035332a94f850d1b845a93335e280ace06"
+    },
+    {
+      "path": "src/game/configure_display_pipeline.c",
+      "sha256": "8480978bffc8546279969b2d319a6855a3f57a293a200fdb408b976a075a8a20"
+    },
+    {
+      "path": "src/game/configure_object_timing.c",
+      "sha256": "f392d8b3d9f3d660fc6cb8afb2f9e5c52dd0d93aa321529159d6703052c1d02e"
+    },
+    {
+      "path": "src/game/configure_video_runtime.c",
+      "sha256": "d3c91b406d81f8e8bc1775649c0249564660fdbe28f722037275a0474c7b8911"
+    },
+    {
+      "path": "src/game/configure_work_buffer.c",
+      "sha256": "70a9264b85a9f0ecea7e1ab0785a0e963a7b4df53160edc356d99fde55c9d81b"
+    },
+    {
+      "path": "src/game/consume_stream_bytes.c",
+      "sha256": "0e12bee45675940d3e9354a16855ca000a6bd5b08166a5f287588ff15ea36c09"
+    },
+    {
+      "path": "src/game/convert_image_tiles.c",
+      "sha256": "5c0617e3e1322c32ad29b88c0f1acf741ceeb9f6f0722da278d4cc7fedf218d9"
+    },
+    {
+      "path": "src/game/convert_vertex_records.c",
+      "sha256": "5e3b03e403d637951dcd7e6fed94a0003244dfc4cb59b995e5c4ee77db45b76e"
+    },
+    {
+      "path": "src/game/copy_field_if_status_clear.c",
+      "sha256": "e5936cc8d229dc041713a2cca3cbdfc7e8851012312b1e6832a8e426bee93d02"
+    },
+    {
+      "path": "src/game/copy_indexed_record_to_buffer.c",
+      "sha256": "8b187eacc750ed25c52bf0386faadb410447b0832d57c4e9b30b037860c3a2dc"
+    },
+    {
+      "path": "src/game/copy_masked_vectors.c",
+      "sha256": "93cd1c87ad00cfe7244ac7060e81b027b4a484e400f1f171e0deb86d14660e07"
+    },
+    {
+      "path": "src/game/copy_overlapping_bytes.c",
+      "sha256": "e5209ed0f1520cbd162024330fcbbc0f64460fe382d0b9b4091a7ba96815c9a2"
+    },
+    {
+      "path": "src/game/copy_string.c",
+      "sha256": "906562abce9fb6825f7523714353260740f3750583dac2d95f59738ba8e4c46b"
+    },
+    {
+      "path": "src/game/copy_three_global_floats.c",
+      "sha256": "5bc7096b25a62cd85f20db22aa164c5ae15845602b7b22f95fde50f697a46407"
+    },
+    {
+      "path": "src/game/cp0_status_access.c",
+      "sha256": "9a62fc4f081d33a371ddea0c245018aaffbb21ba93e5198b4b9287b1b8a17115"
+    },
+    {
+      "path": "src/game/create_bitmap_render_object.c",
+      "sha256": "da5695c0a0547bfb62335654bfaf324cf1d1fb8e30f35f4ba322852ccb2d4e9e"
+    },
+    {
+      "path": "src/game/create_loaded_render_record.c",
+      "sha256": "d0c78ab9b8a1384c45663d033e2f8fb73f6f528769656a47b5140a73ad25801e"
+    },
+    {
+      "path": "src/game/create_nested_render_object.c",
+      "sha256": "bae665d067bbf3ee11695ff35536b4b5396c66fecd715cf166551e26f774cab3"
+    },
+    {
+      "path": "src/game/create_quad_render_record.c",
+      "sha256": "950a68d20b93ef4559d371b675125a759e7995142a3a4dd7b8a9e42de8ab925c"
+    },
+    {
+      "path": "src/game/create_rectangular_render_record.c",
+      "sha256": "d1dba71ba486df151ccb12700f82d3232cb28b3ed487458921f560df7969dd41"
+    },
+    {
+      "path": "src/game/create_render_record.c",
+      "sha256": "9654af6d3b095e6937dfdea314ec3e9a0665f5249626d1bf4a1d2402984acc0c"
+    },
+    {
+      "path": "src/game/create_runtime_render_record.c",
+      "sha256": "4321eace795fd1d5add8fe0d10307d77d4accaec546cc7056c68c08d6f93843f"
+    },
+    {
+      "path": "src/game/create_skeleton_render_record.c",
+      "sha256": "fad20a2e59db5fd4d174df920e266390a9cc39dff371c695edea1f25a031fa4f"
+    },
+    {
+      "path": "src/game/create_state_span.c",
+      "sha256": "f7568e4beb9531edc073471a25780d9fa1272fbc92de451d95f9e8e225bebe38"
+    },
+    {
+      "path": "src/game/debug_delay.c",
+      "sha256": "90a95e11c6ba2e21c5052ef95371710c362f6d2bff427d28a45531cd4e04d409"
+    },
+    {
+      "path": "src/game/debug_port_copy_to_cart.c",
+      "sha256": "b2865ea8c1a2fe3d82203ecaf47ac3f28b67693b0fbe167f9fa2ba4bdca0146d"
+    },
+    {
+      "path": "src/game/debug_stub_exception_handler.s",
+      "sha256": "16c5ec5ca42f90a967548f0d6eeb39e9d5d8f16e9193d788aad19026b91721e9"
+    },
+    {
+      "path": "src/game/decode_gsm_stream_frame.c",
+      "sha256": "ee79fc9ae525e111bedcbae486d03dc3333416c791e7f447db7b4f1d726222ed"
+    },
+    {
+      "path": "src/game/decode_indexed_pixels.c",
+      "sha256": "d6840c146b2531295ec6e5706a20f738310f0a2ce3544eea98d27a926835e3b8"
+    },
+    {
+      "path": "src/game/decode_path_string.c",
+      "sha256": "db852e8082fa6525dca562a23729dd724363359e9b8018383b2b429040ec8678"
+    },
+    {
+      "path": "src/game/dispatch_early_memory_transfer.c",
+      "sha256": "5887416ffd244e39807fe976d76a8da36710af09819c001762f90b8e133197f3"
+    },
+    {
+      "path": "src/game/dispatch_formatted_command.c",
+      "sha256": "91919559b183c9c7ff2bebc8de327ee3f7111b5f6d6d73ff963260f764ee003f"
+    },
+    {
+      "path": "src/game/dispatch_worker_request.c",
+      "sha256": "3171d508640e0533f920e5016f4f0da3ce7f42a6be63347c0d3d41830d7b4515"
+    },
+    {
+      "path": "src/game/dma_new_buffer.c",
+      "sha256": "0e0532a9440285a732032fd2571ef47e857e3ae88b20da42a747b2d9ddcaaf12"
+    },
+    {
+      "path": "src/game/double_absolute.c",
+      "sha256": "6b2659880039a04af365ede0932c61c76877a5dcd493e68aff019e4dbb3140ed"
+    },
+    {
+      "path": "src/game/double_arc_cosine.c",
+      "sha256": "fd4f539702ac74c0f824fb9e43a25a2734cb4220459696cf3d279e476cedc893"
+    },
+    {
+      "path": "src/game/double_arc_tangent.c",
+      "sha256": "f951482b4c3583107cb913f4024ef1d7bde031a0b94de95343917d385340a6bd"
+    },
+    {
+      "path": "src/game/double_cosine.c",
+      "sha256": "900404c805e8751f45101b9cb48669026ce6a1446e6578b8ad13e0c73a95858b"
+    },
+    {
+      "path": "src/game/double_sine.c",
+      "sha256": "dc62f3b3a073987826b46fefdb494194e97020d65d52354329343aaaf1e11265"
+    },
+    {
+      "path": "src/game/double_square_root.c",
+      "sha256": "dfc4f720ec95e6e1b96f9fff01520e9ee9eecc81f8dd2021ee81b289e5632e84"
+    },
+    {
+      "path": "src/game/double_tangent.c",
+      "sha256": "cfa17864fc91524ec7db7a1886882ee964cb4a4ce0ed29ec591a7e845832a024"
+    },
+    {
+      "path": "src/game/drain_controller_motor_messages.c",
+      "sha256": "c325941bbfd935587905c0346c3766c50b2b56f5f11ad5594e71fc005cd5ea5c"
+    },
+    {
+      "path": "src/game/drain_startup_messages.c",
+      "sha256": "ab4134b0625702d5abd65c2bc6d8c32123138cc84bc70a549de2489f7b84a5d4"
+    },
+    {
+      "path": "src/game/draw_animated_sprite_object.c",
+      "sha256": "c2a6370c23574d831ebd1929dac7eb7ec506631935b52caadc6f027cd63b5a9d"
+    },
+    {
+      "path": "src/game/draw_typed_scene_object.c",
+      "sha256": "334a22a022e92b99f47b6ce8ef1e8252810b5c30ba72d6156c8c41ca31821126"
+    },
+    {
+      "path": "src/game/emit_resource_display_lists.c",
+      "sha256": "53400b42c6b760e1b0dbc0f9705608af3ad502f64051dafb8708fa8146c05477"
+    },
+    {
+      "path": "src/game/emit_runtime_display_commands.c",
+      "sha256": "057c7adf71c8d59c94a16ec6a11be318119ddf2206550bfbc48bd4e89d06b6bb"
+    },
+    {
+      "path": "src/game/empty_stub.c",
+      "sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a"
+    },
+    {
+      "path": "src/game/fill_bitmap_object.c",
+      "sha256": "8be8eb5fb1e134925a397fd85e5c268419bc587d9bd0c08d0f25f356c0cd2ea1"
+    },
+    {
+      "path": "src/game/fill_byte_range.c",
+      "sha256": "a4a08e4e9048e9496055182887cb3167d733ebc0503a0567b968d17a39ca4c4e"
+    },
+    {
+      "path": "src/game/fill_bytes.c",
+      "sha256": "017fb189e63413633a81a4c642dbfc3de5d80ec117bb8152b4999923016ea7e1"
+    },
+    {
+      "path": "src/game/fill_render_surfaces.c",
+      "sha256": "36552abffd0c720d2a9b7abc82ed13ee52502a6cc630d5096e14b42e6a3893db"
+    },
+    {
+      "path": "src/game/filter_active_slot_mask.c",
+      "sha256": "c67e7d365d73c55caca759a80f01a532940826cdce19795cc493fbe7c6ca1771"
+    },
+    {
+      "path": "src/game/filter_grouped_byte_sequences.c",
+      "sha256": "7836bfe6775044915c11827699ba0f5a4b9ab0dac7edc9545d9aadd6a8fa49bd"
+    },
+    {
+      "path": "src/game/finalize_render_shutdown.c",
+      "sha256": "d00bf1ece88f726323ccbf865cfbddae2ccddc804864c4ee88c513cad9834193"
+    },
+    {
+      "path": "src/game/find_free_global_slot.c",
+      "sha256": "a168c04874d5384ab7f3c4df2b0d315944324ab3295c5f1c86f87bc3c277bb0c"
+    },
+    {
+      "path": "src/game/find_named_archive_entry.c",
+      "sha256": "3c558cf85e293d5b2636de2465b6940949bc8e3c984550e6d532558b6bca4eba"
+    },
+    {
+      "path": "src/game/find_substring.c",
+      "sha256": "093ab656f649099992c15e54dab19412e9eb20423265934f0633338f4493b13b"
+    },
+    {
+      "path": "src/game/fixed_cycle_delay.c",
+      "sha256": "84380cf7d78efa5423c81c89e7e9f55f8aaf7c3688aa1426915a1f5336d49dba"
+    },
+    {
+      "path": "src/game/flush_dma_free_list.c",
+      "sha256": "b74874d1a443132aaa21aa28eb13cf756439c38cadfe691b01ffad963f3c7224"
+    },
+    {
+      "path": "src/game/free_heap_block.c",
+      "sha256": "1396eb82e482ecbaa4941b742bee8d647f97f1079828f235c60dc77df947b6a6"
+    },
+    {
+      "path": "src/game/get_function_address.c",
+      "sha256": "34a5da4db4fd1d46bdc3202e0478177f3271949e39151b80a776d5c9f3f0b952"
+    },
+    {
+      "path": "src/game/get_global_address.c",
+      "sha256": "512790a2c1276b49ce64cb8876ac28ef87e99e064eac23f371811f24aea19492"
+    },
+    {
+      "path": "src/game/get_indexed_record_payload.c",
+      "sha256": "c9eb80d106414be475769ece4a198e319b6ed336bbc1b86a10577af6a4921ece"
+    },
+    {
+      "path": "src/game/get_indexed_record_value.c",
+      "sha256": "b2d88d9fb2818e05735e5f68fe90b4405868841049d83382ee67dcf56dadad60"
+    },
+    {
+      "path": "src/game/get_max_pair_value.c",
+      "sha256": "dedd850747be5458e24d286edf540dd1c33ad788b1319f647d134a21a8d4a728"
+    },
+    {
+      "path": "src/game/get_state_span.c",
+      "sha256": "e1664b500be7705ec65f887a41dddcb756ee61165ad2cee3fd4f57aaf2a6e52e"
+    },
+    {
+      "path": "src/game/gsm_decode_lar.c",
+      "sha256": "f43f4acb3023c91f46c9c98a8c2350ff9dba363acc748a2297e42f72cf9cb1bf"
+    },
+    {
+      "path": "src/game/gsm_decode_rpe_sequence.c",
+      "sha256": "3b1a3eaefa02620ea5b833ddc757207cc9a529b724dfa55e44f81a2f0abb4a0b"
+    },
+    {
+      "path": "src/game/gsm_frame_unpack.c",
+      "sha256": "7f7bd8f4e068748bbffb0854e62ba75b9765b96078e1264f8649b41d3f3a7c12"
+    },
+    {
+      "path": "src/game/gsm_prepare_rpe_parameters.c",
+      "sha256": "de6e4cba3ee2ed41a42c5152c2424db88c397837c73091515f619008a4f72e39"
+    },
+    {
+      "path": "src/game/gsm_short_term_synthesis.s",
+      "sha256": "a315baa19643020efdff3466a8f3e685d5a6ef4e63b7ac5bcdc4c24d370255ef"
+    },
+    {
+      "path": "src/game/gsm_synthesis_driver.c",
+      "sha256": "6eaf89ad6c18e867c6f08b3ea601e1f1d60b23c87771dafbb2c499f144df9e1f"
+    },
+    {
+      "path": "src/game/gsm_synthesis_history_step.s",
+      "sha256": "c3d8689536fa5dde2cc52f8085555024d45b8f94dd3fe8dc664dc71e5d5df99b"
+    },
+    {
+      "path": "src/game/index_archive_records.c",
+      "sha256": "0f32066314f397224e2d68c5012c460a73a1483ad7773f5a6e31f6111bc832e4"
+    },
+    {
+      "path": "src/game/init_aligned_buffer.c",
+      "sha256": "fb05958e275fccd9478276bb2853f9d41627d2413d6d9f7da54cb0085ef980cf"
+    },
+    {
+      "path": "src/game/init_global_state_constants.c",
+      "sha256": "9d4e28e1a1c7a91d1d7fc1f05bc84869fad63bc813775640ee01d254f0f3d122"
+    },
+    {
+      "path": "src/game/init_global_word_pair.c",
+      "sha256": "e8b1620795ccaaa125ee6f4a5f73f6972327d9e01508d3492db47a7534d162a9"
+    },
+    {
+      "path": "src/game/init_two_global_constants.c",
+      "sha256": "14f1908dbb71a702866f0030a9994c867becc119a631b2a07dd58fd91ebcbd8c"
+    },
+    {
+      "path": "src/game/initialize_async_state.c",
+      "sha256": "f60d323488356b7f35c0c0d1b63e0bca7f8ed7a12ceedd4a76a0fc7f9ba8ff1b"
+    },
+    {
+      "path": "src/game/initialize_audio_heap.c",
+      "sha256": "c34f435fe7930c7266c7700974d4b6a85bd19ee7074a7cd52e7c57caff305982"
+    },
+    {
+      "path": "src/game/initialize_audio_runtime.c",
+      "sha256": "337e4af5ee978d98a60dfa812dab035cac4096ecaa4044a048917507a86b690d"
+    },
+    {
+      "path": "src/game/initialize_audio_state.c",
+      "sha256": "2850559c5e10dbd1d35d532aab2969bae47218db3a64a298053dd97927d7fb44"
+    },
+    {
+      "path": "src/game/initialize_bitmap_object.c",
+      "sha256": "1fb3c2dc70b3fd3a8c224da5fef50f391f4abff55cbfe0576890b065275c30a1"
+    },
+    {
+      "path": "src/game/initialize_color_palette.c",
+      "sha256": "cdf8120d0b67dc907b8b3bb48c49a7796e91955403c219dec022613a74084c7f"
+    },
+    {
+      "path": "src/game/initialize_controller_accessories.c",
+      "sha256": "6491ff8c5ebd9718e3bd23480cb9ac73dc09be2730037a759ab200d0a9dc08df"
+    },
+    {
+      "path": "src/game/initialize_debug_memory_regions.c",
+      "sha256": "44016f06c4b6a01f869340df4b983124fa1368cfe1248ea9e8d93e91ae9e78b5"
+    },
+    {
+      "path": "src/game/initialize_display_pipeline_state.c",
+      "sha256": "da40623bff3be69876be83b80a0ad8e3fa857947b8efed0ed1badfb7a1c2fc99"
+    },
+    {
+      "path": "src/game/initialize_display_records.c",
+      "sha256": "e18adc5a2c656359acf69af66309d6b42331ee881202b461588747c1da934411"
+    },
+    {
+      "path": "src/game/initialize_display_system.c",
+      "sha256": "39db77cc3d7cbb046bc11d3867072194d27fdc73d0a122a4fdc12c7921a96241"
+    },
+    {
+      "path": "src/game/initialize_double_buffer.c",
+      "sha256": "7c138e50efedd9008e4487fd2ac9e02bb0fc2e54b7338c7bbf41c9b9c99aa6c2"
+    },
+    {
+      "path": "src/game/initialize_indexed_object_record.c",
+      "sha256": "dcf92e6bb6efba7b14d90304a50c3d4658be79991395f8c17500236ad62b6b93"
+    },
+    {
+      "path": "src/game/initialize_message_queue.c",
+      "sha256": "3e00b78a43eca491adb99498fa9171f0761ae55558f6e8e4a7fee6d1b543e13f"
+    },
+    {
+      "path": "src/game/initialize_named_archive.c",
+      "sha256": "7c4fa2eac302fd8a59ef0a23682492aad13a1abc28d22b453ac4093016251618"
+    },
+    {
+      "path": "src/game/initialize_object_reference.c",
+      "sha256": "d1bed304df3420eeb5eec992f6102f423a4ae82734e72ebed35af47cace51a26"
+    },
+    {
+      "path": "src/game/initialize_render_record.c",
+      "sha256": "08f9d1e58731ded4592e2556506b1118ba9485782b01711eaf0f11e2b8d48c9f"
+    },
+    {
+      "path": "src/game/initialize_runtime_memory.c",
+      "sha256": "eb7adfa74971c1a9b6526707d6a411cdded2c5fc18d6d8f33501979a2dd0667c"
+    },
+    {
+      "path": "src/game/initialize_scheduler_queues.c",
+      "sha256": "5b1752b923fc4e4d90e8bca944200fc640dc214f5296291464efc65744531a42"
+    },
+    {
+      "path": "src/game/initialize_scheduler_runtime.c",
+      "sha256": "7edc222d32943e701782510dc9288b95d1a2d02edb5e4ed0e562181d3a1803b5"
+    },
+    {
+      "path": "src/game/initialize_slot_state.c",
+      "sha256": "54a77075de0a1db21f9861b2fb90a1ca278589d7e4ca9d32631d1c834edc34e9"
+    },
+    {
+      "path": "src/game/initialize_sound_resources.c",
+      "sha256": "e181537d214d7495b857c2b0d93c18a58ad308498ca5ef31ee522ef9e09ac8d0"
+    },
+    {
+      "path": "src/game/initialize_stream_channels.c",
+      "sha256": "fb08dcf53b41a5679ab747f5d9cb0a9270f512ff5b9623bf21d2e43cc40f2d30"
+    },
+    {
+      "path": "src/game/initialize_video_mode.c",
+      "sha256": "87b323679464657f7d4dfa8a981b5dd92e751811b2e82e8c7158f3bce927d5e9"
+    },
+    {
+      "path": "src/game/initialize_work_buffers.c",
+      "sha256": "c8a6f700fcca8f4fbc243364c8560a05d67a5ef07eba62724c390c995e1581fc"
+    },
+    {
+      "path": "src/game/install_scheduler_client.c",
+      "sha256": "79bc01cb6703ec24318f6a6a718265ad2998e8c1ea4ffbf36df87250b380c3a2"
+    },
+    {
+      "path": "src/game/layout_sprite_object.c",
+      "sha256": "ac882fdb3a6e6d60ae1b66db825e5d0aa68f5be9e2b8156d1f1f110661834c16"
+    },
+    {
+      "path": "src/game/load_audio_offset_table.c",
+      "sha256": "3650920f6a44e273321e6fb7175fe85d77c3e36ce3b166f1c1836cfbfacd508b"
+    },
+    {
+      "path": "src/game/load_bitmap_sheet_object.c",
+      "sha256": "a514e7a26919419a2658796fbc8f1aeaaf4bed0a87da972e396f9f01b9475ac9"
+    },
+    {
+      "path": "src/game/load_eeprom_settings.c",
+      "sha256": "14ee6a569c3f8b7aad8fd656562bcc079200750c85e4894ebf4abd66d16de2f1"
+    },
+    {
+      "path": "src/game/load_indexed_music_resource.c",
+      "sha256": "2fa43a63de4233e72e96a5199220c50910a7a3ec918ad4ec32b07cb9e502fda2"
+    },
+    {
+      "path": "src/game/load_mipmap_texture_tiles.c",
+      "sha256": "013f6b9a7dd95ec4ed945d6e71c5320a63dcf500ff89dd9fd0108eb4714aeaf5"
+    },
+    {
+      "path": "src/game/load_music_resource.c",
+      "sha256": "1dad97ad66135a0f9410544d2a6365d9bd242a07fe85e20a799d547c24ab8b41"
+    },
+    {
+      "path": "src/game/load_named_record_data.c",
+      "sha256": "410bdb4e2e663d717b8575dfe8fc313f43b550ffa6b80c7f29f369253859cdde"
+    },
+    {
+      "path": "src/game/load_named_resource.c",
+      "sha256": "db523f612e1037c9a9dea81b713b4de74374ab9c37c49263d0e4c6051a6dfa08"
+    },
+    {
+      "path": "src/game/load_numbered_sound_resource.c",
+      "sha256": "d2db24b326af3a808e65851283ff960ca54cc69945d820f7e92f34537feac346"
+    },
+    {
+      "path": "src/game/load_resource_payload.c",
+      "sha256": "3092ad94a3576df43a242746cc440bfadefb958ad0454609b0fb694cab9a5cac"
+    },
+    {
+      "path": "src/game/load_special_record.c",
+      "sha256": "3fe79f2bdae9642effd8a5599fda3ce357dba0ebfc52ba562f5b4387cdb6aa27"
+    },
+    {
+      "path": "src/game/load_sprite_render_object.c",
+      "sha256": "8d0d12d26fdb58b41ce03471993adaacf2ce0ad452b79de8c8078933ed003466"
+    },
+    {
+      "path": "src/game/load_texture_sheet_records.c",
+      "sha256": "23a816fc68780ceb6846c2a31e31f2526c9c32799a9fdca81abc313a807d8042"
+    },
+    {
+      "path": "src/game/mix_stream_channels.c",
+      "sha256": "4d1ca2821f26fb16a76295c4e462b2efd67617bad0a2dc3ee6f49aee6aa2f37a"
+    },
+    {
+      "path": "src/game/mus_virtual_to_physical.c",
+      "sha256": "b90595426448a4e2a7c146697ba730ee1412a9383e667fe306dfb4228c8c0a87"
+    },
+    {
+      "path": "src/game/object_fields_init.c",
+      "sha256": "2e4c23976aa79a0ad26182f6827ee7f139524a52cffffbcfd952013fbb33ae0a"
+    },
+    {
+      "path": "src/game/pack_color_global.c",
+      "sha256": "df064803b6b973d587584d227fcef1aaecca707a15c22b3aa206e574373d351b"
+    },
+    {
+      "path": "src/game/pi_bus_access.c",
+      "sha256": "289520c5c0b42c803a1eb462f2690e2c5f3a84c2d65f785f1d16cad182d68e0a"
+    },
+    {
+      "path": "src/game/pi_copy_bytes.c",
+      "sha256": "e6d5f1e18746f4f1ac94406100acaac491bef0bbefc9fc64d66b8a129ada3720"
+    },
+    {
+      "path": "src/game/pi_fill.c",
+      "sha256": "f47f9d32ce8c5ed48bfebda6f63b218192b654e958235ef4109c9d5fef461f8e"
+    },
+    {
+      "path": "src/game/pi_read_bytes.c",
+      "sha256": "e1e42f4bf27b3efaeca68c673e744f7de4ee8b509b6d29e786ad5ba840bc23f2"
+    },
+    {
+      "path": "src/game/pi_read_to_buffer.c",
+      "sha256": "1f1a6574cedc47a80ce6ca9fc81e5a2075f50df3e65d845fff543d45167d8d9a"
+    },
+    {
+      "path": "src/game/pi_write_byte.c",
+      "sha256": "82d7d7c350eca67d82e72b963266dd05896316b999076d9ced72d9212cc86d72"
+    },
+    {
+      "path": "src/game/pi_write_bytes.c",
+      "sha256": "04da8c91b0eeae4c6a85349a727188d578218252e4999e27453f08938da89246"
+    },
+    {
+      "path": "src/game/pointer_field_offset.c",
+      "sha256": "cafbe918314c0cb00d86ae2733cf99b660f1be51d0a91879f452f2eef630ed0c"
+    },
+    {
+      "path": "src/game/pointer_field_set.c",
+      "sha256": "664d703b55b7916d76d97321e148da88b9d0e253d2a9beafdff847e6b425f8fd"
+    },
+    {
+      "path": "src/game/process_object_collections.c",
+      "sha256": "7129bef1f2e9bfb9aa6d19931145c211c27bb4d8567462fb4ddb5546cc351e73"
+    },
+    {
+      "path": "src/game/process_resource_records.c",
+      "sha256": "ac0c0eac6272fba3406bbef21ed93eb38ef43fa84de50d936679737956aebaea"
+    },
+    {
+      "path": "src/game/process_typed_object.c",
+      "sha256": "3319495a4225ab1f8e0e06097a42022ec57939df23b64931e5793a4a5cc24192"
+    },
+    {
+      "path": "src/game/queue_audio_runtime_records.c",
+      "sha256": "b69de7ec11814cd7bc13deccd79e0df3f4495e46c1543fa02d8594947c5e58a7"
+    },
+    {
+      "path": "src/game/queue_render_resource_record.c",
+      "sha256": "9a60014b601315a911a3d89e404a2cf8bb79f00e3a0988a74b206b1a12a0aac7"
+    },
+    {
+      "path": "src/game/random_lcg.c",
+      "sha256": "c2abdacb0d5caf11fcf3c1a67bc22056507806801257a9dc9131c35bb69fd2b2"
+    },
+    {
+      "path": "src/game/read_argument_word.c",
+      "sha256": "c7d85cba40577c9d47bed80e0cce18cef1763f7d3a4c01be60096df3beeac7ee"
+    },
+    {
+      "path": "src/game/read_byte_aligned_word.c",
+      "sha256": "aa0a552c9a695e6022be9edeba578a8fc71c3468474f8871d8da1de894a9df94"
+    },
+    {
+      "path": "src/game/read_controller_inputs.c",
+      "sha256": "7b0218768388b2fcceda2841f756bb0d85dd29ea6b2e0baec3ba9247bcd61d16"
+    },
+    {
+      "path": "src/game/read_rom.c",
+      "sha256": "11a2a1b9a27bb629031bdefceb01772ae7cac378f9578728e27d4e4387874ce3"
+    },
+    {
+      "path": "src/game/read_rom_and_notify.c",
+      "sha256": "1603fcd6db352ebb23d3c1b14f2a4c35edacccb3a6249d027b8d2e16d7d80976"
+    },
+    {
+      "path": "src/game/read_word_address.c",
+      "sha256": "c8507c5a673bfd7e4fa788664156d078705c76ea253e8b036699942092927079"
+    },
+    {
+      "path": "src/game/rebuild_framebuffers.c",
+      "sha256": "e6b96d9fbc69b7de8b2712aef40eb859c209d338fdbd95affaf741ada109402c"
+    },
+    {
+      "path": "src/game/register_directional_light.c",
+      "sha256": "4db56d75f4f37b0e559c942d7821503d938979788338531a6c525528c9620f29"
+    },
+    {
+      "path": "src/game/register_runtime_object.c",
+      "sha256": "47abf09239ecd25b9f31e400797e08180d9dbf26040b1b35c3cf915252faa003"
+    },
+    {
+      "path": "src/game/register_texture_material_record.c",
+      "sha256": "cf2cb65ccd4d310e773463e69a0512d3c918f5ff3490802cf442252b2ee91001"
+    },
+    {
+      "path": "src/game/reinitialize_audio_effect.c",
+      "sha256": "90eada9fa526e361a3b82bf6a9f54a732fe689aa3b3f8d990889d23ccea3e159"
+    },
+    {
+      "path": "src/game/release_active_slots.c",
+      "sha256": "7fbe9ff6a76d03c8333fa2bb726a426789c2eca6ae21dcd83031f61f810dbe92"
+    },
+    {
+      "path": "src/game/release_all_runtime_render_records.c",
+      "sha256": "5e67a8ada3593563e363de9e11cab6eb46c19f10158e1ebdc26da5a9230ca613"
+    },
+    {
+      "path": "src/game/release_handle_array.c",
+      "sha256": "e4a40d3f97bb7180ed3f0d1dd0fc8956c3cc9edd1e58eedeb8cb8060adaf4d36"
+    },
+    {
+      "path": "src/game/release_object_if_flagged.c",
+      "sha256": "f0a01da91fce20a3da3bd651619acb16464c0b8cc4c76cc3ab5d8cb9e84b2025"
+    },
+    {
+      "path": "src/game/release_record_resources.c",
+      "sha256": "39a2338f14698f763ad1f89acaed9040d4b7adbf7d143cdd19657714a71e9668"
+    },
+    {
+      "path": "src/game/release_render_object.c",
+      "sha256": "ab7d817813b9810deeac9e624032c57c3712021b0a0833611d94663d206a0f4c"
+    },
+    {
+      "path": "src/game/release_render_resources.c",
+      "sha256": "93feb982817ba4cbe7171d523843de9d0e0c3656237fde5494c6a6cb3dde1113"
+    },
+    {
+      "path": "src/game/release_runtime_object_storage.c",
+      "sha256": "bea8c3f36b76f01a958736725f6cc121a06ae8fcd96c90fe86c31bd8c4daee12"
+    },
+    {
+      "path": "src/game/release_runtime_render_record.c",
+      "sha256": "3547d6775fbb09e7bbe8dc477f2164edd410d93737e0be31daaf94ebd18673da"
+    },
+    {
+      "path": "src/game/release_slot_entries.c",
+      "sha256": "c92724e0402265ad6b166b4fd46a469999ed8f0069dd688d5a89d5e6e4f625dd"
+    },
+    {
+      "path": "src/game/release_two_optional_handles.c",
+      "sha256": "5e5792ce2f3528b7e6d76b8fbdf6f40fbd2993873c90ed99d473c6eb5038d4e7"
+    },
+    {
+      "path": "src/game/relocate_asset_header.c",
+      "sha256": "c0ab97e6e4bf9686366e2e3853cdd3dba4fccd2ed27251fcbbc67c46d6ab1306"
+    },
+    {
+      "path": "src/game/remove_indexed_resource_record.c",
+      "sha256": "251226355e2f839d9d7775c72a54c489586ef573749705647e3302560857149b"
+    },
+    {
+      "path": "src/game/render_object_shadows.c",
+      "sha256": "be77478dbe5efade206cd604afc232df033023f4d6006ab841934a85b87c7184"
+    },
+    {
+      "path": "src/game/render_runtime_object_batch.c",
+      "sha256": "20372d78891a7ec7422d8993c50d02480318c14d56ea0613a5912d35d2656104"
+    },
+    {
+      "path": "src/game/reset_and_clear_buffers.c",
+      "sha256": "4891e1d2e181c0a6aac672a1ded987612975d345041b8c26ed1668380a43ef16"
+    },
+    {
+      "path": "src/game/reset_audio_record_volumes.c",
+      "sha256": "347eaaf0e0eed2759f846e36e58187fc0d0f32bc81beaee6626d7ac51069b246"
+    },
+    {
+      "path": "src/game/reset_audio_records.c",
+      "sha256": "29313943ec76b1e48f92d2400cca70bf76851a84d9077853b610837148c10a58"
+    },
+    {
+      "path": "src/game/reset_bitmap_render_object.c",
+      "sha256": "f87d87629598dda73384a79b3d00b55d5c50210c64eb8c66864638927a7563ad"
+    },
+    {
+      "path": "src/game/reset_enabled_controller_motors.c",
+      "sha256": "85d15bad9a713d8eb472aa6ea581dee0106b40da2b44fe76fcc9d1b72e6caed0"
+    },
+    {
+      "path": "src/game/reset_runtime_collections.c",
+      "sha256": "0d221293b42de8f13bf73f4dd881b6c8b00a06b9da73bb7973c021d2b4cb0094"
+    },
+    {
+      "path": "src/game/resolve_archive_record_index.c",
+      "sha256": "fc93ec5eb59819d28674139802ad661a53fc2154644120cff84f4b0627a4b0e9"
+    },
+    {
+      "path": "src/game/resolve_indexed_record_value.c",
+      "sha256": "01c9599605c95882e5cc7eaff924e776a4b401e6a731664ab63f22abb2d10909"
+    },
+    {
+      "path": "src/game/resolve_named_record.c",
+      "sha256": "3e5afef2aaf274b07b42c967883e999cba5afe102ca54da6027baf570bf610cf"
+    },
+    {
+      "path": "src/game/resolve_record_resource.c",
+      "sha256": "4971cf885f2b849e84aa5b2e21fd7668e7ada1d08ec1466433b27e92f9c41e66"
+    },
+    {
+      "path": "src/game/resolve_resource_data.c",
+      "sha256": "0ec9cfbe5f4edb435c4accea0a54fe72961690f0a685a55194ead60ba3b5a31c"
+    },
+    {
+      "path": "src/game/return_argument.c",
+      "sha256": "d6368da6298d78791053c3444b550c8f5d7442a00df574628b070bfb92b557fa"
+    },
+    {
+      "path": "src/game/return_zero.c",
+      "sha256": "eb165a2c3e66dbc3ec48f3a79b65de6519f1ba55e20d9b360f745fb3a1b93372"
+    },
+    {
+      "path": "src/game/run_audio_thread.c",
+      "sha256": "5ea37e1be15a87ea8420504cf30a1b04cc84670b169ead84145821212e1368b9"
+    },
+    {
+      "path": "src/game/run_debug_host_command_loop.c",
+      "sha256": "4e65ace5a9cf1a3bcc07fabba1656980c6def064fead188de2bf93b8be16bec0"
+    },
+    {
+      "path": "src/game/run_game_main_loop.c",
+      "sha256": "8dd80784ac756f2b11ce9d1b9c6efe75f25194890158f60e95d3885345248d3c"
+    },
+    {
+      "path": "src/game/run_message_worker.c",
+      "sha256": "1757e472ead25591043261435716655e476b8c27c87b48a04454aaea272fd129"
+    },
+    {
+      "path": "src/game/run_object_update_passes.c",
+      "sha256": "d67349877febe760525ce8f5537447616fc6ee40918d5f17e7f6b17626f1a79e"
+    },
+    {
+      "path": "src/game/run_pi_worker_startup.c",
+      "sha256": "72ccdbe5d2542b6985e3fc5225bdfde60df8723f4823dbe0866a965c0bd134d2"
+    },
+    {
+      "path": "src/game/run_scheduler_task_loop.c",
+      "sha256": "70f891b0c9c972ca03ac99a9b09a45ff6316f944094e13a404af604126b442cb"
+    },
+    {
+      "path": "src/game/run_shutdown_sequence.c",
+      "sha256": "a19a1d1d3bb4800e0ed7e7f0b290f0785f202dc17b2ac7e5f7cf73836ff3dfee"
+    },
+    {
+      "path": "src/game/run_yielding_task_loop.c",
+      "sha256": "b5c8c4b8aa6a9fc187f31fb5fa98b7a267c6a6d76e2a338f7cc996b5f761571f"
+    },
+    {
+      "path": "src/game/select_audio_runtime_record.c",
+      "sha256": "3a1557bd277c83d18fa0e1006df423cbadd2452aa0d5cbecd349bf29cb84f830"
+    },
+    {
+      "path": "src/game/select_random_audio_id.c",
+      "sha256": "5f8ff1574d128ddf9d37bfbe3fab99c6ae231bd7e0e0a9225f0acdfdcc1a48d9"
+    },
+    {
+      "path": "src/game/select_runtime_buffer.c",
+      "sha256": "cf0203c9f783add4d0aafba6126089c6d743f528a289894975894143b1f81c2f"
+    },
+    {
+      "path": "src/game/select_video_mode.c",
+      "sha256": "d0277d999ba6af51ca84ee45b5d95d13559a2b9d46cf0cac52dbc86fc73639f1"
+    },
+    {
+      "path": "src/game/service_stream_channels.c",
+      "sha256": "42006e5780347972fcab3b6991772f1b163cb421d4138d336d40ab91673637a3"
+    },
+    {
+      "path": "src/game/set_aliased_global_boolean.c",
+      "sha256": "2c0b1aa7025050cc2501919edd34ecbd100ef7b2563f09f6650440c3815ac46b"
+    },
+    {
+      "path": "src/game/set_byte_field.c",
+      "sha256": "e7741a7230c1d34ee511a5fb287d2295ec4300304f0390c3b0fed472d9019066"
+    },
+    {
+      "path": "src/game/set_byte_return_argument.c",
+      "sha256": "d85e85870f8ea8bc8ffafc656dd202b5bdbafe876252fd16939319a2a4d9dd37"
+    },
+    {
+      "path": "src/game/set_four_global_words.c",
+      "sha256": "6766c4d0520a83f5c49950c0ff386782ff1ad48ae90d2001d7bc0b9ab219293b"
+    },
+    {
+      "path": "src/game/set_global_around_call.c",
+      "sha256": "149aad59023891e5680c9e72cd7b0373277eb8b8ae2be8d6b2d43741405e054d"
+    },
+    {
+      "path": "src/game/set_global_halfword_constant.c",
+      "sha256": "646417b3430c5b3deb06d79366a2316e2ef9cbf28e23900527fe2600b6b1de41"
+    },
+    {
+      "path": "src/game/set_global_value.c",
+      "sha256": "a66d9ecaa30dd094f7f528daaf49a9420046da2ef01eb55efca037cd16fa94ef"
+    },
+    {
+      "path": "src/game/set_global_word.c",
+      "sha256": "aa9d4d7fcf964d16f628a9f450d6988c05118460f955c906427e363c4afc6d25"
+    },
+    {
+      "path": "src/game/set_global_word_constant.c",
+      "sha256": "aab592f62e67a144c38bde16f4b6038e3f6809012cbcbf1f3495e631394c5a4a"
+    },
+    {
+      "path": "src/game/set_global_word_default.c",
+      "sha256": "79bc3cfe9e23920805bf0b0a49f669613b32ea2eeaa7a899e28cfa2fa4344b25"
+    },
+    {
+      "path": "src/game/set_global_word_second.c",
+      "sha256": "647efa14a48ea6df53bc0661588b9c574c0c1a6500645eeda1bfb0edc9c12a5b"
+    },
+    {
+      "path": "src/game/set_halfword_return_zero.c",
+      "sha256": "b1f3123874462a6db1240142cf9189d26c4f7a6c91f9d7fa0b0cf381715642d5"
+    },
+    {
+      "path": "src/game/set_indexed_record_scaled_field.c",
+      "sha256": "dde401c76ad6624e84e6c87775feae0f0a0c8e1f84d8ccd36f0027663154eb19"
+    },
+    {
+      "path": "src/game/set_indexed_record_scaled_value.c",
+      "sha256": "0d645958f4b51be7bf44f84215c52a3c610c61faf5820ac65cbe4091e61ee218"
+    },
+    {
+      "path": "src/game/set_nested_float_pair_bits.c",
+      "sha256": "dd927fc14c2213b50c2940f18eda33836475a7fde364434e2abb30203915a817"
+    },
+    {
+      "path": "src/game/set_nested_float_quad_bits.c",
+      "sha256": "608d9746ca8c5b7b591874b1d62c5f20da78018ddea21e37e6538952f44a2f29"
+    },
+    {
+      "path": "src/game/set_nested_object_flag.c",
+      "sha256": "32b35461cd9f40a9466fe3f406f4aa6c2580db11530c1d540abde52e0e14a1a1"
+    },
+    {
+      "path": "src/game/set_nested_object_flags.c",
+      "sha256": "404755d0dae0b44fc4c5956cc18c4a3376d380e49c0dbd2a3be65392b8e8a299"
+    },
+    {
+      "path": "src/game/set_object_resource_value.c",
+      "sha256": "cf7bfe8cb990d99b19ab0e14361852c49ceb6066fd51747fcc1ca3c69bb07e30"
+    },
+    {
+      "path": "src/game/set_record_transition.c",
+      "sha256": "2e270652c0e1d6b39e1eeff5ae09de762f132a63baa2eb36e2b36acaa2acc768"
+    },
+    {
+      "path": "src/game/set_state_word.c",
+      "sha256": "6c4f59979ae474a083457af4cd71e53f47e360d72f8963e1410f8fa85c972c6e"
+    },
+    {
+      "path": "src/game/set_stream_pan.c",
+      "sha256": "08140962c5d7ebca041574e30dcdbf29cfd1c90af3919e685b23eb816dc53e7e"
+    },
+    {
+      "path": "src/game/set_two_global_floats.c",
+      "sha256": "04433bb6f89ef444346d31f046444a3960a8889980a3ebf6c368cce22e65f653"
+    },
+    {
+      "path": "src/game/set_word_return_value.c",
+      "sha256": "5a0d3a38bc8fceb0d6dd4034a7f91cb3c6224ee79f4c737e228c9802d852d43a"
+    },
+    {
+      "path": "src/game/setup_camera_projection.c",
+      "sha256": "1418414af943a7aa6617bf8ae4014f048c29fc3d4b58bc29a35efc3bcc652bc0"
+    },
+    {
+      "path": "src/game/split_value_helpers.c",
+      "sha256": "b99041e907e3a05561c159d2fda7b6197efc817756739c086d74438872c3dc19"
+    },
+    {
+      "path": "src/game/stack_frame_stub.c",
+      "sha256": "d3e132012cb159402aa3fb97869916374504d99645208e398cb4c9a9db045c8d"
+    },
+    {
+      "path": "src/game/start_pi_worker_thread.c",
+      "sha256": "6ac9bb5840a7c553e1681607ffaf54682958b619665954c39847b91287be7681"
+    },
+    {
+      "path": "src/game/start_stream_channel.c",
+      "sha256": "e25b17717dff3a41fff5603dfbb7949c4febc92eb0b7d9634625fd3850e16c7b"
+    },
+    {
+      "path": "src/game/store_handle_status.c",
+      "sha256": "00734a137f1447bbe5ca2101f26be64923625d088ace765ff74e876ec8fd493c"
+    },
+    {
+      "path": "src/game/store_pending_settings_to_eeprom.c",
+      "sha256": "081995474d7b81ddbe0749cd1a24453eef33f7857c5d8078581beeb95bce22a4"
+    },
+    {
+      "path": "src/game/submit_audio_task.c",
+      "sha256": "b6525656555d9a30aaa8765182faa068675f7a8f34d25159167488303fe6b919"
+    },
+    {
+      "path": "src/game/submit_render_task.c",
+      "sha256": "3f88f8c381dc943fc47884e14b2f5cd950c911c9d322a72ad8bfb020d218e0a1"
+    },
+    {
+      "path": "src/game/swap_halfword.c",
+      "sha256": "8d06f37f0199a2c0d3b32a926b1d345ebe2ada313ec2cc42ac6c874b3b8b0be1"
+    },
+    {
+      "path": "src/game/swap_word.c",
+      "sha256": "ee15815bc35143634fc2a66285db90f191cd815b0a09049b74f5923241e2e02e"
+    },
+    {
+      "path": "src/game/synchronize_save_storage.c",
+      "sha256": "571c4d94f8e2789c2de9aba599696df9a90649b6a498d279ef932273f14946a4"
+    },
+    {
+      "path": "src/game/synthesize_delayed_audio_samples.c",
+      "sha256": "342dc0699b0d607b8fe28eb1030225c4d2e80a7b878a98336cda1aaf2f3f3e9d"
+    },
+    {
+      "path": "src/game/test_all_vector_planes.c",
+      "sha256": "6f2949861bf04dbd395ba2ccc87f2058bc1c5beb2fd65e5b62c2a5353d7b4c40"
+    },
+    {
+      "path": "src/game/test_vector_plane.c",
+      "sha256": "1103a661774a7a6744eca80d12b598e027ed6b6446472611f94f007fd5358e1d"
+    },
+    {
+      "path": "src/game/transform_skinned_mesh_vertices.c",
+      "sha256": "dea10946ca12088d21eb148ccf8ecf7429bfedf1dc319ee28393bfe2e307e473"
+    },
+    {
+      "path": "src/game/transition_byte_value.c",
+      "sha256": "727a4a17ea394cb00094d115bb2f2d41d4e5cdb00eaa5eac2d93b31a85388592"
+    },
+    {
+      "path": "src/game/translate_object_geometry.c",
+      "sha256": "a5e087932a7f2f6e3e94d60132e46da3e9e542a29c3bafca005824f4a9d3bd86"
+    },
+    {
+      "path": "src/game/unlink_runtime_node.c",
+      "sha256": "5b2f36cfd453e859f5126451983be41823e8d3f819df6f5dabcec30b31423f57"
+    },
+    {
+      "path": "src/game/update_audio_playback.c",
+      "sha256": "bbb339fdb8176c2302badda1f94c64c44c987a893191de33722228bdc41711dd"
+    },
+    {
+      "path": "src/game/update_bounded_mesh_vertices.c",
+      "sha256": "c6c0055245fc8fe7ffaf6f864929a23c63c7d3be9f26f7c49ce6d64e7dfc0013"
+    },
+    {
+      "path": "src/game/update_display_runtime.c",
+      "sha256": "7defb8f665453b2cf80c4e16eb64d9363ee8a34cd835a213fa9a69843fbb5559"
+    },
+    {
+      "path": "src/game/update_fire_effect_buffer.c",
+      "sha256": "1193a381fa51a322f465bb612aeb1025c7c2a5b18cf6990aea59138acd29b0b6"
+    },
+    {
+      "path": "src/game/update_fire_heat_buffer.c",
+      "sha256": "6d785e6b9437fe694a5800d520bcd2de9c1b3610cf06e348cfaf31bdc819c09c"
+    },
+    {
+      "path": "src/game/update_gsm_stream_channel.c",
+      "sha256": "16db03891aa0737276cad6509e33f75717538095ba8ca32a9e9adeae8cb45f1a"
+    },
+    {
+      "path": "src/game/update_indexed_render_record.c",
+      "sha256": "6ef5a92fadaadd0b08a3477e31eef9e6ec9b29171391517ae3b3bbf46cf32e64"
+    },
+    {
+      "path": "src/game/update_packed_display_records.c",
+      "sha256": "9df7bd738b87d0b5b2153b431a389122dcbe3bed99983ab5b74581196c514025"
+    },
+    {
+      "path": "src/game/update_runtime_render_resource.c",
+      "sha256": "74d65ba0442514797d26950377f239ea4482b9c1faf4dc0c30ce48419c10c513"
+    },
+    {
+      "path": "src/game/update_timed_animation_records.c",
+      "sha256": "0d351fe0469b4f427e5ef9973bcf629c37733939b9ba3741f1bf51183beb1d85"
+    },
+    {
+      "path": "src/game/value_in_range.c",
+      "sha256": "8b0992d326c3312e45a02992eb2b2e407c6a7ae7e51968db7a16f2810a6d41df"
+    },
+    {
+      "path": "src/game/wait_for_framebuffer_release.c",
+      "sha256": "f3dedd8fb090728279c5f49c0c06a7e9bbb5e4f3802704105c385851597ea771"
+    },
+    {
+      "path": "src/game/wait_for_message_type.c",
+      "sha256": "589a3393d56985976d98190367a1c1f1cf944e7817159d0e786d31aae608a926"
+    },
+    {
+      "path": "src/game/wait_for_runtime_signal.c",
+      "sha256": "6fdd4c9167224e9c9481f6055342c083330a362e1f2978d876cad5e23dccd4d3"
+    },
+    {
+      "path": "src/game/wrap_packed_coordinates.c",
+      "sha256": "ecd72876261ef1b672c9c85e54809fe619312444546b09d66aace90d2cb2b7c3"
+    },
+    {
+      "path": "src/game/write_byte_aligned_word.c",
+      "sha256": "33d7c09454b7d9b17d440db3c824fe96f2335b0ac8d21926d1611ab26706c021"
+    },
+    {
+      "path": "src/game/write_cp0_status.s",
+      "sha256": "58fc925b487147067855daf72166cda207f0bf646ee95de28d1cc9676395eb12"
+    },
+    {
+      "path": "src/game/write_object_word_bytes.c",
+      "sha256": "967e4401515c5aab32a07ff1cd98e2056c0ccd415df0388df81ef03f37a4e66c"
+    },
+    {
+      "path": "src/game/write_save_eeprom.c",
+      "sha256": "265e37e2983d142e4e1496ae63a8689278bddc2912a5e1a2336f404011b68f62"
+    },
+    {
+      "path": "src/libgcc/divdi3.c",
+      "sha256": "49d9eb81fd0c4cdc455f07dcf1df6e083518e1ba744be30c152031a7e38600fd"
+    },
+    {
+      "path": "src/libgcc/udivdi3.c",
+      "sha256": "3c75a4c1360c278f2dd4165ae5aac3294e8d154f7b689d6b07f24bf26cfb6537"
+    },
+    {
+      "path": "src/libgcc/umoddi3.c",
+      "sha256": "0c3d2ba780de4dd17486e115ae8bb9dd71a0107ec7315bafe72b3ae68fc964cc"
+    },
+    {
+      "path": "src/libmus/audio_thread_init.c",
+      "sha256": "79144b6c4a186dcd633acd3a463de235acfa5403aea4283e95288e560f3f599c"
+    },
+    {
+      "path": "src/libmus/custom_fx_helpers.c",
+      "sha256": "8d2da2dd53c1e9f9931d3f604e3f4faa9175b3438ce36ab9935b429844dc6d31"
+    },
+    {
+      "path": "src/libmus/custom_fx_init.c",
+      "sha256": "a8106394523bfb08ad788d14782e937c527b036efe0b5e78e34d101c6d86dd54"
+    },
+    {
+      "path": "src/libmus/custom_fx_runtime.c",
+      "sha256": "18dc622e330c6a0f46d501c6493e106654b126338fc52f550ebcea2468b128f0"
+    },
+    {
+      "path": "src/libmus/invalidate_record_id.c",
+      "sha256": "cf75cb9bb09686f76e00f89d4e6915e72aabc9564ce875404ee06baa9f5a2cd1"
+    },
+    {
+      "path": "src/libmus/master_volume.c",
+      "sha256": "5eb22d6e34194130fd276de6ab35bd2e54bfb22bb7890bc49cd8f5ae9c661145"
+    },
+    {
+      "path": "src/libmus/player_api_bank_core.c",
+      "sha256": "93814ce43ec73d023b613fa50ee57412fc7d8448496643baff1c69d2f306f108"
+    },
+    {
+      "path": "src/libmus/player_api_handle_core.c",
+      "sha256": "76bbf71c1b4a67bf58ef2d779af6a7afbb16727bf665d41b52595873a510c39d"
+    },
+    {
+      "path": "src/libmus/player_api_message_runtime.c",
+      "sha256": "ef3d484e13b8fbc41451e31296d7481447e8683670515b8caadce243fbd91761"
+    },
+    {
+      "path": "src/libmus/record_id_exists.c",
+      "sha256": "18b3bb0b74e0088b967027782ea02d5b7e370948b22487617c3a3adb7b7f6411"
+    },
+    {
+      "path": "src/libmus/start_song.c",
+      "sha256": "727d93776aae5b0025601c1da402ecb719bc541f057c8cb0a2c4d6b4a58748cd"
+    },
+    {
+      "path": "src/libultra/audio_env_math.c",
+      "sha256": "bfafda31742e9c539ebc7030d0c204a0272c6ed4881a0d739625504f90a1eb7b"
+    },
+    {
+      "path": "src/libultra/audio_env_param.c",
+      "sha256": "cffbab61180c64ee714535fcfb0a80c3e9f9fdfdc245a35cad79f11e7999918a"
+    },
+    {
+      "path": "src/libultra/audio_env_pull.c",
+      "sha256": "2fd969e6e2abb2fd885833f7a1be8f44d7985c26318aac8e6a17f6d0309bbfc3"
+    },
+    {
+      "path": "src/libultra/audio_env_subframe.c",
+      "sha256": "34825385cf56db411941df0fb0ed45188366b665f61d19509bb6b478a141afe7"
+    },
+    {
+      "path": "src/libultra/audio_fx_new.c",
+      "sha256": "5c54f2b42ff86d14abdc5bf185ff441232aaf5191ef0db635f2da3ed5b441452"
+    },
+    {
+      "path": "src/libultra/audio_resample_param.c",
+      "sha256": "5d37776224a5030961c0045b1a3ad5d6cd7f463f5c958f94201a09fcb6637862"
+    },
+    {
+      "path": "src/libultra/audio_sl.c",
+      "sha256": "59de6c741f1bb520fe54814a1919a646ed35cf14fe3f907444746d1ad233fe28"
+    },
+    {
+      "path": "src/libultra/audio_voice_helpers.c",
+      "sha256": "487f620e8406e57fe3f9deb55a85a45402b56f69f36e96eb72719aa290b15086"
+    },
+    {
+      "path": "src/libultra/bcmp_runtime.c",
+      "sha256": "45a1311667f1fddc3b695b794613bd39ef96586e55f3bffe8c6a344b3d07e7cb"
+    },
+    {
+      "path": "src/libultra/bcopy.s",
+      "sha256": "7bdc8d9279f8d9be401f8c5658d2c284e691addf9442dcd1193812d18a6a1372"
+    },
+    {
+      "path": "src/libultra/bzero_runtime.c",
+      "sha256": "7f7eb203473e88a734d07feb572b6e97fd9bd85d030fbac814e3e71930d8ff71"
+    },
+    {
+      "path": "src/libultra/cache_runtime.c",
+      "sha256": "55012c1e1d40db8358805fccece4ac7dbcf6e9f75a586715980e6918d8daa3ad"
+    },
+    {
+      "path": "src/libultra/capture_disk_registers.c",
+      "sha256": "b3ee63f561d26728104dded0e499eb86883981d46cefd23d11489a5f10959f83"
+    },
+    {
+      "path": "src/libultra/capture_tlb_entries.s",
+      "sha256": "02be4c741040a97ba2f6cd1c4c2b6c9d3fd629c0665baf23e4bd5d86aeb6d2fd"
+    },
+    {
+      "path": "src/libultra/copy_and_return_end.c",
+      "sha256": "f6d68bfe81a3e8eeb078a7781ac179f63ddfde99779e7de74aa2de2d54d70e82"
+    },
+    {
+      "path": "src/libultra/cp0_runtime_access.c",
+      "sha256": "65ab278926cd1b6dac775be35339598594834c3ef1b71cd0f231b904f86cf310"
+    },
+    {
+      "path": "src/libultra/debug_exception_save_prefix.s",
+      "sha256": "73bd0de5b17d824a3cae952d4c7df85ad5a36a031088fcee7178903275e01ddc"
+    },
+    {
+      "path": "src/libultra/destroy_running_thread.c",
+      "sha256": "6732dfe53d794987982336176ccfbaffe2e5dd933d81aae3085d79e3a0cc9ad4"
+    },
+    {
+      "path": "src/libultra/dispatch_thread.s",
+      "sha256": "0dd37904f1a8f8111dbfffa9b29a1ab090f4a784c9a44b9c7421cf6ad82a6ece"
+    },
+    {
+      "path": "src/libultra/enqueue_and_yield.c",
+      "sha256": "6a1fc1cfef26a228b8dd36b85dee1f7ce042d472552d3836b7f3f595d5de1a14"
+    },
+    {
+      "path": "src/libultra/enqueue_thread.c",
+      "sha256": "e3399588cb979663b58481f998b6f217022c40765c67953032004541b1e99dbf"
+    },
+    {
+      "path": "src/libultra/error_exception_vector.s",
+      "sha256": "2f6f2f849a6486a708c9fafc8ce5e33870fc756df790fc1b675b6216ffc32a5d"
+    },
+    {
+      "path": "src/libultra/error_exception_vector_tail.s",
+      "sha256": "81a28a0750bd8e99a875cb139aa68031b22dfe673ab2ca2466ab7797844bea73"
+    },
+    {
+      "path": "src/libultra/exception_handler_body.s",
+      "sha256": "79b680f336f8515f27ef57cb120847636821b5c761423c4fdf63a5d067cb4315"
+    },
+    {
+      "path": "src/libultra/exception_save_prefix.s",
+      "sha256": "85abd57f595045aee8ae1018ffe27a7bff10e8eb02dd7ad801063e92bc70c6f3"
+    },
+    {
+      "path": "src/libultra/exception_vector_jump.c",
+      "sha256": "8c71fbd15de86449c765649a53bc04b70d6343c6eae3e10ae995407367a0997c"
+    },
+    {
+      "path": "src/libultra/free_param.c",
+      "sha256": "cac889cdf58faedfe2fb6e322916f00b281179410b6a065aa299736466a68bde"
+    },
+    {
+      "path": "src/libultra/get_cp0_status.s",
+      "sha256": "ce15160ea358828eac94d3d30a1833b333fc35a97f82d413610e080c63d6f4a6"
+    },
+    {
+      "path": "src/libultra/gu_mtx_cat_f.c",
+      "sha256": "908517a8b08cd6e09f2dd7d3d4014caeebcdc50b589b024533d8822cbc4989a6"
+    },
+    {
+      "path": "src/libultra/gu_perspective.c",
+      "sha256": "babde26532ffbbd101e0e23ba178de2aa5bb294d074af96ddc83c23cc976705a"
+    },
+    {
+      "path": "src/libultra/handle_coprocessor_unusable.c",
+      "sha256": "b86777626df31c43a49fb456d074cca7a7c1b40bc96d2262c8ed1541231c31cd"
+    },
+    {
+      "path": "src/libultra/install_exception_vectors.c",
+      "sha256": "4e3f4a1e616ce8a9ea935fe4d2e997b63aece92a822a1feb9948707512c8ac32"
+    },
+    {
+      "path": "src/libultra/interrupt_runtime.c",
+      "sha256": "72f8a7e846f4ebe38fe62ce9c82222dab1b049a47bd33ad43d12196308a22546"
+    },
+    {
+      "path": "src/libultra/motor_access.c",
+      "sha256": "cc93fe491bab2c7d04fd1c5bb16c06288016740fb1f3c762d9e0d0084d2ebf2a"
+    },
+    {
+      "path": "src/libultra/motor_init.c",
+      "sha256": "7b4545891730e12c2d78317be55cb77b3201a95bf4b1d5d318013e61eb628468"
+    },
+    {
+      "path": "src/libultra/n_audio_resample.c",
+      "sha256": "e3c10bb2089697103fb6e1d2f5fc9c43d536b15768091efd8d757158f1fe718f"
+    },
+    {
+      "path": "src/libultra/n_audio_synthesizer_new.c",
+      "sha256": "29419466b12f2b14e877437a3d68908c093fe4afb1abeafab4f54c65fb2282e5"
+    },
+    {
+      "path": "src/libultra/n_audio_synthesizer_runtime.c",
+      "sha256": "51f7db2ae190ebb68e0032bbabd3929182f0c83d1ba32af202bdf01af7cec82a"
+    },
+    {
+      "path": "src/libultra/os_initialize.c",
+      "sha256": "0f13ea97dc74c01e1e85a77330f754d2b943421752c82afbd4dd6b84a5ebde86"
+    },
+    {
+      "path": "src/libultra/os_pi_get_cmd_queue.c",
+      "sha256": "ba1f5be9f66f124188d0b2cd71089262bbb8a2eaeee1ca36d62ffbacabe6f9e6"
+    },
+    {
+      "path": "src/libultra/pfs_check_id.c",
+      "sha256": "f9026118c3b69fe0169bf4a77dbe41f00ec7de4c2342a09b47b79e3a1e578231"
+    },
+    {
+      "path": "src/libultra/pfs_check_pack_id.c",
+      "sha256": "ce86890bb602f11296e5173eb2c266719de4f77ba2db0f2794f54d23b99fd044"
+    },
+    {
+      "path": "src/libultra/pfs_get_id.c",
+      "sha256": "f5846b319c297aa262e3ddbc7b946e38c9ae82cb0112b610f7b9ac01fc928a4f"
+    },
+    {
+      "path": "src/libultra/pfs_id_checksum.c",
+      "sha256": "227a635bea3630305aa19449f5640292a14a4175ac81dd6a6fbaa29c5cb9abe9"
+    },
+    {
+      "path": "src/libultra/pfs_repair_pack_id.c",
+      "sha256": "6f0c41cccee0a913b18e65b5eb4f8c2df38b485677370ac92e0687b232b7fa10"
+    },
+    {
+      "path": "src/libultra/pfs_rw_inode.c",
+      "sha256": "61775be1c7f90a6369e9b6ddaa6adc4048e586f4bd9069c541f9357a9727457c"
+    },
+    {
+      "path": "src/libultra/pi_access.c",
+      "sha256": "ac5f655d2e15ac83efb3fc853324206bc4f4b0dfb8bd776aa00fc277df93da2a"
+    },
+    {
+      "path": "src/libultra/pop_thread.c",
+      "sha256": "10ab87134e60c65f6b69c02feb278e891059581689af69e475f06ebe8be827d2"
+    },
+    {
+      "path": "src/libultra/probe_tlb.c",
+      "sha256": "4f9d524869ddc6a63a1b3cd958ea377f6883ba073428992af0d7cf5defdf9d87"
+    },
+    {
+      "path": "src/libultra/save_crash_context.s",
+      "sha256": "e4d922f60b33d581f38cd388bb7894d2a3c6cfb063a88db231cccabe2b143387"
+    },
+    {
+      "path": "src/libultra/sched_add_client.c",
+      "sha256": "9cdd99710e8cf7b57c788593627bd9977745d0f11acfd46d08f9c254b3e30b0d"
+    },
+    {
+      "path": "src/libultra/sched_add_client_legacy.c",
+      "sha256": "866ae5b5ecaaba229e26de289de13c4073adafd8a4f62ef5e354014777d51bcf"
+    },
+    {
+      "path": "src/libultra/sched_append_list.c",
+      "sha256": "42101d9a45d01b11ebdb2265105d36072f118fa177fb329546e5d6dfc2a41727"
+    },
+    {
+      "path": "src/libultra/sched_exec.c",
+      "sha256": "1b521fd05d04f5c624078ef678bffab50dabe5251033eaa7c17febd0e7a6d455"
+    },
+    {
+      "path": "src/libultra/sched_handle_rdp.c",
+      "sha256": "e5487548b1313fa3fc1b29356b605c9481ed6b33d62f7083c82edd1efd18b2c5"
+    },
+    {
+      "path": "src/libultra/sched_handle_retrace.c",
+      "sha256": "213eeb36914cc2116935f667dbcdc5503a1a7536cf12b6a0f46b307f41dc8984"
+    },
+    {
+      "path": "src/libultra/sched_handle_rsp.c",
+      "sha256": "144592380e5620daad445d6ef99913f1db1bdf9603af3138a44ecb268432e461"
+    },
+    {
+      "path": "src/libultra/sched_main.c",
+      "sha256": "4d4a0f83515e712d173d6f83a5016fe7d4c902d88481da31797e383ff803486c"
+    },
+    {
+      "path": "src/libultra/sched_schedule.c",
+      "sha256": "27c734bc38842d9b0a75eca278cd7d190651af343c093d9d1ef68262ba5b70e9"
+    },
+    {
+      "path": "src/libultra/sched_task_complete.c",
+      "sha256": "a750083e1dab97fea9e22db6738f7e85c67388f40a27a3130ac0321de8265f4a"
+    },
+    {
+      "path": "src/libultra/sched_task_ready.c",
+      "sha256": "57228394b402d1ec7085ab261b7d049e05dc358b21759e81539c732e62d79872"
+    },
+    {
+      "path": "src/libultra/sched_yield.c",
+      "sha256": "c3d66b198a5e21597bd4cce1e5304ec67f7947f0342d8eff8fa43222792d7c9e"
+    },
+    {
+      "path": "src/libultra/send_event_message.c",
+      "sha256": "3f79847f8aa1ebb218462d1be54d56a0c8572e0163d92b0f2a542ed93eaf30a4"
+    },
+    {
+      "path": "src/libultra/send_null_message.c",
+      "sha256": "8ac968ea6dea7bc06cd3383b45dd3356c06cb5b9650696f4c2d57c2ffa4b2729"
+    },
+    {
+      "path": "src/libultra/set_cp0_status.s",
+      "sha256": "f0033ba05a29593eab4d6eaf646ba20223ebab4c7ff414e3e2014e6f609f0582"
+    },
+    {
+      "path": "src/libultra/set_cp0_watchlo.s",
+      "sha256": "c0c8c719b42a674eef3ccc478d25e5f56b0f4021b02b9effa720269d99790750"
+    },
+    {
+      "path": "src/libultra/set_fpcsr.s",
+      "sha256": "3695c938e73dc7f1318d15e0572d16c556c8508e3f87275841b660a928f97015"
+    },
+    {
+      "path": "src/libultra/si_access.c",
+      "sha256": "3923bf7b30bc7cca21e2c15c91fe8b92279ef0c35a98daabf94a7b2bf0c2a8f1"
+    },
+    {
+      "path": "src/libultra/si_raw_start_dma.c",
+      "sha256": "d41c38dd5a0bef297d3f93c599c38808283d5f776a911377a8957180c20b237b"
+    },
+    {
+      "path": "src/libultra/single_square_root.c",
+      "sha256": "4fa1266e1c65bd2080fdc110cab3f3a68f3c0b128a3f36fd9f260fc1c98f4155"
+    },
+    {
+      "path": "src/libultra/sp_task_load.c",
+      "sha256": "16c73f246ab14910455ecf7548c5b2ca78bb39eb6c3d0e9713a22f2cfba127b7"
+    },
+    {
+      "path": "src/libultra/sp_task_start_go.c",
+      "sha256": "f8ba185f0393bf991193a18280c0ccae24051ecc5dc5ce9929f0f5d662a01420"
+    },
+    {
+      "path": "src/libultra/tlb_runtime.c",
+      "sha256": "d987e393bc211ab651c1ba46ad9fe2db714ff77e21cfee9686168c22eb7773be"
+    },
+    {
+      "path": "src/libultra/unlink_node.c",
+      "sha256": "3e535aa6f2735ea2706542d4245d7351ceca67fb57ab1da42316d20dcd2f35c3"
+    },
+    {
+      "path": "src/libultra/variadic_stub.c",
+      "sha256": "ad27c2afacc96bd8c93efa5f0e34fbfd3fc380ff6f0498ae3c50d6ce12a677cd"
+    },
+    {
+      "path": "src/libultra/writeback_dcache.c",
+      "sha256": "265ec60b6943ec1db1fff1a05d207f620b7cf20f2c094cdc885e217bf653359c"
+    },
+    {
+      "path": "tools/battletanx_ga/config/us/manual_symbols.toml",
+      "sha256": "d2a33bcc5846553239e9623aaf181374741f6a5691cf27a72290211f93e39f14"
+    },
+    {
+      "path": "tools/battletanx_ga/config/us/recomp_function_boundaries.toml",
+      "sha256": "4049164011429f3cadb424273157ec40e55af978b650d84684ce6c174319ccf2"
+    },
+    {
+      "path": "tools/battletanx_ga/config/us/symbol_addrs.txt",
+      "sha256": "48288a3d4deb3bcf2d69f7eb9ddfcf73d18f52ce17ca551bc1affce8ddd7e163"
+    },
+    {
+      "path": "tools/battletanx_ga/include/m2c_macros.h",
+      "sha256": "e33f56f1b2dd14232dfbac128f3a3f491efee059c41c25ed28c1db8ceafd1989"
+    },
+    {
+      "path": "tools/battletanx_ga/include/types.h",
+      "sha256": "7c0bcf3f13b2a479701cc805470fefedc9033a2fec4705c69fb8ff63ec49908b"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FAE70_fenvelope.c",
+      "sha256": "8f398de2ff956752f1a2e09f02863cc894673897d8d739ac718f54c521fcf08c"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FAFBC_mus_initialize.c",
+      "sha256": "5902e5f3701b9084aac823c5531c25fb6e96153082badd853deca668fb3f7e38"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FB244_master_volume.c",
+      "sha256": "6a4a8a98508633e2639a80339af542bdbf2b1314568a5a34c6325f2ff21b1dc9"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FB270_start_song.c",
+      "sha256": "be6f583fae08676d2f021b88dbfacbe042d3b97e7e83982071fa62a86e82f9ad"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FB2A0_start_song_marker.c",
+      "sha256": "81d5171e135fd4cfc924e8e3c84ed668786380e5613ab1a753181d39bf823283"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FB4F0_effect_start_default.c",
+      "sha256": "8442358aa6b041e326c70a357d6d46f0ad53369f1ba2d8ceed4d8da21d145976"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FB570_player_api.c",
+      "sha256": "d4bf8d20814c5cb524f52929da4056bb5ee9c11d97d321cf99ffd3ee86898630"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FB7D4_player_api_handles.c",
+      "sha256": "ad92709139edf1aa70cfa64160044656109499831338abadba6e8ca0a051563b"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FBD80_player_api_misc_pre.c",
+      "sha256": "d13f34bbcbc2ad03302aac1d473ed9e795931dc872c1c98517fa0799023d8d35"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FBDC8_handle_bank_value.c",
+      "sha256": "a3d2769c8fcd4d62520065e51bab64329473f9f60f92c81fa23c3a8f99ad74c7"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FBE2C_player_api_misc_post.c",
+      "sha256": "80a55efe95be589a1f64df73a185d1d85afd588220196a6a27d2634015c97c41"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FBF94_player_main.c",
+      "sha256": "24307c52ad9b90d0bbe977aa71367934610cf13acf8cb60e7d8274c0a918e7f3"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FC864_player_voice.c",
+      "sha256": "60284dae2385bcb0beae9715d6e0720964949cc3cd5143cbe06e72d4e3e40528"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FCBB0_player_effects.c",
+      "sha256": "6df2be8d53fee70e2174b73c4b12667ecce7bbffb51bca11ab0b4b5e9dbe5168"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FD10C_player_bank_math.c",
+      "sha256": "b3f6d6f48a7c863adf323b954ea4383d0c51cd646cfd1985e9aaacee21ee294f"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FD2A0_remap_ptr_bank.c",
+      "sha256": "19a41046893f80f09256e3a08aadefc63f7b4491d8b38245b77e88c2171cfc04"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FD438_random_range.c",
+      "sha256": "922b5dc4f07568a0266502cc6f1a77e1d10fb2ea61e307c1554bb4871107f820"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FD4CC_channel_initialize.c",
+      "sha256": "a5053d4f6ee961f33ed4075523a77860d7c61f8fd6534ddde3f32e19290c8ea7"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FD608_player_start_pre.c",
+      "sha256": "1831fb33bb2ad8ef24abbd1edea9e1a143b6265aca625cbdac7065fc9581421a"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FDCCC_channel_flags.c",
+      "sha256": "c9f1d23ff3d7baf75c33387a6717298870ca5cb8be6f362306f41902fdfd4d94"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FDD20_player_commands.c",
+      "sha256": "a92eb48579d298286cad11eb989b448ccf34fe556b84876a1c3e376aa4463916"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FE710_n_syn_custom_fx.c",
+      "sha256": "edc407b70f99de65419bfaa01271573873eb89b9a81f713482350c91335d88f5"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FEF60_mus_dma_sched.c",
+      "sha256": "66fac1ca3b16fca48039c54c111157bea902a0156de94eb132389e9e5f30e843"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FF560_mus_audio_thread.c",
+      "sha256": "f24fcebba455f01f7a61f3fd6bc336c8e455bc3171b67e4bff2e649d93a0f1c3"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FF820_mus_frame_size.c",
+      "sha256": "0a51c8d8fccb3399b48d72ac0d7fad924c9174ba1474c84ebd91e9790dfd6f32"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FF950_mus_heap_mem.c",
+      "sha256": "615121feef4ded77aabe75e7aca07dff0652caddb4a26fbc799a80c5a6df05a7"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/800FFA90_n_auxbus_pull.c",
+      "sha256": "c5311c6b328196ecc0f18b05794f4993e7da887153be2b5e72c729c07976aa99"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/audio_runtime_data.c",
+      "sha256": "0d6fdc6d066f89ed1e835612353e3d988a58a24bd07a7cfc37e8db56bf662448"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/mus_channel.h",
+      "sha256": "7bac8c0d769925cfcae5e5f96651bddbfa6be99c3dbdec0d25f3310ec40659fe"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/n_synth_types.h",
+      "sha256": "83a6ac679e43ad90cbaaa6e6541bcc0467400460994cdd5bd0badde88da6f8f2"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/os_types.h",
+      "sha256": "74e4801fb075be3d19f847a47dbabf11aa1c9b3316a764c16f477ee074f79469"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libmus/ultra_basic_types.h",
+      "sha256": "208f99a055caefc46b0d6930d73bb70d7c355ecd99f4649e1de60fd7fb1b36d9"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/abi.h",
+      "sha256": "2a042b519124ca583c06db2a4cc25f85d144d419368a1076f137332904699d86"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/al_synth.h",
+      "sha256": "23577e5632706f25b2c51682f8f869833b8cb4261c495e12a60268db1f526ad6"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/audio.h",
+      "sha256": "31da86eefc9855f97f85bcc9afc0b1720d760b9ea89f3400ba008bdbeff2b72d"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/controller.h",
+      "sha256": "4bdb8de22f2a3607e317524dae6da110ec928db1c05bf9a75a596431dc4bbbc4"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/gu.h",
+      "sha256": "5a5bb7d2650208714fb36b1bb0796e7edbc2a155d10d66432027a923494fe9bc"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/ido/PRinternal/macros.h",
+      "sha256": "a8931d15afa699dafd26f6a0be1b20995c223952bb10cb7845ea6e3ca62da794"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/ido/memory.h",
+      "sha256": "15e3c8fdc512418f26b716cbeaff56d21ba5e6745dc5109b2843ff3d768c7feb"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/ido/stdarg.h",
+      "sha256": "656dc702ee6d9487667210fcab90b41f7d1188251713e6893a2c2da71cc4d035"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/ido/stdlib.h",
+      "sha256": "1a29fccb7c0c43145c4381c6f3dea4ab192471fe983736ec758353a3788aec25"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/ido/string.h",
+      "sha256": "8235290bf7031f3f89783f7772b122e366ff86ece22934a11cd494d7ff913d09"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_ai_device_busy.c",
+      "sha256": "c51e73ae20db081f1fb1e09eb00152ed8b7f4e51df2c8fd09f3384d72ab62dc5"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_ai_get_length.c",
+      "sha256": "f027f35faa2cb3b0abf84de5e3cb79fb1c2af2cd5f3152ae3666541ac71f7235"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_ai_get_status.c",
+      "sha256": "cc50006c6ccfc40f1b0d7eaba0f88961063b33c41191f56e6649238d8985c19f"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_dequeue_thread.c",
+      "sha256": "d807bb42cec6143113f6156972a4decf7211a39c7f19f8096219fddaff5edc10"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_dp_device_busy.c",
+      "sha256": "fda4d38acce1e2b1b8be60ba7452ebc6ace356d3a6f64c275084a39b8b0fe153"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_si_device_busy.c",
+      "sha256": "7149db788aa7271aeea397c4d97e96cbb4923ab44209050193c82bd5aad5a74e"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_sp_device_busy.c",
+      "sha256": "4ad2a2f0d17b90146532041994aa3229e03e34d0aca184e2f5be5782a80e7b12"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_sp_get_status.c",
+      "sha256": "648e34894ede5ed96096f52b4eb84b9d60045cb3b40dd6da1f579d730aeabddf"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_sp_raw_start_dma.c",
+      "sha256": "f6e2beffaf002f6441c683ad61021a121e1f2cdc763925635fc02c9b9bb76970"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_sp_set_status.c",
+      "sha256": "12c5aa28eef450b4f071396de0a5961c849272e596ebfc6655e9a393758d882e"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/os_thread.h",
+      "sha256": "0a5b1907e0e2b6c9e994176575ffdc93a2f21b94c8690bc2d16f1a827a3b2336"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/pfs.h",
+      "sha256": "c847b8017c3fab0e1c91cf8d5098793162f8b96b739416725ec01d517bbd2f1e"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/sched_compat.h",
+      "sha256": "2225926a6f29769bf7d66ead2cd64ce6831130f2188027d4692b90b60e270919"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/ultra.h",
+      "sha256": "a1786aa3d3e968193c43978626bddde85b6a7c5e4cbd3a5a68ed39a6d10a2a2f"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/vitbl_compat.h",
+      "sha256": "b772f6741fc4df94212cb5ec48d4898968594730240a27f14ed93396b6d201b3"
+    },
+    {
+      "path": "tools/battletanx_ga/src/libultra/xstdio.h",
+      "sha256": "23dd108dbdffa4c90019647c450279b237b4175e4e80313e86c2260a378c75cc"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/800FFB30_n_drvrnew.c",
+      "sha256": "dde9de63c4693f4b8bed4a4d1a6293be2f421c98537bfd93f3ce7ad8b646f6c9"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80100050_n_env.c",
+      "sha256": "833b622ba356166d73388f896fa6a084aa139c44d428982b1e7ff523fe8a574d"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80100A20_n_load.c",
+      "sha256": "ffd61c900ac14b0d1cffb3e7e7212b3f409bcf242f78a98ea0ff8c894c6dda8a"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101140_n_resample.c",
+      "sha256": "fe75729f893612ccd71bc72d72690f7547c0c33ab75a988729705fa0f0499807"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101320_n_reverb.c",
+      "sha256": "60f140193a44d8270ae21fd7d913c16d0634ddfefd34df139eadb9b949cef4b1"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101D10_n_alinit.c",
+      "sha256": "863996c8fd98a09fe5896010cc1e70145ed4667320c49c5324e256707951eabb"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101D90_n_synaddplayer.c",
+      "sha256": "45d55910b4e0e2955040b99bf2f92299542eaf154d23e1ea12f19ebe3b5e0ecd"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101DE0_n_synallocvoice.c",
+      "sha256": "cd108515340e9dcb70be59acc6f5221325b13598562976169bf96c9035a4bc1b"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101FC0_n_syndelete.c",
+      "sha256": "5b3263fedee93f26fc095f782e6c9de6e9afea6f1dd64096c8bf736d4ce71efd"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80101FD0_n_synsetfxmix.c",
+      "sha256": "96556d1172b28a6d093ee0941f070214bb1085c4cbbcfdedc613b698893f8d96"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102070_n_synsetpan.c",
+      "sha256": "874212890b5960ee411e4dd1c81e8ad0d9d86d2f1a66d9fded124e13bef84b73"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102100_n_synsetpitch.c",
+      "sha256": "c0a8d964cceb3999c080a40187a283842212fd32ff0cd7ef85e6df4c54a483f7"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102190_n_synsetvol.c",
+      "sha256": "d7dd61cbef06482176d7cdce5782d4cd3535138a0c28179547706b0bc5e813a3"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102240_n_synstartvoice.c",
+      "sha256": "396924e2f9e216d782b02b0d534e666a8b669b5ba2e1cdc24baafb9fd8320f7f"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/801022D0_n_synstopvoice.c",
+      "sha256": "eed2cac488b8f8187a145cb0f08773b017fd094a61e64059de28b475ae168c6b"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102350_n_synthesizer.c",
+      "sha256": "6821feb7ea0e981db889e4aca647813d2a021e4f289d5a642f973d66d28b6dea"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/801028B0_n_save.c",
+      "sha256": "4de426e8eea8c61570ace300f430a47c359774effc46d86e011d6bc479df41f1"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102900_n_mainbus.c",
+      "sha256": "8d1da27193ea3ebbf0038b55f9cfbf1a738abf5189f6b9b5c05f239049851f86"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/80102980_n_synallocfx.c",
+      "sha256": "bebf265d893b595cbd39c432536d48a5a3dab6a35e2b4f474351bea3f606346e"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/n_abi.h",
+      "sha256": "df52c28d35c8de6b5b6c4c6be60e10402a93cca4b7ba327e7e5c511b4e75c24f"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/n_audio_private.h",
+      "sha256": "75dc32b8e6d018d2401456b9467a7da1675009af2f53137fd19e76ba1cea6969"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/n_synth_types.h",
+      "sha256": "1a1a403d29140a1075f661b511a0930be52098fe88f8266d54cc8f00738e0c73"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/n_wavetable.h",
+      "sha256": "9291478e70dd421401de664ec57a4cfac59c11fa5387ba31dc5b85aa0e73cf37"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/os_types.h",
+      "sha256": "74e4801fb075be3d19f847a47dbabf11aa1c9b3316a764c16f477ee074f79469"
+    },
+    {
+      "path": "tools/battletanx_ga/src/n_audio/ultra_basic_types.h",
+      "sha256": "208f99a055caefc46b0d6930d73bb70d7c355ecd99f4649e1de60fd7fb1b36d9"
+    },
+    {
+      "path": "tools/build_source_image.py",
+      "sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63"
+    },
+    {
+      "path": "tools/generate_data_ledger.py",
+      "sha256": "bb03909acf15038b4a59d20f9164b3733a55cd64169d14397e5d29aa741f0ea1"
+    },
+    {
+      "path": "tools/normalize_kmc_wrappers.py",
+      "sha256": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1"
+    },
+    {
+      "path": "tools/ultralib/include/PR/R4300.h",
+      "sha256": "bb8a7702ef8dfe94c389f0c411a4f2346c506ea8766e85c332a44486a97b7b44"
+    },
+    {
+      "path": "tools/ultralib/include/PR/abi.h",
+      "sha256": "9efe7ee3c940ff96d46f936ad95e9cc52b879ee8c4b5c264cb8f42e1cf1ce1bf"
+    },
+    {
+      "path": "tools/ultralib/include/PR/gbi.h",
+      "sha256": "74d8f61eebd436e772b0198bdf855a8c718eb09069925125a4ec6a10ff7422cf"
+    },
+    {
+      "path": "tools/ultralib/include/PR/gs2dex.h",
+      "sha256": "e9d3519bb328f9ac60b60d119650e1e4d652eaaddcd9db009f9cbd44daecb398"
+    },
+    {
+      "path": "tools/ultralib/include/PR/gt.h",
+      "sha256": "05e50d177fe2ae42b02bcb384452317029b919f53403a5be1a3d64d47f2e1296"
+    },
+    {
+      "path": "tools/ultralib/include/PR/gu.h",
+      "sha256": "1565778f29e09b6c789e01065b8e5d2691bf6fca263a8a4d5dde1c1fb4daf950"
+    },
+    {
+      "path": "tools/ultralib/include/PR/libaudio.h",
+      "sha256": "b852721c926112f5187afad772d107bc0f0e006dbd3b54c09ae7b1ebedd77c5b"
+    },
+    {
+      "path": "tools/ultralib/include/PR/mbi.h",
+      "sha256": "8a0b32eb3cc7844a38b1b3ed1b160036b203efac0dc3c0275c53354423e40960"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os.h",
+      "sha256": "e0af7328cadb2164b18c61717d916396741cf053d32b96b0dea06f6d664ff7e2"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_ai.h",
+      "sha256": "933e7fe35c87702a2137b9c575022e18bd72e6ce11d8a44035a7ffbddf71aeb6"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_cache.h",
+      "sha256": "a9455e20523c6915f26c05d5d399763f1e051c01eac85c10911b7b3a65c0d5c9"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_cont.h",
+      "sha256": "2b95c331e2fe26f6cdfab7785af05b615a0f4ef3fa825799dca42b8f91a7c178"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_convert.h",
+      "sha256": "6d98f19765d055a7857398cc6d7bd7a2ac2e93a4a858f1c27aa22361e4f892f1"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_debug.h",
+      "sha256": "260815777abca616a9783db7a57cd94881586c84ef0adcce26516ba50476a523"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_eeprom.h",
+      "sha256": "f1f0f50895c4505c3420674504b7868ff85fe08df42433389deeb407e68c5163"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_error.h",
+      "sha256": "eae3744bf9ee921d089714e81590226b56fca5ca2f0ef866532eb788e829b120"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_exception.h",
+      "sha256": "bd9ea719bc4dc4c6b702e4f8726ff5db18bd28f9684bec93b004227f683097f7"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_flash.h",
+      "sha256": "44a68f18c6dcc000162daddf36041f55658c12fcb1dd80a92348a0da75b20ef7"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_gbpak.h",
+      "sha256": "c13616c011c214aef601f6249ae12465dcb8a6edfe68df27aaf6d086e09bbc8f"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_gio.h",
+      "sha256": "c0197b2afd220c07028a972ca0d5903af3064d48d8657935e3c57fc9a55f3b92"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_host.h",
+      "sha256": "38befae366a3292e7e1e1871678da5f969bf357a5c59f1df20f69901175adac4"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal.h",
+      "sha256": "0103aa8359ff23c9ef0b248b0721ea9df0c4557271e4146ac264d0d998b7280d"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_debug.h",
+      "sha256": "3e4f1baa87602ad77163c15990625e1fd3b9ae6cffcaabb3424dafec6d638bd0"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_error.h",
+      "sha256": "ab7537aef80c392dcf0010bde8078f1b5d1973740bc6d51e1f4df3d757e28356"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_exception.h",
+      "sha256": "29a917236f862a49065d0ff97fa1362bbb31a2810011628f7d92ac4bfd27a798"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_flash.h",
+      "sha256": "d6a7580b3afae0ca7c8dfd09ec7ed1114348a5225e7cece991e68a55ee89a0ec"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_gio.h",
+      "sha256": "032d50b58fd0f3d8831430a7125cd039efd1f56affdd8cbeb8777ab464ecba15"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_host.h",
+      "sha256": "83dda0b09da200ab1be91aeda90c2d0f52b7a282979391e05a9f4feeff1fffd1"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_reg.h",
+      "sha256": "dde409666c4d9319e29a08f36be9156670b947ab3a50eed349ff9e9840d3846b"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_rsp.h",
+      "sha256": "77f2c0f58ebe5384970a553cabf850841a679e97dbd049926d13b0cb29f18c58"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_si.h",
+      "sha256": "2d88a8388c9211646c446bcd936606b038f80f53c10b9674f48ad6f6dede5acc"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_thread.h",
+      "sha256": "f7700e0bd2c22fb6716d656435b7431c6701cbfd518f2908d13845d11be5ddd9"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_internal_tlb.h",
+      "sha256": "e67bca1ce07a917679abb4094b087ee70bd01399576fe9d7c4e85c82f642ccf8"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_libc.h",
+      "sha256": "ad1cc85b23566bde17ed1d246fd7901e7ecb5df06a47042ecffce71299800966"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_message.h",
+      "sha256": "153e099d48bc1b15faf60eec47d7cedefeab2a9a53350ea56e688298992e1808"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_motor.h",
+      "sha256": "5427945af7af41c3b76538b1b672a3501d5b64a68a3eb924150b75b6dd021963"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_pfs.h",
+      "sha256": "7c25656a964161b4f0b673db46fc04e97f6cc05a58313d84270d3293c7e7eb55"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_pi.h",
+      "sha256": "81118945972f58ea944ef37a373e43602f295095e1323cf5703a10092ac04d8c"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_rdp.h",
+      "sha256": "a85b9def6f64bf25e6aeb064e1f2626f7b2d4d0ef0821d21844a9eefb19f6e21"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_reg.h",
+      "sha256": "2a14f15494cf3754f1fe0149a8c8cab4806e843f3be6a30ad0c726443edef52d"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_rsp.h",
+      "sha256": "ede13674c9af25912778dd077c3dd709929d43fcb9f135f6465553d0f9e8fa26"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_si.h",
+      "sha256": "ffd228b5b0e450efcf1756d778d701be958cce724d1912792c31b3cac26f74b9"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_system.h",
+      "sha256": "bc8afaa3362ff4851feee1feed818dd009a13c3de19435a2e09656a64bf531d8"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_thread.h",
+      "sha256": "b20409b6441549f5d01a58fb14d2f676461bdb215b01cb7ffe5288b948b97ca1"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_time.h",
+      "sha256": "21bd983fa7b11daa6a06c053b5e9cd7c08420dd20657c4fd61be434389af3342"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_tlb.h",
+      "sha256": "9bbb49127e7e2600f6dcceffe4a1d38f31d463327cfa384ce930ddfa63223893"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_version.h",
+      "sha256": "2c9cd06141806f935d6cdbdd432ec963aa3f4a96b0ad000163e41264612a5e90"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_vi.h",
+      "sha256": "f59a0d52ab0e2bc2ca0b8226bc9b9c1e58d3a9eb8df8c4e6d45aaa6ac51fb2b6"
+    },
+    {
+      "path": "tools/ultralib/include/PR/os_voice.h",
+      "sha256": "c0fb2f6f8eb68a6608a2401f6a2f4a38d1c65b5d1ae944d0b5999502a9cc432f"
+    },
+    {
+      "path": "tools/ultralib/include/PR/ramrom.h",
+      "sha256": "fa009dd8676f0af0ed0f0339dfe6ac2f67ad1a1b8675bdff42f71b937608a370"
+    },
+    {
+      "path": "tools/ultralib/include/PR/rcp.h",
+      "sha256": "a5dba6d666628ab55ef2ba54ef12d547346e88c9226c1de9d6b7de95e1ade95f"
+    },
+    {
+      "path": "tools/ultralib/include/PR/rdb.h",
+      "sha256": "ce4b388d5bf24b869eaee1919fd81a0655006b2327a6f521d954cfc0e546dfeb"
+    },
+    {
+      "path": "tools/ultralib/include/PR/region.h",
+      "sha256": "d1f523d36ab27f28eea0ffa0d87875661c14844d12c9bf0142932aa38af5869f"
+    },
+    {
+      "path": "tools/ultralib/include/PR/rmon.h",
+      "sha256": "b646e7e7febea89d9bfed1c1b58ebbe40a7d5378ccb50a1063cc1de5e8d3d07a"
+    },
+    {
+      "path": "tools/ultralib/include/PR/sched.h",
+      "sha256": "f908ae21bf462ffa9a77e61b023c2b1af1c8a187de5a8370005c88ff094df5ed"
+    },
+    {
+      "path": "tools/ultralib/include/PR/sp.h",
+      "sha256": "6d4dd33330efa090dcf438a5a05b82a8fa54e94db78bc7c8f4d32f16a638de18"
+    },
+    {
+      "path": "tools/ultralib/include/PR/sptask.h",
+      "sha256": "12b0a593a7013076fb60cf7224f0bdf25da554076e8b6f2ffe3999769e737dc5"
+    },
+    {
+      "path": "tools/ultralib/include/PR/ucode.h",
+      "sha256": "50201220d2f811d64e5e11611ec835f0c3bf1a79c3045a2dc40f7e46012765a4"
+    },
+    {
+      "path": "tools/ultralib/include/PR/ultraerror.h",
+      "sha256": "a6b2ce4f9e98e8feccdc5abd43d6de13c3afb7a00d3126ad83ff5d161b02d229"
+    },
+    {
+      "path": "tools/ultralib/include/PR/ultralog.h",
+      "sha256": "52564b52560297920881f56e81894cfd9d9ed22b4cba1f9298eb1e10b1cda449"
+    },
+    {
+      "path": "tools/ultralib/include/PR/ultratypes.h",
+      "sha256": "e25fc6df3953acbab2234ece2218ec74080cdc3e673ce1ec5896d4ce921bb4de"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/controller.h",
+      "sha256": "a96f974223530e51b7b6f02a662a4665cd0d3f3d1e95f52f37240be4c493b42b"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/controller_gbpak.h",
+      "sha256": "b65f160e18c168b8e46eb163572c1ccc6a40019236fa91ac42f06b9d850a78a9"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/controller_voice.h",
+      "sha256": "342f0f7b17d35e8db3899675b092a3636c1e81f91f581754c2597902a8cab612"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/dbgdefs.h",
+      "sha256": "6167cbafc0f45bc61c288f78afef5b92626353e13b32779ba9bfffa2010a31d1"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/dbgproto.h",
+      "sha256": "240117180b6a0590beb1f6c3b9adfb79ec00c2a2dcc2af4b13081628816ae8a6"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/macros.h",
+      "sha256": "a8931d15afa699dafd26f6a0be1b20995c223952bb10cb7845ea6e3ca62da794"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/osint.h",
+      "sha256": "a1409372ead900ab42129ed889bde53762274514bbfb39ba0571aff7f813bd90"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/piint.h",
+      "sha256": "93235c9cc407882f95355243975ea49a7294f60a4e80012a0ba2c96a38534456"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/rmonint.h",
+      "sha256": "e03eaf6c39d49242602c7ec59663f7b62184b840252325201cde7170e22d5ebb"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/siint.h",
+      "sha256": "9f0c99c8652d36023162bfd8722dbb5117ca03f6b97d958af81b883f7a12de87"
+    },
+    {
+      "path": "tools/ultralib/include/PRinternal/viint.h",
+      "sha256": "96ec910ebcc51a2677575161a4cdb9d079e6f49bfda4ea2c3029a40550db242c"
+    },
+    {
+      "path": "tools/ultralib/include/asm.h",
+      "sha256": "7700e13e0af5bba3b649db63e8c5f2f1ea8248c05efefeffd680f0861cf506db"
+    },
+    {
+      "path": "tools/ultralib/include/assert.h",
+      "sha256": "c4d1fce8da480af73fe15237f2068a5446477ca6a544487daa10cd4ebf938c78"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/math.h",
+      "sha256": "2d4f83a11a792ff666e37b6679e4a97a809098494fbdeb028f1d21486afa733b"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/memory.h",
+      "sha256": "15e3c8fdc512418f26b716cbeaff56d21ba5e6745dc5109b2843ff3d768c7feb"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/sgidefs.h",
+      "sha256": "b66cf01b3f272f3608642f99cc05e5dde086d09a11ddffe09f9b347a438b311a"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/stdarg.h",
+      "sha256": "5089f3f53300aa00c032fa2b24956b5de95b6e26d5c7a89d5b439c986d25fc89"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/stdio.h",
+      "sha256": "2d4f83a11a792ff666e37b6679e4a97a809098494fbdeb028f1d21486afa733b"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/stdlib.h",
+      "sha256": "1a29fccb7c0c43145c4381c6f3dea4ab192471fe983736ec758353a3788aec25"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/gcc/string.h",
+      "sha256": "8235290bf7031f3f89783f7772b122e366ff86ece22934a11cd494d7ff913d09"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/ido/math.h",
+      "sha256": "2d4f83a11a792ff666e37b6679e4a97a809098494fbdeb028f1d21486afa733b"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/ido/memory.h",
+      "sha256": "15e3c8fdc512418f26b716cbeaff56d21ba5e6745dc5109b2843ff3d768c7feb"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/ido/stdarg.h",
+      "sha256": "656dc702ee6d9487667210fcab90b41f7d1188251713e6893a2c2da71cc4d035"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/ido/stdio.h",
+      "sha256": "2d4f83a11a792ff666e37b6679e4a97a809098494fbdeb028f1d21486afa733b"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/ido/stdlib.h",
+      "sha256": "1a29fccb7c0c43145c4381c6f3dea4ab192471fe983736ec758353a3788aec25"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/ido/string.h",
+      "sha256": "8235290bf7031f3f89783f7772b122e366ff86ece22934a11cd494d7ff913d09"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/math.h",
+      "sha256": "2d4f83a11a792ff666e37b6679e4a97a809098494fbdeb028f1d21486afa733b"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/memory.h",
+      "sha256": "15e3c8fdc512418f26b716cbeaff56d21ba5e6745dc5109b2843ff3d768c7feb"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/sgidefs.h",
+      "sha256": "b66cf01b3f272f3608642f99cc05e5dde086d09a11ddffe09f9b347a438b311a"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/stdarg.h",
+      "sha256": "546daf67261fa1b0a4f0f4575e6eb4463de615858402f8322afd42b2c82ca856"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/stdio.h",
+      "sha256": "2d4f83a11a792ff666e37b6679e4a97a809098494fbdeb028f1d21486afa733b"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/stdlib.h",
+      "sha256": "1a29fccb7c0c43145c4381c6f3dea4ab192471fe983736ec758353a3788aec25"
+    },
+    {
+      "path": "tools/ultralib/include/compiler/modern_gcc/string.h",
+      "sha256": "8235290bf7031f3f89783f7772b122e366ff86ece22934a11cd494d7ff913d09"
+    },
+    {
+      "path": "tools/ultralib/include/fpregdef.h",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tools/ultralib/include/regdef.h",
+      "sha256": "37975e52bcb54798a67147f4d96bf3d472d39958098e3246c4fbe44daaa7d8ec"
+    },
+    {
+      "path": "tools/ultralib/include/sgidefs.h",
+      "sha256": "531dc0f0f72e3ac0ecb9c928f2ae8bea5dc88ac239fc69eaee127e18b28df315"
+    },
+    {
+      "path": "tools/ultralib/include/sys/asm.h",
+      "sha256": "0e5e5e1562fb488b49b92dcccba09e94462ba6a545a6887656b03b7ccdc13cd0"
+    },
+    {
+      "path": "tools/ultralib/include/sys/fpregdef.h",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "tools/ultralib/include/sys/regdef.h",
+      "sha256": "69af9e251c38c0f347d56673bca52496937a12ef3739c8a99080fd18215dbb40"
+    },
+    {
+      "path": "tools/ultralib/include/ultra64.h",
+      "sha256": "334dac734e99fcd8b227322092501397cfcdfb89af3529de6f81953b8feff65d"
+    },
+    {
+      "path": "tools/ultralib/include/ultrahost.h",
+      "sha256": "bfcbf54d3af3d308e10d8c510adb74164bc4aeee8625568e361e5d4a2c2ba27f"
+    },
+    {
+      "path": "tools/ultralib/src/audio/Makefile",
+      "sha256": "186974fb132ca11e102b5ad3a56db32a8d34f337d94596bdf1d24633d52a1673"
+    },
+    {
+      "path": "tools/ultralib/src/audio/auxbus.c",
+      "sha256": "7429268bd6b212c5cb3d2883fdcf12b91fef02c39f7a42d6dddefb6a72809d03"
+    },
+    {
+      "path": "tools/ultralib/src/audio/bnkf.c",
+      "sha256": "d0c2703580d4bb21c9eb6e9318901ed2dc4e343212dbac5015214e621fd4a2b7"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cents2ratio.c",
+      "sha256": "96918337ed651f8146a5bf1293c9a4232283e0187210d524aadf9b7d1a870277"
+    },
+    {
+      "path": "tools/ultralib/src/audio/copy.c",
+      "sha256": "0fd8589166ec400818eb5f6f4cf6d471aad743e03c52ff2a8a60132be2a198c6"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cseq.c",
+      "sha256": "c8238075726a7a76841b60df278f6d50aee098748f9821f3492773731d38211d"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cseq.h",
+      "sha256": "c10072d9bda4da8fb617657dd78ffc481e8086509078830110fa0acb7fcf6f07"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cseqp.h",
+      "sha256": "b2f981075c1c7d9e271b621593cd5e8238888927ce33ade647eebba10b62f8ee"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspdelete.c",
+      "sha256": "c858b2fde5a1826002c85b2cd13cd17dd23bf34c2da87562358fdb064b7f9c05"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetchlvol.c",
+      "sha256": "f0032c9cb066d722e2b77b76080ee8abcaf61efd8b6a89d0aec65a82ccf90691"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetfxmix.c",
+      "sha256": "48b8c519a4f0f76e85965800d8a307b2792be5f4876ecb8c9ceb04cd237cec53"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetpan.c",
+      "sha256": "2e8b99c45e6de633a142b298aee108829277d7b291dff63d17516d16d1b8f1ca"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetpriority.c",
+      "sha256": "d6083ef2c46f1a47785fbdd75bca198d868ffb33c6b21054d256e0725914958f"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetprogram.c",
+      "sha256": "988f4be8b415537c12aafe4253c18a7bebf2a02a7a67d54bc0f7ee70836dca2e"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetseq.c",
+      "sha256": "fa4cbffde124b594902415bc989db3bb4b3722bc2e844d653db1a850665dac4e"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetstate.c",
+      "sha256": "d3ef3a33a2da89979e0d12bc667bd7dabf1ec8a706e933846e9611888fd6eb33"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgettempo.c",
+      "sha256": "ecbc467f3150978113fa72c3b6f2a296a05e4e4600ab0f54ab1cc31f0b50c584"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspgetvol.c",
+      "sha256": "292f94868457abd99dd5665b8e031b960560c2f350a4d48c41ddb25cdbd93887"
+    },
+    {
+      "path": "tools/ultralib/src/audio/csplayer.c",
+      "sha256": "090e2b2a644a27eb41828e39392adbe8529ed984f3ac9747e3be1d5205856826"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspplay.c",
+      "sha256": "c99892fdfaa07f35a1dcbbd1db80808bd97016197e47ba489d82501a4aa297cd"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsendmidi.c",
+      "sha256": "bc413e7a57adbeb401039b4bd0bc69de375ec98a7e35c8d504086fae55e29fc0"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetbank.c",
+      "sha256": "90110ebb6cbcc0c811accccb5872a536628c6e2f9c22eae6b65ff010a62abca9"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetchlvol.c",
+      "sha256": "2690f13e7d500da64f38a3214ec36c9dc43767b9ccbb4a18905261acc3efb374"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetfxmix.c",
+      "sha256": "2b4c1cd3ff5d6efe5a0eee6e37ea8e442cc816271749b919e21da549360d88d1"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetpan.c",
+      "sha256": "78fe857145548f01805a92f166b9d0ddbd45ef86b75eb4fed41516e9feb1651b"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetpriority.c",
+      "sha256": "48822dbd2a53ec639cd854e6948a3d1059d4895bf2039280c560b622f6fa7975"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetprogram.c",
+      "sha256": "d9e6f5a4ecc7ccd1f29ee5e842afdde0c3477c47de02dad7a2c29781822394f2"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetseq.c",
+      "sha256": "c1ae77fa920b3aea17e91f2f6a9df3c6b52f1dd423170954609dbef30b1d80ee"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsettempo.c",
+      "sha256": "60bd948f5f2eed439a02bbdc9ac793cf239a6fd1b3430d07d7af96e8ea71adcd"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspsetvol.c",
+      "sha256": "48e443791b54f650f3a7a344deece28ff7023bfa7f1622aab29bc79555aea256"
+    },
+    {
+      "path": "tools/ultralib/src/audio/cspstop.c",
+      "sha256": "1030e87b25fef1ca225c727cbbecd9d53ee30898324bca98c425be0f1ec1bfa6"
+    },
+    {
+      "path": "tools/ultralib/src/audio/drvrnew.c",
+      "sha256": "099b0bb14f2fdf0c17620c734927adde727ccd92d6e8d7328b9d48c0d720ebde"
+    },
+    {
+      "path": "tools/ultralib/src/audio/env.c",
+      "sha256": "1795cd404cb06a4561c79e12809b71e23c6cd355c8e2343dbb4aa879e73ea458"
+    },
+    {
+      "path": "tools/ultralib/src/audio/event.c",
+      "sha256": "88048452411893c5b678eae2eae31dba437d4b5034ca0539ad5d61916f0509ed"
+    },
+    {
+      "path": "tools/ultralib/src/audio/filter.c",
+      "sha256": "6b3f704a777130ca145ee1eb05c870f34f95ce6143e7df04af40b7b109841dea"
+    },
+    {
+      "path": "tools/ultralib/src/audio/heapalloc.c",
+      "sha256": "6c1bb5074c1834d2c722a6e5402845bb04b8659c3361e495563514c166686ca8"
+    },
+    {
+      "path": "tools/ultralib/src/audio/heapcheck.c",
+      "sha256": "f508f398abba2f1a00b931fc50c627ad5936e94b1b67c33e993512e63a4fdf2e"
+    },
+    {
+      "path": "tools/ultralib/src/audio/heapinit.c",
+      "sha256": "9856519f01737487ebaf8021f4d387ff320a540456eb200551231729c5da5732"
+    },
+    {
+      "path": "tools/ultralib/src/audio/initfx.h",
+      "sha256": "d95b6013b9ce5d791addb68741494271f66e71fbe96d6b6cfd912345ec72b7e4"
+    },
+    {
+      "path": "tools/ultralib/src/audio/load.c",
+      "sha256": "497c254a83373de6232ffe2f9ca0ad92be7be452a77e1b14d858df981bacd56c"
+    },
+    {
+      "path": "tools/ultralib/src/audio/mainbus.c",
+      "sha256": "4af24914932552aaed275d2b7470944731407df3c241698c56291336fd906997"
+    },
+    {
+      "path": "tools/ultralib/src/audio/parse_abi.c",
+      "sha256": "04694b63e677dbd2aa3e066813d2d0ce8bf6577a3e56027277857881de7bbf55"
+    },
+    {
+      "path": "tools/ultralib/src/audio/resample.c",
+      "sha256": "78bfabd9e37db9803a619933658d4573fc2d081aa26a4fee095b59f05d5d3a0f"
+    },
+    {
+      "path": "tools/ultralib/src/audio/reverb.c",
+      "sha256": "e8f5e8b365e6072c6da8eccfc45a3c4a1784a7896cf9d9a9e2bfe2beb3ba441b"
+    },
+    {
+      "path": "tools/ultralib/src/audio/save.c",
+      "sha256": "124697e5836a75d3c4502e887d00fba52c8a459da906e75293455f14ded2d347"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seq.c",
+      "sha256": "6cc9b63a63fab77631285793c3e54b9366ee8471e6f3e613ff3e0a30a6c616c7"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seq.h",
+      "sha256": "5eb8402a34676e4427ec47b5318250fd71bd9f115fd0cd6a9b5e95d8d849c68a"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqp.h",
+      "sha256": "cf58498fb69b10873be6b079a20eefc175365ab649ddbf306299f054ed02dd1a"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpdelete.c",
+      "sha256": "be908520e8cd2e6ee086d2259220c9a69284ffcfafab8ad48bde09163beed592"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetchlvol.c",
+      "sha256": "1e5a633eb5aa4cc4958d1b38d48df4fd4bfc90f224643e3caef3cbc8e2e88553"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetfxmix.c",
+      "sha256": "f681eb535113e4ab4fd886f275ccab0a8a576543062717d373c3e5e3ab155daa"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetpan.c",
+      "sha256": "24355a60bb3ef41fa781ea4fc186a9b23774acc831833dbdfcbb780b28ff9fa4"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetpriority.c",
+      "sha256": "5dc46bcad60c548a4d4914fc07014578d6f2ecd9b901166f184af73c6c7ea9da"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetprogram.c",
+      "sha256": "a4490bab79941a22da2fe6db29bbbf6c533f66e6971ec949c6bf497f47536f85"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetseq.c",
+      "sha256": "a5acb1780f0d344c593226b30da7a4cfcbc2ecbfbc63608be056362d92acc0e0"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetstate.c",
+      "sha256": "f557a5813ee33bf0fa284821700f03387bc81edebb20be0fb73bb8446cc277eb"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgettempo.c",
+      "sha256": "10644ba7a13fa0848fbdddb4fe658a8ef04a7be2aaf03d59e842b0e09ba86898"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpgetvol.c",
+      "sha256": "586cf3bb967286e4f2e364c441f27a2a4de9cf60d9845c9ce2daa19d83898e4e"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqplayer.c",
+      "sha256": "8120e513f74d507c679097235f6c28c70cb22a95d395fcc3a55cee20b84c8713"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqploop.c",
+      "sha256": "a2bbe3abfdadab5d5b4efca0b00aa08bd64e5ade7311d15225bef76b10026814"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpplay.c",
+      "sha256": "cbac7aaa7db1d7ddbf19610ae74d5853fb035c59ea96a1bba3782878125808ba"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsendmidi.c",
+      "sha256": "0104050249be95729e816896ebc7cd4e9140fee73a824741c881b9cd865be857"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetbank.c",
+      "sha256": "768a7db2faf2c8af605b7ef16f11b66f257a1fdd4d88441bf85ed6e43ef75503"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetchlvol.c",
+      "sha256": "e352f2c10ee9c31ca4cb185a26227cd35bb5e1983709fa42f01ff501497205d6"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetfxmix.c",
+      "sha256": "00256d7f36c3206e9aa1fb6c854d9ecfe0fa939638ec73c0912db5e1abb35717"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetpan.c",
+      "sha256": "3670a397a8dce90a01d79562953885ee8bb5889e28ee6ba4508eef451107661b"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetpriority.c",
+      "sha256": "7e17beef3e8578a462d232b3734018d68656f062b23a2f6ff327ba4f1a190e20"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetprogram.c",
+      "sha256": "737da5c85d68836b6cb5129f0e458537a6fda515b14d055fe17dfebf5d7ab213"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetseq.c",
+      "sha256": "051be85f0f8f655b613d69faa137971d284d92856c8d21c24aa5c7dedefa4773"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsettempo.c",
+      "sha256": "cd64136d0e7bc045bbf2fcf74e3e5c543ba064052d40239ec810ce03b28a1e93"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpsetvol.c",
+      "sha256": "1dffbea3a245f0f3671bba65d658f262238109be12ba68a0e0a7d0709c4c6620"
+    },
+    {
+      "path": "tools/ultralib/src/audio/seqpstop.c",
+      "sha256": "f8f0ac755312bdb712de6768c297c22f03df20f6ba90d524d5dc16b75a137f20"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sl.c",
+      "sha256": "945e4045c6b13560291eb309b683323a9b44adf17f929998c1cca04e9f0fff19"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndp.h",
+      "sha256": "06be89608e7efe62cb84ec5135bd1d8af52c3eb1ea58099e980fdf0640db671c"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpallocate.c",
+      "sha256": "bac96c8a50a0c52981446cf9184a3a83b2adf4194481fa55ba1f2cca1aa6454d"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpdeallocate.c",
+      "sha256": "9eb3e2ba2545f88a47875047398af3768aa3a308b8171aa294b559f388516d81"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpdelete.c",
+      "sha256": "68f4195edfac325c6f779a96090ff5a77d58ce213cdd4007ff649f781062dcd5"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpgetsound.c",
+      "sha256": "b860d4f84a5790aaef4e075db8e4147adb56d305e5f946b30c16f466a38043bf"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpgetstate.c",
+      "sha256": "d7c468bb212fd421df040e1557b4bfa8b831c5ca47ee6ea2834e5132f37ee192"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndplayer.c",
+      "sha256": "8f48ffc74b79a9a6f57726b99b28eea21b9a42cb50fc8beee9c1230fd0908c81"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpplay.c",
+      "sha256": "776e151aaaa12877e634602ef0a34d20915032a4b89514d79f4c7563bb6d7c22"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpplayat.c",
+      "sha256": "36d60de96794ac7551f40772f6da46c3ffd3174b94f036ed08561af7f8957461"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpsetfxmix.c",
+      "sha256": "ef9ef5231ab17b7f97d8dc16412822ca3c07cc74aa66c793eb12b7fcdb5a03d5"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpsetpan.c",
+      "sha256": "3d31c18472d729232f18a149e1daec83d29a60ac367f417ea44ec291cf38c9c1"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpsetpitch.c",
+      "sha256": "25f2dadd10cd345356a0756c858930969829bd97553682608ca857c90bb694ac"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpsetpriority.c",
+      "sha256": "9170fb5fbacdcdb02d24ec9cffe35cef4774565beba5483f864be5431baacc70"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpsetsound.c",
+      "sha256": "288d71c42afaa76c3120943dc1257bb1f14749322296e451852d20148374caee"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpsetvol.c",
+      "sha256": "390c2df09677139bdd3a5637b63bc94f140b05c4a4e9fedc6dce51234fb6ec29"
+    },
+    {
+      "path": "tools/ultralib/src/audio/sndpstop.c",
+      "sha256": "e5b8bc1e9a3e6422f2715686c5b8921374a6ec2ac7ce01e31880426d678b6545"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synaddplayer.c",
+      "sha256": "5353afaeb9a4fbddaac30546d2db921a4d2bc1af6a468e5c39eb6ef5cd635444"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synallocfx.c",
+      "sha256": "1a95729050a47f9d023d08503d1667a2ab405e31dd2b797d7bcb01ab5728e185"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synallocvoice.c",
+      "sha256": "a2424e27eb79961c44a832cf8d10187bb6ded582281fdee80ede6fc585816104"
+    },
+    {
+      "path": "tools/ultralib/src/audio/syndelete.c",
+      "sha256": "117f8fcf7e0332a9652ccda80dc3bf71732162d7ed3c44f20bade150aecb1fa4"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synfreefx.c",
+      "sha256": "335b62fbdcae3a4b5bf23656685093c922d6c137abb691960a4bb668f5e55dc8"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synfreevoice.c",
+      "sha256": "74acdb41d655a9fd85aabf99e8d585056fbcd8d678a99d44329b2afe7037149b"
+    },
+    {
+      "path": "tools/ultralib/src/audio/syngetfxref.c",
+      "sha256": "94ade327d16235cf91c83f8a131113fbf85c8032c9dae41c61fefc4ad1b160ca"
+    },
+    {
+      "path": "tools/ultralib/src/audio/syngetpriority.c",
+      "sha256": "2abd5a5c52d8d7d88c29a69e902138e4b3984ae70d7b696eda9fa4c92d824746"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synremoveplayer.c",
+      "sha256": "92ba21990329447685d86caed92f652a4981030de4f7331e6bea71b95e5a649d"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synsetfxmix.c",
+      "sha256": "e3565b251db5056f22f18553ec7d8da0b875d4e140574856e7f056239d39a0a7"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synsetfxparam.c",
+      "sha256": "11d07ab8ec18ddc863c9ce46b040cc30b04a17e67b2477380eb006dcd18542f0"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synsetpan.c",
+      "sha256": "237ed40c8ea181ba439769f8c77798d4088fee58944122f3ed0051ba5b0054e3"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synsetpitch.c",
+      "sha256": "4dfdadb490bcca2dbab9c7667e1a4155f2b33f8af38f404162cf5ba36e717f23"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synsetpriority.c",
+      "sha256": "b81406084339cc2ab8a267e3e8ab51facd11a4a3160b2ca45bdff23d06377573"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synsetvol.c",
+      "sha256": "f7e23f64bed955da40082cedcb150273c608200b66773bb15721a7668824a2c6"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synstartvoice.c",
+      "sha256": "8cd6712775e09b1f737a81680441c7891178181404b6dffd26444a71acdc2b5c"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synstartvoiceparam.c",
+      "sha256": "821dcdd9731fb9333d6a7613e471a8242366363b7f324d64efb25d3dd93e6f83"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synstopvoice.c",
+      "sha256": "cb3bea8eb64ed5d40417187f9ddd0666a8b6cec8670aad853871980f6d803082"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synthInternals.h",
+      "sha256": "797c65321f3ae4ebfa83b3babdacd70495c7a80cee2a708a0b8095043f1a309b"
+    },
+    {
+      "path": "tools/ultralib/src/audio/synthesizer.c",
+      "sha256": "f766fa46a86deae0a45285be298b7cd4c0388f57710ea3886e8e865331c4fc9f"
+    },
+    {
+      "path": "tools/ultralib/src/gu/Makefile",
+      "sha256": "2516398c34a9c239c76fda0828f1e5ff316a894a3770c6c98443e9c7a6f705da"
+    },
+    {
+      "path": "tools/ultralib/src/gu/align.c",
+      "sha256": "63a639dae5f33631fbce47b2e694c4c8f5be1142b1adc6c6eae93bded350a7df"
+    },
+    {
+      "path": "tools/ultralib/src/gu/cosf.c",
+      "sha256": "c7b7a5b2f3a068d34ca1a611a9d74d46627f9125820c71fda605c9c47bcad089"
+    },
+    {
+      "path": "tools/ultralib/src/gu/coss.c",
+      "sha256": "2880c0606aa36d8dfee9d07c3d804eeac6b3fbea144263c73f7e731a38f0d01b"
+    },
+    {
+      "path": "tools/ultralib/src/gu/dump_gbi.c",
+      "sha256": "a498230309747029f07909ccb11222b2b26a229e1e11212c21ce9355292692b5"
+    },
+    {
+      "path": "tools/ultralib/src/gu/frustum.c",
+      "sha256": "a196e1f6ca30d1ca2d4d4215aeffc3439de775b72d5802d8aa30ed5ac69d0b7e"
+    },
+    {
+      "path": "tools/ultralib/src/gu/guint.h",
+      "sha256": "9ce18160a62e53bbb69f44eed00af6d0d51e4fd54d6b1c783de772693ac39c28"
+    },
+    {
+      "path": "tools/ultralib/src/gu/guloadtile_bug.c",
+      "sha256": "9b2ccd801b65947da212994f306704c6373772e5ad9e872ac8a0c4e2ccb1cfae"
+    },
+    {
+      "path": "tools/ultralib/src/gu/libm_vals.s",
+      "sha256": "6704d61a14621f9bb499fb525d1494ba61536f31201fc456ed88196e308c056c"
+    },
+    {
+      "path": "tools/ultralib/src/gu/loadtextureblockmipmap.c",
+      "sha256": "f835570bc3b1635ab2f725ceed616d02a07e54ea67fbce67b26161dcdd1686db"
+    },
+    {
+      "path": "tools/ultralib/src/gu/lookat.c",
+      "sha256": "47c9198fad38efd3ec8ca19c962227a05d52b93e4a57ee3070336d177f4aa143"
+    },
+    {
+      "path": "tools/ultralib/src/gu/lookathil.c",
+      "sha256": "a8a43ddbdef2246a68a540ce9331a3a4fe0d9de552e5f1b64db365914730d7ed"
+    },
+    {
+      "path": "tools/ultralib/src/gu/lookatref.c",
+      "sha256": "feedb76b02ed22b05b2edeb4247ecb3cc28be784b23d32b178d34c48e9518724"
+    },
+    {
+      "path": "tools/ultralib/src/gu/lookatstereo.c",
+      "sha256": "c6604cf59054c94a1b58df447269fa13eb12fccb585cb9e1f4713e7dedc0be6e"
+    },
+    {
+      "path": "tools/ultralib/src/gu/mtxcatf.c",
+      "sha256": "c632b4011c1782e07544a32c71067c876ddf1073bc7d6e70678c5faefc05f888"
+    },
+    {
+      "path": "tools/ultralib/src/gu/mtxcatl.c",
+      "sha256": "5478304ead71743cd9e777562a87382ae48f77b20d96de7856ed8a21ad13597d"
+    },
+    {
+      "path": "tools/ultralib/src/gu/mtxutil.c",
+      "sha256": "4f61c11992bbfb679343516902e734ab3b475769fc3fd85b2ef2dd58f4d2c1df"
+    },
+    {
+      "path": "tools/ultralib/src/gu/normalize.c",
+      "sha256": "78a5026317b626a0bf19dab585ad63e7ba84d6ad459a6cc1b1a7b4f91c87eaf9"
+    },
+    {
+      "path": "tools/ultralib/src/gu/ortho.c",
+      "sha256": "87884fd216bac820a93254460fa87d82044891b072a3268bbd0656063edb8791"
+    },
+    {
+      "path": "tools/ultralib/src/gu/parse_gbi.c",
+      "sha256": "93f56ede5836dd7157ac67b2229c4f14b4b52dc55ed5f0d159863f5c5718e417"
+    },
+    {
+      "path": "tools/ultralib/src/gu/parse_rdp.c",
+      "sha256": "fb1c673d7b4dc50d7e3d4296b0c11d73c67a5b8efe0643bcfb63ce6d0608210b"
+    },
+    {
+      "path": "tools/ultralib/src/gu/parse_string.c",
+      "sha256": "cd4709a933e151fa3933424008c2864cc5ada0242d9d3e3ad2c46f0a2dd6f7fb"
+    },
+    {
+      "path": "tools/ultralib/src/gu/perspective.c",
+      "sha256": "8b42efaf31493280e86d1f56c3f219a84663804625333b742565013982737e2f"
+    },
+    {
+      "path": "tools/ultralib/src/gu/position.c",
+      "sha256": "53bfa0354839128e9292c9ff2274c20b0450db4effa5abe8e0509fd17838cd9b"
+    },
+    {
+      "path": "tools/ultralib/src/gu/poslight.c",
+      "sha256": "e994c73d0cb91c0fbfd3538f0738e0290ad073bb9ceca69db85a3308eab2a528"
+    },
+    {
+      "path": "tools/ultralib/src/gu/poslighthil.c",
+      "sha256": "b4a16aee8f08dc5f24dc8b6039e856066bf5f9faab00e63ed0762a99fb575553"
+    },
+    {
+      "path": "tools/ultralib/src/gu/random.c",
+      "sha256": "0e84bed8a8006414cad47d6325a61a298f3ca1d16a19af69d71acf7c11d46c87"
+    },
+    {
+      "path": "tools/ultralib/src/gu/readme.txt",
+      "sha256": "968a6b0eb7a73a859e6bf854f0d63127fc2ad7ae64edce78614887d498c67117"
+    },
+    {
+      "path": "tools/ultralib/src/gu/rotate.c",
+      "sha256": "bea1effa8b13c4124a56209c99d66b7708921be670a0ae48942c3e09b674ba65"
+    },
+    {
+      "path": "tools/ultralib/src/gu/rotaterpy.c",
+      "sha256": "1c35f4ae1622fa6fe626aa87099c8b6b3499b588bba833cb81d83e8bd846beb2"
+    },
+    {
+      "path": "tools/ultralib/src/gu/scale.c",
+      "sha256": "0b0f0a35ba4bdd0e495195d926b814b05fa9f176984a8805f526ec4044dea39d"
+    },
+    {
+      "path": "tools/ultralib/src/gu/sinf.c",
+      "sha256": "bfdf8d17facc510edfc46dab2e9dd607cebbb462317de4d74a1e568e579645f2"
+    },
+    {
+      "path": "tools/ultralib/src/gu/sins.c",
+      "sha256": "1af4cccac8d2cd1ac3dae7da9319b6321e491bedbc21afe555cf0bb8958779d5"
+    },
+    {
+      "path": "tools/ultralib/src/gu/sintable.h",
+      "sha256": "add4207a9ccf3195f2ee4a93329b5716d682cb2ba51bdecb85b3319cf53d1b0c"
+    },
+    {
+      "path": "tools/ultralib/src/gu/sqrtf.s",
+      "sha256": "3b84e48940b96ff7865e60c7ce6822a7797a7b32f678c3a1b41051ef085592c9"
+    },
+    {
+      "path": "tools/ultralib/src/gu/translate.c",
+      "sha256": "e6e123ddf8a8525bbe9de429f1b518a8d6ee9652f67943ee79c24929d2397eff"
+    },
+    {
+      "path": "tools/ultralib/src/gu/us2dex.c",
+      "sha256": "73984b6e3a339731ce1260f2fc38250dc22745373189888af0ca96359aef67d5"
+    },
+    {
+      "path": "tools/ultralib/src/gu/us2dex2_emu.c",
+      "sha256": "ed9be2e4ca761e1caaf81591c9f9fd8e151c8fcee6b11c26ccfd0fb804c9e71f"
+    },
+    {
+      "path": "tools/ultralib/src/gu/us2dex_emu.c",
+      "sha256": "d69ecbe68ff06f8a9f5304cac7f184404feb2a1ac87ec395d6d1a4f7ee5bff33"
+    },
+    {
+      "path": "tools/ultralib/src/gu/usprite.c",
+      "sha256": "84c7725bd1768c076652cd519cbebaf5f2addcc93d0ff07d3d556a1061410cdf"
+    },
+    {
+      "path": "tools/ultralib/src/io/aisetfreq.c",
+      "sha256": "70c971b814c372a99311444b456ffb8a9d46f9769ec1516769285fcc02d87833"
+    },
+    {
+      "path": "tools/ultralib/src/io/aisetnextbuf.c",
+      "sha256": "f6d2431b522ae2c862b4b12afda3daa298459c339fd46693a663ca6e90de7984"
+    },
+    {
+      "path": "tools/ultralib/src/io/cartrominit.c",
+      "sha256": "6a1dd76512ee9f587cae255e23a0305763a85c7a9b4fe4482b7a85a3e65ebd4b"
+    },
+    {
+      "path": "tools/ultralib/src/io/conteeplongread.c",
+      "sha256": "92b9740544161713a5e2fb3f2b3869d371e9b286aa2c58cb3e2623760d318329"
+    },
+    {
+      "path": "tools/ultralib/src/io/conteeplongwrite.c",
+      "sha256": "13f02e31542d2077a858a51c4b1858aeb65fc37413a9b01cdfcac4d663d9749d"
+    },
+    {
+      "path": "tools/ultralib/src/io/conteepprobe.c",
+      "sha256": "5035295ce7915cc3814228226967b6dd902dccc4efa941e1cf40100cb2474626"
+    },
+    {
+      "path": "tools/ultralib/src/io/conteepread.c",
+      "sha256": "09be5b39319240320752f0c1805fc12a0023114db48b8a4dede8072c8683bfcf"
+    },
+    {
+      "path": "tools/ultralib/src/io/conteepwrite.c",
+      "sha256": "02bda26f9dec55fab67f00531edc682092afa6f0c9f27cbbaaa124d4e1f894a6"
+    },
+    {
+      "path": "tools/ultralib/src/io/contramread.c",
+      "sha256": "cd11e8c9be55449db2b52da9c2bf4f95cd95401eafc51942cfcff7e477e9aff3"
+    },
+    {
+      "path": "tools/ultralib/src/io/contramwrite.c",
+      "sha256": "160c3d357459d53d350c5b26c2fbc9f463d1261efeab8a7e3e012428dbde9213"
+    },
+    {
+      "path": "tools/ultralib/src/io/contreaddata.c",
+      "sha256": "95465aee267f770ef65cc78ec227d730dfc9491df7d22bbcaa1a94d4f2ca30b1"
+    },
+    {
+      "path": "tools/ultralib/src/io/controller.c",
+      "sha256": "6e22c89fba1c80399f176ee51ac81c248b87473769fee33a3c87c8e9009e9da8"
+    },
+    {
+      "path": "tools/ultralib/src/io/crc.c",
+      "sha256": "d3aa99a917dbb29183a0af40412a4fa4d76b9d7a0c81da1d86ccf7de5424f7e6"
+    },
+    {
+      "path": "tools/ultralib/src/io/devmgr.c",
+      "sha256": "fb071a4b0819775fb96bd05212562680e67c89764c74e9d63f69b6eb500b5dbc"
+    },
+    {
+      "path": "tools/ultralib/src/io/dpsetnextbuf.c",
+      "sha256": "df58fb0ed041dcd13d68c8c42a997850b6a288bffedbf706fa1122080a5b25bc"
+    },
+    {
+      "path": "tools/ultralib/src/io/epidma.c",
+      "sha256": "766784be338adf849c60ffb47ab2c3f232cc52b11f3e3aa94db139182e71797d"
+    },
+    {
+      "path": "tools/ultralib/src/io/epirawdma.c",
+      "sha256": "cc05a19cc8bf1e5fdd58e8e426b500f2eac244901e362bcec0b40ea546265a0b"
+    },
+    {
+      "path": "tools/ultralib/src/io/epirawread.c",
+      "sha256": "41e63d68a65875ea6d49b2c665d5184afb93e97544fb0296f05f6d04bc11dd4d"
+    },
+    {
+      "path": "tools/ultralib/src/io/epirawwrite.c",
+      "sha256": "19f70dcf7e95d3425852aab651d37e75b89e6699836d345bd9ee0046d72d4a38"
+    },
+    {
+      "path": "tools/ultralib/src/io/pfschecker.c",
+      "sha256": "a8076f54d3979460e673205984fc95f45afcc520c3c82b039142badf4e1433fe"
+    },
+    {
+      "path": "tools/ultralib/src/io/pfsgetstatus.c",
+      "sha256": "72c9bcf62a10dedf13df7e2f8a086e1ca2704daead7feee5aa0bcaa81ad9612f"
+    },
+    {
+      "path": "tools/ultralib/src/io/pfsinitpak.c",
+      "sha256": "51f192aa91e208339ab79e9bea604ab5366050d07da1ef1105f17344bd3bee1b"
+    },
+    {
+      "path": "tools/ultralib/src/io/pfsrepairid.c",
+      "sha256": "923c92b662db729776b69ce29e6b1ce84640a511a1d33cdaa8051fbb41b4e0a2"
+    },
+    {
+      "path": "tools/ultralib/src/io/pfsselectbank.c",
+      "sha256": "e98534ba738efb21a029f05e8fb128d4188faceeab0ce6c490a0556df1692dfc"
+    },
+    {
+      "path": "tools/ultralib/src/io/pidma.c",
+      "sha256": "5b278b009c44bb75ebbf6dfed39e23838c5bf34f16c87cabdfa9220ca0434f9d"
+    },
+    {
+      "path": "tools/ultralib/src/io/pimgr.c",
+      "sha256": "10e540394218552fbdb2b08fff4439456a9ce4ebd75f7bf1ae4a6637c8e04e85"
+    },
+    {
+      "path": "tools/ultralib/src/io/pirawdma.c",
+      "sha256": "a7c4761d2983028bf0c8daf4e268e3f8b72bc06091a1eb3b4c82ee950a899881"
+    },
+    {
+      "path": "tools/ultralib/src/io/sirawread.c",
+      "sha256": "bcac288b80c10d12a17f9e4a9403bfee8e93ac5f04b71a261e7c713427f34baf"
+    },
+    {
+      "path": "tools/ultralib/src/io/sirawwrite.c",
+      "sha256": "c27c11f717b2b2fb5233b73fa74566bfc31212e6bd54e9817eb447bc95e43b55"
+    },
+    {
+      "path": "tools/ultralib/src/io/spsetpc.c",
+      "sha256": "201b8fb1c867d8141d27d9fc960a77a77b532266e6d93bfe79ef495b4705de94"
+    },
+    {
+      "path": "tools/ultralib/src/io/sptaskyield.c",
+      "sha256": "76dcc4157883ef5ef6827696be014e58042528bdf4c711fc54566794b6ff4cca"
+    },
+    {
+      "path": "tools/ultralib/src/io/sptaskyielded.c",
+      "sha256": "2040938798842659cbc9e442f4c8b988492c5e0849a4b3b63ed71cfbae43081b"
+    },
+    {
+      "path": "tools/ultralib/src/io/vi.c",
+      "sha256": "dabc0f367a5c0d19aab0601c19d1d790b3e9f2ddedec8f7df0a28034c21562d5"
+    },
+    {
+      "path": "tools/ultralib/src/io/viblack.c",
+      "sha256": "8afdf1a80d26cb576e721b6a508a2a515bf27ec7e804ac5a5e30ab7f36800010"
+    },
+    {
+      "path": "tools/ultralib/src/io/vigetcurrcontext.c",
+      "sha256": "056b17cef255e86ef010bed82d1c66eb63f7d0888bdbda765008d6b6d0ad29e0"
+    },
+    {
+      "path": "tools/ultralib/src/io/vigetcurrframebuf.c",
+      "sha256": "f4f061d11be141c45340e13074ce5e5f9cbf1e1e4dc8e3244890965ebd21b8f3"
+    },
+    {
+      "path": "tools/ultralib/src/io/vigetnextframebuf.c",
+      "sha256": "dce48d87b49dc10b386f81040267af1417b889a4c0f6a1983a1bd3e60961aa33"
+    },
+    {
+      "path": "tools/ultralib/src/io/vimgr.c",
+      "sha256": "0c3787126e17688262ce734b1bb4b5f7fae9e086d6b381e8ca165becad04c5d6"
+    },
+    {
+      "path": "tools/ultralib/src/io/visetevent.c",
+      "sha256": "bf404f5f12e82994f2dd2ea5bff8e09ba84187a448fec60eaa31037e355d9383"
+    },
+    {
+      "path": "tools/ultralib/src/io/visetmode.c",
+      "sha256": "2e537647514187dadae16f691afcbe9097c04b5f53e4f708b9f0d56bef0383af"
+    },
+    {
+      "path": "tools/ultralib/src/io/visetspecial.c",
+      "sha256": "f7a809bbce88cff70f702b42564469dcb10524b9691d3fe396b57135dace17b7"
+    },
+    {
+      "path": "tools/ultralib/src/io/visetyscale.c",
+      "sha256": "cc708f74d8678f69cb957407a9859d9b3d053a05017c4638afb28fdf6e03e16c"
+    },
+    {
+      "path": "tools/ultralib/src/io/viswapbuf.c",
+      "sha256": "b47f45e39e7bda4bc73600384b888b3e80bad41afa78993227a65ca18951dd6d"
+    },
+    {
+      "path": "tools/ultralib/src/io/viswapcontext.c",
+      "sha256": "b22372a62fba097575de9839d128fe07d6da8abb840835e9203c47c91537862a"
+    },
+    {
+      "path": "tools/ultralib/src/libc/ldiv.c",
+      "sha256": "e392f67923031f5572e589d5b1179389a2dc13bb0ef506350aa856a20e5071ae"
+    },
+    {
+      "path": "tools/ultralib/src/libc/sprintf.c",
+      "sha256": "5f1885419cebd168f1bbff011076756ea5a65a96612b8fe6c9b87d8eefe975bc"
+    },
+    {
+      "path": "tools/ultralib/src/libc/string.c",
+      "sha256": "31902f760f5d7e3c1ad604d31fb65374514c884441665ad903216d7009d4c023"
+    },
+    {
+      "path": "tools/ultralib/src/libc/xldtob.c",
+      "sha256": "4417a3daa9294f2e46214bf19e86c7f6b9d42b05b36b4bd7238a6d518e5f40b5"
+    },
+    {
+      "path": "tools/ultralib/src/libc/xlitob.c",
+      "sha256": "b433c6c405a8d64c04e0746271031994ab8d6717f291cedad30e682a864bc9d1"
+    },
+    {
+      "path": "tools/ultralib/src/libc/xprintf.c",
+      "sha256": "1e2a639d3d12834f0336116186f83a799e4438a7a7ef87e0ed89ef3864c1a951"
+    },
+    {
+      "path": "tools/ultralib/src/libc/xstdio.h",
+      "sha256": "f12e01b05a22622e42efff0fa2f72533b1086fe8cbb0825a601f450d79a02d36"
+    },
+    {
+      "path": "tools/ultralib/src/os/afterprenmi.c",
+      "sha256": "cfccbfe91da545e61b5db5b44edc97e5e56d79fd05e80c9a465fa8bab3ef15db"
+    },
+    {
+      "path": "tools/ultralib/src/os/createmesgqueue.c",
+      "sha256": "a22ee9bd7b578ae677d9628ab42333751306d49f974cc9dbcb681973f4aaba9a"
+    },
+    {
+      "path": "tools/ultralib/src/os/createthread.c",
+      "sha256": "7579f31ed6fa33d7a49ae68fc0392d97e57f5db8c130c17843fe3c645546c311"
+    },
+    {
+      "path": "tools/ultralib/src/os/destroythread.c",
+      "sha256": "eb3c4cf948f87882f16117866c77c29bd5bc0c1691a042ea6f95a8c8ab223da2"
+    },
+    {
+      "path": "tools/ultralib/src/os/exceptasm.h",
+      "sha256": "1c9e7ab900d40dc52a9f0fe6398402a388c84cbabe3880ac3fb857b62f6c9d06"
+    },
+    {
+      "path": "tools/ultralib/src/os/getmemsize.c",
+      "sha256": "37dd1764d8fc3a1bae3edb1ce9dcdafaf317ec113a977b3fb81a2261cbbf9f3e"
+    },
+    {
+      "path": "tools/ultralib/src/os/getthreadpri.c",
+      "sha256": "c1a543c1f9855d8b2ab3e4699b8debbb2d1d148cbb4f07afed587c64ff77e713"
+    },
+    {
+      "path": "tools/ultralib/src/os/gettime.c",
+      "sha256": "a0f1afb8870d5112df37c5935fd9063d0fd19f90cbef5b07f5a7fa58c3c50d15"
+    },
+    {
+      "path": "tools/ultralib/src/os/jammesg.c",
+      "sha256": "9ce6ec8c0f7604a2446ba8f0273a5e87d549af7f5ca4762d21b5b09440c9e879"
+    },
+    {
+      "path": "tools/ultralib/src/os/recvmesg.c",
+      "sha256": "6bf5e355f840ad618614fde66e780bd7ca3449eaa398c58445259d3196efec0c"
+    },
+    {
+      "path": "tools/ultralib/src/os/resetglobalintmask.c",
+      "sha256": "4dc6cf082676c71ebaf220b27d826d8e88c5ee0fb7707de24ffd92036db5ec31"
+    },
+    {
+      "path": "tools/ultralib/src/os/sendmesg.c",
+      "sha256": "6ab22710804c92064d6f077ffc67e3ff41ba1096919bbeea2d1d3beba7c2327a"
+    },
+    {
+      "path": "tools/ultralib/src/os/seteventmesg.c",
+      "sha256": "897e03810d8b81e52285617879b44bc62da1f68ff866c29c87a58da3901ed09e"
+    },
+    {
+      "path": "tools/ultralib/src/os/setglobalintmask.c",
+      "sha256": "85baf4c0f0462cb49e07dc6c9e6651ae5e3d8d22537f648aeec66131792a685f"
+    },
+    {
+      "path": "tools/ultralib/src/os/setthreadpri.c",
+      "sha256": "ac85f1f82e45ad7870e50097a0c0bfb82982ae7a326f9cf3a048f5529bc0cacc"
+    },
+    {
+      "path": "tools/ultralib/src/os/settimer.c",
+      "sha256": "b5d09bd42c62c21fe8909277b3067e52b911c8abb962c58c5486a0fac54858da"
+    },
+    {
+      "path": "tools/ultralib/src/os/startthread.c",
+      "sha256": "78735322769a1d5a6facd5fc443cfdd3f9e798562e0defee4a9a8de7f562ce57"
+    },
+    {
+      "path": "tools/ultralib/src/os/threadasm.h",
+      "sha256": "bf3900c63fea638ccbb848bc215f25866a9449da0b2b79bb742d9854cd5cea07"
+    },
+    {
+      "path": "tools/ultralib/src/os/timerintr.c",
+      "sha256": "916cc48fad757289146c4f6f004ddd3ddcb66b57c24ecf6ceea7b485483c57d2"
+    },
+    {
+      "path": "tools/ultralib/src/os/virtualtophysical.c",
+      "sha256": "8ed671e96d3962776f05bd92fd75b51c33bc96af918950990626d4ed19a8fa52"
+    },
+    {
+      "path": "tools/ultralib/src/os/yieldthread.c",
+      "sha256": "7eafd5d8c2e3dacb9fbd6ca7b0870099a85e27b547c38d802db7c6ed1ae084fe"
+    },
+    {
+      "path": "tools/verify.py",
+      "sha256": "ec038dcd840b0d0ce5cf6f4e526e3979281da26586582b36639107c86bfd40aa"
+    },
+    {
+      "path": "tools/verify_ido_normalized.py",
+      "sha256": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49"
+    },
+    {
+      "path": "tools/verify_sn_normalized.py",
+      "sha256": "9640aac379c454654ba5fdd342fc31ad7948d5858d6f060d621c8e196642c483"
+    }
+  ],
+  "sections": [
+    {
+      "source": "src/game/build_view_lookat_reflection.c",
+      "text_rom_start": 63572,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 202,
+      "manifest_row_sha256": "c97052014046359f4b607ea31ab7b920f415825a53f362434b558ddfa7d2e425",
+      "flags": "--section-base=.rodata:0x80000728 --symbol=sqrtf:0x8002E800 --normalizer-schedule-view-lookat-reflection -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_8000EC54 -DTRANSFORM_NAME=func_800AD2A8",
+      "text_size": 1232,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 4904,
+      "rom_end": 5024,
+      "size": 120,
+      "vram_start": 2147485480,
+      "sha256": "847671447cfcd0798ad7e778396c6b1e36f3a5b92090ac1bf49e6246213817ea"
+    },
+    {
+      "source": "src/game/draw_typed_scene_object.c",
+      "text_rom_start": 73984,
+      "manifest": "config/matching_sn.tsv",
+      "manifest_line": 8,
+      "manifest_row_sha256": "fd062c261861d9e84b02414d42aff14bda6f5c1ef18afbc858ae85f4cbc3154e",
+      "flags": "--section-base=.rodata:0x80000920 --symbol=objectIsExcluded:0x80018838 --symbol=buildFlaggedModelMatrix:0x8000D41C --symbol=computeSkeletonPose:0x800B7FE0 --symbol=applySkeletonPose:0x80009D70 --symbol=applySkeletonPartPose:0x8000A650 --symbol=beginWaterSurface:0x8001C3C0 --symbol=updateWaterSurface:0x80017C6C --symbol=prepareWaterSurface:0x800122CC --symbol=updateWaterVertices:0x800123EC --symbol=prepareRenderState:0x8000F2BC --symbol=setCullingOrigin:0x8000F294 --symbol=drawRenderObject:0x8000D880 --symbol=finishRenderCommands:0x8000D77C --symbol=renderRuntimeObjectBatch:0x80017E60 --symbol=updateRenderObject:0x80012834 --symbol=testRenderObjectPlanes:0x80017A1C --symbol=applyRenderObjectState:0x80012BD8 --symbol=buildScaledModelMatrix:0x8000D5D4 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+      "text_size": 3532,
+      "pipeline": "sn",
+      "section": ".rodata",
+      "rom_start": 5408,
+      "rom_end": 5816,
+      "size": 408,
+      "vram_start": 2147485984,
+      "sha256": "151c197b0e8ad9e703717d89793cb63180c71314b3663349f20e82e563c9308e"
+    },
+    {
+      "source": "src/game/update_bounded_mesh_vertices.c",
+      "text_rom_start": 78900,
+      "manifest": "config/matching_sn.tsv",
+      "manifest_line": 4,
+      "manifest_row_sha256": "958fc1d48b612f5fa42033784e0f6bd6b85192e004adb14b3529a2dcf70480e6",
+      "flags": "--section-base=.rodata:0x80000AE8 --symbol=doubleAbsolute:0x80038550 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+      "text_size": 932,
+      "pipeline": "sn",
+      "section": ".rodata",
+      "rom_start": 5864,
+      "rom_end": 5924,
+      "size": 60,
+      "vram_start": 2147486440,
+      "sha256": "4871dc81ae65b14320cc9686bcbcead3012df244286e996f57ff893c1b1f8c10"
+    },
+    {
+      "source": "src/game/create_skeleton_render_record.c",
+      "text_rom_start": 85152,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 190,
+      "manifest_row_sha256": "f89a6dbc7b99bf488d640d51648a18b873b0796a872698add8cb1821964c56de",
+      "flags": "--section-base=.rodata:0x80000BA8 --normalizer-schedule-skeleton-render-record-creation -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_800140A0 -DLENGTH_NAME=func_8002F660 -DCOPY_NAME=func_80037890 -DAPPEND_NAME=func_80037900 -DLOAD_NAME=func_80005A3C -DALLOCATE_NAME=func_800AA804 -DRELEASE_NAME=func_800AA658 -DBUILD_NAME=func_80008864 -DASSERT_NAME=func_800AAA60",
+      "text_size": 740,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 6056,
+      "rom_end": 6176,
+      "size": 120,
+      "vram_start": 2147486632,
+      "sha256": "ad5427198b3446407e1cdf33eb493a619d2cbf00297fa5584563478f2297e047"
+    },
+    {
+      "source": "src/game/process_typed_object.c",
+      "text_rom_start": 98388,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 136,
+      "manifest_row_sha256": "e8018e42c9539213c452c3a438b400d5e7fcc1d168480b354cd5aa6fac661571",
+      "flags": "--section-base=.rodata:0x80000C80 --symbol=objectProcessingMode:0x8005A93C --normalizer-schedule-typed-object-processing -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80017454 -DCHECK_NAME=func_80018838 -DUPDATE_NAME=func_80012834 -DAPPLY_NAME=func_80012BD8 -DMODE_NAME=objectProcessingMode",
+      "text_size": 348,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 6272,
+      "rom_end": 6664,
+      "size": 392,
+      "vram_start": 2147486848,
+      "sha256": "7f093348e2f0e897d7c2afbacbb16d551ba7fd9c3e9ad503b9d43b5937d6c627"
+    },
+    {
+      "source": "src/game/render_object_shadows.c",
+      "text_rom_start": 101512,
+      "manifest": "config/matching_sn_normalized.tsv",
+      "manifest_line": 1,
+      "manifest_row_sha256": "3ce4c6f44a7bbe6848fcd8f923165995593998d70e4c8d7b1919331b13829a3a",
+      "flags": "--section-base=.rodata:0x80000E10 --symbol=testAllVectorPlanes:0x80017A1C --symbol=selectObjectPose:0x800B7FE0 --symbol=drawObjectFirstLevel:0x80009D70 --symbol=drawObjectDetailLevel:0x8000A650 --symbol=allocatePlayerScratch:0x80017DFC --symbol=buildFlaggedModelMatrix:0x8000D41C --symbol=updateRenderObject:0x80012834 --symbol=prepareRenderState:0x8000F2BC --symbol=drawRenderObject:0x8000D880 --symbol=finishRenderCommands:0x8000D77C --symbol=applyRenderObjectState:0x80012BD8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+      "text_size": 1968,
+      "pipeline": "sn-normalized",
+      "section": ".rodata",
+      "rom_start": 6672,
+      "rom_end": 6776,
+      "size": 104,
+      "vram_start": 2147487248,
+      "sha256": "ee747ef9e849e186fd856edfc7ad9fc3e8db475a3115aa4cfe5010f28d087ae4"
+    },
+    {
+      "source": "src/game/layout_sprite_object.c",
+      "text_rom_start": 108448,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 201,
+      "manifest_row_sha256": "d5193743ac4a24b499e32a69f8389b155d66436087382b8dc171f0e700494d35",
+      "flags": "--normalizer-schedule-sprite-object-layout --section-base=.rodata:0x80000F68 -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80019BA0 -DFIRE_NAME=func_8001C784 -DDRAW_NAME=func_80018E68",
+      "text_size": 1156,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 7016,
+      "rom_end": 7088,
+      "size": 72,
+      "vram_start": 2147487592,
+      "sha256": "4e0ee90364e8843ef0ca5f909eeabf3b82a26e0cd16e99edb8749f3b930f7ed9"
+    },
+    {
+      "source": "src/game/load_numbered_sound_resource.c",
+      "text_rom_start": 121072,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 189,
+      "manifest_row_sha256": "e3580f82a92318b29e524557da269fb8039fc8c3408987c616d70e445f883f96",
+      "flags": "--section-base=.rodata:0x800012A8 --normalizer-schedule-numbered-sound-resource-load -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_8001CCF0 -DFORMAT_NAME=func_8002F6B0 -DSTOP_NAME=func_8001EB88 -DPOLL_NAME=func_8001EC54 -DRELEASE_NAME=func_800AA658 -DLOAD_NAME=func_80005A3C -DVOLUME_NAME=func_8001E994 -DSTART_NAME=func_8001EEA4",
+      "text_size": 740,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 7848,
+      "rom_end": 7976,
+      "size": 128,
+      "vram_start": 2147488424,
+      "sha256": "7ded8fb94b67504f158d497201e9ffd5422b3b4c3e96638049b5c8808a796347"
+    },
+    {
+      "source": "src/game/run_debug_host_command_loop.c",
+      "text_rom_start": 170680,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 203,
+      "manifest_row_sha256": "0bc79e7061bca06c86bccb1f204d417d71392375f92f77accc99069816256cd0",
+      "flags": "--section-base=.rodata:0x800015E0 --symbol=func_800760A0:0x80028360 --symbol=func_80076068:0x80028328 --symbol=func_800760DC:0x8002839C --symbol=func_800771F4:0x800292AC --symbol=func_80077200:0x800292B8 --symbol=func_80076634:0x80028A34 --symbol=func_800767E4:0x80028C54 --normalizer-schedule-debug-host-command-loop -O2 -G0 -mips3 -mgp32 -mfp32",
+      "text_size": 568,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 8672,
+      "rom_end": 8712,
+      "size": 40,
+      "vram_start": 2147489248,
+      "sha256": "8d7c456cbb04764ee25e16d4540affac90de6f28ec286270e92342122e19b9e9"
+    },
+    {
+      "source": "src/libgcc/udivdi3.c",
+      "text_rom_start": 200672,
+      "manifest": "config/matching_sn.tsv",
+      "manifest_line": 1,
+      "manifest_row_sha256": "0771a873fe63ef9ee499967ec5d87c996bc41ea569df1e09a68a28e0a6960f55",
+      "flags": "--section-base=.rdata:0x80001610 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+      "text_size": 1412,
+      "pipeline": "sn",
+      "section": ".rodata",
+      "rom_start": 8720,
+      "rom_end": 8976,
+      "size": 256,
+      "vram_start": 2147489296,
+      "sha256": "14a5d850c255623f9472e3c650abce0c78d32f0276b315b3a276a0462d97a1ac"
+    },
+    {
+      "source": "src/libgcc/umoddi3.c",
+      "text_rom_start": 202096,
+      "manifest": "config/matching_sn.tsv",
+      "manifest_line": 7,
+      "manifest_row_sha256": "267882f11863d2b3c1d00fdc86681492ea5e3fdcadbab2a5cae9da552bab8dc5",
+      "flags": "--section-base=.rdata:0x80001710 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+      "text_size": 1268,
+      "pipeline": "sn",
+      "section": ".rodata",
+      "rom_start": 8976,
+      "rom_end": 9232,
+      "size": 256,
+      "vram_start": 2147489552,
+      "sha256": "14a5d850c255623f9472e3c650abce0c78d32f0276b315b3a276a0462d97a1ac"
+    },
+    {
+      "source": "src/libgcc/divdi3.c",
+      "text_rom_start": 203824,
+      "manifest": "config/matching_sn.tsv",
+      "manifest_line": 2,
+      "manifest_row_sha256": "b1c3d79bd336e33501d7e801054ccf9ce875b172b84dcab6aa8b4dd20eae07ce",
+      "flags": "--section-base=.rdata:0x80001810 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb",
+      "text_size": 1516,
+      "pipeline": "sn",
+      "section": ".rodata",
+      "rom_start": 9232,
+      "rom_end": 9488,
+      "size": 256,
+      "vram_start": 2147489808,
+      "sha256": "14a5d850c255623f9472e3c650abce0c78d32f0276b315b3a276a0462d97a1ac"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FAE70_fenvelope.c",
+      "text_rom_start": 127424,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 155,
+      "manifest_row_sha256": "47b7d8e7b1d2a13efe4cd57327d915cb8e9abd41c5fda210fa2f7117d669d7b9",
+      "flags": "-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 332,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9488,
+      "rom_end": 9492,
+      "size": 4,
+      "vram_start": 2147490064,
+      "sha256": "d63eacc85b09d04343ac68af84351e4ed6b9eb6758af0b637964aa383568d3d8"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FBF94_player_main.c",
+      "text_rom_start": 130196,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 194,
+      "manifest_row_sha256": "53112558e48acbd4ca8a381173f1684c933de27da766d84de07b843b161d6696",
+      "flags": "--section-base=.rodata:0x80001918 --symbol=D_803AD9B8:0x8006B8D8 --symbol=D_803AD9BC:0x8006B8DC --symbol=D_803AD9B4:0x8006B8D4 --symbol=D_803AD9C0:0x8006B8E0 --symbol=D_803AD974:0x8006B894 --symbol=D_803AD97C:0x8006B89C --symbol=D_803AD978:0x8006B898 --symbol=D_803AD988:0x8006B8A8 --symbol=D_80126590:0x80066650 --symbol=func_800FFA1C:0x8002570C --symbol=func_800FBF14:0x8001F014 --symbol=func_800FC864:0x8001F964 --symbol=func_800FCF34:0x80020034 --symbol=func_800FCFF8:0x800200F8 --symbol=func_801022D0:0x80022FF0 --symbol=func_800FCBB0:0x8001FCB0 --symbol=func_800FCDC0:0x8001FEC0 --symbol=func_800FCED0:0x8001FFD0 --symbol=func_800FCE78:0x8001FF78 --symbol=func_800FCA34:0x8001FB34 --symbol=func_800FC8E0:0x8001F9E0 --symbol=func_800FCB40:0x8001FC40 --symbol=__MusIntInitSweep:0x8001FEA4 --symbol=func_80102190:0x80022EB0 --symbol=func_80101FD0:0x80022CF0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2256,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9496,
+      "rom_end": 9500,
+      "size": 4,
+      "vram_start": 2147490072,
+      "sha256": "d63eacc85b09d04343ac68af84351e4ed6b9eb6758af0b637964aa383568d3d8"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FC864_player_voice.c",
+      "text_rom_start": 132452,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 196,
+      "manifest_row_sha256": "1740e95b55aa4eb42be2e63f708f3908b6db5aead1885fbd45fea9408b41c674",
+      "flags": "--section-base=.rodata:0x80001920 --symbol=D_803AD978:0x8006B898 --symbol=D_803AD988:0x8006B8A8 --symbol=D_803AD98C:0x8006B8AC --symbol=D_803AD98E:0x8006B8AE --symbol=func_801022D0:0x80022FF0 --symbol=func_80102240:0x80022F60 --symbol=func_80102190:0x80022EB0 --symbol=func_80102070:0x80022D90 --symbol=func_80102100:0x80022E20 --symbol=func_800FD10C:0x8002020C -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 844,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9504,
+      "rom_end": 9520,
+      "size": 16,
+      "vram_start": 2147490080,
+      "sha256": "ad8a5f497389e4b756a7a48c19e59f9a908b90eabe7a949ff13f167859e31389"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FCBB0_player_effects.c",
+      "text_rom_start": 133296,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 195,
+      "manifest_row_sha256": "ba6e3fe8ce76748525d93a56d7e266fb2685e3ea3581cf0bd64cd22025a9241e",
+      "flags": "--section-base=.rodata:0x80001930 --symbol=sinf:0x8002EFF0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 1372,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9520,
+      "rom_end": 9524,
+      "size": 4,
+      "vram_start": 2147490096,
+      "sha256": "9aeae95ccb2b437fb2b9c1eab4038499e1da9fc05f08a8812d28ddb22ef2d47b"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FD10C_player_bank_math.c",
+      "text_rom_start": 134668,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 197,
+      "manifest_row_sha256": "5d217671c5ae8b489e99bc8904b1742b83bdb12ce7342d6956035b0c231dedfb",
+      "flags": "--section-base=.rodata:0x80001938 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 404,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9528,
+      "rom_end": 9640,
+      "size": 112,
+      "vram_start": 2147490104,
+      "sha256": "845c1b2ebfebce1ef65abf05e2ad607481676d34731d9343ac62161d25022791"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FD2A0_remap_ptr_bank.c",
+      "text_rom_start": 135072,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 198,
+      "manifest_row_sha256": "4c73d797a1113fbf513cf7b453d1fcc3ebc95128efafe6a0628f6f8161785675",
+      "flags": "--section-base=.rodata:0x800019A8 --symbol=func_800FD7D0:0x800208D0 --symbol=osWritebackDCacheAll:0x8002E280 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 408,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9640,
+      "rom_end": 9644,
+      "size": 4,
+      "vram_start": 2147490216,
+      "sha256": "a69c0f46270d486abd77fc97252ff57abea0b9c93a1f226531d4712d888f0a75"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libmus/800FDD20_player_commands.c",
+      "text_rom_start": 137760,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 193,
+      "manifest_row_sha256": "398a437d24ada97494a7a28a3dff6d781d76b487793d83f7bdefdeaae4455ff6",
+      "flags": "--section-base=.rodata:0x800019B0 --symbol=D_803AD984:0x8006B8A4 --symbol=D_803AD974:0x8006B894 --symbol=D_803AD97C:0x8006B89C --symbol=func_800FD438:0x80020538 --symbol=func_800FD8B8:0x800209B8 --symbol=D_803AD9A0:0x8006B8C0 --symbol=ChangeCustomEffect:0x80024BD0 --symbol=D_803AD9B0:0x8006B8D0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2544,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9648,
+      "rom_end": 9712,
+      "size": 64,
+      "vram_start": 2147490224,
+      "sha256": "38c36155148d2d203c606f78d4d008b816a0edf45dfeaaa4fe88163f6002ea98"
+    },
+    {
+      "source": "tools/battletanx_ga/src/n_audio/80100050_n_env.c",
+      "text_rom_start": 140864,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 169,
+      "manifest_row_sha256": "f06c278ec40cdbc06ac2360797f942df373fc1be598838a6dd4c8bb24419820d",
+      "flags": "--section-base=.rodata:0x800019F0 --section-base=.data:0x80066720 --symbol=n_alLoadParam:0x80022858 --symbol=n_alResamplePull:0x80022B30 --symbol=__freeParam:0x80023204 --symbol=_n_freePVoice:0x8002327C --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2512,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9712,
+      "rom_end": 9824,
+      "size": 112,
+      "vram_start": 2147490288,
+      "sha256": "050bc249d255f0e5e63e0cf3f24633594864da3edb12cff1ed13bc561c11aa31"
+    },
+    {
+      "source": "src/libultra/n_audio_resample.c",
+      "text_rom_start": 145200,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 171,
+      "manifest_row_sha256": "4cbf53c37c99244987bb633dc68f7624afd36377e17ad90b7f8440438283c387",
+      "flags": "--section-base=.rodata:0x80001A60 --symbol=n_alAdpcmPull:0x80022410 --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 444,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9824,
+      "rom_end": 9840,
+      "size": 16,
+      "vram_start": 2147490400,
+      "sha256": "6a666c1736e6532e47975580c1c4011481846ee8bba26d6e7405858d2aeddf4d"
+    },
+    {
+      "source": "src/libultra/n_audio_synthesizer_runtime.c",
+      "text_rom_start": 146544,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 178,
+      "manifest_row_sha256": "51642883bba0b966e1eb577acfd0e68e05c985b75ae29a23e6ad9384e5584862",
+      "flags": "--section-base=.rodata:0x80001A70 --symbol=alGlobals:0x80066714 --symbol=func_801028B0:0x80024310 --symbol=alUnlink:0x8002DFA0 --symbol=alLink:0x8002DF80 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 752,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9840,
+      "rom_end": 9872,
+      "size": 32,
+      "vram_start": 2147490416,
+      "sha256": "3b6cc46c07947084da997efb1a7276ab2c76cc642841ffab392d6b5d83b64391"
+    },
+    {
+      "source": "tools/battletanx_ga/src/n_audio/800FFB30_n_drvrnew.c",
+      "text_rom_start": 147456,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 180,
+      "manifest_row_sha256": "46c42ea53fae434bb4f55db743e9b7be9bfa62859be21f0a5756d49f434afc44",
+      "flags": "--section-base=.rodata:0x80001A90 --section-base=.data:0x80066820 --symbol=alHeapDBAlloc:0x8002E020 --symbol=init_lpfilter:0x8002B6D0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 1312,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9872,
+      "rom_end": 9920,
+      "size": 48,
+      "vram_start": 2147490448,
+      "sha256": "e6996d2e6beff4908ceb0322d8d549f0d045277c50eaf666506bb8227b3f6343"
+    },
+    {
+      "source": "tools/battletanx_ga/src/n_audio/80101320_n_reverb.c",
+      "text_rom_start": 148768,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 181,
+      "manifest_row_sha256": "5ee56f459dbd1122a06fea7e65d5f33531352eea12590eea8e66eb315fee7df8",
+      "flags": "--section-base=.rodata:0x80001AC0 --symbol=alGlobals:0x80066714 --symbol=func_800FFA90:0x80023360 --symbol=_doModFunc:0x8002DEEC --symbol=init_lpfilter:0x8002B6D0 --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2544,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9920,
+      "rom_end": 9984,
+      "size": 64,
+      "vram_start": 2147490496,
+      "sha256": "1ad2778506995a663f50deafa84bb432dec6e0a722f280084e13ab041062aa70"
+    },
+    {
+      "source": "src/game/reinitialize_audio_effect.c",
+      "text_rom_start": 152656,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 302,
+      "manifest_row_sha256": "5939c1de2dbff382cfc4249c638e68435ac4bb31c5b501427d9f9d635c192096",
+      "flags": "--section-base=.rodata:0x80001B00 --symbol=audioState:0x8006B900 --symbol=effectBuffers:0x8006B910 -O2 -G0 -mips3 -mgp32 -mfp32 -DLEAF_NAME=func_80024850 -DLOW_PASS_NAME=func_8002B6D0",
+      "text_size": 736,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9984,
+      "rom_end": 10000,
+      "size": 16,
+      "vram_start": 2147490560,
+      "sha256": "5a0db645641a69e792a98888e777823aed28634353cfd203b0f0af396f026b92"
+    },
+    {
+      "source": "src/libmus/custom_fx_runtime.c",
+      "text_rom_start": 152328,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 187,
+      "manifest_row_sha256": "da6aed68c8d9db423287679834563def0a436ccedaa77ada4d203628caa6eeb1",
+      "flags": "--section-base=.rodata:0x80001B00 --symbol=alHeapDBAlloc:0x8002E020 --symbol=alFxParamHdl:0x8002D768 --symbol=func_800FEE78:0x80024B48 --symbol=func_800FEEBC:0x80024B8C --symbol=init_lpfilter:0x8002B6D0 --symbol=D_803AD9E0:0x8006B900 --symbol=D_803AD9F0:0x8006B910 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 1064,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 9984,
+      "rom_end": 10000,
+      "size": 16,
+      "vram_start": 2147490560,
+      "sha256": "5a0db645641a69e792a98888e777823aed28634353cfd203b0f0af396f026b92"
+    },
+    {
+      "source": "tools/ultralib/src/io/devmgr.c",
+      "text_rom_start": 178176,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 214,
+      "manifest_row_sha256": "81ede48481376b9cba7ad00ed5019ac5d6485c5565bc5ae2c096b18956d95afe",
+      "flags": "--section-base=.rodata:0x80001B90 --symbol=osRecvMesg:0x80032BB0 --symbol=osSendMesg:0x80032CE0 --symbol=__osResetGlobalIntMask:0x8002B000 --symbol=__osEPiRawWriteIo:0x8002B1C0 --symbol=__osEPiRawReadIo:0x8002B050 --symbol=__osSetGlobalIntMask:0x8002AFC0 --symbol=osYieldThread:0x80034190 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 952,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10128,
+      "rom_end": 10160,
+      "size": 32,
+      "vram_start": 2147490704,
+      "sha256": "e428a0c2a676eecb4b9942c94289e8a146d97559495b560bd7e0625cd2bdf85d"
+    },
+    {
+      "source": "tools/ultralib/src/io/aisetfreq.c",
+      "text_rom_start": 180464,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 208,
+      "manifest_row_sha256": "f08f9c85703d2a2d195e8c5f94fd2d03d6dc3dc4f3eceea3639fdbbe5240011e",
+      "flags": "--section-base=.rodata:0x80001BB0 --symbol=osViClock:0x80068448 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 280,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10160,
+      "rom_end": 10176,
+      "size": 16,
+      "vram_start": 2147490736,
+      "sha256": "4a08763ad56dfaa2b027123d05aee9b69cc680f2c73f09d9835a1f1c25c0181b"
+    },
+    {
+      "source": "src/libultra/audio_fx_new.c",
+      "text_rom_start": 180944,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 114,
+      "manifest_row_sha256": "ce1e9f6b7b1baf6138567f1509f8be38d8eeb71a69e66bf2194994afb117a65e",
+      "flags": "--section-base=.rodata:0x80001BC0 --section-base=.data:0x80066CF0 --symbol=alFilterNew:0x8002D2F0 --symbol=alFxParam:0x8002D754 --symbol=alFxPull:0x8002D3E0 --symbol=alFxParamHdl:0x8002D768 --symbol=alHeapDBAlloc:0x8002E020 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 1340,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10176,
+      "rom_end": 10240,
+      "size": 64,
+      "vram_start": 2147490752,
+      "sha256": "fa58c4412caf27ccea6e68b7d901a431b3d05ff077a19a2c34894d0181342a2f"
+    },
+    {
+      "source": "src/libultra/audio_env_pull.c",
+      "text_rom_start": 185120,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 115,
+      "manifest_row_sha256": "b48ac4b74013c46ddad11d2d0c45ee189ed31f57a5ab5db63ab95b331ec9640b",
+      "flags": "--section-base=.rodata:0x80001C00 --symbol=eqpower:0x80066E80 --symbol=_pullSubFrame:0x8002CCF4 --symbol=_getVol:0x8002D26C --symbol=alGlobals:0x80066FA0 --symbol=_freePVoice:0x8002E0C8 --symbol=__freeParam:0x8002E0B0 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 1280,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10240,
+      "rom_end": 10312,
+      "size": 72,
+      "vram_start": 2147490816,
+      "sha256": "2e7bf6efe2bab7c5b60e04e6779d2670df91ed5d164968d23e0be89752acb77d"
+    },
+    {
+      "source": "src/libultra/audio_env_math.c",
+      "text_rom_start": 187336,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 118,
+      "manifest_row_sha256": "c725fd12e883d14cf435e2d4e42bb635e3ae23a34d2c0dfa71a63a9a3ba747d7",
+      "flags": "--section-base=.rodata:0x80001C60 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 808,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10336,
+      "rom_end": 10480,
+      "size": 144,
+      "vram_start": 2147490912,
+      "sha256": "2d16fc3ef1778ab5977c5fd23eed3b852b40273ad10cfebb296ad44b9aae21c9"
+    },
+    {
+      "source": "src/libultra/audio_resample_param.c",
+      "text_rom_start": 188176,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 119,
+      "manifest_row_sha256": "8d292b9659ab4df9c47fa10c8aee2574b3f0111d27bf3798dc4c54ec544ea522",
+      "flags": "--section-base=.rodata:0x80001CF8 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 192,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10488,
+      "rom_end": 10528,
+      "size": 40,
+      "vram_start": 2147491064,
+      "sha256": "a8447e94b67278a792ee6e6c9de44af51174f4399bb9abe75681e5e4bf1fc6da"
+    },
+    {
+      "source": "tools/ultralib/src/audio/reverb.c",
+      "text_rom_start": 188384,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 148,
+      "manifest_row_sha256": "8aa4f45d729517c7f04e25198a9d9fdfdede9761be738c917b7f19ab4126c3a3",
+      "flags": "--section-base=.rodata:0x80001D20 --symbol=alGlobals:0x80066FA0 --symbol=init_lpfilter:0x8002B6D0 --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2976,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10528,
+      "rom_end": 10608,
+      "size": 80,
+      "vram_start": 2147491104,
+      "sha256": "79a8027b973fc90618d8c6c7ac312499158fe4cbc41eacb19f6c25e4b26c64b2"
+    },
+    {
+      "source": "src/libultra/audio_voice_helpers.c",
+      "text_rom_start": 191688,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 149,
+      "manifest_row_sha256": "bb14d7aca96aa548262102031ceb13a5ee1bcadf4dc1f5f8ae7996edd7956c87",
+      "flags": "--section-base=.rodata:0x80001D70 --symbol=alUnlink:0x8002DFA0 --symbol=alLink:0x8002DF80 -O2 -G0 -mips3 -mgp32 -mfp32 -D_LANGUAGE_C",
+      "text_size": 136,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10608,
+      "rom_end": 10624,
+      "size": 16,
+      "vram_start": 2147491184,
+      "sha256": "2f592d3aeaadc1f779d1e96c371b030d509d9a1a2cb12838e89ad2291e68701d"
+    },
+    {
+      "source": "tools/ultralib/src/gu/cosf.c",
+      "text_rom_start": 193552,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 167,
+      "manifest_row_sha256": "ffa7ff97f7a4d5256b63757e7e8bc3a13435fca339ba65c75ee613fdfa05d114",
+      "flags": "--section-base=.rodata:0x80001D90 --symbol=__libm_qnan_f:0x80001DF0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 336,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10640,
+      "rom_end": 10736,
+      "size": 96,
+      "vram_start": 2147491216,
+      "sha256": "f2c236f8c68347c6636bd7d0cabda2bea940030e3a59a5cd2358a81c05fc51cc"
+    },
+    {
+      "source": "src/libultra/gu_perspective.c",
+      "text_rom_start": 194880,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 152,
+      "manifest_row_sha256": "fd26f4cb87940b4c31f12eca916f3eda8a34d441224503ce703f57b3fbbde4f0",
+      "flags": "--section-base=.rodata:0x80001E20 --symbol=guMtxIdentF:0x8002EC00 --symbol=cosf:0x8002E810 --symbol=sinf:0x8002EFF0 --symbol=guMtxF2L:0x8002EAC0 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 456,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10784,
+      "rom_end": 10816,
+      "size": 32,
+      "vram_start": 2147491360,
+      "sha256": "39b752cba0819b12474b3ff8a5d59af0a2f00f20854145eaddcc279c90be8cb4"
+    },
+    {
+      "source": "tools/ultralib/src/gu/sinf.c",
+      "text_rom_start": 195568,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 168,
+      "manifest_row_sha256": "61cb4467ec93b171cd0855a6e5fd6af613198fc2129a4a1757869b62b3a30bd0",
+      "flags": "--section-base=.rodata:0x80001E40 --symbol=__libm_qnan_f:0x80001DF0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 416,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10816,
+      "rom_end": 10912,
+      "size": 96,
+      "vram_start": 2147491392,
+      "sha256": "f2c236f8c68347c6636bd7d0cabda2bea940030e3a59a5cd2358a81c05fc51cc"
+    },
+    {
+      "source": "tools/ultralib/src/libc/xprintf.c",
+      "text_rom_start": 197440,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 242,
+      "manifest_row_sha256": "f178725ca5867cfb7cede4a3d79286569ee7ba5401a379978730b6cd2c8f6266",
+      "flags": "--section-base=.rodata:0x80001EA0 --section-base=.data:0x80066FC0 --symbol=strchr:0x8002F620 --symbol=strlen:0x8002F660 --symbol=_Litob:0x80030190 --symbol=_Ldtob:0x80031620 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 2640,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 10912,
+      "rom_end": 11288,
+      "size": 376,
+      "vram_start": 2147491488,
+      "sha256": "0634f4d6b322e3c9f86b7b73f99e3d7a342ffb00f4818e306c45c300cf1afc96"
+    },
+    {
+      "source": "tools/ultralib/src/libc/xldtob.c",
+      "text_rom_start": 205344,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 243,
+      "manifest_row_sha256": "a0f2a89168be7fa27b1481eacb1f5cd08f29ed35f823e374994b0fb62a77a455",
+      "flags": "--section-base=.rodata:0x80002020 --symbol=ldiv:0x80030E70 --symbol=memcpy:0x8002F684 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 2700,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 11296,
+      "rom_end": 11408,
+      "size": 112,
+      "vram_start": 2147491872,
+      "sha256": "619556f0636b66d9f2555a12c19ba9e3b3a1b9de4799838101cbc0890b95cf11"
+    },
+    {
+      "source": "src/libultra/sched_schedule.c",
+      "text_rom_start": 214292,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 140,
+      "manifest_row_sha256": "956b95aed96ec2ea0343cf93a14a0cfd2b1eac4bd8335b8acc334cdee9b3ca07",
+      "flags": "--section-base=.rodata:0x800020E0 --symbol=osViGetCurrentFramebuffer:0x800346F0 --symbol=osViGetNextFramebuffer:0x80034840 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 532,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 11488,
+      "rom_end": 11520,
+      "size": 32,
+      "vram_start": 2147492064,
+      "sha256": "cfebfef35b9646fb231c4cf5933d243758106f932434439697d36a316a1d3507"
+    },
+    {
+      "source": "tools/ultralib/src/io/viswapcontext.c",
+      "text_rom_start": 219792,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 222,
+      "manifest_row_sha256": "57bc18828ab60f6087befcbe61ea8f766af599c4862501f0610d96cff065aabb",
+      "flags": "--section-base=.rodata:0x80002100 --symbol=__osViCurr:0x80067130 --symbol=__osViNext:0x80067134 --symbol=osVirtualToPhysical:0x8002E7A0 --symbol=__additional_scanline:0x8006715C -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 776,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 11520,
+      "rom_end": 11536,
+      "size": 16,
+      "vram_start": 2147492096,
+      "sha256": "4a08763ad56dfaa2b027123d05aee9b69cc680f2c73f09d9835a1f1c25c0181b"
+    },
+    {
+      "source": "src/game/double_arc_cosine.c",
+      "text_rom_start": 233120,
+      "manifest": "config/matching_kmc_hook.tsv",
+      "manifest_line": 85,
+      "manifest_row_sha256": "af5954dd40da72f4ea4ab7e2cd9f7aea38535c027b01611bf17a6dec33f394a8",
+      "flags": "--section-base=.rodata:0x80002220 --symbol=sqrt:0x80038560 --normalizer-schedule-double-arc-cosine -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_800382A0 -DATAN2_NAME=func_80038380",
+      "text_size": 192,
+      "pipeline": "kmc+hook",
+      "section": ".rodata",
+      "rom_start": 11808,
+      "rom_end": 11840,
+      "size": 32,
+      "vram_start": 2147492384,
+      "sha256": "fa9b85fc4d5a35fc5a88fc880bc55022aa7c3f9fb3d1b82862eb1f6eb05fcbd4"
+    },
+    {
+      "source": "src/game/call_double_helper_constant.c",
+      "text_rom_start": 233312,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 254,
+      "manifest_row_sha256": "e4129409188e5fb29d09aefe01e51c8220ea7db4b3e9d503f89b6affab94461a",
+      "flags": "--section-base=.rodata:0x80002240 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DLEAF_NAME=func_80038360 -DHELPER_NAME=func_80038380 -DARGUMENT_VALUE=1.0",
+      "text_size": 32,
+      "pipeline": "kmc+as",
+      "section": ".rodata",
+      "rom_start": 11840,
+      "rom_end": 11856,
+      "size": 16,
+      "vram_start": 2147492416,
+      "sha256": "c6851b4e3b0d89b2de736074fa8ec03d9c705b3c688370fead97c74d38959ecf"
+    },
+    {
+      "source": "tools/battletanx_ga/src/n_audio/80100050_n_env.c",
+      "text_rom_start": 140864,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 169,
+      "manifest_row_sha256": "f06c278ec40cdbc06ac2360797f942df373fc1be598838a6dd4c8bb24419820d",
+      "flags": "--section-base=.rodata:0x800019F0 --section-base=.data:0x80066720 --symbol=n_alLoadParam:0x80022858 --symbol=n_alResamplePull:0x80022B30 --symbol=__freeParam:0x80023204 --symbol=_n_freePVoice:0x8002327C --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2512,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 422688,
+      "rom_end": 422944,
+      "size": 256,
+      "vram_start": 2147903264,
+      "sha256": "5342dc7ebdcab496ba88b4002bb6d50cfd9f2ad68a6323aea5aad3b8a504ec5c"
+    },
+    {
+      "source": "tools/battletanx_ga/src/n_audio/800FFB30_n_drvrnew.c",
+      "text_rom_start": 147456,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 180,
+      "manifest_row_sha256": "46c42ea53fae434bb4f55db743e9b7be9bfa62859be21f0a5756d49f434afc44",
+      "flags": "--section-base=.rodata:0x80001A90 --section-base=.data:0x80066820 --symbol=alHeapDBAlloc:0x8002E020 --symbol=init_lpfilter:0x8002B6D0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 1312,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 422944,
+      "rom_end": 423344,
+      "size": 400,
+      "vram_start": 2147903520,
+      "sha256": "1305903052eb9d605800eb577120fc9238e8f1104f17cecae0df80e53654c972"
+    },
+    {
+      "source": "tools/ultralib/src/io/pimgr.c",
+      "text_rom_start": 176352,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 212,
+      "manifest_row_sha256": "46599dc469e91bda7d9844aa1beaf988cbcb94e6faf9b3affcd8c6a7f9de79c9",
+      "flags": "--section-base=.data:0x80066C90 --section-base=.bss:0x8006DC70 --symbol=__Dom1SpeedParam:0x8006EE48 --symbol=__Dom2SpeedParam:0x8006EEC0 --symbol=osCreateMesgQueue:0x800320D0 --symbol=__osPiAccessQueueEnabled:0x80066CD0 --symbol=__osPiCreateAccessQueue:0x8002B330 --symbol=osSetEventMesg:0x80032E10 --symbol=osGetThreadPri:0x80033F40 --symbol=osSetThreadPri:0x80033F60 --symbol=__osDisableInt:0x8002A670 --symbol=__osDevMgrMain:0x8002AC00 --symbol=__osPiAccessQueue:0x8006EFC0 --symbol=osCreateThread:0x80033D90 --symbol=osStartThread:0x80034030 --symbol=__osRestoreInt:0x8002A6E0 --symbol=__osEPiRawStartDma:0x8002A7D0 --symbol=__osPiRawStartDma:0x8002A700 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 400,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424080,
+      "rom_end": 424128,
+      "size": 48,
+      "vram_start": 2147904656,
+      "sha256": "53943e020e9a4b7b0f20ad6f4796e4d3d8c2990af5c8068bba46d93d095ac5cd"
+    },
+    {
+      "source": "tools/ultralib/src/io/cartrominit.c",
+      "text_rom_start": 177792,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 213,
+      "manifest_row_sha256": "546ea739e432ed804cfd69fca45788010ee03c3bdb09fd48816a71ea5974bba6",
+      "flags": "--section-base=.data:0x80066CC0 --symbol=__osPiGetAccess:0x8002B384 --symbol=__osPiRelAccess:0x8002B3F0 --symbol=bzero:0x8002F580 --symbol=__osDisableInt:0x8002A670 --symbol=__osPiTable:0x80066CAC --symbol=__osRestoreInt:0x8002A6E0 --symbol=__CartRomHandle:0x8006EF30 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 376,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424128,
+      "rom_end": 424144,
+      "size": 16,
+      "vram_start": 2147904704,
+      "sha256": "cc5f6bb5ea2a5926b5167f6a776c7e6a5748abe247b11a0be162fdf06067eacd"
+    },
+    {
+      "source": "tools/ultralib/src/io/aisetnextbuf.c",
+      "text_rom_start": 180752,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 209,
+      "manifest_row_sha256": "dc13275c322c7d1d265ff6552d6698dfed403fa4588e21ceaf2bfbc609f51759",
+      "flags": "--section-base=.data:0x80066CE0 --symbol=__osAiDeviceBusy:0x8002B6B0 --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 148,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424160,
+      "rom_end": 424176,
+      "size": 16,
+      "vram_start": 2147904736,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    {
+      "source": "src/libultra/audio_fx_new.c",
+      "text_rom_start": 180944,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 114,
+      "manifest_row_sha256": "ce1e9f6b7b1baf6138567f1509f8be38d8eeb71a69e66bf2194994afb117a65e",
+      "flags": "--section-base=.rodata:0x80001BC0 --section-base=.data:0x80066CF0 --symbol=alFilterNew:0x8002D2F0 --symbol=alFxParam:0x8002D754 --symbol=alFxPull:0x8002D3E0 --symbol=alFxParamHdl:0x8002D768 --symbol=alHeapDBAlloc:0x8002E020 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 1340,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424176,
+      "rom_end": 424576,
+      "size": 400,
+      "vram_start": 2147904752,
+      "sha256": "1305903052eb9d605800eb577120fc9238e8f1104f17cecae0df80e53654c972"
+    },
+    {
+      "source": "src/libultra/audio_env_subframe.c",
+      "text_rom_start": 186612,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 117,
+      "manifest_row_sha256": "e6b3692e858a2d9d3f80007ddd5ad296a22b6cd3bcc8df6865d61fc93ee24dfe",
+      "flags": "--section-base=.data:0x80066E80 --symbol=_getRate:0x8002CFEC --symbol=osVirtualToPhysical:0x8002E7A0 -O3 -G0 -mips3 -mgp32 -mfp32 -fsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 724,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424576,
+      "rom_end": 424832,
+      "size": 256,
+      "vram_start": 2147905152,
+      "sha256": "5342dc7ebdcab496ba88b4002bb6d50cfd9f2ad68a6323aea5aad3b8a504ec5c"
+    },
+    {
+      "source": "tools/ultralib/src/audio/reverb.c",
+      "text_rom_start": 188384,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 148,
+      "manifest_row_sha256": "8aa4f45d729517c7f04e25198a9d9fdfdede9761be738c917b7f19ab4126c3a3",
+      "flags": "--section-base=.rodata:0x80001D20 --symbol=alGlobals:0x80066FA0 --symbol=init_lpfilter:0x8002B6D0 --symbol=osVirtualToPhysical:0x8002E7A0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 2976,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424832,
+      "rom_end": 424864,
+      "size": 32,
+      "vram_start": 2147905408,
+      "sha256": "59ac9bd815ee4ae245c54bbc6b443a9889c9b81be71247577039af24c26defc0",
+      "provider": "frozen-source-image",
+      "source_image_unit_id": "matching_kmc_as.tsv:8aa4f45d729517c7",
+      "source_image_plan_sha256": "38e04f0594fbe1cabd4f7ab9d7a77f936bac2531c3d38b5fc523a97430dadd41",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32",
+        "-funsigned-char",
+        "-DNDEBUG",
+        "-D_FINALROM",
+        "-D_LANGUAGE_C"
+      ],
+      "normalization": null,
+      "emitted_size": 32,
+      "unowned_zero_tail": 0
+    },
+    {
+      "source": "tools/ultralib/src/io/controller.c",
+      "text_rom_start": 192656,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 122,
+      "manifest_row_sha256": "7f84eac649c064ffbd1f0aab721ee9512f785cd8212320c0bffa3020f03f1bce",
+      "flags": "--section-base=.data:0x80066FB0 --symbol=osGetTime:0x800341E0 --symbol=osCreateMesgQueue:0x800320D0 --symbol=osSetTimer:0x80034280 --symbol=osRecvMesg:0x80032BB0 --symbol=__osMaxControllers:0x8006F01C --symbol=__osContPifRam:0x8006F020 --symbol=__osSiRawStartDma:0x80033BF0 --symbol=__osContLastCmd:0x8006F060 --symbol=__osSiCreateAccessQueue:0x80033CA0 --symbol=__osEepromTimerQ:0x8006F000 --symbol=__osEepromTimerMsg:0x8006F018 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 780,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424880,
+      "rom_end": 424896,
+      "size": 16,
+      "vram_start": 2147905456,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    {
+      "source": "tools/ultralib/src/libc/xprintf.c",
+      "text_rom_start": 197440,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 242,
+      "manifest_row_sha256": "f178725ca5867cfb7cede4a3d79286569ee7ba5401a379978730b6cd2c8f6266",
+      "flags": "--section-base=.rodata:0x80001EA0 --section-base=.data:0x80066FC0 --symbol=strchr:0x8002F620 --symbol=strlen:0x8002F660 --symbol=_Litob:0x80030190 --symbol=_Ldtob:0x80031620 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 2640,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424896,
+      "rom_end": 424976,
+      "size": 80,
+      "vram_start": 2147905472,
+      "sha256": "8fe24049e594c5e3ab93bc192cb0cd69b630fc06a302dc83c684ceb1804a2e7e"
+    },
+    {
+      "source": "tools/ultralib/src/libc/xlitob.c",
+      "text_rom_start": 200080,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 241,
+      "manifest_row_sha256": "5efb7936c32cd8d5c816ed80f16cff6733dd69ce1434657796b022fc69d3f0e1",
+      "flags": "--section-base=.data:0x80067010 --symbol=__umoddi3:0x80030970 --symbol=__udivdi3:0x800303E0 --symbol=lldiv:0x80030EF4 --symbol=memcpy:0x8002F684 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 592,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 424976,
+      "rom_end": 425024,
+      "size": 48,
+      "vram_start": 2147905552,
+      "sha256": "bbefddc1c189e8f5c81aae8c1839e94ac99e61b73210e990a35497c3dd4a9b49"
+    },
+    {
+      "source": "tools/ultralib/src/os/seteventmesg.c",
+      "text_rom_start": 211472,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 218,
+      "manifest_row_sha256": "6c439822c4d01881f03532201c0415890e0ce15410d605ecb0476ca58c33da15",
+      "flags": "--section-base=.data:0x80067070 --symbol=__osEventStateTab:0x8006F220 --symbol=__osShutdown:0x8006844C --symbol=__osDisableInt:0x8002A670 --symbol=osSendMesg:0x80032CE0 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 172,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 425072,
+      "rom_end": 425088,
+      "size": 16,
+      "vram_start": 2147905648,
+      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
+    },
+    {
+      "source": "src/libultra/sched_task_complete.c",
+      "text_rom_start": 213800,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 136,
+      "manifest_row_sha256": "a965dc09dd4be20cc9a71141cefbddbfb70188c2fc75c64d8eb2f2385465db69",
+      "flags": "--section-base=.data:0x8006708C --symbol=osSendMesg:0x80032CE0 --symbol=osViBlack:0x800351A0 --symbol=osViSwapBuffer:0x80034E40 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 140,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 425100,
+      "rom_end": 425116,
+      "size": 16,
+      "vram_start": 2147905676,
+      "sha256": "cc5f6bb5ea2a5926b5167f6a776c7e6a5748abe247b11a0be162fdf06067eacd"
+    },
+    {
+      "source": "tools/battletanx_ga/src/libultra/os_dequeue_thread.c",
+      "text_rom_start": 216400,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 247,
+      "manifest_row_sha256": "50e613e0c1b50e8419f01b2320947c6f1f7fd1d9b7a6a5cff8cb9aad756da6d0",
+      "flags": "-O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 64,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 425120,
+      "rom_end": 425152,
+      "size": 32,
+      "vram_start": 2147905696,
+      "sha256": "3cb8d32daf9347f02cc3ddbbcd4f3966a0a56026d3300e29cdc7518aeca71fe7",
+      "provider": "frozen-source-image",
+      "source_image_unit_id": "matching_kmc_as.tsv:50e613e0c1b50e84",
+      "source_image_plan_sha256": "38e04f0594fbe1cabd4f7ab9d7a77f936bac2531c3d38b5fc523a97430dadd41",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mips3",
+        "-mgp32",
+        "-mfp32",
+        "-funsigned-char",
+        "-DNDEBUG",
+        "-D_FINALROM",
+        "-D_LANGUAGE_C"
+      ],
+      "normalization": null,
+      "emitted_size": 32,
+      "unowned_zero_tail": 0
+    },
+    {
+      "source": "tools/ultralib/src/os/timerintr.c",
+      "text_rom_start": 216864,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 220,
+      "manifest_row_sha256": "083cd9fd8ea9e5ae9876db66c1fcf58cda0e89b477c4c0b05bcec0da706c279b",
+      "flags": "--section-base=.data:0x800670C0 --symbol=__osBaseTimer:0x8006F330 --symbol=__osCurrentTime:0x8006F318 --symbol=__osBaseCounter:0x8006F310 --symbol=__osViIntrCount:0x8006F314 --symbol=__osTimerCounter:0x8006F320 --symbol=__osSetCompare:0x80034620 --symbol=osGetCount:0x80034270 --symbol=osSendMesg:0x80032CE0 --symbol=__osDisableInt:0x8002A670 --symbol=__osRestoreInt:0x8002A6E0 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 760,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 425152,
+      "rom_end": 425168,
+      "size": 16,
+      "vram_start": 2147905728,
+      "sha256": "1813e9747a08edc39abbcff054e264fe7fee6b58f094c8836a6b20b3c149f452"
+    },
+    {
+      "source": "tools/ultralib/src/io/vi.c",
+      "text_rom_start": 217904,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 103,
+      "manifest_row_sha256": "90ead55739faab86eb564002bfb9e75cdf65d50b7e3f4910abc2372d6951905a",
+      "flags": "--section-base=.data:0x800670D0 --symbol=bzero:0x8002F580 --symbol=osTvType:0x80000300 --symbol=osViModePalLan1:0x80068380 --symbol=osViModeMpalLan1:0x800683D0 --symbol=osViModeNtscLan1:0x800682E0 --symbol=__osViSwapContext:0x80034E90 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C",
+      "text_size": 260,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 425168,
+      "rom_end": 425280,
+      "size": 112,
+      "vram_start": 2147905744,
+      "sha256": "850275513ad4cb032caba61bba4de194687a628e96bd8be70d25897ca2a4db3d"
+    },
+    {
+      "source": "tools/ultralib/src/io/vimgr.c",
+      "text_rom_start": 218240,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 221,
+      "manifest_row_sha256": "0da5a23394becbf554bcb0feb80a9d71e453f336a87f070d87ca2c8365209a59",
+      "flags": "--section-base=.data:0x80067140 --section-base=.bss:0x8006F350 --symbol=__osTimerServicesInit:0x80034320 --symbol=osCreateMesgQueue:0x800320D0 --symbol=osSetEventMesg:0x80032E10 --symbol=osGetThreadPri:0x80033F40 --symbol=osSetThreadPri:0x80033F60 --symbol=__osDisableInt:0x8002A670 --symbol=osCreateThread:0x80033D90 --symbol=__osViInit:0x80034730 --symbol=osStartThread:0x80034030 --symbol=__osRestoreInt:0x8002A6E0 --symbol=__osViGetCurrentContext:0x80034BC0 --symbol=osRecvMesg:0x80032BB0 --symbol=__osViSwapContext:0x80034E90 --symbol=osSendMesg:0x80032CE0 --symbol=osGetCount:0x80034270 --symbol=__osTimerInterrupt:0x80034374 --symbol=__osViIntrCount:0x8006F314 --symbol=__osCurrentTime:0x8006F318 --symbol=__osBaseCounter:0x8006F310 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 824,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 425280,
+      "rom_end": 425312,
+      "size": 32,
+      "vram_start": 2147905856,
+      "sha256": "66687aadf862bd776c8fc18b8e9f8e20089714856ee233b3902a591d0d5f2925"
+    },
+    {
+      "source": "tools/ultralib/src/io/contramread.c",
+      "text_rom_start": 228032,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 231,
+      "manifest_row_sha256": "63b6f4ea763e9762430f2cb983549e03333b96b4cfcb0a3fe7a3108abf70e0d1",
+      "flags": "--section-base=.data:0x80068430 --symbol=__osPfsPifRam:0x80070670 --symbol=__osContLastCmd:0x8006F060 --symbol=__osSiGetAccess:0x80033CF4 --symbol=__osContAddressCrc:0x80035590 --symbol=__osSiRawStartDma:0x80033BF0 --symbol=osRecvMesg:0x80032BB0 --symbol=__osContDataCrc:0x800355FC --symbol=__osPfsGetStatus:0x800361E0 --symbol=bcopy:0x8002F260 --symbol=__osSiRelAccess:0x80033D60 -O2 -G0 -mips3 -mgp32 -mfp32 -funsigned-char -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_J",
+      "text_size": 488,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 430128,
+      "rom_end": 430144,
+      "size": 16,
+      "vram_start": 2147910704,
+      "sha256": "231f5cecc61699ca90f5e9acdbc4c47552f66daeb7ef55327cb7574cda9f29e5"
+    },
+    {
+      "source": "src/libultra/os_initialize.c",
+      "text_rom_start": 229344,
+      "manifest": "config/matching_kmc_as.tsv",
+      "manifest_line": 308,
+      "manifest_row_sha256": "d143f82922ec3bf971c03ec5d1594f39ca779e38cac747cee21090d7ee05d77b",
+      "flags": "--section-base=.data:0x80068440 --section-base=.bss:0x800707B0 --symbol=__osFinalrom:0x800707B0 --symbol=__osExceptionPreamble:0x80032240 --symbol=__osGetSR:0x800376E0 --symbol=__osGetCause:0x800376D0 --symbol=__osSetSR:0x80037700 --symbol=__osSetFpcCsr:0x800376F0 --symbol=__osSetWatchLo:0x80037710 --symbol=__osSiRawReadIo:0x80037720 --symbol=__osSiRawWriteIo:0x80037790 --symbol=osWritebackDCache:0x80033100 --symbol=osInvalICache:0x8002E200 --symbol=__createSpeedParam:0x80037610 --symbol=osUnmapTLBAll:0x80037840 --symbol=osMapTLBRdb:0x800377E0 --symbol=__udivdi3:0x800303E0 --symbol=bzero:0x8002F580 -O2 -G0 -mips3 -mgp32 -mfp32 -DNDEBUG -D_FINALROM -D_LANGUAGE_C -DBUILD_VERSION=VERSION_K",
+      "text_size": 560,
+      "pipeline": "kmc+as",
+      "section": ".data",
+      "rom_start": 430144,
+      "rom_end": 430176,
+      "size": 32,
+      "vram_start": 2147910720,
+      "sha256": "00eff670001b7953977665e4e87a8f811e3928fc8cce0f7ff5e8bf01d41559c6"
+    }
+  ],
+  "verification": {
+    "units": 607,
+    "exact_units": 607
+  },
+  "source_image_provider": {
+    "plan_path": "config/link_units.json",
+    "plan_sha256": "38e04f0594fbe1cabd4f7ab9d7a77f936bac2531c3d38b5fc523a97430dadd41",
+    "build_tool_path": "tools/build_source_image.py",
+    "build_tool_sha256": "cffb86dc284da2db6556bfe3be95c717ad8a196a5e0a5485bda042dbf72cab63",
+    "verified_source_pieces": 670,
+    "owned_resident_bytes": 179900,
+    "added_initialized_sections": 2,
+    "placement_inference_during_build": false,
+    "post_build_rom_comparison": true,
+    "toolkit_inputs": [
+      {
+        "path": "@n64dk/__init__.py",
+        "sha256": "d74842f1ba42f280e3df15c7065e955b7e83d71bad088068503217b97f5ebed4"
+      },
+      {
+        "path": "@n64dk/__main__.py",
+        "sha256": "13a1a5b340cdcfc1902b62be90e508c7c71886000d5bf087e7854aadf09fb35e"
+      },
+      {
+        "path": "@n64dk/analysis/__init__.py",
+        "sha256": "a74ef479fdcbfc86a09aa5073ef0c12fa554c5ad871c26f2b6165e2e5a200e32"
+      },
+      {
+        "path": "@n64dk/analysis/datamap.py",
+        "sha256": "4553dbeea837c7eb606751488d9c3dfe22e2f66520965f0e8bc45dda158e1e9f"
+      },
+      {
+        "path": "@n64dk/analysis/functions.py",
+        "sha256": "498b01c332582116a18a7dcfea2afddae456a36ee9a58bd2d748d5ba81a84b52"
+      },
+      {
+        "path": "@n64dk/assets/__init__.py",
+        "sha256": "3ad7613ccd30dc375092f1bc2843d2c7a542d078bb0db65e398a3da202d80f5c"
+      },
+      {
+        "path": "@n64dk/assets/audio.py",
+        "sha256": "8a933be227c981cf0be2426752230fa7d9bd09831a0129b5a1fa5a3b40bc7158"
+      },
+      {
+        "path": "@n64dk/assets/compress.py",
+        "sha256": "38af90397fbf222672b9484ea6bde19a3a0bdd90915f76d73dce7d407d12f324"
+      },
+      {
+        "path": "@n64dk/assets/gbi.py",
+        "sha256": "d0b6cafaf61293602c4bb4f134024094a62fb40ff6549f9f6e7933ec0e20e70f"
+      },
+      {
+        "path": "@n64dk/assets/loaders.py",
+        "sha256": "8eb432235c4ef67534e5a576af2bd8a594077e8b3fcba5c5fa4f9362d0806a50"
+      },
+      {
+        "path": "@n64dk/assets/texture.py",
+        "sha256": "1322d6e8c090e2abc739f54c86a7d59c79dd41679ee2c88366cb65136362eefa"
+      },
+      {
+        "path": "@n64dk/boot.py",
+        "sha256": "cfb20e11a42e63957efa39df192c27d1460c043ccc27a520b4c58b908f610841"
+      },
+      {
+        "path": "@n64dk/cli.py",
+        "sha256": "e0b22a92a4267c6f388c0e856d379f637063c82cce730bd908960a380fa50a8f"
+      },
+      {
+        "path": "@n64dk/commands/__init__.py",
+        "sha256": "e8557d721cb3cf28083c5a37452c783acd62398d8b315c6ed0b0313ae26216dd"
+      },
+      {
+        "path": "@n64dk/commands/assets_scan.py",
+        "sha256": "7e477ae69bff2abdde547caabc56fddf99a152503fc84ae76eb5ddbefde10e85"
+      },
+      {
+        "path": "@n64dk/commands/audio.py",
+        "sha256": "449149cec290ff111aec19dab1e8c621b57e53cd6357d6f0ceee4670a43e273c"
+      },
+      {
+        "path": "@n64dk/commands/boot_emu.py",
+        "sha256": "5625689f8b9756512de5d1f1f2fb8f292177d7e23c1aae7eaf35f8aada8ddcf8"
+      },
+      {
+        "path": "@n64dk/commands/core.py",
+        "sha256": "02673b4996fd44f28f908347b1dc1f5c3b3cd4b2a767d7567c6cbd1e1406f1a0"
+      },
+      {
+        "path": "@n64dk/commands/datamap.py",
+        "sha256": "86be5c47265e43fbbc1f8ad915328b458cd3986ba348a515df928d5b15b58732"
+      },
+      {
+        "path": "@n64dk/commands/functions.py",
+        "sha256": "724801a8d0af9c8fd055a3cc58bf52dad381f6ad68994ff3b557f27d13dbe204"
+      },
+      {
+        "path": "@n64dk/commands/gfx.py",
+        "sha256": "e340f05f9ea6aa7bc8906606405d0b6243b24e93a9d724d06c62ef7384ae339b"
+      },
+      {
+        "path": "@n64dk/commands/match.py",
+        "sha256": "bc10687be22d11664c474a47828b7f9a8030fa4689edc78b78fc25d7ec24ea41"
+      },
+      {
+        "path": "@n64dk/commands/sdk.py",
+        "sha256": "127b2105bed0659477a8c5cfc893e8610720249f3673ffbfd703e637aa0e5e80"
+      },
+      {
+        "path": "@n64dk/commands/survey.py",
+        "sha256": "ae1a3bc46a2d0f9d272cec57ce2ff5e299297cd2c7ad7eca31723d451a80e4bc"
+      },
+      {
+        "path": "@n64dk/elf.py",
+        "sha256": "da45a0865b2ff6a52019fb6c6843e2b96c43fd7874d87a5b2dfdd288845e5b4a"
+      },
+      {
+        "path": "@n64dk/emu.py",
+        "sha256": "e6c6af5d2d6cfd1ffd7f736ae774ea1a9cecfb0ef67dd7c876b9ca763248fffc"
+      },
+      {
+        "path": "@n64dk/fixtures.py",
+        "sha256": "7670b00f6a1e4406729473a8e76809ff0514b3264dd00438bcf610f9858d84e1"
+      },
+      {
+        "path": "@n64dk/gamecodec.py",
+        "sha256": "a213ef675c971c30839c150475a0da1bbea0cfaf9addecb14bac14125c0cd7a9"
+      },
+      {
+        "path": "@n64dk/image.py",
+        "sha256": "5ef467f86dbca69fd1ac7f5620f0bff8745cc38c0c706f2822da7a06447c0467"
+      },
+      {
+        "path": "@n64dk/ledger.py",
+        "sha256": "ea81c4a85a30f1e4630b8e603bbe89998d7ce376feb89dd8f1acf12af82c3986"
+      },
+      {
+        "path": "@n64dk/match/__init__.py",
+        "sha256": "70f8e41fde00b231e20d7f0ec0d010a5d2fc90534ad115ee070065d459b45400"
+      },
+      {
+        "path": "@n64dk/match/asn64.py",
+        "sha256": "4b8728117313eb0ed7458b4ed3555f5f429147c7110d6352cb4860b08d215ca9"
+      },
+      {
+        "path": "@n64dk/match/compare.py",
+        "sha256": "5b02e46b2ffc16da3fdd9d3ffd262a5d6f9f9e9e53875eac2447a9e02eef206f"
+      },
+      {
+        "path": "@n64dk/match/diff.py",
+        "sha256": "5fd6b08f0733002ae5c76840bb1108d1fc1f9bedc8d51df0d0068e4bbf991d40"
+      },
+      {
+        "path": "@n64dk/match/engine.py",
+        "sha256": "7a17aa5eebf9547e2aade9cbb8a3c5fd036762c2278e15265b4004887a127831"
+      },
+      {
+        "path": "@n64dk/match/manifest.py",
+        "sha256": "529500ba98e583e69b9c9411f86583fee748f4a6111d5ef2bb377de7058af6f8"
+      },
+      {
+        "path": "@n64dk/match/normalize.py",
+        "sha256": "1d99e1a31dada16dad6f168beafeb537eeb66cef2ebb41ad9916a718786a75a0"
+      },
+      {
+        "path": "@n64dk/match/permuter.py",
+        "sha256": "be644e3ffe5cc22767fb7e7df41d4cccd79676ac7e10c606b00a1d2e3aa042f7"
+      },
+      {
+        "path": "@n64dk/match/pipeline.py",
+        "sha256": "b9d953b95db19e1f0179613734ab2c85c61910a2ac132a33c74d6fbfcdefa736"
+      },
+      {
+        "path": "@n64dk/match/symbols.py",
+        "sha256": "536f29cde2e93bc47af7fb8847da608bb8fc2b0d0c25b4ae1651d5d34735869d"
+      },
+      {
+        "path": "@n64dk/match/toolchain.py",
+        "sha256": "db8aef6f67bc1dd1871c5a49aee057ae7c60507bd1a61e93e344225deeb4be55"
+      },
+      {
+        "path": "@n64dk/mips.py",
+        "sha256": "1d930d9ab9266ebacd3fe2db28a269c3a895eb23e69820ce25672df570f0afe0"
+      },
+      {
+        "path": "@n64dk/rom.py",
+        "sha256": "cfa3f49109e8a75d95eec684719258fa29e94ba320adf2f5fd5963f47ef7b76c"
+      },
+      {
+        "path": "@n64dk/sdk/__init__.py",
+        "sha256": "6c7c5a03a916aa43b6ab83b00cd1cee7b0000604ef420db7926dcc7479d6e6ad"
+      },
+      {
+        "path": "@n64dk/sdk/build.py",
+        "sha256": "5ff7b9f7ddb09a27c2e1284664382bd073cf130b8fd8cff7ce1f7a5a91085f2a"
+      },
+      {
+        "path": "@n64dk/sdk/db.py",
+        "sha256": "4f0482123b2eab83585bdba53d03e279cb8627cb5f81ee853ec79eee79cd23b2"
+      },
+      {
+        "path": "@n64dk/sdk/fingerprint.py",
+        "sha256": "f1b7eb657079f41124830113999c5e5f07699a9d315d4be39ff6bd3527092dec"
+      },
+      {
+        "path": "@n64dk/sdk/matcher.py",
+        "sha256": "b78b2297c35552058413a01d21237187bbabdd034345e4205ea31273213ba57c"
+      },
+      {
+        "path": "@n64dk/sdk/signature.py",
+        "sha256": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee"
+      },
+      {
+        "path": "@n64dk/sdk/validate.py",
+        "sha256": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6"
+      },
+      {
+        "path": "@n64dk/survey.py",
+        "sha256": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b"
+      }
+    ]
+  },
+  "classification": {
+    "path": "config/survey/ledger.tsv",
+    "sha256": "07d560bdfd6dbb19392bd628398b7372c55e1dc34381889537b5a3ec656c2587"
+  }
+}
