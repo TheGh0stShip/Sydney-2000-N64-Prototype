@@ -254,6 +254,27 @@
       ]
 },
     {
+      "id": "resident_tail_data",
+      "source": "src/data/resident_tail_data.c",
+      "inputs": {
+        "src/data/resident_tail_data.c": "2f23c0dc879bb79f6aaead6f2b2a86d1319ced9e08ee5570bcb39fede985f11d"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "resident",
+          "rom_start": 422480,
+          "vram": 2147903056,
+          "size": 7712,
+          "sha256": "7adf442faf56b70f48b29eb0fa1773118bba6a59e42186514f4e5009a425a4aa"
+        }
+      ]
+    },
+    {
       "id": "scene_light_state",
       "source": "src/data/scene_light_state.c",
       "inputs": {

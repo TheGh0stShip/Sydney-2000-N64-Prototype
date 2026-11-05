@@ -2,7 +2,7 @@
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
   "total_data": 204624,
-  "matched_data": 190048,
+  "matched_data": 195920,
   "ranges": [
     {
       "rom_start": 4156,
@@ -108,63 +108,15 @@
     },
     {
       "rom_start": 421328,
-      "rom_end": 422480,
-      "size": 1152,
-      "sha256": "4cf9816ed1062189ff0c8d427fba5e912cc68fc9af76cf7f08fd255977de3b33"
-    },
-    {
-      "rom_start": 422688,
-      "rom_end": 423344,
-      "size": 656,
-      "sha256": "d3d70faa04bdcb2c734cf021929cdbc8524b158be6889c983dbc7df16d386897"
-    },
-    {
-      "rom_start": 424080,
-      "rom_end": 424144,
-      "size": 64,
-      "sha256": "2b0f7ba5b72a9d3438320833cb02b748a32cbc017287722e854e0056a1b481b0"
-    },
-    {
-      "rom_start": 424160,
-      "rom_end": 424864,
-      "size": 704,
-      "sha256": "c7d83e0ed42c0947f243d909a7583c265fd77e6008bf1c83af6037d21c9a746d"
-    },
-    {
-      "rom_start": 424880,
-      "rom_end": 425024,
-      "size": 144,
-      "sha256": "ea25346a6306ba5e583aa0a048698fe6efaaf596659cf6bb84055cd228fa194f"
-    },
-    {
-      "rom_start": 425072,
-      "rom_end": 425088,
-      "size": 16,
-      "sha256": "374708fff7719dd5979ec875d56cd2286f6d3cf7ec317a3b25632aab28ec37bb"
-    },
-    {
-      "rom_start": 425100,
-      "rom_end": 425116,
-      "size": 16,
-      "sha256": "cc5f6bb5ea2a5926b5167f6a776c7e6a5748abe247b11a0be162fdf06067eacd"
-    },
-    {
-      "rom_start": 425120,
-      "rom_end": 425312,
-      "size": 192,
-      "sha256": "d89b91437449ab2baa02e9c8af1fe9827a9cdce01e57aede928c6b205d363c9e"
-    },
-    {
-      "rom_start": 430128,
-      "rom_end": 430176,
-      "size": 48,
-      "sha256": "3fac1f89c030b9d2fefbb956ea60032fe777a431325db4aac28cea36df49d16e"
+      "rom_end": 430192,
+      "size": 8864,
+      "sha256": "f956ee54fc613813d33fa027463402063b99ce335e1aa690c3df812a58da2c2c"
     }
   ],
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "097f34b07f6b15db2559a8cc8b1ffb727119f9aa1a2e5b49b9a5bcd3c3621457"
+      "sha256": "1c3b21690fb8d5eaeaeddf17bfa1a5c59457bae0f31a5aa640fae9fb9c122ecc"
     },
     {
       "path": "config/link_units.json",
@@ -241,6 +193,10 @@
     {
       "path": "src/data/resident_runtime_tables.c",
       "sha256": "5c943c3bb93a2ba78c4459a88b92ec6916294b29d31e4354977d4cacf64b572b"
+    },
+    {
+      "path": "src/data/resident_tail_data.c",
+      "sha256": "2f23c0dc879bb79f6aaead6f2b2a86d1319ced9e08ee5570bcb39fede985f11d"
     },
     {
       "path": "src/data/resident_zero_800479B4.c",
@@ -3740,7 +3696,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "0effb2f71daf2ab6b70eb28153f855690c1d1143971fcf5887c0a73e852816d1",
+      "object_sha256": "fc15f83af772b1a55863848ea25ea192c90d030606aae6dd293c0a5472f92d28",
       "provider": "typed-initialized-data"
     },
     {
@@ -4579,7 +4535,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "e0fab6b9e0ebca9d3cd6c64a7da1022a182b9f3a0f47f53a57a77ea9f7b8b722",
+      "object_sha256": "4a1c39efc165ef4b82533b390d87ebb63f871b245f2b6ee42c9c23b550fe9aa0",
       "provider": "typed-initialized-data"
     },
     {
@@ -4602,7 +4558,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "02aeeabd6c9c357f3fe616cdd0748f8a55e94cd128ca1fa0398b3dbfa81caa06",
+      "object_sha256": "1df63a68b9fb246af8281b4bee5371d46faf7f0b1a92cad2d30d2d69b5721c73",
       "provider": "typed-initialized-data"
     },
     {
@@ -4691,7 +4647,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "72e0327693a36da4575c96faea1f045cb37664cb0e156f3df8e8242be4e5efe6",
+      "object_sha256": "76e1d3ddb5018f5d5eb26da30dfcd361fe72d423abf131f81b337b0f35e57b3d",
       "provider": "typed-initialized-data"
     },
     {
@@ -4780,7 +4736,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "87aec65adebccd174d69303ed35477760ea47e81a6f1d78c94a54a92e128d72b",
+      "object_sha256": "c659d6ca2669623b58fc10d6e1cbbbd67740c77ca174b338ae4905d008107607",
       "provider": "typed-initialized-data"
     },
     {
@@ -5001,6 +4957,29 @@
       ],
       "symbols": {},
       "object_sha256": "f001a86d3a117631bf398cfdb8de33b954d9eb4c330f1e8b90c177eb80ec49d4",
+      "provider": "typed-initialized-data"
+    },
+    {
+      "source": "src/data/resident_tail_data.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "resident_tail_data",
+      "section": ".data",
+      "rom_start": 422480,
+      "rom_end": 430192,
+      "size": 7712,
+      "vram_start": 2147903056,
+      "sha256": "7adf442faf56b70f48b29eb0fa1773118bba6a59e42186514f4e5009a425a4aa",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "b78c07e27835dca44a2a1f1a372b6b1c149b2b47e3f4b130af136c5b27187a77",
       "provider": "typed-initialized-data"
     },
     {
@@ -5343,10 +5322,10 @@
     }
   ],
   "verification": {
-    "units": 657,
-    "exact_units": 657,
+    "units": 658,
+    "exact_units": 658,
     "text_units": 648,
-    "data_only_units": 6,
+    "data_only_units": 7,
     "rsp_programs": 3
   },
   "source_image_provider": {
@@ -5571,7 +5550,7 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "097f34b07f6b15db2559a8cc8b1ffb727119f9aa1a2e5b49b9a5bcd3c3621457"
+        "sha256": "1c3b21690fb8d5eaeaeddf17bfa1a5c59457bae0f31a5aa640fae9fb9c122ecc"
       },
       {
         "path": "src/data/audio_delay_coefficients.c",
@@ -5580,6 +5559,10 @@
       {
         "path": "src/data/resident_runtime_tables.c",
         "sha256": "5c943c3bb93a2ba78c4459a88b92ec6916294b29d31e4354977d4cacf64b572b"
+      },
+      {
+        "path": "src/data/resident_tail_data.c",
+        "sha256": "2f23c0dc879bb79f6aaead6f2b2a86d1319ced9e08ee5570bcb39fede985f11d"
       },
       {
         "path": "src/data/resident_zero_800479B4.c",
@@ -5821,7 +5804,7 @@
           "-meb"
         ],
         "source": "src/data/startup_rodata.c",
-        "object_sha256": "0effb2f71daf2ab6b70eb28153f855690c1d1143971fcf5887c0a73e852816d1",
+        "object_sha256": "fc15f83af772b1a55863848ea25ea192c90d030606aae6dd293c0a5472f92d28",
         "symbols": {}
       },
       {
@@ -5836,7 +5819,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "e0fab6b9e0ebca9d3cd6c64a7da1022a182b9f3a0f47f53a57a77ea9f7b8b722",
+        "object_sha256": "4a1c39efc165ef4b82533b390d87ebb63f871b245f2b6ee42c9c23b550fe9aa0",
         "symbols": {}
       },
       {
@@ -5851,7 +5834,7 @@
           "-meb"
         ],
         "source": "src/data/resident_runtime_tables.c",
-        "object_sha256": "02aeeabd6c9c357f3fe616cdd0748f8a55e94cd128ca1fa0398b3dbfa81caa06",
+        "object_sha256": "1df63a68b9fb246af8281b4bee5371d46faf7f0b1a92cad2d30d2d69b5721c73",
         "symbols": {}
       },
       {
@@ -5866,7 +5849,7 @@
           "-meb"
         ],
         "source": "src/data/resident_zero_800479B4.c",
-        "object_sha256": "87aec65adebccd174d69303ed35477760ea47e81a6f1d78c94a54a92e128d72b",
+        "object_sha256": "c659d6ca2669623b58fc10d6e1cbbbd67740c77ca174b338ae4905d008107607",
         "symbols": {}
       },
       {
@@ -5884,6 +5867,21 @@
         "symbols": {}
       },
       {
+        "unit_id": "resident_tail_data",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/resident_tail_data.c",
+        "object_sha256": "b78c07e27835dca44a2a1f1a372b6b1c149b2b47e3f4b130af136c5b27187a77",
+        "symbols": {}
+      },
+      {
         "unit_id": "scene_light_state",
         "pipeline": "sn",
         "compiler_flags": [
@@ -5895,11 +5893,11 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "72e0327693a36da4575c96faea1f045cb37664cb0e156f3df8e8242be4e5efe6",
+        "object_sha256": "76e1d3ddb5018f5d5eb26da30dfcd361fe72d423abf131f81b337b0f35e57b3d",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 188208,
+    "unique_initialized_bytes": 195920,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -6045,10 +6043,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-ab9dxidt/rspboot/code.bin",
+          "/tmp/sydney-rsp-_g0fbuls/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-ab9dxidt/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-ab9dxidt/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-_g0fbuls/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-_g0fbuls/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -6063,10 +6061,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-ab9dxidt/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-_g0fbuls/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-ab9dxidt/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-_g0fbuls/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -6077,9 +6075,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-ab9dxidt/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-_g0fbuls/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-ab9dxidt/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-_g0fbuls/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
