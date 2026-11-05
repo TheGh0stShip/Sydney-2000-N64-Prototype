@@ -73,6 +73,48 @@
       ]
     },
     {
+      "id": "resident_runtime_tables",
+      "source": "src/data/resident_runtime_tables.c",
+      "inputs": {
+        "src/data/resident_runtime_tables.c": "5c943c3bb93a2ba78c4459a88b92ec6916294b29d31e4354977d4cacf64b572b"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "resident",
+          "rom_start": 233840,
+          "vram": 2147714416,
+          "size": 1744,
+          "sha256": "71ee0710fcf94e3721b1485840d2235bc0f472bcc9e40ed2e5dfd1185e5664d6"
+        }
+      ]
+    },
+    {
+      "id": "resident_zero_800479B4",
+      "source": "src/data/resident_zero_800479B4.c",
+      "inputs": {
+        "src/data/resident_zero_800479B4.c": "1c788e70bcd546c596fb3a3571a327924d82cbbab644a272f28103285e80939f"
+      },
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "resident",
+          "rom_start": 296372,
+          "vram": 2147776948,
+          "size": 77388,
+          "sha256": "ce0c6251de7c85ffe20ff76fd8fb4a8ffc7951602097b66e99fa3d7d4a908243"
+        }
+      ]
+    },
+    {
       "id": "scene_light_state",
       "source": "src/data/scene_light_state.c",
       "inputs": {
