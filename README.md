@@ -30,10 +30,10 @@ The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
 The current survey identifies 743 CPU functions. The game and most libraries were
 built with KMC GCC. Matching CPU manifests and three source-built RSP programs
-cover 186,840 unique bytes of the 229,736-byte surveyed resident text span
-(81.33%). Complete extents are covered for 700 of 743 CPU functions. Another 32
+cover 190,864 unique bytes of the 229,736-byte surveyed resident text span
+(83.08%). Complete extents are covered for 702 of 743 CPU functions. Another 32
 have reconstructed bodies with uncovered zero-padding suffixes (312 bytes total),
-and 11 have wholly unmatched bodies (34,288 bytes). The remaining 8,296 uncovered
+and 9 have wholly unmatched bodies (30,264 bytes). The remaining 8,296 uncovered
 bytes are outside catalogued CPU function extents and need further classification.
 Eight former CPU catalogue entries were scalar routines inside the graphics
 microcode; their compatibility symbols remain, and the complete RSP source now
@@ -46,7 +46,7 @@ adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages: the overlay bank at ROM
 `0x69070..0x127640` is outside the current function survey. Initialized-data
-coverage is 7,044 unique bytes of 204,164 classified bytes (3.45%), recorded in
+coverage is 7,116 unique bytes of 204,164 classified bytes (3.49%), recorded in
 `config/matching_data.json`. `make data-ledger` rebuilds all matching units and
 regenerates this ledger, including source-built data sections with frozen placements.
 Reporting checks the recorded source, manifest,
@@ -226,8 +226,8 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 722,468 bytes; 32,831,964 bytes remain unowned.
-The generated gap ledger records all 79 uncovered intervals.
+The current partial owns 726,564 bytes; 32,827,868 bytes remain unowned.
+The generated gap ledger records all 80 uncovered intervals.
 These are reconstruction extents, not a whole-game decompilation percentage.
 
 `make reconstructed-rom` is the completion gate. It refuses a full ROM filename
