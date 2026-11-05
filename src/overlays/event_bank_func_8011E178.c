@@ -1,14 +1,8 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011E178\n.ent func_8011E178\n"
-    "func_8011E178:\n"
-    "addiu $29,$29,-24\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,2712\n"
-    "sw $31,16($29)\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($4)\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8011E178\n.set at\n.set reorder\n");
+extern unsigned char D_80080A98[];
+extern void func_800ADE84(void *object, int mode);
+
+void func_8011E178(unsigned char *object, int mode)
+{
+    *(void **)(object + 180) = D_80080A98;
+    func_800ADE84(object, mode);
+}

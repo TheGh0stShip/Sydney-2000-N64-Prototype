@@ -1,28 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A04B8\n.ent func_800A04B8\n"
-    "func_800A04B8:\n"
-    "addiu $29,$29,-24\n"
-    "move $2,$4\n"
-    "sw $31,16($29)\n"
-    "sw $5,212($2)\n"
-    "addiu $5,$2,216\n"
-    "li $7,1\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,19776($1)\n"
-    "lwc1 $f0,212($2)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,19780($1)\n"
-    "lw $4,228($2)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,19784($1)\n"
-    "addiu $6,$4,64\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f6,84($2)\n"
-    "swc1 $f4,92($2)\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f0,88($2)\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A04B8\n.set at\n.set reorder\n");
+extern void func_800AD2A8(void *a, void *b, void *c, int d);
+
+void func_800A04B8(unsigned char *object, float value)
+{
+    *(float *)(object + 212) = value;
+    *(float *)(object + 84) = 489.368744f;
+    *(float *)(object + 88) = *(float *)(object + 212) - 1.31068003f;
+    *(float *)(object + 92) = 1856.57666f;
+    func_800AD2A8(*(unsigned char **)(object + 228), object + 216,
+                  *(unsigned char **)(object + 228) + 64, 1);
+}

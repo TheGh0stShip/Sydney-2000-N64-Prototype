@@ -1,53 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80087A7C\n.ent func_80087A7C\n"
-    "func_80087A7C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $17,28($29)\n"
-    "lui $17,0x800f\n"
-    "addiu $17,$17,6880\n"
-    "move $4,$17\n"
-    "move $6,$0\n"
-    "li $7,15\n"
-    "sw $31,36($29)\n"
-    "sw $16,24($29)\n"
-    "lw $5,21580($18)\n"
-    "li $2,-1\n"
-    "sw $2,21584($18)\n"
-    "sw $2,21588($18)\n"
-    "sw $2,21592($18)\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "li $5,109\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$17\n"
-    "move $16,$2\n"
-    "move $5,$16\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$17\n"
-    "lw $3,104($4)\n"
-    "li $2,22936\n"
-    "mult $3,$2\n"
-    "move $5,$16\n"
-    "li $7,45\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "sw $16,21584($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80087A7C\n.set at\n.set reorder\n");
+extern void func_8001D5D8(void *object, int handle, int a, int b, int c, int d);
+extern int func_8001D4B8(void *object, int id, int a, int b);
+extern void func_8001D640(void *object, int handle, int volume);
+extern unsigned char D_800F1AE0[];
+
+void func_80087A7C(unsigned char *object)
+{
+    int handle;
+    unsigned char *sound = D_800F1AE0;
+    int previous = *(int *)(object + 21580);
+
+    *(int *)(object + 21584) = -1;
+    *(int *)(object + 21588) = -1;
+    *(int *)(object + 21592) = -1;
+    func_8001D5D8(sound, previous, 0, 15, 1, 0);
+    handle = func_8001D4B8(sound, 109, 0, -1);
+    func_8001D640(sound, handle, 0);
+    func_8001D5D8(sound, handle,
+                  (int)((long long)*(int *)(sound + 104) * 22936) >> 15, 45, 0, 0);
+    *(int *)(object + 21584) = handle;
+}

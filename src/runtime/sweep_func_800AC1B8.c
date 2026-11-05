@@ -1,30 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AC1B8\n.ent func_800AC1B8\n"
-    "func_800AC1B8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $5,4($16)\n"
-    "beqz $5,L_800AC208\n"
-    "nop\n"
-    "lb $2,176($16)\n"
-    "beqz $2,L_800AC208\n"
-    "addiu $5,$5,20\n"
-    "addiu $4,$16,96\n"
-    "addiu $6,$16,20\n"
-    "jal func_800AC5CC\n"
-    "li $7,1\n"
-    "addiu $5,$16,160\n"
-    "addiu $6,$16,84\n"
-    "lw $4,4($16)\n"
-    "li $7,1\n"
-    "jal func_800AD2A8\n"
-    "addiu $4,$4,20\n"
-    "L_800AC208:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AC1B8\n.set at\n.set reorder\n");
+extern void func_800AC5CC(void *a, void *b, void *c, int d);
+extern void func_800AD2A8(void *a, void *b, void *c, int d);
+
+void func_800AC1B8(unsigned char *object)
+{
+    unsigned char *target = *(unsigned char **)(object + 4);
+    if (target != 0 && *(signed char *)(object + 176) != 0) {
+        func_800AC5CC(object + 96, target + 20, object + 20, 1);
+        func_800AD2A8(*(unsigned char **)(object + 4) + 20, object + 160, object + 84, 1);
+    }
+}

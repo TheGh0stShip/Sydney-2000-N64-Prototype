@@ -1,40 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CE3EC\n.ent func_800CE3EC\n"
-    "func_800CE3EC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800CE424\n"
-    "move $16,$4\n"
-    "li $2,7\n"
-    "beq $3,$2,L_800CE438\n"
-    "nop\n"
-    "j L_800CE44C\n"
-    "nop\n"
-    "L_800CE424:\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "j L_800CE444\n"
-    "nop\n"
-    "L_800CE438:\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "L_800CE444:\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_800CE44C:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CE3EC\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+void func_800CE3EC(unsigned char *object, int *msg)
+{
+    Method *m;
+
+    switch (msg[0]) {
+    case 5:
+        m = (Method *)(*(unsigned char **)(object + 180) + 32);
+        m->fn(object + m->offset);
+        break;
+    case 7:
+        m = (Method *)(*(unsigned char **)(object + 180) + 24);
+        m->fn(object + m->offset);
+        break;
+    }
+    *(int *)(object + 16) = msg[1];
+}

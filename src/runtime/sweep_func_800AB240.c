@@ -1,30 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AB240\n.ent func_800AB240\n"
-    "func_800AB240:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $4,0($16)\n"
-    "lhu $2,14($16)\n"
-    "move $5,$0\n"
-    "sh $0,12($16)\n"
-    "sh $0,16($16)\n"
-    "sll $6,$2,0x1\n"
-    "addu $6,$6,$2\n"
-    "jal func_800B3AFC\n"
-    "sll $6,$6,0x3\n"
-    "move $5,$0\n"
-    "lhu $6,14($16)\n"
-    "lw $4,4($16)\n"
-    "addiu $6,$6,1\n"
-    "jal func_800B3AFC\n"
-    "sll $6,$6,0x2\n"
-    "jal func_800AB534\n"
-    "move $4,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AB240\n.set at\n.set reorder\n");
+extern void func_800B3AFC(void *dst, int value, int size);
+extern void func_800AB534(void *object);
+
+void func_800AB240(unsigned char *object)
+{
+    *(short *)(object + 12) = 0;
+    *(short *)(object + 16) = 0;
+    func_800B3AFC(*(void **)(object + 0), 0, *(unsigned short *)(object + 14) * 24);
+    func_800B3AFC(*(void **)(object + 4), 0, (*(unsigned short *)(object + 14) + 1) * 4);
+    func_800AB534(object);
+}

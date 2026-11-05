@@ -1,27 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CEEC8\n.ent func_800CEEC8\n"
-    "func_800CEEC8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800CEF00\n"
-    "move $16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_800CEF00:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CEEC8\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char pad[32];
+    short offset;
+    short pad2;
+    void (*fn)(void *);
+} VTable;
+
+void func_800CEEC8(unsigned char *object, int *msg)
+{
+    if (msg[0] == 5) {
+        VTable *vt = *(VTable **)(object + 180);
+        vt->fn(object + vt->offset);
+    }
+    *(int *)(object + 16) = msg[1];
+}

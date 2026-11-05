@@ -1,37 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A5EF8\n.ent func_800A5EF8\n"
-    "func_800A5EF8:\n"
-    "lwc1 $f2,188($4)\n"
-    "mtc1 $0,$f0\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800A5F24\n"
-    "li $5,1\n"
-    "lwc1 $f0,192($4)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800A5F24\n"
-    "move $5,$0\n"
-    "L_800A5F24:\n"
-    "lbu $2,185($4)\n"
-    "beqz $2,L_800A5F60\n"
-    "move $3,$0\n"
-    "move $6,$2\n"
-    "andi $2,$3,0xff\n"
-    "L_800A5F38:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lh $2,260($2)\n"
-    "beql $2,$0,L_800A5F4C\n"
-    "move $5,$0\n"
-    "L_800A5F4C:\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltu $2,$2,$6\n"
-    "bnez $2,L_800A5F38\n"
-    "andi $2,$3,0xff\n"
-    "L_800A5F60:\n"
-    "jr $31\n"
-    "move $2,$5\n"
-    ".end func_800A5EF8\n.set at\n.set reorder\n");
+struct Entry {
+    short value;
+    short pad;
+};
+
+struct Object {
+    char pad0[185];
+    unsigned char count;
+    char pad186[2];
+    float value;
+    float limit;
+    char pad196[64];
+    struct Entry entries[1];
+};
+
+int func_800A5EF8(struct Object *object)
+{
+    float value = object->value;
+    int result = 1;
+    unsigned char i;
+    unsigned char count;
+
+    if (0.0f < value && value < object->limit) {
+        result = 0;
+    }
+    count = object->count;
+    for (i = 0; i < count; i++) {
+        if (object->entries[i].value == 0) {
+            result = 0;
+        }
+    }
+    return result;
+}

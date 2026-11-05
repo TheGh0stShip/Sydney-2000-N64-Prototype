@@ -1,42 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008EF88\n.ent func_8008EF88\n"
-    "func_8008EF88:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $20,32($29)\n"
-    "li $20,0x8464\n"
-    "sw $17,20($29)\n"
-    "move $17,$20\n"
-    "sw $16,16($29)\n"
-    "move $16,$19\n"
-    "sw $31,36($29)\n"
-    "addu $3,$19,$17\n"
-    "L_8008EFBC:\n"
-    "addiu $17,$17,212\n"
-    "addu $2,$16,$20\n"
-    "addiu $16,$16,212\n"
-    "lw $2,180($2)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "sltiu $2,$18,4\n"
-    "bnez $2,L_8008EFBC\n"
-    "addu $3,$19,$17\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "sw $0,1920($2)\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8008EF88\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *self);
+} VEntry;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char rest[28];
+} Child;
+
+typedef struct {
+    unsigned char pad[0x8464];
+    Child children[4];
+} Owner;
+
+void func_8008EF88(Owner *owner)
+{
+    unsigned int i;
+
+    for (i = 0; i < 4; i++) {
+        VEntry *entry = (VEntry *)(((Child *)((unsigned char *)owner + 0x8464))[i].vtable + 64);
+        entry->func((unsigned char *)&owner->children[i] + entry->offset);
+    }
+    *(int *)((unsigned char *)owner + 0x8000 + 1920) = 0;
+}

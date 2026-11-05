@@ -1,39 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009F7C8\n.ent func_8009F7C8\n"
-    "func_8009F7C8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,696($17)\n"
-    "beqz $2,L_8009F838\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$17,696\n"
-    "jal func_800E5F58\n"
-    "addiu $4,$17,212\n"
-    "addiu $16,$17,940\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,1204\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $0,176($16)\n"
-    "L_8009F838:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009F7C8\n.set at\n.set reorder\n");
+struct VEntry {
+    short offset;
+    short pad;
+    void (*func)(void *object);
+};
+extern unsigned char D_800F2758[];
+extern void func_800AA658(void *list, void *item);
+extern void func_800E5F58(void *object);
+extern void func_800AC334(void *object);
+extern void func_800ADC1C(void *object);
+extern void func_800D29E0(void *object);
+
+void func_8009F7C8(unsigned char *object)
+{
+    unsigned char *part;
+    struct VEntry *vt;
+
+    if (*(int *)(object + 696) != 0) {
+        func_800AA658(D_800F2758, object + 696);
+        func_800E5F58(object + 212);
+        part = object + 940;
+        func_800AC334(part);
+        func_800ADC1C(part);
+        part = object + 1204;
+        func_800D29E0(part);
+        vt = *(struct VEntry **)(part + 180);
+        vt[3].func(part + vt[3].offset);
+        part[176] = 0;
+    }
+}

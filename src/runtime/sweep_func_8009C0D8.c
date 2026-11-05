@@ -1,15 +1,7 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009C0D8\n.ent func_8009C0D8\n"
-    "func_8009C0D8:\n"
-    "addiu $29,$29,-24\n"
-    "move $5,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,19712\n"
-    "sw $31,16($29)\n"
-    "jal func_800D51A4\n"
-    "li $6,-1\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8009C0D8\n.set at\n.set reorder\n");
+extern unsigned char D_800F4D00[];
+extern void func_800D51A4(void *list, void *item, int index);
+
+void func_8009C0D8(void *item)
+{
+    func_800D51A4(D_800F4D00, item, -1);
+}

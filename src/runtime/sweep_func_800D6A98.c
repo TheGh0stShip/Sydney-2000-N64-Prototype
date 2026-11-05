@@ -1,28 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6A98\n.ent func_800D6A98\n"
-    "func_800D6A98:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x8010\n"
-    "lw $2,-15760($16)\n"
-    "li $3,1\n"
-    "sw $31,20($29)\n"
-    "sb $3,3411($2)\n"
-    "lui $2,0x8010\n"
-    "sb $3,-15756($2)\n"
-    "lw $3,-15760($16)\n"
-    "lui $2,0x8010\n"
-    "sb $0,-15755($2)\n"
-    "jal func_800DA720\n"
-    "sb $0,3438($3)\n"
-    "lw $3,-15760($16)\n"
-    "lhu $2,3408($3)\n"
-    "andi $2,$2,0xff0f\n"
-    "sh $2,3408($3)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "li $2,-1\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D6A98\n.set at\n.set reorder\n");
+extern void func_800DA720(void);
+extern unsigned char *D_800FC270;
+extern unsigned char D_800FC274;
+extern unsigned char D_800FC275;
+
+int func_800D6A98(void)
+{
+    D_800FC270[3411] = 1;
+    D_800FC274 = 1;
+    D_800FC275 = 0;
+    D_800FC270[3438] = 0;
+    func_800DA720();
+    *(unsigned short *)(D_800FC270 + 3408) &= 0xff0f;
+    return -1;
+}

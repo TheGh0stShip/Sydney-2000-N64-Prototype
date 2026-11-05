@@ -1,33 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B1B7C\n.ent func_800B1B7C\n"
-    "func_800B1B7C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $3,792($16)\n"
-    "beqz $3,L_800B1BD8\n"
-    "nop\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,792($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,792\n"
-    "sw $0,792($16)\n"
-    "L_800B1BD8:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B1B7C\n.set at\n.set reorder\n");
+typedef void (*Method)(void *object);
+extern void func_800AA658(void *list, void *slot);
+extern unsigned char D_800F2758[];
+
+void func_800B1B7C(unsigned char *object)
+{
+    unsigned char *child = *(unsigned char **)(object + 792);
+    unsigned char *vt;
+    if (child != 0) {
+        vt = *(unsigned char **)(child + 180);
+        (*(Method *)(vt + 28))(child + *(short *)(vt + 24));
+        child = *(unsigned char **)(object + 792);
+        vt = *(unsigned char **)(child + 180);
+        (*(Method *)(vt + 76))(child + *(short *)(vt + 72));
+        func_800AA658(D_800F2758, object + 792);
+        *(int *)(object + 792) = 0;
+    }
+}

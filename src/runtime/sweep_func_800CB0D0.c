@@ -1,42 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CB0D0\n.ent func_800CB0D0\n"
-    "func_800CB0D0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "andi $2,$17,0xff\n"
-    "L_800CB0F0:\n"
-    "addiu $17,$17,1\n"
-    "sll $16,$2,0x1\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $2,$16,$18\n"
-    "addiu $16,$16,1884\n"
-    "lw $2,2064($2)\n"
-    "addu $16,$18,$16\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,196\n"
-    "andi $2,$17,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnel $2,$0,L_800CB0F0\n"
-    "andi $2,$17,0xff\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CB0D0\n.set at\n.set reorder\n");
+extern void func_8001A248(void *p);
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+void func_800CB0D0(unsigned char *object)
+{
+    unsigned char i;
+
+    for (i = 0; i < 5; i++) {
+        int off = i * 212;
+        Method *m = (Method *)(*(unsigned char **)(object + 2064 + off) + 72);
+        unsigned char *part = object + (off + 1884);
+
+        m->fn(part + m->offset);
+        func_8001A248(part + 196);
+    }
+}

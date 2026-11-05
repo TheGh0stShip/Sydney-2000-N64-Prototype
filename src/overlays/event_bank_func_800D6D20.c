@@ -1,70 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6D20\n.ent func_800D6D20\n"
-    "func_800D6D20:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $2,1552($17)\n"
-    "bnez $2,L_800D6E08\n"
-    "li $2,5\n"
-    "lbu $3,1557($17)\n"
-    "beq $3,$2,L_800D6D60\n"
-    "addiu $4,$17,12884\n"
-    "lui $5,0x8007\n"
-    "addiu $5,$5,29924\n"
-    "move $6,$0\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "L_800D6D60:\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,227\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $9\n"
-    "jal func_8001D640\n"
-    "sra $6,$9,0xf\n"
-    "move $4,$17\n"
-    "li $5,91\n"
-    "li $6,14\n"
-    "move $7,$0\n"
-    "lui $2,0x8007\n"
-    "lw $3,24928($4)\n"
-    "lbu $8,30224($2)\n"
-    "li $2,11\n"
-    "sb $2,1551($4)\n"
-    "sw $3,24924($4)\n"
-    "addiu $3,$3,11520\n"
-    "sw $3,24936($4)\n"
-    "jal func_800AC25C\n"
-    "sb $8,1552($4)\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beqz $2,L_800D6E08\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "lui $2,0x8007\n"
-    "lw $7,29532($2)\n"
-    "li $6,14\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "L_800D6E08:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D6D20\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[104];
+    int volume;
+} SoundPlayer;
+
+extern SoundPlayer D_800F1AE0;
+extern char D_800774E4[];
+extern unsigned char D_80077610;
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern int D_8007735C;
+extern void func_800D33A0(void *p, void *name, int a, int b);
+extern int func_8001D4B8(SoundPlayer *sp, int id, int a, int loop);
+extern void func_8001D640(SoundPlayer *sp, int handle, int vol);
+extern void func_800AC25C(void *obj, int a, int b, int c);
+extern int func_80017D54(void);
+extern void func_800AB2A4(void *a, int b, int c, int d, int e, int f);
+
+static inline int scale_volume(int volume, int factor)
+{
+    return (volume * factor) >> 15;
+}
+
+void func_800D6D20(char *obj)
+{
+    int t;
+    unsigned char mode;
+
+    if (*(unsigned char *)(obj + 1552) == 0) {
+        if (*(unsigned char *)(obj + 1557) != 5) {
+            func_800D33A0(obj + 12884, D_800774E4, 0, -1);
+        }
+        func_8001D640(&D_800F1AE0, func_8001D4B8(&D_800F1AE0, 227, 0, 1),
+                      scale_volume(D_800F1AE0.volume, 32767));
+        t = *(int *)(obj + 24928);
+        mode = D_80077610;
+        *(unsigned char *)(obj + 1551) = 11;
+        *(int *)(obj + 24924) = t;
+        *(int *)(obj + 24936) = t + 11520;
+        *(unsigned char *)(obj + 1552) = mode;
+        func_800AC25C(obj, 91, 14, 0);
+        if (func_80017D54()) {
+            func_800AB2A4(D_800F26E0, D_800F2744, 14, D_8007735C, 0, 0);
+        }
+    }
+}

@@ -1,34 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E5718\n.ent func_800E5718\n"
-    "func_800E5718:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($16)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800E576C\n"
-    "move $17,$4\n"
-    "lui $4,0x8010\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x8010\n"
-    "lui $5,0x8010\n"
-    "lbu $2,-3125($2)\n"
-    "lbu $3,-3121($3)\n"
-    "lbu $5,-3117($5)\n"
-    "addiu $4,$4,-3100\n"
-    "sb $2,1($4)\n"
-    "sb $3,3($4)\n"
-    "jal func_80006B24\n"
-    "sb $5,2($4)\n"
-    "L_800E576C:\n"
-    "lw $2,4($16)\n"
-    "sw $2,16($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E5718\n.set at\n.set reorder\n");
+extern unsigned char D_800FF3CB;
+extern unsigned char D_800FF3CF;
+extern unsigned char D_800FF3D3;
+extern unsigned char D_800FF3E4[];
+extern void func_80006B24(void *);
+
+void func_800E5718(char *output, int *entry)
+{
+    if (entry[0] == 5) {
+        D_800FF3E4[1] = D_800FF3CB;
+        D_800FF3E4[3] = D_800FF3CF;
+        D_800FF3E4[2] = D_800FF3D3;
+        func_80006B24(D_800FF3E4);
+    }
+
+    *(int *)(output + 16) = entry[1];
+}

@@ -1,20 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3F70\n.ent func_800E3F70\n"
-    "func_800E3F70:\n"
-    "move $3,$0\n"
-    "lui $2,0x8010\n"
-    "lw $4,-15760($2)\n"
-    "L_800E3F7C:\n"
-    "lbu $2,1372($4)\n"
-    "bnel $2,$5,L_800E3F90\n"
-    "addiu $3,$3,1\n"
-    "jr $31\n"
-    "move $2,$3\n"
-    "L_800E3F90:\n"
-    "sltiu $2,$3,32\n"
-    "bnez $2,L_800E3F7C\n"
-    "addiu $4,$4,4\n"
-    "jr $31\n"
-    "move $2,$0\n"
-    ".end func_800E3F70\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+
+int func_800E3F70(int unused, int value)
+{
+    unsigned int i;
+
+    for (i = 0; i < 32; i++) {
+        if (D_800FC270[i * 4 + 1372] == value) {
+            return i;
+        }
+    }
+    return 0;
+}

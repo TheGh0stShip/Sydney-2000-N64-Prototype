@@ -1,21 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F08F4\n.ent func_800F08F4\n"
-    "func_800F08F4:\n"
-    "move $5,$0\n"
-    "move $3,$5\n"
-    "L_800F08FC:\n"
-    "lw $2,232($4)\n"
-    "lw $2,240($2)\n"
-    "bnel $2,$0,L_800F0914\n"
-    "addiu $3,$3,1\n"
-    "j L_800F0920\n"
-    "move $5,$3\n"
-    "L_800F0914:\n"
-    "sltiu $2,$3,24\n"
-    "bnez $2,L_800F08FC\n"
-    "addiu $4,$4,4\n"
-    "L_800F0920:\n"
-    "jr $31\n"
-    "move $2,$5\n"
-    ".end func_800F08F4\n.set at\n.set reorder\n");
+unsigned int func_800F08F4(unsigned char *object)
+{
+    unsigned int i;
+    unsigned int result = 0;
+
+    for (i = 0; i < 24; i++) {
+        if (*(int *)(*(unsigned char **)(object + 232) + 240) == 0) {
+            result = i;
+            break;
+        }
+        object += 4;
+    }
+    return result;
+}

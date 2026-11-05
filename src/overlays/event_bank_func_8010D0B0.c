@@ -1,34 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8010D0B0\n.ent func_8010D0B0\n"
-    "func_8010D0B0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "move $4,$16\n"
-    "li $2,12\n"
-    "bne $17,$2,L_8010D0D8\n"
-    "sw $31,24($29)\n"
-    "li $16,-1\n"
-    "L_8010D0D8:\n"
-    "jal func_800DAC28\n"
-    "nop\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,-21392\n"
-    "sll $3,$17,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,0($3)\n"
-    "move $5,$16\n"
-    "addu $2,$2,$3\n"
-    "lw $4,0($2)\n"
-    "jal func_800140A0\n"
-    "move $6,$0\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8010D0B0\n.set at\n.set reorder\n");
+extern int func_800DAC28(int id);
+extern void func_800140A0(void *entry, int id, int flags);
+extern void **D_8007AC70[];
+
+void func_8010D0B0(int kind, int id)
+{
+    int arg = id;
+
+    if (kind == 12) {
+        arg = -1;
+    }
+    func_800140A0(D_8007AC70[kind][func_800DAC28(id)], arg, 0);
+}

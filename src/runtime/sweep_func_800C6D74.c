@@ -1,30 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C6D74\n.ent func_800C6D74\n"
-    "func_800C6D74:\n"
-    "addiu $29,$29,-24\n"
-    "move $5,$0\n"
-    "lui $2,0x800f\n"
-    "addiu $7,$2,16676\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x800f\n"
-    "lw $2,-15760($2)\n"
-    "addiu $6,$3,16688\n"
-    "sw $31,16($29)\n"
-    "sb $0,508($2)\n"
-    "lui $2,0x800f\n"
-    "sb $0,16636($2)\n"
-    "L_800C6DA4:\n"
-    "addu $2,$5,$7\n"
-    "addu $3,$5,$6\n"
-    "addiu $5,$5,1\n"
-    "sb $0,0($2)\n"
-    "sltiu $2,$5,12\n"
-    "bnez $2,L_800C6DA4\n"
-    "sb $0,0($3)\n"
-    "jal func_800C4738\n"
-    "nop\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800C6D74\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F40FC;
+extern unsigned char D_800F4124[];
+extern unsigned char D_800F4130[];
+extern void func_800C4738(void *arg);
+
+void func_800C6D74(void *arg)
+{
+    unsigned int i;
+
+    D_800FC270[508] = 0;
+    D_800F40FC = 0;
+    for (i = 0; i < 12; i++) {
+        D_800F4124[i] = 0;
+        D_800F4130[i] = 0;
+    }
+    func_800C4738(arg);
+}

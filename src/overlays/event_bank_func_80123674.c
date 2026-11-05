@@ -1,29 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80123674\n.ent func_80123674\n"
-    "func_80123674:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "move $2,$5\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$16,10248\n"
-    "move $4,$17\n"
-    "move $5,$0\n"
-    "sw $7,16($29)\n"
-    "andi $7,$6,0xff\n"
-    "sw $31,32($29)\n"
-    "jal func_800C95C0\n"
-    "move $6,$2\n"
-    "move $4,$17\n"
-    "jal func_800AC37C\n"
-    "move $5,$16\n"
-    "lw $2,13524($16)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,13524($16)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80123674\n.set at\n.set reorder\n");
+extern void func_800C95C0(void *object, int mode, int value,
+                         unsigned char type, int extra);
+extern void func_800AC37C(void *object, void *owner);
+
+void func_80123674(unsigned char *object, int value, unsigned char type,
+                   int extra)
+{
+    unsigned char *part = object + 10248;
+    func_800C95C0(part, 0, value, type, extra);
+    func_800AC37C(part, object);
+    *(unsigned int *)(object + 13524) |= 4;
+}

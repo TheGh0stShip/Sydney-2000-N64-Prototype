@@ -1,31 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D0BB8\n.ent func_800D0BB8\n"
-    "func_800D0BB8:\n"
-    "addiu $29,$29,-24\n"
-    "move $3,$4\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "sw $31,20($29)\n"
-    "sw $5,1912($3)\n"
-    "li $5,195\n"
-    "move $6,$0\n"
-    "li $2,10\n"
-    "move $7,$6\n"
-    "jal func_8001D4B8\n"
-    "sb $2,1908($3)\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D0BB8\n.set at\n.set reorder\n");
+extern int func_8001D4B8(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+extern char D_800F1AE0[];
+
+void func_800D0BB8(char *obj, int arg)
+{
+    int voice;
+
+    *(int *)(obj + 1912) = arg;
+    *(signed char *)(obj + 1908) = 10;
+    voice = func_8001D4B8(D_800F1AE0, 195, 0, 0);
+    func_8001D640(D_800F1AE0, voice,
+                  (int)((long long)*(int *)(D_800F1AE0 + 104) * 32767) >> 15);
+}

@@ -1,51 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B6724\n.ent func_800B6724\n"
-    "func_800B6724:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $4,$16,1772\n"
-    "li $5,2\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x8008\n"
-    "addiu $17,$17,26008\n"
-    "sw $31,28($29)\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,1552\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,1332\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,1112\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $17,180($4)\n"
-    "addiu $4,$16,900\n"
-    "jal func_800CE380\n"
-    "li $5,2\n"
-    "addiu $4,$16,688\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,476\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $4,$16,264\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "move $5,$18\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B6724\n.set at\n.set reorder\n");
+extern unsigned char D_80086598[];
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800CE380(void *object, int mode);
+
+void func_800B6724(unsigned char *object, int mode)
+{
+    unsigned char *vtable = D_80086598;
+    unsigned char *part;
+
+    part = object + 1772;
+    *(void **)(part + 180) = vtable;
+    func_800ADDA4(part, 2);
+    part = object + 1552;
+    *(void **)(part + 180) = vtable;
+    func_800ADDA4(part, 2);
+    part = object + 1332;
+    *(void **)(part + 180) = vtable;
+    func_800ADDA4(part, 2);
+    part = object + 1112;
+    *(void **)(part + 180) = vtable;
+    func_800ADDA4(part, 2);
+    func_800CE380(object + 900, 2);
+    func_800ADDA4(object + 688, 2);
+    func_800ADDA4(object + 476, 2);
+    func_800ADDA4(object + 264, 2);
+    func_800ADDA4(object, mode);
+}

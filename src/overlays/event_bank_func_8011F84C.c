@@ -1,32 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011F84C\n.ent func_8011F84C\n"
-    "func_8011F84C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_8011F898\n"
-    "move $16,$4\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8011F898\n"
-    "nop\n"
-    "jal func_800813AC\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_8011F898:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011F84C\n.set at\n.set reorder\n");
+extern void func_800813AC();
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *object);
+} VEntry;
+
+void func_8011F84C(unsigned char *object, int *event)
+{
+    VEntry *entry;
+
+    switch (event[0]) {
+    case 3:
+        break;
+    case 5:
+        func_800813AC();
+        entry = (VEntry *)(*(unsigned char **)(object + 180) + 32);
+        entry->func(object + entry->offset);
+        break;
+    }
+    *(int *)(object + 16) = event[1];
+}

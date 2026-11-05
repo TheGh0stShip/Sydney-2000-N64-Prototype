@@ -1,29 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011F644\n.ent func_8011F644\n"
-    "func_8011F644:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $2,180($16)\n"
-    "move $17,$5\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "move $5,$17\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_80081C70\n"
-    "move $4,$16\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011F644\n.set at\n.set reorder\n");
+extern void func_80081C70(void *object);
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *object, int arg);
+} VEntry;
+
+void func_8011F644(unsigned char *object, int arg)
+{
+    VEntry *entry;
+
+    entry = (VEntry *)(*(unsigned char **)(object + 180) + 24);
+    ((void (*)(void *))entry->func)(object + entry->offset);
+    entry = (VEntry *)(*(unsigned char **)(object + 180) + 16);
+    entry->func(object + entry->offset, arg);
+    func_80081C70(object);
+}

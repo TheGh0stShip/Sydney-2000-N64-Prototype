@@ -1,66 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D9EB8\n.ent func_800D9EB8\n"
-    "func_800D9EB8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $16,24($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "li $7,15\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "lw $5,24980($18)\n"
-    "li $2,-1\n"
-    "sw $2,24984($18)\n"
-    "sw $2,24988($18)\n"
-    "sw $2,24992($18)\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "move $4,$16\n"
-    "li $5,213\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "move $4,$16\n"
-    "li $5,109\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$16\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "lw $3,104($4)\n"
-    "li $2,26213\n"
-    "mult $3,$2\n"
-    "move $5,$17\n"
-    "li $7,45\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "sw $17,24984($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D9EB8\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[104];
+    int volume;
+} SoundPlayer;
+
+extern SoundPlayer D_800F1AE0;
+extern void func_8001D5D8(SoundPlayer *sp, int handle, int vol, int fade, int a, int b);
+extern int func_8001D4B8(SoundPlayer *sp, int id, int a, int loop);
+extern void func_8001D640(SoundPlayer *sp, int handle, int vol);
+
+static inline int scale_volume(int volume, int factor)
+{
+    return (volume * factor) >> 15;
+}
+
+void func_800D9EB8(char *obj)
+{
+    int handle;
+    int old = *(int *)(obj + 24980);
+
+    *(int *)(obj + 24984) = -1;
+    *(int *)(obj + 24988) = -1;
+    *(int *)(obj + 24992) = -1;
+    func_8001D5D8(&D_800F1AE0, old, 0, 15, 1, 0);
+    func_8001D640(&D_800F1AE0, func_8001D4B8(&D_800F1AE0, 213, 0, 1),
+                  scale_volume(D_800F1AE0.volume, 32767));
+    handle = func_8001D4B8(&D_800F1AE0, 109, 0, -1);
+    func_8001D640(&D_800F1AE0, handle, 0);
+    func_8001D5D8(&D_800F1AE0, handle, scale_volume(D_800F1AE0.volume, 26213), 45, 0, 0);
+    *(int *)(obj + 24984) = handle;
+}

@@ -1,36 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EBF34\n.ent func_800EBF34\n"
-    "func_800EBF34:\n"
-    "addiu $29,$29,-48\n"
-    "sdc1 $f20,40($29)\n"
-    "mtc1 $6,$f20\n"
-    "sw $19,28($29)\n"
-    "lw $19,64($29)\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $17,20($29)\n"
-    "sw $20,32($29)\n"
-    "lw $20,68($29)\n"
-    "sw $31,36($29)\n"
-    "jal func_8007C994\n"
-    "move $17,$7\n"
-    "li $2,21\n"
-    "sb $18,840($16)\n"
-    "sb $17,852($16)\n"
-    "sw $2,172($16)\n"
-    "swc1 $f20,844($16)\n"
-    "sw $19,848($16)\n"
-    "sw $20,856($16)\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800EBF34\n.set at\n.set reorder\n");
+extern void func_8007C994(void *object);
+
+void func_800EBF34(unsigned char *object, unsigned char first, float value,
+                   unsigned char second, int third, int fourth)
+{
+    func_8007C994(object);
+    object[840] = first;
+    object[852] = second;
+    *(int *)(object + 172) = 21;
+    *(float *)(object + 844) = value;
+    *(int *)(object + 848) = third;
+    *(int *)(object + 856) = fourth;
+}

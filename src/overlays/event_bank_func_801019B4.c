@@ -1,43 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801019B4\n.ent func_801019B4\n"
-    "func_801019B4:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,32($29)\n"
-    "move $16,$4\n"
-    "lui $4,0x8007\n"
-    "sw $31,36($29)\n"
-    "lbu $5,733($16)\n"
-    "jal func_800AEF6C\n"
-    "addiu $4,$4,30272\n"
-    "move $4,$2\n"
-    "jal func_800AF088\n"
-    "addiu $5,$29,16\n"
-    "lwc1 $f0,16($29)\n"
-    "addiu $3,$29,16\n"
-    "swc1 $f0,84($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$16,84\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $2,$16,20\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,368($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$16,368\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($3)\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,392($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $16,$16,392\n"
-    "swc1 $f0,4($16)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($16)\n"
-    "lw $31,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_801019B4\n.set at\n.set reorder\n");
+extern void *func_800AEF6C(void *table, int index);
+extern void func_800AF088(void *entry, float *out);
+extern char D_80077640[];
+
+typedef struct {
+    char pad[64];
+    float pos[3];
+} Body;
+
+static inline void vec_copy(float *dst, float *src)
+{
+    dst[0] = src[0];
+    dst[1] = src[1];
+    dst[2] = src[2];
+}
+
+static inline void body_pos_copy(float *dst, Body *body)
+{
+    dst[0] = body->pos[0];
+    dst[1] = body->pos[1];
+    dst[2] = body->pos[2];
+}
+
+void func_801019B4(unsigned char *object)
+{
+    float out[3];
+
+    func_800AF088(func_800AEF6C(D_80077640, object[733]), out);
+    vec_copy((float *)(object + 84), out);
+    body_pos_copy((float *)(object + 368), (Body *)(object + 20));
+    body_pos_copy((float *)(object + 392), (Body *)(object + 20));
+}

@@ -1,25 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EA368\n.ent func_800EA368\n"
-    "func_800EA368:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800EA390\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,8\n"
-    "L_800EA390:\n"
-    "sw $0,8($16)\n"
-    "sh $0,0($16)\n"
-    "sw $0,4($16)\n"
-    "sw $0,12($16)\n"
-    "sh $0,2($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EA368\n.set at\n.set reorder\n");
+typedef struct RuntimeAllocationRecord {
+    short count;
+    short capacity;
+    void *owner;
+    void *allocation;
+    void *tail;
+} RuntimeAllocationRecord;
+
+extern char D_800F2758;
+extern void func_800AA658(void *, void **);
+
+void func_800EA368(RuntimeAllocationRecord *record)
+{
+    if (record->allocation != 0) {
+        func_800AA658(&D_800F2758, &record->allocation);
+    }
+
+    record->allocation = 0;
+    record->count = 0;
+    record->owner = 0;
+    record->tail = 0;
+    record->capacity = 0;
+}

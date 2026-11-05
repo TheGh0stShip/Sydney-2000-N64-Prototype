@@ -1,116 +1,89 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D7340\n.ent func_800D7340\n"
-    "func_800D7340:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "lui $2,0x800f\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$2,6880\n"
-    "move $4,$17\n"
-    "move $6,$0\n"
-    "li $7,15\n"
-    "sw $31,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $16,24($29)\n"
-    "lw $5,24992($18)\n"
-    "li $19,1\n"
-    "sw $19,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "li $5,96\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$17\n"
-    "move $16,$2\n"
-    "move $5,$16\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$17\n"
-    "lw $3,104($17)\n"
-    "li $2,16383\n"
-    "mult $3,$2\n"
-    "move $5,$16\n"
-    "li $7,15\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "srav $6,$8,$7\n"
-    "addiu $4,$18,14520\n"
-    "jal func_800A62EC\n"
-    "sw $16,24980($18)\n"
-    "lbu $2,1557($18)\n"
-    "li $3,5\n"
-    "beq $2,$3,L_800D7444\n"
-    "sb $0,1556($18)\n"
-    "move $4,$3\n"
-    "move $5,$19\n"
-    "sb $2,1558($18)\n"
-    "jal func_8009BB88\n"
-    "sb $3,1557($18)\n"
-    "move $4,$17\n"
-    "li $5,16383\n"
-    "li $6,32767\n"
-    "jal func_800A3394\n"
-    "move $7,$6\n"
-    "lui $3,0x8004\n"
-    "addiu $16,$3,17904\n"
-    "lw $2,8($16)\n"
-    "bnez $2,L_800D7444\n"
-    "nop\n"
-    "lw $2,17904($3)\n"
-    "move $4,$16\n"
-    "jal func_80008540\n"
-    "sw $2,4($16)\n"
-    "sw $19,8($16)\n"
-    "L_800D7444:\n"
-    "jal func_80099FE4\n"
-    "addiu $4,$18,20220\n"
-    "move $4,$18\n"
-    "li $5,150\n"
-    "move $6,$0\n"
-    "jal func_80076564\n"
-    "move $7,$6\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,19712\n"
-    "addiu $17,$18,19952\n"
-    "lw $2,180($17)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$17\n"
-    "lw $5,216($16)\n"
-    "li $16,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$16,$5\n"
-    "move $4,$17\n"
-    "jal func_800ADC38\n"
-    "sb $16,176($4)\n"
-    "move $4,$18\n"
-    "li $5,91\n"
-    "li $6,18\n"
-    "jal func_800AC25C\n"
-    "move $7,$0\n"
-    "lw $3,1628($18)\n"
-    "beql $3,$0,L_800D74C4\n"
-    "move $3,$16\n"
-    "L_800D74C4:\n"
-    "lui $2,0x800f\n"
-    "sw $3,5104($2)\n"
-    "li $2,8\n"
-    "sw $0,24932($18)\n"
-    "sb $2,1551($18)\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D7340\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[104];
+    int volume;
+} SoundPlayer;
+
+typedef struct {
+    short delta;
+    short pad;
+    void (*fn)();
+} VEntry;
+
+typedef struct {
+    VEntry entries[4];
+} VTable;
+
+typedef struct {
+    int base;
+    int saved;
+    int active;
+} Timer;
+
+extern SoundPlayer D_800F1AE0;
+extern Timer D_800445F0;
+extern char D_800F4D00[];
+extern int D_800F13F0;
+extern void func_8001D5D8(SoundPlayer *sp, int handle, int vol, int fade, int a, int b);
+extern int func_8001D4B8(SoundPlayer *sp, int id, int a, int loop);
+extern void func_8001D640(SoundPlayer *sp, int handle, int vol);
+extern void func_800A62EC(void *p);
+extern void func_8009BB88(int a, int b);
+extern void func_800A3394(SoundPlayer *sp, int a, int b, int c);
+extern void func_80008540(Timer *t);
+extern void func_80099FE4(void *p);
+extern void func_80076564(void *obj, int a, int b, int c);
+extern void func_800ADC54(void *p, int mask);
+extern void func_800ADC38(void *p);
+extern void func_800AC25C(void *obj, int a, int b, int c);
+
+static inline int scale_volume(int volume, int factor)
+{
+    return (volume * factor) >> 15;
+}
+
+void func_800D7340(char *obj)
+{
+    int handle;
+    unsigned char mode;
+    char *ctl;
+    VTable *vt;
+    int v;
+    char *cfg;
+    int old = *(int *)(obj + 24992);
+
+    func_8001D5D8(&D_800F1AE0, old, 0, 15, 1, 0);
+    handle = func_8001D4B8(&D_800F1AE0, 96, 0, -1);
+    func_8001D640(&D_800F1AE0, handle, 0);
+    func_8001D5D8(&D_800F1AE0, handle, scale_volume(D_800F1AE0.volume, 16383), 15, 0, 0);
+    *(int *)(obj + 24980) = handle;
+    func_800A62EC(obj + 14520);
+    *(unsigned char *)(obj + 1556) = 0;
+    mode = *(unsigned char *)(obj + 1557);
+    if (mode != 5) {
+        *(unsigned char *)(obj + 1558) = mode;
+        *(unsigned char *)(obj + 1557) = 5;
+        func_8009BB88(5, 1);
+        func_800A3394(&D_800F1AE0, 16383, 32767, 32767);
+        if (D_800445F0.active == 0) {
+            D_800445F0.saved = D_800445F0.base;
+            func_80008540(&D_800445F0);
+            D_800445F0.active = 1;
+        }
+    }
+    func_80099FE4(obj + 20220);
+    func_80076564(obj, 150, 0, 0);
+    cfg = D_800F4D00;
+    ctl = obj + 19952;
+    vt = *(VTable **)(ctl + 180);
+    vt->entries[2].fn(ctl + vt->entries[2].delta, cfg);
+    func_800ADC54(ctl, 1 << *(int *)(cfg + 216));
+    *(unsigned char *)(ctl + 176) = 1;
+    func_800ADC38(ctl);
+    func_800AC25C(obj, 91, 18, 0);
+    v = *(int *)(obj + 1628);
+    if (v == 0)
+        v = 1;
+    D_800F13F0 = v;
+    *(int *)(obj + 24932) = 0;
+    *(unsigned char *)(obj + 1551) = 8;
+}

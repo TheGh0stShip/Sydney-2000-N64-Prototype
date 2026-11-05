@@ -1,34 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A6A98\n.ent func_800A6A98\n"
-    "func_800A6A98:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800A6AE0\n"
-    "move $16,$4\n"
-    "slti $2,$3,6\n"
-    "beqz $2,L_800A6AE8\n"
-    "li $2,3\n"
-    "bne $3,$2,L_800A6AE8\n"
-    "nop\n"
-    "jal func_800A6440\n"
-    "nop\n"
-    "j L_800A6AE8\n"
-    "nop\n"
-    "L_800A6AE0:\n"
-    "jal func_800A6818\n"
-    "move $4,$16\n"
-    "L_800A6AE8:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A6A98\n.set at\n.set reorder\n");
+extern void func_800A6440(void *object);
+extern void func_800A6818(void *object);
+
+void func_800A6A98(unsigned char *object, int *message)
+{
+    switch (message[0]) {
+    case 3:
+        func_800A6440(object);
+        break;
+    case 5:
+        func_800A6818(object);
+        break;
+    case 6:
+        break;
+    }
+    *(int *)(object + 16) = message[1];
+}

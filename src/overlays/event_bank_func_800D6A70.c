@@ -1,66 +1,36 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6A70\n.ent func_800D6A70\n"
-    "func_800D6A70:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,24932($18)\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800D6B44\n"
-    "sw $2,24932($18)\n"
-    "lbu $2,1557($18)\n"
-    "bnez $2,L_800D6AB8\n"
-    "lui $17,0x800f\n"
-    "addiu $4,$18,20220\n"
-    "move $5,$0\n"
-    "jal func_80099D70\n"
-    "move $6,$0\n"
-    "lui $17,0x800f\n"
-    "L_800D6AB8:\n"
-    "addiu $17,$17,6880\n"
-    "move $4,$17\n"
-    "move $6,$0\n"
-    "li $7,270\n"
-    "lw $5,24976($18)\n"
-    "li $2,0x9600\n"
-    "sw $2,24932($18)\n"
-    "li $2,5\n"
-    "sb $2,1551($18)\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "li $5,96\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$17\n"
-    "move $16,$2\n"
-    "move $5,$16\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$17\n"
-    "lw $3,104($4)\n"
-    "li $2,6553\n"
-    "mult $3,$2\n"
-    "move $5,$16\n"
-    "li $7,120\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "sw $16,24980($18)\n"
-    "L_800D6B44:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D6A70\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[104];
+    int volume;
+} SoundPlayer;
+
+extern SoundPlayer D_800F1AE0;
+extern void func_8001D5D8(SoundPlayer *sp, int handle, int vol, int fade, int a, int b);
+extern int func_8001D4B8(SoundPlayer *sp, int id, int a, int loop);
+extern void func_8001D640(SoundPlayer *sp, int handle, int vol);
+extern void func_80099D70(void *p, int a, float b);
+
+static inline int scale_volume(int volume, int factor)
+{
+    return (volume * factor) >> 15;
+}
+
+void func_800D6A70(char *obj)
+{
+    int handle;
+    int old;
+
+    *(int *)(obj + 24932) -= 256;
+    if (*(int *)(obj + 24932) <= 0) {
+        if (*(unsigned char *)(obj + 1557) == 0) {
+            func_80099D70(obj + 20220, 0, 0.0f);
+        }
+        old = *(int *)(obj + 24976);
+        *(int *)(obj + 24932) = 0x9600;
+        *(unsigned char *)(obj + 1551) = 5;
+        func_8001D5D8(&D_800F1AE0, old, 0, 270, 1, 0);
+        handle = func_8001D4B8(&D_800F1AE0, 96, 0, -1);
+        func_8001D640(&D_800F1AE0, handle, 0);
+        func_8001D5D8(&D_800F1AE0, handle, scale_volume(D_800F1AE0.volume, 6553), 120, 0, 0);
+        *(int *)(obj + 24980) = handle;
+    }
+}

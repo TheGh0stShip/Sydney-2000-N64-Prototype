@@ -1,31 +1,9 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011DFD0\n.ent func_8011DFD0\n"
-    "func_8011DFD0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "sw $31,24($29)\n"
-    "lw $2,4($16)\n"
-    "lw $3,16($17)\n"
-    "subu $2,$2,$3\n"
-    "sra $2,$2,0x8\n"
-    "li $3,1\n"
-    "bne $2,$3,L_8011E018\n"
-    "li $2,5\n"
-    "lw $3,0($16)\n"
-    "bne $3,$2,L_8011E018\n"
-    "nop\n"
-    "jal func_80080D94\n"
-    "nop\n"
-    "L_8011E018:\n"
-    "lw $2,4($16)\n"
-    "sw $2,16($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011DFD0\n.set at\n.set reorder\n");
+extern void func_80080D94();
+
+void func_8011DFD0(unsigned char *object, int *event)
+{
+    if (((event[1] - *(int *)(object + 16)) >> 8) == 1 && event[0] == 5) {
+        func_80080D94();
+    }
+    *(int *)(object + 16) = event[1];
+}

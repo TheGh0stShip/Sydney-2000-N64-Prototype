@@ -1,32 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A20F0\n.ent func_800A20F0\n"
-    "func_800A20F0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A213C\n"
-    "move $16,$4\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800A213C\n"
-    "nop\n"
-    "jal func_800A18C4\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_800A213C:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A20F0\n.set at\n.set reorder\n");
+struct VEntry {
+    short offset;
+    short pad;
+    void (*func)(void *object);
+};
+extern void func_800A18C4();
+
+void func_800A20F0(unsigned char *object, int *message)
+{
+    struct VEntry *vt;
+
+    switch (message[0]) {
+    case 3:
+        break;
+    case 5:
+        func_800A18C4();
+        vt = *(struct VEntry **)(object + 180);
+        vt[4].func(object + vt[4].offset);
+        break;
+    }
+    *(int *)(object + 16) = message[1];
+}

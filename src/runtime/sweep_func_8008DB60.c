@@ -1,27 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008DB60\n.ent func_8008DB60\n"
-    "func_8008DB60:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,412($16)\n"
-    "beqz $2,L_8008DB88\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,412\n"
-    "L_8008DB88:\n"
-    "lw $2,404($16)\n"
-    "beqz $2,L_8008DBA0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,404\n"
-    "L_8008DBA0:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8008DB60\n.set at\n.set reorder\n");
+extern unsigned char D_800F2758[];
+extern void func_800AA658(void *list, void *item);
+
+void func_8008DB60(unsigned char *object)
+{
+    if (*(int *)(object + 412) != 0) {
+        func_800AA658(D_800F2758, object + 412);
+    }
+    if (*(int *)(object + 404) != 0) {
+        func_800AA658(D_800F2758, object + 404);
+    }
+}

@@ -1,60 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A8784\n.ent func_800A8784\n"
-    "func_800A8784:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,23088\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,21720\n"
-    "beqz $2,L_800A87EC\n"
-    "move $19,$5\n"
-    "addiu $16,$18,32320\n"
-    "beql $2,$16,L_800A87F0\n"
-    "addiu $2,$18,520\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800A87CC:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800A87CC\n"
-    "addiu $16,$16,-212\n"
-    "L_800A87EC:\n"
-    "addiu $2,$18,520\n"
-    "L_800A87F0:\n"
-    "beqz $2,L_800A8824\n"
-    "addiu $16,$18,21720\n"
-    "beq $2,$16,L_800A8824\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800A8804:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800A8804\n"
-    "addiu $16,$16,-212\n"
-    "L_800A8824:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A8784\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*func)(void *self, int flags);
+} VtblEntry;
+
+typedef struct {
+    VtblEntry entries[2];
+} Vtbl;
+
+typedef struct {
+    char pad[180];
+    Vtbl *vtbl;
+    char pad2[28];
+} Elem;
+
+typedef struct {
+    char pad[180];
+    void *vtbl;
+    char pad2[336];
+    Elem small[100];
+    Elem large[50];
+} Obj;
+
+extern char D_80085A30[];
+extern void func_800AC3A4(Obj *obj, int flags);
+
+void func_800A8784(Obj *obj, int flags) {
+    Elem *begin;
+    Elem *e;
+
+    obj->vtbl = D_80085A30;
+    begin = obj->large;
+    if (begin != 0) {
+        e = obj->large + 50;
+        if (begin != e) {
+            Elem *p = begin;
+            do {
+                e--;
+                e->vtbl->entries[1].func((char *)e + e->vtbl->entries[1].delta, 2);
+            } while (p != e);
+        }
+    }
+    begin = obj->small;
+    if (begin != 0) {
+        e = obj->small + 100;
+        if (begin != e) {
+            Elem *p = begin;
+            do {
+                e--;
+                e->vtbl->entries[1].func((char *)e + e->vtbl->entries[1].delta, 2);
+            } while (p != e);
+        }
+    }
+    func_800AC3A4(obj, flags);
+}

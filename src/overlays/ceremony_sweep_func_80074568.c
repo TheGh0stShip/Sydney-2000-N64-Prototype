@@ -1,91 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80074568\n.ent func_80074568\n"
-    "func_80074568:\n"
-    "addiu $29,$29,-128\n"
-    "sw $17,116($29)\n"
-    "move $17,$4\n"
-    "addiu $4,$17,1956\n"
-    "li $5,17\n"
-    "addiu $6,$29,16\n"
-    "sw $31,120($29)\n"
-    "jal func_800B97D4\n"
-    "sw $16,112($29)\n"
-    "addiu $4,$29,16\n"
-    "addiu $5,$17,1976\n"
-    "addiu $16,$17,3376\n"
-    "move $6,$16\n"
-    "jal func_800AC5CC\n"
-    "li $7,1\n"
-    "lwc1 $f0,16($16)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5768($1)\n"
-    "mul.s $f4,$f0,$f2\n"
-    "swc1 $f0,96($29)\n"
-    "lwc1 $f0,20($16)\n"
-    "mul.s $f6,$f0,$f2\n"
-    "swc1 $f0,100($29)\n"
-    "lwc1 $f0,24($16)\n"
-    "mul.s $f2,$f0,$f2\n"
-    "swc1 $f0,104($29)\n"
-    "swc1 $f4,96($29)\n"
-    "swc1 $f6,100($29)\n"
-    "swc1 $f2,104($29)\n"
-    "lwc1 $f0,3440($17)\n"
-    "add.s $f4,$f4,$f0\n"
-    "addiu $2,$17,3440\n"
-    "swc1 $f4,3440($17)\n"
-    "lwc1 $f0,100($29)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,104($29)\n"
-    "addiu $4,$17,2360\n"
-    "add.s $f0,$f0,$f2\n"
-    "li $5,17\n"
-    "addiu $6,$29,16\n"
-    "jal func_800B97D4\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $4,$29,16\n"
-    "addiu $5,$17,2380\n"
-    "addiu $16,$17,3588\n"
-    "move $6,$16\n"
-    "jal func_800AC5CC\n"
-    "li $7,1\n"
-    "lwc1 $f0,16($16)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5772($1)\n"
-    "mul.s $f4,$f0,$f2\n"
-    "swc1 $f0,96($29)\n"
-    "lwc1 $f0,20($16)\n"
-    "mul.s $f6,$f0,$f2\n"
-    "swc1 $f0,100($29)\n"
-    "lwc1 $f0,24($16)\n"
-    "mul.s $f2,$f0,$f2\n"
-    "swc1 $f0,104($29)\n"
-    "swc1 $f4,96($29)\n"
-    "swc1 $f6,100($29)\n"
-    "swc1 $f2,104($29)\n"
-    "lwc1 $f0,3652($17)\n"
-    "add.s $f4,$f4,$f0\n"
-    "addiu $2,$17,3652\n"
-    "swc1 $f4,3652($17)\n"
-    "lwc1 $f0,100($29)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,104($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $4,$17,3568\n"
-    "jal func_800AD9E8\n"
-    "swc1 $f0,8($2)\n"
-    "jal func_800AD9E8\n"
-    "addiu $4,$17,3356\n"
-    "lw $31,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,128\n"
-    ".end func_80074568\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3f;
+
+extern void func_800B97D4(void *, int, void *);
+extern void func_800AC5CC(void *, void *, void *, int);
+extern void func_800AD9E8(void *);
+
+void func_80074568(char *self)
+{
+    char mtx[80];
+    Vec3f v;
+    Vec3f *src;
+    Vec3f *src2;
+    Vec3f *dst;
+
+    func_800B97D4(self + 1956, 17, mtx);
+    func_800AC5CC(mtx, self + 1976, src = (Vec3f *)(self + 3376), 1);
+    v.x = src[1].y;
+    v.y = src[1].z;
+    v.z = src[2].x;
+    v.x *= *(float *)0x80071688;
+    v.y *= *(float *)0x80071688;
+    v.z *= *(float *)0x80071688;
+    dst = (Vec3f *)(self + 3440);
+    dst->x = v.x + dst->x;
+    dst->y = v.y + dst->y;
+    dst->z = v.z + dst->z;
+
+    func_800B97D4(self + 2360, 17, mtx);
+    func_800AC5CC(mtx, self + 2380, src2 = (Vec3f *)(self + 3588), 1);
+    v.x = src2[1].y;
+    v.y = src2[1].z;
+    v.z = src2[2].x;
+    v.x *= *(float *)0x8007168C;
+    v.y *= *(float *)0x8007168C;
+    v.z *= *(float *)0x8007168C;
+    dst = (Vec3f *)(self + 3652);
+    dst->x = v.x + dst->x;
+    dst->y = v.y + dst->y;
+    dst->z = v.z + dst->z;
+
+    func_800AD9E8(self + 3568);
+    func_800AD9E8(self + 3356);
+}

@@ -1,28 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EADFC\n.ent func_800EADFC\n"
-    "func_800EADFC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "sw $31,20($29)\n"
-    "lw $3,0($5)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800EAE34\n"
-    "move $16,$4\n"
-    "jal func_800EA6D0\n"
-    "addiu $5,$16,220\n"
-    "move $4,$16\n"
-    "jal func_800EA9C4\n"
-    "addiu $5,$16,332\n"
-    "jal func_800E9D10\n"
-    "move $4,$16\n"
-    "L_800EAE34:\n"
-    "lui $3,0x8010\n"
-    "lw $2,-528($3)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "addiu $2,$2,1\n"
-    "sw $2,-528($3)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EADFC\n.set at\n.set reorder\n");
+extern int D_800FFDF0;
+extern void func_800EA6D0(void *object, void *value);
+extern void func_800EA9C4(void *object, void *value);
+extern void func_800E9D10(void *object);
+
+void func_800EADFC(unsigned char *object, const int *event)
+{
+    if (event[0] == 5) {
+        func_800EA6D0(object, object + 220);
+        func_800EA9C4(object, object + 332);
+        func_800E9D10(object);
+    }
+    D_800FFDF0++;
+}

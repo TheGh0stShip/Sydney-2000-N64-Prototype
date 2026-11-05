@@ -1,50 +1,19 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E6BD8\n.ent func_800E6BD8\n"
-    "func_800E6BD8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$17,1984\n"
-    "sw $31,24($29)\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,2196\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,2408\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,712\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,924\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,1136\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $17,$17,1348\n"
-    "jal func_800AC334\n"
-    "move $4,$17\n"
-    "jal func_800ADC1C\n"
-    "move $4,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E6BD8\n.set at\n.set reorder\n");
+extern void func_800AC334(void *object);
+extern void func_800ADC1C(void *object);
+
+static inline void release_part(unsigned char *part)
+{
+    func_800AC334(part);
+    func_800ADC1C(part);
+}
+
+void func_800E6BD8(unsigned char *object)
+{
+    release_part(object + 1984);
+    release_part(object + 2196);
+    release_part(object + 2408);
+    release_part(object + 712);
+    release_part(object + 924);
+    release_part(object + 1136);
+    release_part(object + 1348);
+}

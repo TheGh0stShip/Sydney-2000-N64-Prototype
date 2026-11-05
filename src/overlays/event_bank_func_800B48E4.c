@@ -1,84 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B48E4\n.ent func_800B48E4\n"
-    "func_800B48E4:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $19,36($29)\n"
-    "move $19,$5\n"
-    "sw $31,40($29)\n"
-    "sw $17,28($29)\n"
-    "jal func_8007716C\n"
-    "sw $16,24($29)\n"
-    "addiu $16,$18,21076\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "sb $0,176($4)\n"
-    "lw $17,21292($18)\n"
-    "beqz $17,L_800B49FC\n"
-    "li $2,1\n"
-    "lbu $3,426($17)\n"
-    "bne $3,$2,L_800B4968\n"
-    "lui $16,0x800f\n"
-    "lui $4,0x8010\n"
-    "lbu $2,424($17)\n"
-    "lwc1 $f0,420($17)\n"
-    "sll $3,$2,0x4\n"
-    "subu $3,$3,$2\n"
-    "lw $2,-15760($4)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "swc1 $f0,56($2)\n"
-    "L_800B4968:\n"
-    "addiu $16,$16,10968\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "move $7,$6\n"
-    "lb $5,427($17)\n"
-    "li $2,5\n"
-    "jal func_800BBD78\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "li $6,1\n"
-    "move $7,$0\n"
-    "lb $5,427($17)\n"
-    "li $2,2\n"
-    "jal func_800BBD78\n"
-    "sw $2,16($29)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,180($17)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "andi $2,$19,0xff\n"
-    "bnez $2,L_800B49FC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,21292\n"
-    "L_800B49FC:\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800B48E4\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*func)(void *self, ...);
+} VEntry;
+
+typedef struct {
+    unsigned char pad[56];
+    float value;
+} Slot;
+
+extern Slot *D_800FC270;
+extern unsigned char D_800F2AD8[];
+extern unsigned char D_800F26E0[];
+extern unsigned char D_800F2758[];
+extern void func_8007716C(void *object);
+extern void func_800ADC1C(void *object);
+extern void func_800BBD78(void *list, int id, int a, int b, int c);
+extern void func_800AACB0(void *list, void *object, int a);
+extern void func_800AA658(void *list, void *slot);
+
+#define VTABLE(p) (*(VEntry **)((unsigned char *)(p) + 180))
+
+void func_800B48E4(unsigned char *object, int keep)
+{
+    unsigned char *sub;
+    unsigned char *actor;
+
+    func_8007716C(object);
+    sub = object + 21076;
+    VTABLE(sub)[3].func(sub + VTABLE(sub)[3].delta);
+    sub[176] = 0;
+    func_800ADC1C(sub);
+    actor = *(unsigned char **)(object + 21292);
+    if (actor != 0) {
+        if (actor[426] == 1) {
+            Slot *slot = &D_800FC270[actor[424]];
+            slot->value = *(float *)(actor + 420);
+        }
+        func_800BBD78(D_800F2AD8, (signed char)actor[427], 0, 0, 5);
+        func_800BBD78(D_800F2AD8, (signed char)actor[427], 1, 0, 2);
+        func_800AACB0(D_800F26E0, actor, 0);
+        VTABLE(actor)[3].func(actor + VTABLE(actor)[3].delta);
+        VTABLE(actor)[1].func(actor + VTABLE(actor)[1].delta, 2);
+        if ((keep & 0xff) == 0) {
+            func_800AA658(D_800F2758, object + 21292);
+        }
+    }
+}

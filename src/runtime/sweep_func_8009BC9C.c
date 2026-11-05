@@ -1,37 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009BC9C\n.ent func_8009BC9C\n"
-    "func_8009BC9C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x8000\n"
-    "sw $31,28($29)\n"
-    "jal func_800B4784\n"
-    "sw $18,24($29)\n"
-    "beqz $16,L_8009BCC8\n"
-    "move $18,$2\n"
-    "lui $17,0x4000\n"
-    "L_8009BCC8:\n"
-    "bnez $18,L_8009BCD8\n"
-    "nop\n"
-    "jal func_800B4794\n"
-    "li $4,1\n"
-    "L_8009BCD8:\n"
-    "jal func_80017A90\n"
-    "move $4,$17\n"
-    "jal func_80017A90\n"
-    "lui $4,0x2000\n"
-    "bnez $18,L_8009BCF8\n"
-    "nop\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "L_8009BCF8:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009BC9C\n.set at\n.set reorder\n");
+extern int func_800B4784(void);
+extern void func_800B4794(int enable);
+extern void func_80017A90(unsigned int mask);
+
+void func_8009BC9C(int alternate)
+{
+    unsigned int mask = 0x80000000;
+    int active;
+
+    active = func_800B4784();
+    if (alternate != 0) {
+        mask = 0x40000000;
+    }
+    if (active == 0) {
+        func_800B4794(1);
+    }
+    func_80017A90(mask);
+    func_80017A90(0x20000000);
+    if (active == 0) {
+        func_800B4794(0);
+    }
+}

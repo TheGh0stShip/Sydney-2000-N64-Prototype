@@ -1,30 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D5848\n.ent func_800D5848\n"
-    "func_800D5848:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($16)\n"
-    "li $2,7\n"
-    "bne $3,$2,L_800D588C\n"
-    "move $17,$4\n"
-    "lw $3,640($17)\n"
-    "beqz $3,L_800D588C\n"
-    "nop\n"
-    "lw $2,180($3)\n"
-    "lh $4,48($2)\n"
-    "lw $2,52($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_800D588C:\n"
-    "lw $2,4($16)\n"
-    "sw $2,16($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D5848\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+void func_800D5848(unsigned char *object, int *msg)
+{
+    if (msg[0] == 7) {
+        unsigned char *child = *(unsigned char **)(object + 640);
+        if (child != 0) {
+            Method *m = (Method *)(*(unsigned char **)(child + 180) + 48);
+            m->fn(child + m->offset);
+        }
+    }
+    *(int *)(object + 16) = msg[1];
+}

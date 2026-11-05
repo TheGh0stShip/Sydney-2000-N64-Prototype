@@ -1,25 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CCD10\n.ent func_800CCD10\n"
-    "func_800CCD10:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "jal func_800ADC54\n"
-    "move $5,$7\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26304($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-26300($1)\n"
-    "addiu $2,$16,96\n"
-    "sw $0,72($2)\n"
-    "swc1 $f0,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "li $2,3840\n"
-    "sw $2,212($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800CCD10\n.set at\n.set reorder\n");
+extern void func_800ADC54(void *object, int arg);
+
+typedef struct {
+    unsigned char pad[64];
+    float x;
+    float y;
+    int z;
+} Body;
+
+void func_800CCD10(unsigned char *object, int a, int b, int arg)
+{
+    Body *body;
+
+    func_800ADC54(object, arg);
+    body = (Body *)(object + 96);
+    body->x = 507.0f;
+    body->y = 200.0f;
+    body->z = 0;
+    *(int *)(object + 212) = 3840;
+}

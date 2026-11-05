@@ -1,23 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80120930\n.ent func_80120930\n"
-    "func_80120930:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "addiu $4,$16,260\n"
-    "sw $31,20($29)\n"
-    "jal func_8009FD40\n"
-    "li $5,256\n"
-    "lui $2,0x800f\n"
-    "lw $2,10096($2)\n"
-    "beqz $2,L_80120964\n"
-    "nop\n"
-    "jal func_80081238\n"
-    "move $4,$16\n"
-    "L_80120964:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80120930\n.set at\n.set reorder\n");
+extern int D_800F2770;
+extern void func_8009FD40(void *object, int size);
+extern void func_80081238(void *object);
+
+void func_80120930(unsigned char *object)
+{
+    func_8009FD40(object + 260, 256);
+    if (D_800F2770 != 0) {
+        func_80081238(object);
+    }
+}

@@ -1,34 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CAC44\n.ent func_800CAC44\n"
-    "func_800CAC44:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2400\n"
-    "addiu $4,$16,17784\n"
-    "li $5,2\n"
-    "sw $31,24($29)\n"
-    "jal func_800AE4D8\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$16,17568\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,17352\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,17136\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "jal func_80081DC8\n"
-    "move $5,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CAC44\n.set at\n.set reorder\n");
+extern char D_80070960[];
+extern void func_800AE4D8(void *p, int n);
+extern void func_800ADE84(void *p, int n);
+extern void func_80081DC8(void *p, int b);
+
+void func_800CAC44(char *obj, int b)
+{
+    *(int *)(obj + 180) = (int)D_80070960;
+    func_800AE4D8(obj + 17784, 2);
+    func_800ADE84(obj + 17568, 2);
+    func_800ADE84(obj + 17352, 2);
+    func_800ADE84(obj + 17136, 2);
+    func_80081DC8(obj, b);
+}

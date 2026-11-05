@@ -1,45 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AB934\n.ent func_800AB934\n"
-    "func_800AB934:\n"
-    "addiu $29,$29,-24\n"
-    "move $3,$5\n"
-    "sw $31,16($29)\n"
-    "lw $5,20($4)\n"
-    "beqz $5,L_800AB964\n"
-    "nop\n"
-    "L_800AB94C:\n"
-    "lw $2,0($5)\n"
-    "beq $2,$3,L_800AB970\n"
-    "nop\n"
-    "lw $5,4($5)\n"
-    "bnez $5,L_800AB94C\n"
-    "nop\n"
-    "L_800AB964:\n"
-    "lw $2,0($5)\n"
-    "bne $2,$3,L_800AB9AC\n"
-    "nop\n"
-    "L_800AB970:\n"
-    "lw $3,8($5)\n"
-    "beqz $3,L_800AB988\n"
-    "nop\n"
-    "lw $2,4($5)\n"
-    "j L_800AB990\n"
-    "sw $2,4($3)\n"
-    "L_800AB988:\n"
-    "lw $2,4($5)\n"
-    "sw $2,20($4)\n"
-    "L_800AB990:\n"
-    "lw $3,4($5)\n"
-    "beqz $3,L_800AB9A4\n"
-    "nop\n"
-    "lw $2,8($5)\n"
-    "sw $2,8($3)\n"
-    "L_800AB9A4:\n"
-    "jal func_800AB66C\n"
-    "nop\n"
-    "L_800AB9AC:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AB934\n.set at\n.set reorder\n");
+typedef struct Node {
+    int key;
+    struct Node *next;
+    struct Node *prev;
+} Node;
+
+typedef struct {
+    char pad[20];
+    Node *head;
+} List;
+
+extern void func_800AB66C(List *list, Node *node);
+
+void func_800AB934(List *list, int key) {
+    Node *n = list->head;
+
+    while (n != 0 && n->key != key) {
+        n = n->next;
+    }
+    if (n->key != key) {
+        return;
+    }
+    if (n->prev != 0) {
+        n->prev->next = n->next;
+    } else {
+        list->head = n->next;
+    }
+    if (n->next != 0) {
+        n->next->prev = n->prev;
+    }
+    func_800AB66C(list, n);
+}

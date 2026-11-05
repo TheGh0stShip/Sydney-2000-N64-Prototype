@@ -1,41 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EC89C\n.ent func_800EC89C\n"
-    "func_800EC89C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "sw $17,20($29)\n"
-    "move $17,$6\n"
-    "sw $18,24($29)\n"
-    "move $18,$7\n"
-    "addiu $4,$4,244\n"
-    "sw $31,28($29)\n"
-    "jal func_800EA114\n"
-    "li $5,-1\n"
-    "lwc1 $f0,0($16)\n"
-    "lwc1 $f2,4($16)\n"
-    "lwc1 $f4,8($16)\n"
-    "swc1 $f0,12($2)\n"
-    "swc1 $f2,16($2)\n"
-    "swc1 $f4,20($2)\n"
-    "lwc1 $f0,0($17)\n"
-    "lwc1 $f2,4($17)\n"
-    "lwc1 $f4,8($17)\n"
-    "li $3,2100\n"
-    "sw $3,4($2)\n"
-    "li $3,1\n"
-    "sh $18,2($2)\n"
-    "sw $0,8($2)\n"
-    "sb $3,0($2)\n"
-    "sb $0,1($2)\n"
-    "swc1 $f0,24($2)\n"
-    "swc1 $f2,28($2)\n"
-    "swc1 $f4,32($2)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800EC89C\n.set at\n.set reorder\n");
+extern unsigned char *func_800EA114(void *pool, int index);
+
+void func_800EC89C(unsigned char *object, float *pos, float *vel, short kind)
+{
+    unsigned char *item = func_800EA114(object + 244, -1);
+    float x, y, z;
+
+    x = pos[0];
+    y = pos[1];
+    z = pos[2];
+    *(float *)(item + 12) = x;
+    *(float *)(item + 16) = y;
+    *(float *)(item + 20) = z;
+    x = vel[0];
+    y = vel[1];
+    z = vel[2];
+    *(int *)(item + 4) = 2100;
+    *(short *)(item + 2) = kind;
+    *(int *)(item + 8) = 0;
+    item[0] = 1;
+    item[1] = 0;
+    *(float *)(item + 24) = x;
+    *(float *)(item + 28) = y;
+    *(float *)(item + 32) = z;
+}

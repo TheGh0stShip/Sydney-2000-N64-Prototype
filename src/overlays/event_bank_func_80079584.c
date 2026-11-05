@@ -1,69 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80079584\n.ent func_80079584\n"
-    "func_80079584:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $31,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $4,1556($18)\n"
-    "jal func_8009BD50\n"
-    "nop\n"
-    "jal func_800834F4\n"
-    "addiu $4,$18,1584\n"
-    "jal func_8009D8F0\n"
-    "addiu $4,$18,3660\n"
-    "lui $2,0x1\n"
-    "addu $19,$18,$2\n"
-    "lbu $2,2841($19)\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800795E4\n"
-    "nop\n"
-    "jal func_800834F4\n"
-    "addiu $4,$18,28608\n"
-    "jal func_8009D8F0\n"
-    "addiu $4,$18,30684\n"
-    "L_800795E4:\n"
-    "jal func_80073498\n"
-    "move $4,$18\n"
-    "lui $4,0x1\n"
-    "ori $4,$4,0xa2c\n"
-    "jal func_800AC334\n"
-    "addu $4,$18,$4\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10968\n"
-    "move $4,$16\n"
-    "li $5,12\n"
-    "li $6,1\n"
-    "move $7,$18\n"
-    "li $17,2\n"
-    "jal func_800BBD78\n"
-    "sw $17,16($29)\n"
-    "move $4,$16\n"
-    "li $5,13\n"
-    "li $6,1\n"
-    "move $7,$18\n"
-    "jal func_800BBD78\n"
-    "sw $17,16($29)\n"
-    "lui $2,0x800f\n"
-    "sw $0,10024($2)\n"
-    "li $2,-7680\n"
-    "li $4,0xd954\n"
-    "sw $2,2824($19)\n"
-    "sw $0,172($18)\n"
-    "sw $0,2832($19)\n"
-    "lbu $2,1557($18)\n"
-    "addu $4,$18,$4\n"
-    "jal func_800D771C\n"
-    "sb $2,1556($18)\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80079584\n.set at\n.set reorder\n");
+extern void func_8009BD50(int id);
+extern void func_800834F4(void *object);
+extern void func_8009D8F0(void *object);
+extern void func_80073498(void *object);
+extern void func_800AC334(void *object);
+extern void func_800BBD78(void *table, int a, int b, void *object, int c);
+extern void func_800D771C(void *object);
+extern unsigned char D_800F2AD8[];
+extern int D_800F2728;
+
+void func_80079584(unsigned char *object)
+{
+    unsigned char *hi;
+    unsigned char *table;
+    int mode;
+
+    func_8009BD50(object[1556]);
+    func_800834F4(object + 1584);
+    func_8009D8F0(object + 3660);
+    hi = object + 0x10000;
+    if (hi[2841] >= 2) {
+        func_800834F4(object + 28608);
+        func_8009D8F0(object + 30684);
+    }
+    func_80073498(object);
+    func_800AC334(object + 0x10A2C);
+    table = D_800F2AD8;
+    mode = 2;
+    func_800BBD78(table, 12, 1, object, mode);
+    func_800BBD78(table, 13, 1, object, mode);
+    D_800F2728 = 0;
+    *(int *)(hi + 2824) = -7680;
+    *(int *)(object + 172) = 0;
+    *(int *)(hi + 2832) = 0;
+    object[1556] = object[1557];
+    func_800D771C(object + 0xD954);
+}

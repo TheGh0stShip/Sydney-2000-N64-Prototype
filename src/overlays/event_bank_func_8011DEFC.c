@@ -1,43 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011DEFC\n.ent func_8011DEFC\n"
-    "func_8011DEFC:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,32($29)\n"
-    "move $16,$4\n"
-    "sw $17,36($29)\n"
-    "addiu $17,$16,20\n"
-    "move $4,$17\n"
-    "sw $31,40($29)\n"
-    "lw $5,236($16)\n"
-    "lw $6,240($16)\n"
-    "jal func_800AD58C\n"
-    "move $7,$0\n"
-    "move $4,$17\n"
-    "addiu $5,$16,212\n"
-    "addiu $6,$29,16\n"
-    "jal func_800AD2A8\n"
-    "move $7,$0\n"
-    "lwc1 $f0,224($16)\n"
-    "lwc1 $f2,16($29)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $3,$16,224\n"
-    "addiu $4,$29,16\n"
-    "swc1 $f0,84($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "lwc1 $f2,4($4)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $2,$16,84\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "lwc1 $f2,8($4)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "move $4,$16\n"
-    "jal func_800AD9E8\n"
-    "swc1 $f0,8($2)\n"
-    "lw $31,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_8011DEFC\n.set at\n.set reorder\n");
+extern void func_800AD58C(void *object, int x, int y, int flags);
+extern void func_800AD2A8(void *object, void *in, float *out, int flags);
+extern void func_800AD9E8(void *object);
+
+static inline void vec_sub(float *dst, float *a, float *b)
+{
+    dst[0] = a[0] - b[0];
+    dst[1] = a[1] - b[1];
+    dst[2] = a[2] - b[2];
+}
+
+void func_8011DEFC(unsigned char *object)
+{
+    float out[3];
+
+    func_800AD58C(object + 20, *(int *)(object + 236), *(int *)(object + 240), 0);
+    func_800AD2A8(object + 20, object + 212, out, 0);
+    vec_sub((float *)(object + 84), (float *)(object + 224), out);
+    func_800AD9E8(object);
+}

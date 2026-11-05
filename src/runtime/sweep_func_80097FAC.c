@@ -1,28 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80097FAC\n.ent func_80097FAC\n"
-    "func_80097FAC:\n"
-    "addiu $29,$29,-48\n"
-    "mtc1 $6,$f2\n"
-    "move $6,$0\n"
-    "addiu $3,$29,24\n"
-    "sw $31,40($29)\n"
-    "L_80097FC0:\n"
-    "lwc1 $f0,0($7)\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,0($3)\n"
-    "addiu $3,$3,4\n"
-    "addiu $6,$6,1\n"
-    "sltiu $2,$6,3\n"
-    "bnez $2,L_80097FC0\n"
-    "addiu $7,$7,4\n"
-    "lw $2,64($29)\n"
-    "mfc1 $6,$f2\n"
-    "addiu $7,$29,24\n"
-    "sw $0,20($29)\n"
-    "jal func_80096C8C\n"
-    "sw $2,16($29)\n"
-    "lw $31,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80097FAC\n.set at\n.set reorder\n");
+extern void func_80096C8C(int a, int b, float c, float *v, int d, int e);
+
+void func_80097FAC(int a, int b, float c, int *in, int d)
+{
+    float v[3];
+    unsigned int i;
+
+    for (i = 0; i < 3; i++) {
+        v[i] = in[i];
+    }
+    func_80096C8C(a, b, c, v, d, 0);
+}

@@ -1,25 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008142C\n.ent func_8008142C\n"
-    "func_8008142C:\n"
-    "addiu $29,$29,-32\n"
-    "move $7,$4\n"
-    "li $3,0x8000\n"
-    "addu $3,$7,$3\n"
-    "lui $4,0x800f\n"
-    "sw $31,24($29)\n"
-    "lbu $2,3225($3)\n"
-    "addiu $4,$4,9952\n"
-    "sb $0,3224($3)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,3225($3)\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "li $6,24\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "lw $31,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8008142C\n.set at\n.set reorder\n");
+extern unsigned char D_800F26E0[];
+extern int D_800F2744;
+extern void func_800AB2A4(void *list, int value, int count, void *object,
+                          int fifth, int sixth);
+
+void func_8008142C(unsigned char *object)
+{
+    object[0x8000 + 3224] = 0;
+    object[0x8000 + 3225]++;
+    func_800AB2A4(D_800F26E0, D_800F2744, 24, object, 0, 0);
+}

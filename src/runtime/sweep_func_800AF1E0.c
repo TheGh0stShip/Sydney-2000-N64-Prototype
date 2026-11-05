@@ -1,66 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AF1E0\n.ent func_800AF1E0\n"
-    "func_800AF1E0:\n"
-    "mtc1 $6,$f4\n"
-    "mul.s $f14,$f4,$f4\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,24696($1)\n"
-    "sub.s $f6,$f6,$f4\n"
-    "mul.s $f0,$f6,$f6\n"
-    "nop\n"
-    "mul.s $f8,$f0,$f6\n"
-    "lwc1 $f2,4($5)\n"
-    "mul.s $f2,$f8,$f2\n"
-    "add.s $f12,$f4,$f4\n"
-    "add.s $f12,$f12,$f4\n"
-    "mul.s $f12,$f12,$f0\n"
-    "swc1 $f2,0($7)\n"
-    "lwc1 $f0,16($5)\n"
-    "mul.s $f0,$f12,$f0\n"
-    "add.s $f10,$f14,$f14\n"
-    "add.s $f10,$f10,$f14\n"
-    "add.s $f2,$f2,$f0\n"
-    "mul.s $f10,$f10,$f6\n"
-    "swc1 $f2,0($7)\n"
-    "lwc1 $f0,28($5)\n"
-    "mul.s $f0,$f10,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "mul.s $f14,$f14,$f4\n"
-    "swc1 $f2,0($7)\n"
-    "lwc1 $f0,40($5)\n"
-    "mul.s $f0,$f14,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,0($7)\n"
-    "lwc1 $f2,8($5)\n"
-    "mul.s $f2,$f8,$f2\n"
-    "swc1 $f2,4($7)\n"
-    "lwc1 $f0,20($5)\n"
-    "mul.s $f0,$f12,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,4($7)\n"
-    "lwc1 $f0,32($5)\n"
-    "mul.s $f0,$f10,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,4($7)\n"
-    "lwc1 $f0,44($5)\n"
-    "mul.s $f0,$f14,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,4($7)\n"
-    "lwc1 $f0,12($5)\n"
-    "mul.s $f8,$f8,$f0\n"
-    "swc1 $f8,8($7)\n"
-    "lwc1 $f0,24($5)\n"
-    "mul.s $f12,$f12,$f0\n"
-    "add.s $f8,$f8,$f12\n"
-    "swc1 $f8,8($7)\n"
-    "lwc1 $f0,36($5)\n"
-    "mul.s $f10,$f10,$f0\n"
-    "add.s $f8,$f8,$f10\n"
-    "swc1 $f8,8($7)\n"
-    "lwc1 $f0,48($5)\n"
-    "mul.s $f14,$f14,$f0\n"
-    "add.s $f8,$f8,$f14\n"
-    "jr $31\n"
-    "swc1 $f8,8($7)\n"
-    ".end func_800AF1E0\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+typedef struct {
+    int unk0;
+    Vec3 p[4];
+} Curve;
+
+void func_800AF1E0(void *unused, Curve *c, float t, Vec3 *out) {
+    float t2 = t * t;
+    float u = 1.0f - t;
+    float u2 = u * u;
+    float b0 = u2 * u;
+    float b1 = (t + t + t) * u2;
+    float b2 = (t2 + t2 + t2) * u;
+    float b3 = t2 * t;
+
+    out->x = b0 * c->p[0].x;
+    out->x += b1 * c->p[1].x;
+    out->x += b2 * c->p[2].x;
+    out->x += b3 * c->p[3].x;
+    out->y = b0 * c->p[0].y;
+    out->y += b1 * c->p[1].y;
+    out->y += b2 * c->p[2].y;
+    out->y += b3 * c->p[3].y;
+    out->z = b0 * c->p[0].z;
+    out->z += b1 * c->p[1].z;
+    out->z += b2 * c->p[2].z;
+    out->z += b3 * c->p[3].z;
+}

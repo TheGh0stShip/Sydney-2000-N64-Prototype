@@ -1,42 +1,24 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BE758\n.ent func_800BE758\n"
-    "func_800BE758:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "lui $2,0x8007\n"
-    "andi $5,$5,0xff\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "addiu $10,$2,2048\n"
-    "lwl $7,0($10)\n"
-    "lwr $7,3($10)\n"
-    "swl $7,16($29)\n"
-    "swr $7,19($29)\n"
-    "addu $2,$29,$5\n"
-    "lbu $16,16($2)\n"
-    "li $5,6\n"
-    "sw $0,17620($17)\n"
-    "addu $16,$16,$6\n"
-    "jal func_8008393C\n"
-    "addiu $6,$17,17620\n"
-    "andi $16,$16,0xff\n"
-    "lw $2,17620($17)\n"
-    "sll $16,$16,0x4\n"
-    "addu $2,$2,$16\n"
-    "sw $2,17616($17)\n"
-    "lb $3,1($2)\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lw $3,17616($17)\n"
-    "sll $2,$2,0x9\n"
-    "sw $2,3856($17)\n"
-    "lb $2,0($3)\n"
-    "sw $2,18688($17)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800BE758\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char v[4];
+} ByteQuad;
+
+typedef struct {
+    signed char count;
+    signed char frames;
+    unsigned char pad[14];
+} Entry;
+
+extern ByteQuad D_80070800;
+extern void func_8008393C(void *object, int kind, void *out);
+
+void func_800BE758(unsigned char *object, unsigned char sel, int delta)
+{
+    ByteQuad table = D_80070800;
+    unsigned char idx = table.v[sel] + delta;
+
+    *(int *)(object + 17620) = 0;
+    func_8008393C(object, 6, object + 17620);
+    *(Entry **)(object + 17616) = *(Entry **)(object + 17620) + idx;
+    *(int *)(object + 3856) = (*(Entry **)(object + 17616))->frames * 7680;
+    *(int *)(object + 18688) = (*(Entry **)(object + 17616))->count;
+}

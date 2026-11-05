@@ -1,67 +1,39 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80094174\n.ent func_80094174\n"
-    "func_80094174:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $5,23444($16)\n"
-    "beqz $5,L_800941EC\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lw $3,23444($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,23444($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,23444($16)\n"
-    "lw $2,180($3)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_800941EC:\n"
-    "lw $5,23680($16)\n"
-    "beqz $5,L_80094254\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lw $3,23680($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,23680($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,23680($16)\n"
-    "lw $2,180($3)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_80094254:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80094174\n.set at\n.set reorder\n");
+extern void func_800AACB0(void *list, void *object, int mode);
+extern unsigned char D_800F26E0[];
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)();
+} VEntry;
+
+void func_80094174(unsigned char *object)
+{
+    unsigned char *child;
+    VEntry *entry;
+
+    if (*(unsigned char **)(object + 23444) != 0) {
+        func_800AACB0(D_800F26E0, *(unsigned char **)(object + 23444), 0);
+        child = *(unsigned char **)(object + 23444);
+        entry = (VEntry *)(*(unsigned char **)(child + 180) + 24);
+        entry->func(child + entry->offset);
+        child = *(unsigned char **)(object + 23444);
+        entry = (VEntry *)(*(unsigned char **)(child + 180) + 72);
+        entry->func(child + entry->offset);
+        child = *(unsigned char **)(object + 23444);
+        entry = (VEntry *)(*(unsigned char **)(child + 180) + 8);
+        entry->func(child + entry->offset, 2);
+    }
+    if (*(unsigned char **)(object + 23680) != 0) {
+        func_800AACB0(D_800F26E0, *(unsigned char **)(object + 23680), 0);
+        child = *(unsigned char **)(object + 23680);
+        entry = (VEntry *)(*(unsigned char **)(child + 180) + 24);
+        entry->func(child + entry->offset);
+        child = *(unsigned char **)(object + 23680);
+        entry = (VEntry *)(*(unsigned char **)(child + 180) + 72);
+        entry->func(child + entry->offset);
+        child = *(unsigned char **)(object + 23680);
+        entry = (VEntry *)(*(unsigned char **)(child + 180) + 8);
+        entry->func(child + entry->offset, 2);
+    }
+}

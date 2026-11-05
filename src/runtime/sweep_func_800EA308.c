@@ -1,32 +1,19 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EA308\n.ent func_800EA308\n"
-    "func_800EA308:\n"
-    "move $7,$4\n"
-    "lhu $2,0($7)\n"
-    "lw $4,8($7)\n"
-    "sll $3,$2,0x6\n"
-    "addu $4,$4,$3\n"
-    "lw $3,4($7)\n"
-    "addiu $2,$2,1\n"
-    "sh $2,0($7)\n"
-    "andi $2,$2,0xffff\n"
-    "sltu $2,$2,$3\n"
-    "beql $2,$0,L_800EA338\n"
-    "sh $0,0($7)\n"
-    "L_800EA338:\n"
-    "lhu $2,0($4)\n"
-    "beqz $2,L_800EA34C\n"
-    "lui $2,0x8010\n"
-    "j L_800EA358\n"
-    "addiu $4,$2,15680\n"
-    "L_800EA34C:\n"
-    "lhu $2,2($7)\n"
-    "addiu $2,$2,1\n"
-    "sh $2,2($7)\n"
-    "L_800EA358:\n"
-    "move $2,$4\n"
-    "sh $5,0($4)\n"
-    "jr $31\n"
-    "sw $6,60($4)\n"
-    ".end func_800EA308\n.set at\n.set reorder\n");
+extern unsigned char D_80103D40[];
+
+unsigned char *func_800EA308(unsigned short *pool, unsigned short kind, int data)
+{
+    unsigned char *slot = *(unsigned char **)(pool + 4) + pool[0] * 64;
+
+    pool[0]++;
+    if (!(pool[0] < *(unsigned int *)(pool + 2))) {
+        pool[0] = 0;
+    }
+    if (*(unsigned short *)slot != 0) {
+        slot = D_80103D40;
+    } else {
+        pool[1]++;
+    }
+    *(unsigned short *)slot = kind;
+    *(int *)(slot + 60) = data;
+    return slot;
+}

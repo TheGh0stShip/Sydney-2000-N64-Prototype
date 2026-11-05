@@ -1,132 +1,110 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009E81C\n.ent func_8009E81C\n"
-    "func_8009E81C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_80075194\n"
-    "sw $16,16($29)\n"
-    "jal func_8009BDC4\n"
-    "nop\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beql $2,$0,L_8009E860\n"
-    "lui $4,0x800f\n"
-    "jal func_800ED930\n"
-    "addiu $4,$18,24180\n"
-    "lui $4,0x800f\n"
-    "L_8009E860:\n"
-    "jal func_800BC274\n"
-    "addiu $4,$4,10968\n"
-    "jal func_800BC0B4\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,9952\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,2\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AACB0\n"
-    "li $6,1\n"
-    "move $4,$18\n"
-    "li $5,107\n"
-    "li $6,7\n"
-    "jal func_800AC25C\n"
-    "move $7,$0\n"
-    "jal func_800D1E80\n"
-    "addiu $4,$18,18068\n"
-    "addiu $16,$18,23456\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "move $4,$16\n"
-    "jal func_800CCE4C\n"
-    "sb $0,176($4)\n"
-    "lw $2,24044($18)\n"
-    "beqz $2,L_8009E8F8\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,24044\n"
-    "L_8009E8F8:\n"
-    "jal func_800A8850\n"
-    "addiu $4,$18,23728\n"
-    "lui $4,0x8007\n"
-    "jal func_800AEFA0\n"
-    "addiu $4,$4,23008\n"
-    "addiu $16,$18,14420\n"
-    "jal func_800D6EA0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "addiu $16,$18,13020\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,2152\n"
-    "lw $4,192($18)\n"
-    "jal func_80017B24\n"
-    "lui $19,0x800f\n"
-    "lui $4,0x800f\n"
-    "jal func_800D52A8\n"
-    "addiu $4,$4,19712\n"
-    "lw $17,9904($19)\n"
-    "beqz $17,L_8009E99C\n"
-    "addiu $16,$19,9904\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_8009E978\n"
-    "sw $0,9904($19)\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,4\n"
-    "L_8009E978:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_8009E98C\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,8\n"
-    "L_8009E98C:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,9904($19)\n"
-    "L_8009E99C:\n"
-    "jal func_800BAC24\n"
-    "addiu $16,$18,14656\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_8007E3B0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,23728\n"
-    "jal func_8009C100\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$18\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "li $2,23\n"
-    "sb $2,24039($18)\n"
-    "li $2,2\n"
-    "sw $2,172($18)\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8009E81C\n.set at\n.set reorder\n");
+typedef struct VTableEntry {
+    char pad[24];
+    short offset;
+    void (*reset)(void *object);
+} VTableEntry;
+
+typedef struct HandleSet {
+    void *owner;
+    int first;
+    int second;
+    int count;
+    short x;
+    short y;
+} HandleSet;
+
+extern unsigned char D_800F2AD8[];
+extern unsigned char D_800F26E0[];
+extern unsigned char D_800F2758[];
+extern unsigned char D_800759E0[];
+extern unsigned char D_800F4D00[];
+extern HandleSet D_800F26B0;
+extern void func_80075194(void);
+extern void func_8009BDC4(void);
+extern int func_80017D54(void);
+extern void func_800ED930(void *object);
+extern void func_800BC274(void *object);
+extern void func_800BC0B4(void);
+extern void func_800AACB0(void *list, void *object, int mode);
+extern void func_800AC25C(void *object, int a, int b, int c);
+extern void func_800D1E80(void *object);
+extern void func_800ADC1C(void *object);
+extern void func_800CCE4C(void *object);
+extern void func_800AA658(void *owner, void *handle);
+extern void func_800A8850(void *object);
+extern void func_800AEFA0(void *object);
+extern void func_800D6EA0(void *object);
+extern void func_800AC334(void *object);
+extern void func_800D29E0(void *object);
+extern void func_80017B24(int value);
+extern void func_800D52A8(void *object);
+extern void func_800BAC24(void);
+extern void func_8007E3B0(void *object);
+extern void func_8009C100(void);
+
+void func_8009E81C(unsigned char *object)
+{
+    unsigned char *part;
+    VTableEntry *vtable;
+    void *owner;
+
+    func_80075194();
+    func_8009BDC4();
+    if (func_80017D54() != 0) {
+        func_800ED930(object + 24180);
+    }
+    func_800BC274(D_800F2AD8);
+    func_800BC0B4();
+    func_800AACB0(D_800F26E0, 0, 2);
+    func_800AACB0(D_800F26E0, 0, 1);
+    func_800AC25C(object, 107, 7, 0);
+    func_800D1E80(object + 18068);
+
+    part = object + 23456;
+    func_800ADC1C(part);
+    vtable = *(VTableEntry **)(part + 180);
+    vtable->reset(part + vtable->offset);
+    part[176] = 0;
+    func_800CCE4C(part);
+
+    if (*(int *)(object + 24044) != 0) {
+        func_800AA658(D_800F2758, object + 24044);
+    }
+    func_800A8850(object + 23728);
+    func_800AEFA0(D_800759E0);
+
+    part = object + 14420;
+    func_800D6EA0(part);
+    func_800AC334(part);
+    part = object + 13020;
+    func_800D29E0(part);
+    func_800AC334(part);
+    func_800AC334(object + 2152);
+    func_80017B24(*(int *)(object + 192));
+    func_800D52A8(D_800F4D00);
+
+    owner = D_800F26B0.owner;
+    if (owner != 0) {
+        D_800F26B0.owner = 0;
+        if (D_800F26B0.first != 0) {
+            func_800AA658(owner, &D_800F26B0.first);
+        }
+        if (D_800F26B0.second != 0) {
+            func_800AA658(owner, &D_800F26B0.second);
+        }
+        D_800F26B0.x = 0;
+        D_800F26B0.y = 0;
+        D_800F26B0.count = 0;
+        D_800F26B0.owner = 0;
+    }
+
+    func_800BAC24();
+    part = object + 14656;
+    func_800AC334(part);
+    func_8007E3B0(part);
+    func_800AC334(object + 23728);
+    func_8009C100();
+    func_800AACB0(D_800F26E0, object, 0);
+    object[24039] = 23;
+    *(int *)(object + 172) = 2;
+}

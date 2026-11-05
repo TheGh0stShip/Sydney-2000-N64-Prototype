@@ -1,27 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0514\n.ent func_800A0514\n"
-    "func_800A0514:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($16)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A054C\n"
-    "move $17,$4\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800A054C\n"
-    "nop\n"
-    "jal func_800AD9E8\n"
-    "nop\n"
-    "L_800A054C:\n"
-    "lw $2,4($16)\n"
-    "sw $2,16($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A0514\n.set at\n.set reorder\n");
+extern void func_800AD9E8();
+
+void func_800A0514(unsigned char *object, int *message)
+{
+    switch (message[0]) {
+    case 3:
+        break;
+    case 5:
+        func_800AD9E8();
+        break;
+    }
+    *(int *)(object + 16) = message[1];
+}

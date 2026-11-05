@@ -1,49 +1,26 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801271CC\n.ent func_801271CC\n"
-    "func_801271CC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "addiu $4,$16,2076\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,5072\n"
-    "sw $31,24($29)\n"
-    "jal func_8008397C\n"
-    "sw $2,180($16)\n"
-    "addiu $4,$16,1860\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1668\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1480\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1292\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1048\n"
-    "jal func_800A9C2C\n"
-    "li $5,2\n"
-    "addiu $4,$16,808\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $2,180($4)\n"
-    "move $4,$16\n"
-    "move $5,$17\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,5192\n"
-    "jal func_800BA1B4\n"
-    "sw $2,180($4)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_801271CC\n.set at\n.set reorder\n");
+extern void func_8008397C(void *object, int mode);
+extern void func_800AC3A4(void *object, int mode);
+extern void func_800A9C2C(void *object, int mode);
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800BA1B4(void *object, int flags);
+extern char D_800813D0[];
+extern char D_80086598[];
+extern char D_80081448[];
+
+void func_801271CC(unsigned char *object, int flags)
+{
+    unsigned char *sub;
+
+    *(void **)(object + 180) = D_800813D0;
+    func_8008397C(object + 2076, 2);
+    func_800AC3A4(object + 1860, 2);
+    func_800AC3A4(object + 1668, 2);
+    func_800AC3A4(object + 1480, 2);
+    func_800AC3A4(object + 1292, 2);
+    func_800A9C2C(object + 1048, 2);
+    sub = object + 808;
+    *(void **)(sub + 180) = D_80086598;
+    func_800ADDA4(sub, 2);
+    *(void **)(object + 180) = D_80081448;
+    func_800BA1B4(object, flags);
+}

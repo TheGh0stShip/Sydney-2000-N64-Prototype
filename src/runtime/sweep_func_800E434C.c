@@ -1,42 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E434C\n.ent func_800E434C\n"
-    "func_800E434C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "slti $2,$16,9\n"
-    "bnez $2,L_800E43BC\n"
-    "sw $31,24($29)\n"
-    "slti $2,$16,11\n"
-    "bnez $2,L_800E4384\n"
-    "lui $2,0x8010\n"
-    "li $2,39\n"
-    "bne $16,$2,L_800E43BC\n"
-    "lui $2,0x8010\n"
-    "L_800E4384:\n"
-    "lw $2,-15760($2)\n"
-    "lbu $2,1266($2)\n"
-    "beqz $2,L_800E43A4\n"
-    "move $4,$17\n"
-    "jal func_800E287C\n"
-    "move $5,$0\n"
-    "j L_800E43B0\n"
-    "li $2,39\n"
-    "L_800E43A4:\n"
-    "jal func_800DFFF4\n"
-    "move $5,$0\n"
-    "li $2,39\n"
-    "L_800E43B0:\n"
-    "beq $16,$2,L_800E43BC\n"
-    "li $2,1\n"
-    "sb $2,19102($17)\n"
-    "L_800E43BC:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E434C\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern void func_800E287C(void *object, int mode);
+extern void func_800DFFF4(void *object, int mode);
+
+void func_800E434C(unsigned char *object, int mode)
+{
+    if (mode >= 9 && (mode < 11 || mode == 39)) {
+        if (D_800FC270[1266] != 0) {
+            func_800E287C(object, 0);
+        } else {
+            func_800DFFF4(object, 0);
+        }
+        if (mode != 39) {
+            object[19102] = 1;
+        }
+    }
+}

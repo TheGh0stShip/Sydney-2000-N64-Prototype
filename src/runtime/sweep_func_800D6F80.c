@@ -1,31 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6F80\n.ent func_800D6F80\n"
-    "func_800D6F80:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "sw $31,24($29)\n"
-    "jal func_800B360C\n"
-    "move $16,$5\n"
-    "lw $2,28($16)\n"
-    "sw $2,224($17)\n"
-    "lw $2,24($16)\n"
-    "sw $2,220($17)\n"
-    "lw $2,32($16)\n"
-    "lw $3,220($17)\n"
-    "sw $2,232($17)\n"
-    "lw $2,32($16)\n"
-    "blez $3,L_800D6FD0\n"
-    "sw $2,228($17)\n"
-    "move $4,$17\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "L_800D6FD0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D6F80\n.set at\n.set reorder\n");
+extern void func_800B360C(void *object, void *source);
+extern void func_800B2158(void *object, int enabled);
+
+void func_800D6F80(unsigned char *object, unsigned char *source)
+{
+    func_800B360C(object, source);
+    *(int *)(object + 224) = *(int *)(source + 28);
+    *(int *)(object + 220) = *(int *)(source + 24);
+    *(int *)(object + 232) = *(int *)(source + 32);
+    *(int *)(object + 228) = *(int *)(source + 32);
+    if (*(int *)(object + 220) > 0) {
+        func_800B2158(object, 0);
+    }
+}

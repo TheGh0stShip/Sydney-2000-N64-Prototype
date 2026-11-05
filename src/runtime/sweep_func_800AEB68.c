@@ -1,25 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AEB68\n.ent func_800AEB68\n"
-    "func_800AEB68:\n"
-    "addiu $2,$4,44\n"
-    "sw $0,0($4)\n"
-    "sw $0,72($4)\n"
-    "sw $0,28($4)\n"
-    "sw $0,40($4)\n"
-    "sw $0,68($4)\n"
-    "sw $0,44($4)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "addiu $2,$4,16\n"
-    "sw $0,16($4)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "li $2,4\n"
-    "sw $2,0($4)\n"
-    "sw $5,68($4)\n"
-    "sw $0,60($4)\n"
-    "sw $0,64($4)\n"
-    "jr $31\n"
-    "sw $0,8($4)\n"
-    ".end func_800AEB68\n.set at\n.set reorder\n");
+void func_800AEB68(int *s, int value)
+{
+    int *v;
+    s[0] = 0;
+    s[18] = 0;
+    s[7] = 0;
+    s[10] = 0;
+    s[17] = 0;
+    v = s + 11;
+    v[0] = 0;
+    v[1] = 0;
+    v[2] = 0;
+    v = s + 4;
+    v[0] = 0;
+    v[1] = 0;
+    v[2] = 0;
+    s[0] = 4;
+    s[17] = value;
+    s[15] = 0;
+    s[16] = 0;
+    s[2] = 0;
+}

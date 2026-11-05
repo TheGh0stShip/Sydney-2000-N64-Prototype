@@ -1,51 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE304\n.ent func_800AE304\n"
-    "func_800AE304:\n"
-    "lwc1 $f4,372($4)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24608($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800AE3A4\n"
-    "nop\n"
-    "lwc1 $f2,248($4)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24612($1)\n"
-    "lhu $2,196($4)\n"
-    "div.s $f6,$f2,$f0\n"
-    "lwc1 $f0,252($4)\n"
-    "andi $2,$2,0x2\n"
-    "beqz $2,L_800AE358\n"
-    "div.s $f0,$f0,$f4\n"
-    "lhu $2,196($4)\n"
-    "swc1 $f0,244($4)\n"
-    "andi $2,$2,0xfffd\n"
-    "j L_800AE36C\n"
-    "sh $2,196($4)\n"
-    "L_800AE358:\n"
-    "lwc1 $f2,244($4)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "mul.s $f0,$f0,$f6\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,244($4)\n"
-    "L_800AE36C:\n"
-    "lwc1 $f0,244($4)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24616($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800AE388\n"
-    "swc1 $f2,244($4)\n"
-    "L_800AE388:\n"
-    "lwc1 $f0,244($4)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24620($1)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1tl L_800AE3A4\n"
-    "swc1 $f2,244($4)\n"
-    "L_800AE3A4:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800AE304\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[196];
+    unsigned short flags;
+    char pad198[46];
+    float value;
+    float rate;
+    float target;
+    char pad256[116];
+    float divisor;
+} Obj;
+
+void func_800AE304(Obj *obj) {
+    float rate;
+    float target;
+
+    if (obj->divisor > *(float *)0x80086020) {
+        rate = obj->rate / *(float *)0x80086024;
+        target = obj->target / obj->divisor;
+        if (obj->flags & 2) {
+            obj->value = target;
+            obj->flags &= ~2;
+        } else {
+            obj->value += (target - obj->value) * rate;
+        }
+        if (obj->value > *(float *)0x80086028) {
+            obj->value = *(float *)0x80086028;
+        }
+        if (obj->value < *(float *)0x8008602C) {
+            obj->value = *(float *)0x8008602C;
+        }
+    }
+}

@@ -1,35 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CE170\n.ent func_800CE170\n"
-    "func_800CE170:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $17,20($29)\n"
-    "li $17,212\n"
-    "sw $16,16($29)\n"
-    "move $16,$19\n"
-    "sw $31,32($29)\n"
-    "addu $3,$19,$17\n"
-    "L_800CE19C:\n"
-    "addiu $17,$17,212\n"
-    "addiu $16,$16,212\n"
-    "lw $2,180($16)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "sltiu $2,$18,8\n"
-    "bnez $2,L_800CE19C\n"
-    "addu $3,$19,$17\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800CE170\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+typedef struct {
+    unsigned char data[180];
+    unsigned char *vtable;
+    unsigned char rest[28];
+} Part;
+
+void func_800CE170(Part *object)
+{
+    unsigned int i;
+
+    for (i = 0; i < 8; i++) {
+        Method *m = (Method *)(object[i + 1].vtable + 64);
+        m->fn((unsigned char *)&object[i + 1] + m->offset);
+    }
+}

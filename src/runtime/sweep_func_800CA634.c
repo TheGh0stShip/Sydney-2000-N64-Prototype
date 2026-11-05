@@ -1,39 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CA634\n.ent func_800CA634\n"
-    "func_800CA634:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "sw $31,24($29)\n"
-    "sw $0,4596($17)\n"
-    "andi $2,$16,0xff\n"
-    "L_800CA654:\n"
-    "addiu $16,$16,1\n"
-    "sll $4,$2,0x1\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $2,$4,$17\n"
-    "addiu $4,$4,188\n"
-    "lw $2,368($2)\n"
-    "addu $4,$17,$4\n"
-    "lh $3,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,20\n"
-    "bnel $2,$0,L_800CA654\n"
-    "andi $2,$16,0xff\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CA634\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *);
+} MethodEntry;
+
+typedef struct {
+    unsigned char pad[180];
+    unsigned char *methods;
+    unsigned char rest[28];
+} Child;
+
+typedef struct {
+    unsigned char pad[188];
+    Child children[20];
+} Parent;
+
+void func_800CA634(Parent *object)
+{
+    unsigned char i;
+    MethodEntry *entry;
+
+    *(int *)((unsigned char *)object + 4596) = 0;
+    for (i = 0; i < 20; i++) {
+        entry = (MethodEntry *)((object->children + i)->methods + 72);
+        entry->func((unsigned char *)&object->children[i] + entry->offset);
+    }
+}

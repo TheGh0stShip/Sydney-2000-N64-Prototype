@@ -1,24 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CB760\n.ent func_800CB760\n"
-    "func_800CB760:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,172($16)\n"
-    "bnez $2,L_800CB798\n"
-    "nop\n"
-    "lwc1 $f0,212($16)\n"
-    "swc1 $f0,88($16)\n"
-    "L_800CB798:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800CB760\n.set at\n.set reorder\n");
+typedef void (*Destructor)(void *object);
+
+void func_800CB760(unsigned char *object)
+{
+    unsigned char *descriptor = *(unsigned char **)(object + 180);
+    short offset = *(short *)(descriptor + 32);
+    Destructor destroy = *(Destructor *)(descriptor + 36);
+    destroy(object + offset);
+    if (*(int *)(object + 172) == 0) {
+        *(float *)(object + 88) = *(float *)(object + 212);
+    }
+}

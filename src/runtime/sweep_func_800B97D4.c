@@ -1,29 +1,16 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B97D4\n.ent func_800B97D4\n"
-    "func_800B97D4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lw $2,196($4)\n"
-    "lw $2,28($2)\n"
-    "lh $2,0($2)\n"
-    "andi $3,$5,0xffff\n"
-    "slt $2,$2,$3\n"
-    "bnez $2,L_800B9824\n"
-    "li $2,1\n"
-    "sll $5,$3,0x2\n"
-    "addu $5,$5,$3\n"
-    "sll $5,$5,0x2\n"
-    "subu $5,$5,$3\n"
-    "sll $5,$5,0x2\n"
-    "lw $2,352($4)\n"
-    "move $4,$6\n"
-    "li $6,76\n"
-    "jal func_800B3870\n"
-    "addu $5,$2,$5\n"
-    "li $2,1\n"
-    "L_800B9824:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B97D4\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char data[76];
+} Record;
+
+extern void func_800B3870(void *dst, void *src, int size);
+
+int func_800B97D4(unsigned char *object, unsigned short index, void *dst)
+{
+    short *count = *(short **)(*(unsigned char **)(object + 196) + 28);
+
+    if (index > *count) {
+        return 1;
+    }
+    func_800B3870(dst, &(*(Record **)(object + 352))[index], 76);
+    return 1;
+}

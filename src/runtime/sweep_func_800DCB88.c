@@ -1,31 +1,16 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DCB88\n.ent func_800DCB88\n"
-    "func_800DCB88:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,172($17)\n"
-    "li $2,3\n"
-    "bne $3,$2,L_800DCBD8\n"
-    "nop\n"
-    "lw $3,444($17)\n"
-    "beqz $3,L_800DCBD8\n"
-    "nop\n"
-    "lhu $16,14($3)\n"
-    "lbu $2,475($17)\n"
-    "beq $16,$2,L_800DCBD8\n"
-    "addiu $2,$16,224\n"
-    "lw $4,416($3)\n"
-    "jal func_800B0F60\n"
-    "sh $2,434($3)\n"
-    "sb $16,475($17)\n"
-    "L_800DCBD8:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800DCB88\n.set at\n.set reorder\n");
+extern void func_800B0F60(void *resource);
+
+void func_800DCB88(unsigned char *object)
+{
+    if (*(int *)(object + 172) == 3) {
+        unsigned char *entry = *(unsigned char **)(object + 444);
+        if (entry != 0) {
+            unsigned short identifier = *(unsigned short *)(entry + 14);
+            if (identifier != object[475]) {
+                *(unsigned short *)(entry + 434) = identifier + 224;
+                func_800B0F60(*(void **)(entry + 416));
+                object[475] = identifier;
+            }
+        }
+    }
+}

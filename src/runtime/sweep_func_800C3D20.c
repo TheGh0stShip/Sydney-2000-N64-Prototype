@@ -1,37 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C3D20\n.ent func_800C3D20\n"
-    "func_800C3D20:\n"
-    "lw $2,220($4)\n"
-    "lhu $3,6($2)\n"
-    "sltiu $2,$3,10\n"
-    "bnez $2,L_800C3D44\n"
-    "sltiu $2,$3,13\n"
-    "bnez $2,L_800C3D4C\n"
-    "li $2,27\n"
-    "beq $3,$2,L_800C3D68\n"
-    "nop\n"
-    "L_800C3D44:\n"
-    "jr $31\n"
-    "nop\n"
-    "L_800C3D4C:\n"
-    "lw $3,716($4)\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "lw $3,712($4)\n"
-    "j L_800C3D7C\n"
-    "nop\n"
-    "L_800C3D68:\n"
-    "lw $3,720($4)\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "lw $3,716($4)\n"
-    "L_800C3D7C:\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800C3D20\n.set at\n.set reorder\n");
+void func_800C3D20(unsigned char *object)
+{
+    unsigned char *state = *(unsigned char **)(object + 220);
+    unsigned char *target;
+
+    switch ((unsigned int)*(unsigned short *)(state + 6)) {
+    case 10:
+    case 11:
+    case 12:
+        target = *(unsigned char **)(object + 716);
+        *(int *)(target + 192) |= 4;
+        target = *(unsigned char **)(object + 712);
+        break;
+    case 27:
+        target = *(unsigned char **)(object + 720);
+        *(int *)(target + 192) |= 4;
+        target = *(unsigned char **)(object + 716);
+        break;
+    default:
+        return;
+    }
+    *(int *)(target + 192) |= 4;
+}

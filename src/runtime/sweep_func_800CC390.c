@@ -1,42 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CC390\n.ent func_800CC390\n"
-    "func_800CC390:\n"
-    "lbu $2,1927($4)\n"
-    "ori $2,$2,0x2\n"
-    "andi $3,$2,0x21\n"
-    "sb $2,1927($4)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800CC3BC\n"
-    "move $5,$0\n"
-    "li $2,32\n"
-    "bne $3,$2,L_800CC3BC\n"
-    "li $5,3\n"
-    "li $5,2\n"
-    "L_800CC3BC:\n"
-    "li $6,-5\n"
-    "L_800CC3C0:\n"
-    "andi $3,$5,0xff\n"
-    "sltiu $2,$3,8\n"
-    "beqz $2,L_800CC404\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "addiu $2,$2,216\n"
-    "lw $3,192($2)\n"
-    "addiu $5,$5,1\n"
-    "and $3,$3,$6\n"
-    "j L_800CC3C0\n"
-    "sw $3,192($2)\n"
-    "L_800CC404:\n"
-    "lw $2,192($4)\n"
-    "li $3,-5\n"
-    "and $2,$2,$3\n"
-    "jr $31\n"
-    "sw $2,192($4)\n"
-    ".end func_800CC390\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char data[192];
+    int flags;
+    unsigned char rest[16];
+} Part;
+
+void func_800CC390(unsigned char *object)
+{
+    unsigned char bits = object[1927] | 2;
+    unsigned char i;
+    int mask;
+
+    object[1927] = bits;
+    bits &= 0x21;
+    if (bits == 1) {
+        i = 0;
+    } else if (bits == 32) {
+        i = 2;
+    } else {
+        i = 3;
+    }
+    mask = ~4;
+loop:
+    if (i < 8) {
+        ((Part *)(object + 216))[i].flags &= mask;
+        i++;
+        goto loop;
+    }
+    ((Part *)object)->flags &= ~4;
+}

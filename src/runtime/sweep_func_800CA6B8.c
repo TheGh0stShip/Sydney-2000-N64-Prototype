@@ -1,40 +1,26 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CA6B8\n.ent func_800CA6B8\n"
-    "func_800CA6B8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800CA720\n"
-    "move $16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $2,0x800f\n"
-    "lw $2,10096($2)\n"
-    "beqz $2,L_800CA708\n"
-    "nop\n"
-    "jal func_800CA354\n"
-    "move $4,$16\n"
-    "L_800CA708:\n"
-    "lw $3,4616($16)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800CA720\n"
-    "nop\n"
-    "jal func_800CA4F0\n"
-    "move $4,$16\n"
-    "L_800CA720:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CA6B8\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *);
+} MethodEntry;
+
+extern int D_800F2770;
+extern void func_800CA354(void *object);
+extern void func_800CA4F0(void *object);
+
+void func_800CA6B8(unsigned char *object, int *event)
+{
+    MethodEntry *entry;
+
+    if (event[0] == 5) {
+        entry = (MethodEntry *)(*(unsigned char **)(object + 180) + 32);
+        entry->func(object + entry->offset);
+        if (D_800F2770 != 0) {
+            func_800CA354(object);
+        }
+        if (*(int *)(object + 4616) == 1) {
+            func_800CA4F0(object);
+        }
+    }
+    *(int *)(object + 16) = event[1];
+}

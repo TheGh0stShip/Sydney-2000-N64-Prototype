@@ -1,39 +1,26 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EF8D4\n.ent func_800EF8D4\n"
-    "func_800EF8D4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "addiu $4,$16,96\n"
-    "li $2,66\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-13872($1)\n"
-    "lui $5,0x3e49\n"
-    "ori $5,$5,0xfd9\n"
-    "li $6,3\n"
-    "sw $31,20($29)\n"
-    "sw $0,480($16)\n"
-    "sw $0,216($16)\n"
-    "sw $0,196($16)\n"
-    "sw $2,0($16)\n"
-    "sw $0,36($4)\n"
-    "sw $0,32($4)\n"
-    "sw $0,24($4)\n"
-    "sw $0,16($4)\n"
-    "sw $0,8($4)\n"
-    "sw $0,4($4)\n"
-    "sw $0,72($4)\n"
-    "sw $0,68($4)\n"
-    "sw $0,64($4)\n"
-    "swc1 $f0,40($4)\n"
-    "swc1 $f0,20($4)\n"
-    "jal func_800AD434\n"
-    "swc1 $f0,96($16)\n"
-    "jal func_800EF894\n"
-    "move $4,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EF8D4\n.set at\n.set reorder\n");
+extern void func_800AD434(void *object, float angle, int mode);
+extern void func_800EF894(void *object);
+
+void func_800EF8D4(unsigned char *object)
+{
+    unsigned char *mat = object + 96;
+
+    *(int *)(object + 480) = 0;
+    *(int *)(object + 216) = 0;
+    *(int *)(object + 196) = 0;
+    *(int *)(object + 0) = 66;
+    *(int *)(mat + 36) = 0;
+    *(int *)(mat + 32) = 0;
+    *(int *)(mat + 24) = 0;
+    *(int *)(mat + 16) = 0;
+    *(int *)(mat + 8) = 0;
+    *(int *)(mat + 4) = 0;
+    *(int *)(mat + 72) = 0;
+    *(int *)(mat + 68) = 0;
+    *(int *)(mat + 64) = 0;
+    *(float *)(mat + 40) = 1.0f;
+    *(float *)(mat + 20) = 1.0f;
+    *(float *)(object + 96) = 1.0f;
+    func_800AD434(mat, 0.19634952f, 3);
+    func_800EF894(object);
+}

@@ -1,23 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AC218\n.ent func_800AC218\n"
-    "func_800AC218:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lw $5,0($5)\n"
-    "li $2,3\n"
-    "beq $5,$2,L_800AC250\n"
-    "move $3,$4\n"
-    "li $2,5\n"
-    "bne $5,$2,L_800AC250\n"
-    "nop\n"
-    "lw $2,180($3)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_800AC250:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AC218\n.set at\n.set reorder\n");
+typedef void (*Method)(void *object);
+
+void func_800AC218(unsigned char *object, int *event)
+{
+    unsigned char *vt;
+    switch (*event) {
+    case 3:
+        break;
+    case 5:
+        vt = *(unsigned char **)(object + 180);
+        (*(Method *)(vt + 36))(object + *(short *)(vt + 32));
+        break;
+    }
+}

@@ -1,33 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CE6C4\n.ent func_800CE6C4\n"
-    "func_800CE6C4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,25600\n"
-    "andi $5,$5,0xff\n"
-    "sll $5,$5,0x2\n"
-    "addu $5,$5,$2\n"
-    "sw $31,28($29)\n"
-    "lw $5,0($5)\n"
-    "jal func_80019488\n"
-    "move $16,$4\n"
-    "mtc1 $0,$f0\n"
-    "mfc1 $5,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25820($1)\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "mfc1 $7,$f0\n"
-    "move $6,$5\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "move $4,$16\n"
-    "jal func_8001A160\n"
-    "li $5,32\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800CE6C4\n.set at\n.set reorder\n");
+extern void func_80019488(void *object, int model);
+extern void func_8001A210(void *object, float a, float b, float c, float d, int e);
+extern void func_8001A160(void *object, int v);
+extern int D_800F6400[];
+
+void func_800CE6C4(void *object, unsigned char index)
+{
+    func_80019488(object, D_800F6400[index]);
+    func_8001A210(object, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_8001A160(object, 32);
+}

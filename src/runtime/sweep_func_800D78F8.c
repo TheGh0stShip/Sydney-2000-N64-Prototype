@@ -1,41 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D78F8\n.ent func_800D78F8\n"
-    "func_800D78F8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,20($29)\n"
-    "sw $16,16($29)\n"
-    "lwc1 $f0,160($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-23328($1)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "lwc1 $f2,10844($4)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800D7974\n"
-    "swc1 $f0,160($4)\n"
-    "lw $5,10860($4)\n"
-    "li $2,-1\n"
-    "swc1 $f2,160($4)\n"
-    "beq $5,$2,L_800D7974\n"
-    "sw $0,10848($4)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "move $7,$6\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "L_800D7974:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D78F8\n.set at\n.set reorder\n");
+extern int func_8001D4B8(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+extern char D_800F1AE0[];
+
+void func_800D78F8(char *obj)
+{
+    float limit;
+    int voice;
+
+    *(float *)(obj + 160) -= 28.2f;
+    limit = *(float *)(obj + 10844);
+    if (*(float *)(obj + 160) <= limit) {
+        *(float *)(obj + 160) = limit;
+        *(int *)(obj + 10848) = 0;
+        if (*(int *)(obj + 10860) != -1) {
+            voice = func_8001D4B8(D_800F1AE0, *(int *)(obj + 10860), 0, 0);
+            func_8001D640(D_800F1AE0, voice,
+                          (int)((long long)*(int *)(D_800F1AE0 + 104) * 32767) >> 15);
+        }
+    }
+}

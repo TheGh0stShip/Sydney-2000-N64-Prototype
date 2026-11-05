@@ -1,88 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A5D64\n.ent func_800A5D64\n"
-    "func_800A5D64:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "lw $2,12212($16)\n"
-    "lbu $3,426($2)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800A5D9C\n"
-    "move $4,$0\n"
-    "li $2,2\n"
-    "bne $3,$2,L_800A5DA0\n"
-    "nop\n"
-    "L_800A5D9C:\n"
-    "li $4,1\n"
-    "L_800A5DA0:\n"
-    "beqz $4,L_800A5E84\n"
-    "li $2,2\n"
-    "lbu $3,31919($16)\n"
-    "beq $3,$2,L_800A5E84\n"
-    "addiu $17,$16,13804\n"
-    "move $4,$17\n"
-    "lw $7,12212($16)\n"
-    "li $2,-1\n"
-    "sw $2,16($29)\n"
-    "sw $2,20($29)\n"
-    "lw $5,12212($16)\n"
-    "lui $6,0x3f2a\n"
-    "ori $6,$6,0xa64c\n"
-    "jal func_800971EC\n"
-    "addiu $7,$7,808\n"
-    "move $4,$17\n"
-    "lw $2,12212($16)\n"
-    "lw $7,12220($16)\n"
-    "lw $6,420($2)\n"
-    "jal func_80096860\n"
-    "li $5,4\n"
-    "move $4,$17\n"
-    "li $5,4\n"
-    "lui $18,0x8010\n"
-    "lb $3,31917($16)\n"
-    "lw $8,31972($16)\n"
-    "lb $2,31916($16)\n"
-    "sll $7,$3,0x1\n"
-    "sw $2,16($29)\n"
-    "lw $2,12216($16)\n"
-    "addu $7,$7,$3\n"
-    "sw $2,20($29)\n"
-    "lw $2,-15760($18)\n"
-    "sll $7,$7,0x2\n"
-    "addu $2,$2,$7\n"
-    "lw $6,2580($2)\n"
-    "jal func_80096C8C\n"
-    "addu $7,$8,$7\n"
-    "lbu $2,31919($16)\n"
-    "li $4,4\n"
-    "beq $2,$4,L_800A5E64\n"
-    "nop\n"
-    "lw $3,-15760($18)\n"
-    "lw $2,2560($3)\n"
-    "bne $2,$4,L_800A5E78\n"
-    "li $2,1\n"
-    "lw $3,2564($3)\n"
-    "bne $3,$2,L_800A5E78\n"
-    "nop\n"
-    "L_800A5E64:\n"
-    "lw $2,-15760($18)\n"
-    "move $4,$17\n"
-    "lw $6,3344($2)\n"
-    "jal func_80096F54\n"
-    "li $5,4\n"
-    "L_800A5E78:\n"
-    "jal func_800CEE04\n"
-    "addiu $4,$16,29936\n"
-    "sw $0,31948($16)\n"
-    "L_800A5E84:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A5D64\n.set at\n.set reorder\n");
+typedef struct GameEntry {
+    int unk0;
+    int unk4;
+    int value;
+} GameEntry;
+
+typedef struct GameState {
+    char pad0[2560];
+    int mode;
+    int submode;
+    char pad1[4];
+    GameEntry entries[64];
+} GameState;
+
+extern GameState *D_800FC270;
+extern void func_800971EC(void *object, void *actor, float scale, void *pos,
+                          int first, int second);
+extern void func_80096860(void *object, int slot, int value, int extra);
+extern void func_80096C8C(void *object, int slot, int value, void *entry,
+                          int index, int extra);
+extern void func_80096F54(void *object, int slot, int value);
+extern void func_800CEE04(void *object);
+
+void func_800A5D64(unsigned char *object)
+{
+    unsigned char *part;
+    int kind;
+    int active;
+    int index;
+
+    active = 0;
+    kind = (*(unsigned char **)(object + 12212))[426];
+    if (kind == 1) {
+        goto set;
+    }
+    if (kind == 2) {
+    set:
+        active = 1;
+    }
+    if (active && object[31919] != 2) {
+        part = object + 13804;
+        func_800971EC(part, *(void **)(object + 12212), 0.6666f,
+                      *(unsigned char **)(object + 12212) + 808, -1, -1);
+        func_80096860(part, 4,
+                      *(int *)(*(unsigned char **)(object + 12212) + 420),
+                      *(int *)(object + 12220));
+        index = (signed char)object[31917];
+        func_80096C8C(part, 4, D_800FC270->entries[index].value,
+                      *(unsigned char **)(object + 31972) + index * 12,
+                      (signed char)object[31916], *(int *)(object + 12216));
+        if (object[31919] == 4 ||
+            (D_800FC270->mode == 4 &&
+             D_800FC270->submode == 1)) {
+            func_80096F54(part, 4, *(int *)((unsigned char *)D_800FC270 + 3344));
+        }
+        func_800CEE04(object + 29936);
+        *(int *)(object + 31948) = 0;
+    }
+}

@@ -1,82 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80086A58\n.ent func_80086A58\n"
-    "func_80086A58:\n"
-    "addiu $29,$29,-24\n"
-    "move $7,$4\n"
-    "sw $31,16($29)\n"
-    "lbu $3,21615($7)\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$7,$2\n"
-    "lh $3,21266($2)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_80086B70\n"
-    "lui $8,0x7fff\n"
-    "ori $8,$8,0xffff\n"
-    "lui $6,0x800f\n"
-    "lw $4,10004($6)\n"
-    "li $5,595\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $4,$3,$8\n"
-    "srl $2,$4,0x1c\n"
-    "sltiu $2,$2,4\n"
-    "beqz $2,L_80086AD0\n"
-    "sw $4,10004($6)\n"
-    "li $5,553\n"
-    "L_80086AD0:\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x4\n"
-    "subu $3,$3,$2\n"
-    "sll $3,$3,0x5\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "and $2,$2,$8\n"
-    "sw $2,10004($6)\n"
-    "srl $2,$2,0x1c\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_80086B3C\n"
-    "li $2,-1\n"
-    "lbu $2,21615($7)\n"
-    "sll $3,$2,0x3\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$7,$3\n"
-    "lw $2,21260($3)\n"
-    "slti $2,$2,4609\n"
-    "beql $2,$0,L_80086B30\n"
-    "addiu $5,$5,-8\n"
-    "addiu $5,$5,1\n"
-    "L_80086B30:\n"
-    "lbu $2,21615($7)\n"
-    "addu $5,$5,$2\n"
-    "li $2,-1\n"
-    "L_80086B3C:\n"
-    "beq $5,$2,L_80086B70\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80086B70\n"
-    "li $2,1\n"
-    "lw $3,21568($7)\n"
-    "bne $3,$2,L_80086B70\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_80086B70:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80086A58\n.set at\n.set reorder\n");
+extern void func_800C0110(void *object, int id, int a, int b);
+extern unsigned char *D_800FC270;
+extern unsigned int D_800F2714;
+extern unsigned char D_800F3BC0[];
+
+typedef struct {
+    int a;
+    int pad0;
+    int b;
+    int pad1;
+    int c;
+    unsigned char pad2[2];
+    short state;
+    unsigned char pad3[12];
+} Slot;
+
+typedef struct {
+    unsigned char pad0[21244];
+    Slot slots[9];
+    int soundEnabled;
+    unsigned char pad1[21615 - 21572];
+    unsigned char current;
+} Game;
+
+void func_80086A58(Game *game)
+{
+    int id;
+
+    if (game->slots[game->current].state == 1) {
+        return;
+    }
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    id = 595;
+    if ((D_800F2714 >> 28) < 4) {
+        id = 553;
+    }
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    if ((D_800F2714 >> 28) >= 2) {
+        if (game->slots[game->current].c < 4609) {
+            id += 1;
+        } else {
+            id -= 8;
+        }
+        id += game->current;
+    }
+    if (id != -1 && *(int *)(D_800FC270 + 2564) != 0 && game->soundEnabled == 1) {
+        func_800C0110(D_800F3BC0, id, 0, 0);
+    }
+}

@@ -1,25 +1,24 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80096398\n.ent func_80096398\n"
-    "func_80096398:\n"
-    "addiu $29,$29,-24\n"
-    "beqz $5,L_800963BC\n"
-    "sw $31,16($29)\n"
-    "lw $2,180($5)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "addu $4,$5,$4\n"
-    "jalr $2\n"
-    "li $5,3\n"
-    "L_800963BC:\n"
-    "lui $4,0x800f\n"
-    "jal func_800AA648\n"
-    "addiu $4,$4,10072\n"
-    "jal func_80011054\n"
-    "li $4,2\n"
-    "jal func_8001AE8C\n"
-    "nop\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80096398\n.set at\n.set reorder\n");
+struct VEntry {
+    short pad0;
+    short pad2;
+    short pad4;
+    short pad6;
+    short offset;
+    short pad10;
+    void (*func)(void *object, int mode);
+};
+extern unsigned char D_800F2758[];
+extern void func_800AA648(void *list);
+extern void func_80011054(int mode);
+extern void func_8001AE8C(void);
+
+void func_80096398(int unused, unsigned char *object)
+{
+    if (object != 0) {
+        struct VEntry *entry = *(struct VEntry **)(object + 180);
+        entry->func(object + entry->offset, 3);
+    }
+    func_800AA648(D_800F2758);
+    func_80011054(2);
+    func_8001AE8C();
+}

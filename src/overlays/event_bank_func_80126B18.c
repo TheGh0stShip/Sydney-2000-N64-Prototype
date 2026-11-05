@@ -1,27 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80126B18\n.ent func_80126B18\n"
-    "func_80126B18:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "sw $31,24($29)\n"
-    "andi $2,$16,0xff\n"
-    "L_80126B34:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $4,26984($2)\n"
-    "jal func_8007BA78\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,3\n"
-    "bnel $2,$0,L_80126B34\n"
-    "andi $2,$16,0xff\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80126B18\n.set at\n.set reorder\n");
+extern void func_8007BA78(void *object);
+
+typedef struct {
+    char pad[26984];
+    void *items[3];
+} Owner;
+
+void func_80126B18(Owner *object)
+{
+    unsigned char i;
+
+    for (i = 0; i < 3; i++) {
+        func_8007BA78(object->items[i]);
+    }
+}

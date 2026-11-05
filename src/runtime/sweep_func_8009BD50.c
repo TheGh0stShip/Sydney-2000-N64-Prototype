@@ -1,37 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009BD50\n.ent func_8009BD50\n"
-    "func_8009BD50:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "jal func_800B4784\n"
-    "nop\n"
-    "beqz $2,L_8009BD70\n"
-    "lui $2,0x800f\n"
-    "j L_8009BD84\n"
-    "sw $0,6004($2)\n"
-    "L_8009BD70:\n"
-    "lui $3,0x800f\n"
-    "li $2,1\n"
-    "sw $2,6004($3)\n"
-    "jal func_800B4794\n"
-    "move $4,$2\n"
-    "L_8009BD84:\n"
-    "li $4,-1\n"
-    "jal func_8001DA28\n"
-    "move $5,$0\n"
-    "lui $4,0x800f\n"
-    "jal func_800C013C\n"
-    "addiu $4,$4,15296\n"
-    "lui $3,0x800f\n"
-    "lw $2,6004($3)\n"
-    "beqz $2,L_8009BDB8\n"
-    "nop\n"
-    "sw $0,6004($3)\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "L_8009BDB8:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8009BD50\n.set at\n.set reorder\n");
+extern int D_800F1774;
+extern unsigned char D_800F3BC0[];
+extern int func_800B4784(void);
+extern void func_800B4794(int enable);
+extern void func_8001DA28(int a, int b);
+extern void func_800C013C(void *object);
+
+void func_8009BD50(void)
+{
+    if (func_800B4784() != 0) {
+        D_800F1774 = 0;
+    } else {
+        D_800F1774 = 1;
+        func_800B4794(1);
+    }
+    func_8001DA28(-1, 0);
+    func_800C013C(D_800F3BC0);
+    if (D_800F1774 != 0) {
+        D_800F1774 = 0;
+        func_800B4794(0);
+    }
+}

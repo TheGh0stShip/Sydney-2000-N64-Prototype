@@ -1,37 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CD65C\n.ent func_800CD65C\n"
-    "func_800CD65C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_80014480\n"
-    "sw $16,16($29)\n"
-    "jal func_80014480\n"
-    "addiu $4,$19,212\n"
-    "move $18,$0\n"
-    "li $17,484\n"
-    "move $16,$19\n"
-    "L_800CD690:\n"
-    "lw $2,680($16)\n"
-    "beql $2,$0,L_800CD6A8\n"
-    "addiu $17,$17,212\n"
-    "jal func_80014480\n"
-    "addu $4,$19,$17\n"
-    "addiu $17,$17,212\n"
-    "L_800CD6A8:\n"
-    "addiu $18,$18,1\n"
-    "sltiu $2,$18,2\n"
-    "bnez $2,L_800CD690\n"
-    "addiu $16,$16,212\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800CD65C\n.set at\n.set reorder\n");
+extern void func_80014480(void *p);
+
+typedef struct {
+    unsigned char data[196];
+    int active;
+    unsigned char rest[12];
+} Part;
+
+typedef struct {
+    Part a;
+    Part b;
+    unsigned char pad[60];
+    Part extra[2];
+} Group;
+
+void func_800CD65C(Group *group)
+{
+    unsigned int i;
+
+    func_80014480(&group->a);
+    func_80014480(&group->b);
+    for (i = 0; i < 2; i++) {
+        if (group->extra[i].active != 0) {
+            func_80014480(&group->extra[i]);
+        }
+    }
+}

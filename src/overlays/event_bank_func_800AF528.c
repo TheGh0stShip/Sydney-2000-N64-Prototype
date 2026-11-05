@@ -1,135 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AF528\n.ent func_800AF528\n"
-    "func_800AF528:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$18,5048\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "sw $31,32($29)\n"
-    "jal func_800ADDA4\n"
-    "sw $17,20($29)\n"
-    "addiu $2,$18,4412\n"
-    "beql $2,$0,L_800AF598\n"
-    "addiu $16,$18,4200\n"
-    "beql $2,$16,L_800AF598\n"
-    "addiu $16,$18,4200\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800AF574:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800AF574\n"
-    "addiu $16,$16,-212\n"
-    "addiu $16,$18,4200\n"
-    "L_800AF598:\n"
-    "move $4,$16\n"
-    "jal func_800ADDA4\n"
-    "li $5,2\n"
-    "addiu $2,$18,3564\n"
-    "beql $2,$0,L_800AF5E4\n"
-    "addiu $2,$18,2928\n"
-    "beql $2,$16,L_800AF5E4\n"
-    "addiu $2,$18,2928\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800AF5C0:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800AF5C0\n"
-    "addiu $16,$16,-212\n"
-    "addiu $2,$18,2928\n"
-    "L_800AF5E4:\n"
-    "beqz $2,L_800AF618\n"
-    "addiu $16,$18,3564\n"
-    "beq $2,$16,L_800AF618\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800AF5F8:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800AF5F8\n"
-    "addiu $16,$16,-212\n"
-    "L_800AF618:\n"
-    "addiu $4,$18,2704\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$18,2492\n"
-    "jal func_800CE380\n"
-    "li $5,2\n"
-    "addiu $4,$18,1584\n"
-    "jal func_800CD8A0\n"
-    "li $5,2\n"
-    "addiu $17,$18,1324\n"
-    "move $4,$17\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($17)\n"
-    "addiu $2,$18,664\n"
-    "beql $2,$0,L_800AF6A0\n"
-    "addiu $2,$18,4\n"
-    "move $16,$17\n"
-    "beql $2,$16,L_800AF6A0\n"
-    "addiu $2,$18,4\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-220\n"
-    "L_800AF67C:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bnel $17,$16,L_800AF67C\n"
-    "addiu $16,$16,-220\n"
-    "addiu $2,$18,4\n"
-    "L_800AF6A0:\n"
-    "beqz $2,L_800AF6D4\n"
-    "addiu $16,$18,664\n"
-    "beq $2,$16,L_800AF6D4\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-220\n"
-    "L_800AF6B4:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800AF6B4\n"
-    "addiu $16,$16,-220\n"
-    "L_800AF6D4:\n"
-    "andi $2,$19,0x1\n"
-    "beqz $2,L_800AF6E8\n"
-    "nop\n"
-    "jal func_80004380\n"
-    "move $4,$18\n"
-    "L_800AF6E8:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800AF528\n.set at\n.set reorder\n");
+typedef struct {
+    short delta;
+    short index;
+    void (*func)(void *self, int mode);
+} VEntry;
+
+extern unsigned char D_80086598[];
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800CE380(void *object, int mode);
+extern void func_800CD8A0(void *object, int mode);
+extern void func_80004380(void *object);
+
+#define DESTROY(p) \
+    (*(VEntry **)((p) + 180))[1].func((p) + (*(VEntry **)((p) + 180))[1].delta, 2)
+
+#define DESTROY_ARRAY(base, end, size) \
+    do { \
+        unsigned char *first_ = (base); \
+        if (first_ != 0) { \
+            unsigned char *p_ = (end); \
+            if (first_ != p_) { \
+                unsigned char *stop_ = first_; \
+                do { \
+                    p_ -= (size); \
+                    DESTROY(p_); \
+                } while (stop_ != p_); \
+            } \
+        } \
+    } while (0)
+
+void func_800AF528(unsigned char *object, int flags)
+{
+    unsigned char *part;
+
+    func_800ADDA4(object + 5048, 2);
+    DESTROY_ARRAY(object + 4412, object + 5048, 212);
+    func_800ADDA4(object + 4200, 2);
+    DESTROY_ARRAY(object + 3564, object + 4200, 212);
+    DESTROY_ARRAY(object + 2928, object + 3564, 212);
+    {
+        unsigned char *member = object + 2704;
+
+        *(void **)(member + 180) = D_80086598;
+        func_800ADDA4(member, 2);
+    }
+    func_800CE380(object + 2492, 2);
+    func_800CD8A0(object + 1584, 2);
+    part = object + 1324;
+    *(void **)(part + 180) = D_80086598;
+    func_800ADDA4(part, 2);
+    DESTROY_ARRAY(object + 664, object + 1324, 220);
+    DESTROY_ARRAY(object + 4, object + 664, 220);
+    if (flags & 1) {
+        func_80004380(object);
+    }
+}

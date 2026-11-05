@@ -1,24 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B3290\n.ent func_800B3290\n"
-    "func_800B3290:\n"
-    "lw $3,8($4)\n"
-    "li $7,61\n"
-    "lui $6,0x2\n"
-    "L_800B329C:\n"
-    "beqz $3,L_800B32CC\n"
-    "nop\n"
-    "lw $2,0($3)\n"
-    "lw $4,12($3)\n"
-    "bnel $2,$7,L_800B329C\n"
-    "move $3,$4\n"
-    "lw $2,192($3)\n"
-    "sb $5,201($3)\n"
-    "or $2,$2,$6\n"
-    "sw $2,192($3)\n"
-    "j L_800B329C\n"
-    "move $3,$4\n"
-    "L_800B32CC:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800B3290\n.set at\n.set reorder\n");
+void func_800B3290(unsigned char *list, unsigned char value)
+{
+    unsigned char *node = *(unsigned char **)(list + 8);
+    unsigned char *next;
+    int kind = 61;
+    int bit = 0x20000;
+loop:
+    if (node == 0) {
+        return;
+    }
+    next = *(unsigned char **)(node + 12);
+    if (*(int *)node == kind) {
+        node[201] = value;
+        *(int *)(node + 192) |= bit;
+    }
+    node = next;
+    goto loop;
+}

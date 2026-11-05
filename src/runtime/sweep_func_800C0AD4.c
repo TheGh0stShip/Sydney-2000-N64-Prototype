@@ -1,36 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C0AD4\n.ent func_800C0AD4\n"
-    "func_800C0AD4:\n"
-    "addiu $29,$29,-40\n"
-    "li $2,1\n"
-    "sw $31,32($29)\n"
-    "sw $5,212($4)\n"
-    "sw $2,172($4)\n"
-    "lh $2,2($6)\n"
-    "lh $3,6($6)\n"
-    "lh $7,4($6)\n"
-    "mtc1 $2,$f4\n"
-    "cvt.s.w $f4,$f4\n"
-    "mtc1 $3,$f2\n"
-    "cvt.s.w $f2,$f2\n"
-    "lh $3,0($6)\n"
-    "add.s $f0,$f4,$f2\n"
-    "mtc1 $3,$f6\n"
-    "cvt.s.w $f6,$f6\n"
-    "mfc1 $5,$f6\n"
-    "mtc1 $7,$f6\n"
-    "cvt.s.w $f6,$f6\n"
-    "mfc1 $7,$f6\n"
-    "swc1 $f0,224($4)\n"
-    "swc1 $f2,16($29)\n"
-    "lbu $2,13($6)\n"
-    "sw $2,20($29)\n"
-    "lw $2,8($6)\n"
-    "mfc1 $6,$f4\n"
-    "jal func_800C0750\n"
-    "sw $2,24($29)\n"
-    "lw $31,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C0AD4\n.set at\n.set reorder\n");
+typedef struct {
+    short x;
+    short y;
+    short z;
+    short h;
+    int value;
+    unsigned char pad;
+    unsigned char kind;
+} Placement;
+
+extern void func_800C0750(void *object, float x, float y, float z, float h,
+                          int kind, int value);
+
+void func_800C0AD4(unsigned char *object, int id, Placement *placement)
+{
+    float x;
+    float y;
+    float z;
+    float h;
+
+    *(int *)(object + 212) = id;
+    *(int *)(object + 172) = 1;
+    y = placement->y;
+    h = placement->h;
+    x = placement->x;
+    z = placement->z;
+    *(float *)(object + 224) = y + h;
+    func_800C0750(object, x, y, z, h, placement->kind, placement->value);
+}

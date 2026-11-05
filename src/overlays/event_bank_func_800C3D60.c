@@ -1,66 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C3D60\n.ent func_800C3D60\n"
-    "func_800C3D60:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2672\n"
-    "addiu $4,$17,19088\n"
-    "li $5,2\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $16,16($29)\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($17)\n"
-    "addiu $4,$17,18872\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $2,$17,18020\n"
-    "beqz $2,L_800C3DE0\n"
-    "addiu $16,$17,18868\n"
-    "beql $2,$16,L_800C3DE4\n"
-    "addiu $2,$17,17156\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800C3DC0:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_800C3DC0\n"
-    "addiu $16,$16,-212\n"
-    "L_800C3DE0:\n"
-    "addiu $2,$17,17156\n"
-    "L_800C3DE4:\n"
-    "beqz $2,L_800C3E18\n"
-    "addiu $16,$17,18004\n"
-    "beq $2,$16,L_800C3E18\n"
-    "move $18,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800C3DF8:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $18,$16,L_800C3DF8\n"
-    "addiu $16,$16,-212\n"
-    "L_800C3E18:\n"
-    "move $4,$17\n"
-    "jal func_80081DC8\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C3D60\n.set at\n.set reorder\n");
+extern char D_80070A70[];
+extern void func_800ADE84(void *p, int n);
+extern void func_80081DC8(void *p, int b);
+
+typedef struct {
+    short pad0;
+    short pad2;
+    short pad4;
+    short pad6;
+    short offset;
+    short pad10;
+    void (*dtor)(void *self, int flags);
+} VTable;
+
+void func_800C3D60(char *obj, int b)
+{
+    char *base;
+    char *e;
+
+    *(int *)(obj + 180) = (int)D_80070A70;
+    func_800ADE84(obj + 19088, 2);
+    func_800ADE84(obj + 18872, 2);
+    base = obj + 18020;
+    if (base != 0) {
+        e = obj + 18868;
+        if (base != e) {
+            char *first = base;
+            do {
+                VTable *vt;
+                e -= 212;
+                vt = *(VTable **)(e + 180);
+                vt->dtor(e + vt->offset, 2);
+            } while (first != e);
+        }
+    }
+    base = obj + 17156;
+    if (base != 0) {
+        e = obj + 18004;
+        if (base != e) {
+            char *first = base;
+            do {
+                VTable *vt;
+                e -= 212;
+                vt = *(VTable **)(e + 180);
+                vt->dtor(e + vt->offset, 2);
+            } while (first != e);
+        }
+    }
+    func_80081DC8(obj, b);
+}

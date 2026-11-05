@@ -1,26 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9CDC\n.ent func_800B9CDC\n"
-    "func_800B9CDC:\n"
-    "lw $2,212($4)\n"
-    "andi $5,$5,0xffff\n"
-    "sltu $2,$5,$2\n"
-    "beqz $2,L_800B9D24\n"
-    "move $2,$0\n"
-    "sll $3,$5,0x2\n"
-    "addu $3,$3,$5\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$5\n"
-    "lw $4,216($4)\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$4\n"
-    "lw $4,80($3)\n"
-    "lui $5,0x8000\n"
-    "and $4,$4,$5\n"
-    "or $4,$4,$6\n"
-    "jr $31\n"
-    "sw $4,80($3)\n"
-    "L_800B9D24:\n"
-    "jr $31\n"
-    "li $2,1\n"
-    ".end func_800B9CDC\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char pad[80];
+    unsigned int flags;
+} Entry;
+
+int func_800B9CDC(unsigned char *object, unsigned short index, unsigned int value)
+{
+    if (index >= *(unsigned int *)(object + 212)) {
+        return 1;
+    }
+    (*(Entry **)(object + 216))[index].flags =
+        ((*(Entry **)(object + 216))[index].flags & 0x80000000U) | value;
+    return 0;
+}

@@ -1,29 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A31BC\n.ent func_800A31BC\n"
-    "func_800A31BC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $3,84($16)\n"
-    "li $2,10\n"
-    "beq $3,$2,L_800A3208\n"
-    "nop\n"
-    "lw $2,40($16)\n"
-    "bnez $2,L_800A3208\n"
-    "nop\n"
-    "jal func_8001D964\n"
-    "nop\n"
-    "jal func_8001D964\n"
-    "sw $0,40($16)\n"
-    "lw $4,84($16)\n"
-    "li $2,1\n"
-    "jal func_8001CA40\n"
-    "sw $2,40($16)\n"
-    "L_800A3208:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A31BC\n.set at\n.set reorder\n");
+extern void func_8001D964(void);
+extern void func_8001CA40(int value);
+
+void func_800A31BC(unsigned char *object)
+{
+    if (*(int *)(object + 84) != 10 && *(int *)(object + 40) == 0) {
+        func_8001D964();
+        *(int *)(object + 40) = 0;
+        func_8001D964();
+        *(int *)(object + 40) = 1;
+        func_8001CA40(*(int *)(object + 84));
+    }
+}

@@ -1,25 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800ADE84\n.ent func_800ADE84\n"
-    "func_800ADE84:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,24392\n"
-    "sw $31,24($29)\n"
-    "jal func_800ADC1C\n"
-    "sw $2,180($16)\n"
-    "jal func_800ADB70\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "jal func_800AC3A4\n"
-    "move $5,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800ADE84\n.set at\n.set reorder\n");
+extern void func_800ADC1C(void *object);
+extern void func_800ADB70(void *object);
+extern void func_800AC3A4(void *object, int flags);
+extern unsigned char D_80085F48[];
+
+void func_800ADE84(unsigned char *object, int flags)
+{
+    *(void **)(object + 180) = D_80085F48;
+    func_800ADC1C(object);
+    func_800ADB70(object);
+    func_800AC3A4(object, flags);
+}

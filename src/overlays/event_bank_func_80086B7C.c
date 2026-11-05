@@ -1,66 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80086B7C\n.ent func_80086B7C\n"
-    "func_80086B7C:\n"
-    "addiu $29,$29,-24\n"
-    "move $10,$4\n"
-    "sw $31,16($29)\n"
-    "lbu $2,1548($10)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$10,$2\n"
-    "lw $2,16672($2)\n"
-    "lbu $8,733($2)\n"
-    "sll $2,$8,0x3\n"
-    "addu $2,$2,$8\n"
-    "sll $2,$2,0x2\n"
-    "addu $9,$10,$2\n"
-    "lh $3,21266($9)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_80086C58\n"
-    "li $7,-1\n"
-    "lui $6,0x7fff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x4\n"
-    "subu $3,$3,$2\n"
-    "sll $3,$3,0x5\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "and $2,$2,$6\n"
-    "sw $2,10004($5)\n"
-    "srl $2,$2,0x1c\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_80086C20\n"
-    "li $2,-1\n"
-    "lw $2,21244($9)\n"
-    "slti $2,$2,11521\n"
-    "beqz $2,L_80086C18\n"
-    "li $7,562\n"
-    "li $7,570\n"
-    "L_80086C18:\n"
-    "addu $7,$7,$8\n"
-    "li $2,-1\n"
-    "L_80086C20:\n"
-    "beq $7,$2,L_80086C58\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80086C58\n"
-    "li $2,1\n"
-    "lw $3,21568($10)\n"
-    "bne $3,$2,L_80086C58\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_80086C58:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80086B7C\n.set at\n.set reorder\n");
+extern void func_800C0110(void *object, int id, int a, int b);
+extern unsigned char *D_800FC270;
+extern unsigned int D_800F2714;
+extern unsigned char D_800F3BC0[];
+
+typedef struct {
+    int a;
+    int pad0;
+    int b;
+    unsigned char pad1[10];
+    short state;
+    unsigned char pad2[12];
+} Slot;
+
+typedef struct {
+    unsigned char pad0[1548];
+    unsigned char current;
+    unsigned char pad1[16672 - 1549];
+    unsigned char *players[8];
+    unsigned char pad2[21244 - 16704];
+    Slot slots[9];
+    unsigned char pad3[21568 - 21568];
+    int soundEnabled;
+} Game;
+
+void func_80086B7C(Game *game)
+{
+    unsigned char index;
+    int id;
+
+    index = game->players[game->current][733];
+    id = -1;
+    if (game->slots[index].state == 1) {
+        return;
+    }
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    if ((D_800F2714 >> 28) >= 2) {
+        if (game->slots[index].a < 11521) {
+            id = 570;
+        } else {
+            id = 562;
+        }
+        id += index;
+    }
+    if (id != -1 && *(int *)(D_800FC270 + 2564) != 0 && game->soundEnabled == 1) {
+        func_800C0110(D_800F3BC0, id, 0, 0);
+    }
+}

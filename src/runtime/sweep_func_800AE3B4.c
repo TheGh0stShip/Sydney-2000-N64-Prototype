@@ -1,32 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE3B4\n.ent func_800AE3B4\n"
-    "func_800AE3B4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "li $2,1\n"
-    "sw $31,20($29)\n"
-    "sw $2,188($16)\n"
-    "li $2,2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24624($1)\n"
-    "addiu $4,$16,292\n"
-    "sw $0,268($16)\n"
-    "sw $0,184($16)\n"
-    "sw $2,0($16)\n"
-    "jal func_800AED04\n"
-    "swc1 $f0,244($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24628($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24632($1)\n"
-    "sh $0,196($16)\n"
-    "sw $0,200($16)\n"
-    "swc1 $f0,248($16)\n"
-    "swc1 $f2,252($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800AE3B4\n.set at\n.set reorder\n");
+extern void func_800AED04(void *object);
+
+void func_800AE3B4(unsigned char *object)
+{
+    *(int *)(object + 188) = 1;
+    *(int *)(object + 268) = 0;
+    *(int *)(object + 184) = 0;
+    *(int *)(object + 0) = 2;
+    *(float *)(object + 244) = 1.5707964f;
+    func_800AED04(object + 292);
+    *(short *)(object + 196) = 0;
+    *(int *)(object + 200) = 0;
+    *(float *)(object + 248) = 0.033333335f;
+    *(float *)(object + 252) = 1.0f;
+}

@@ -1,40 +1,10 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E76F8\n.ent func_800E76F8\n"
-    "func_800E76F8:\n"
-    "lwc1 $f6,16($29)\n"
-    "lwc1 $f2,0($6)\n"
-    "mul.s $f2,$f2,$f6\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-16744($1)\n"
-    "sub.s $f4,$f4,$f6\n"
-    "lwc1 $f0,0($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,0($5)\n"
-    "lwc1 $f2,4($6)\n"
-    "mul.s $f2,$f2,$f6\n"
-    "lwc1 $f0,4($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,4($5)\n"
-    "lwc1 $f2,8($6)\n"
-    "mul.s $f2,$f2,$f6\n"
-    "lwc1 $f0,8($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,8($5)\n"
-    "lwc1 $f2,28($6)\n"
-    "mul.s $f2,$f2,$f6\n"
-    "lwc1 $f0,28($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,28($5)\n"
-    "lwc1 $f2,32($6)\n"
-    "mul.s $f2,$f2,$f6\n"
-    "lwc1 $f0,32($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "jr $31\n"
-    "swc1 $f2,32($5)\n"
-    ".end func_800E76F8\n.set at\n.set reorder\n");
+void func_800E76F8(int unused, float *out, float *a, float *b, float t)
+{
+    float s = 1.0f - t;
+
+    out[0] = a[0] * t + b[0] * s;
+    out[1] = a[1] * t + b[1] * s;
+    out[2] = a[2] * t + b[2] * s;
+    out[7] = a[7] * t + b[7] * s;
+    out[8] = a[8] * t + b[8] * s;
+}

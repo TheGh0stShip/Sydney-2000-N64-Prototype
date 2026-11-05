@@ -1,35 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE17C\n.ent func_800AE17C\n"
-    "func_800AE17C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lw $2,184($16)\n"
-    "beqz $2,L_800AE1D8\n"
-    "li $2,1\n"
-    "lw $2,192($16)\n"
-    "bnez $2,L_800AE1D8\n"
-    "li $2,1\n"
-    "lw $2,188($16)\n"
-    "beqz $2,L_800AE1D4\n"
-    "li $2,3\n"
-    "lui $4,0x800f\n"
-    "sw $2,20($29)\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "addiu $4,$4,9952\n"
-    "sw $0,16($29)\n"
-    "lw $7,184($16)\n"
-    "jal func_800AB2A4\n"
-    "li $6,11\n"
-    "L_800AE1D4:\n"
-    "li $2,1\n"
-    "L_800AE1D8:\n"
-    "sw $2,192($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800AE17C\n.set at\n.set reorder\n");
+extern void func_800AB2A4(void *list, int a, int b, int c, int d, int e);
+extern int D_800F2744;
+extern unsigned char D_800F26E0[];
+
+void func_800AE17C(unsigned char *object)
+{
+    if (*(int *)(object + 184) != 0 && *(int *)(object + 192) == 0) {
+        if (*(int *)(object + 188) != 0) {
+            func_800AB2A4(D_800F26E0, D_800F2744, 11, *(int *)(object + 184), 0, 3);
+        }
+    }
+    *(int *)(object + 192) = 1;
+}

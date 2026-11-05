@@ -1,50 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80071D50\n.ent func_80071D50\n"
-    "func_80071D50:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "move $4,$5\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "lw $5,3372($2)\n"
-    "li $2,11\n"
-    "bne $4,$2,L_80071D84\n"
-    "sw $0,252($17)\n"
-    "li $4,12\n"
-    "L_80071D84:\n"
-    "jal func_8007A760\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,95\n"
-    "move $6,$0\n"
-    "move $7,$6\n"
-    "jal func_8001D4B8\n"
-    "sw $2,252($17)\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "move $4,$16\n"
-    "move $5,$17\n"
-    "move $6,$0\n"
-    "li $7,870\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80071D50\n.set at\n.set reorder\n");
+extern int func_8007A760(int, int);
+extern int func_8001D4B8(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+extern void func_8001D5D8(void *, int, int, int, int, int);
+extern char *D_800FC270;
+extern char D_800F1AE0[];
+
+void func_80071D50(char *obj, int kind)
+{
+    int bank;
+    int voice;
+
+    bank = *(int *)(D_800FC270 + 3372);
+    *(int *)(obj + 252) = 0;
+    if (kind == 11) {
+        kind = 12;
+    }
+    *(int *)(obj + 252) = func_8007A760(kind, bank);
+    voice = func_8001D4B8(D_800F1AE0, 95, 0, 0);
+    func_8001D640(D_800F1AE0, voice,
+                  (int)((long long)*(int *)(D_800F1AE0 + 104) * 32767) >> 15);
+    func_8001D5D8(D_800F1AE0, voice, 0, 870, 1, 0);
+}

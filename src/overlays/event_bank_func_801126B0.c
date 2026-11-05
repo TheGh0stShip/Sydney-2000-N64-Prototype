@@ -1,33 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801126B0\n.ent func_801126B0\n"
-    "func_801126B0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,32($29)\n"
-    "move $16,$4\n"
-    "sw $31,36($29)\n"
-    "lwc1 $f4,84($16)\n"
-    "lwc1 $f0,1260($16)\n"
-    "lwc1 $f2,1260($16)\n"
-    "add.s $f4,$f4,$f0\n"
-    "lwc1 $f0,784($16)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f4,84($16)\n"
-    "beqz $5,L_80112704\n"
-    "swc1 $f0,784($16)\n"
-    "addiu $4,$16,20\n"
-    "addiu $6,$29,16\n"
-    "jal func_800AD2A8\n"
-    "move $7,$0\n"
-    "lwc1 $f0,20($29)\n"
-    "lwc1 $f2,372($16)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,88($16)\n"
-    "L_80112704:\n"
-    "jal func_800B9480\n"
-    "move $4,$16\n"
-    "lw $31,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_801126B0\n.set at\n.set reorder\n");
+extern void func_800AD2A8(void *object, int arg, float *out, int flags);
+extern void func_800B9480(void *object);
+
+void func_801126B0(unsigned char *object, int arg)
+{
+    float out[4];
+
+    *(float *)(object + 84) += *(float *)(object + 1260);
+    *(float *)(object + 784) += *(float *)(object + 1260);
+    if (arg != 0) {
+        func_800AD2A8(object + 20, arg, out, 0);
+        *(float *)(object + 88) = out[1] + *(float *)(object + 372);
+    }
+    func_800B9480(object);
+}

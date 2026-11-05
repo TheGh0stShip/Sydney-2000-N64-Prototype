@@ -1,46 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F2CA0\n.ent func_800F2CA0\n"
-    "func_800F2CA0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $4,$17,4052\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-29928\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($17)\n"
-    "addiu $4,$17,3832\n"
-    "li $5,2\n"
-    "lui $16,0x8008\n"
-    "addiu $16,$16,26008\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,3612\n"
-    "li $5,2\n"
-    "jal func_800ADDA4\n"
-    "sw $16,180($4)\n"
-    "addiu $4,$17,2212\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "addiu $4,$17,812\n"
-    "jal func_800D3460\n"
-    "li $5,2\n"
-    "move $4,$17\n"
-    "move $5,$18\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-29800\n"
-    "jal func_800BA1B4\n"
-    "sw $2,180($4)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800F2CA0\n.set at\n.set reorder\n");
+extern unsigned char D_80078B18[];
+extern unsigned char D_80078B98[];
+extern unsigned char D_80086598[];
+extern void func_800ADE84(void *object, int mode);
+extern void func_800ADDA4(void *object, int mode);
+extern void func_800D3460(void *object, int mode);
+extern void func_800BA1B4(void *object, int mode);
+
+void func_800F2CA0(unsigned char *object, int mode)
+{
+    unsigned char *part;
+
+    *(void **)(object + 180) = D_80078B18;
+    func_800ADE84(object + 4052, 2);
+
+    part = object + 3832;
+    *(void **)(part + 180) = D_80086598;
+    func_800ADDA4(part, 2);
+    part = object + 3612;
+    *(void **)(part + 180) = D_80086598;
+    func_800ADDA4(part, 2);
+
+    func_800D3460(object + 2212, 2);
+    func_800D3460(object + 812, 2);
+    *(void **)(object + 180) = D_80078B98;
+    func_800BA1B4(object, mode);
+}

@@ -1,30 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A851C\n.ent func_800A851C\n"
-    "func_800A851C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$7\n"
-    "sll $5,$5,0x2\n"
-    "addu $4,$4,$5\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $16,268($4)\n"
-    "move $5,$6\n"
-    "lw $3,180($16)\n"
-    "li $2,1\n"
-    "sb $2,176($16)\n"
-    "lh $4,16($3)\n"
-    "lw $2,20($3)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "addiu $4,$16,96\n"
-    "move $5,$17\n"
-    "jal func_800B3870\n"
-    "li $6,76\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A851C\n.set at\n.set reorder\n");
+typedef void (*Method)(void *object, int arg);
+extern void func_800B3870(void *dst, void *src, int size);
+
+void func_800A851C(unsigned char *owner, int index, int arg, void *src)
+{
+    unsigned char *child = *(unsigned char **)((index << 2) + owner + 268);
+    unsigned char *vt = *(unsigned char **)(child + 180);
+    child[176] = 1;
+    (*(Method *)(vt + 20))(child + *(short *)(vt + 16), arg);
+    func_800B3870(child + 96, src, 76);
+}

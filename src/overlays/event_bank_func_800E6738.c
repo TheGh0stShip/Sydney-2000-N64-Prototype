@@ -1,96 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E6738\n.ent func_800E6738\n"
-    "func_800E6738:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $19,28($29)\n"
-    "addiu $19,$16,712\n"
-    "move $4,$19\n"
-    "sw $31,44($29)\n"
-    "sw $22,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $18,24($29)\n"
-    "jal func_800ADC1C\n"
-    "sw $17,20($29)\n"
-    "addiu $22,$16,1348\n"
-    "jal func_800ADC1C\n"
-    "move $4,$22\n"
-    "addiu $21,$16,924\n"
-    "jal func_800ADC1C\n"
-    "move $4,$21\n"
-    "addiu $20,$16,1136\n"
-    "jal func_800ADC1C\n"
-    "move $4,$20\n"
-    "addiu $18,$16,1560\n"
-    "jal func_800ADC1C\n"
-    "move $4,$18\n"
-    "addiu $17,$16,1772\n"
-    "jal func_800ADC1C\n"
-    "move $4,$17\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $5,0xfbff\n"
-    "ori $5,$5,0xffff\n"
-    "lw $2,192($19)\n"
-    "lui $3,0x100\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "sw $2,192($19)\n"
-    "lw $2,192($22)\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "sw $2,192($22)\n"
-    "lw $2,192($21)\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "sw $2,192($21)\n"
-    "lw $2,192($20)\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "sw $2,192($20)\n"
-    "lw $2,192($18)\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "sw $2,192($18)\n"
-    "lw $2,192($17)\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "sw $2,192($17)\n"
-    "lw $2,192($16)\n"
-    "move $4,$19\n"
-    "or $2,$2,$3\n"
-    "and $2,$2,$5\n"
-    "jal func_800ADC38\n"
-    "sw $2,192($16)\n"
-    "jal func_800ADC38\n"
-    "move $4,$22\n"
-    "jal func_800ADC38\n"
-    "move $4,$21\n"
-    "jal func_800ADC38\n"
-    "move $4,$20\n"
-    "jal func_800ADC38\n"
-    "move $4,$18\n"
-    "jal func_800ADC38\n"
-    "move $4,$17\n"
-    "lw $2,180($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800E6738\n.set at\n.set reorder\n");
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *object);
+} Method;
+
+extern void func_800ADC1C(void *object);
+extern void func_800ADC38(void *object);
+
+#define FLAGS(p) (*(unsigned int *)((unsigned char *)(p) + 192))
+#define UPDATE_FLAGS(p) (FLAGS(p) = (FLAGS(p) | 0x01000000) & ~0x04000000)
+
+void func_800E6738(unsigned char *object)
+{
+    unsigned char *part0 = object + 712;
+    unsigned char *part1;
+    unsigned char *part2;
+    unsigned char *part3;
+    unsigned char *part4;
+    unsigned char *part5;
+    Method *method;
+
+    func_800ADC1C(part0);
+    part1 = object + 1348;
+    func_800ADC1C(part1);
+    part2 = object + 924;
+    func_800ADC1C(part2);
+    part3 = object + 1136;
+    func_800ADC1C(part3);
+    part4 = object + 1560;
+    func_800ADC1C(part4);
+    part5 = object + 1772;
+    func_800ADC1C(part5);
+
+    method = (Method *)(*(unsigned char **)(object + 180) + 72);
+    method->func(object + method->offset);
+
+    UPDATE_FLAGS(part0);
+    UPDATE_FLAGS(part1);
+    UPDATE_FLAGS(part2);
+    UPDATE_FLAGS(part3);
+    UPDATE_FLAGS(part4);
+    UPDATE_FLAGS(part5);
+    UPDATE_FLAGS(object);
+
+    func_800ADC38(part0);
+    func_800ADC38(part1);
+    func_800ADC38(part2);
+    func_800ADC38(part3);
+    func_800ADC38(part4);
+    func_800ADC38(part5);
+
+    method = (Method *)(*(unsigned char **)(object + 180) + 64);
+    method->func(object + method->offset);
+}

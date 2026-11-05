@@ -1,45 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E8120\n.ent func_800E8120\n"
-    "func_800E8120:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $2,4($17)\n"
-    "lw $3,16($16)\n"
-    "subu $2,$2,$3\n"
-    "sra $2,$2,0x8\n"
-    "beqz $2,L_800E81A0\n"
-    "li $2,5\n"
-    "lw $3,0($17)\n"
-    "bne $3,$2,L_800E8164\n"
-    "nop\n"
-    "jal func_800E7AE0\n"
-    "nop\n"
-    "L_800E8164:\n"
-    "lw $2,4($17)\n"
-    "lw $3,296($16)\n"
-    "bnez $3,L_800E81A0\n"
-    "sw $2,16($16)\n"
-    "lw $2,268($16)\n"
-    "beqz $2,L_800E8188\n"
-    "nop\n"
-    "jal func_800ADFAC\n"
-    "move $4,$16\n"
-    "L_800E8188:\n"
-    "lhu $2,196($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800E81A0\n"
-    "nop\n"
-    "jal func_800AE304\n"
-    "move $4,$16\n"
-    "L_800E81A0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E8120\n.set at\n.set reorder\n");
+extern void func_800E7AE0(void);
+extern void func_800ADFAC(void *object);
+extern void func_800AE304(void *object);
+
+void func_800E8120(unsigned char *object, int *event)
+{
+    if ((event[1] - *(int *)(object + 16)) >> 8 != 0) {
+        if (event[0] == 5) {
+            func_800E7AE0();
+        }
+        *(int *)(object + 16) = event[1];
+        if (*(int *)(object + 296) == 0) {
+            if (*(int *)(object + 268) != 0) {
+                func_800ADFAC(object);
+            }
+            if (*(unsigned short *)(object + 196) & 1) {
+                func_800AE304(object);
+            }
+        }
+    }
+}

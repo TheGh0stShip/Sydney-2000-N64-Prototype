@@ -1,41 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DAD74\n.ent func_800DAD74\n"
-    "func_800DAD74:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $2,1557($4)\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800DADF0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800DADC0\n"
-    "li $5,186\n"
-    "lui $2,0x8007\n"
-    "lbu $2,30241($2)\n"
-    "beqz $2,L_800DADC0\n"
-    "li $5,187\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800DADC0\n"
-    "li $5,189\n"
-    "li $5,188\n"
-    "L_800DADC0:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800DADF0\n"
-    "li $2,1\n"
-    "lw $3,24968($4)\n"
-    "bne $3,$2,L_800DADF0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $6,3072\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_800DADF0:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800DAD74\n.set at\n.set reorder\n");
+extern char *D_800FC270;
+extern unsigned char D_80077621;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *a, int b, int c, int d);
+
+void func_800DAD74(char *obj)
+{
+    int sound;
+
+    if (*(unsigned char *)(obj + 1557) < 2) {
+        sound = 186;
+        if (*(int *)(D_800FC270 + 2560) == 4) {
+            if (D_80077621 == 0) {
+                sound = 187;
+            } else if (D_80077621 < 2) {
+                sound = 188;
+            } else {
+                sound = 189;
+            }
+        }
+        if (*(int *)(D_800FC270 + 2564) != 0 && *(int *)(obj + 24968) == 1) {
+            func_800C0110(D_800F3BC0, sound, 3072, 0);
+        }
+    }
+}

@@ -1,33 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AB9B8\n.ent func_800AB9B8\n"
-    "func_800AB9B8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,4($17)\n"
-    "bnez $2,L_800ABA0C\n"
-    "move $16,$4\n"
-    "jal func_800AB640\n"
-    "nop\n"
-    "move $3,$2\n"
-    "beqz $3,L_800ABA0C\n"
-    "nop\n"
-    "sw $17,0($3)\n"
-    "lw $2,20($16)\n"
-    "sw $0,8($3)\n"
-    "sw $2,4($3)\n"
-    "lw $2,20($16)\n"
-    "bnel $2,$0,L_800ABA08\n"
-    "sw $3,8($2)\n"
-    "L_800ABA08:\n"
-    "sw $3,20($16)\n"
-    "L_800ABA0C:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800AB9B8\n.set at\n.set reorder\n");
+extern unsigned char *func_800AB640(void *pool);
+
+void func_800AB9B8(unsigned char *list, unsigned char *item)
+{
+    unsigned char *node;
+    unsigned char *tail;
+    if (*(int *)(item + 4) == 0) {
+        node = func_800AB640(list);
+        if (node != 0) {
+            *(unsigned char **)(node + 0) = item;
+            *(int *)(node + 4) = *(int *)(list + 20);
+            *(int *)(node + 8) = 0;
+            tail = *(unsigned char **)(list + 20);
+            if (tail != 0) {
+                *(unsigned char **)(tail + 8) = node;
+            }
+            *(unsigned char **)(list + 20) = node;
+        }
+    }
+}

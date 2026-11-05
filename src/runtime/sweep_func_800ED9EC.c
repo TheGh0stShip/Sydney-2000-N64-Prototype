@@ -1,22 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800ED9EC\n.ent func_800ED9EC\n"
-    "func_800ED9EC:\n"
-    "addiu $29,$29,-24\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-14720\n"
-    "sw $31,16($29)\n"
-    "sw $2,180($4)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-14648\n"
-    "sw $2,272($4)\n"
-    "sw $2,244($4)\n"
-    "sw $2,216($4)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-16064\n"
-    "jal func_800AC3A4\n"
-    "sw $2,180($4)\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800ED9EC\n.set at\n.set reorder\n");
+extern unsigned char D_8008C680;
+extern unsigned char D_8008C6C8;
+extern unsigned char D_8008C140;
+extern void func_800AC3A4(void *object);
+
+void func_800ED9EC(unsigned char *object)
+{
+    *(void **)(object + 180) = &D_8008C680;
+    *(void **)(object + 272) = &D_8008C6C8;
+    *(void **)(object + 244) = &D_8008C6C8;
+    *(void **)(object + 216) = &D_8008C6C8;
+    *(void **)(object + 180) = &D_8008C140;
+    func_800AC3A4(object);
+}

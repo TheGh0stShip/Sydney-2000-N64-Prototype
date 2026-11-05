@@ -1,42 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80087830\n.ent func_80087830\n"
-    "func_80087830:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $2,1557($4)\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800878B0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800878B0\n"
-    "lui $2,0x8007\n"
-    "lbu $2,30529($2)\n"
-    "beqz $2,L_80087878\n"
-    "li $5,164\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_80087878\n"
-    "li $5,166\n"
-    "li $5,165\n"
-    "L_80087878:\n"
-    "li $2,-1\n"
-    "beq $5,$2,L_800878B0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800878B0\n"
-    "li $2,1\n"
-    "lw $3,21568($4)\n"
-    "bne $3,$2,L_800878B0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $6,3072\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_800878B0:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80087830\n.set at\n.set reorder\n");
+extern void func_800C0110(void *object, int id, int a, int b);
+extern unsigned char *D_800FC270;
+extern unsigned char D_80077741;
+extern unsigned char D_800F3BC0[];
+
+void func_80087830(unsigned char *object)
+{
+    int id;
+    unsigned char kind;
+
+    if (object[1557] < 2 && *(int *)(D_800FC270 + 2560) == 4) {
+        kind = D_80077741;
+        id = 164;
+        if (kind != 0) {
+            id = 166;
+            if (kind < 2) {
+                id = 165;
+            }
+        }
+        if (id != -1 && *(int *)(D_800FC270 + 2564) != 0
+            && *(int *)(object + 21568) == 1) {
+            func_800C0110(D_800F3BC0, id, 3072, 0);
+        }
+    }
+}

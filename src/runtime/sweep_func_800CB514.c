@@ -1,29 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CB514\n.ent func_800CB514\n"
-    "func_800CB514:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,1868($16)\n"
-    "beqz $2,L_800CB54C\n"
-    "addiu $3,$16,1672\n"
-    "lw $2,1852($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "jal func_8001A248\n"
-    "addiu $4,$16,1868\n"
-    "L_800CB54C:\n"
-    "addiu $16,$16,2944\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800CB514\n.set at\n.set reorder\n");
+extern void func_8001A248(void *p);
+extern void func_800AC334(void *p);
+extern void func_800B35F0(void *p);
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*fn)(void *);
+} Method;
+
+void func_800CB514(unsigned char *object)
+{
+    if (*(int *)(object + 1868) != 0) {
+        unsigned char *child = object + 1672;
+        Method *m = (Method *)(*(unsigned char **)(object + 1852) + 72);
+        m->fn(child + m->offset);
+        func_8001A248(object + 1868);
+    }
+    object += 2944;
+    func_800AC334(object);
+    func_800B35F0(object);
+}

@@ -1,60 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D51DC\n.ent func_800D51DC\n"
-    "func_800D51DC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2408\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,17788\n"
-    "beqz $2,L_800D5244\n"
-    "move $19,$5\n"
-    "addiu $16,$18,19696\n"
-    "beql $2,$16,L_800D5248\n"
-    "addiu $2,$18,17144\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800D5224:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800D5224\n"
-    "addiu $16,$16,-212\n"
-    "L_800D5244:\n"
-    "addiu $2,$18,17144\n"
-    "L_800D5248:\n"
-    "beqz $2,L_800D527C\n"
-    "addiu $16,$18,17780\n"
-    "beq $2,$16,L_800D527C\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800D525C:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800D525C\n"
-    "addiu $16,$16,-212\n"
-    "L_800D527C:\n"
-    "move $4,$18\n"
-    "jal func_80081DC8\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D51DC\n.set at\n.set reorder\n");
+extern char D_80070968[];
+extern void func_80081DC8(void *p, int b);
+
+typedef struct {
+    short pad0;
+    short pad2;
+    short pad4;
+    short pad6;
+    short offset;
+    short pad10;
+    void (*dtor)(void *self, int flags);
+} VTable;
+
+void func_800D51DC(char *obj, int b)
+{
+    char *base;
+    char *e;
+
+    *(int *)(obj + 180) = (int)D_80070968;
+    base = obj + 17788;
+    if (base != 0) {
+        e = obj + 19696;
+        if (base != e) {
+            char *first = base;
+            do {
+                VTable *vt;
+                e -= 212;
+                vt = *(VTable **)(e + 180);
+                vt->dtor(e + vt->offset, 2);
+            } while (first != e);
+        }
+    }
+    base = obj + 17144;
+    if (base != 0) {
+        e = obj + 17780;
+        if (base != e) {
+            char *first = base;
+            do {
+                VTable *vt;
+                e -= 212;
+                vt = *(VTable **)(e + 180);
+                vt->dtor(e + vt->offset, 2);
+            } while (first != e);
+        }
+    }
+    func_80081DC8(obj, b);
+}

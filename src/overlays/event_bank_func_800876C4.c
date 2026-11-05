@@ -1,61 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800876C4\n.ent func_800876C4\n"
-    "func_800876C4:\n"
-    "addiu $29,$29,-56\n"
-    "sw $16,32($29)\n"
-    "move $16,$4\n"
-    "sw $17,36($29)\n"
-    "lui $17,0x800f\n"
-    "addiu $17,$17,10968\n"
-    "move $4,$17\n"
-    "sw $31,48($29)\n"
-    "sw $19,44($29)\n"
-    "sw $18,40($29)\n"
-    "lbu $3,1550($16)\n"
-    "lbu $2,1555($16)\n"
-    "li $5,12\n"
-    "mult $3,$2\n"
-    "li $6,1\n"
-    "move $7,$16\n"
-    "li $18,2\n"
-    "mflo $19\n"
-    "jal func_800BBD78\n"
-    "sw $18,16($29)\n"
-    "move $4,$17\n"
-    "li $5,13\n"
-    "li $6,1\n"
-    "move $7,$16\n"
-    "jal func_800BBD78\n"
-    "sw $18,16($29)\n"
-    "jal func_800BC180\n"
-    "move $4,$17\n"
-    "addiu $17,$16,2016\n"
-    "jal func_800D771C\n"
-    "move $4,$17\n"
-    "addiu $4,$16,1116\n"
-    "li $5,9\n"
-    "li $2,44\n"
-    "jal func_800A9BE8\n"
-    "sb $2,1551($16)\n"
-    "lui $2,0x1\n"
-    "ori $2,$2,0xc200\n"
-    "li $4,232\n"
-    "move $5,$0\n"
-    "move $6,$17\n"
-    "move $7,$18\n"
-    "sw $2,21540($16)\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "andi $2,$19,0xff\n"
-    "sw $0,20($29)\n"
-    "jal func_8009B0E4\n"
-    "sw $2,24($29)\n"
-    "lw $31,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800876C4\n.set at\n.set reorder\n");
+extern void func_800BBD78(void *object, int id, int a, void *owner, int b);
+extern void func_800BC180(void *object);
+extern void func_800D771C(void *object);
+extern void func_800A9BE8(void *object, int mode);
+extern void func_8009B0E4(int id, int a, void *object, int b, int c, int d, int e);
+extern unsigned char D_800F2AD8[];
+
+void func_800876C4(unsigned char *object)
+{
+    unsigned char *sub;
+    int count = object[1550] * object[1555];
+
+    func_800BBD78(D_800F2AD8, 12, 1, object, 2);
+    func_800BBD78(D_800F2AD8, 13, 1, object, 2);
+    func_800BC180(D_800F2AD8);
+    sub = object + 2016;
+    func_800D771C(sub);
+    object[1551] = 44;
+    func_800A9BE8(object + 1116, 9);
+    *(int *)(object + 21540) = 0x1C200;
+    func_8009B0E4(232, 0, sub, 2, 1, 0, count & 0xff);
+}

@@ -1,20 +1,9 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009BD10\n.ent func_8009BD10\n"
-    "func_8009BD10:\n"
-    "addiu $29,$29,-24\n"
-    "bnez $5,L_8009BD28\n"
-    "sw $31,16($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,18348($1)\n"
-    "div.s $f12,$f12,$f0\n"
-    "L_8009BD28:\n"
-    "andi $5,$6,0xffff\n"
-    "move $6,$7\n"
-    "lw $7,40($29)\n"
-    "jal func_800B33E8\n"
-    "nop\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8009BD10\n.set at\n.set reorder\n");
+extern void func_800B33E8(float value, int a, int b, int c);
+
+void func_8009BD10(float value, int raw, unsigned short a, int b, int c)
+{
+    if (raw == 0) {
+        value = value / 100.0f;
+    }
+    func_800B33E8(value, a, b, c);
+}

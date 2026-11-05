@@ -1,32 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E4138\n.ent func_800E4138\n"
-    "func_800E4138:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "sll $5,$5,0x10\n"
-    "lhu $2,2550($2)\n"
-    "sra $5,$5,0x10\n"
-    "srl $3,$2,0x6\n"
-    "addu $3,$3,$5\n"
-    "bgez $3,L_800E4164\n"
-    "slti $2,$3,1001\n"
-    "j L_800E416C\n"
-    "move $3,$0\n"
-    "L_800E4164:\n"
-    "beql $2,$0,L_800E416C\n"
-    "li $3,1000\n"
-    "L_800E416C:\n"
-    "lui $2,0x8010\n"
-    "lw $4,-15760($2)\n"
-    "lhu $2,2524($4)\n"
-    "sll $3,$3,0x6\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$4,$2\n"
-    "sh $3,854($2)\n"
-    "sh $3,846($2)\n"
-    "sh $3,838($2)\n"
-    "sh $3,830($2)\n"
-    "jr $31\n"
-    "sh $3,2550($4)\n"
-    ".end func_800E4138\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+
+void func_800E4138(int unused, short delta)
+{
+    int value;
+    unsigned char *slot;
+
+    value = *(unsigned short *)(D_800FC270 + 2550) >> 6;
+    value += delta;
+
+    if (value < 0) {
+        value = 0;
+    } else if (value > 1000) {
+        value = 1000;
+    }
+    slot = D_800FC270 + *(unsigned short *)(D_800FC270 + 2524) * 32;
+    *(short *)(slot + 854) = value << 6;
+    *(short *)(slot + 846) = value << 6;
+    *(short *)(slot + 838) = value << 6;
+    *(short *)(slot + 830) = value << 6;
+    *(short *)(D_800FC270 + 2550) = value << 6;
+}

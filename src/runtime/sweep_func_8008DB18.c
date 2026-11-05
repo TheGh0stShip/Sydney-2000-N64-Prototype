@@ -1,24 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008DB18\n.ent func_8008DB18\n"
-    "func_8008DB18:\n"
-    "bgez $5,L_8008DB28\n"
-    "move $4,$0\n"
-    "negu $5,$5\n"
-    "li $4,1\n"
-    "L_8008DB28:\n"
-    "slti $2,$5,256\n"
-    "beql $2,$0,L_8008DB34\n"
-    "li $5,255\n"
-    "L_8008DB34:\n"
-    "lui $3,0x800f\n"
-    "addiu $3,$3,3692\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$3\n"
-    "lh $2,0($2)\n"
-    "bnel $4,$0,L_8008DB50\n"
-    "negu $2,$2\n"
-    "L_8008DB50:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_8008DB18\n.set at\n.set reorder\n");
+extern short D_800F0E6C[];
+
+int func_8008DB18(int unused, int angle)
+{
+    int negative = 0;
+    int value;
+
+    if (angle < 0) {
+        angle = -angle;
+        negative = 1;
+    }
+    if (angle >= 256) {
+        angle = 255;
+    }
+    value = D_800F0E6C[angle];
+    if (negative) {
+        value = -value;
+    }
+    return value;
+}

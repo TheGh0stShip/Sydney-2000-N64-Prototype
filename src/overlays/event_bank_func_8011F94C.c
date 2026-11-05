@@ -1,43 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011F94C\n.ent func_8011F94C\n"
-    "func_8011F94C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_8001457C\n"
-    "sw $16,16($29)\n"
-    "lhu $2,4304($18)\n"
-    "beqz $2,L_8011F994\n"
-    "move $16,$0\n"
-    "li $17,440\n"
-    "L_8011F978:\n"
-    "jal func_8001457C\n"
-    "addu $4,$18,$17\n"
-    "lhu $2,4304($18)\n"
-    "addiu $16,$16,1\n"
-    "sltu $2,$16,$2\n"
-    "bnez $2,L_8011F978\n"
-    "addiu $17,$17,212\n"
-    "L_8011F994:\n"
-    "lw $2,4012($18)\n"
-    "addiu $3,$18,3832\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $2,4224($18)\n"
-    "addiu $3,$18,4044\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011F94C\n.set at\n.set reorder\n");
+extern void func_8001457C(void *object);
+
+typedef struct {
+    short offset;
+    short pad;
+    void (*func)(void *object);
+} VEntry;
+
+void func_8011F94C(unsigned char *object)
+{
+    unsigned int i;
+    unsigned char *sub;
+    VEntry *entry;
+
+    func_8001457C(object);
+    for (i = 0; i < *(unsigned short *)(object + 4304); i++) {
+        func_8001457C(object + 440 + i * 212);
+    }
+    sub = object + 3832;
+    entry = (VEntry *)(*(unsigned char **)(object + 4012) + 64);
+    entry->func(sub + entry->offset);
+    sub = object + 4044;
+    entry = (VEntry *)(*(unsigned char **)(object + 4224) + 64);
+    entry->func(sub + entry->offset);
+}

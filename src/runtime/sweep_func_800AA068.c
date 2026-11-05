@@ -1,44 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AA068\n.ent func_800AA068\n"
-    "func_800AA068:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "lui $2,0x800f\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "lbu $3,4($17)\n"
-    "beqz $3,L_800AA0D4\n"
-    "addiu $18,$2,10072\n"
-    "andi $2,$16,0xff\n"
-    "L_800AA098:\n"
-    "lw $3,0($17)\n"
-    "sll $2,$2,0x3\n"
-    "addu $5,$2,$3\n"
-    "lw $2,0($5)\n"
-    "lhu $2,6($2)\n"
-    "beqz $2,L_800AA0BC\n"
-    "move $4,$18\n"
-    "jal func_800AA658\n"
-    "addiu $5,$5,4\n"
-    "L_800AA0BC:\n"
-    "addiu $16,$16,1\n"
-    "lbu $3,4($17)\n"
-    "andi $2,$16,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800AA098\n"
-    "andi $2,$16,0xff\n"
-    "L_800AA0D4:\n"
-    "move $4,$18\n"
-    "jal func_800AA658\n"
-    "move $5,$17\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800AA068\n.set at\n.set reorder\n");
+typedef struct {
+    char pad[6];
+    unsigned short unk6;
+} Item;
+
+typedef struct {
+    Item *item;
+    int data;
+} Entry;
+
+typedef struct {
+    Entry *entries;
+    unsigned char count;
+} List;
+
+extern char D_800F2758[];
+extern void func_800AA658(void *dst, void *src);
+
+void func_800AA068(List *list) {
+    unsigned char i;
+    char *dst = D_800F2758;
+
+    for (i = 0; i < list->count; i++) {
+        if (list->entries[i].item->unk6 != 0) {
+            func_800AA658(dst, &list->entries[i].data);
+        }
+    }
+    func_800AA658(dst, list);
+}

@@ -1,37 +1,19 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A2BB8\n.ent func_800A2BB8\n"
-    "func_800A2BB8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $31,28($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,0($18)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A2C14\n"
-    "move $17,$4\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800A2C14\n"
-    "addiu $16,$17,240\n"
-    "lw $2,240($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800A2C14\n"
-    "nop\n"
-    "jal func_800A2B3C\n"
-    "nop\n"
-    "lw $2,240($16)\n"
-    "li $3,-2\n"
-    "and $2,$2,$3\n"
-    "sw $2,240($16)\n"
-    "L_800A2C14:\n"
-    "lw $2,4($18)\n"
-    "sw $2,16($17)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A2BB8\n.set at\n.set reorder\n");
+extern void func_800A2B3C(void *object);
+
+void func_800A2BB8(unsigned char *object, int *message)
+{
+    unsigned char *part;
+
+    switch (message[0]) {
+    case 3:
+        break;
+    case 5:
+        part = object + 240;
+        if (*(int *)(part + 240) & 1) {
+            func_800A2B3C(object);
+            *(int *)(part + 240) &= ~1;
+        }
+        break;
+    }
+    *(int *)(object + 16) = message[1];
+}

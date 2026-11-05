@@ -1,61 +1,57 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B53EC\n.ent func_800B53EC\n"
-    "func_800B53EC:\n"
-    "addiu $29,$29,-136\n"
-    "sw $17,116($29)\n"
-    "move $17,$4\n"
-    "sw $31,120($29)\n"
-    "sw $16,112($29)\n"
-    "sdc1 $f20,128($29)\n"
-    "lwc1 $f2,412($17)\n"
-    "mtc1 $0,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,26836($1)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800B543C\n"
-    "addiu $4,$17,380\n"
-    "addiu $5,$17,396\n"
-    "mfc1 $6,$f2\n"
-    "addiu $16,$29,96\n"
-    "jal func_800ACF20\n"
-    "move $7,$16\n"
-    "move $4,$16\n"
-    "L_800B543C:\n"
-    "jal func_800AD1BC\n"
-    "addiu $5,$29,16\n"
-    "lwc1 $f0,84($17)\n"
-    "addiu $2,$17,84\n"
-    "swc1 $f0,80($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "swc1 $f0,84($29)\n"
-    "lwc1 $f0,8($2)\n"
-    "move $4,$17\n"
-    "swc1 $f0,88($29)\n"
-    "lw $5,376($17)\n"
-    "jal func_800B48CC\n"
-    "move $6,$0\n"
-    "addiu $16,$17,20\n"
-    "move $4,$16\n"
-    "jal func_800AC718\n"
-    "addiu $5,$17,396\n"
-    "lwc1 $f0,200($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,26840($1)\n"
-    "div.s $f0,$f0,$f2\n"
-    "add.s $f20,$f20,$f0\n"
-    "lwc1 $f0,412($17)\n"
-    "move $4,$16\n"
-    "add.s $f0,$f0,$f20\n"
-    "addiu $5,$29,16\n"
-    "li $6,76\n"
-    "jal func_800B3870\n"
-    "swc1 $f0,412($17)\n"
-    "lw $31,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "ldc1 $f20,128($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,136\n"
-    ".end func_800B53EC\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec3;
+
+typedef struct {
+    float m[16];
+    Vec3 pos;
+} Pose;
+
+typedef struct {
+    float v[4];
+} Quat;
+
+typedef struct {
+    char pad0[20];
+    char sub20[64];
+    Vec3 pos;
+    char pad96[104];
+    float speed;
+    char pad204[172];
+    int unk376;
+    Quat q380;
+    Quat q396;
+    float blend;
+} Obj;
+
+extern void func_800ACF20(Quat *a, Quat *b, float t, Quat *out);
+extern void func_800AD1BC(Quat *q, Pose *pose);
+extern void func_800B48CC(Obj *obj, int arg, int flag);
+extern void func_800AC718(void *sub, Quat *q);
+extern void func_800B3870(void *sub, Pose *pose, int size);
+
+static inline void vec_copy(Vec3 *d, Vec3 *s) {
+    d->x = s->x;
+    d->y = s->y;
+    d->z = s->z;
+}
+
+void func_800B53EC(Obj *obj) {
+    Pose pose;
+    Quat tmp;
+    Quat *q;
+    float step = *(float *)0x800868D4;
+
+    q = &obj->q380;
+    if (obj->blend != 0.0f) {
+        func_800ACF20(q, &obj->q396, obj->blend, &tmp);
+        q = &tmp;
+    }
+    func_800AD1BC(q, &pose);
+    vec_copy(&pose.pos, &obj->pos);
+    func_800B48CC(obj, obj->unk376, 0);
+    func_800AC718(obj->sub20, &obj->q396);
+    step += obj->speed / *(float *)0x800868D8;
+    obj->blend += step;
+    func_800B3870(obj->sub20, &pose, sizeof(Pose));
+}

@@ -1,26 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008F6DC\n.ent func_8008F6DC\n"
-    "func_8008F6DC:\n"
-    "addiu $29,$29,-24\n"
-    "lui $4,0x8010\n"
-    "addiu $4,$4,560\n"
-    "sw $31,16($29)\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "lui $4,0x8010\n"
-    "addiu $4,$4,784\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "lui $4,0x8010\n"
-    "addiu $4,$4,1008\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "lui $4,0x8010\n"
-    "addiu $4,$4,1232\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8008F6DC\n.set at\n.set reorder\n");
+extern unsigned char D_80100230[];
+extern unsigned char D_80100310[];
+extern unsigned char D_801003F0[];
+extern unsigned char D_801004D0[];
+extern void func_800ADE84(void *object, int mode);
+
+void func_8008F6DC(void)
+{
+    func_800ADE84(D_80100230, 2);
+    func_800ADE84(D_80100310, 2);
+    func_800ADE84(D_801003F0, 2);
+    func_800ADE84(D_801004D0, 2);
+}

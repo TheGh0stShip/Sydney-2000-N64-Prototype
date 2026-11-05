@@ -1,32 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C38A8\n.ent func_800C38A8\n"
-    "func_800C38A8:\n"
-    "lw $2,220($4)\n"
-    "lw $3,712($4)\n"
-    "lw $5,28($2)\n"
-    "beqz $3,L_800C3904\n"
-    "nop\n"
-    "lw $2,780($4)\n"
-    "addiu $3,$2,1\n"
-    "sw $3,780($4)\n"
-    "lw $2,12($5)\n"
-    "beqz $2,L_800C38F4\n"
-    "sltiu $2,$3,9\n"
-    "bnez $2,L_800C3904\n"
-    "nop\n"
-    "lw $3,712($4)\n"
-    "lw $2,192($3)\n"
-    "xori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "jr $31\n"
-    "sw $0,780($4)\n"
-    "L_800C38F4:\n"
-    "lw $3,712($4)\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "L_800C3904:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800C38A8\n.set at\n.set reorder\n");
+void func_800C38A8(unsigned char *object)
+{
+    unsigned char *state = *(unsigned char **)(*(unsigned char **)(object + 220) + 28);
+    unsigned int counter;
+
+    if (*(void **)(object + 712) != 0) {
+        counter = ++*(unsigned int *)(object + 780);
+        if (*(int *)(state + 12) != 0) {
+            if (counter >= 9) {
+                *(int *)(*(unsigned char **)(object + 712) + 192) ^= 4;
+                *(int *)(object + 780) = 0;
+            }
+        } else {
+            *(int *)(*(unsigned char **)(object + 712) + 192) |= 4;
+        }
+    }
+}

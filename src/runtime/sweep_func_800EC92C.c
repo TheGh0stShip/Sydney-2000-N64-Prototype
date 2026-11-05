@@ -1,43 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EC92C\n.ent func_800EC92C\n"
-    "func_800EC92C:\n"
-    "addiu $29,$29,-24\n"
-    "move $2,$4\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "addiu $4,$2,216\n"
-    "sw $31,20($29)\n"
-    "lw $6,200($2)\n"
-    "jal func_800EA308\n"
-    "li $5,897\n"
-    "lui $5,0xb2ff\n"
-    "ori $5,$5,0xffff\n"
-    "lui $4,0xff\n"
-    "li $3,15\n"
-    "sh $3,2($2)\n"
-    "li $3,6\n"
-    "sh $3,46($2)\n"
-    "li $3,682\n"
-    "sh $3,48($2)\n"
-    "sh $0,44($2)\n"
-    "lwc1 $f0,0($16)\n"
-    "lwc1 $f2,4($16)\n"
-    "lwc1 $f4,8($16)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f6,-14920($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f8,-14916($1)\n"
-    "ori $4,$4,0xffff\n"
-    "sw $5,52($2)\n"
-    "sw $4,56($2)\n"
-    "swc1 $f0,4($2)\n"
-    "swc1 $f2,8($2)\n"
-    "swc1 $f4,12($2)\n"
-    "swc1 $f6,40($2)\n"
-    "swc1 $f8,36($2)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800EC92C\n.set at\n.set reorder\n");
+extern unsigned char *func_800EA308(void *pool, int kind, int data);
+
+void func_800EC92C(unsigned char *object, float *pos)
+{
+    unsigned char *p = func_800EA308(object + 216, 897, *(int *)(object + 200));
+    float x, y, z;
+
+    *(short *)(p + 2) = 15;
+    *(short *)(p + 46) = 6;
+    *(short *)(p + 48) = 682;
+    *(short *)(p + 44) = 0;
+    x = pos[0];
+    y = pos[1];
+    z = pos[2];
+    *(unsigned int *)(p + 52) = 0xB2FFFFFF;
+    *(unsigned int *)(p + 56) = 0x00FFFFFF;
+    *(float *)(p + 4) = x;
+    *(float *)(p + 8) = y;
+    *(float *)(p + 12) = z;
+    *(float *)(p + 40) = 0.010922333f;
+    *(float *)(p + 36) = 1.0f;
+}

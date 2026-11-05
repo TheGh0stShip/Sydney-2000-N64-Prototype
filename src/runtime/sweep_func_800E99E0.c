@@ -1,24 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E99E0\n.ent func_800E99E0\n"
-    "func_800E99E0:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "jal func_800E4234\n"
-    "addiu $4,$16,3412\n"
-    "jal func_800E8EB4\n"
-    "move $4,$16\n"
-    "jal func_800AC308\n"
-    "move $4,$16\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9972\n"
-    "jal func_800AB934\n"
-    "move $5,$16\n"
-    "sw $0,644($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800E99E0\n.set at\n.set reorder\n");
+extern unsigned char D_800F26F4;
+extern void func_800E4234(void *object);
+extern void func_800E8EB4(void *object);
+extern void func_800AC308(void *object);
+extern void func_800AB934(void *allocator, void *object);
+
+void func_800E99E0(unsigned char *object)
+{
+    func_800E4234(object + 3412);
+    func_800E8EB4(object);
+    func_800AC308(object);
+    func_800AB934(&D_800F26F4, object);
+    *(void **)(object + 644) = 0;
+}

@@ -1,35 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9B5C\n.ent func_800B9B5C\n"
-    "func_800B9B5C:\n"
-    "lh $2,0($4)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,28084($1)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,0($5)\n"
-    "mov.s $f8,$f0\n"
-    "mul.s $f8,$f8,$f6\n"
-    "lh $2,2($4)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,4($5)\n"
-    "mov.s $f4,$f0\n"
-    "mul.s $f4,$f4,$f6\n"
-    "lh $2,4($4)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,8($5)\n"
-    "mov.s $f2,$f0\n"
-    "mul.s $f2,$f2,$f6\n"
-    "lh $2,6($4)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,12($5)\n"
-    "mul.s $f0,$f0,$f6\n"
-    "swc1 $f8,0($5)\n"
-    "swc1 $f4,4($5)\n"
-    "swc1 $f2,8($5)\n"
-    "jr $31\n"
-    "swc1 $f0,12($5)\n"
-    ".end func_800B9B5C\n.set at\n.set reorder\n");
+void func_800B9B5C(short *in, float *out)
+{
+    float scale = 1.0f / 4096.0f;
+
+    out[0] = in[0];
+    out[1] = in[1];
+    out[2] = in[2];
+    out[3] = in[3];
+    out[0] *= scale;
+    out[1] *= scale;
+    out[2] *= scale;
+    out[3] *= scale;
+}
