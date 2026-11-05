@@ -99,3 +99,10 @@
 0x157710	0x24	src/runtime/destroy_runtime_child_object.c	--symbol=runtimeChildDispatch:0x80086640 --symbol=func_800AE4D8:0x800AE4D8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5a7eacc73d6dd5b6914002b62838104a92f8c4d05b931f6ddf4ddfb8aeb4667a
 0x157734	0x3C	src/runtime/construct_runtime_child_object.c	--symbol=runtimeChildDispatch:0x80086640 --symbol=func_800AE568:0x800AE568 --symbol=func_800B3BF8:0x800B3BF8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e0b0654d672734c704090bca5cda22b2de845a55c226c288e3a89a184cb3dd75
 0x157778	0x44	src/runtime/initialize_runtime_animation_state.c	--section-base=.rdata:0x80086748 --symbol=func_800AE4FC:0x800AE4FC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f03a064c3def6e82eded540301d79a5422058b7569debb7270262797807cee4a
+0x1577BC	0xBC	src/runtime/update_animation_transform.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c6c7de9b4b0217b8313f53ba164845d797b4a85fa04d14d39f86c5f01e1bbee3
+0x157878	0x8C	src/runtime/select_animation_transition.c	--section-base=.rdata:0x8008674C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	798a804a2d44781db7ab1e7fa9ce8a1efc70076840d59da1ef38cdc20564308f
+0x157904	0xC4	src/runtime/update_animated_runtime_object.c	--section-base=.rdata:0x80086750 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f7c5622665a14a70c47d24ef31287c08e260c4312c8dad22e3a0ba93a6f5cb60
+0x1579C8	0xC4	src/runtime/apply_animation_properties.c	--symbol=runtimePropertyClock:0x800F2744 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	28e5be1886689327fbf0b18160472672ef9d2a20094277fb1d52a067ebf9a92a
+0x15FA70	0x68	src/claude/func_800BC180.c	--symbol=descriptorRefreshState:0x80101938 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	713bc4b63fab235338726130b5d00b0622a2f79a13b90b2ab3c8de95ed3e5ca2
+0x14EE70	0xC0	src/claude/func_800AB580.c	--symbol=sceneRoot:0x800F63F0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6b4a69f57b7666805688506936b0734cdb278c18011e5251470bcd80329246ba
+0x157BC4	0x120	src/runtime/apply_runtime_motion_properties.c	--symbol=runtimePropertyClock:0x800F2744 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	fa3067bc01da87a85f658bf507ada5591d0a58e7f058c5060542888d4972494c
