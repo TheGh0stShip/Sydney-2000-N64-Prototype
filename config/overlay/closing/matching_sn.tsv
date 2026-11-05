@@ -1,6 +1,7 @@
 # Closing overlay mapping: ROM to VRAM delta 0x80002554; exact SN GCC2.8 C units.
 0x6E8E4	0x4	src/overlays/closing_return_stack.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	a052d359d3b3fe4221e24aa0a743120b184950a999a044df970d0885f2d6ce34
 0x6F2E0	0x4	src/overlays/closing_return_stack_296.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	59263a70edd33e773857ca77e7256fed0f04e0494ead011e6955c91e6585a75b
+0x6F404	0x154	src/overlays/closing_configure_medal_objects.c	--symbol=func_800B9BD4:0x800B9BD4 --symbol=func_800B9E9C:0x800B9E9C --symbol=func_800B8DC8:0x800B8DC8 --symbol=func_800AEF6C:0x800AEF6C --symbol=func_800AE72C:0x800AE72C --symbol=func_80071AAC:0x80071AAC --symbol=func_800A7A64:0x800A7A64 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1e54b8ab71f47e7867bd9995c8dbb903217cb4b0142729514eb862cb9c429169
 0x6F558	0x4	src/overlays/closing_return_stack_112.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0c3389f212211c587dc7f2824dac6f3edaf128c6065caa5d652b2be19cfafe09
 0x6F66C	0x4	src/overlays/closing_return_stack_136.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	23020bbaac429c151f7facd9b6df01641f079e317c792134f79d91ac4cfe7b44
 0x6FC24	0x4	src/overlays/closing_return_stack_88.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b6465877b90a18a85e33cd665b35cc6640fa0486610037da349d4bf5870b9c94
