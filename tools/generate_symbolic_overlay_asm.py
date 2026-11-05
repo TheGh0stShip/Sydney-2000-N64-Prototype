@@ -33,11 +33,12 @@ def main():
     ], text=True, env=env)
     rows = []
     for line in text.splitlines():
-        match = re.match(r'\s*([0-9a-f]+):\s+[0-9a-f]+\s+([^\s]+)\s*(.*)', line)
+        match = re.match(r'\s*([0-9a-f]+):\s+([0-9a-f]+)\s+([^\s]+)\s*(.*)', line)
         if match:
-            rows.append((int(match.group(1), 16), match.group(2), match.group(3).split(' <', 1)[0]))
+            rows.append((int(match.group(1), 16), match.group(2), match.group(3),
+                         match.group(4).split(' <', 1)[0]))
     labels = set()
-    for _, mnemonic, operands in rows:
+    for _, _, mnemonic, operands in rows:
         if mnemonic.startswith('b') or mnemonic in ('j', 'jal'):
             for value in re.findall(r'0x[0-9a-f]+', operands):
                 target = int(value, 16)
@@ -47,7 +48,7 @@ def main():
               '    ".set noreorder\\n.set noat\\n.text\\n.globl ' + args.name +
               '\\n.ent ' + args.name + '\\n"', '    "' + args.name + ':\\n"']
     pattern = re.compile(r'(?<![$A-Za-z0-9_])(' + '|'.join(REGISTERS) + r')(?![A-Za-z0-9_])')
-    for address, mnemonic, operands in rows:
+    for address, raw_word, mnemonic, operands in rows:
         if address in labels and address != start:
             output.append(f'    "L_{address:08X}:\\n"')
         def target_name(match):
@@ -56,7 +57,15 @@ def main():
                 return f'L_{target:08X}'
             if mnemonic in ('j', 'jal'):
                 return f'func_{target:08X}'
+            if mnemonic.startswith('b'):
+                return f'branch_{target:08X}'
             return match.group(0)
+        external_branch = mnemonic.startswith('b') and any(
+            not start <= int(value, 16) <= end
+            for value in re.findall(r'0x[0-9a-f]+', operands))
+        if external_branch:
+            output.append(f'    ".word 0x{raw_word.upper()}\\n"')
+            continue
         operands = re.sub(r'0x[0-9a-f]+', target_name, operands)
         operands = pattern.sub(lambda match: f'${REGISTERS[match.group(1)]}', operands)
         if mnemonic == 'beqzl':

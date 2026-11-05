@@ -46,7 +46,7 @@ adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages. The independently mapped
 event bank at ROM `0x70800..0x127640` now has 2,252 provisional candidates;
-20 exact symbolic units currently cover 68,332 bytes. Initialized-data
+70 exact symbolic units currently cover 156,524 bytes. Initialized-data
 coverage is 206,160 unique bytes of 206,160 classified bytes (100%), recorded in
 `config/matching_data.json`. `make data-ledger` rebuilds all matching units and
 regenerates this ledger, including source-built data sections with frozen placements.
@@ -235,8 +235,8 @@ bounds, and overlaps. Original ROM bytes are not used to fill gaps.
 
 `make reconstruction-verify` compares owned bytes against the original only after
 composition. `reconstruction.json` lists every remaining gap by ROM region.
-The current partial owns 32,366,460 bytes; 1,187,972 bytes remain unowned.
-The generated gap ledger records all 114 uncovered intervals. The startup-runtime
+The current partial owns 32,454,652 bytes; 1,099,780 bytes remain unowned.
+The generated gap ledger records all 154 uncovered intervals. The startup-runtime
 provider contributes 27,600 exact bytes from 157 matching compilation units;
 the remainder of that mixed code/data image is still explicitly unowned.
 The ceremony bank is split at ROM `0x6DF40`: the ceremony unit uses delta

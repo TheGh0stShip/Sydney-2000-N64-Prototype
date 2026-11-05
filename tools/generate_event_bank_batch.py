@@ -40,10 +40,9 @@ def main():
             '--objdump', str(args.objdump),
         ], text=True)
         source.write_text(text)
-        symbols = sorted(set(re.findall(r'func_[0-9A-F]{8}', text)) - {name})
-        symbol_flags = ' '.join(f'--symbol={symbol}:{symbol[5:]}' for symbol in symbols)
-        # n64dk accepts hexadecimal symbol values with an explicit 0x prefix.
-        symbol_flags = re.sub(r':([0-9A-F]{8})', r':0x\1', symbol_flags)
+        symbols = sorted(set(re.findall(r'(?:func|branch)_[0-9A-F]{8}', text)) - {name})
+        symbol_flags = ' '.join(
+            f'--symbol={symbol}:0x{symbol.split("_", 1)[1]}' for symbol in symbols)
         digest = sha256(rom[start:start + size]).hexdigest()
         options = (symbol_flags + ' ' if symbol_flags else '') + FLAGS
         rows.append(f'{start:#x}\t{size:#x}\t{relative}\t{options}\t{digest}')
