@@ -16,3 +16,4 @@
 0x1C014	0xE84	src/game/draw_sprite_bitmap.c	--section-base=.rdata:0x80001070 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	a9a008c1cd30c1334449ce2117050ba58e7c371095e72ac008f2150f486fc20b
 0x9B3C	0xE34	src/game/build_model_display_lists.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1c8f45ea2521361d85481e6eb8d966155da8e8662de05f29fdf5834806907fbe
 0x1562C	0x1480	src/game/render_frame.c	--section-base=.rdata:0x80000C20 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d58fbc176327431fd7784af91c946668a9aefa278788417781068b64c3c2a4fb
+0x100B0	0xF30	src/game/build_mipmap_chain.c	--section-base=.rdata:0x800007A0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6d67c90fac3025d73149f451983ea910f0338679039c1bb3964a6b8f066e14e5
