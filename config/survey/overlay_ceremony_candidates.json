@@ -3,1259 +3,1293 @@
   "provisional": true,
   "matching_credit": 0,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
-  "unit": "ceremony",
-  "mapping": {
-    "rom_start": 430192,
-    "rom_end": 460800,
-    "vram_start": 2147944852,
-    "vram_end": 2147975460,
-    "delta": 2147514660,
-    "size": 30608
-  },
+  "units": [
+    {
+      "name": "ceremony",
+      "mapping": {
+        "rom_start": 430192,
+        "rom_end": 450368,
+        "vram_start": 2147944852,
+        "vram_end": 2147965028,
+        "delta": 2147514660,
+        "size": 20176
+      },
+      "summary": {
+        "stack_frame_seeds": 26,
+        "candidates": 43,
+        "valid_walks": 42,
+        "candidate_bytes": 15312
+      },
+      "functions": [
+        {
+          "name": "func_80070AD4",
+          "vram": 2147945172,
+          "rom_start": 430512,
+          "size": 268,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147517808,
+            2147944988,
+            2147946616,
+            2147947956,
+            2148184740,
+            2148222868,
+            2148253820
+          ],
+          "tails": [
+            2147944956
+          ]
+        },
+        {
+          "name": "func_80070BE0",
+          "vram": 2147945440,
+          "rom_start": 430780,
+          "size": 1176,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "stack_frame",
+          "calls": [
+            2147510076,
+            2147573420,
+            2147580752,
+            2147581316,
+            2148181592,
+            2148182020,
+            2148194000,
+            2148195412,
+            2148246224,
+            2148249872,
+            2148351952,
+            2148379920
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071078",
+          "vram": 2147946616,
+          "rom_start": 431956,
+          "size": 452,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [
+            2147579820,
+            2147948360,
+            2148151740,
+            2148151960,
+            2148189052,
+            2148195412,
+            2148218380,
+            2148253048,
+            2148254184
+          ],
+          "tails": [
+            2147946200
+          ]
+        },
+        {
+          "name": "func_8007123C",
+          "vram": 2147947068,
+          "rom_start": 432408,
+          "size": 196,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "stack_frame",
+          "calls": [
+            2148218352,
+            2148356776,
+            2148380964
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071300",
+          "vram": 2147947264,
+          "rom_start": 432604,
+          "size": 452,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [
+            2147510808,
+            2147563516,
+            2147566468,
+            2147580560,
+            2147580708,
+            2147603792,
+            2148151832,
+            2148151872,
+            2148181592,
+            2148183216,
+            2148184640,
+            2148188936,
+            2148188980,
+            2148248612,
+            2148254324
+          ],
+          "tails": [
+            2147946860
+          ]
+        },
+        {
+          "name": "func_800714D4",
+          "vram": 2147947732,
+          "rom_start": 433072,
+          "size": 224,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "stack_frame",
+          "calls": [
+            2148192936,
+            2148193332
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800715B4",
+          "vram": 2147947956,
+          "rom_start": 433296,
+          "size": 404,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2148190648,
+            2148193332,
+            2148194792,
+            2148234616,
+            2148244700,
+            2148244944,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071748",
+          "vram": 2147948360,
+          "rom_start": 433700,
+          "size": 48,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80071778",
+          "vram": 2147948408,
+          "rom_start": 433748,
+          "size": 404,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147948360,
+            2148184740,
+            2148243812,
+            2148244436,
+            2148245148
+          ],
+          "tails": [
+            2147948016,
+            2147948320
+          ]
+        },
+        {
+          "name": "func_8007190C",
+          "vram": 2147948812,
+          "rom_start": 434152,
+          "size": 152,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "stack_frame",
+          "calls": [
+            2147580012,
+            2147580040
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800719A4",
+          "vram": 2147948964,
+          "rom_start": 434304,
+          "size": 488,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2147947264,
+            2147949452,
+            2148182616,
+            2148183216,
+            2148194448,
+            2148195412,
+            2148233520,
+            2148244436,
+            2148245608,
+            2148246012
+          ],
+          "tails": [
+            2147948876,
+            2147948888
+          ]
+        },
+        {
+          "name": "func_80071B8C",
+          "vram": 2147949452,
+          "rom_start": 434792,
+          "size": 444,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [
+            2147511076,
+            2148217324,
+            2148218380,
+            2148243812,
+            2148245148,
+            2148249712
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071D50",
+          "vram": 2147949904,
+          "rom_start": 435244,
+          "size": 176,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147603640,
+            2147603928,
+            2147604032,
+            2147985248
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071E00",
+          "vram": 2147950080,
+          "rom_start": 435420,
+          "size": 148,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148189092,
+            2148195748,
+            2148250100
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80072B48",
+          "vram": 2147953480,
+          "rom_start": 438820,
+          "size": 96,
+          "walk_ok": false,
+          "walk_reason": "invalid instruction at 0x80072BA8",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80072EE4",
+          "vram": 2147954404,
+          "rom_start": 439744,
+          "size": 72,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80072F4C",
+          "vram": 2147954508,
+          "rom_start": 439848,
+          "size": 460,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [
+            2147953208,
+            2147954508,
+            2147958056,
+            2147958608,
+            2148178808,
+            2148184740,
+            2148253820
+          ],
+          "tails": [
+            2147948808,
+            2147948860,
+            2147948920,
+            2147948932
+          ]
+        },
+        {
+          "name": "func_80073118",
+          "vram": 2147954968,
+          "rom_start": 440308,
+          "size": 1468,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "stack_frame",
+          "calls": [
+            2147561992,
+            2147565180,
+            2147565728,
+            2147573420,
+            2147580752,
+            2147581316,
+            2147958056,
+            2148002072,
+            2148151960,
+            2148152044,
+            2148169232,
+            2148173084,
+            2148177876,
+            2148181592,
+            2148182020,
+            2148189052,
+            2148194448,
+            2148194792,
+            2148195384,
+            2148195412,
+            2148197408,
+            2148199872,
+            2148246224,
+            2148270652
+          ],
+          "tails": [
+            2147950308
+          ]
+        },
+        {
+          "name": "func_800736D4",
+          "vram": 2147956436,
+          "rom_start": 441776,
+          "size": 468,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2147565180,
+            2148182616,
+            2148193332,
+            2148194448,
+            2148194792,
+            2148195384,
+            2148195412,
+            2148233520,
+            2148246012
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800738A8",
+          "vram": 2147956904,
+          "rom_start": 442244,
+          "size": 168,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [
+            2148245148,
+            2148245412
+          ],
+          "tails": [
+            2147950612
+          ]
+        },
+        {
+          "name": "func_800739E8",
+          "vram": 2147957224,
+          "rom_start": 442564,
+          "size": 92,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [],
+          "tails": [
+            2147951464
+          ]
+        },
+        {
+          "name": "func_80073B30",
+          "vram": 2147957552,
+          "rom_start": 442892,
+          "size": 448,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2148189052,
+            2148194448,
+            2148195384,
+            2148195412,
+            2148198188,
+            2148198876,
+            2148200300,
+            2148233520,
+            2148244176,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80073CF0",
+          "vram": 2147958000,
+          "rom_start": 443340,
+          "size": 56,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2148189052,
+            2148194448,
+            2148195384
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80073D28",
+          "vram": 2147958056,
+          "rom_start": 443396,
+          "size": 136,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2148189052,
+            2148194448,
+            2148195384,
+            2148195412,
+            2148233520
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80073DB0",
+          "vram": 2147958192,
+          "rom_start": 443532,
+          "size": 156,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2147543840,
+            2147561992,
+            2148244176
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80073E4C",
+          "vram": 2147958348,
+          "rom_start": 443688,
+          "size": 260,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [
+            2148189052,
+            2148194792,
+            2148195412,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80073F50",
+          "vram": 2147958608,
+          "rom_start": 443948,
+          "size": 604,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "call",
+          "calls": [
+            2147579820,
+            2147603640,
+            2147603928,
+            2147604032,
+            2147953480,
+            2148178920,
+            2148193332,
+            2148194448,
+            2148194792,
+            2148195412,
+            2148253048,
+            2148254184,
+            2148270352
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800741AC",
+          "vram": 2147959212,
+          "rom_start": 444552,
+          "size": 272,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147563516,
+            2147566468,
+            2147580560,
+            2147580708,
+            2147603792,
+            2147956436,
+            2148001696,
+            2148151872,
+            2148152012,
+            2148173904,
+            2148184640,
+            2148188936,
+            2148188980,
+            2148200352,
+            2148248612,
+            2148254324,
+            2148270396,
+            2148270440
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800742BC",
+          "vram": 2147959484,
+          "rom_start": 444824,
+          "size": 684,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147954164,
+            2148170340,
+            2148198188,
+            2148200300,
+            2148240840,
+            2148244436,
+            2148245148
+          ],
+          "tails": [
+            2147953540,
+            2147953560
+          ]
+        },
+        {
+          "name": "func_80074568",
+          "vram": 2147960168,
+          "rom_start": 445508,
+          "size": 344,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148189644,
+            2148194792,
+            2148243412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800746C0",
+          "vram": 2147960512,
+          "rom_start": 445852,
+          "size": 1928,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147543840,
+            2147546180,
+            2147581172,
+            2147600260,
+            2147603792,
+            2147603928,
+            2147953480,
+            2147956436,
+            2147956904,
+            2147957224,
+            2147957552,
+            2147958000,
+            2147958192,
+            2147958348,
+            2148151700,
+            2148151740,
+            2148151832,
+            2148151960,
+            2148152212,
+            2148178920,
+            2148184740,
+            2148189644,
+            2148194792,
+            2148195384,
+            2148198188,
+            2148200300,
+            2148218992,
+            2148240840,
+            2148243412,
+            2148243812,
+            2148244436,
+            2148245148,
+            2148270396
+          ],
+          "tails": [
+            2147956404
+          ]
+        },
+        {
+          "name": "func_80074E48",
+          "vram": 2147962440,
+          "rom_start": 447780,
+          "size": 468,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148170000,
+            2148181592,
+            2148183216,
+            2148188936,
+            2148188980,
+            2148195356
+          ],
+          "tails": [
+            2147956476,
+            2147956496
+          ]
+        },
+        {
+          "name": "func_8007501C",
+          "vram": 2147962908,
+          "rom_start": 448248,
+          "size": 320,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148178920,
+            2148194792,
+            2148195384,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_8007515C",
+          "vram": 2147963228,
+          "rom_start": 448568,
+          "size": 328,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148178920,
+            2148193332,
+            2148194792,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800752A4",
+          "vram": 2147963556,
+          "rom_start": 448896,
+          "size": 372,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148172940,
+            2148173084,
+            2148178920,
+            2148188980,
+            2148193332,
+            2148194792,
+            2148218992
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80075418",
+          "vram": 2147963928,
+          "rom_start": 449268,
+          "size": 32,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148196052
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80075438",
+          "vram": 2147963960,
+          "rom_start": 449300,
+          "size": 36,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148195972
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80075464",
+          "vram": 2147964004,
+          "rom_start": 449344,
+          "size": 56,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147601320
+          ],
+          "tails": [
+            2147958036
+          ]
+        },
+        {
+          "name": "func_8007549C",
+          "vram": 2147964060,
+          "rom_start": 449400,
+          "size": 136,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148172940,
+            2148222868
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80075524",
+          "vram": 2147964196,
+          "rom_start": 449536,
+          "size": 156,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148178920,
+            2148195356,
+            2148198188,
+            2148198876,
+            2148200300
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800755C0",
+          "vram": 2147964352,
+          "rom_start": 449692,
+          "size": 260,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148178920,
+            2148195384,
+            2148218992,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800756C4",
+          "vram": 2147964612,
+          "rom_start": 449952,
+          "size": 144,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148178808,
+            2148188980,
+            2148189052,
+            2148218992
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80075754",
+          "vram": 2147964756,
+          "rom_start": 450096,
+          "size": 260,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148004260,
+            2148173484,
+            2148178988,
+            2148189092,
+            2148195972,
+            2148197592,
+            2148200548,
+            2148245940
+          ],
+          "tails": []
+        }
+      ]
+    },
+    {
+      "name": "closing",
+      "mapping": {
+        "rom_start": 450368,
+        "rom_end": 460800,
+        "vram_start": 2147943572,
+        "vram_end": 2147954004,
+        "delta": 2147493204,
+        "size": 10432
+      },
+      "summary": {
+        "stack_frame_seeds": 11,
+        "candidates": 20,
+        "valid_walks": 12,
+        "candidate_bytes": 6852
+      },
+      "functions": [
+        {
+          "name": "func_80070C94",
+          "vram": 2147945620,
+          "rom_start": 452416,
+          "size": 420,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147946040,
+            2147948596,
+            2147949504,
+            2147952120,
+            2148178808,
+            2148184740,
+            2148222868,
+            2148253820
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80070E38",
+          "vram": 2147946040,
+          "rom_start": 452836,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80070E3C",
+          "vram": 2147946044,
+          "rom_start": 452840,
+          "size": 2552,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147565180,
+            2147565728,
+            2147573420,
+            2147579820,
+            2147580752,
+            2147581316,
+            2147948884,
+            2148002072,
+            2148151960,
+            2148152044,
+            2148169232,
+            2148172940,
+            2148173084,
+            2148177876,
+            2148178920,
+            2148181592,
+            2148182020,
+            2148182616,
+            2148189052,
+            2148193332,
+            2148194448,
+            2148194792,
+            2148195412,
+            2148196052,
+            2148197408,
+            2148198188,
+            2148198876,
+            2148199872,
+            2148200300,
+            2148233520,
+            2148244176,
+            2148245148,
+            2148245412,
+            2148246012,
+            2148246224,
+            2148253048,
+            2148254184,
+            2148270352,
+            2148270652,
+            2148423160,
+            2148465136
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071834",
+          "vram": 2147948596,
+          "rom_start": 455392,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80071838",
+          "vram": 2147948600,
+          "rom_start": 455396,
+          "size": 284,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147563516,
+            2147566468,
+            2147580560,
+            2147580708,
+            2147603792,
+            2147951460,
+            2148001696,
+            2148151872,
+            2148152012,
+            2148170000,
+            2148173904,
+            2148184640,
+            2148188936,
+            2148188980,
+            2148200352,
+            2148248612,
+            2148254324,
+            2148270396,
+            2148270440,
+            2148467112
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071954",
+          "vram": 2147948884,
+          "rom_start": 455680,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80071958",
+          "vram": 2147948888,
+          "rom_start": 455684,
+          "size": 340,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147949228,
+            2148170340,
+            2148198188,
+            2148200300,
+            2148240840,
+            2148244436,
+            2148245148
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071AAC",
+          "vram": 2147949228,
+          "rom_start": 456024,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80071AB0",
+          "vram": 2147949232,
+          "rom_start": 456028,
+          "size": 272,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148189644,
+            2148194792
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80071BC0",
+          "vram": 2147949504,
+          "rom_start": 456300,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80071BC4",
+          "vram": 2147949508,
+          "rom_start": 456304,
+          "size": 1460,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147603792,
+            2147948884,
+            2147949228,
+            2147950968,
+            2147952064,
+            2148151700,
+            2148151740,
+            2148151872,
+            2148151960,
+            2148152212,
+            2148173084,
+            2148178920,
+            2148184740,
+            2148188980,
+            2148195384,
+            2148218992,
+            2148243812,
+            2148244436,
+            2148245148,
+            2148270396
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80072178",
+          "vram": 2147950968,
+          "rom_start": 457764,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_8007217C",
+          "vram": 2147950972,
+          "rom_start": 457768,
+          "size": 488,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148190648,
+            2148192936,
+            2148193332,
+            2148194792,
+            2148245148,
+            2148245412
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_80072364",
+          "vram": 2147951460,
+          "rom_start": 458256,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_80072368",
+          "vram": 2147951464,
+          "rom_start": 458260,
+          "size": 596,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148181592,
+            2148183216,
+            2148188936
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800725C0",
+          "vram": 2147952064,
+          "rom_start": 458860,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_800725C4",
+          "vram": 2147952068,
+          "rom_start": 458864,
+          "size": 52,
+          "walk_ok": false,
+          "walk_reason": "terminator without delay slot",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2147601320
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_800725F8",
+          "vram": 2147952120,
+          "rom_start": 458916,
+          "size": 4,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": true,
+          "seed": "call",
+          "calls": [],
+          "tails": []
+        },
+        {
+          "name": "func_800725FC",
+          "vram": 2147952124,
+          "rom_start": 458920,
+          "size": 144,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148178808,
+            2148188980,
+            2148189052,
+            2148218992
+          ],
+          "tails": []
+        },
+        {
+          "name": "func_8007268C",
+          "vram": 2147952268,
+          "rom_start": 459064,
+          "size": 208,
+          "walk_ok": true,
+          "walk_reason": "",
+          "falls_through": false,
+          "seed": "stack_frame",
+          "calls": [
+            2148004260,
+            2148173484,
+            2148178988,
+            2148189092,
+            2148195972,
+            2148197592,
+            2148200548
+          ],
+          "tails": []
+        }
+      ]
+    }
+  ],
   "evidence": {
     "pointer_at": 430192,
     "pointer_value": 2147944880,
     "pointee_rom": 430220,
     "pointee_text": "GRAPHICS__CEREMONY__CREDITS_BGP",
     "analysis_module_sha256": "498b01c332582116a18a7dcfea2afddae456a36ee9a58bd2d748d5ba81a84b52",
-    "generator_sha256": "d0da6357db7031aa09d4e1df4f566a05ba4fcd0b106d650607e0905f255a8488"
+    "generator_sha256": "f06384e61810c07411224a54fe1cd2493891277b539a7ea9c90e56f5f34e52ea"
   },
   "summary": {
-    "stack_frame_seeds": 37,
-    "candidates": 61,
-    "valid_walks": 58,
-    "candidate_bytes": 21796
-  },
-  "functions": [
-    {
-      "name": "func_80070AD4",
-      "vram": 2147945172,
-      "rom_start": 430512,
-      "size": 268,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147517808,
-        2147944988,
-        2147946616,
-        2147947956,
-        2148184740,
-        2148222868,
-        2148253820
-      ],
-      "tails": [
-        2147944956
-      ]
-    },
-    {
-      "name": "func_80070BE0",
-      "vram": 2147945440,
-      "rom_start": 430780,
-      "size": 600,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "stack_frame",
-      "calls": [
-        2147510076,
-        2147573420,
-        2147580752,
-        2147581316,
-        2148194000,
-        2148246224,
-        2148249872
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80070E38",
-      "vram": 2147946040,
-      "rom_start": 431380,
-      "size": 576,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2148181592,
-        2148182020,
-        2148195412,
-        2148246224,
-        2148351952,
-        2148379920
-      ],
-      "tails": [
-        2147946012
-      ]
-    },
-    {
-      "name": "func_80071078",
-      "vram": 2147946616,
-      "rom_start": 431956,
-      "size": 452,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2147579820,
-        2147948360,
-        2148151740,
-        2148151960,
-        2148189052,
-        2148195412,
-        2148218380,
-        2148253048,
-        2148254184
-      ],
-      "tails": [
-        2147946200
-      ]
-    },
-    {
-      "name": "func_8007123C",
-      "vram": 2147947068,
-      "rom_start": 432408,
-      "size": 196,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "stack_frame",
-      "calls": [
-        2148218352,
-        2148356776,
-        2148380964
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071300",
-      "vram": 2147947264,
-      "rom_start": 432604,
-      "size": 452,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2147510808,
-        2147563516,
-        2147566468,
-        2147580560,
-        2147580708,
-        2147603792,
-        2148151832,
-        2148151872,
-        2148181592,
-        2148183216,
-        2148184640,
-        2148188936,
-        2148188980,
-        2148248612,
-        2148254324
-      ],
-      "tails": [
-        2147946860
-      ]
-    },
-    {
-      "name": "func_800714D4",
-      "vram": 2147947732,
-      "rom_start": 433072,
-      "size": 224,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "stack_frame",
-      "calls": [
-        2148192936,
-        2148193332
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800715B4",
-      "vram": 2147947956,
-      "rom_start": 433296,
-      "size": 404,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2148190648,
-        2148193332,
-        2148194792,
-        2148234616,
-        2148244700,
-        2148244944,
-        2148245148,
-        2148245412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071748",
-      "vram": 2147948360,
-      "rom_start": 433700,
-      "size": 48,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [],
-      "tails": []
-    },
-    {
-      "name": "func_80071778",
-      "vram": 2147948408,
-      "rom_start": 433748,
-      "size": 188,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "stack_frame",
-      "calls": [
-        2148244436
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071834",
-      "vram": 2147948596,
-      "rom_start": 433936,
-      "size": 48,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2148243812,
-        2148245148
-      ],
-      "tails": [
-        2147948016
-      ]
-    },
-    {
-      "name": "func_8007190C",
-      "vram": 2147948812,
-      "rom_start": 434152,
-      "size": 72,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "stack_frame",
-      "calls": [
-        2147580040
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071954",
-      "vram": 2147948884,
-      "rom_start": 434224,
-      "size": 80,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2147580012
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800719A4",
-      "vram": 2147948964,
-      "rom_start": 434304,
-      "size": 264,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2147949452,
-        2148182616,
-        2148183216,
-        2148233520,
-        2148246012
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071AAC",
-      "vram": 2147949228,
-      "rom_start": 434568,
-      "size": 20,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2148245608
-      ],
-      "tails": [
-        2147948888
-      ]
-    },
-    {
-      "name": "func_80071B8C",
-      "vram": 2147949452,
-      "rom_start": 434792,
-      "size": 52,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [],
-      "tails": []
-    },
-    {
-      "name": "func_80071BC0",
-      "vram": 2147949504,
-      "rom_start": 434844,
-      "size": 392,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2147511076,
-        2148217324,
-        2148218380,
-        2148243812,
-        2148245148,
-        2148249712
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071D50",
-      "vram": 2147949904,
-      "rom_start": 435244,
-      "size": 176,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147603640,
-        2147603928,
-        2147604032,
-        2147985248
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80071E00",
-      "vram": 2147950080,
-      "rom_start": 435420,
-      "size": 148,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148189092,
-        2148195748,
-        2148250100
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80072178",
-      "vram": 2147950968,
-      "rom_start": 436308,
-      "size": 4,
-      "walk_ok": false,
-      "walk_reason": "invalid instruction at 0x8007217C",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [],
-      "tails": []
-    },
-    {
-      "name": "func_800725F8",
-      "vram": 2147952120,
-      "rom_start": 437460,
-      "size": 4,
-      "walk_ok": false,
-      "walk_reason": "invalid instruction at 0x800725FC",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [],
-      "tails": []
-    },
-    {
-      "name": "func_80072B48",
-      "vram": 2147953480,
-      "rom_start": 438820,
-      "size": 96,
-      "walk_ok": false,
-      "walk_reason": "invalid instruction at 0x80072BA8",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [],
-      "tails": []
-    },
-    {
-      "name": "func_80072EE4",
-      "vram": 2147954404,
-      "rom_start": 439744,
-      "size": 72,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [],
-      "tails": []
-    },
-    {
-      "name": "func_80072F4C",
-      "vram": 2147954508,
-      "rom_start": 439848,
-      "size": 460,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2147953208,
-        2147954508,
-        2147958056,
-        2147958608,
-        2148178808,
-        2148184740,
-        2148253820
-      ],
-      "tails": [
-        2147948808,
-        2147948860,
-        2147948920,
-        2147948932
-      ]
-    },
-    {
-      "name": "func_80073118",
-      "vram": 2147954968,
-      "rom_start": 440308,
-      "size": 1468,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "stack_frame",
-      "calls": [
-        2147561992,
-        2147565180,
-        2147565728,
-        2147573420,
-        2147580752,
-        2147581316,
-        2147958056,
-        2148002072,
-        2148151960,
-        2148152044,
-        2148169232,
-        2148173084,
-        2148177876,
-        2148181592,
-        2148182020,
-        2148189052,
-        2148194448,
-        2148194792,
-        2148195384,
-        2148195412,
-        2148197408,
-        2148199872,
-        2148246224,
-        2148270652
-      ],
-      "tails": [
-        2147950308
-      ]
-    },
-    {
-      "name": "func_800736D4",
-      "vram": 2147956436,
-      "rom_start": 441776,
-      "size": 468,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2147565180,
-        2148182616,
-        2148193332,
-        2148194448,
-        2148194792,
-        2148195384,
-        2148195412,
-        2148233520,
-        2148246012
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800738A8",
-      "vram": 2147956904,
-      "rom_start": 442244,
-      "size": 168,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2148245148,
-        2148245412
-      ],
-      "tails": [
-        2147950612
-      ]
-    },
-    {
-      "name": "func_800739E8",
-      "vram": 2147957224,
-      "rom_start": 442564,
-      "size": 92,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [],
-      "tails": [
-        2147951464
-      ]
-    },
-    {
-      "name": "func_80073B30",
-      "vram": 2147957552,
-      "rom_start": 442892,
-      "size": 448,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2148189052,
-        2148194448,
-        2148195384,
-        2148195412,
-        2148198188,
-        2148198876,
-        2148200300,
-        2148233520,
-        2148244176,
-        2148245148,
-        2148245412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80073CF0",
-      "vram": 2147958000,
-      "rom_start": 443340,
-      "size": 56,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2148189052,
-        2148194448,
-        2148195384
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80073D28",
-      "vram": 2147958056,
-      "rom_start": 443396,
-      "size": 136,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2148189052,
-        2148194448,
-        2148195384,
-        2148195412,
-        2148233520
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80073DB0",
-      "vram": 2147958192,
-      "rom_start": 443532,
-      "size": 156,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2147543840,
-        2147561992,
-        2148244176
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80073E4C",
-      "vram": 2147958348,
-      "rom_start": 443688,
-      "size": 260,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": true,
-      "seed": "call",
-      "calls": [
-        2148189052,
-        2148194792,
-        2148195412,
-        2148245148,
-        2148245412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80073F50",
-      "vram": 2147958608,
-      "rom_start": 443948,
-      "size": 604,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "call",
-      "calls": [
-        2147579820,
-        2147603640,
-        2147603928,
-        2147604032,
-        2147953480,
-        2148178920,
-        2148193332,
-        2148194448,
-        2148194792,
-        2148195412,
-        2148253048,
-        2148254184,
-        2148270352
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800741AC",
-      "vram": 2147959212,
-      "rom_start": 444552,
-      "size": 272,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147563516,
-        2147566468,
-        2147580560,
-        2147580708,
-        2147603792,
-        2147956436,
-        2148001696,
-        2148151872,
-        2148152012,
-        2148173904,
-        2148184640,
-        2148188936,
-        2148188980,
-        2148200352,
-        2148248612,
-        2148254324,
-        2148270396,
-        2148270440
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800742BC",
-      "vram": 2147959484,
-      "rom_start": 444824,
-      "size": 684,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147954164,
-        2148170340,
-        2148198188,
-        2148200300,
-        2148240840,
-        2148244436,
-        2148245148
-      ],
-      "tails": [
-        2147953540,
-        2147953560
-      ]
-    },
-    {
-      "name": "func_80074568",
-      "vram": 2147960168,
-      "rom_start": 445508,
-      "size": 344,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148189644,
-        2148194792,
-        2148243412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800746C0",
-      "vram": 2147960512,
-      "rom_start": 445852,
-      "size": 1928,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147543840,
-        2147546180,
-        2147581172,
-        2147600260,
-        2147603792,
-        2147603928,
-        2147953480,
-        2147956436,
-        2147956904,
-        2147957224,
-        2147957552,
-        2147958000,
-        2147958192,
-        2147958348,
-        2148151700,
-        2148151740,
-        2148151832,
-        2148151960,
-        2148152212,
-        2148178920,
-        2148184740,
-        2148189644,
-        2148194792,
-        2148195384,
-        2148198188,
-        2148200300,
-        2148218992,
-        2148240840,
-        2148243412,
-        2148243812,
-        2148244436,
-        2148245148,
-        2148270396
-      ],
-      "tails": [
-        2147956404
-      ]
-    },
-    {
-      "name": "func_80074E48",
-      "vram": 2147962440,
-      "rom_start": 447780,
-      "size": 468,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148170000,
-        2148181592,
-        2148183216,
-        2148188936,
-        2148188980,
-        2148195356
-      ],
-      "tails": [
-        2147956476,
-        2147956496
-      ]
-    },
-    {
-      "name": "func_8007501C",
-      "vram": 2147962908,
-      "rom_start": 448248,
-      "size": 320,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148178920,
-        2148194792,
-        2148195384,
-        2148245148,
-        2148245412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_8007515C",
-      "vram": 2147963228,
-      "rom_start": 448568,
-      "size": 328,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148178920,
-        2148193332,
-        2148194792,
-        2148245148,
-        2148245412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800752A4",
-      "vram": 2147963556,
-      "rom_start": 448896,
-      "size": 372,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148172940,
-        2148173084,
-        2148178920,
-        2148188980,
-        2148193332,
-        2148194792,
-        2148218992
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80075418",
-      "vram": 2147963928,
-      "rom_start": 449268,
-      "size": 32,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148196052
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80075438",
-      "vram": 2147963960,
-      "rom_start": 449300,
-      "size": 36,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148195972
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80075464",
-      "vram": 2147964004,
-      "rom_start": 449344,
-      "size": 56,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147601320
-      ],
-      "tails": [
-        2147958036
-      ]
-    },
-    {
-      "name": "func_8007549C",
-      "vram": 2147964060,
-      "rom_start": 449400,
-      "size": 136,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148172940,
-        2148222868
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80075524",
-      "vram": 2147964196,
-      "rom_start": 449536,
-      "size": 156,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148178920,
-        2148195356,
-        2148198188,
-        2148198876,
-        2148200300
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800755C0",
-      "vram": 2147964352,
-      "rom_start": 449692,
-      "size": 260,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148178920,
-        2148195384,
-        2148218992,
-        2148245148,
-        2148245412
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_800756C4",
-      "vram": 2147964612,
-      "rom_start": 449952,
-      "size": 144,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148178808,
-        2148188980,
-        2148189052,
-        2148218992
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80075754",
-      "vram": 2147964756,
-      "rom_start": 450096,
-      "size": 260,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148004260,
-        2148173484,
-        2148178988,
-        2148189092,
-        2148195972,
-        2148197592,
-        2148200548,
-        2148245940
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80076064",
-      "vram": 2147967076,
-      "rom_start": 452416,
-      "size": 424,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147946040,
-        2147948596,
-        2147949504,
-        2147952120,
-        2148178808,
-        2148184740,
-        2148222868,
-        2148253820
-      ],
-      "tails": [
-        2147946008
-      ]
-    },
-    {
-      "name": "func_8007620C",
-      "vram": 2147967500,
-      "rom_start": 452840,
-      "size": 2556,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147565180,
-        2147565728,
-        2147573420,
-        2147579820,
-        2147580752,
-        2147581316,
-        2147948884,
-        2148002072,
-        2148151960,
-        2148152044,
-        2148169232,
-        2148172940,
-        2148173084,
-        2148177876,
-        2148178920,
-        2148181592,
-        2148182020,
-        2148182616,
-        2148189052,
-        2148193332,
-        2148194448,
-        2148194792,
-        2148195412,
-        2148196052,
-        2148197408,
-        2148198188,
-        2148198876,
-        2148199872,
-        2148200300,
-        2148233520,
-        2148244176,
-        2148245148,
-        2148245412,
-        2148246012,
-        2148246224,
-        2148253048,
-        2148254184,
-        2148270352,
-        2148270652,
-        2148423160,
-        2148465136
-      ],
-      "tails": [
-        2147946668,
-        2147947076,
-        2147947308,
-        2147947328
-      ]
-    },
-    {
-      "name": "func_80076C08",
-      "vram": 2147970056,
-      "rom_start": 455396,
-      "size": 288,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147563516,
-        2147566468,
-        2147580560,
-        2147580708,
-        2147603792,
-        2147951460,
-        2148001696,
-        2148151872,
-        2148152012,
-        2148170000,
-        2148173904,
-        2148184640,
-        2148188936,
-        2148188980,
-        2148200352,
-        2148248612,
-        2148254324,
-        2148270396,
-        2148270440,
-        2148467112
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80076D28",
-      "vram": 2147970344,
-      "rom_start": 455684,
-      "size": 344,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147949228,
-        2148170340,
-        2148198188,
-        2148200300,
-        2148240840,
-        2148244436,
-        2148245148
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80076E80",
-      "vram": 2147970688,
-      "rom_start": 456028,
-      "size": 276,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148189644,
-        2148194792
-      ],
-      "tails": [
-        2147949272
-      ]
-    },
-    {
-      "name": "func_80076F94",
-      "vram": 2147970964,
-      "rom_start": 456304,
-      "size": 1464,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147603792,
-        2147948884,
-        2147949228,
-        2147950968,
-        2147952064,
-        2148151700,
-        2148151740,
-        2148151872,
-        2148151960,
-        2148152212,
-        2148173084,
-        2148178920,
-        2148184740,
-        2148188980,
-        2148195384,
-        2148218992,
-        2148243812,
-        2148244436,
-        2148245148,
-        2148270396
-      ],
-      "tails": [
-        2147950616,
-        2147950936
-      ]
-    },
-    {
-      "name": "func_8007754C",
-      "vram": 2147972428,
-      "rom_start": 457768,
-      "size": 492,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148190648,
-        2148192936,
-        2148193332,
-        2148194792,
-        2148245148,
-        2148245412
-      ],
-      "tails": [
-        2147951084
-      ]
-    },
-    {
-      "name": "func_80077738",
-      "vram": 2147972920,
-      "rom_start": 458260,
-      "size": 596,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148181592,
-        2148183216,
-        2148188936
-      ],
-      "tails": [
-        2147951508
-      ]
-    },
-    {
-      "name": "func_80077994",
-      "vram": 2147973524,
-      "rom_start": 458864,
-      "size": 56,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2147601320
-      ],
-      "tails": [
-        2147952100
-      ]
-    },
-    {
-      "name": "func_800779CC",
-      "vram": 2147973580,
-      "rom_start": 458920,
-      "size": 144,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148178808,
-        2148188980,
-        2148189052,
-        2148218992
-      ],
-      "tails": []
-    },
-    {
-      "name": "func_80077A5C",
-      "vram": 2147973724,
-      "rom_start": 459064,
-      "size": 208,
-      "walk_ok": true,
-      "walk_reason": "",
-      "falls_through": false,
-      "seed": "stack_frame",
-      "calls": [
-        2148004260,
-        2148173484,
-        2148178988,
-        2148189092,
-        2148195972,
-        2148197592,
-        2148200548
-      ],
-      "tails": []
-    }
-  ]
+    "candidates": 63,
+    "valid_walks": 54
+  }
 }

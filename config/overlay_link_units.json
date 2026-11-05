@@ -51,25 +51,23 @@
     "@n64dk/sdk/signature.py": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee",
     "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
     "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
-    "config/overlay/matching_sn.tsv": "82cb829deccd104a8a353971318dbdcd8ef01e96715341b12cf9fa7a6f6dd05c",
+    "config/overlay/ceremony/matching_sn.tsv": "60eab5c3878b31ad341a060fa49565109d781f62e6a17fc53aa8a06cc786f27a",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
     "config/survey/symbol_addrs.txt": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3",
     "src/overlays/ceremony_configure_medal_sequence.c": "d103f6e3d4e29611e822b53f93e79b3a451589c7ec810058bed4d6cd0ffbebf5",
     "src/overlays/ceremony_cycle_display.c": "57727e262b783670ee66462e21b2a149031e2b3903d3df4ce84e3363487ee787",
-    "src/overlays/ceremony_initialize_event_record.c": "7b6d086ef61f9bc3ac7d2d403a27ce5fc54de2367f10f955f1b1d87bf4867301",
     "src/overlays/ceremony_initialize_medal_record.c": "143bc02b3dc3761dc1243a1336c2cb5c03539bdebc3019abe11d40b4a574f12a",
     "src/overlays/ceremony_noop_callback.c": "85b498a6e25297ecbadc6908b788b81e789d66816a771cbe985c2245f5cb2790",
-    "src/overlays/ceremony_noop_event.c": "43ac1231aa701a84abb6312a503100b41160e15c5dacce6c4ae2f33e8bfdb801",
     "src/overlays/ceremony_reset_runtime.c": "e893362aff6eb3d8d63ffd49c37647470296fa7cb24432815084511c8928c685",
     "src/overlays/ceremony_set_runtime_mode.c": "4bd3171bcae3363c0577711cc5b0617e83e98b443554b393f72df8aaaa27fb86",
-    "tools/build_source_image.py": "87300d35822223ccb8f24bf5afbeb82353e944568f059d37730087c5c1aca318",
+    "tools/build_source_image.py": "c1756c8dc98f8cf9ad8e4b7353ca78684ab41a3c5f6b9aab9a4b4f6a33dba743",
     "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
     "tools/verify_ido_normalized.py": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49",
     "tools/verify_sn_normalized.py": "a0401769c0a1e27684188481413e4f9ba505f550010d865b8bd6beae3c03855d"
   },
   "resident_rom_end": null,
   "resident_rom_start": null,
-  "rom_end": 460800,
+  "rom_end": 450368,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
   "rom_start": 430192,
   "segment": "ceremony",
@@ -86,9 +84,9 @@
       ],
       "id": "matching_sn.tsv:28ce80f6f93eab56",
       "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
+      "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "9ce54fda64d5e0d07a52e7699356f82224fbf5a563ed78d5f00e5cd05260b7ab",
+      "object_sha256_at_discovery": "baa6154a9f3ce79e9df735a0d62cf26e9575f2a1a384dbf7ee72a4e60f80be51",
       "pipeline": "sn",
       "row_sha256": "28ce80f6f93eab56b18fed47e7e0a4bdb91dafd5a3026a1fe4b851f316ad1e4d",
       "section_bases": {
@@ -124,9 +122,9 @@
       ],
       "id": "matching_sn.tsv:17e389529baeff2e",
       "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
+      "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "871192558cd120303b8dcb7a5c4f3591b51b0093fb7520f0883afca54b7a8376",
+      "object_sha256_at_discovery": "10cd873cc874f11f4a01363140c301d2e1a18b47284dca5876c2897ae092bab4",
       "pipeline": "sn",
       "row_sha256": "17e389529baeff2ec2984e98115d999a855494aa595131ecfc59c2e16fa7484d",
       "section_bases": {
@@ -162,9 +160,9 @@
       ],
       "id": "matching_sn.tsv:f644e50af3f87f9e",
       "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
+      "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "667c47a0addc4b4ed6045ea751540bb791f689c71b0f286c291620532cbe1c87",
+      "object_sha256_at_discovery": "242538bf79b73fef2dd57ce39cc9ae9be753a31f60b2bc746f22f6a7d1a32d06",
       "pipeline": "sn",
       "row_sha256": "f644e50af3f87f9e882d3a1986d0ff49de86ee61ddddeaea26effbf0a546d9a0",
       "section_bases": {
@@ -195,86 +193,11 @@
         "-mhard-float",
         "-meb"
       ],
-      "id": "matching_sn.tsv:d195670e7979b82e",
-      "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "1a853c05ce17b58c39f1e051b59f48ae8d1b1a57e3276867bc9717092df1b298",
-      "pipeline": "sn",
-      "row_sha256": "d195670e7979b82eb4bff395fb66b6ee8b53dbdc5580f4d547ef805cf3b61c23",
-      "section_bases": {
-        ".text": 2147973516
-      },
-      "sections": [
-        {
-          "emitted_size": 8,
-          "name": ".text",
-          "owned_size": 8,
-          "rom_start": 458856,
-          "sha256": "78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378",
-          "unowned_zero_tail": 0,
-          "vram": 2147973516
-        }
-      ],
-      "source": "src/overlays/ceremony_noop_event.c",
-      "source_sha256": "43ac1231aa701a84abb6312a503100b41160e15c5dacce6c4ae2f33e8bfdb801",
-      "symbols": {}
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:9d51c5a9e38b9736",
-      "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "e253aa658f561f02137a6c1957668b6634050018410bc44d35d7a4c89c7b38e8",
-      "pipeline": "sn",
-      "row_sha256": "9d51c5a9e38b9736c2cc1ca59e11dd9a5c7a8f9d34fe013b8e1b9c1053aee1aa",
-      "section_bases": {
-        ".text": 2147973580
-      },
-      "sections": [
-        {
-          "emitted_size": 144,
-          "name": ".text",
-          "owned_size": 144,
-          "rom_start": 458920,
-          "sha256": "61112b25445433a8207adef7c765c81801aa6e25da31182d6aaf6bde7d26a28b",
-          "unowned_zero_tail": 0,
-          "vram": 2147973580
-        }
-      ],
-      "source": "src/overlays/ceremony_initialize_event_record.c",
-      "source_sha256": "7b6d086ef61f9bc3ac7d2d403a27ce5fc54de2367f10f955f1b1d87bf4867301",
-      "symbols": {
-        "func_800A9B78": 2148178808,
-        "func_800AC334": 2148188980,
-        "func_800AC37C": 2148189052,
-        "func_800B3870": 2148218992
-      }
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
       "id": "matching_sn.tsv:b05f00885d772e7b",
       "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
+      "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "8c0a0ce3e7cf3bd4e797ad4d87c571e8a5b536f2fe1b9e9b222525dd12edbbc5",
+      "object_sha256_at_discovery": "2b12dc26a23dcf1d26e3af2be1bf3758722eb692b9256c148959761df9d46f51",
       "pipeline": "sn",
       "row_sha256": "b05f00885d772e7b3e832eb2b4ba594973a7e2e2b8ec7b7e53ed3f007073a23b",
       "section_bases": {
@@ -311,9 +234,9 @@
       ],
       "id": "matching_sn.tsv:d5dfef7371fadf49",
       "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
+      "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "cbf542a361b09315bbe4b1f8250ce1a73e8afd1efd6120679b479d20f72c375a",
+      "object_sha256_at_discovery": "586585d5957e84d169fe97a26edfca598f1bb52f1ae71f672afcf9bee88c38ed",
       "pipeline": "sn",
       "row_sha256": "d5dfef7371fadf4943d0eb88c77c3b969fd28aebcb96c1fb25a948fcc83e5f7f",
       "section_bases": {
@@ -351,9 +274,9 @@
       ],
       "id": "matching_sn.tsv:97365ec8f0349caf",
       "includes": [],
-      "manifest": "config/overlay/matching_sn.tsv",
+      "manifest": "config/overlay/ceremony/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "fc5e096c5bd35cf1ff8b507b45b98b8a57e1b31cc6a15d85b63824bcbffa8ff0",
+      "object_sha256_at_discovery": "900ddbc81155698752caa00daf9a31d4b82187c14b20bc3e4d36e8f9be313225",
       "pipeline": "sn",
       "row_sha256": "97365ec8f0349cafbde4ca164d16f313f5d7e7fa18677d412fa7c96ce587faff",
       "section_bases": {

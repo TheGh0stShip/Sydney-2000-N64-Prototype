@@ -490,7 +490,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('command', choices=('discover', 'build'))
     parser.add_argument('--project', type=Path, default=ROOT)
-    parser.add_argument('--segment', choices=('resident', 'runtime', 'ceremony'), default='resident')
+    parser.add_argument('--segment', choices=('resident', 'runtime', 'ceremony', 'closing'), default='resident')
     parser.add_argument('--plan', type=Path)
     parser.add_argument('--rom', type=Path, default=ROOT / 'baserom.z64', help='discovery input only')
     parser.add_argument('--verify-rom', type=Path, help='optional comparison after source-only build')
@@ -507,15 +507,22 @@ def main() -> None:
                     'matching_kmc.tsv': ('kmc+as', [])}
     elif args.segment == 'ceremony':
         DELTA = 0x80007924
-        START, END = 0x69070, 0x70800
+        START, END = 0x69070, 0x6DF40
         SEGMENT = 'ceremony'
-        MANIFEST_DIR = 'config/overlay'
+        MANIFEST_DIR = 'config/overlay/ceremony'
+        PROFILES = {'matching_sn.tsv': ('sn', [])}
+    elif args.segment == 'closing':
+        DELTA = 0x80002554
+        START, END = 0x6DF40, 0x70800
+        SEGMENT = 'closing'
+        MANIFEST_DIR = 'config/overlay/closing'
         PROFILES = {'matching_sn.tsv': ('sn', [])}
     plans = {'resident': 'config/link_units.json',
              'runtime': 'config/runtime_link_units.json',
-             'ceremony': 'config/overlay_link_units.json'}
+             'ceremony': 'config/overlay_link_units.json',
+             'closing': 'config/closing_link_units.json'}
     outputs = {'resident': 'build/source_image', 'runtime': 'build/runtime_image',
-               'ceremony': 'build/overlay_ceremony'}
+               'ceremony': 'build/overlay_ceremony', 'closing': 'build/overlay_closing'}
     args.plan = args.plan or ROOT / plans[SEGMENT]
     args.output = args.output or ROOT / outputs[SEGMENT]
     if args.jobs < 1:

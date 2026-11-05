@@ -418,7 +418,13 @@ def load_runtime(evidence, artifact):
 def load_ceremony(evidence, artifact):
     return load_mapped_segment(evidence, artifact, 'ceremony',
                                'config/overlay_link_units.json',
-                               0x69070, 0x70800, 0x80007924)
+                               0x69070, 0x6DF40, 0x80007924)
+
+
+def load_closing(evidence, artifact):
+    return load_mapped_segment(evidence, artifact, 'closing',
+                               'config/closing_link_units.json',
+                               0x6DF40, 0x70800, 0x80002554)
 
 
 def load_static_layout(evidence):
@@ -518,13 +524,14 @@ def load_directory(evidence, artifact):
 
 
 def compose(project, resident, initialized, directory, output, verify_rom=None,
-            require_complete=False, rsp=None, runtime=None, ceremony=None):
+            require_complete=False, rsp=None, runtime=None, ceremony=None, closing=None):
     evidence = Evidence(project)
     evidence.repo('tools/compose_reconstruction.py', sha256(Path(__file__).read_bytes()))
     rsp = rsp or project / 'build/rsp/rsp.json'
     runtime = runtime or project / 'build/runtime_image/source_image.json'
     ceremony = ceremony or project / 'build/overlay_ceremony/source_image.json'
-    for path in (resident, initialized, directory, rsp, runtime, ceremony):
+    closing = closing or project / 'build/overlay_closing/source_image.json'
+    for path in (resident, initialized, directory, rsp, runtime, ceremony, closing):
         if not path.resolve().is_relative_to(project.resolve()):
             raise ValueError('component metadata must be inside the project')
     data_intervals = classified_data(evidence)
@@ -533,6 +540,7 @@ def compose(project, resident, initialized, directory, output, verify_rom=None,
               load_rsp(evidence, rsp, data_intervals) +
               load_runtime(evidence, runtime) +
               load_ceremony(evidence, ceremony) +
+              load_closing(evidence, closing) +
               load_directory(evidence, directory) +
               load_static_layout(evidence))
     image, provenance = RomImage(ROM_SIZE), []
@@ -595,6 +603,7 @@ def main():
     parser.add_argument('--rsp', type=Path, default=ROOT / 'build/rsp/rsp.json')
     parser.add_argument('--runtime', type=Path, default=ROOT / 'build/runtime_image/source_image.json')
     parser.add_argument('--ceremony', type=Path, default=ROOT / 'build/overlay_ceremony/source_image.json')
+    parser.add_argument('--closing', type=Path, default=ROOT / 'build/overlay_closing/source_image.json')
     parser.add_argument('--directory', type=Path, default=ROOT / 'build/rom_components/file_directory.json')
     parser.add_argument('--output', type=Path, default=ROOT / 'build/reconstruction')
     parser.add_argument('--verify-rom', type=Path)
@@ -603,7 +612,8 @@ def main():
     compose(args.project.resolve(), args.resident.resolve(), args.initialized.resolve(),
             args.directory.resolve(), args.output.resolve(),
             args.verify_rom.resolve() if args.verify_rom else None, args.require_complete,
-            args.rsp.resolve(), args.runtime.resolve(), args.ceremony.resolve())
+            args.rsp.resolve(), args.runtime.resolve(), args.ceremony.resolve(),
+            args.closing.resolve())
 
 
 if __name__ == '__main__':

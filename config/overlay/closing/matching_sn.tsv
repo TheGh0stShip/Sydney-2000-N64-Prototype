@@ -1,0 +1,4 @@
+# Closing overlay mapping: ROM to VRAM delta 0x80002554; exact SN GCC2.8 C units.
+0x70068	0x8	src/overlays/ceremony_noop_event.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78aa5094d5ec7291c79f799c009d04f06c2f20187988e3dcc8d35ee5efdbb378
+0x700A8	0x90	src/overlays/ceremony_initialize_event_record.c	--symbol=func_800B3870:0x800B3870 --symbol=func_800AC334:0x800AC334 --symbol=func_800AC37C:0x800AC37C --symbol=func_800A9B78:0x800A9B78 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	61112b25445433a8207adef7c765c81801aa6e25da31182d6aaf6bde7d26a28b
+0x6F2E4	0x120	src/overlays/ceremony_shutdown.c	--symbol=ceremonyGlobalObject:0x800F3BC0 --symbol=ceremonyAudioState:0x800F1AE0 --symbol=ceremonyInputState:0x800F2AD8 --symbol=ceremonyOutputState:0x800F26E0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ce377fdf3c048a46d7250b4b10f19f5fc3480c71e82f045729875cf4d8ecad59

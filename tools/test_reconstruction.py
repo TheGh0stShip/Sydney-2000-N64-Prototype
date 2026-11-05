@@ -185,6 +185,7 @@ class CompositionTests(unittest.TestCase):
                  patch.object(reconstruction, 'load_rsp', return_value=[]), \
                  patch.object(reconstruction, 'load_runtime', return_value=[]), \
                  patch.object(reconstruction, 'load_ceremony', return_value=[]), \
+                 patch.object(reconstruction, 'load_closing', return_value=[]), \
                  patch.object(reconstruction, 'load_static_layout', return_value=[]), \
                  patch.object(reconstruction, 'load_directory', return_value=[]):
                 with self.assertRaisesRegex(ValueError, '6 unowned bytes in 2 gaps'):

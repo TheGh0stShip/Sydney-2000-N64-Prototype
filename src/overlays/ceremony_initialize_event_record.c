@@ -12,7 +12,7 @@ extern void func_800AC37C(void *object, void *owner);
 extern void func_800A9B78(void *destination, void *object, int enabled,
                          int selector, int mode);
 
-void func_800779CC(u8 *state, u8 *input, int selector) {
+void func_800725FC(u8 *state, u8 *input, int selector) {
     RuntimeRecord *record;
 
     func_800B3870(state + 0x7C0, input + 0x14, 0x4C);
