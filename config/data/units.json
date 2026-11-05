@@ -17,6 +17,34 @@
   ],
   "units": [
     {
+      "id": "startup_rodata",
+      "source": "src/data/startup_rodata.c",
+      "inputs": {
+        "src/data/startup_rodata.c": "431830adaa08a6fd73388614da36912bc5dae71e1ea3ec625f75d57b73f39399"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".rodata",
+          "segment": "resident",
+          "rom_start": 4156,
+          "vram": 2147484732,
+          "size": 7812,
+          "sha256": "462798590dbffa60a0ec5210b2d2b223881ece9910ae2cc0afdaf583a7544b4d"
+        }
+      ]
+    },
+    {
       "id": "audio_delay_coefficients",
       "source": "src/data/audio_delay_coefficients.c",
       "inputs": {

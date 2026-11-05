@@ -2,169 +2,13 @@
   "version": 1,
   "rom_sha1": "711c79790a713e65cc2ecb4857f35898b8e92985",
   "total_data": 204624,
-  "matched_data": 7852,
+  "matched_data": 11336,
   "ranges": [
     {
-      "rom_start": 4536,
-      "rom_end": 4608,
-      "size": 72,
-      "sha256": "656e73d3f3d06f37bc96086430d3d352ab9dff69d505deabbdd894b02fcb6768"
-    },
-    {
-      "rom_start": 4672,
-      "rom_end": 4716,
-      "size": 44,
-      "sha256": "89bb38365f974b550ffac649c79a974bc297189b9e9c7f7764884c346c3a6a4b"
-    },
-    {
-      "rom_start": 4776,
-      "rom_end": 4792,
-      "size": 16,
-      "sha256": "50dd5200f99928b56d6da1a2570ba775cf7dbffcb181cb95120084ba4df1a9eb"
-    },
-    {
-      "rom_start": 4904,
-      "rom_end": 5108,
-      "size": 204,
-      "sha256": "f4e187d248697069da9fb3e2f4ae7893801d3101c0ee7048d47560939194cd14"
-    },
-    {
-      "rom_start": 5408,
-      "rom_end": 5816,
-      "size": 408,
-      "sha256": "151c197b0e8ad9e703717d89793cb63180c71314b3663349f20e82e563c9308e"
-    },
-    {
-      "rom_start": 5864,
-      "rom_end": 5924,
-      "size": 60,
-      "sha256": "4871dc81ae65b14320cc9686bcbcead3012df244286e996f57ff893c1b1f8c10"
-    },
-    {
-      "rom_start": 6056,
-      "rom_end": 6224,
-      "size": 168,
-      "sha256": "e046529282ee661303e7b9a7c2855e35c5bad1e1299d8a58161e77cca67ddf7b"
-    },
-    {
-      "rom_start": 6244,
-      "rom_end": 6664,
-      "size": 420,
-      "sha256": "5af3ef4a6c43ec310079ed802bc45b209a077c9a4d5af644ddd7c9c8b92f39e3"
-    },
-    {
-      "rom_start": 6672,
-      "rom_end": 6776,
-      "size": 104,
-      "sha256": "ee747ef9e849e186fd856edfc7ad9fc3e8db475a3115aa4cfe5010f28d087ae4"
-    },
-    {
-      "rom_start": 7016,
-      "rom_end": 7088,
-      "size": 72,
-      "sha256": "4e0ee90364e8843ef0ca5f909eeabf3b82a26e0cd16e99edb8749f3b930f7ed9"
-    },
-    {
-      "rom_start": 7232,
-      "rom_end": 7272,
-      "size": 40,
-      "sha256": "5c803aec2a6fe411a9d0d6f608aabfde990b5b438c88f83a71ff053c136fadcc"
-    },
-    {
-      "rom_start": 7280,
-      "rom_end": 7296,
-      "size": 16,
-      "sha256": "6053616401331815b72710a5033c1211b837e929c4c2c44b7fc29ee9861ac2df"
-    },
-    {
-      "rom_start": 7848,
-      "rom_end": 7976,
-      "size": 128,
-      "sha256": "7ded8fb94b67504f158d497201e9ffd5422b3b4c3e96638049b5c8808a796347"
-    },
-    {
-      "rom_start": 8672,
-      "rom_end": 8712,
-      "size": 40,
-      "sha256": "8d7c456cbb04764ee25e16d4540affac90de6f28ec286270e92342122e19b9e9"
-    },
-    {
-      "rom_start": 8720,
-      "rom_end": 9492,
-      "size": 772,
-      "sha256": "2e048480c9c651562baa21f978d7eec6a3a4842620aef9469a6957ce13331637"
-    },
-    {
-      "rom_start": 9496,
-      "rom_end": 9500,
-      "size": 4,
-      "sha256": "d63eacc85b09d04343ac68af84351e4ed6b9eb6758af0b637964aa383568d3d8"
-    },
-    {
-      "rom_start": 9504,
-      "rom_end": 9524,
-      "size": 20,
-      "sha256": "41f041ca1bb9f529d3a1084d1614f5af7f04aed1102f84cc0f58fd937b2fc07b"
-    },
-    {
-      "rom_start": 9528,
-      "rom_end": 9644,
-      "size": 116,
-      "sha256": "a903cd053ddb42e24e3e85a2b08c1ffdf338df1dfc3a4774284141b2cfb76a31"
-    },
-    {
-      "rom_start": 9648,
-      "rom_end": 10000,
-      "size": 352,
-      "sha256": "4fe1652b51e668969f315ad20a0e29966f2af70293aaf6589f976db65565a88c"
-    },
-    {
-      "rom_start": 10128,
-      "rom_end": 10312,
-      "size": 184,
-      "sha256": "c90d9ee0ff9fa1677ac5e32a3acf8fa3bb1191797af1e447155036ca0ebe4bfd"
-    },
-    {
-      "rom_start": 10336,
-      "rom_end": 10480,
-      "size": 144,
-      "sha256": "2d16fc3ef1778ab5977c5fd23eed3b852b40273ad10cfebb296ad44b9aae21c9"
-    },
-    {
-      "rom_start": 10488,
-      "rom_end": 10624,
-      "size": 136,
-      "sha256": "803659c21620de36dce460d14fdc92b09322d43af7a69e64d31c844634940bbc"
-    },
-    {
-      "rom_start": 10640,
-      "rom_end": 10736,
-      "size": 96,
-      "sha256": "f2c236f8c68347c6636bd7d0cabda2bea940030e3a59a5cd2358a81c05fc51cc"
-    },
-    {
-      "rom_start": 10784,
-      "rom_end": 11288,
-      "size": 504,
-      "sha256": "7b875c21484b220069b92b5598593f0eef19f6e35b5aa11acaa1cd9175e70e44"
-    },
-    {
-      "rom_start": 11296,
-      "rom_end": 11408,
-      "size": 112,
-      "sha256": "619556f0636b66d9f2555a12c19ba9e3b3a1b9de4799838101cbc0890b95cf11"
-    },
-    {
-      "rom_start": 11488,
-      "rom_end": 11536,
-      "size": 48,
-      "sha256": "2558c73da6ab7573a7c7374284ecdc4c0bc22e5f60987d2f48d0aeca12a2bab6"
-    },
-    {
-      "rom_start": 11808,
-      "rom_end": 11856,
-      "size": 48,
-      "sha256": "be62569c07df8fb1c51c0a5acf7c52a7b30a9ba17bcca7d2b641c4da965fea12"
+      "rom_start": 4156,
+      "rom_end": 11968,
+      "size": 7812,
+      "sha256": "462798590dbffa60a0ec5210b2d2b223881ece9910ae2cc0afdaf583a7544b4d"
     },
     {
       "rom_start": 166504,
@@ -236,7 +80,7 @@
   "inputs": [
     {
       "path": "config/data/units.json",
-      "sha256": "0fa608a4078c7f3751844890f47c8c590d92928a433f81711f04300f29970ee2"
+      "sha256": "d6c0681202186d2567272e773155787c76b387e87f9aef47f39f83fab091e8e7"
     },
     {
       "path": "config/link_units.json",
@@ -313,6 +157,10 @@
     {
       "path": "src/data/scene_light_state.c",
       "sha256": "a86b84ccc5e6f0ece0217776fe919fc4647469bf40b8220bbfd7eaaeab6bf622"
+    },
+    {
+      "path": "src/data/startup_rodata.c",
+      "sha256": "431830adaa08a6fd73388614da36912bc5dae71e1ea3ec625f75d57b73f39399"
     },
     {
       "path": "src/game/add_scaled_values.c",
@@ -3777,6 +3625,29 @@
   ],
   "sections": [
     {
+      "source": "src/data/startup_rodata.c",
+      "pipeline": "sn",
+      "manifest": "config/data/units.json",
+      "data_unit_id": "startup_rodata",
+      "section": ".rodata",
+      "rom_start": 4156,
+      "rom_end": 11968,
+      "size": 7812,
+      "vram_start": 2147484732,
+      "sha256": "462798590dbffa60a0ec5210b2d2b223881ece9910ae2cc0afdaf583a7544b4d",
+      "compiler_flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "symbols": {},
+      "object_sha256": "bcc0ad2b97f0bbc74a9000d5a0a4df4499958dda233805ddd580de6706aab8ef",
+      "provider": "typed-initialized-data"
+    },
+    {
       "source": "src/game/skin_model_vertices.c",
       "text_rom_start": 43376,
       "manifest": "config/matching_sn.tsv",
@@ -4612,7 +4483,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "0bf1bc61f6115e3d533be53a064afdde8aa36c3f54fda4c1e2a6daf5cb8767e2",
+      "object_sha256": "517d6261da9c0b1b4ebb393bbace39fa2ce41085ccbe6d89b1df325f2af1ce00",
       "provider": "typed-initialized-data"
     },
     {
@@ -4657,7 +4528,7 @@
         "-meb"
       ],
       "symbols": {},
-      "object_sha256": "c71dadcfa091eacc923621eb1cad033a3972474eb58105ff0e2c220642ffabfe",
+      "object_sha256": "4e3976526c46d81ba0c060ce3c341d43b7754ca5ec6b3c23f56dbd0fd5c3d9d8",
       "provider": "typed-initialized-data"
     },
     {
@@ -5000,10 +4871,10 @@
     }
   ],
   "verification": {
-    "units": 653,
-    "exact_units": 653,
+    "units": 654,
+    "exact_units": 654,
     "text_units": 648,
-    "data_only_units": 2,
+    "data_only_units": 3,
     "rsp_programs": 3
   },
   "source_image_provider": {
@@ -5228,7 +5099,7 @@
     "inputs": [
       {
         "path": "config/data/units.json",
-        "sha256": "0fa608a4078c7f3751844890f47c8c590d92928a433f81711f04300f29970ee2"
+        "sha256": "d6c0681202186d2567272e773155787c76b387e87f9aef47f39f83fab091e8e7"
       },
       {
         "path": "src/data/audio_delay_coefficients.c",
@@ -5237,6 +5108,10 @@
       {
         "path": "src/data/scene_light_state.c",
         "sha256": "a86b84ccc5e6f0ece0217776fe919fc4647469bf40b8220bbfd7eaaeab6bf622"
+      },
+      {
+        "path": "src/data/startup_rodata.c",
+        "sha256": "431830adaa08a6fd73388614da36912bc5dae71e1ea3ec625f75d57b73f39399"
       },
       {
         "path": "tools/build_initialized_data.py",
@@ -5451,6 +5326,21 @@
     ],
     "units": [
       {
+        "unit_id": "startup_rodata",
+        "pipeline": "sn",
+        "compiler_flags": [
+          "-O2",
+          "-G0",
+          "-mcpu=vr4300",
+          "-mips3",
+          "-mhard-float",
+          "-meb"
+        ],
+        "source": "src/data/startup_rodata.c",
+        "object_sha256": "bcc0ad2b97f0bbc74a9000d5a0a4df4499958dda233805ddd580de6706aab8ef",
+        "symbols": {}
+      },
+      {
         "unit_id": "audio_delay_coefficients",
         "pipeline": "sn",
         "compiler_flags": [
@@ -5462,7 +5352,7 @@
           "-meb"
         ],
         "source": "src/data/audio_delay_coefficients.c",
-        "object_sha256": "0bf1bc61f6115e3d533be53a064afdde8aa36c3f54fda4c1e2a6daf5cb8767e2",
+        "object_sha256": "517d6261da9c0b1b4ebb393bbace39fa2ce41085ccbe6d89b1df325f2af1ce00",
         "symbols": {}
       },
       {
@@ -5477,11 +5367,11 @@
           "-meb"
         ],
         "source": "src/data/scene_light_state.c",
-        "object_sha256": "c71dadcfa091eacc923621eb1cad033a3972474eb58105ff0e2c220642ffabfe",
+        "object_sha256": "4e3976526c46d81ba0c060ce3c341d43b7754ca5ec6b3c23f56dbd0fd5c3d9d8",
         "symbols": {}
       }
     ],
-    "unique_initialized_bytes": 628,
+    "unique_initialized_bytes": 8440,
     "placement_inference": false,
     "post_build_rom_comparison": true,
     "new_function_bodies": 0
@@ -5627,10 +5517,10 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-tyful4i6/rspboot/code.bin",
+          "/tmp/sydney-rsp-vsigg2uo/rspboot/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-tyful4i6/rspboot/symbols.txt",
-          "/tmp/sydney-rsp-tyful4i6/rspboot/rspboot_aligned.s"
+          "/tmp/sydney-rsp-vsigg2uo/rspboot/symbols.txt",
+          "/tmp/sydney-rsp-vsigg2uo/rspboot/rspboot_aligned.s"
         ],
         "assembler_log": "",
         "alignment_transform": ".close -> .align 16; .close"
@@ -5645,10 +5535,10 @@
           "-C",
           "/home/steve/projects/Sydney2000/tools/f3dex2",
           "ARMIPS=/home/steve/projects/Sydney2000/.toolchain/armips/armips",
-          "BUILD_DIR=/tmp/sydney-rsp-tyful4i6/f3dex2_2_08_fifo",
+          "BUILD_DIR=/tmp/sydney-rsp-vsigg2uo/f3dex2_2_08_fifo",
           "F3DEX2_2.08"
         ],
-        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-tyful4i6/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
+        "assembler_log": "\u001b[0;34mCreating directory /tmp/sydney-rsp-vsigg2uo/f3dex2_2_08_fifo/F3DEX2_2.08\u001b[0m\n\u001b[0;34mBuilding microcode: F3DEX2_2.08: Banjo-Tooie\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 code matches\u001b[0m\n  \u001b[0;32mF3DEX2_2.08 data matches\u001b[0m\n",
         "alignment_transform": null
       },
       {
@@ -5659,9 +5549,9 @@
           "/home/steve/projects/Sydney2000/.toolchain/armips/armips",
           "-strequ",
           "CODE_FILE",
-          "/tmp/sydney-rsp-tyful4i6/n_asp_main/code.bin",
+          "/tmp/sydney-rsp-vsigg2uo/n_asp_main/code.bin",
           "-sym2",
-          "/tmp/sydney-rsp-tyful4i6/n_asp_main/symbols.txt",
+          "/tmp/sydney-rsp-vsigg2uo/n_asp_main/symbols.txt",
           "/home/steve/projects/Sydney2000/tools/battletanx_ga/rsp/n_aspMain.s"
         ],
         "assembler_log": "",
