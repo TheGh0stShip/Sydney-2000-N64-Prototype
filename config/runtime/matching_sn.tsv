@@ -4,7 +4,7 @@
 0x14DF40	0x8	src/runtime/return_zero.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	648cbc77d024f6d08bc8ff4e3bdf1cebf2a933937ee1cebef4690d015808bd9c
 0x14E348	0x8	src/runtime/return_second_value.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	a91128c2a8024e82a5a81ebaa08820d6607d611b8f2b68a6184fa482f74ea427
 0x14E350	0x8	src/runtime/halt_runtime.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	2ef4410053171198e6743c738883703f50b47737936babed43328ff47ff15794
-0x14E914	0x14	src/runtime/get_third_link.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	278314a3e47dce5a9092b85a73a605b53e79e9ba055ee298e0622b57acbdba81
+0x14E914	0x14	src/runtime/get_runtime_priority_deadline.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	278314a3e47dce5a9092b85a73a605b53e79e9ba055ee298e0622b57acbdba81
 0x14EF5C	0x18	src/runtime/append_output_word.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	d694ca3b7080a3edf39a6be8b7c0530b7d2d6a7ae20808ffa862b15274e5053a
 0x151544	0x8	src/runtime/set_object_callback_value.c	-O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	bb8602052abb0b6e64659e607e435047c5098e3bdb4542b5f473137c40a7e875
 0x156ACC	0x10	src/runtime/get_runtime_context.c	--symbol=runtimeContext:0x800F26CC -O2 -G0 -mcpu=vr4300 -mhard-float -meb -mips3	362bb01e204369bca3246a775cfbbd3260e503a6518ea7d7e20b729b09a465b6
@@ -50,3 +50,52 @@
 0x14FC24	0x48	src/runtime/detach_runtime_object.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6970932a4c884b06d353e3cf9551fa54c040b9eae82cd23ba1c96a0247e36eb7
 0x14E7C0	0x134	src/runtime/sift_down_runtime_priority_heap.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0a817baf7f4b3f879fd99c133d2f811fe7fd70d84581fe20fd1b9530bf4f10f0
 0x17D1EC	0x3C	src/runtime/get_runtime_asset_or_default.c	--symbol=runtimeAssets:0x800F7574 --symbol=runtimeDefaultAsset:0x800FAFC8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5a998b6a4a48eb6d7ad6ae17322734a7be4bda1fa8ce9d96777619789644802f
+0x14E928	0x108	src/runtime/remove_runtime_priority_entry.c	--symbol=runtimeQueueBoundsAssertion:0x80085D24 --symbol=runtimeQueueIndexAssertion:0x80085D34 --symbol=runtimeQueueSourceName:0x80085CC4 --symbol=func_8001C3B8:0x8001C3B8 --symbol=func_800AAED0:0x800AAED0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	82804c6d05eec42edb5d88599188cee3d2ea3c097ff36677dda2ccee824c9bce
+0x14EB94	0x114	src/runtime/insert_runtime_priority_entry.c	--symbol=func_800AB4CC:0x800AB4CC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3c390db96d20cf55bee8c99d81a5ccbf3e33f1dcdbe260c040c5407725fff474
+0x14EDBC	0x68	src/runtime/take_runtime_priority_entry.c	--symbol=runtimeQueuePoolAssertion:0x80085D10 --symbol=runtimeQueueSourceName:0x80085CC4 --symbol=func_8001C3B8:0x8001C3B8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ccbd63c4b11b1508900fc5c5ef4c1fafdf15d5d230985836da216f9b063f6aa8
+0x132F88	0x44	src/claude/func_8008F698.c	--symbol=D_801004D0:0x801004D0 --symbol=D_801003F0:0x801003F0 --symbol=D_80100310:0x80100310 --symbol=D_80100230:0x80100230 --symbol=func_800ADED4:0x800ADED4 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7c44bfda53facb19b3dcaad8fc40b4bcc61dcc50fde601eb5a0e503c25a1bf7b
+0x139C10	0x48	src/claude/func_80096320.c	--symbol=runtimeObject:0x800F11A0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d73ce45ce707b9454a8af0a609306c149f8c695b984dbd4ba61f79c3729f2703
+0x142CF4	0x4C	src/claude/func_8009F404.c	--section-base=.rdata:0x80084BA8 --symbol=sqrtf:0x8002E800 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ef3aff3be24b26b195bd0a48eeaa01578b5d4f9ed41f78ad61b2bab4aac4a3cf
+0x1457C8	0x4C	src/claude/func_800A1ED8.c	--section-base=.rdata:0x80085040 --symbol=sqrtf:0x8002E800 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7e788610d22f99cbf0917125586bb5cd23b7f6d6ab5e9108e51fee5d9cc01653
+0x146BFC	0x88	src/claude/func_800A330C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6af37ce200cb1970b4d7b7c1805a01a802f7a19f34294b5932317e9c995b9c4a
+0x146CF4	0x78	src/claude/func_800A3404.c	--symbol=runtimeServiceEnabled:0x800F1C48 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d114631189ba3294a0b32143471805171dbf2381dfb14aacc8598c66775f3a89
+0x14E21C	0x12C	src/runtime/initialize_runtime_heap.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	cda015305d5b5c533d6c42e242f88190eefa5bae95896bf28becc9cd0b2b7f7a
+0x14EA30	0x100	src/claude/func_800AB140.c	--symbol=runtimeDispatchContext:0x800F272C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c9c3ca8cceb383664ddd865a56ae77e5b63a7574ff526e709f236771e696497b
+0x14EF74	0x84	src/claude/func_800AB684.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	abe47dbe88d24849b875a2d39d3bf131a435105ec4bed530cfc86c0129bedf6a
+0x14F10C	0xAC	src/claude/func_800AB81C.c	--symbol=D_800F272C:0x800F272C --symbol=D_800F2640:0x800F2640 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	991c7662a54f20d5e1de83edb6d4153b642245e256aec79e75c0bd9dcc507d45
+0x14F1B8	0x6C	src/claude/func_800AB8C8.c	--symbol=D_800F2744:0x800F2744 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	96fe1e8157c5959a59252b5888459342d5ebf1e8a5ba2f544d1b6b6aa987c61d
+0x14F310	0x34	src/claude/func_800ABA20.c	--symbol=D_800F2758:0x800F2758 --symbol=func_800AB708:0x800AB708 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c58f4ecc981cfb204b8140de1ff9624a42bb0e16f5336113f395ed53e0e9a8c8
+0x151460	0xA0	src/claude/func_800ADB70.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	19b06572402a63d82f95c3f4ba5faa7327bc24ebd2d89325ddc9e549d05d56df
+0x151694	0x6C	src/claude/func_800ADDA4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	273efa5cadd0ba2d4059b861b89a0e73d0093cd2e516041427a5ef6733fe53c2
+0x151DEC	0x6C	src/claude/func_800AE4FC.c	--section-base=.rdata:0x80086040 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	537cc0500d7011fc9fbc020da7a6ace7d2b4fcc12b4c00dba050c6bff8c8ad62
+0x151E58	0x44	src/claude/func_800AE568.c	--symbol=D_80085FC8:0x80085FC8 --symbol=func_800AC3D4:0x800AC3D4 --symbol=func_800AED80:0x800AED80 --symbol=func_800AE4FC:0x800AE4FC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	51fea248a3fe474bd8e89beaa8b212bca81583e628fd0d910b0830126d36f055
+0x156BC4	0x44	src/runtime/set_child_output_mode.c	--symbol=runtimeOutputMode:0x800F26D6 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6690aa8ab4f8cf265ab07e41feb68c9349a313305b7ff01f3ccf59d570b11cc8
+0x156C08	0xD0	src/claude/func_800B3318.c	--symbol=glyphTable:0x800FCB5C --symbol=lineLimit:0x800F26D0 --symbol=runCursor:0x80100FEA --symbol=runGlyphCount:0x80100FE8 --symbol=runOutput:0x80100FEC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0afc86c843fc3c2f66c16bbf8efa72adf3f7537d8fd8de04d2cbcc11bb4ad553
+0x156EFC	0x98	src/claude/func_800B360C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	36622db910a6c79f3a2da2106caff583797ac1f7a52ecdc9fe131b734da1fef1
+0x15F394	0x60	src/runtime/advance_input_playback.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9a7e831f4c1cad6a34ecc8292082c9406fea0d536c5227be13ed65fb82c96a42
+0x15F668	0xA0	src/claude/func_800BBD78.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c697a9ac60e8d37e8573817a5c8d446458a4b24825578a222dad95fccebfaa93
+0x15FAD8	0x8C	src/claude/func_800BC1E8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1e7bb002c8e41df1aa0a018df766986f74bc6b9381d02352926a3c967420f46c
+0x163800	0x9C	src/claude/func_800BFF10.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9825cb6704b2ba982a298905a2e7e16c9c83e197cfc1eede964c743ee0c4c715
+0x16A3B0	0x50	src/claude/func_800C6AC0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5fd22d8f8b51def1dd72819a6ba3f81c0e7c4dfcf367f8938db1b3e4d7bb1a49
+0x176B7C	0xC0	src/claude/func_800D328C.c	--section-base=.rdata:0x80089F78 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	294852706c1b34012f47491bd5ee738ac31501ddbb7919c2b9cd950732e4b2a8
+0x176C90	0x58	src/claude/func_800D33A0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0b9f42bf909386ccbcf7e584d17fdf9a8dda253b56899e10cc1f0bed3cf3761e
+0x176D50	0xA4	src/claude/func_800D3460.c	--symbol=D_80089F28:0x80089F28 --symbol=D_80086598:0x80086598 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e585a73428a1372cbb81258541a17ead7a5fec5ee925381f6d96f6cf71973ead
+0x178954	0xA4	src/claude/func_800D5064.c	--symbol=D_800F2AD8:0x800F2AD8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e086bb3a337b762835cb0e78a69192918d3ebb16788ba68df3516846e01d2467
+0x1789F8	0x9C	src/claude/func_800D5108.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	a41afaf0cb183ed16fdb921fbd94ff2857bc63e0a85b1695389715a8e3045ad3
+0x178E78	0xA8	src/claude/func_800D5588.c	--symbol=D_800F5900:0x800F5900 --symbol=D_8008A168:0x8008A168 --symbol=D_8008A038:0x8008A038 --symbol=D_8008A090:0x8008A090 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c42b19b3701866ab59b3666fda4a624242e683fe6d960fb45b082fb77d100225
+0x17D228	0x58	src/claude/func_800D9938.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6a79337315116517521cdebb721993e010b48f2b37f2df5058a859e0fd65fd9d
+0x17D280	0x88	src/claude/func_800D9990.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	c78424470cf1058e2bd7c8687615bea4bf0df6ec0ebfebf3e6e150eb7b0bd9b7
+0x17E488	0x70	src/claude/func_800DAB98.c	--symbol=D_800FC270:0x800FC270 --symbol=D_800FC274:0x800FC274 --symbol=D_800FC275:0x800FC275 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9b915f82ba914e48242aa8a335d7fa4513f6560dd8a82d76614f75078e5374ae
+0x17E530	0xC4	src/claude/func_800DAC40.c	--symbol=saveBlock:0x800FC270 --symbol=defaultSettings:0x800FC278 --symbol=defaultRecords:0x800FC594 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	ecb9595c2694a5c6a8e43948a6ca9d94ab0eda6e0c2f679e33c892dfdcf6db85
+0x17E8AC	0x54	src/claude/func_800DAFBC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f2a31c502d868d54a9cf1dde6bd3fa9cd91781f8df623b068295bab707034188
+0x17EA14	0xA0	src/claude/func_800DB124.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	dc0ac97c4b6c71c81ab203cb540a1b48b941e4940475a3c32096558d78e876c9
+0x18D99C	0x44	src/claude/func_800EA0AC.c	--symbol=runtimeObject:0x800FFD30 --symbol=runtimeCompanion:0x80103D10 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	dbdec1ef4a086e02a7c675f053751a7538039e9e31f0ff2a187ab997ab51df0b
+0x18DE94	0x58	src/claude/func_800EA5A4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	876f8152e9ef636cd9b0556065f0d7548107bdeca979dd1a8631d0a6b4594b4e
+0x157160	0x28C	src/runtime/copy_runtime_memory.c	--symbol=runtimeCopyStatistics:0x80101040 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -fno-strength-reduce	7bc0a501c0b3fa57046b255f943269a679b4bf7629bae2d4e8470af2b760e9d9
+0x1573EC	0xF4	src/runtime/fill_runtime_memory.c	--symbol=runtimeCopyStatistics:0x80101040 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -fno-strength-reduce	9d63243d7ab3dd996ba686d1142b87038a828db092d3f2ffb7bdaa57826c75f4
+0x1574E8	0x3C	src/runtime/initialize_runtime_object_child_state.c	--symbol=func_800AE4FC:0x800AE4FC --symbol=func_800AED04:0x800AED04 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	95a84be409e3fc176c94eac0e07a9b831543818219d6aaba8f0ee41c58c220f5
+0x157524	0xB4	src/runtime/update_extended_runtime_object.c	--symbol=func_800B4B40:0x800B4B40 --symbol=func_800AE1EC:0x800AE1EC --symbol=func_800ADFAC:0x800ADFAC --symbol=func_800AE304:0x800AE304 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5fdd5d606f9218867737fea9508e9f711cbd41cd1230695c9dff418e30d58652
+0x1575D8	0x138	src/runtime/apply_runtime_object_properties.c	--symbol=runtimePropertyClock:0x800F2744 --symbol=func_800AEB68:0x800AEB68 --symbol=func_800B4B40:0x800B4B40 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	40d4cd4c94f56839706b45045e6f94a1d980874b1517747fbcbc08f57daebb3d
+0x157710	0x24	src/runtime/destroy_runtime_child_object.c	--symbol=runtimeChildDispatch:0x80086640 --symbol=func_800AE4D8:0x800AE4D8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5a7eacc73d6dd5b6914002b62838104a92f8c4d05b931f6ddf4ddfb8aeb4667a
+0x157734	0x3C	src/runtime/construct_runtime_child_object.c	--symbol=runtimeChildDispatch:0x80086640 --symbol=func_800AE568:0x800AE568 --symbol=func_800B3BF8:0x800B3BF8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e0b0654d672734c704090bca5cda22b2de845a55c226c288e3a89a184cb3dd75
+0x157778	0x44	src/runtime/initialize_runtime_animation_state.c	--section-base=.rdata:0x80086748 --symbol=func_800AE4FC:0x800AE4FC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f03a064c3def6e82eded540301d79a5422058b7569debb7270262797807cee4a
