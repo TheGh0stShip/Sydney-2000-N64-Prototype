@@ -1,20 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CB724\n.ent func_800CB724\n"
-    "func_800CB724:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "li $2,1\n"
-    "sw $31,20($29)\n"
-    "jal func_800CB5D8\n"
-    "sh $2,3164($16)\n"
-    "jal func_800CB428\n"
-    "move $4,$16\n"
-    "jal func_800CAAC8\n"
-    "move $4,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800CB724\n.set at\n.set reorder\n");
+extern void func_800CB5D8(void *object);
+extern void func_800CB428(void *object);
+extern void func_800CAAC8(void *object);
+
+void func_800CB724(unsigned char *object)
+{
+    *(short *)(object + 3164) = 1;
+    func_800CB5D8(object);
+    func_800CB428(object);
+    func_800CAAC8(object);
+}

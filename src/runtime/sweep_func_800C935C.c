@@ -1,20 +1,9 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C935C\n.ent func_800C935C\n"
-    "func_800C935C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "addiu $4,$16,1960\n"
-    "sw $31,20($29)\n"
-    "lw $2,192($4)\n"
-    "ori $2,$2,0x20\n"
-    "jal func_800ADC38\n"
-    "sw $2,192($4)\n"
-    "li $2,1\n"
-    "sh $2,186($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800C935C\n.set at\n.set reorder\n");
+extern void func_800ADC38(void *object);
+
+void func_800C935C(unsigned char *object)
+{
+    unsigned char *nested = object + 1960;
+    *(unsigned int *)(nested + 192) |= 0x20;
+    func_800ADC38(nested);
+    *(short *)(object + 186) = 1;
+}

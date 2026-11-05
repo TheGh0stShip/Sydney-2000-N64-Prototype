@@ -1,18 +1,13 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011DF94\n.ent func_8011DF94\n"
-    "func_8011DF94:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "sw $0,236($4)\n"
-    "sw $0,240($4)\n"
-    "sw $0,244($4)\n"
-    "sw $0,248($4)\n"
-    "sw $0,252($4)\n"
-    "sh $0,256($4)\n"
-    "jal func_8008115C\n"
-    "sw $0,172($4)\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8011DF94\n.set at\n.set reorder\n");
+extern void func_8008115C(void *object);
+
+void func_8011DF94(unsigned char *object)
+{
+    *(int *)(object + 236) = 0;
+    *(int *)(object + 240) = 0;
+    *(int *)(object + 244) = 0;
+    *(int *)(object + 248) = 0;
+    *(int *)(object + 252) = 0;
+    *(unsigned short *)(object + 256) = 0;
+    *(int *)(object + 172) = 0;
+    func_8008115C(object);
+}

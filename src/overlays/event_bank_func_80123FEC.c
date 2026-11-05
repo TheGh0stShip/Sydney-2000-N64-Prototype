@@ -1,17 +1,10 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80123FEC\n.ent func_80123FEC\n"
-    "func_80123FEC:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,1\n"
-    "sw $31,16($29)\n"
-    "sb $5,10969($4)\n"
-    "sb $6,10970($4)\n"
-    "sb $7,10971($4)\n"
-    "sw $2,11008($4)\n"
-    "jal func_8000673C\n"
-    "addiu $4,$4,10968\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80123FEC\n.set at\n.set reorder\n");
+extern void func_8000673C(void *object);
+
+void func_80123FEC(unsigned char *object, unsigned char a, unsigned char b, unsigned char c)
+{
+    object[10969] = a;
+    object[10970] = b;
+    object[10971] = c;
+    *(int *)(object + 11008) = 1;
+    func_8000673C(object + 10968);
+}

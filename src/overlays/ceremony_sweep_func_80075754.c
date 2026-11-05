@@ -1,70 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80075754\n.ent func_80075754\n"
-    "func_80075754:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "addiu $4,$16,4904\n"
-    "sw $31,24($29)\n"
-    "jal func_8007F1A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,4660\n"
-    "jal func_800A9C2C\n"
-    "li $5,2\n"
-    "addiu $4,$16,4644\n"
-    "jal func_800AF064\n"
-    "li $5,2\n"
-    "addiu $4,$16,4628\n"
-    "jal func_800AF064\n"
-    "li $5,2\n"
-    "addiu $4,$16,4416\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,4204\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,3992\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,3780\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,3568\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,3356\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,3168\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,2764\n"
-    "jal func_800BA1B4\n"
-    "li $5,2\n"
-    "addiu $4,$16,2360\n"
-    "jal func_800BA1B4\n"
-    "li $5,2\n"
-    "addiu $4,$16,1956\n"
-    "jal func_800BA1B4\n"
-    "li $5,2\n"
-    "addiu $4,$16,868\n"
-    "jal func_800AE4D8\n"
-    "li $5,2\n"
-    "addiu $4,$16,500\n"
-    "jal func_800A86AC\n"
-    "li $5,2\n"
-    "addiu $4,$16,284\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "jal func_800AC3A4\n"
-    "move $5,$17\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80075754\n.set at\n.set reorder\n");
+extern void func_8007F1A4(void *object, int mode);
+extern void func_800A9C2C(void *object, int mode);
+extern void func_800AF064(void *object, int mode);
+extern void func_800ADE84(void *object, int mode);
+extern void func_800AC3A4(void *object, void *value);
+extern void func_800BA1B4(void *object, int mode);
+extern void func_800AE4D8(void *object, int mode);
+extern void func_800A86AC(void *object, int mode);
+
+void func_80075754(unsigned char *object, void *value)
+{
+    func_8007F1A4(object + 4904, 2);
+    func_800A9C2C(object + 4660, 2);
+    func_800AF064(object + 4644, 2);
+    func_800AF064(object + 4628, 2);
+    func_800ADE84(object + 4416, 2);
+    func_800ADE84(object + 4204, 2);
+    func_800ADE84(object + 3992, 2);
+    func_800ADE84(object + 3780, 2);
+    func_800ADE84(object + 3568, 2);
+    func_800ADE84(object + 3356, 2);
+    func_800AC3A4(object + 3168, (void *)2);
+    func_800BA1B4(object + 2764, 2);
+    func_800BA1B4(object + 2360, 2);
+    func_800BA1B4(object + 1956, 2);
+    func_800AE4D8(object + 868, 2);
+    func_800A86AC(object + 500, 2);
+    func_800ADE84(object + 284, 2);
+    func_800AC3A4(object, value);
+}
