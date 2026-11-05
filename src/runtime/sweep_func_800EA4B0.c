@@ -1,35 +1,19 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EA4B0\n.ent func_800EA4B0\n"
-    "func_800EA4B0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,180($17)\n"
-    "lw $16,188($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "beqz $16,L_800EA500\n"
-    "li $2,58\n"
-    "move $4,$16\n"
-    "L_800EA4E8:\n"
-    "lw $16,12($4)\n"
-    "jal func_800EA368\n"
-    "nop\n"
-    "bnez $16,L_800EA4E8\n"
-    "move $4,$16\n"
-    "li $2,58\n"
-    "L_800EA500:\n"
-    "sw $0,184($17)\n"
-    "sw $0,188($17)\n"
-    "sw $2,0($17)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800EA4B0\n.set at\n.set reorder\n");
+typedef void (*DestroyCallback)(void *object);
+extern void func_800EA368(void *entry);
+
+void func_800EA4B0(unsigned char *object)
+{
+    unsigned char *descriptor = *(unsigned char **)(object + 180);
+    unsigned char *entry = *(unsigned char **)(object + 188);
+    DestroyCallback destroy = *(DestroyCallback *)(descriptor + 28);
+
+    destroy(object + *(short *)(descriptor + 24));
+    while (entry != 0) {
+        unsigned char *next = *(unsigned char **)(entry + 12);
+        func_800EA368(entry);
+        entry = next;
+    }
+    *(void **)(object + 184) = 0;
+    *(void **)(object + 188) = 0;
+    *(int *)object = 58;
+}

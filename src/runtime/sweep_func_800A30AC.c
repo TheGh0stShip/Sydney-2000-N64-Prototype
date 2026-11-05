@@ -1,20 +1,11 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A30AC\n.ent func_800A30AC\n"
-    "func_800A30AC:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,10\n"
-    "sw $31,16($29)\n"
-    "sw $2,84($4)\n"
-    "sh $0,88($4)\n"
-    "sh $0,90($4)\n"
-    "sw $0,92($4)\n"
-    "sw $0,40($4)\n"
-    "addiu $4,$4,44\n"
-    "move $5,$0\n"
-    "jal func_800B3AFC\n"
-    "li $6,40\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A30AC\n.set at\n.set reorder\n");
+extern void func_800B3AFC(void *destination, int value, int size);
+
+void func_800A30AC(unsigned char *object)
+{
+    *(int *)(object + 84) = 10;
+    *(short *)(object + 88) = 0;
+    *(short *)(object + 90) = 0;
+    *(int *)(object + 92) = 0;
+    *(int *)(object + 40) = 0;
+    func_800B3AFC(object + 44, 0, 40);
+}

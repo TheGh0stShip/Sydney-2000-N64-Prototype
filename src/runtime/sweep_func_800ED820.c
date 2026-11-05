@@ -1,34 +1,15 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800ED820\n.ent func_800ED820\n"
-    "func_800ED820:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$5\n"
-    "addiu $4,$4,248\n"
-    "sdc1 $f20,24($29)\n"
-    "mtc1 $6,$f20\n"
-    "sw $31,20($29)\n"
-    "jal func_800EA114\n"
-    "li $5,-1\n"
-    "lwc1 $f0,0($16)\n"
-    "swc1 $f0,12($2)\n"
-    "lwc1 $f0,4($16)\n"
-    "swc1 $f0,16($2)\n"
-    "lwc1 $f0,8($16)\n"
-    "li $3,1920\n"
-    "sw $3,4($2)\n"
-    "li $3,30\n"
-    "sh $3,2($2)\n"
-    "li $3,1\n"
-    "swc1 $f20,36($2)\n"
-    "sw $0,8($2)\n"
-    "sb $3,0($2)\n"
-    "sb $0,1($2)\n"
-    "swc1 $f0,20($2)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800ED820\n.set at\n.set reorder\n");
+extern unsigned char *func_800EA114(void *object, int index);
+
+void func_800ED820(unsigned char *object, const float *position, float strength)
+{
+    unsigned char *entry = func_800EA114(object + 248, -1);
+    *(float *)(entry + 12) = position[0];
+    *(float *)(entry + 16) = position[1];
+    *(float *)(entry + 20) = position[2];
+    *(int *)(entry + 4) = 1920;
+    *(unsigned short *)(entry + 2) = 30;
+    *(float *)(entry + 36) = strength;
+    *(void **)(entry + 8) = 0;
+    entry[0] = 1;
+    entry[1] = 0;
+}

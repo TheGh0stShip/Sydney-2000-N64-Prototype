@@ -1,35 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9B18\n.ent func_800E9B18\n"
-    "func_800E9B18:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,640($17)\n"
-    "move $16,$5\n"
-    "beq $3,$16,L_800E9B74\n"
-    "nop\n"
-    "beql $3,$0,L_800E9B5C\n"
-    "sw $16,640($17)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "sw $16,640($17)\n"
-    "L_800E9B5C:\n"
-    "lw $2,180($16)\n"
-    "move $5,$17\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_800E9B74:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E9B18\n.set at\n.set reorder\n");
+typedef void (*DestroyCallback)(void *object);
+typedef void (*InitializeCallback)(void *object, void *owner);
+
+void func_800E9B18(unsigned char *owner, unsigned char *replacement)
+{
+    unsigned char *current = *(unsigned char **)(owner + 640);
+    unsigned char *descriptor;
+
+    if (current != replacement) {
+        if (current != 0) {
+            descriptor = *(unsigned char **)(current + 180);
+            ((DestroyCallback)*(void **)(descriptor + 28))(
+                current + *(short *)(descriptor + 24));
+        }
+        *(unsigned char **)(owner + 640) = replacement;
+        descriptor = *(unsigned char **)(replacement + 180);
+        ((InitializeCallback)*(void **)(descriptor + 20))(
+            replacement + *(short *)(descriptor + 16), owner);
+    }
+}

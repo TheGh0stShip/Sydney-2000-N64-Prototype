@@ -1,29 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A5DDC\n.ent func_800A5DDC\n"
-    "func_800A5DDC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "sb $5,252($16)\n"
-    "andi $5,$5,0xff\n"
-    "beqz $5,L_800A5E14\n"
-    "nop\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,4572\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,4784\n"
-    "j L_800A5E24\n"
-    "nop\n"
-    "L_800A5E14:\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,4572\n"
-    "jal func_800ADC38\n"
-    "addiu $4,$16,4784\n"
-    "L_800A5E24:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A5DDC\n.set at\n.set reorder\n");
+extern void func_800ADC1C(void *object);
+extern void func_800ADC38(void *object);
+
+void func_800A5DDC(unsigned char *object, unsigned char enabled)
+{
+    object[252] = enabled;
+    if (enabled != 0) {
+        func_800ADC1C(object + 4572);
+        func_800ADC1C(object + 4784);
+    } else {
+        func_800ADC38(object + 4572);
+        func_800ADC38(object + 4784);
+    }
+}

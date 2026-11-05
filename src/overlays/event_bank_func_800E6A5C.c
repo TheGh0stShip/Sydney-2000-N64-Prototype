@@ -1,27 +1,12 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E6A5C\n.ent func_800E6A5C\n"
-    "func_800E6A5C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "li $2,21\n"
-    "sw $31,28($29)\n"
-    "sh $2,406($16)\n"
-    "li $2,24\n"
-    "sh $2,408($16)\n"
-    "li $2,-1\n"
-    "lh $5,406($16)\n"
-    "sh $2,410($16)\n"
-    "sb $0,404($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,608($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,3056($16)\n"
-    "swc1 $f0,608($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E6A5C\n.set at\n.set reorder\n");
+extern void func_800B9E9C(void *object, int first, int second, int third, int fourth);
+
+void func_800E6A5C(unsigned char *object)
+{
+    *(short *)(object + 406) = 21;
+    *(short *)(object + 408) = 24;
+    *(short *)(object + 410) = -1;
+    object[404] = 0;
+    func_800B9E9C(object, *(short *)(object + 406), -1,
+                   *(int *)(object + 608), 0);
+    *(float *)(object + 608) = *(float *)(object + 3056);
+}

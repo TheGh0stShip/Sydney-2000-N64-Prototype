@@ -1,34 +1,17 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80104B58\n.ent func_80104B58\n"
-    "func_80104B58:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "addiu $4,$16,1004\n"
-    "li $5,2\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-29944\n"
-    "sw $31,24($29)\n"
-    "sw $2,180($16)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-26800\n"
-    "jal func_800ADE84\n"
-    "sw $2,180($4)\n"
-    "addiu $4,$16,792\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "move $5,$17\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-29768\n"
-    "jal func_800BA1B4\n"
-    "sw $2,180($4)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80104B58\n.set at\n.set reorder\n");
+extern unsigned char D_80078B08[];
+extern unsigned char D_80078BB8[];
+extern unsigned char D_80089750[];
+extern void func_800ADE84(void *object, int mode);
+extern void func_800BA1B4(void *object, int mode);
+
+void func_80104B58(unsigned char *object, int mode)
+{
+    unsigned char *part = object + 1004;
+
+    *(void **)(object + 180) = D_80078B08;
+    *(void **)(part + 180) = D_80089750;
+    func_800ADE84(part, 2);
+    func_800ADE84(object + 792, 2);
+    *(void **)(object + 180) = D_80078BB8;
+    func_800BA1B4(object, mode);
+}

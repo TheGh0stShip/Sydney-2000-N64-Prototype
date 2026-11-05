@@ -1,25 +1,10 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E6B8C\n.ent func_800E6B8C\n"
-    "func_800E6B8C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lwc1 $f12,796($16)\n"
-    "jal func_80038550\n"
-    "cvt.d.s $f12,$f12\n"
-    "lwc1 $f2,2772($16)\n"
-    "cvt.s.d $f0,$f0\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800E6BC8\n"
-    "nop\n"
-    "jal func_8007B614\n"
-    "move $4,$16\n"
-    "L_800E6BC8:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800E6B8C\n.set at\n.set reorder\n");
+extern double func_80038550(double value);
+extern void func_8007B614(void *object);
+
+void func_800E6B8C(unsigned char *object)
+{
+    float value = (float)func_80038550((double)*(float *)(object + 796));
+    if (value <= *(float *)(object + 2772)) {
+        func_8007B614(object);
+    }
+}
