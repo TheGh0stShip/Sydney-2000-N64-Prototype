@@ -2177,3 +2177,6 @@
 0xe2ea8	0x5c	src/overlays/event_bank_func_800E2EA8.c	--symbol=D_800FC270:0x800FC270 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1dd7259b5947d44c01ea0077cd284ec85d135fb73b81c6bb0ec2e0905a1a4365
 0xd5060	0x5c	src/overlays/event_bank_func_800D5060.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	80abb632c4b80dcd63dc8a3c745943c70f42be3d9ebaea2855ed4bc407c55858
 0x126b6c	0x2c	src/overlays/event_bank_func_80126B6C.c	--symbol=D_8008142C:0x8008142C -mno-split-addresses -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	646aae1af2fed16ffb22627b2c55dfd2ed4d3bffff578a9a9b8a10a3d60fc596
+0x126fd8	0x18	src/overlays/event_bank_func_80126FD8.c	--symbol=D_80081430:0x80081430 -mno-split-addresses -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9735cae183057abc87de97110996d2c4ec4d4bc9fd7da424fee451ce475220b0
+0x126ff0	0x14	src/overlays/event_bank_func_80126FF0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0b4594bf7b665f875a24002c9ee7218324fb134d7de4e6d3a3e864ed5ffed680
+0x87b84	0x60	src/overlays/event_bank_func_80087B84.c	--symbol=D_800F13F0:0x800F13F0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3d4953c029202e920afe130f36088f08acfee3a054002d0b443d500bb6a61347
