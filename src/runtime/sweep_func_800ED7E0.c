@@ -1,22 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800ED7E0\n.ent func_800ED7E0\n"
-    "func_800ED7E0:\n"
-    "addiu $29,$29,-24\n"
-    "beqz $5,L_800ED814\n"
-    "sw $31,16($29)\n"
-    "addiu $4,$4,192\n"
-    "jal func_800EA114\n"
-    "move $5,$0\n"
-    "li $3,1920\n"
-    "sw $3,4($2)\n"
-    "li $3,1\n"
-    "sh $0,2($2)\n"
-    "sw $0,8($2)\n"
-    "sb $3,0($2)\n"
-    "sb $0,1($2)\n"
-    "L_800ED814:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800ED7E0\n.set at\n.set reorder\n");
+extern unsigned char *func_800EA114(void *object, int index);
+
+void func_800ED7E0(unsigned char *object, int enabled)
+{
+    unsigned char *entry;
+    if (enabled != 0) {
+        entry = func_800EA114(object + 192, 0);
+        *(int *)(entry + 4) = 1920;
+        *(unsigned short *)(entry + 2) = 0;
+        *(void **)(entry + 8) = 0;
+        entry[0] = 1;
+        entry[1] = 0;
+    }
+}

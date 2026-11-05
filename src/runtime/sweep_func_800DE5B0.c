@@ -1,23 +1,14 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DE5B0\n.ent func_800DE5B0\n"
-    "func_800DE5B0:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "sw $31,20($29)\n"
-    "jal func_800DE424\n"
-    "move $16,$4\n"
-    "lw $4,188($16)\n"
-    "beqz $4,L_800DE5E4\n"
-    "nop\n"
-    "jal func_800E8714\n"
-    "nop\n"
-    "lw $4,188($16)\n"
-    "jal func_800E90AC\n"
-    "move $5,$0\n"
-    "L_800DE5E4:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800DE5B0\n.set at\n.set reorder\n");
+extern void func_800DE424(void *object);
+extern void func_800E8714(void *entry);
+extern void func_800E90AC(void *entry, int value);
+
+void func_800DE5B0(unsigned char *object)
+{
+    void *entry;
+    func_800DE424(object);
+    entry = *(void **)(object + 188);
+    if (entry != 0) {
+        func_800E8714(entry);
+        func_800E90AC(*(void **)(object + 188), 0);
+    }
+}

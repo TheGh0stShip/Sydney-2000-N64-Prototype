@@ -1,24 +1,10 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800792AC\n.ent func_800792AC\n"
-    "func_800792AC:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $2,1556($4)\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800792E8\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800792E8\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,150\n"
-    "li $6,768\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_800792E8:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800792AC\n.set at\n.set reorder\n");
+extern unsigned char *D_800FC270;
+extern unsigned char D_800F3BC0[];
+extern void func_800C0110(void *object, int value, int arg2, int arg3);
+
+void func_800792AC(unsigned char *object)
+{
+    if (object[1556] < 2 && *(int *)(D_800FC270 + 2564) != 0) {
+        func_800C0110(D_800F3BC0, 150, 768, 0);
+    }
+}

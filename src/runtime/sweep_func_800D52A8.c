@@ -1,35 +1,22 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D52A8\n.ent func_800D52A8\n"
-    "func_800D52A8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "jal func_800D58E0\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$17,660\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,2520($17)\n"
-    "beqz $2,L_800D52F0\n"
-    "sw $0,652($17)\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2520\n"
-    "L_800D52F0:\n"
-    "lw $2,2732($17)\n"
-    "beqz $2,L_800D5304\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2732\n"
-    "L_800D5304:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D52A8\n.set at\n.set reorder\n");
+extern void func_800D58E0(void);
+extern void func_800D29E0(void *object);
+extern void func_800AC334(void *object);
+extern void func_800ADC1C(void *object);
+extern void func_8001A248(void *slot);
+
+void func_800D52A8(unsigned char *object)
+{
+    unsigned char *nested;
+    func_800D58E0();
+    nested = object + 660;
+    func_800D29E0(nested);
+    func_800AC334(nested);
+    func_800ADC1C(nested);
+    *(int *)(object + 652) = 0;
+    if (*(void **)(object + 2520) != 0) {
+        func_8001A248(object + 2520);
+    }
+    if (*(void **)(object + 2732) != 0) {
+        func_8001A248(object + 2732);
+    }
+}

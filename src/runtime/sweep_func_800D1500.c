@@ -1,34 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D1500\n.ent func_800D1500\n"
-    "func_800D1500:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,476\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,688\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,264\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,900\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$16,1112\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$16,1332\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$16,1552\n"
-    "jal func_800B35F0\n"
-    "addiu $4,$16,1772\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D1500\n.set at\n.set reorder\n");
+typedef void (*Destructor)(void *object);
+
+extern void func_800ADC1C(void *object);
+extern void func_800B35F0(void *object);
+
+void func_800D1500(unsigned char *object)
+{
+    unsigned char *descriptor = *(unsigned char **)(object + 180);
+    short offset = *(short *)(descriptor + 72);
+    Destructor destroy = *(Destructor *)(descriptor + 76);
+    destroy(object + offset);
+    func_800ADC1C(object + 476);
+    func_800ADC1C(object + 688);
+    func_800ADC1C(object + 264);
+    func_800ADC1C(object + 900);
+    func_800B35F0(object + 1112);
+    func_800B35F0(object + 1332);
+    func_800B35F0(object + 1552);
+    func_800B35F0(object + 1772);
+}
