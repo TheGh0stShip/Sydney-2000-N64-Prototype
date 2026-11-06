@@ -1,56 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F65CC\n.ent func_800F65CC\n"
-    "func_800F65CC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "sdc1 $f20,24($29)\n"
-    "lwc1 $f20,768($16)\n"
-    "lwc1 $f0,752($16)\n"
-    "mul.s $f2,$f20,$f0\n"
-    "mtc1 $5,$f4\n"
-    "mtc1 $0,$f0\n"
-    "mtc1 $6,$f6\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800F6614\n"
-    "nop\n"
-    "sub.s $f0,$f6,$f4\n"
-    "mul.s $f2,$f2,$f0\n"
-    "add.s $f2,$f2,$f4\n"
-    "L_800F6614:\n"
-    "mfc1 $5,$f2\n"
-    "move $4,$16\n"
-    "jal func_800B8C70\n"
-    "swc1 $f2,632($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29672($1)\n"
-    "c.lt.s $f0,$f20\n"
-    "nop\n"
-    "bc1tl L_800F6658\n"
-    "mov.s $f20,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29668($1)\n"
-    "c.lt.s $f20,$f0\n"
-    "nop\n"
-    "bc1fl L_800F6664\n"
-    "sub.s $f20,$f20,$f0\n"
-    "mov.s $f20,$f0\n"
-    "L_800F6658:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29664($1)\n"
-    "sub.s $f20,$f20,$f0\n"
-    "L_800F6664:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29660($1)\n"
-    "mul.s $f20,$f20,$f0\n"
-    "sw $0,240($16)\n"
-    "swc1 $f20,236($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800F65CC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef float f32;
+
+extern void func_800B8C70(u8 *obj, f32 v);
+
+void func_800F65CC(u8 *obj, f32 lo, f32 hi)
+{
+    f32 x = *(f32 *)(obj + 768);
+    f32 v = x * *(f32 *)(obj + 752);
+
+    if (0.0f < v) {
+        v *= hi - lo;
+        v += lo;
+    }
+    *(f32 *)(obj + 632) = v;
+    func_800B8C70(obj, v);
+    if (*(f32 *)0x80078C18 < x) {
+        x = *(f32 *)0x80078C18;
+    } else if (x < *(f32 *)0x80078C1C) {
+        x = *(f32 *)0x80078C1C;
+    } else {
+        x -= *(f32 *)0x80078C1C;
+        goto scale;
+    }
+    x -= *(f32 *)0x80078C20;
+scale:
+    x *= *(f32 *)0x80078C24;
+    *(s32 *)(obj + 240) = 0;
+    *(f32 *)(obj + 236) = x;
+}

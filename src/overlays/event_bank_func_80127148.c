@@ -1,40 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80127148\n.ent func_80127148\n"
-    "func_80127148:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lw $7,4($16)\n"
-    "bnez $5,L_80127168\n"
-    "li $6,120\n"
-    "move $6,$0\n"
-    "L_80127168:\n"
-    "lbu $3,1556($7)\n"
-    "li $2,2\n"
-    "beq $3,$2,L_80127184\n"
-    "move $4,$0\n"
-    "li $2,4\n"
-    "bne $3,$2,L_80127188\n"
-    "nop\n"
-    "L_80127184:\n"
-    "li $4,1\n"
-    "L_80127188:\n"
-    "bnel $4,$0,L_80127190\n"
-    "li $6,120\n"
-    "L_80127190:\n"
-    "lw $2,248($7)\n"
-    "lbu $7,743($16)\n"
-    "lui $5,0x3f00\n"
-    "addiu $4,$16,2076\n"
-    "jal func_8009CB40\n"
-    "sw $2,16($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,5180($1)\n"
-    "swc1 $f0,4868($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80127148\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef float f32;
+
+extern void func_8009CB40(u8 *sub, f32 scale, s32 n, s32 id, s32 v);
+
+void func_80127148(u8 *obj, s32 on)
+{
+    u8 *owner = *(u8 **)(obj + 4);
+    s32 n;
+    s32 flag;
+
+    n = 120;
+    if (on == 0)
+        n = 0;
+    flag = 0;
+    if (owner[1556] == 2 || owner[1556] == 4)
+        flag = 1;
+    if (flag)
+        n = 120;
+    func_8009CB40(obj + 2076, 0.5f, n, obj[743], *(s32 *)(owner + 248));
+    *(f32 *)(obj + 4868) = *(f32 *)0x8008143C;
+}

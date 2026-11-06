@@ -1134,7 +1134,7 @@
       "id": "event_bank_data_80095BF4",
       "source": "src/data/event_bank_data_80095BF4.c",
       "inputs": {
-        "src/data/event_bank_data_80095BF4.c": "70305c4532dacf0d407aecfd4e02e9c5f9019dc072fbbfa4079260cf2af1f5cc"
+        "src/data/event_bank_data_80095BF4.c": "c22400a4baa65faeb9b8b0f13c485086bdb1a36b166d36066e166c29484863d9"
       },
       "pipeline": "sn",
       "flags": [
@@ -1153,8 +1153,36 @@
           "segment": "event_bank",
           "rom_start": 613364,
           "vram": 2148097012,
-          "size": 4172,
-          "sha256": "161d1779f95d6189b36a942b8fde9fabd3a54f78ed78dcf2f47b023a40d03fb7"
+          "size": 2476,
+          "sha256": "903f7bd8d742f323090cbfe92d6760ea3a3c4c9c5b3f15f6e81a8bf4252c85c4"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_80096600",
+      "source": "src/data/event_bank_data_80096600.c",
+      "inputs": {
+        "src/data/event_bank_data_80096600.c": "4012cd91f35741b338b2ddca4d5868bcc6c86638ef8642abb7834ae9f14abb74"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 615936,
+          "vram": 2148099584,
+          "size": 1600,
+          "sha256": "c313c5797526e3001b7d7d4d21446e1d638f9a3c8286a079b48727a2b89d073d"
         }
       ]
     },
@@ -1638,7 +1666,7 @@
       "id": "event_bank_data_800BE86C",
       "source": "src/data/event_bank_data_800BE86C.c",
       "inputs": {
-        "src/data/event_bank_data_800BE86C.c": "4123c9f55bf5115f413ce4700d36360be007adf4cdf045dc84cb4494e9586160"
+        "src/data/event_bank_data_800BE86C.c": "40531a5fd22bb30ad130d700eac3b49bbb9b3c9281fae47474b58a834656434c"
       },
       "pipeline": "sn",
       "flags": [
@@ -1657,8 +1685,36 @@
           "segment": "event_bank",
           "rom_start": 780396,
           "vram": 2148264044,
-          "size": 852,
-          "sha256": "bd89e1fe47966480ef0903510a6bed5026f5d8bf2c871562a6310914d59db44c"
+          "size": 4,
+          "sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800BE9E4",
+      "source": "src/data/event_bank_data_800BE9E4.c",
+      "inputs": {
+        "src/data/event_bank_data_800BE9E4.c": "8099e0b81fc41adad547918d90aa119ad12b4cac35f03263a06d92569573176f"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 780772,
+          "vram": 2148264420,
+          "size": 476,
+          "sha256": "0b9488a6e6c6b61b0f55783f94c25d6e5d53149488a9d7e29c78ae9927af7cb0"
         }
       ]
     },
@@ -2002,7 +2058,7 @@
       "id": "event_bank_data_800D0338",
       "source": "src/data/event_bank_data_800D0338.c",
       "inputs": {
-        "src/data/event_bank_data_800D0338.c": "6f8b0db7d2e316f382adbb5bc9c95686158aeccb3db0cdef6eb7ad011674c804"
+        "src/data/event_bank_data_800D0338.c": "539fdc0d3f6b454f445c5ba2867042038c57507a04e7a7b7492d78f6c4f5ae0d"
       },
       "pipeline": "sn",
       "flags": [
@@ -2021,8 +2077,36 @@
           "segment": "event_bank",
           "rom_start": 852792,
           "vram": 2148336440,
-          "size": 888,
-          "sha256": "8313f3b7e3abde88acf9b973659d2e4822290aa6743c8832e5a78869c0cec22d"
+          "size": 64,
+          "sha256": "fd7b07189babc7e195abb6e6a8c853c8af6117406f74bb31f9940e8d26b306c7"
+        }
+      ]
+    },
+    {
+      "id": "event_bank_data_800D0414",
+      "source": "src/data/event_bank_data_800D0414.c",
+      "inputs": {
+        "src/data/event_bank_data_800D0414.c": "204cf8b0da7a16dae060ad6de1af0ce95a3403bce7370dd7a3a052efed6ce0b3"
+      },
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 853012,
+          "vram": 2148336660,
+          "size": 668,
+          "sha256": "2ceb0495aec51626505e6134b234bce36193d99e0d2e078f40c45605c7bc5749"
         }
       ]
     },
