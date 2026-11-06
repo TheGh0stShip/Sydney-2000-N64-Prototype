@@ -554,6 +554,8 @@ def main() -> None:
             'matching_delta_7ffb1f60_sn.tsv': ('sn', [], 0x7FFB1F60),
             'matching_delta_7ffa0490_sn.tsv': ('sn', [], 0x7FFA0490),
             'matching_delta_7ff5f9f0_sn.tsv': ('sn', [], 0x7FF5F9F0),
+            'matching_delta_7ffe7c90_sn.tsv': ('sn', [], 0x7FFE7C90),
+            'matching_delta_7ff64fa0_sn.tsv': ('sn', [], 0x7FF64FA0),
             'matching_delta_7ffc0e30_sn.tsv': ('sn', [], 0x7FFC0E30),
         }
     plans = {'resident': 'config/link_units.json',
