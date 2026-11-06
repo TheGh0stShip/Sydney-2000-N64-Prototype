@@ -53,6 +53,20 @@ verify-overlays: $(BASEROM) overlay-survey-check
 	$(N64DK) match-batch config/overlay/ceremony/matching_sweep_sn.tsv=sn --project . --vram-delta 0x80007924
 	$(N64DK) match-batch config/overlay/closing/matching_sn.tsv=sn --project . --vram-delta 0x80002554
 	$(N64DK) match-batch config/overlay/event_bank/matching_sn.tsv=sn --project . --vram-delta 0x80000000
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffdaa10_sn.tsv=sn --project . --vram-delta 0x7FFDAA10
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffd4240_sn.tsv=sn --project . --vram-delta 0x7FFD4240
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffc82f0_sn.tsv=sn --project . --vram-delta 0x7FFC82F0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffcf000_sn.tsv=sn --project . --vram-delta 0x7FFCF000
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffb55c0_sn.tsv=sn --project . --vram-delta 0x7FFB55C0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffa1800_sn.tsv=sn --project . --vram-delta 0x7FFA1800
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff9d310_sn.tsv=sn --project . --vram-delta 0x7FF9D310
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff9e610_sn.tsv=sn --project . --vram-delta 0x7FF9E610
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffaba00_sn.tsv=sn --project . --vram-delta 0x7FFABA00
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffa50e0_sn.tsv=sn --project . --vram-delta 0x7FFA50E0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffb3a00_sn.tsv=sn --project . --vram-delta 0x7FFB3A00
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffb7c80_sn.tsv=sn --project . --vram-delta 0x7FFB7C80
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffb9c30_sn.tsv=sn --project . --vram-delta 0x7FFB9C30
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffc0e30_sn.tsv=sn --project . --vram-delta 0x7FFC0E30
 
 rsp-tools:
 	bash config/rsp/bootstrap_armips.sh

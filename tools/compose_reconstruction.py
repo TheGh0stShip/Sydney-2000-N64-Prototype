@@ -417,9 +417,13 @@ def load_mapped_segment(evidence, artifact, segment, plan_name, start_bound, end
         start, size = piece['rom_start'], piece['owned_size']
         require_region(start, size, start_bound, end_bound, segment + ' source')
         # Text may be linked at an overlay's true runtime address while the
-        # manifest independently freezes its ROM ownership.  Other sections
-        # still require the segment-wide mapping.
-        if piece['name'] != '.text' and piece['vram'] != start + delta:
+        # manifest independently freezes its ROM ownership.  Data emitted by
+        # a custom-delta manifest follows that unit's frozen mapping rather
+        # than the segment-wide default (for example event-bank jump tables
+        # and literal pools).  The plan already freezes both the ROM range and
+        # the selected delta, so validate against that recorded unit mapping.
+        unit_delta = unit.get('vram_delta', delta)
+        if piece['name'] != '.text' and piece['vram'] != start + unit_delta:
             raise ValueError(f'{segment} piece ROM/VRAM mapping changed')
         data = piece_bytes(evidence, artifact, piece, size, section['sha256'])
         owner = 'runtime-source:' + piece['unit_id'] + ':' + piece['name']

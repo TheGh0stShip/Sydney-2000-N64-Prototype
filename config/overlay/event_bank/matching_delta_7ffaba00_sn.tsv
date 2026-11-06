@@ -1,0 +1,1 @@
+0xc4d44	0xa0	src/overlays/event_bank_func_800C4D44_full.c	--section-base=.rodata:0x80070908 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9658528c63a58fe23cfe1b1e65a84a8edcab8ed9a3950b9f159f99b97a61917b

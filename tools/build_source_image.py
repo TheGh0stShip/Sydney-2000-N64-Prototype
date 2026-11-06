@@ -72,6 +72,7 @@ class Unit:
     spec: BuildSpec
     includes: list[str]
     normalization: str | None
+    vram_delta: int = DELTA
 
 
 def units(project: Path) -> list[Unit]:
@@ -80,7 +81,9 @@ def units(project: Path) -> list[Unit]:
     actual = {p.name for p in manifest_root.glob('matching*.tsv')}
     if actual != set(PROFILES):
         raise ValueError(f'manifest profile set changed: {sorted(actual ^ set(PROFILES))}')
-    for name, (pipeline, includes) in PROFILES.items():
+    for name, profile in PROFILES.items():
+        pipeline, includes = profile[:2]
+        vram_delta = profile[2] if len(profile) > 2 else DELTA
         for line in (manifest_root / name).read_text().splitlines():
             if not line or line.startswith('#'):
                 continue
@@ -115,7 +118,8 @@ def units(project: Path) -> list[Unit]:
                 raise ValueError(f'duplicate row: {key}')
             result.append(Unit(key, MANIFEST_DIR + '/' + name, row_hash, source,
                                int(start, 0), int(size, 0), expected,
-                               split_flags(flags, row_pipeline), includes, normalization))
+                               split_flags(flags, row_pipeline), includes, normalization,
+                               vram_delta))
     return result
 
 
@@ -246,11 +250,11 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
     symbols.update(symmod.from_source((project / unit.source).read_text(), symbols))
     symbols.update(unit.spec.symbols)
     result = compare.compare_object(
-        elf, rom, lambda address: address - DELTA,
-        unit.rom_start + DELTA, unit.text_size, symbols,
+        elf, rom, lambda address: address - unit.vram_delta,
+        unit.rom_start + unit.vram_delta, unit.text_size, symbols,
         bases=unit.spec.section_bases, infer=True, infer_externals=True,
         rodata_search=unit.normalization is None,
-        rom_window=(START, len(rom)), to_vram=lambda offset: offset + DELTA,
+        rom_window=(START, len(rom)), to_vram=lambda offset: offset + unit.vram_delta,
         with_diff=False)
     if not result.exact:
         raise ValueError(f'{unit.key}: does not match: {result.error or result.text.first_diff}')
@@ -275,8 +279,8 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
                 bases[name] = candidates.pop()
             else:
                 candidates = compare.section_candidates(
-                    elf, name, rom, START, END, lambda offset: offset + DELTA,
-                    unit.rom_start + DELTA, limit=(END - START) // 4)
+                    elf, name, rom, START, END, lambda offset: offset + unit.vram_delta,
+                    unit.rom_start + unit.vram_delta, limit=(END - START) // 4)
                 valid = []
                 for candidate in candidates:
                     trial = dict(bases, **{name: candidate})
@@ -284,7 +288,7 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
                         body = compare.relocate(elf, name, trial, symbols)
                     except (KeyError, ValueError):
                         continue
-                    offset = candidate - DELTA
+                    offset = candidate - unit.vram_delta
                     if body == rom[offset:offset + len(body)]:
                         valid.append((candidate, len(body)))
                 if len(valid) != 1:
@@ -324,7 +328,7 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
         # by the bank-wide ROM-to-VRAM delta.  In that case --section-base
         # supplies the relocation address, while the manifest remains the
         # authoritative owner of the text's ROM bytes.
-        offset = unit.rom_start if name == '.text' else bases[name] - DELTA
+        offset = unit.rom_start if name == '.text' else bases[name] - unit.vram_delta
         if offset < START or offset + size > END:
             raise ValueError(f'{unit.key}: {name} placement escapes resident segment')
         if raw[:size] != rom[offset:offset + size]:
@@ -338,6 +342,7 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
     return {'id': unit.key, 'manifest': unit.manifest, 'row_sha256': unit.row_hash,
             'source': unit.source, 'source_sha256': file_hash(project / unit.source),
             'pipeline': unit.spec.pipeline, 'flags': unit.spec.flags,
+            'vram_delta': unit.vram_delta,
             'normalization': unit.normalization, 'includes': unit.includes,
             'object_sha256_at_discovery': obj_hash,
             'section_bases': bases, 'symbols': freeze_symbols(elf, symbols),
@@ -378,7 +383,9 @@ def discover(project: Path, plan_path: Path, rom_path: Path, jobs: int) -> None:
 
 
 def build_one(unit: Unit, record, project: Path, cfg, work: Path):
-    if record['row_sha256'] != unit.row_hash or record['source_sha256'] != file_hash(project / unit.source):
+    if (record['row_sha256'] != unit.row_hash or
+            record['source_sha256'] != file_hash(project / unit.source) or
+            record.get('vram_delta', DELTA) != unit.vram_delta):
         raise ValueError(f'{unit.key}: stale source or manifest row')
     elf, obj_hash = compile_unit(unit, project, cfg, work)
     bases = record['section_bases']
@@ -400,7 +407,8 @@ def build_one(unit: Unit, record, project: Path, cfg, work: Path):
             raise ValueError(f'{unit.key}: discarded section changed: {section["name"]}')
     for section in record['sections']:
         name = section['name']
-        if (name != '.text' and section['rom_start'] != section['vram'] - DELTA) or section['owned_size'] < 0:
+        if (name != '.text' and
+                section['rom_start'] != section['vram'] - unit.vram_delta) or section['owned_size'] < 0:
             raise ValueError(f'{unit.key}: inconsistent {name} ROM/VRAM ownership')
         if name == '.text' and (section['rom_start'] != unit.rom_start or
                                 section['owned_size'] != unit.text_size):
@@ -528,7 +536,23 @@ def main() -> None:
         START, END = 0x70800, 0x127640
         SEGMENT = 'event_bank'
         MANIFEST_DIR = 'config/overlay/event_bank'
-        PROFILES = {'matching_sn.tsv': ('sn', [])}
+        PROFILES = {
+            'matching_sn.tsv': ('sn', []),
+            'matching_delta_7ffdaa10_sn.tsv': ('sn', [], 0x7FFDAA10),
+            'matching_delta_7ffd4240_sn.tsv': ('sn', [], 0x7FFD4240),
+            'matching_delta_7ffc82f0_sn.tsv': ('sn', [], 0x7FFC82F0),
+            'matching_delta_7ffcf000_sn.tsv': ('sn', [], 0x7FFCF000),
+            'matching_delta_7ffb55c0_sn.tsv': ('sn', [], 0x7FFB55C0),
+            'matching_delta_7ffa1800_sn.tsv': ('sn', [], 0x7FFA1800),
+            'matching_delta_7ff9d310_sn.tsv': ('sn', [], 0x7FF9D310),
+            'matching_delta_7ff9e610_sn.tsv': ('sn', [], 0x7FF9E610),
+            'matching_delta_7ffaba00_sn.tsv': ('sn', [], 0x7FFABA00),
+            'matching_delta_7ffa50e0_sn.tsv': ('sn', [], 0x7FFA50E0),
+            'matching_delta_7ffb3a00_sn.tsv': ('sn', [], 0x7FFB3A00),
+            'matching_delta_7ffb7c80_sn.tsv': ('sn', [], 0x7FFB7C80),
+            'matching_delta_7ffb9c30_sn.tsv': ('sn', [], 0x7FFB9C30),
+            'matching_delta_7ffc0e30_sn.tsv': ('sn', [], 0x7FFC0E30),
+        }
     plans = {'resident': 'config/link_units.json',
              'runtime': 'config/runtime_link_units.json',
              'ceremony': 'config/overlay_link_units.json',

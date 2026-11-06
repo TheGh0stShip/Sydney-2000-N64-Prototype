@@ -1,50 +1,93 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A6244\n.ent func_800A6244\n"
-    "func_800A6244:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,36($29)\n"
-    "move $19,$4\n"
-    "sw $18,32($29)\n"
-    "li $18,-1\n"
-    "sw $20,40($29)\n"
-    "move $20,$18\n"
-    "sw $16,24($29)\n"
-    "lui $16,0x8010\n"
-    "lw $2,-15760($16)\n"
-    "addiu $4,$29,16\n"
-    "sw $31,44($29)\n"
-    "sw $17,28($29)\n"
-    "jal func_8009B73C\n"
-    "addiu $17,$2,2576\n"
-    "sll $2,$2,0x18\n"
-    ".word 0x10400035\n"
-    "nop\n"
-    "lw $2,-15760($16)\n"
-    "lbu $2,2572($2)\n"
-    "beqz $2,L_800A62C0\n"
-    "move $4,$0\n"
-    "move $5,$2\n"
-    "move $3,$17\n"
-    "L_800A62A4:\n"
-    "lb $2,8($3)\n"
-    "beqz $2,L_800A62C4\n"
-    "lui $2,0x8010\n"
-    "addiu $4,$4,1\n"
-    "sltu $2,$4,$5\n"
-    "bnez $2,L_800A62A4\n"
-    "addiu $3,$3,12\n"
-    "L_800A62C0:\n"
-    "lui $2,0x8010\n"
-    "L_800A62C4:\n"
-    "lw $5,-15760($2)\n"
-    "lbu $2,2572($5)\n"
-    ".word 0x10820018\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$17\n"
-    "lb $3,0($2)\n"
-    "li $2,8\n"
-    ".word 0x10620007\n"
-    ".end func_800A6244\n.set at\n.set reorder\n");
+/* Announce the next pending competitor, or the stage cue when none is ready. */
+typedef struct {
+    signed char who;
+    unsigned char lane;
+    unsigned char pad2[6];
+    signed char done;
+    unsigned char pad9[3];
+} CueEntry;
+
+typedef struct {
+    unsigned char pad0[0x20];
+    unsigned char state;
+    unsigned char pad21[0x3C - 0x21];
+} CueRacer;
+
+typedef struct {
+    CueRacer racer[1];
+} CueTableRacers;
+
+typedef struct {
+    unsigned char pad0[0xA00];
+    int stage;
+    unsigned char padA04[0xA0C - 0xA04];
+    unsigned char count;
+    unsigned char padA0D[3];
+    CueEntry entry[1];
+} CueTable;
+
+typedef struct {
+    unsigned char pad0[0x7CAF];
+    unsigned char mode;
+} CueOwner;
+
+extern CueTable *D_800FC270;
+extern char D_800F3BC0[];
+extern signed char func_8009B73C(void *buf);
+extern void func_800C0110(char *bank, int id, int a, int b);
+
+#define QUIET(p) ((unsigned char)((p)->mode - 3) < 2)
+
+void func_80075244(CueOwner *p)
+{
+    int id = -1;
+    int lane = id;
+    CueEntry *ent = D_800FC270->entry;
+    unsigned char buf[8];
+    unsigned int i;
+
+    if (func_8009B73C(buf)) {
+        for (i = 0; i < D_800FC270->count; i++) {
+            if (ent[i].done == 0) {
+                break;
+            }
+        }
+        if (i != D_800FC270->count) {
+            int who = ent[i].who;
+            int st;
+            if (who != 8) {
+                st = ((CueTableRacers *)D_800FC270)->racer[who].state;
+            } else {
+                st = 3;
+            }
+            if (st == 3) {
+                id = 114;
+                lane = ent[i].lane;
+            }
+        }
+        if (id != -1) {
+            int snd = id + lane;
+            if (!QUIET(p)) {
+                func_800C0110(D_800F3BC0, snd, 7680, 23040);
+            }
+        }
+        return;
+    }
+    switch (D_800FC270->stage) {
+    case 0:
+        if (!QUIET(p)) {
+            func_800C0110(D_800F3BC0, 181, 7680, 23040);
+        }
+        break;
+    case 1:
+        if (!QUIET(p)) {
+            func_800C0110(D_800F3BC0, 183, 7680, 23040);
+        }
+        break;
+    case 2:
+        if (!QUIET(p)) {
+            func_800C0110(D_800F3BC0, 185, 7680, 23040);
+        }
+        break;
+    }
+}

@@ -561,7 +561,7 @@
     "tools/battletanx_ga/src/n_audio/n_wavetable.h": "9291478e70dd421401de664ec57a4cfac59c11fa5387ba31dc5b85aa0e73cf37",
     "tools/battletanx_ga/src/n_audio/os_types.h": "74e4801fb075be3d19f847a47dbabf11aa1c9b3316a764c16f477ee074f79469",
     "tools/battletanx_ga/src/n_audio/ultra_basic_types.h": "208f99a055caefc46b0d6930d73bb70d7c355ecd99f4649e1de60fd7fb1b36d9",
-    "tools/build_source_image.py": "b5c3c3dc5f065dec8a74e3266693d7dea833c6e9ca29b22f3ee2a199de26b44f",
+    "tools/build_source_image.py": "de1d1027eee6ec3aee666928cb763e8f9fa7f2c0e38bb5e10adee54525b0fda9",
     "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
     "tools/ultralib/include/PR/R4300.h": "bb8a7702ef8dfe94c389f0c411a4f2346c506ea8766e85c332a44486a97b7b44",
     "tools/ultralib/include/PR/abi.h": "9efe7ee3c940ff96d46f936ad95e9cc52b879ee8c4b5c264cb8f42e1cf1ce1bf",
@@ -936,7 +936,8 @@
       "symbols": {
         "func_800292AC": 2147652268,
         "func_800292B8": 2147652280
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -981,7 +982,8 @@
       "symbols": {
         "func_800292AC": 2147652268,
         "func_800292B8": 2147652280
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1022,7 +1024,8 @@
       ],
       "source": "src/game/stack_frame_stub.c",
       "source_sha256": "d3e132012cb159402aa3fb97869916374504d99645208e398cb4c9a9db045c8d",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1064,7 +1067,8 @@
       ],
       "source": "src/game/read_word_address.c",
       "source_sha256": "c8507c5a673bfd7e4fa788664156d078705c76ea253e8b036699942092927079",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1103,7 +1107,8 @@
       ],
       "source": "src/game/filter_active_slot_mask.c",
       "source_sha256": "c67e7d365d73c55caca759a80f01a532940826cdce19795cc493fbe7c6ca1771",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1145,7 +1150,8 @@
       ],
       "source": "src/game/read_word_address.c",
       "source_sha256": "c8507c5a673bfd7e4fa788664156d078705c76ea253e8b036699942092927079",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1185,7 +1191,8 @@
       ],
       "source": "src/game/pi_bus_access.c",
       "source_sha256": "289520c5c0b42c803a1eb462f2690e2c5f3a84c2d65f785f1d16cad182d68e0a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1227,7 +1234,8 @@
       "source_sha256": "ba1f5be9f66f124188d0b2cd71089262bbb8a2eaeee1ca36d62ffbacabe6f9e6",
       "symbols": {
         "__osPiDevMgr": 2147904656
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1274,7 +1282,8 @@
       "symbols": {
         "gFirst": 2147776912,
         "gSecond": 2147776916
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1321,7 +1330,8 @@
       "symbols": {
         "gFirst": 2147776912,
         "gSecond": 2147776916
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1369,7 +1379,8 @@
       "symbols": {
         "gFirst": 2147776912,
         "gSecond": 2147776916
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1412,7 +1423,8 @@
       ],
       "source": "src/game/transition_byte_value.c",
       "source_sha256": "727a4a17ea394cb00094d115bb2f2d41d4e5cdb00eaa5eac2d93b31a85388592",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1455,7 +1467,8 @@
       "source_sha256": "aa0a552c9a695e6022be9edeba578a8fc71c3468474f8871d8da1de894a9df94",
       "symbols": {
         "func_80028360": 2147648352
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1500,7 +1513,8 @@
       "symbols": {
         "func_80028360": 2147648352,
         "func_80028524": 2147648804
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1547,7 +1561,8 @@
         "func_80028360": 2147648352,
         "func_80028524": 2147648804,
         "func_80028640": 2147649088
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1592,7 +1607,8 @@
       "symbols": {
         "func_80028328": 2147648296,
         "func_80028360": 2147648352
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1637,7 +1653,8 @@
       "symbols": {
         "func_80028328": 2147648296,
         "func_80028790": 2147649424
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1682,7 +1699,8 @@
       "symbols": {
         "func_80028524": 2147648804,
         "func_80028790": 2147649424
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1729,7 +1747,8 @@
         "func_80028328": 2147648296,
         "func_80028360": 2147648352,
         "func_8002839C": 2147648412
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1770,7 +1789,8 @@
       ],
       "source": "src/game/cp0_status_access.c",
       "source_sha256": "9a62fc4f081d33a371ddea0c245018aaffbb21ba93e5198b4b9287b1b8a17115",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1811,7 +1831,8 @@
       ],
       "source": "src/game/debug_delay.c",
       "source_sha256": "90a95e11c6ba2e21c5052ef95371710c362f6d2bff427d28a45531cd4e04d409",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1851,7 +1872,8 @@
       ],
       "source": "src/game/fixed_cycle_delay.c",
       "source_sha256": "84380cf7d78efa5423c81c89e7e9f55f8aaf7c3688aa1426915a1f5336d49dba",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1893,7 +1915,8 @@
       ],
       "source": "src/libultra/single_square_root.c",
       "source_sha256": "b31991ba86fc7b6876f43fc190ff92c1f89f7a514808fc3454e754ecf105c430",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1935,7 +1958,8 @@
       ],
       "source": "src/libultra/cp0_runtime_access.c",
       "source_sha256": "bdb12a7274b4f26f7c31e9d3670b898824cc775f6caf2ee33b44ce9918f65512",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -1977,7 +2001,8 @@
       ],
       "source": "src/libultra/cp0_runtime_access.c",
       "source_sha256": "bdb12a7274b4f26f7c31e9d3670b898824cc775f6caf2ee33b44ce9918f65512",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2021,7 +2046,8 @@
       ],
       "source": "src/libultra/cp0_runtime_access.c",
       "source_sha256": "bdb12a7274b4f26f7c31e9d3670b898824cc775f6caf2ee33b44ce9918f65512",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2061,7 +2087,8 @@
       ],
       "source": "src/libultra/writeback_dcache.c",
       "source_sha256": "265ec60b6943ec1db1fff1a05d207f620b7cf20f2c094cdc885e217bf653359c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2102,7 +2129,8 @@
       ],
       "source": "src/libultra/cache_runtime.c",
       "source_sha256": "55012c1e1d40db8358805fccece4ac7dbcf6e9f75a586715980e6918d8daa3ad",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2143,7 +2171,8 @@
       ],
       "source": "src/libultra/cache_runtime.c",
       "source_sha256": "55012c1e1d40db8358805fccece4ac7dbcf6e9f75a586715980e6918d8daa3ad",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2183,7 +2212,8 @@
       ],
       "source": "src/libultra/cache_runtime.c",
       "source_sha256": "55012c1e1d40db8358805fccece4ac7dbcf6e9f75a586715980e6918d8daa3ad",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2224,7 +2254,8 @@
       ],
       "source": "src/libultra/tlb_runtime.c",
       "source_sha256": "d987e393bc211ab651c1ba46ad9fe2db714ff77e21cfee9686168c22eb7773be",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2264,7 +2295,8 @@
       ],
       "source": "src/libultra/tlb_runtime.c",
       "source_sha256": "d987e393bc211ab651c1ba46ad9fe2db714ff77e21cfee9686168c22eb7773be",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2304,7 +2336,8 @@
       ],
       "source": "src/libultra/probe_tlb.c",
       "source_sha256": "4f9d524869ddc6a63a1b3cd958ea377f6883ba073428992af0d7cf5defdf9d87",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2345,7 +2378,8 @@
       ],
       "source": "src/libultra/interrupt_runtime.c",
       "source_sha256": "72f8a7e846f4ebe38fe62ce9c82222dab1b049a47bd33ad43d12196308a22546",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2385,7 +2419,8 @@
       ],
       "source": "src/libultra/interrupt_runtime.c",
       "source_sha256": "72f8a7e846f4ebe38fe62ce9c82222dab1b049a47bd33ad43d12196308a22546",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2426,7 +2461,8 @@
       ],
       "source": "src/libultra/interrupt_runtime.c",
       "source_sha256": "72f8a7e846f4ebe38fe62ce9c82222dab1b049a47bd33ad43d12196308a22546",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2467,7 +2503,8 @@
       ],
       "source": "src/libultra/interrupt_runtime.c",
       "source_sha256": "72f8a7e846f4ebe38fe62ce9c82222dab1b049a47bd33ad43d12196308a22546",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2507,7 +2544,8 @@
       ],
       "source": "src/libultra/bzero_runtime.c",
       "source_sha256": "7f7eb203473e88a734d07feb572b6e97fd9bd85d030fbac814e3e71930d8ff71",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2547,7 +2585,8 @@
       ],
       "source": "src/libultra/bcmp_runtime.c",
       "source_sha256": "45a1311667f1fddc3b695b794613bd39ef96586e55f3bffe8c6a344b3d07e7cb",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2587,7 +2626,8 @@
       ],
       "source": "src/libultra/enqueue_thread.c",
       "source_sha256": "e3399588cb979663b58481f998b6f217022c40765c67953032004541b1e99dbf",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2632,7 +2672,8 @@
       "symbols": {
         "func_800329C4": 2147690948,
         "func_80032A0C": 2147691020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2672,7 +2713,8 @@
       ],
       "source": "src/libultra/handle_coprocessor_unusable.c",
       "source_sha256": "b86777626df31c43a49fb456d074cca7a7c1b40bc96d2262c8ed1541231c31cd",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2712,7 +2754,8 @@
       ],
       "source": "src/libultra/enqueue_and_yield.c",
       "source_sha256": "6a1fc1cfef26a228b8dd36b85dee1f7ce042d472552d3836b7f3f595d5de1a14",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2752,7 +2795,8 @@
       ],
       "source": "src/libultra/destroy_running_thread.c",
       "source_sha256": "6732dfe53d794987982336176ccfbaffe2e5dd933d81aae3085d79e3a0cc9ad4",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2794,7 +2838,8 @@
       ],
       "source": "src/libultra/exception_vector_jump.c",
       "source_sha256": "8c71fbd15de86449c765649a53bc04b70d6343c6eae3e10ae995407367a0997c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2836,7 +2881,8 @@
       ],
       "source": "src/libultra/exception_vector_jump.c",
       "source_sha256": "8c71fbd15de86449c765649a53bc04b70d6343c6eae3e10ae995407367a0997c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2879,7 +2925,8 @@
       ],
       "source": "src/libultra/exception_vector_jump.c",
       "source_sha256": "8c71fbd15de86449c765649a53bc04b70d6343c6eae3e10ae995407367a0997c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2925,7 +2972,8 @@
         "func_8000566C": 2147505772,
         "func_8001E168": 2147606888,
         "secondGlobal": 2147716172
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -2967,7 +3015,8 @@
       "symbols": {
         "func_8001E144": 2147606852,
         "globalObject": 2147716160
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3021,7 +3070,8 @@
         "piQueue": 2147767900,
         "stackTop": 2147735144,
         "thread": 2147911232
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3067,7 +3117,8 @@
         "buffer": 2147759808,
         "func_80011300": 2147554048,
         "records": 2147759732
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3111,7 +3162,8 @@
         "callback": 2147484736,
         "context": 2148476760,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3155,7 +3207,8 @@
         "buffer": 2147759808,
         "func_80011300": 2147554048,
         "records": 2147759732
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3197,7 +3250,8 @@
       "symbols": {
         "func_80004CA4": 2147503268,
         "globalValue": 2147759740
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3234,7 +3288,8 @@
       ],
       "source": "src/game/decode_path_string.c",
       "source_sha256": "db852e8082fa6525dca562a23729dd724363359e9b8018383b2b429040ec8678",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3274,7 +3329,8 @@
       "source_sha256": "79262a2ce7e25123a7ff0d0a2ce942a256f300cedec1f417d9eceb245398b3b1",
       "symbols": {
         "func_80032CE0": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3316,7 +3372,8 @@
       "symbols": {
         "func_80006E7C": 2147511932,
         "globalObject": 2147761480
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3356,7 +3413,8 @@
       "source_sha256": "a168c04874d5384ab7f3c4df2b0d315944324ab3295c5f1c86f87bc3c277bb0c",
       "symbols": {
         "state": 2147761480
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3402,7 +3460,8 @@
         "func_80017888": 2147580040,
         "func_80035200": 2147701248,
         "records": 2147764256
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3442,7 +3501,8 @@
       "source_sha256": "74268c134941192a110c09f467d64f7dac201956ae3fa1404fd113272358d402",
       "symbols": {
         "records": 2147764256
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3484,7 +3544,8 @@
       "symbols": {
         "records": 2147764256,
         "scale": 2147485072
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3542,7 +3603,8 @@
         "saveMarker": 2147764332,
         "saveQueue": 2147764228,
         "saveSize": 2147763720
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3586,7 +3648,8 @@
         "func_8002F684": 2147677828,
         "func_800AA804": 2148182020,
         "tag": 2147485088
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3623,7 +3686,8 @@
       ],
       "source": "src/game/relocate_asset_header.c",
       "source_sha256": "c0ab97e6e4bf9686366e2e3853cdd3dba4fccd2ed27251fcbbc67c46d6ab1306",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3671,7 +3735,8 @@
         "func_80000634": 2147485236,
         "func_800AA804": 2148182020,
         "mode": 2147718224
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3717,7 +3782,8 @@
         "func_800320D0": 2147688656,
         "queue": 2147854580,
         "ready": 2147854576
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3759,7 +3825,8 @@
       "symbols": {
         "func_8001A5F8": 2147591672,
         "globalObject": 2147854860
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3801,7 +3868,8 @@
       "symbols": {
         "func_8001A53C": 2147591484,
         "globalObject": 2147854860
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3843,7 +3911,8 @@
       "source_sha256": "5e5792ce2f3528b7e6d76b8fbdf6f40fbd2993873c90ed99d473c6eb5038d4e7",
       "symbols": {
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3885,7 +3954,8 @@
       "symbols": {
         "func_80018D28": 2147585320,
         "globalObject": 2147854860
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3922,7 +3992,8 @@
       ],
       "source": "src/game/copy_masked_vectors.c",
       "source_sha256": "93cd1c87ad00cfe7244ac7060e81b027b4a484e400f1f171e0deb86d14660e07",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3962,7 +4033,8 @@
       "source_sha256": "6f2949861bf04dbd395ba2ccc87f2058bc1c5beb2fd65e5b62c2a5353d7b4c40",
       "symbols": {
         "func_800179A0": 2147580320
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -3999,7 +4071,8 @@
       ],
       "source": "src/game/copy_field_if_status_clear.c",
       "source_sha256": "e5936cc8d229dc041713a2cca3cbdfc7e8851012312b1e6832a8e426bee93d02",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4039,7 +4112,8 @@
       "source_sha256": "cf7bfe8cb990d99b19ab0e14361852c49ceb6066fd51747fcc1ca3c69bb07e30",
       "symbols": {
         "func_8000C68C": 2147534476
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4091,7 +4165,8 @@
         "func_80037F30": 2147712816,
         "initialized": 2147855492,
         "secondBuffer": 2147895104
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4135,7 +4210,8 @@
         "allocationCount": 2147858424,
         "currentPlayer": 2147854652,
         "scratchBuffer": 2147858432
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4177,7 +4253,8 @@
       "symbols": {
         "falseGlobal": 2147885272,
         "trueGlobal": 2147885272
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4214,7 +4291,8 @@
       ],
       "source": "src/game/set_nested_object_flag.c",
       "source_sha256": "32b35461cd9f40a9466fe3f406f4aa6c2580db11530c1d540abde52e0e14a1a1",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4251,7 +4329,8 @@
       ],
       "source": "src/game/set_nested_object_flags.c",
       "source_sha256": "404755d0dae0b44fc4c5956cc18c4a3376d380e49c0dbd2a3be65392b8e8a299",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4289,7 +4368,8 @@
       ],
       "source": "src/game/set_nested_float_pair_bits.c",
       "source_sha256": "dd927fc14c2213b50c2940f18eda33836475a7fde364434e2abb30203915a817",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4327,7 +4407,8 @@
       ],
       "source": "src/game/set_nested_float_pair_bits.c",
       "source_sha256": "dd927fc14c2213b50c2940f18eda33836475a7fde364434e2abb30203915a817",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4365,7 +4446,8 @@
       ],
       "source": "src/game/set_nested_float_quad_bits.c",
       "source_sha256": "608d9746ca8c5b7b591874b1d62c5f20da78018ddea21e37e6538952f44a2f29",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4403,7 +4485,8 @@
       ],
       "source": "src/game/set_nested_float_quad_bits.c",
       "source_sha256": "608d9746ca8c5b7b591874b1d62c5f20da78018ddea21e37e6538952f44a2f29",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4447,7 +4530,8 @@
         "active": 2147885276,
         "func_80019988": 2147588488,
         "globalObject": 2147854860
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4489,7 +4573,8 @@
       "source_sha256": "e4a40d3f97bb7180ed3f0d1dd0fc8956c3cc9edd1e58eedeb8cb8060adaf4d36",
       "symbols": {
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4529,7 +4614,8 @@
       ],
       "source": "src/game/append_object_queue_entry.c",
       "source_sha256": "965b7d2eeb974004d33a5dec98c0615ac6ba99769ddb4595f291e38cb760ae5e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4569,7 +4655,8 @@
       "source_sha256": "2e270652c0e1d6b39e1eeff5ae09de762f132a63baa2eb36e2b36acaa2acc768",
       "symbols": {
         "records": 2147922608
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4611,7 +4698,8 @@
       "symbols": {
         "func_8001EDE0": 2147610080,
         "records": 2147922608
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4655,7 +4743,8 @@
         "func_8001ECD4": 2147609812,
         "func_80037F30": 2147712816,
         "records": 2147922608
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4707,7 +4796,8 @@
         "func_8001E120": 2147606816,
         "func_800A3394": 2148152212,
         "secondObject": 2147716160
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4749,7 +4839,8 @@
       "symbols": {
         "func_8001E9F0": 2147609072,
         "globalValue": 2147897180
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4795,7 +4886,8 @@
         "func_800AA658": 2148181592,
         "globalBase": 2147876864,
         "secondArgument": 2148476760
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4841,7 +4933,8 @@
         "func_800AA658": 2148181592,
         "globalBase": 2147876864,
         "secondArgument": 2148476760
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4893,7 +4986,8 @@
         "func_8001E120": 2147606816,
         "func_800A3394": 2148152212,
         "secondObject": 2147716160
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4935,7 +5029,8 @@
       "symbols": {
         "func_80025AD8": 2147637976,
         "globalValue": 2147897346
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -4989,7 +5084,8 @@
         "scheduler": 2147716216,
         "secondBuffer": 2147924080,
         "secondQueue": 2147924032
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5026,7 +5122,8 @@
       ],
       "source": "src/game/consume_stream_bytes.c",
       "source_sha256": "0e12bee45675940d3e9354a16855ca000a6bd5b08166a5f287588ff15ea36c09",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5063,7 +5160,8 @@
       ],
       "source": "src/game/copy_string.c",
       "source_sha256": "906562abce9fb6825f7523714353260740f3750583dac2d95f59738ba8e4c46b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5100,7 +5198,8 @@
       ],
       "source": "src/game/append_string.c",
       "source_sha256": "d7196a86827bdc3fbe574ec2be5e1eb89dd4e3b8db75529464101cbcdc1a7a9e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5142,7 +5241,8 @@
       "symbols": {
         "func_80037D10": 2147712272,
         "handle": 2147910752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5184,7 +5284,8 @@
       "symbols": {
         "func_80037DE0": 2147712480,
         "handle": 2147910752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5227,7 +5328,8 @@
       "source_sha256": "08f9d1e58731ded4592e2556506b1118ba9485782b01711eaf0f11e2b8d48c9f",
       "symbols": {
         "defaultScale": 2147487740
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5280,7 +5382,8 @@
         "func_8001EDE0": 2147610080,
         "func_80037F30": 2147712816,
         "secondAudioState": 2147897184
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5333,7 +5436,8 @@
         "func_8001EDE0": 2147610080,
         "func_80037F30": 2147712816,
         "secondAudioState": 2147897184
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5376,7 +5480,8 @@
       "source_sha256": "1103a661774a7a6744eca80d12b598e027ed6b6446472611f94f007fd5358e1d",
       "symbols": {
         "vectorPlanes": 2147874820
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5427,7 +5532,8 @@
         "func_80004CA4": 2147503268,
         "func_80011300": 2147554048,
         "records": 2147759732
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5467,7 +5573,8 @@
       ],
       "source": "src/game/initialize_slot_state.c",
       "source_sha256": "54a77075de0a1db21f9861b2fb90a1ca278589d7e4ca9d32631d1c834edc34e9",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5512,7 +5619,8 @@
       "symbols": {
         "func_80012834": 2147559476,
         "func_80012BD8": 2147560408
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5555,7 +5663,8 @@
       "source_sha256": "1174b398dd0a19c20b5f7292f7be45af99782fccf2d49b584fd68f3fb54795ff",
       "symbols": {
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5598,7 +5707,8 @@
       "source_sha256": "74d16249424df72709c571a53813c399d6a6e7825ea3e78c8ad0d7c7d6e95025",
       "symbols": {
         "func_80011300": 2147554048
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5641,7 +5751,8 @@
       "source_sha256": "7129bef1f2e9bfb9aa6d19931145c211c27bb4d8567462fb4ddb5546cc351e73",
       "symbols": {
         "func_80017454": 2147578964
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5688,7 +5799,8 @@
         "func_80005310": 2147504912,
         "func_8000566C": 2147505772,
         "func_80037890": 2147711120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5731,7 +5843,8 @@
       "source_sha256": "337e4af5ee978d98a60dfa812dab035cac4096ecaa4044a048917507a86b690d",
       "symbols": {
         "func_800341E0": 2147697120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5776,7 +5889,8 @@
       "symbols": {
         "func_80004CA4": 2147503268,
         "func_80011300": 2147554048
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5818,7 +5932,8 @@
       ],
       "source": "src/game/allocate_audio_record.c",
       "source_sha256": "93a95ae44fbf26e58dbfb4fea69d70f31e0d9699aa7245a6f5d903e3c1ddb58d",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5864,7 +5979,8 @@
       "symbols": {
         "func_8001E994": 2147608980,
         "func_8001EDE0": 2147610080
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5904,7 +6020,8 @@
       ],
       "source": "src/game/configure_audio_transition.c",
       "source_sha256": "8ae0319e2fa637a2a83293fbf4d5d3035332a94f850d1b845a93335e280ace06",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -5951,7 +6068,8 @@
         "func_800259D4": 2147637716,
         "func_80025AD8": 2147637976,
         "func_80037E9C": 2147712668
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6000,7 +6118,8 @@
         "func_8002F6B0": 2147677872,
         "func_80037890": 2147711120,
         "func_80037900": 2147711232
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6051,7 +6170,8 @@
         "func_80034DF0": 2147700208,
         "func_800351A0": 2147701152,
         "func_80037320": 2147709728
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6095,7 +6215,8 @@
       "source_sha256": "ea38bbcafbd846b730552abbb8030c27be2fbdc72be83d66456ff790eb4dfc4b",
       "symbols": {
         "func_80037D10": 2147712272
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6140,7 +6261,8 @@
       "symbols": {
         "func_8002E280": 2147672704,
         "func_80032BB0": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6180,7 +6302,8 @@
       ],
       "source": "src/game/configure_display_pipeline.c",
       "source_sha256": "8480978bffc8546279969b2d319a6855a3f57a293a200fdb408b976a075a8a20",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6230,7 +6353,8 @@
         "func_80005390": 2147505040,
         "func_8000566C": 2147505772,
         "func_80037890": 2147711120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6275,7 +6399,8 @@
         "osInvalDCache": 2147672400,
         "osPiStartDma": 2147660832,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6321,7 +6446,8 @@
         "osInvalDCache": 2147672400,
         "osPiStartDma": 2147660832,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6369,7 +6495,8 @@
         "osPiStartDma": 2147660832,
         "osRecvMesg": 2147691440,
         "osWritebackDCacheAll": 2147672704
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6415,7 +6542,8 @@
       "source_sha256": "c9eb80d106414be475769ece4a198e319b6ed336bbc1b86a10577af6a4921ece",
       "symbols": {
         "func_80011300": 2147554048
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6464,7 +6592,8 @@
         "func_8001E120": 2147606816,
         "func_8001E994": 2147608980,
         "func_8001EDE0": 2147610080
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6509,7 +6638,8 @@
       "symbols": {
         "func_80004380": 2147500928,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6557,7 +6687,8 @@
       "symbols": {
         "func_8001B1D4": 2147594708,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6612,7 +6743,8 @@
       "symbols": {
         "func_80038380": 2147713920,
         "sqrt": 2147714400
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6668,7 +6800,8 @@
         "func_80034E40": 2147700288,
         "func_800351A0": 2147701152,
         "shutdownActive": 2147759916
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6717,7 +6850,8 @@
         "func_80032BB0": 2147691440,
         "func_800346F0": 2147698416,
         "func_80034840": 2147698752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6774,7 +6908,8 @@
         "func_8002E280": 2147672704,
         "func_80032BB0": 2147691440,
         "func_800F0980": 2148469120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6824,7 +6959,8 @@
         "objectDurationUnsignedThreshold": 2147487724,
         "objectTimerBase": 2147885280,
         "objectTimerValue": 2147885288
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6876,7 +7012,8 @@
         "func_80011300": 2147554048,
         "recordBuffer": 2147759808,
         "records": 2147759732
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6923,7 +7060,8 @@
         "displayRecordTemplates": 2147763756,
         "displayRecords": 2147911888,
         "func_80008224": 2147516964
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -6963,7 +7101,8 @@
       ],
       "source": "src/game/free_heap_block.c",
       "source_sha256": "1396eb82e482ecbaa4941b742bee8d647f97f1079828f235c60dc77df947b6a6",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7003,7 +7142,8 @@
       ],
       "source": "src/game/allocate_heap_block.c",
       "source_sha256": "f7742fc9221704b61e13993dc54dadd82d19430b87d5938d894be2eabc53e990",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7048,7 +7188,8 @@
       "symbols": {
         "func_800B3870": 2148218992,
         "objectRecords": 2147855088
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7098,7 +7239,8 @@
         "nestedObjectLargeScale": 2147487700,
         "nestedObjectSmallScale": 2147487696,
         "nestedObjectVector": 2147487672
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7149,7 +7291,8 @@
         "pendingControllerMessages": 2147901908,
         "startupMessage": 2147716208,
         "startupMessageQueue": 2147717880
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7199,7 +7342,8 @@
         "tangentPi": 2147492120,
         "tangentPositiveHalf": 2147492136,
         "tangentReductionPi": 2147492144
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7253,7 +7397,8 @@
         "cosinePositiveHalf": 2147492288,
         "cosineReductionPi": 2147492296,
         "cosineTwo": 2147492360
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7307,7 +7452,8 @@
         "sinePi": 2147492160,
         "sinePositiveHalf": 2147492176,
         "sineReductionPi": 2147492184
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7362,7 +7508,8 @@
         "workerUpdateActive": 2147759912,
         "workerUpdateCount": 2147759904,
         "workerUpdateRequested": 2147759908
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7411,7 +7558,8 @@
         "func_80032CE0": 2147691744,
         "workerRequestQueue": 2147716216,
         "workerResponseQueue": 2147924032
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7464,7 +7612,8 @@
         "func_800AA804": 2148182020,
         "memoryContext": 2148476760,
         "scheduler": 2147716216
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7519,7 +7668,8 @@
         "schedulerCommandQueue": 2147902424,
         "secondRenderBuffer": 2147716196,
         "secondRenderSignal": 2147903052
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7582,7 +7732,8 @@
         "func_80037E90": 2147712656,
         "romCursor": 2147717916,
         "scheduler": 2147716216
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7641,7 +7792,8 @@
         "runtimeStackTop": 2147718760,
         "runtimeThread": 2147910800,
         "runtimeThreadEntry": 2147502476
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7691,7 +7843,8 @@
         "memoryContext": 2148476760,
         "objectCleanupBlocked": 2147885276,
         "rootRenderObject": 2147854860
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7744,7 +7897,8 @@
         "func_800BC3D0": 2148254672,
         "func_800BC3E0": 2148254688,
         "secondDisplayIndex": 2147761665
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7791,7 +7945,8 @@
         "resourceRecordCount": 2147776900,
         "resourceRecords": 2147785256,
         "selectedResourceRecord": 2147776944
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7851,7 +8006,8 @@
         "resourceLookupBusy": 2147759892,
         "resourcePath": 2147911696,
         "resourceResult": 2147911824
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7895,7 +8051,8 @@
       "symbols": {
         "activeSlotState": 2147761480,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7940,7 +8097,8 @@
         "D_8005A834": 2147854388,
         "D_8005A890": 2147854480,
         "D_8005A894": 2147854484
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -7994,7 +8152,8 @@
         "func_80018904": 2147584260,
         "func_80018910": 2147584272,
         "func_8001891C": 2147584284
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8040,7 +8199,8 @@
         "D_8005AAB0": 2147855024,
         "D_8005AAB4": 2147855028,
         "D_8005AAF0": 2147855088
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8085,7 +8245,8 @@
         "D_8005AC98": 2147855512,
         "D_8005F910": 2147875088,
         "D_800663DC": 2147902428
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8129,7 +8290,8 @@
       "symbols": {
         "func_80008F3C": 2147520316,
         "func_80018838": 2147584056
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8190,7 +8352,8 @@
         "func_8002F260": 2147676768,
         "func_80034C30": 2147699760,
         "func_800351A0": 2147701152
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8254,7 +8417,8 @@
         "func_8002F260": 2147676768,
         "func_80034C30": 2147699760,
         "func_800351A0": 2147701152
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8297,7 +8461,8 @@
       "source_sha256": "53400b42c6b760e1b0dbc0f9705608af3ad502f64051dafb8708fa8146c05477",
       "symbols": {
         "D_80049A28": 2147785256
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8345,7 +8510,8 @@
         "vertexLimitSecond": 2147486416,
         "vertexOne": 2147486392,
         "vertexScale": 2147486408
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8390,7 +8556,8 @@
         "audioRuntimeRecords": 2147897428,
         "audioRuntimeRequest": 2147897812,
         "audioRuntimeSequence": 2147897832
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8434,7 +8601,8 @@
         "D_800C4304": 2147924932,
         "func_800267AC": 2147641260,
         "func_8002E7A0": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8471,7 +8639,8 @@
       ],
       "source": "src/game/add_scaled_values.c",
       "source_sha256": "16c32f3f7334a65160a7eca95afa7b209240d57dc322bad5715a8ee70c108304",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8538,7 +8707,8 @@
         "func_80025780": 2147637120,
         "func_8002B4F0": 2147661040,
         "func_80037F30": 2147712816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8583,7 +8753,8 @@
         "func_80005C7C": 2147507324,
         "func_800113DC": 2147554268,
         "func_800378C0": 2147711168
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8639,7 +8810,8 @@
         "func_8001EEA4": 2147610276,
         "func_8002F6B0": 2147677872,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8679,7 +8851,8 @@
       "source_sha256": "36552abffd0c720d2a9b7abc82ed13ee52502a6cc630d5096e14b42e6a3893db",
       "symbols": {
         "func_80037F30": 2147712816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8723,7 +8896,8 @@
         "func_8002F6B0": 2147677872,
         "func_800AA100": 2148180224,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8765,7 +8939,8 @@
       "symbols": {
         "func_800AA658": 2148181592,
         "slotEntryState": 2147761480
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8807,7 +8982,8 @@
       "symbols": {
         "imageConversionEnabled": 2147776540,
         "imageTileOutput": 2147776992
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8861,7 +9037,8 @@
         "func_80033270": 2147693168,
         "func_80033290": 2147693200,
         "schedulerTaskBlocked": 2147759916
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8906,7 +9083,8 @@
         "func_800AA804": 2148182020,
         "memoryContext": 2148476760,
         "pixelBufferName": 2147487468
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8946,7 +9124,8 @@
       "source_sha256": "cdf8120d0b67dc907b8b3bb48c49a7796e91955403c219dec022613a74084c7f",
       "symbols": {
         "colorPalette": 2147922032
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -8992,7 +9171,8 @@
         "displayWidth": 2147922016,
         "screenHeight": 2147854376,
         "screenWidth": 2147854372
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9032,7 +9212,8 @@
       "source_sha256": "8be8eb5fb1e134925a397fd85e5c268419bc587d9bd0c08d0f25f356c0cd2ea1",
       "symbols": {
         "func_80037F30": 2147712816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9084,7 +9265,8 @@
         "func_800BC378": 2148254584,
         "func_800BC3C4": 2148254660,
         "func_800BC420": 2148254752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9141,7 +9323,8 @@
         "func_80012BD8": 2147560408,
         "func_80018838": 2147584056,
         "objectProcessingMode": 2147854652
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9202,7 +9385,8 @@
         "func_8002F260": 2147676768,
         "func_80034C30": 2147699760,
         "func_800351A0": 2147701152
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9250,7 +9434,8 @@
         "func_800AA658": 2148181592,
         "memoryContext": 2148476760,
         "renderRecords": 2147785256
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9294,7 +9479,8 @@
         "pixelData": 2147918900,
         "pixelFormat": 2147854352,
         "pixelScale": 2147918904
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9361,7 +9547,8 @@
         "func_8001EEA4": 2147610276,
         "func_8002F6B0": 2147677872,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9417,7 +9604,8 @@
         "func_8002E338": 2147672888,
         "func_80032BB0": 2147691440,
         "func_80035200": 2147701248
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9473,7 +9661,8 @@
         "func_80007384": 2147513220,
         "func_8000786C": 2147514476,
         "func_800B4784": 2148222852
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9510,7 +9699,8 @@
       ],
       "source": "src/game/build_texture_display_lists.c",
       "source_sha256": "86617121c0d02224215858ece125f6d204dc78b2a52d1dd7d8561d2085611c07",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9569,7 +9759,8 @@
         "func_80005A3C": 2147506748,
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9627,7 +9818,8 @@
         "func_800055D8": 2147505624,
         "func_8000566C": 2147505772,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9678,7 +9870,8 @@
         "func_8002E280": 2147672704,
         "func_80032BB0": 2147691440,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9727,7 +9920,8 @@
         "D_8005ACD0": 2147855568,
         "func_8000C68C": 2147534476,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9781,7 +9975,8 @@
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020,
         "func_800D6BD0": 2148363216
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9824,7 +10019,8 @@
         "D_8005AAF0": 2147855088,
         "func_80017810": 2147579920,
         "func_80017818": 2147579928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9876,7 +10072,8 @@
         "func_8002EAC0": 2147674816,
         "func_8002EC50": 2147675216,
         "func_8002EF70": 2147676016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9928,7 +10125,8 @@
         "func_8001A480": 2147591296,
         "func_8002F6B0": 2147677872,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -9975,7 +10173,8 @@
         "D_8005A534": 2147853620,
         "D_80068B80": 2147912576,
         "func_8002EAC0": 2147674816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10020,7 +10219,8 @@
         "D_80049B00": 2147785472,
         "D_800F2758": 2148476760,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10057,7 +10257,8 @@
       ],
       "source": "src/game/filter_grouped_byte_sequences.c",
       "source_sha256": "7836bfe6775044915c11827699ba0f5a4b9ab0dac7edc9545d9aadd6a8fa49bd",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10117,7 +10318,8 @@
         "func_8000566C": 2147505772,
         "func_80037890": 2147711120,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10173,7 +10375,8 @@
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020,
         "func_800D6BD0": 2148363216
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10243,7 +10446,8 @@
         "func_80037890": 2147711120,
         "func_80037900": 2147711232,
         "func_80037F30": 2147712816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10311,7 +10515,8 @@
         "func_80035680": 2147702400,
         "func_80036180": 2147705216,
         "func_80037F30": 2147712816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10353,7 +10558,8 @@
         "D_80000558": 2147485016,
         "D_80043D48": 2147761480,
         "func_800AD6D0": 2148194000
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10408,7 +10614,8 @@
         "func_80010BF4": 2147552244,
         "func_80034C30": 2147699760,
         "func_80034C80": 2147699840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10447,7 +10654,8 @@
       "source_sha256": "7d621dffcc45c24cbbcec5989ed6a206db22c32625a89e878e3bc84f2423e47d",
       "symbols": {
         "D_8005A93C": 2147854652
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10499,7 +10707,8 @@
         "D_800F1AE0": 2148473568,
         "func_800259D4": 2147637716,
         "func_80025B34": 2147638068
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10557,7 +10766,8 @@
         "func_80012BD8": 2147560408,
         "func_80017A1C": 2147580444,
         "func_80017DFC": 2147581436
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10596,7 +10806,8 @@
       "source_sha256": "a5e087932a7f2f6e3e94d60132e46da3e9e542a29c3bafca005824f4a9d3bd86",
       "symbols": {
         "D_80000610": 2147485200
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10635,7 +10846,8 @@
       ],
       "source": "src/game/create_rectangular_render_record.c",
       "source_sha256": "d1dba71ba486df151ccb12700f82d3232cb28b3ed487458921f560df7969dd41",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10689,7 +10901,8 @@
         "func_8001A480": 2147591296,
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10728,7 +10941,8 @@
       ],
       "source": "src/game/create_quad_render_record.c",
       "source_sha256": "950a68d20b93ef4559d371b675125a759e7995142a3a4dd7b8a9e42de8ab925c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10767,7 +10981,8 @@
       ],
       "source": "src/game/create_render_record.c",
       "source_sha256": "9654af6d3b095e6937dfdea314ec3e9a0665f5249626d1bf4a1d2402984acc0c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10807,7 +11022,8 @@
       ],
       "source": "src/game/index_archive_records.c",
       "source_sha256": "0f32066314f397224e2d68c5012c460a73a1483ad7773f5a6e31f6111bc832e4",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10844,7 +11060,8 @@
       ],
       "source": "src/game/double_arc_tangent.c",
       "source_sha256": "f951482b4c3583107cb913f4024ef1d7bde031a0b94de95343917d385340a6bd",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10883,7 +11100,8 @@
       ],
       "source": "src/libultra/install_exception_vectors.c",
       "source_sha256": "4e3f4a1e616ce8a9ea935fe4d2e997b63aece92a822a1feb9948707512c8ac32",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10926,7 +11144,8 @@
       ],
       "source": "src/game/dispatch_early_memory_transfer.c",
       "source_sha256": "5887416ffd244e39807fe976d76a8da36710af09819c001762f90b8e133197f3",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -10985,7 +11204,8 @@
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020,
         "func_800AAA60": 2148182624
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11025,7 +11245,8 @@
       ],
       "source": "src/game/register_runtime_object.c",
       "source_sha256": "47abf09239ecd25b9f31e400797e08180d9dbf26040b1b35c3cf915252faa003",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11077,7 +11298,8 @@
         "func_8002A370": 2147656560,
         "func_8002A3E0": 2147656672,
         "func_8002A480": 2147656832
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11144,7 +11366,8 @@
         "func_80037890": 2147711120,
         "func_800378C0": 2147711168,
         "func_80037950": 2147711312
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11185,7 +11408,8 @@
       ],
       "source": "src/game/release_runtime_object_storage.c",
       "source_sha256": "bea8c3f36b76f01a958736725f6cc121a06ae8fcd96c90fe86c31bd8c4daee12",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11252,7 +11476,8 @@
         "func_80034BD0": 2147699664,
         "func_80034C30": 2147699760,
         "func_800351A0": 2147701152
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11299,7 +11524,8 @@
         "D_8005A0A8": 2147852456,
         "func_8002F684": 2147677828,
         "func_800341E0": 2147697120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11336,7 +11562,8 @@
       ],
       "source": "src/game/synthesize_delayed_audio_samples.c",
       "source_sha256": "342dc0699b0d607b8fe28eb1030225c4d2e80a7b878a98336cda1aaf2f3f3e9d",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11372,7 +11599,8 @@
       ],
       "source": "src/game/gsm_decode_rpe_sequence.c",
       "source_sha256": "3b1a3eaefa02620ea5b833ddc757207cc9a529b724dfa55e44f81a2f0abb4a0b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11408,7 +11636,8 @@
       ],
       "source": "src/game/gsm_prepare_rpe_parameters.c",
       "source_sha256": "de6e4cba3ee2ed41a42c5152c2424db88c397837c73091515f619008a4f72e39",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11446,7 +11675,8 @@
       ],
       "source": "src/game/build_tlb_region_table.c",
       "source_sha256": "9deb3a664ed17d348d670dad4b2c651278540738b8a7508dc89cc5af3e681d07",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11491,7 +11721,8 @@
       "symbols": {
         "func_80028328": 2147648296,
         "func_80028790": 2147649424
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11547,7 +11778,8 @@
         "func_8002A280": 2147656320,
         "func_8002A3E0": 2147656672,
         "func_8002A480": 2147656832
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11603,7 +11835,8 @@
         "func_8002A370": 2147656560,
         "func_8002A3E0": 2147656672,
         "func_8002A480": 2147656832
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11720,7 +11953,8 @@
         "func_800B4578": 2148222328,
         "func_800D93C0": 2148373440,
         "func_800D9A18": 2148375064
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11769,7 +12003,8 @@
         "func_80006E2C": 2147511852,
         "func_800AA804": 2148182020,
         "func_800AD6D0": 2148194000
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11871,7 +12106,8 @@
         "func_8001EEA4": 2147610276,
         "func_8002F6B0": 2147677872,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -11949,7 +12185,8 @@
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020,
         "func_800AAA60": 2148182624
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12019,7 +12256,8 @@
         "func_80037950": 2147711312,
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12076,7 +12314,8 @@
         "paletteName": 2147487428,
         "sheetLoaded": 2147759728,
         "sheetPalette": 2147885360
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12137,7 +12376,8 @@
         "func_80037A90": 2147711632,
         "func_80037F30": 2147712816,
         "unsignedThreshold": 2147487848
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12194,7 +12434,8 @@
         "func_8001B414": 2147595284,
         "func_8001C344": 2147599172,
         "func_800341E0": 2147697120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12268,7 +12509,8 @@
         "func_8002E280": 2147672704,
         "func_80032BB0": 2147691440,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12347,7 +12589,8 @@
         "func_8002EFF0": 2147676144,
         "func_8002F190": 2147676560,
         "func_8002F1E4": 2147676644
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12389,7 +12632,8 @@
         "D_80047984": 2147776900,
         "D_800479E0": 2147776992,
         "D_80049A28": 2147785256
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12429,7 +12673,8 @@
       "symbols": {
         "D_80000600": 2147485184,
         "D_80000604": 2147485188
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12507,7 +12752,8 @@
         "func_80037F30": 2147712816,
         "func_800A3218": 2148151832,
         "func_800AA658": 2148181592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12558,7 +12804,8 @@
         "func_8000C68C": 2147534476,
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12615,7 +12862,8 @@
         "D_80064740": 2147895104,
         "func_80018E68": 2147585640,
         "func_8001C784": 2147600260
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12670,7 +12918,8 @@
       "symbols": {
         "func_800AD2A8": 2148192936,
         "sqrtf": 2147674112
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12725,7 +12974,8 @@
         "func_800767E4": 2147650644,
         "func_800771F4": 2147652268,
         "func_80077200": 2147652280
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12768,7 +13018,8 @@
       ],
       "source": "tools/ultralib/src/audio/heapinit.c",
       "source_sha256": "9856519f01737487ebaf8021f4d387ff320a540456eb200551231729c5da5732",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12811,7 +13062,8 @@
       ],
       "source": "tools/ultralib/src/audio/heapalloc.c",
       "source_sha256": "6c1bb5074c1834d2c722a6e5402845bb04b8659c3361e495563514c166686ca8",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12854,7 +13106,8 @@
       ],
       "source": "tools/ultralib/src/audio/copy.c",
       "source_sha256": "0fd8589166ec400818eb5f6f4cf6d471aad743e03c52ff2a8a60132be2a198c6",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12897,7 +13150,8 @@
       ],
       "source": "src/libultra/audio_sl.c",
       "source_sha256": "59de6c741f1bb520fe54814a1919a646ed35cf14fe3f907444746d1ad233fe28",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12940,7 +13194,8 @@
       ],
       "source": "src/libultra/gu_mtx_cat_f.c",
       "source_sha256": "908517a8b08cd6e09f2dd7d3d4014caeebcdc50b589b024533d8822cbc4989a6",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -12986,7 +13241,8 @@
       "symbols": {
         "gMusMasterVolumeEffects": 2147924140,
         "gMusMasterVolumeSongs": 2147924142
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13039,7 +13295,8 @@
       "source_sha256": "149aad59023891e5680c9e72cd7b0373277eb8b8ae2be8d6b2d43741405e054d",
       "symbols": {
         "func_800056C0": 2147505856
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13092,7 +13349,8 @@
       "source_sha256": "149aad59023891e5680c9e72cd7b0373277eb8b8ae2be8d6b2d43741405e054d",
       "symbols": {
         "func_80005854": 2147506260
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13145,7 +13403,8 @@
       "source_sha256": "9ae1333fe348f5bbd6b973675d07ef7bed160f6f2ecb15ee348c81d0476bbfdd",
       "symbols": {
         "func_80005B9C": 2147507100
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13195,7 +13454,8 @@
       "source_sha256": "827761388031351882acfde7388cc8cd4496c9ee949b34c9b36b55e4b1a59704",
       "symbols": {
         "func_80013C0C": 2147564556
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13245,7 +13505,8 @@
       "source_sha256": "827761388031351882acfde7388cc8cd4496c9ee949b34c9b36b55e4b1a59704",
       "symbols": {
         "func_8001B2C0": 2147594944
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13296,7 +13557,8 @@
       "source_sha256": "3ff4f1505c58942e494cf546f49ba04603b27f3c59deac5ad00aeb5c9563e25a",
       "symbols": {
         "func_80004380": 2147500928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13347,7 +13609,8 @@
       "source_sha256": "b05d7d3f31465e66bcabe1fb81e6579457c747e407b012098295f3c2830a6f9e",
       "symbols": {
         "func_8001EC54": 2147609684
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13398,7 +13661,8 @@
       "source_sha256": "3ff4f1505c58942e494cf546f49ba04603b27f3c59deac5ad00aeb5c9563e25a",
       "symbols": {
         "func_80004380": 2147500928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13449,7 +13713,8 @@
       "source_sha256": "3ff4f1505c58942e494cf546f49ba04603b27f3c59deac5ad00aeb5c9563e25a",
       "symbols": {
         "func_80004380": 2147500928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13497,7 +13762,8 @@
       ],
       "source": "src/game/init_aligned_buffer.c",
       "source_sha256": "fb05958e275fccd9478276bb2853f9d41627d2413d6d9f7da54cb0085ef980cf",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13544,7 +13810,8 @@
       ],
       "source": "src/game/compare_bytes.c",
       "source_sha256": "3ee89c428d29a20eebe67cf410b247f4b7da1b0327ebe4fe9e30175a14a0ea1d",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13591,7 +13858,8 @@
       ],
       "source": "src/game/fill_bytes.c",
       "source_sha256": "017fb189e63413633a81a4c642dbfc3de5d80ec117bb8152b4999923016ea7e1",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13638,7 +13906,8 @@
       ],
       "source": "src/game/ascii_lowercase.c",
       "source_sha256": "1c818aa2008f793a6f110b6601a34332956050ad1325e9edaccb70d02ad17c52",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13691,7 +13960,8 @@
       ],
       "source": "src/game/clear_record_array_fields.c",
       "source_sha256": "158ac55ed3aefdcbf347782045f777533f1e2a4bb54bc11325e2eb7375f2d3fa",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13740,7 +14010,8 @@
       ],
       "source": "src/game/write_object_word_bytes.c",
       "source_sha256": "967e4401515c5aab32a07ff1cd98e2056c0ccd415df0388df81ef03f37a4e66c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13791,7 +14062,8 @@
       ],
       "source": "src/game/append_global_pointer.c",
       "source_sha256": "660a84403a420a08f42b80eb9d01e856c931c8b0d23ba13df332d3f21e299284",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13843,7 +14115,8 @@
       ],
       "source": "src/game/append_global_pointer_if_field.c",
       "source_sha256": "a9eb26e7ed96de0835505ceff1c8bc01b5d040fbb0347eb9b6446a8d023035e3",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13895,7 +14168,8 @@
       ],
       "source": "src/game/append_global_pointer_if_field.c",
       "source_sha256": "a9eb26e7ed96de0835505ceff1c8bc01b5d040fbb0347eb9b6446a8d023035e3",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13945,7 +14219,8 @@
       ],
       "source": "src/game/init_global_word_pair.c",
       "source_sha256": "e8b1620795ccaaa125ee6f4a5f73f6972327d9e01508d3492db47a7534d162a9",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -13995,7 +14270,8 @@
       ],
       "source": "src/game/copy_three_global_floats.c",
       "source_sha256": "5bc7096b25a62cd85f20db22aa164c5ae15845602b7b22f95fde50f697a46407",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14047,7 +14323,8 @@
       ],
       "source": "src/game/init_global_state_constants.c",
       "source_sha256": "9d4e28e1a1c7a91d1d7fc1f05bc84869fad63bc813775640ee01d254f0f3d122",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14100,7 +14377,8 @@
       ],
       "source": "src/game/clear_strided_global_array.c",
       "source_sha256": "cd40e40839812e668bfd97caad95d9f682f1682db4b14a837d85a3c40b957843",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14151,7 +14429,8 @@
       ],
       "source": "src/game/clear_and_copy_global.c",
       "source_sha256": "7310d758e318fa9b84bbfb2ff6051635258df30d46a92cb65f79d63c8b7efb5c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14200,7 +14479,8 @@
       ],
       "source": "src/game/pack_color_global.c",
       "source_sha256": "df064803b6b973d587584d227fcef1aaecca707a15c22b3aa206e574373d351b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14252,7 +14532,8 @@
       ],
       "source": "src/game/set_four_global_words.c",
       "source_sha256": "6766c4d0520a83f5c49950c0ff386782ff1ad48ae90d2001d7bc0b9ab219293b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14299,7 +14580,8 @@
       ],
       "source": "src/game/swap_word.c",
       "source_sha256": "ee15815bc35143634fc2a66285db90f191cd815b0a09049b74f5923241e2e02e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14346,7 +14628,8 @@
       ],
       "source": "src/game/return_argument.c",
       "source_sha256": "d6368da6298d78791053c3444b550c8f5d7442a00df574628b070bfb92b557fa",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14393,7 +14676,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14443,7 +14727,8 @@
       ],
       "source": "src/game/set_two_global_floats.c",
       "source_sha256": "04433bb6f89ef444346d31f046444a3960a8889980a3ebf6c368cce22e65f653",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14493,7 +14778,8 @@
       ],
       "source": "src/game/clear_two_global_words.c",
       "source_sha256": "7cb89e217258b6366ec6b079a66e7faf29cd4589b7c7a5638cb10bc61fc53d9a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14543,7 +14829,8 @@
       ],
       "source": "src/game/set_global_word_constant.c",
       "source_sha256": "aab592f62e67a144c38bde16f4b6038e3f6809012cbcbf1f3495e631394c5a4a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14593,7 +14880,8 @@
       ],
       "source": "src/game/set_global_word_constant.c",
       "source_sha256": "aab592f62e67a144c38bde16f4b6038e3f6809012cbcbf1f3495e631394c5a4a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14643,7 +14931,8 @@
       ],
       "source": "src/game/set_global_halfword_constant.c",
       "source_sha256": "646417b3430c5b3deb06d79366a2316e2ef9cbf28e23900527fe2600b6b1de41",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14693,7 +14982,8 @@
       ],
       "source": "src/game/set_global_word_constant.c",
       "source_sha256": "aab592f62e67a144c38bde16f4b6038e3f6809012cbcbf1f3495e631394c5a4a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14742,7 +15032,8 @@
       ],
       "source": "src/game/set_global_word.c",
       "source_sha256": "aa9d4d7fcf964d16f628a9f450d6988c05118460f955c906427e363c4afc6d25",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14791,7 +15082,8 @@
       ],
       "source": "src/game/set_global_word.c",
       "source_sha256": "aa9d4d7fcf964d16f628a9f450d6988c05118460f955c906427e363c4afc6d25",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14840,7 +15132,8 @@
       ],
       "source": "src/game/clear_global_word.c",
       "source_sha256": "628e2001ad4401ef224e9f21f8b943658f83095eb7a4f71a5f32b3cd23fe5146",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14889,7 +15182,8 @@
       ],
       "source": "src/game/clear_global_halfword.c",
       "source_sha256": "9c2002596979c186a2bf4dc0643d88e7dec57fcedaaa6cc7b4997da0509b2b17",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14938,7 +15232,8 @@
       ],
       "source": "src/game/set_global_word.c",
       "source_sha256": "aa9d4d7fcf964d16f628a9f450d6988c05118460f955c906427e363c4afc6d25",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -14987,7 +15282,8 @@
       ],
       "source": "src/game/clear_halfword_return_zero.c",
       "source_sha256": "530ece41b796f4e4ee8417ec40c395316bd826a05f2bbbcfafc32e93665ff531",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15036,7 +15332,8 @@
       ],
       "source": "src/game/set_global_word.c",
       "source_sha256": "aa9d4d7fcf964d16f628a9f450d6988c05118460f955c906427e363c4afc6d25",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15085,7 +15382,8 @@
       ],
       "source": "src/game/clear_global_word.c",
       "source_sha256": "628e2001ad4401ef224e9f21f8b943658f83095eb7a4f71a5f32b3cd23fe5146",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15134,7 +15432,8 @@
       ],
       "source": "src/game/clear_global_word.c",
       "source_sha256": "628e2001ad4401ef224e9f21f8b943658f83095eb7a4f71a5f32b3cd23fe5146",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15183,7 +15482,8 @@
       ],
       "source": "src/game/clear_global_word.c",
       "source_sha256": "628e2001ad4401ef224e9f21f8b943658f83095eb7a4f71a5f32b3cd23fe5146",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15232,7 +15532,8 @@
       ],
       "source": "src/game/set_global_word_second.c",
       "source_sha256": "647efa14a48ea6df53bc0661588b9c574c0c1a6500645eeda1bfb0edc9c12a5b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15281,7 +15582,8 @@
       ],
       "source": "src/game/set_global_word_default.c",
       "source_sha256": "79bc3cfe9e23920805bf0b0a49f669613b32ea2eeaa7a899e28cfa2fa4344b25",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15328,7 +15630,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15376,7 +15679,8 @@
       ],
       "source": "src/game/set_word_return_value.c",
       "source_sha256": "5a0d3a38bc8fceb0d6dd4034a7f91cb3c6224ee79f4c737e228c9802d852d43a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15423,7 +15727,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15470,7 +15775,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15517,7 +15823,8 @@
       ],
       "source": "src/game/return_zero.c",
       "source_sha256": "eb165a2c3e66dbc3ec48f3a79b65de6519f1ba55e20d9b360f745fb3a1b93372",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15564,7 +15871,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15611,7 +15919,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15658,7 +15967,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15705,7 +16015,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15752,7 +16063,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15799,7 +16111,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15846,7 +16159,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15892,7 +16206,8 @@
       ],
       "source": "src/game/object_fields_init.c",
       "source_sha256": "2e4c23976aa79a0ad26182f6827ee7f139524a52cffffbcfd952013fbb33ae0a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15941,7 +16256,8 @@
       ],
       "source": "src/game/set_halfword_return_zero.c",
       "source_sha256": "b1f3123874462a6db1240142cf9189d26c4f7a6c91f9d7fa0b0cf381715642d5",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -15990,7 +16306,8 @@
       ],
       "source": "src/game/value_in_range.c",
       "source_sha256": "8b0992d326c3312e45a02992eb2b2e407c6a7ae7e51968db7a16f2810a6d41df",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16037,7 +16354,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16085,7 +16403,8 @@
       ],
       "source": "src/game/pointer_field_offset.c",
       "source_sha256": "cafbe918314c0cb00d86ae2733cf99b660f1be51d0a91879f452f2eef630ed0c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16133,7 +16452,8 @@
       ],
       "source": "src/game/pointer_field_offset.c",
       "source_sha256": "cafbe918314c0cb00d86ae2733cf99b660f1be51d0a91879f452f2eef630ed0c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16180,7 +16500,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16228,7 +16549,8 @@
       ],
       "source": "src/game/pointer_field_set.c",
       "source_sha256": "664d703b55b7916d76d97321e148da88b9d0e253d2a9beafdff847e6b425f8fd",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16275,7 +16597,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16322,7 +16645,8 @@
       ],
       "source": "src/game/swap_halfword.c",
       "source_sha256": "8d06f37f0199a2c0d3b32a926b1d345ebe2ada313ec2cc42ac6c874b3b8b0be1",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16369,7 +16693,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16416,7 +16741,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16463,7 +16789,8 @@
       ],
       "source": "src/game/return_argument.c",
       "source_sha256": "d6368da6298d78791053c3444b550c8f5d7442a00df574628b070bfb92b557fa",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16510,7 +16837,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16557,7 +16885,8 @@
       ],
       "source": "src/game/return_argument.c",
       "source_sha256": "d6368da6298d78791053c3444b550c8f5d7442a00df574628b070bfb92b557fa",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16604,7 +16933,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16651,7 +16981,8 @@
       ],
       "source": "src/game/return_argument.c",
       "source_sha256": "d6368da6298d78791053c3444b550c8f5d7442a00df574628b070bfb92b557fa",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16700,7 +17031,8 @@
       ],
       "source": "src/game/set_byte_field.c",
       "source_sha256": "e7741a7230c1d34ee511a5fb287d2295ec4300304f0390c3b0fed472d9019066",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16747,7 +17079,8 @@
       ],
       "source": "src/game/empty_stub.c",
       "source_sha256": "2d76ebb71bcfe5e991d7eb1979e04738905bb557f6331d0e6a1d57769b17166a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16795,7 +17128,8 @@
       "source_sha256": "866ae5b5ecaaba229e26de289de13c4073adafd8a4f62ef5e354014777d51bcf",
       "symbols": {
         "osSetIntMask": 2147656672
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16846,7 +17180,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViCurr": 2147905840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16897,7 +17232,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16948,7 +17284,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -16999,7 +17336,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17050,7 +17388,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17101,7 +17440,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17148,7 +17488,8 @@
       ],
       "source": "tools/ultralib/src/io/spsetpc.c",
       "source_sha256": "201b8fb1c867d8141d27d9fc960a77a77b532266e6d93bfe79ef495b4705de94",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17197,7 +17538,8 @@
       "symbols": {
         "__osSpDeviceBusy": 2147692928,
         "__osSpSetStatus": 2147692960
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17240,7 +17582,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_sp_device_busy.c",
       "source_sha256": "4ad2a2f0d17b90146532041994aa3229e03e34d0aca184e2f5be5782a80e7b12",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17283,7 +17626,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_sp_set_status.c",
       "source_sha256": "12c5aa28eef450b4f071396de0a5961c849272e596ebfc6655e9a393758d882e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17329,7 +17673,8 @@
       "symbols": {
         "__osSpDeviceBusy": 2147692928,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17377,7 +17722,8 @@
       "source_sha256": "76dcc4157883ef5ef6827696be014e58042528bdf4c711fc54566794b6ff4cca",
       "symbols": {
         "__osSpSetStatus": 2147692960
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17426,7 +17772,8 @@
       "source_sha256": "2040938798842659cbc9e442f4c8b988492c5e0849a4b3b63ed71cfbae43081b",
       "symbols": {
         "__osSpGetStatus": 2147693280
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17476,7 +17823,8 @@
       "symbols": {
         "__osDpDeviceBusy": 2147695568,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17519,7 +17867,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_dp_device_busy.c",
       "source_sha256": "fda4d38acce1e2b1b8be60ba7452ebc6ace356d3a6f64c275084a39b8b0fe153",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17567,7 +17916,8 @@
         "osInvalDCache": 2147672400,
         "osVirtualToPhysical": 2147674016,
         "osWritebackDCache": 2147692800
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17619,7 +17969,8 @@
         "__osCleanupThread": 2147691416,
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17674,7 +18025,8 @@
         "__osRestoreInt": 2147657440,
         "__osRunQueue": 2147905704,
         "__osRunningThread": 2147905712
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17730,7 +18082,8 @@
         "__osRestoreInt": 2147657440,
         "__osRunQueue": 2147905704,
         "__osRunningThread": 2147905712
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17783,7 +18136,8 @@
         "__osRestoreInt": 2147657440,
         "__osRunQueue": 2147905704,
         "__osRunningThread": 2147905712
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17836,7 +18190,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "osGetCount": 2147697264
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17887,7 +18242,8 @@
         "__osInsertTimer": 2147697936,
         "__osSetTimerIntr": 2147697840,
         "__osTimerList": 2147905728
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -17951,7 +18307,8 @@
         "osViModeMpalLan1": 2147910608,
         "osViModeNtscLan1": 2147910368,
         "osViModePalLan1": 2147910528
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18002,7 +18359,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18053,7 +18411,8 @@
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440,
         "__osViNext": 2147905844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18104,7 +18463,8 @@
         "__osEepStatus": 2147655360,
         "__osSiGetAccess": 2147695860,
         "__osSiRelAccess": 2147695968
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18158,7 +18518,8 @@
         "osEepromWrite": 2147654832,
         "osRecvMesg": 2147691440,
         "osSetTimer": 2147697280
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18207,7 +18568,8 @@
       "source_sha256": "92b9740544161713a5e2fb3f2b3869d371e9b286aa2c58cb3e2623760d318329",
       "symbols": {
         "osEepromRead": 2147655776
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18259,7 +18621,8 @@
         "osJamMesg": 2147688704,
         "osPiGetCmdQueue": 2147658336,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18308,7 +18671,8 @@
       "source_sha256": "41e63d68a65875ea6d49b2c665d5184afb93e97544fb0296f05f6d04bc11dd4d",
       "symbols": {
         "__osCurrentHandle": 2147904688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18357,7 +18721,8 @@
       "source_sha256": "19f70dcf7e95d3425852aab651d37e75b89e6699836d345bd9ee0046d72d4a38",
       "symbols": {
         "__osCurrentHandle": 2147904688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18409,7 +18774,8 @@
         "osJamMesg": 2147688704,
         "osPiGetCmdQueue": 2147658336,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18452,7 +18818,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_ai_device_busy.c",
       "source_sha256": "c51e73ae20db081f1fb1e09eb00152ed8b7f4e51df2c8fd09f3384d72ab62dc5",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18527,7 +18894,8 @@
         "alFxParamHdl": 2147669864,
         "alFxPull": 2147668960,
         "alHeapDBAlloc": 2147672096
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18593,7 +18961,8 @@
         "_pullSubFrame": 2147667188,
         "alGlobals": 2147905440,
         "eqpower": 2147905152
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18641,7 +19010,8 @@
       ],
       "source": "src/libultra/audio_env_param.c",
       "source_sha256": "cffbab61180c64ee714535fcfb0a80c3e9f9fdfdc245a35cad79f11e7999918a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18702,7 +19072,8 @@
       "symbols": {
         "_getRate": 2147667948,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18761,7 +19132,8 @@
       ],
       "source": "src/libultra/audio_env_math.c",
       "source_sha256": "bfafda31742e9c539ebc7030d0c204a0272c6ed4881a0d739625504f90a1eb7b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18820,7 +19192,8 @@
       ],
       "source": "src/libultra/audio_resample_param.c",
       "source_sha256": "5d37776224a5030961c0045b1a3ad5d6cd7f463f5c958f94201a09fcb6637862",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18875,7 +19248,8 @@
         "__osSiRawStartDma": 2147695600,
         "__osSiRelAccess": 2147695968,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18921,7 +19295,8 @@
       "source_sha256": "8ed671e96d3962776f05bd92fd75b51c33bc96af918950990626d4ed19a8fa52",
       "symbols": {
         "__osProbeTLB": 2147698224
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -18990,7 +19365,8 @@
         "osGetTime": 2147697120,
         "osRecvMesg": 2147691440,
         "osSetTimer": 2147697280
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19033,7 +19409,8 @@
       ],
       "source": "tools/ultralib/src/libc/string.c",
       "source_sha256": "31902f760f5d7e3c1ad604d31fb65374514c884441665ad903216d7009d4c023",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19083,7 +19460,8 @@
       "symbols": {
         "_Printf": 2147678016,
         "memcpy": 2147677828
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19132,7 +19510,8 @@
       "source_sha256": "e392f67923031f5572e589d5b1179389a2dc13bb0ef506350aa856a20e5071ae",
       "symbols": {
         "__divdi3": 2147684400
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19181,7 +19560,8 @@
       "source_sha256": "a22ee9bd7b578ae677d9628ab42333751306d49f974cc9dbcb681973f4aaba9a",
       "symbols": {
         "__osThreadTail": 2147905696
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19235,7 +19615,8 @@
         "__osRestoreInt": 2147657440,
         "__osRunningThread": 2147905712,
         "osStartThread": 2147696688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19289,7 +19670,8 @@
         "__osRestoreInt": 2147657440,
         "__osRunningThread": 2147905712,
         "osStartThread": 2147696688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19343,7 +19725,8 @@
         "__osRestoreInt": 2147657440,
         "__osRunningThread": 2147905712,
         "osStartThread": 2147696688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19391,7 +19774,8 @@
       "source_sha256": "9cdd99710e8cf7b57c788593627bd9977745d0f11acfd46d08f9c254b3e30b0d",
       "symbols": {
         "osSetIntMask": 2147656672
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19443,7 +19827,8 @@
         "__scHandleRetrace": 2147693652,
         "osRecvMesg": 2147691440,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19496,7 +19881,8 @@
         "__scYield": 2147694812,
         "osRecvMesg": 2147691440,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19547,7 +19933,8 @@
         "__scSchedule": 2147694868,
         "__scTaskComplete": 2147694376,
         "osSpTaskYielded": 2147693200
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19597,7 +19984,8 @@
         "__scExec": 2147694604,
         "__scSchedule": 2147694868,
         "__scTaskComplete": 2147694376
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19644,7 +20032,8 @@
       "symbols": {
         "osViGetCurrentFramebuffer": 2147698416,
         "osViGetNextFramebuffer": 2147698752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19704,7 +20093,8 @@
         "osSendMesg": 2147691744,
         "osViBlack": 2147701152,
         "osViSwapBuffer": 2147700288
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19750,7 +20140,8 @@
       ],
       "source": "src/libultra/sched_append_list.c",
       "source_sha256": "42101d9a45d01b11ebdb2265105d36072f118fa177fb329546e5d6dfc2a41727",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19811,7 +20202,8 @@
         "osSpTaskLoad": 2147692224,
         "osSpTaskStartGo": 2147692748,
         "osWritebackDCacheAll": 2147672704
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19859,7 +20251,8 @@
       "source_sha256": "c3d66b198a5e21597bd4cce1e5304ec67f7947f0342d8eff8fa43222792d7c9e",
       "symbols": {
         "osSpTaskYield": 2147693168
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19919,7 +20312,8 @@
       "symbols": {
         "osViGetCurrentFramebuffer": 2147698416,
         "osViGetNextFramebuffer": 2147698752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -19968,7 +20362,8 @@
       "source_sha256": "c1a543c1f9855d8b2ab3e4699b8debbb2d1d148cbb4f07afed587c64ff77e713",
       "symbols": {
         "__osRunningThread": 2147905712
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20017,7 +20412,8 @@
       "source_sha256": "bcac288b80c10d12a17f9e4a9403bfee8e93ac5f04b71a261e7c713427f34baf",
       "symbols": {
         "__osSiDeviceBusy": 2147710832
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20060,7 +20456,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_si_device_busy.c",
       "source_sha256": "7149db788aa7271aeea397c4d97e96cbb4923ab44209050193c82bd5aad5a74e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20109,7 +20506,8 @@
       "source_sha256": "c27c11f717b2b2fb5233b73fa74566bfc31212e6bd54e9817eb447bc95e43b55",
       "symbols": {
         "__osSiDeviceBusy": 2147710832
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20158,7 +20556,8 @@
       "source_sha256": "cfccbfe91da545e61b5db5b44edc97e5e56d79fd05e80c9a465fa8bab3ef15db",
       "symbols": {
         "__osSpSetPc": 2147692976
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20203,7 +20602,8 @@
       ],
       "source": "tools/ultralib/src/os/getmemsize.c",
       "source_sha256": "37dd1764d8fc3a1bae3edb1ce9dcdafaf317ec113a977b3fb81a2261cbbf9f3e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20252,7 +20652,8 @@
       "source_sha256": "497c254a83373de6232ffe2f9ca0ad92be7be452a77e1b14d858df981bacd56c",
       "symbols": {
         "alCopy": 2147672176
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20324,7 +20725,8 @@
         "alGlobals": 2147905440,
         "init_lpfilter": 2147661520,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20382,7 +20784,8 @@
       "symbols": {
         "alLink": 2147671936,
         "alUnlink": 2147671968
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20431,7 +20834,8 @@
         "guMtxCatF": 2147674464,
         "guMtxF2L": 2147674816,
         "guMtxL2F": 2147674968
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20478,7 +20882,8 @@
       ],
       "source": "tools/ultralib/src/gu/mtxutil.c",
       "source_sha256": "4f61c11992bbfb679343516902e734ab3b475769fc3fd85b2ef2dd58f4d2c1df",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20542,7 +20947,8 @@
         "guMtxF2L": 2147674816,
         "guMtxIdentF": 2147675136,
         "sinf": 2147676144
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20592,7 +20998,8 @@
       "symbols": {
         "guMtxF2L": 2147674816,
         "guMtxIdentF": 2147675136
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20642,7 +21049,8 @@
       "symbols": {
         "guMtxF2L": 2147674816,
         "guMtxIdentF": 2147675136
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20700,7 +21108,8 @@
       ],
       "source": "tools/battletanx_ga/src/libmus/800FAE70_fenvelope.c",
       "source_sha256": "8f398de2ff956752f1a2e09f02863cc894673897d8d739ac718f54c521fcf08c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20779,7 +21188,8 @@
         "func_80101D90": 2147620880,
         "func_80101DE0": 2147620960,
         "osTvType": 2147484416
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20829,7 +21239,8 @@
       "symbols": {
         "MusHandleUnPause": 2147610236,
         "player_text_329C": 2147617632
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20881,7 +21292,8 @@
         "D_803AD9A8": 2147924168,
         "D_803AD9AC": 2147924172,
         "func_800FD8B8": 2147617208
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20937,7 +21349,8 @@
         "D_803AD9AC": 2147924172,
         "func_800FD808": 2147617032,
         "func_800FD8B8": 2147617208
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -20987,7 +21400,8 @@
       "symbols": {
         "D_803AD974": 2147924116,
         "D_803AD97C": 2147924124
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21041,7 +21455,8 @@
         "D_803AD9A8": 2147924168,
         "func_800FD2A0": 2147615648,
         "player_text_1AE0": 2147610772
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21090,7 +21505,8 @@
       ],
       "source": "src/game/read_argument_word.c",
       "source_sha256": "c7d85cba40577c9d47bed80e0cce18cef1763f7d3a4c01be60096df3beeac7ee",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21141,7 +21557,8 @@
       "source_sha256": "a66d9ecaa30dd094f7f528daaf49a9420046da2ef01eb55efca037cd16fa94ef",
       "symbols": {
         "globalValue": 2147924168
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21192,7 +21609,8 @@
       "source_sha256": "a66d9ecaa30dd094f7f528daaf49a9420046da2ef01eb55efca037cd16fa94ef",
       "symbols": {
         "globalValue": 2147904476
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21243,7 +21661,8 @@
       "source_sha256": "a66d9ecaa30dd094f7f528daaf49a9420046da2ef01eb55efca037cd16fa94ef",
       "symbols": {
         "globalValue": 2147924176
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21298,7 +21717,8 @@
         "D_803AD9C0": 2147924192,
         "__MusIntMemMalloc": 2147636876,
         "func_800FDCCC": 2147618252
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21358,7 +21778,8 @@
       "source_sha256": "c7b7a5b2f3a068d34ca1a611a9d74d46627f9125820c71fda605c9c47bcad089",
       "symbols": {
         "__libm_qnan_f": 2147491312
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21418,7 +21839,8 @@
       "source_sha256": "bfdf8d17facc510edfc46dab2e9dd607cebbb462317de4d74a1e568e579645f2",
       "symbols": {
         "__libm_qnan_f": 2147491312
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21492,7 +21914,8 @@
         "n_alLoadParam": 2147625048,
         "n_alResamplePull": 2147625776,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21541,7 +21964,8 @@
       "source_sha256": "ffd61c900ac14b0d1cffb3e7e7212b3f409bcf242f78a98ea0ff8c894c6dda8a",
       "symbols": {
         "alCopy": 2147672176
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21602,7 +22026,8 @@
       "symbols": {
         "n_alAdpcmPull": 2147623952,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21653,7 +22078,8 @@
         "__allocParam": 2147627480,
         "alGlobals": 2147903252,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21704,7 +22130,8 @@
         "__allocParam": 2147627480,
         "alGlobals": 2147903252,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21755,7 +22182,8 @@
         "__allocParam": 2147627480,
         "alGlobals": 2147903252,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21807,7 +22235,8 @@
         "alGlobals": 2147903252,
         "func_80102854": 2147627780,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21858,7 +22287,8 @@
         "__allocParam": 2147627480,
         "alGlobals": 2147903252,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21909,7 +22339,8 @@
         "__allocParam": 2147627480,
         "alGlobals": 2147903252,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -21972,7 +22403,8 @@
         "alLink": 2147671936,
         "alUnlink": 2147671968,
         "func_801028B0": 2147631888
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22022,7 +22454,8 @@
       "symbols": {
         "alGlobals": 2147903252,
         "n_alEnvmixerPull": 2147621440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22093,7 +22526,8 @@
       "symbols": {
         "alHeapDBAlloc": 2147672096,
         "init_lpfilter": 2147661520
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [
@@ -22165,7 +22599,8 @@
         "func_800FFA90": 2147627872,
         "init_lpfilter": 2147661520,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22215,7 +22650,8 @@
       "symbols": {
         "alGlobals": 2147903252,
         "func_80102900": 2147631968
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22264,7 +22700,8 @@
       "source_sha256": "8d1da27193ea3ebbf0038b55f9cfbf1a738abf5189f6b9b5c05f239049851f86",
       "symbols": {
         "alGlobals": 2147903252
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22317,7 +22754,8 @@
         "func_800FE778": 2147632200,
         "func_800FEE60": 2147633968,
         "n_alGlobals": 2147903248
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22372,7 +22810,8 @@
         "func_800FFA90": 2147627872,
         "func_80101320": 2147629344,
         "func_80102980": 2147632824
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22422,7 +22861,8 @@
       "symbols": {
         "alGlobals": 2147903252,
         "n_alFxNew": 2147632904
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22488,7 +22928,8 @@
         "func_800FEE78": 2147633992,
         "func_800FEEBC": 2147634060,
         "init_lpfilter": 2147661520
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22542,7 +22983,8 @@
         "D_803AD9E0": 2147924224,
         "alFxParam": 2147669844,
         "func_800FEB80": 2147633232
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22615,7 +23057,8 @@
         "osSendMesg": 2147691744,
         "osVirtualToPhysical": 2147674016,
         "rspbootTextStart": 2147492544
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22677,7 +23120,8 @@
         "osAiSetFrequency": 2147661040,
         "osCreateThread": 2147696016,
         "osStartThread": 2147696688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22730,7 +23174,8 @@
         "D_803ADC84": 2147924900,
         "D_803ADC88": 2147924904,
         "D_803ADC8C": 2147924908
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22781,7 +23226,8 @@
         "D_803ADC90": 2147924912,
         "alHeapDBAlloc": 2147672096,
         "alHeapInit": 2147672032
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22848,7 +23294,8 @@
         "D_803AD9B0": 2147924176,
         "func_800FD438": 2147616056,
         "func_800FD8B8": 2147617208
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22932,7 +23379,8 @@
         "func_80101FD0": 2147626224,
         "func_80102190": 2147626672,
         "func_801022D0": 2147626992
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -22992,7 +23440,8 @@
       "source_sha256": "6df2be8d53fee70e2174b73c4b12667ecce7bbffb51bca11ab0b4b5e9dbe5168",
       "symbols": {
         "sinf": 2147676144
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23061,7 +23510,8 @@
         "func_80102190": 2147626672,
         "func_80102240": 2147626848,
         "func_801022D0": 2147626992
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23119,7 +23569,8 @@
       ],
       "source": "tools/battletanx_ga/src/libmus/800FD10C_player_bank_math.c",
       "source_sha256": "b3f6d6f48a7c863adf323b954ea4383d0c51cd646cfd1985e9aaacee21ee294f",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23180,7 +23631,8 @@
       "symbols": {
         "func_800FD7D0": 2147616976,
         "osWritebackDCacheAll": 2147672704
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23229,7 +23681,8 @@
       "source_sha256": "922b5dc4f07568a0266502cc6f1a77e1d10fb2ea61e307c1554bb4871107f820",
       "symbols": {
         "D_803AD994": 2147924148
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23280,7 +23733,8 @@
         "D_803AD984": 2147924132,
         "D_803AD998": 2147924152,
         "D_803AD99C": 2147924156
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23334,7 +23788,8 @@
         "D_803AD990": 2147924144,
         "D_803AD998": 2147924152,
         "func_800FD4CC": 2147616204
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23384,7 +23839,8 @@
       "symbols": {
         "D_803AD974": 2147924116,
         "D_803AD97C": 2147924124
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23431,7 +23887,8 @@
       ],
       "source": "tools/ultralib/src/audio/filter.c",
       "source_sha256": "6b3f704a777130ca145ee1eb05c870f34f95ce6143e7df04af40b7b109841dea",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23481,7 +23938,8 @@
       "symbols": {
         "alGlobals": 2147903252,
         "osSetIntMask": 2147656672
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23534,7 +23992,8 @@
         "alLink": 2147671936,
         "alUnlink": 2147671968,
         "n_alEnvmixerParam": 2147622840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23584,7 +24043,8 @@
       "symbols": {
         "__osCurrentHandle": 2147904688,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23638,7 +24098,8 @@
         "osRecvMesg": 2147691440,
         "osSendMesg": 2147691744,
         "piAccessBuf": 2147938224
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23699,7 +24160,8 @@
       "source_sha256": "70c971b814c372a99311444b456ffb8a9d46f9769ec1516769285fcc02d87833",
       "symbols": {
         "osViClock": 2147910728
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23760,7 +24222,8 @@
       "symbols": {
         "__osAiDeviceBusy": 2147661488,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23815,7 +24278,8 @@
         "__osSiRawStartDma": 2147695600,
         "__osSiRelAccess": 2147695968,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23872,7 +24336,8 @@
         "__osSiRawStartDma": 2147695600,
         "__osSiRelAccess": 2147695968,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -23948,7 +24413,8 @@
         "osSetEventMesg": 2147692048,
         "osSetThreadPri": 2147696480,
         "osStartThread": 2147696688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24014,7 +24480,8 @@
         "__osPiTable": 2147904684,
         "__osRestoreInt": 2147657440,
         "bzero": 2147677568
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24081,7 +24548,8 @@
         "osRecvMesg": 2147691440,
         "osSendMesg": 2147691744,
         "osYieldThread": 2147697040
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24133,7 +24601,8 @@
         "__OSGlobalIntMask": 2147910736,
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24185,7 +24654,8 @@
         "__OSGlobalIntMask": 2147910736,
         "__osDisableInt": 2147657328,
         "__osRestoreInt": 2147657440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24240,7 +24710,8 @@
         "osRecvMesg": 2147691440,
         "osSendMesg": 2147691744,
         "siAccessBuf": 2147939040
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24304,7 +24775,8 @@
         "__osRestoreInt": 2147657440,
         "__osShutdown": 2147910732,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24359,7 +24831,8 @@
         "__osDispatchThread": 2147691036,
         "__osRestoreInt": 2147657440,
         "__osRunningThread": 2147905712
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24428,7 +24901,8 @@
         "__osViIntrCount": 2147939092,
         "osGetCount": 2147697264,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24507,7 +24981,8 @@
         "osSetEventMesg": 2147692048,
         "osSetThreadPri": 2147696480,
         "osStartThread": 2147696688
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24571,7 +25046,8 @@
         "__osViCurr": 2147905840,
         "__osViNext": 2147905844,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24626,7 +25102,8 @@
         "__osSiRawStartDma": 2147695600,
         "__osSiRelAccess": 2147695968,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24687,7 +25164,8 @@
         "bcmp": 2147703120,
         "bcopy": 2147676768,
         "osPfsChecker": 2147703392
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24743,7 +25221,8 @@
         "__osPfsRWInode": 2147707768,
         "__osPfsSelectBank": 2147705840,
         "bzero": 2147677568
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24793,7 +25272,8 @@
       "source_sha256": "923c92b662db729776b69ce29e6b1ce84640a511a1d33cdaa8051fbb41b4e0a2",
       "symbols": {
         "__osGetId": 2147707124
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24847,7 +25327,8 @@
         "__osPfsPifRam": 2147944048,
         "__osSiRawStartDma": 2147695600,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24897,7 +25378,8 @@
       "source_sha256": "e98534ba738efb21a029f05e8fb128d4188faceeab0ce6c490a0556df1692dfc",
       "symbols": {
         "__osContRamWrite": 2147709104
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24945,7 +25427,8 @@
       ],
       "source": "src/libultra/pfs_id_checksum.c",
       "source_sha256": "227a635bea3630305aa19449f5640292a14a4175ac81dd6a6fbaa29c5cb9abe9",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -24997,7 +25480,8 @@
         "__osContRamRead": 2147708608,
         "__osPfsSelectBank": 2147705840,
         "bcmp": 2147703120
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25066,7 +25550,8 @@
         "__osSiRelAccess": 2147695968,
         "bcopy": 2147676768,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25126,7 +25611,8 @@
         "__osSiRelAccess": 2147695968,
         "bcopy": 2147676768,
         "osRecvMesg": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25176,7 +25662,8 @@
       "source_sha256": "056b17cef255e86ef010bed82d1c66eb63f7d0888bdbda765008d6b6d0ad29e0",
       "symbols": {
         "__osViCurr": 2147905840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25224,7 +25711,8 @@
       ],
       "source": "tools/ultralib/src/io/crc.c",
       "source_sha256": "d3aa99a917dbb29183a0af40412a4fa4d76b9d7a0c81da1d86ccf7de5424f7e6",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25281,7 +25769,8 @@
         "osVirtualToPhysical": 2147674016,
         "osWritebackDCache": 2147692800,
         "tmp_task": 2147938976
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25334,7 +25823,8 @@
         "__osContRamWrite": 2147709104,
         "__osPfsSelectBank": 2147705840,
         "osGetCount": 2147697264
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25386,7 +25876,8 @@
         "__osContRamRead": 2147708608,
         "__osContRamWrite": 2147709104,
         "__osPfsSelectBank": 2147705840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25440,7 +25931,8 @@
         "__osPfsSelectBank": 2147705840,
         "__osRepairPackId": 2147706020,
         "bcopy": 2147676768
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25496,7 +25988,8 @@
         "__osPfsInodeCacheChannel": 2147910688,
         "__osPfsSelectBank": 2147705840,
         "bcopy": 2147676768
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25549,7 +26042,8 @@
         "__osContAddressCrc": 2147702160,
         "__osContRamRead": 2147708608,
         "__osPfsSelectBank": 2147705840
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25611,7 +26105,8 @@
         "__umoddi3": 2147682672,
         "lldiv": 2147684084,
         "memcpy": 2147677828
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25684,7 +26179,8 @@
         "_Litob": 2147680656,
         "strchr": 2147677728,
         "strlen": 2147677792
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25745,7 +26241,8 @@
       "symbols": {
         "ldiv": 2147683952,
         "memcpy": 2147677828
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25792,7 +26289,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_ai_get_length.c",
       "source_sha256": "f027f35faa2cb3b0abf84de5e3cb79fb1c2af2cd5f3152ae3666541ac71f7235",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25839,7 +26337,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_ai_get_status.c",
       "source_sha256": "cc50006c6ccfc40f1b0d7eaba0f88961063b33c41191f56e6649238d8985c19f",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25886,7 +26385,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_sp_get_status.c",
       "source_sha256": "648e34894ede5ed96096f52b4eb84b9d60045cb3b40dd6da1f579d730aeabddf",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25943,7 +26443,8 @@
       ],
       "source": "tools/battletanx_ga/src/libultra/os_dequeue_thread.c",
       "source_sha256": "d807bb42cec6143113f6156972a4decf7211a39c7f19f8096219fddaff5edc10",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -25994,7 +26495,8 @@
       "symbols": {
         "osRomBase": 2147484424,
         "osVirtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26042,7 +26544,8 @@
       ],
       "source": "src/libultra/pop_thread.c",
       "source_sha256": "10ab87134e60c65f6b69c02feb278e891059581689af69e475f06ebe8be827d2",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26092,7 +26595,8 @@
       "source_sha256": "2db759d1b7dbcececa8b6e637ccb3b201b4193dbfbc3db873cc4e26fdf4dfec7",
       "symbols": {
         "func_8001A580": 2147591552
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26142,7 +26646,8 @@
       "source_sha256": "58c29bbb274ec6f8d91ce96cba1ab5ee20bb2e60a667d0df398e7a877449272d",
       "symbols": {
         "func_800083B8": 2147517368
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26192,7 +26697,8 @@
       "source_sha256": "827761388031351882acfde7388cc8cd4496c9ee949b34c9b36b55e4b1a59704",
       "symbols": {
         "func_8001C298": 2147599000
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26244,7 +26750,8 @@
       "symbols": {
         "func_800379A0": 2147711392,
         "gResult": 2147910752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26306,7 +26813,8 @@
       "source_sha256": "042cf2198920513f16b65582ab8802d935adce50e675f11add7803decf1c56d7",
       "symbols": {
         "func_80038380": 2147713920
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26353,7 +26861,8 @@
       ],
       "source": "src/game/double_absolute.c",
       "source_sha256": "6b2659880039a04af365ede0932c61c76877a5dcd493e68aff019e4dbb3140ed",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26401,7 +26910,8 @@
       ],
       "source": "src/game/double_square_root.c",
       "source_sha256": "dfc4f720ec95e6e1b96f9fff01520e9ee9eecc81f8dd2021ee81b289e5632e84",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26451,7 +26961,8 @@
       ],
       "source": "src/game/clear_indexed_word_if_set.c",
       "source_sha256": "b3d5e64e97817cfc8165051fda813f89229b3d0f270aab1d35be8e055d11e92c",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26499,7 +27010,8 @@
       ],
       "source": "src/game/compare_strings.c",
       "source_sha256": "1555ddfe0773a522a450162585c616be7a962a696574cd1b92cb923b946497a7",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26546,7 +27058,8 @@
       ],
       "source": "src/game/write_byte_aligned_word.c",
       "source_sha256": "33d7c09454b7d9b17d440db3c824fe96f2335b0ac8d21926d1611ab26706c021",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26593,7 +27106,8 @@
       ],
       "source": "src/game/call_function_pointer_range.c",
       "source_sha256": "dfd67f7d94d96b5da30f7ac520e04d0054064c3fcb8d2bc4e21ed68e29135f60",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26641,7 +27155,8 @@
       ],
       "source": "src/game/cache_sweeps.c",
       "source_sha256": "52f546d7397346034a2120dd31829e5621b5096ec945e8789523da10aa7e937a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26692,7 +27207,8 @@
       "source_sha256": "cac889cdf58faedfe2fb6e322916f00b281179410b6a065aa299736466a68bde",
       "symbols": {
         "audioGlobals": 2147905440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26739,7 +27255,8 @@
       ],
       "source": "src/game/clear_output_word.c",
       "source_sha256": "c2297500b55f18f552f08da5f962593013c0a5d04346835e4a480e3a735b3b85",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26787,7 +27304,8 @@
       ],
       "source": "src/game/argument_offset.c",
       "source_sha256": "7ad4e8cb77241b89b164ff45d38ac7b79b34f72c625858673b22dc07618e25a5",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26835,7 +27353,8 @@
       ],
       "source": "src/game/argument_offset.c",
       "source_sha256": "7ad4e8cb77241b89b164ff45d38ac7b79b34f72c625858673b22dc07618e25a5",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26883,7 +27402,8 @@
       ],
       "source": "src/game/argument_offset.c",
       "source_sha256": "7ad4e8cb77241b89b164ff45d38ac7b79b34f72c625858673b22dc07618e25a5",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26930,7 +27450,8 @@
       ],
       "source": "src/libultra/variadic_stub.c",
       "source_sha256": "ad27c2afacc96bd8c93efa5f0e34fbfd3fc380ff6f0498ae3c50d6ce12a677cd",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -26982,7 +27503,8 @@
       "symbols": {
         "func_800AA658": 2148181592,
         "globalObject": 2148476760
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27034,7 +27556,8 @@
       "symbols": {
         "func_8001DFF4": 2147606516,
         "func_80025AD8": 2147637976
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27083,7 +27606,8 @@
       "symbols": {
         "func_80004380": 2147500928,
         "func_8001A480": 2147591296
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27130,7 +27654,8 @@
       "source_sha256": "c2abdacb0d5caf11fcf3c1a67bc22056507806801257a9dc9131c35bb69fd2b2",
       "symbols": {
         "randomSeed": 2147944384
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27174,7 +27699,8 @@
       ],
       "source": "src/libultra/unlink_node.c",
       "source_sha256": "3e535aa6f2735ea2706542d4245d7351ceca67fb57ab1da42316d20dcd2f35c3",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27223,7 +27749,8 @@
       "symbols": {
         "func_80032CE0": 2147691744,
         "queue": 2147938240
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27276,7 +27803,8 @@
         "func_8001C644": 2147599940,
         "func_80037F30": 2147712816,
         "secondBuffer": 2147893048
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27325,7 +27853,8 @@
       "symbols": {
         "func_800379A0": 2147711392,
         "handle": 2147910752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27372,7 +27901,8 @@
       "source_sha256": "f6d68bfe81a3e8eeb078a7781ac179f63ddfde99779e7de74aa2de2d54d70e82",
       "symbols": {
         "func_8002F684": 2147677828
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27423,7 +27953,8 @@
         "func_80004CA4": 2147503268,
         "func_80017888": 2147580040,
         "subsystem": 2147759740
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27472,7 +28003,8 @@
       "symbols": {
         "recordCount": 2147924932,
         "records": 2147924928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27521,7 +28053,8 @@
       "symbols": {
         "recordCount": 2147924932,
         "records": 2147924928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27565,7 +28098,8 @@
       ],
       "source": "src/game/find_substring.c",
       "source_sha256": "093ab656f649099992c15e54dab19412e9eb20423265934f0633338f4493b13b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27613,7 +28147,8 @@
       "source_sha256": "589a3393d56985976d98190367a1c1f1cf944e7817159d0e786d31aae608a926",
       "symbols": {
         "func_80032BB0": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27666,7 +28201,8 @@
         "osPiStartDma": 2147660832,
         "osRecvMesg": 2147691440,
         "osSendMesg": 2147691744
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27718,7 +28254,8 @@
       "symbols": {
         "firstDiskStatus": 2147937860,
         "secondDiskStatus": 2147937980
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27772,7 +28309,8 @@
         "streamChannelCount": 2147924932,
         "streamChannelIndex": 2147924934,
         "streamChannels": 2147924928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27824,7 +28362,8 @@
         "streamChannelArgument": 2147924936,
         "streamChannelCount": 2147924932,
         "streamChannels": 2147924928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27877,7 +28416,8 @@
         "streamChannelCount": 2147924932,
         "streamChannelIndex": 2147924934,
         "streamChannels": 2147924928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27924,7 +28464,8 @@
       "symbols": {
         "streamChannelCount": 2147924932,
         "streamChannels": 2147924928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -27971,7 +28512,8 @@
       "source_sha256": "34a5da4db4fd1d46bdc3202e0478177f3271949e39151b80a776d5c9f3f0b952",
       "symbols": {
         "func_80024E80": 2147634816
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28019,7 +28561,8 @@
       "symbols": {
         "func_8002E020": 2147672096,
         "stateSpanStart": 2147924912
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28066,7 +28609,8 @@
       "symbols": {
         "stateSpanEnd": 2147924916,
         "stateSpanStart": 2147924912
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28112,7 +28656,8 @@
       "source_sha256": "512790a2c1276b49ce64cb8876ac28ef87e99e064eac23f371811f24aea19492",
       "symbols": {
         "globalObject": 2147924912
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28160,7 +28705,8 @@
       "symbols": {
         "func_80032BB0": 2147691440,
         "runtimeState": 2147924356
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28204,7 +28750,8 @@
       ],
       "source": "src/game/copy_overlapping_bytes.c",
       "source_sha256": "e5209ed0f1520cbd162024330fcbbc0f64460fe382d0b9b4091a7ba96815c9a2",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28250,7 +28797,8 @@
       "source_sha256": "6c4f59979ae474a083457af4cd71e53f47e360d72f8963e1410f8fa85c972c6e",
       "symbols": {
         "stateWord": 2147924352
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28294,7 +28842,8 @@
       ],
       "source": "src/game/fill_byte_range.c",
       "source_sha256": "a4a08e4e9048e9496055182887cb3167d733ebc0503a0567b968d17a39ca4c4e",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28347,7 +28896,8 @@
         "func_800332F0": 2147693296,
         "scheduler": 2147924352,
         "schedulerClient": 2147924356
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28399,7 +28949,8 @@
         "effects": 2147904436,
         "func_80024850": 2147633232,
         "func_8002D754": 2147669844
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28448,7 +28999,8 @@
       "symbols": {
         "func_80024EEC": 2147634924,
         "func_8002E7A0": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28499,7 +29051,8 @@
         "dmaMessageCount": 2147924296,
         "dmaQueue": 2147924304,
         "func_80032BB0": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28554,7 +29107,8 @@
         "schedulerClient": 2147924356,
         "ucodeBootEnd": 2147492752,
         "ucodeBootStart": 2147492544
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28610,7 +29164,8 @@
         "dmaQueue": 2147924304,
         "dmaStatus": 2147924208,
         "func_8002A9C0": 2147658176
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28670,7 +29225,8 @@
         "audioState": 2147924224,
         "effectBuffers": 2147924240,
         "func_8002B6D0": 2147661520
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28717,7 +29273,8 @@
       "source_sha256": "dedd850747be5458e24d286edf540dd1c33ad788b1319f647d134a21a8d4a728",
       "symbols": {
         "pairs": 2147904436
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28764,7 +29321,8 @@
       "source_sha256": "dedd850747be5458e24d286edf540dd1c33ad788b1319f647d134a21a8d4a728",
       "symbols": {
         "pairs": 2147904436
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28810,7 +29368,8 @@
       ],
       "source": "src/game/set_byte_return_argument.c",
       "source_sha256": "d85e85870f8ea8bc8ffafc656dd202b5bdbafe876252fd16939319a2a4d9dd37",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28860,7 +29419,8 @@
         "defaultBuffer": 2147924896,
         "lowerBuffer": 2147924904,
         "upperBuffer": 2147924900
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -28929,7 +29489,8 @@
         "func_8002B610": 2147661328,
         "func_8002E7A0": 2147674016,
         "previousBuffer": 2147904480
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29007,7 +29568,8 @@
         "osTvType": 2147484416,
         "osUnmapTLBAll": 2147711040,
         "osWritebackDCache": 2147692800
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29053,7 +29615,8 @@
       "symbols": {
         "alignedHeap": 2147910752,
         "func_80037D10": 2147712272
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29095,7 +29658,8 @@
       "symbols": {
         "func_8002F580": 2147677568,
         "func_800320D0": 2147688656
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29135,7 +29699,8 @@
       "source_sha256": "f43f4acb3023c91f46c9c98a8c2350ff9dba363acc748a2297e42f72cf9cb1bf",
       "symbols": {
         "func_80028034": 2147647540
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29179,7 +29744,8 @@
         "func_80026850": 2147641424,
         "func_80027CC0": 2147646656,
         "func_80027DB4": 2147646900
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29219,7 +29785,8 @@
       "source_sha256": "7f7bd8f4e068748bbffb0854e62ba75b9765b96078e1264f8649b41d3f3a7c12",
       "symbols": {
         "func_80026A48": 2147641928
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29261,7 +29828,8 @@
       "symbols": {
         "func_80026A48": 2147641928,
         "func_8002F580": 2147677568
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29305,7 +29873,8 @@
         "func_80026DC0": 2147642816,
         "func_8002F580": 2147677568,
         "func_80032BB0": 2147691440
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29321,7 +29890,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "1e171d8edaaff62db54bb58ed366ba5add850aa384c148b5477c661137eacf61",
+      "object_sha256_at_discovery": "609adecd5a309e80c832c69cdb4b0bec7ca6ad9aaa14a37d7ad619411b9dc075",
       "pipeline": "sn",
       "row_sha256": "0771a873fe63ef9ee499967ec5d87c996bc41ea569df1e09a68a28e0a6960f55",
       "section_bases": {
@@ -29351,7 +29920,8 @@
       ],
       "source": "src/libgcc/udivdi3.c",
       "source_sha256": "3c75a4c1360c278f2dd4165ae5aac3294e8d154f7b689d6b07f24bf26cfb6537",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29367,7 +29937,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "75ae967acfd281d14d74de350fe2cfee6c74e00e5762e138cba85c4455e72fae",
+      "object_sha256_at_discovery": "50a61cd1b8486be0e9abe5f0f754a2a90ffd6e40862d7ae20863ff4c1821faf8",
       "pipeline": "sn",
       "row_sha256": "b1c3d79bd336e33501d7e801054ccf9ce875b172b84dcab6aa8b4dd20eae07ce",
       "section_bases": {
@@ -29397,7 +29967,8 @@
       ],
       "source": "src/libgcc/divdi3.c",
       "source_sha256": "49d9eb81fd0c4cdc455f07dcf1df6e083518e1ba744be30c152031a7e38600fd",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29413,7 +29984,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "158cc988d69c31b52d21ba03648f2fb5f4c6e21fccbdde92e8db2cbf665731fb",
+      "object_sha256_at_discovery": "0efd3b40f5d97e405afb46455a109de8daa5fd7c5381d728916fbe6bcb8e298c",
       "pipeline": "sn",
       "row_sha256": "765ef753bc8d9c9b5bb5227cdab095d03568631f921386ad327e6369da1f9880",
       "section_bases": {
@@ -29438,7 +30009,8 @@
         "initializeColorPalette": 2147599940,
         "pixelBuffer": 2147895104,
         "randomNext": 2147712668
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29454,7 +30026,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "718f46e541d48abb0c57758737b230d89a42ed6356e4db409bdd8a73dbec90de",
+      "object_sha256_at_discovery": "02cff48d61a9b00a6c8de6b41a3af19297a47a566f243c128f5ee17b9c4d234a",
       "pipeline": "sn",
       "row_sha256": "958fc1d48b612f5fa42033784e0f6bd6b85192e004adb14b3529a2dcf70480e6",
       "section_bases": {
@@ -29487,7 +30059,8 @@
       "symbols": {
         "D_8005A93C": 2147854652,
         "doubleAbsolute": 2147714384
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29503,7 +30076,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "5682312799e47105d5d4b7d3d387a5bc6dc85165ce12a6ead80c7264fd8b9aa9",
+      "object_sha256_at_discovery": "582343914e0e9d69d0e5fc5d342ed9b834e25b8625ce13ecf73616a0a9b778cc",
       "pipeline": "sn",
       "row_sha256": "0a1a58f35871bdae8e9b42f20189bcfd455da242c69268faea64d1e7a24b0d1d",
       "section_bases": {
@@ -29528,7 +30101,8 @@
         "D_80064740": 2147895104,
         "isRuntimePaused": 2148222852,
         "randomNext": 2147712668
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29544,7 +30118,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "84ec844b001d756ea45c529255fddd52ff5f45cb6b3a13e883df930cb10dc903",
+      "object_sha256_at_discovery": "37fe3bafb0c5a2e21e79f3e04f660cd16412517bd58e2b4c74ff56fdd321b753",
       "pipeline": "sn",
       "row_sha256": "41b303558d5460dae73e8c4ccb9a627aa4eb2be53a3a8860bb092dcddc4f92bc",
       "section_bases": {
@@ -29570,7 +30144,8 @@
         "D_8006A43C": 2147918908,
         "D_8006A440": 2147918912,
         "virtualToPhysical": 2147674016
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29586,7 +30161,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "74df31482d75a2c4978bd2cacb2ed82b8b632879a2da4c78c2aef375be5b226a",
+      "object_sha256_at_discovery": "eed989bfbb6058ed473fa7c65e3d383abfd31065fff0872fbf14c3454935dc65",
       "pipeline": "sn",
       "row_sha256": "267882f11863d2b3c1d00fdc86681492ea5e3fdcadbab2a5cae9da552bab8dc5",
       "section_bases": {
@@ -29616,7 +30191,8 @@
       ],
       "source": "src/libgcc/umoddi3.c",
       "source_sha256": "0c3d2ba780de4dd17486e115ae8bb9dd71a0107ec7315bafe72b3ae68fc964cc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29632,7 +30208,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "e62b7ce1422524f839698f78fb8fe53da16c02bf2767db46f88763faf77663bd",
+      "object_sha256_at_discovery": "7676ca0aa287486a6feb121c264c6b368ac32b2a0c529699179f224f52e33860",
       "pipeline": "sn",
       "row_sha256": "fd062c261861d9e84b02414d42aff14bda6f5c1ef18afbc858ae85f4cbc3154e",
       "section_bases": {
@@ -29695,7 +30271,8 @@
         "updateRenderObject": 2147559476,
         "updateWaterSurface": 2147581036,
         "updateWaterVertices": 2147558380
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29711,7 +30288,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "041f8da9ce6d1f49e6fe7feb668615a26f13913893aa0a8ecacb3d8681fa6113",
+      "object_sha256_at_discovery": "295212329614170939135868b8b28e372a0660a56844ea7b9b67ad0fafb55ca1",
       "pipeline": "sn",
       "row_sha256": "abe66a9ad1f9a43602d753bb671afd64866ba990a95c61b0d89cda5288dd4af5",
       "section_bases": {
@@ -29733,7 +30310,8 @@
       "symbols": {
         "defaultSceneLight": 2147761448,
         "sceneLightState": 2147761480
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29749,7 +30327,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "13ded6cb353fdf1a980001d4e8d7021775fe9e8592911854f0ddd5b836a222f2",
+      "object_sha256_at_discovery": "98f3519a9b47a3d698aede8948685519eecbf33eb1372974425a9571d629c576",
       "pipeline": "sn",
       "row_sha256": "fffc1f8cad329da34f13510fa0a7a4443f7e1f7397366519a24e08b9ecf1abae",
       "section_bases": {
@@ -29779,7 +30357,8 @@
         "resourceRecordCount": 2147776900,
         "resourceRecords": 2147785256,
         "resourceResolutionDisabled": 2147718224
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29795,7 +30374,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "9ba2578f2b66270a5f4ce2cc316a4b10f87097ef41c4a1b856ad18cfbef8982b",
+      "object_sha256_at_discovery": "26ae180c6013fe3d505cdf4f5184fb3e57a7b040c57e4f851a7d6b6a1534ec49",
       "pipeline": "sn",
       "row_sha256": "3d366961d62c9ef5ba76bf9fc840fbf6f5fc15ea32687d99518887c9116aa344",
       "section_bases": {
@@ -29824,7 +30403,8 @@
         "func_800AAC44": 2148183108,
         "func_800BC408": 2148254728,
         "selectedDisplayConfiguration": 2148476792
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29840,7 +30420,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "042ccb48677fc17f69bff16a7332597859efd2ecc108638a8f35811d50138887",
+      "object_sha256_at_discovery": "23873458b14bc6918542ec1a2418ebc1a53e2e17f27ff99532edfac68519363d",
       "pipeline": "sn",
       "row_sha256": "e14353589b2d5ccf36134a76400dc951bd7cc78bcdca3c4244e2e393d24da916",
       "section_bases": {
@@ -29873,7 +30453,8 @@
         "func_8002F684": 2147677828,
         "func_800AA488": 2148181128,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29889,7 +30470,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "7e27712b3b8e37560fb3d4fb9f8b19ad1def65ba4c96c5ed30495a089b930854",
+      "object_sha256_at_discovery": "200351da1fb07542add0ad91b6e96155202fe260eb5c87fef570c1e6f48ecae4",
       "pipeline": "sn",
       "row_sha256": "ebec7f4a81f20e884dd30e8c5f6930c5a085e34698891f5934cd338adb473145",
       "section_bases": {
@@ -29922,7 +30503,8 @@
         "func_8002F684": 2147677828,
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29938,7 +30520,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "e78767c0a53c78dcac35526f064d469830282c69f8184e3e13e2110b76f1b5f2",
+      "object_sha256_at_discovery": "f96396808fb7fa2cc7c40cf9b84420e2d1eda63223f9951ce4b1bc411aac946b",
       "pipeline": "sn",
       "row_sha256": "44f2af2c1854a25e993d0ce3ad5b99c85309d936780efed6c7f9e7058aaabbdf",
       "section_bases": {
@@ -29973,7 +30555,8 @@
         "D_8005B6D0": 2147858128,
         "func_800AD2A8": 2148192936,
         "func_800AD6D0": 2148194000
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -29989,7 +30572,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "cf4a90c49c1e15b08c06e7305e456540228ef3fb8266421776b16da22dbf37f6",
+      "object_sha256_at_discovery": "0cc9c7f3e0b622e25be0adc0210ca100a563cea39485ddc87fd70b1e57ddf39a",
       "pipeline": "sn",
       "row_sha256": "d7882952451c7585d8e83f3bd73e250dbaeca6a1e2ef60cd3cc3c7d4ec783040",
       "section_bases": {
@@ -30042,7 +30625,8 @@
         "func_800320B0": 2147688624,
         "func_800341E0": 2147697120,
         "func_80037E9C": 2147712668
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30058,7 +30642,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "aa684d0ff83c116798f635347cf4efa5bd7ecd2263c5b1bd098e4891938ce741",
+      "object_sha256_at_discovery": "37fe3dc0ec001e255f258126dde95d491878a7cf3bb72caa3eb1d4c8191fa8bc",
       "pipeline": "sn",
       "row_sha256": "40e492b22d41a22c2e9ecad7e14c03a7463a3ebedd869897845de1329955e4c1",
       "section_bases": {
@@ -30100,7 +30684,8 @@
         "D_8006B064": 2147922020,
         "D_8006B068": 2147922024,
         "D_8006B06C": 2147922028
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30116,7 +30701,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "71c3ea73253515e2ef2b3f8b875f26580506c2b1e67dd74c9c58529df573fa9d",
+      "object_sha256_at_discovery": "6c71f9d03ab5d46476a3062205dd0b8b08aef19dfbbfab29e08c3cc5dd5ed8b7",
       "pipeline": "sn",
       "row_sha256": "8fc63db6fbbd0565034cf1e39b19e74e7b67288f4175e2016e6c50214d72bfe6",
       "section_bases": {
@@ -30151,7 +30736,8 @@
         "func_800AA488": 2148181128,
         "func_800AA658": 2148181592,
         "func_800AA804": 2148182020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30167,7 +30753,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "1f347143acbc020f0d5225e8512ea4303131ebd23ad611137d23f83f1dbdebff",
+      "object_sha256_at_discovery": "db6f24a9f45d63951eaec100ce1a728f66b265051b75410c813eec499d9ee067",
       "pipeline": "sn",
       "row_sha256": "1f970ec24b24402fab98c9040b16f577c7f0e23267b7f820593bf35305c60359",
       "section_bases": {
@@ -30265,7 +30851,8 @@
         "func_800351A0": 2147701152,
         "func_800AD2A8": 2148192936,
         "func_800EA5A4": 2148443556
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30281,7 +30868,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "eeca61217685bb2b7823b29bf2d5044aace0de4337dea270e9b3cd505e02b1a0",
+      "object_sha256_at_discovery": "94f0731004f519ce3e807cdc3dad96038a875ac0737b7113e770f7b8e5c4d29a",
       "pipeline": "sn",
       "row_sha256": "02c3b97b05f8831adc14c8b75b7c7331721dfa04772b7b23fdb13e6a43eec8e6",
       "section_bases": {
@@ -30322,7 +30909,8 @@
         "func_800103E0": 2147550176,
         "func_80010800": 2147551232,
         "func_80010968": 2147551592
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30338,7 +30926,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "81b37864bdc2a5ce004abc329af6ff78388731587776c26c0999a51e61617ebc",
+      "object_sha256_at_discovery": "c75779d80707a5d511840fec39c428c6d92e4752fc689a818434862107444201",
       "pipeline": "sn",
       "row_sha256": "d79a71d07a5263d94465c77d1a64110006db68f6c11eb8169360c21ecb550732",
       "section_bases": {
@@ -30357,7 +30945,8 @@
       ],
       "source": "src/game/clear_stream_state_b8.c",
       "source_sha256": "be383dca292282a194f17d0862dc8d975e2b3811f933b2c10498fd4c46f38b2a",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30373,7 +30962,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "993f834101df7135b88c2193fd7b10ebdca89091fd26cc2060d00c9474ebbd20",
+      "object_sha256_at_discovery": "cdf848d725b70ffea99325cf326d5a8429a77e71c54b2c9e8bcabfb75ed7f667",
       "pipeline": "sn",
       "row_sha256": "34b93b306d0e1d043960c08ce9a30d691b894dc2afaaeea4d27c71322a624c13",
       "section_bases": {
@@ -30392,7 +30981,8 @@
       ],
       "source": "src/game/clear_stream_state_d6.c",
       "source_sha256": "bd23596c9e67a602ab58e1f33a1089050791700a65d23e4b7c9dbb63329c73d2",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30408,7 +30998,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "81afb208b65e03b5481889c2a6dd778ef0cb73c4b53e07f6dde78605cdc245b7",
+      "object_sha256_at_discovery": "3d3969f395a07f35396a0f25a65111ee2ff6afd32363b1c5140f37ddade6c7bf",
       "pipeline": "sn",
       "row_sha256": "bed66a4ebf7aa99fcaeb19977373d0d08c1a5292aa6b8e1c51c024f755de0eae",
       "section_bases": {
@@ -30427,7 +31017,8 @@
       ],
       "source": "src/game/clear_stream_state_d7.c",
       "source_sha256": "0fb8b2802534480a3111fbb9083d9b685f17ea74aaae34b8882a17cd23125040",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30443,7 +31034,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "eea410b1cc46b11dbea5a557594f8101ed65c17fbab3610bbd52cc45231db18b",
+      "object_sha256_at_discovery": "98f4f75c14dcc0924ee4fd979b613567f6e7a2f266e9d76cdd306a9682659536",
       "pipeline": "sn",
       "row_sha256": "a6243a44e342d3669434b770756438d2c55bfd2e700d069d51743fb7f6200500",
       "section_bases": {
@@ -30462,7 +31053,8 @@
       ],
       "source": "src/game/clear_stream_state_ce.c",
       "source_sha256": "f2976d355a560baaeb0da0a8349c347d949c7d7e288c8a55a1ed905c8256f2d9",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30478,7 +31070,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "8690a9e0ba95a6fbc89659deaeb8c49c88e01b7ba07d7d5fecc92a2fa693acc8",
+      "object_sha256_at_discovery": "496c6de0065f4bf4e3047f7a899a346962aeacb6669e634add812935b84dd592",
       "pipeline": "sn",
       "row_sha256": "ec2484f8ec4986aafa7531722b52df782662b5a6f766508cee8e5e5ae4786e3c",
       "section_bases": {
@@ -30497,7 +31089,8 @@
       ],
       "source": "src/game/clear_stream_state_d2.c",
       "source_sha256": "dbf40c47356d5c3a1c768b9aae00cb222be39226b36b8fc7cdf747ac88d32993",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30513,7 +31106,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "64d71af86a5ecf8ecd9a5157fe5228fe947ff383c5d31aadef93e280aa54fc6e",
+      "object_sha256_at_discovery": "18ec0801f88116232e62bfeb081112d2b708227345ead3a6ab95d1e18a015bc9",
       "pipeline": "sn",
       "row_sha256": "55204ae88f3247c21c5c00d23f782cc794a89c3ac72ec7411948c181ce658a29",
       "section_bases": {
@@ -30532,7 +31125,8 @@
       ],
       "source": "src/game/advance_stream_by_two.c",
       "source_sha256": "ba3664fca4891a36916416751f6f39096cb92e809c988c1ebb1f1e78144c9ba5",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30548,7 +31142,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "06f549612c9e4f59c2aa01c4186430a6bc6e290337087e529fb081eecb2accb6",
+      "object_sha256_at_discovery": "a1807e2795213e503a939645e729283d4e62ea5770338da87fa6336eeb288c54",
       "pipeline": "sn",
       "row_sha256": "85be59c516266bf7ca695bbb27ff7be0155a847d0814538248e60e302bad6bd2",
       "section_bases": {
@@ -30567,7 +31161,8 @@
       ],
       "source": "src/game/clear_stream_state_84.c",
       "source_sha256": "6fd6bdd3a3586cc736136199f65a62fcf7ae71e1f932fb2b54b2bbf963db5285",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30583,7 +31178,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "c62d6691a3d6103e2acf7bd6ac22bc54cbb3da67a1d84d042df390e24ec69a63",
+      "object_sha256_at_discovery": "1d0115fce6f34fa0d855f26fa438a35b207bf72ee8f3808bef9471c15019e52b",
       "pipeline": "sn",
       "row_sha256": "382ecba7d2ab52392d29bc77f50a12fd574e02aab8c45ad9223467485048f53c",
       "section_bases": {
@@ -30602,7 +31197,8 @@
       ],
       "source": "src/game/advance_stream_by_one.c",
       "source_sha256": "620483ab32e47a4eab94b8f3a34cdd455327254077565eb8512ae9b99ed6654b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30618,7 +31214,7 @@
       "includes": [],
       "manifest": "config/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "04883d2775aec1acd70ceb10f99383b8cf35b7377a5011a45b9a5aa80f84aaee",
+      "object_sha256_at_discovery": "66b2f57f7a99c4b81847032a0481a169a3a0d5abbddf8f3f144acb4891addee8",
       "pipeline": "sn",
       "row_sha256": "6e3a2e814110c49f7656e406c9c2acb977ef7f18bbe985106d3054b0cae25c56",
       "section_bases": {
@@ -30658,7 +31254,8 @@
         "spriteQueue": 2147886336,
         "spriteQueueCount": 2147886276,
         "textureSheets": 2147886260
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30674,7 +31271,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "shadow-operands",
-      "object_sha256_at_discovery": "dd1fec3d32e4ec8dc41bb24bdf885c02e39a972545a17f15c300c14cf56fd726",
+      "object_sha256_at_discovery": "67893a84cbcf442738523b97c546c9752cfd535ee6a0d9e2e7b305755aff3058",
       "pipeline": "sn",
       "row_sha256": "3ce4c6f44a7bbe6848fcd8f923165995593998d70e4c8d7b1919331b13829a3a",
       "section_bases": {
@@ -30732,7 +31329,8 @@
         "selectObjectPose": 2148237280,
         "testAllVectorPlanes": 2147580444,
         "updateRenderObject": 2147559476
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30748,7 +31346,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "debug-regions",
-      "object_sha256_at_discovery": "a128de0115abdd1638dcf1a3f646c76202b6238e5e925f8f3bf2102c98141da4",
+      "object_sha256_at_discovery": "476523d3910a6113b73514b4122d80d7d499acced9225470bf188b73e043b6ef",
       "pipeline": "sn",
       "row_sha256": "9ac17f0b3d9d2e0bf7c8243af42b11c2ff5285da7a9cbf02e06f8a4048919150",
       "section_bases": {
@@ -30776,7 +31374,8 @@
         "func_800282F8": 2147648248,
         "func_80028328": 2147648296,
         "func_800291C0": 2147652032
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30792,7 +31391,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "ad30-stack-slots",
-      "object_sha256_at_discovery": "5eef2b02be393cd6006668e43b459006f731019764a283a21d4acd5368ded16b",
+      "object_sha256_at_discovery": "549ba417bc0f8325b95047036d972454db094caecc213376f58f45005eac3acf",
       "pipeline": "sn",
       "row_sha256": "f20259968230d4fe75e055893843591285e9cbe7fa97240ac11603e286fe65b0",
       "section_bases": {
@@ -30817,7 +31416,8 @@
         "D_8005A0FC": 2147852540,
         "D_8005A100": 2147852544,
         "func_80037EF0": 2147712752
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30833,7 +31433,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "16120-prologue",
-      "object_sha256_at_discovery": "f0f95224b836f056ff9f07387c90fcc7db772fda6f07d781acc33a935efdfa1a",
+      "object_sha256_at_discovery": "7c31a8fc4d3fac9c7b2f183a5722648ac1e35746f173fc2a4c5add71d1c38956",
       "pipeline": "sn",
       "row_sha256": "de0a2566912c23dc214f6148abcb2a499de6b9642b24b7cd09dd1c0bab8fdc85",
       "section_bases": {
@@ -30885,7 +31485,8 @@
         "buildFlaggedModelMatrix": 2147537948,
         "testSpherePlane": 2147580320,
         "updateRenderObject": 2147559476
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30901,7 +31502,7 @@
       "includes": [],
       "manifest": "config/matching_sn_normalized.tsv",
       "normalization": "d880-registers",
-      "object_sha256_at_discovery": "d6d7f7e82e3818539d3d784b30aad9722fccc0d143ed3961691bdcb369db3af9",
+      "object_sha256_at_discovery": "97b94872f7168fdc366ababb33044b7d68ca8d077f460b14d2e09e32a2ae3c94",
       "pipeline": "sn",
       "row_sha256": "74215b574dab858351bb7ce62542a1fc460618c1b90ebf2633efde4b69d677ab",
       "section_bases": {
@@ -30940,7 +31541,8 @@
         "D_8005B6DC": 2147858140,
         "D_8005F800": 2147874816,
         "func_80017A1C": 2147580444
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -30974,7 +31576,8 @@
       ],
       "source": "src/libultra/bcopy.s",
       "source_sha256": "7bdc8d9279f8d9be401f8c5658d2c284e691addf9442dcd1193812d18a6a1372",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31008,7 +31611,8 @@
       ],
       "source": "src/game/gsm_synthesis_history_step.s",
       "source_sha256": "c3d8689536fa5dde2cc52f8085555024d45b8f94dd3fe8dc664dc71e5d5df99b",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31044,7 +31648,8 @@
       "source_sha256": "2f6f2f849a6486a708c9fafc8ce5e33870fc756df790fc1b675b6216ffc32a5d",
       "symbols": {
         "func_80029388": 2147652488
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31080,7 +31685,8 @@
       "source_sha256": "81a28a0750bd8e99a875cb139aa68031b22dfe673ab2ca2466ab7797844bea73",
       "symbols": {
         "func_80029388": 2147652488
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31116,7 +31722,8 @@
       "source_sha256": "02be4c741040a97ba2f6cd1c4c2b6c9d3fd629c0665baf23e4bd5d86aeb6d2fd",
       "symbols": {
         "D_8006D5B4": 2147931572
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31152,7 +31759,8 @@
       "source_sha256": "85abd57f595045aee8ae1018ffe27a7bff10e8eb02dd7ad801063e92bc70c6f3",
       "symbols": {
         "D_8006F070": 2147938416
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31188,7 +31796,8 @@
       "source_sha256": "73bd0de5b17d824a3cae952d4c7df85ad5a36a031088fcee7178903275e01ddc",
       "symbols": {
         "D_8006D080": 2147930240
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31222,7 +31831,8 @@
       ],
       "source": "src/game/gsm_short_term_synthesis.s",
       "source_sha256": "a315baa19643020efdff3466a8f3e685d5a6ef4e63b7ac5bcdc4c24d370255ef",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31258,7 +31868,8 @@
       "source_sha256": "0dd37904f1a8f8111dbfffa9b29a1ab090f4a784c9a44b9c7421cf6ad82a6ece",
       "symbols": {
         "__osPopThread": 2147691020
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31294,7 +31905,8 @@
       "source_sha256": "25292d580f2b51369ab8d73a52cf77e6797260bdb0917d8451305b120de3b9dc",
       "symbols": {
         "func_800048B0": 2147502256
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31328,7 +31940,8 @@
       ],
       "source": "src/game/write_cp0_status.s",
       "source_sha256": "58fc925b487147067855daf72166cda207f0bf646ee95de28d1cc9676395eb12",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31362,7 +31975,8 @@
       ],
       "source": "src/libultra/get_cp0_status.s",
       "source_sha256": "ce15160ea358828eac94d3d30a1833b333fc35a97f82d413610e080c63d6f4a6",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31396,7 +32010,8 @@
       ],
       "source": "src/libultra/set_fpcsr.s",
       "source_sha256": "3695c938e73dc7f1318d15e0572d16c556c8508e3f87275841b660a928f97015",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31430,7 +32045,8 @@
       ],
       "source": "src/libultra/set_cp0_status.s",
       "source_sha256": "f0033ba05a29593eab4d6eaf646ba20223ebab4c7ff414e3e2014e6f609f0582",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31464,7 +32080,8 @@
       ],
       "source": "src/libultra/set_cp0_watchlo.s",
       "source_sha256": "c0c8c719b42a674eef3ccc478d25e5f56b0f4021b02b9effa720269d99790750",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31495,7 +32112,8 @@
       ],
       "source": "src/libultra/save_crash_context.s",
       "source_sha256": "e4d922f60b33d581f38cd388bb7894d2a3c6cfb063a88db231cccabe2b143387",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31530,7 +32148,8 @@
         "func_800327CC": 2147690444,
         "func_800329C4": 2147690948,
         "func_80032A1C": 2147691036
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31565,7 +32184,8 @@
         "func_80028EB8": 2147651256,
         "func_80029274": 2147652212,
         "func_80029290": 2147652240
-      }
+      },
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31599,7 +32219,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31633,7 +32254,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31667,7 +32289,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31701,7 +32324,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31735,7 +32359,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31769,7 +32394,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31803,7 +32429,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31837,7 +32464,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31871,7 +32499,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31905,7 +32534,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31939,7 +32569,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -31973,7 +32604,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32007,7 +32639,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32041,7 +32674,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32075,7 +32709,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32109,7 +32744,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32143,7 +32779,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32177,7 +32814,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32211,7 +32849,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32245,7 +32884,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32279,7 +32919,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32313,7 +32954,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32347,7 +32989,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32381,7 +33024,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32415,7 +33059,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32449,7 +33094,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32483,7 +33129,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32517,7 +33164,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32551,7 +33199,8 @@
       ],
       "source": "src/asm/exception_vector_fragment.s",
       "source_sha256": "d6c84fffb68e6c8f348586bb5ae898a3168d87ea38ee989989d5864ed8b09000",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32585,7 +33234,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     },
     {
       "discarded_sections": [],
@@ -32619,7 +33269,8 @@
       ],
       "source": "src/asm/alignment_nop.s",
       "source_sha256": "99412256696ab5c0bc45b34c5b70d36d7ed48c805d46bc2ef64f1b4ccc0b57bc",
-      "symbols": {}
+      "symbols": {},
+      "vram_delta": 2147480576
     }
   ],
   "version": 1
