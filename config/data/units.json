@@ -1078,7 +1078,7 @@
       "id": "event_bank_data_8008883C",
       "source": "src/data/event_bank_data_8008883C.c",
       "inputs": {
-        "src/data/event_bank_data_8008883C.c": "8685c28b3d2e932b3c07850a77d37644e26200fa7ee4489d52f989c746e83589"
+        "src/data/event_bank_data_8008883C.c": "ed7109dd73f10619bc70b7865040e7fbb413a63e2da6a6dabd1e6424f517bac4"
       },
       "pipeline": "sn",
       "flags": [
@@ -1097,16 +1097,26 @@
           "segment": "event_bank",
           "rom_start": 559164,
           "vram": 2148042812,
-          "size": 4276,
-          "sha256": "b4280a450b1de70f89861875a5cab1187032f87712caa9d2ec8416ac31a18c75"
+          "size": 3728,
+          "sha256": "747de3ec50bd99ed75e1fc860c79e113d3666f6960c2e6fcaa1a201e69a6b984"
         }
       ]
+    },
+    {
+      "id": "event_bank_data_800896D0",
+      "source": "src/data/event_bank_data_800896D0.c",
+      "inputs": {"src/data/event_bank_data_800896D0.c": "46a97b6b00ee6858f7ee9b85a53880c0f65bbfa61a8d6159d506514b3879734b"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 562896, "vram": 2148046544, "size": 544, "sha256": "702ec48b4522150c02df17d09ae8edee8288f65749fc93d417279f0a73991d86"}]
     },
     {
       "id": "event_bank_data_8008F768",
       "source": "src/data/event_bank_data_8008F768.c",
       "inputs": {
-        "src/data/event_bank_data_8008F768.c": "33e228dae206a4a8b94a2ff462a39e94e686d2362872310c9adac6391a9052c2"
+        "src/data/event_bank_data_8008F768.c": "db0029943a049ef9f139e876b24856720143482a309ba4bd518cff461db03dce"
       },
       "pipeline": "sn",
       "flags": [
@@ -1125,10 +1135,20 @@
           "segment": "event_bank",
           "rom_start": 587624,
           "vram": 2148071272,
-          "size": 4232,
-          "sha256": "41479323241c4bcbb3ee81a186bcf2b9fa7eec1b5fb8809834bc8f914b0a3605"
+          "size": 3856,
+          "sha256": "fcf6eac4f1e20938d11685713ceecab443d1076aec89c7c2b21e28178f127e97"
         }
       ]
+    },
+    {
+      "id": "event_bank_data_80090684",
+      "source": "src/data/event_bank_data_80090684.c",
+      "inputs": {"src/data/event_bank_data_80090684.c": "743e03a3a6c006e859285cfc0a51b3e807004917badf5d9d2b69814b916e68c6"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 591492, "vram": 2148075140, "size": 364, "sha256": "20b65c992a6db6eafde0a473636d0417b67b4d50c6c007f4f666674b29eeaef3"}]
     },
     {
       "id": "event_bank_data_80095BF4",
@@ -1442,7 +1462,7 @@
       "id": "event_bank_data_800A8EFC",
       "source": "src/data/event_bank_data_800A8EFC.c",
       "inputs": {
-        "src/data/event_bank_data_800A8EFC.c": "8444494ae1ac0a40b19d4ace050bfb18d93487eb619a9c06eabb169d204ea25f"
+        "src/data/event_bank_data_800A8EFC.c": "69dd38a8f8e9880c70a7b000855e4e056f0d1ddffff1aecc1a6ba7c9770ef02f"
       },
       "pipeline": "sn",
       "flags": [
@@ -1461,10 +1481,20 @@
           "segment": "event_bank",
           "rom_start": 691964,
           "vram": 2148175612,
-          "size": 852,
-          "sha256": "15ff34694d17d3ed0f651ec75531f73b0c663dee4df131303a5fd2f46cd7533f"
+          "size": 348,
+          "sha256": "f22eed614ab1b9d5b969450bc97d795f8003258acc6a24ed662a89400f5ab41e"
         }
       ]
+    },
+    {
+      "id": "event_bank_data_800A906C",
+      "source": "src/data/event_bank_data_800A906C.c",
+      "inputs": {"src/data/event_bank_data_800A906C.c": "965dc035029e06edaafa36edbb2196e02f54797b66a7ab9eacf7b2659be70f36"},
+      "pipeline": "sn",
+      "flags": ["-O2", "-G0", "-mcpu=vr4300", "-mips3", "-mhard-float", "-meb"],
+      "include_dirs": [],
+      "symbols": {},
+      "sections": [{"name": ".data", "segment": "event_bank", "rom_start": 692332, "vram": 2148175980, "size": 484, "sha256": "90d5a65bb398192dcaec9eba53014203b9bd0805b1c631affe34e69aa715eeb9"}]
     },
     {
       "id": "event_bank_data_800AF728",

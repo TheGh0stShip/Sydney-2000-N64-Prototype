@@ -30,6 +30,14 @@ SEGMENT = 'resident'
 MANIFEST_DIR = 'config'
 VERSION = 1
 ROM_SECTIONS = ('.text', '.rodata', '.rdata', '.data', '.sdata', '.lit4', '.lit8')
+
+# This event-bank function emits a constant pool in the preceding closing
+# overlay. The closing typed-data unit remains the physical ROM owner while
+# the match manifest still verifies the pool as part of the function object.
+EXTERNALLY_OWNED_SECTIONS = {
+    ('matching_delta_800004f0_sn.tsv', '.rodata'),
+    ('matching_delta_800004f0_sn.tsv', '.rdata'),
+}
 PROFILES = {
     'matching_kmc.tsv': ('kmc+asn64', ['tools/ultralib/include']),
     'matching_kmc_hook.tsv': ('kmc+hook', ['tools/ultralib/include']),
@@ -330,6 +338,14 @@ def discover_one(unit: Unit, project: Path, cfg, work: Path, rom: bytes, known):
         # authoritative owner of the text's ROM bytes.
         offset = unit.rom_start if name == '.text' else bases[name] - unit.vram_delta
         if offset < START or offset + size > END:
+            if (Path(unit.manifest).name, name) in EXTERNALLY_OWNED_SECTIONS:
+                if raw[:size] != rom[offset:offset + size]:
+                    raise ValueError(f'{unit.key}: externally owned {name} differs from original')
+                discarded.append({'name': name, 'emitted_size': len(raw),
+                                  'unrelocated_sha256': digest(sec.data),
+                                  'reason': 'verified cross-segment section; physically owned by typed data',
+                                  'rom_start': offset, 'verified_size': size})
+                continue
             raise ValueError(f'{unit.key}: {name} placement escapes resident segment')
         if raw[:size] != rom[offset:offset + size]:
             raise ValueError(f'{unit.key}: placed {name} differs from original')
@@ -554,9 +570,11 @@ def main() -> None:
             'matching_delta_7ffb1f60_sn.tsv': ('sn', [], 0x7FFB1F60),
             'matching_delta_7ffa0490_sn.tsv': ('sn', [], 0x7FFA0490),
             'matching_delta_7ff5f9f0_sn.tsv': ('sn', [], 0x7FF5F9F0),
+            'matching_delta_7ffe0d50_sn.tsv': ('sn', [], 0x7FFE0D50),
             'matching_delta_7ffe7c90_sn.tsv': ('sn', [], 0x7FFE7C90),
             'matching_delta_7ff64fa0_sn.tsv': ('sn', [], 0x7FF64FA0),
             'matching_delta_7ffc0e30_sn.tsv': ('sn', [], 0x7FFC0E30),
+            'matching_delta_800004f0_sn.tsv': ('sn', [], 0x800004F0),
         }
     plans = {'resident': 'config/link_units.json',
              'runtime': 'config/runtime_link_units.json',
