@@ -1,40 +1,18 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80108314\n.ent func_80108314\n"
-    "func_80108314:\n"
-    "addiu $29,$29,-32\n"
-    "sw $31,24($29)\n"
-    "lwc1 $f0,820($4)\n"
-    "lwc1 $f2,836($4)\n"
-    "mul.s $f2,$f0,$f2\n"
-    "mtc1 $5,$f4\n"
-    "mtc1 $0,$f0\n"
-    "mtc1 $6,$f6\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_80108350\n"
-    "nop\n"
-    "sub.s $f0,$f6,$f4\n"
-    "mul.s $f2,$f2,$f0\n"
-    "add.s $f2,$f2,$f4\n"
-    "L_80108350:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29760($1)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_8010838C\n"
-    "swc1 $f2,756($4)\n"
-    "lw $7,4($4)\n"
-    "lui $4,0x800f\n"
-    "lui $2,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lw $5,10052($2)\n"
-    "li $6,15\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "L_8010838C:\n"
-    "lw $31,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80108314\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+typedef float f32;
+extern u8 D_800F26E0[];
+extern s32 D_800F2744;
+extern void func_800AB2A4(void *, s32, s32, s32, s32, s32);
+void func_8007BD64(u8 *o, f32 a, f32 b)
+{
+    f32 t = *(f32 *)(o + 820) * *(f32 *)(o + 836);
+    if (t > 0.0f) {
+        t *= b - a; t += a;
+    }
+    *(f32 *)(o + 756) = t;
+    if (t > 1.1f) {
+        s32 h = *(s32 *)(o + 4);
+        func_800AB2A4(D_800F26E0, D_800F2744, 15, h, 0, 0);
+    }
+}

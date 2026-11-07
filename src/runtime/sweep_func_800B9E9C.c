@@ -1,76 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9E9C\n.ent func_800B9E9C\n"
-    "func_800B9E9C:\n"
-    "sll $2,$5,0x2\n"
-    "addu $2,$2,$5\n"
-    "lw $8,244($4)\n"
-    "sll $2,$2,0x3\n"
-    "sw $5,304($4)\n"
-    "sw $6,308($4)\n"
-    "lw $3,28($8)\n"
-    "lw $6,16($29)\n"
-    "addu $2,$2,$3\n"
-    "lhu $3,6($2)\n"
-    "mtc1 $7,$f2\n"
-    "andi $2,$3,0x8000\n"
-    "beql $2,$0,L_800B9ED8\n"
-    "sll $3,$3,0x8\n"
-    "andi $3,$3,0x7fff\n"
-    "L_800B9ED8:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,28088($1)\n"
-    "mul.s $f0,$f2,$f0\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $2,$f4\n"
-    "mult $2,$3\n"
-    "mflo $3\n"
-    "lui $2,0x8888\n"
-    "ori $2,$2,0x8889\n"
-    "multu $3,$2\n"
-    "lw $2,324($4)\n"
-    "mfhi $3\n"
-    "srl $3,$3,0xc\n"
-    "bltz $2,L_800B9F18\n"
-    "sw $3,316($4)\n"
-    "sw $3,312($4)\n"
-    "L_800B9F18:\n"
-    "sll $2,$5,0x2\n"
-    "addu $2,$2,$5\n"
-    "lw $3,28($8)\n"
-    "sll $2,$2,0x3\n"
-    "addu $3,$2,$3\n"
-    "lhu $2,4($3)\n"
-    "sltiu $2,$2,2\n"
-    "bnel $2,$0,L_800B9F58\n"
-    "move $6,$0\n"
-    "lhu $3,4($3)\n"
-    "addiu $2,$3,-1\n"
-    "sltu $2,$6,$2\n"
-    "beql $2,$0,L_800B9F58\n"
-    "addiu $6,$3,-2\n"
-    "j L_800B9F5C\n"
-    "sll $2,$5,0x2\n"
-    "L_800B9F58:\n"
-    "sll $2,$5,0x2\n"
-    "L_800B9F5C:\n"
-    "addu $2,$2,$5\n"
-    "lw $3,28($8)\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "lhu $2,2($2)\n"
-    "lw $5,324($4)\n"
-    "addu $2,$2,$6\n"
-    "sw $2,320($4)\n"
-    "andi $2,$5,0x2\n"
-    "beqz $2,L_800B9F9C\n"
-    "lui $3,0x4000\n"
-    "ori $3,$3,0x4\n"
-    "lui $2,0x8000\n"
-    "and $2,$5,$2\n"
-    "or $2,$2,$3\n"
-    "sw $2,324($4)\n"
-    "L_800B9F9C:\n"
-    "jr $31\n"
-    "move $2,$0\n"
-    ".end func_800B9E9C\n.set at\n.set reorder\n");
+typedef struct { unsigned short u0, u2, u4, u6; char pad[32]; } Entry;
+typedef struct { char pad[28]; Entry *entries; } Bank;
+typedef struct {
+    char pad0[0xF4];
+    Bank *bank;           /* 0xF4 */
+    char padf8[0x130 - 0xF8];
+    int index;            /* 0x130 */
+    int f134;             /* 0x134 */
+    unsigned int f138;    /* 0x138 */
+    unsigned int f13c;    /* 0x13C */
+    int f140;             /* 0x140 */
+    int flags;            /* 0x144 */
+} Voice;
+int func_800B9E9C(Voice *v, int index, int arg2, float pitch, unsigned int frame)
+{
+    Bank *bank = v->bank;
+    unsigned int rate;
+    v->index = index;
+    v->f134 = arg2;
+    rate = bank->entries[index].u6;
+    if (rate & 0x8000) {
+        rate &= 0x7FFF;
+    } else {
+        rate <<= 8;
+    }
+    rate = ((int)(pitch * 65536.0f) * rate) / 7680;
+    v->f13c = rate;
+    if (v->flags >= 0) {
+        v->f138 = rate;
+    }
+    if (bank->entries[index].u4 >= 2) {
+        if (frame >= bank->entries[index].u4 - 1) {
+            frame = bank->entries[index].u4 - 2;
+        }
+    } else {
+        frame = 0;
+    }
+    v->f140 = bank->entries[index].u2 + frame;
+    if (v->flags & 2) {
+        v->flags = (v->flags & 0x80000000) | 0x40000004;
+    }
+    return 0;
+}

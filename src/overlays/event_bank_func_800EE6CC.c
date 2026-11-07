@@ -1,118 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EE6CC\n.ent func_800EE6CC\n"
-    "func_800EE6CC:\n"
-    "addiu $29,$29,-80\n"
-    "sw $18,72($29)\n"
-    "move $18,$4\n"
-    "sw $31,76($29)\n"
-    "sw $17,68($29)\n"
-    "sw $16,64($29)\n"
-    "lwc1 $f4,860($18)\n"
-    "mtc1 $0,$f0\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800EE720\n"
-    "addiu $4,$18,20\n"
-    "lwc1 $f0,632($18)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29996($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "add.s $f2,$f4,$f0\n"
-    "mfc1 $5,$f0\n"
-    "li $6,3\n"
-    "jal func_800AD434\n"
-    "swc1 $f2,860($18)\n"
-    "L_800EE720:\n"
-    "move $4,$18\n"
-    "li $5,1\n"
-    "addiu $6,$29,24\n"
-    "addiu $17,$29,56\n"
-    "move $7,$17\n"
-    "addiu $16,$29,40\n"
-    "sw $16,16($29)\n"
-    "jal func_800B9BD4\n"
-    "sw $0,20($29)\n"
-    "move $4,$18\n"
-    "addiu $5,$29,24\n"
-    "move $6,$17\n"
-    "move $7,$16\n"
-    "jal func_800B9964\n"
-    "move $16,$2\n"
-    "beqz $16,L_800EE864\n"
-    "nop\n"
-    "lw $2,760($18)\n"
-    "beqz $2,L_800EE818\n"
-    "li $2,1\n"
-    "bnel $16,$2,L_800EE7A8\n"
-    "li $2,3\n"
-    "lbu $5,429($18)\n"
-    "li $4,-1\n"
-    "sllv $2,$5,$2\n"
-    "addu $2,$18,$2\n"
-    "lh $3,430($2)\n"
-    "lhu $2,430($2)\n"
-    "beq $3,$4,L_800EE864\n"
-    "andi $2,$2,0x4000\n"
-    "beqz $2,L_800EE864\n"
-    "move $4,$18\n"
-    "j func_8007B008\n"
-    "addiu $2,$5,1\n"
-    "L_800EE7A8:\n"
-    "bne $16,$2,L_800EE864\n"
-    "move $4,$18\n"
-    "jal func_800B7824\n"
-    "move $5,$0\n"
-    "move $4,$18\n"
-    "jal func_800B9E74\n"
-    "li $5,2\n"
-    "lbu $5,429($18)\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$18,$2\n"
-    "lh $3,430($2)\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_800EE810\n"
-    "move $4,$18\n"
-    "addiu $2,$5,1\n"
-    "sb $2,429($18)\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$18,$2\n"
-    "lui $7,0x3f80\n"
-    "lhu $5,430($2)\n"
-    "li $6,-1\n"
-    "sw $0,16($29)\n"
-    "andi $5,$5,0xbfff\n"
-    "sll $5,$5,0x10\n"
-    "jal func_800B9E9C\n"
-    "sra $5,$5,0x10\n"
-    "L_800EE810:\n"
-    "j func_8007B034\n"
-    "sw $0,760($18)\n"
-    "L_800EE818:\n"
-    "lbu $5,429($18)\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$18,$2\n"
-    "lh $3,430($2)\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_800EE864\n"
-    "move $4,$18\n"
-    "addiu $2,$5,1\n"
-    "sb $2,429($4)\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$4,$2\n"
-    "lui $7,0x3f80\n"
-    "lhu $5,430($2)\n"
-    "li $6,-1\n"
-    "sw $0,16($29)\n"
-    "andi $5,$5,0xbfff\n"
-    "sll $5,$5,0x10\n"
-    "jal func_800B9E9C\n"
-    "sra $5,$5,0x10\n"
-    "L_800EE864:\n"
-    "lw $31,76($29)\n"
-    "lw $18,72($29)\n"
-    "lw $17,68($29)\n"
-    "lw $16,64($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_800EE6CC\n.set at\n.set reorder\n");
+typedef int s32;
+typedef short s16;
+typedef unsigned char u8;
+typedef float f32;
+typedef struct { u8 pad[429]; u8 idx; s16 arr[1]; } O;
+extern void func_800AD434(u8 *, f32, s32);
+extern s32 func_800B9BD4(O *, s32, f32 *, f32 *, f32 *, s32);
+extern void func_800B9964(O *, f32 *, f32 *, f32 *);
+extern void func_800B7824(O *, s32);
+extern void func_800B9E74(O *, s32);
+extern void func_800B9E9C(O *, s16, s32, f32, s32);
+void func_8007AE9C(O *o)
+{
+    f32 a[4];
+    f32 b[4];
+    f32 c[2];
+    f32 d;
+    s32 r;
+    if (*(f32 *)((u8 *)o + 860) < 0.0f) {
+        d = *(f32 *)((u8 *)o + 632) * 0.41887903f;
+        *(f32 *)((u8 *)o + 860) += d;
+        func_800AD434((u8 *)o + 20, d, 3);
+    }
+    r = func_800B9BD4(o, 1, a, c, b, 0);
+    func_800B9964(o, a, c, b);
+    if (r != 0) {
+        if (*(s32 *)((u8 *)o + 760) != 0) {
+            if (r == 1) {
+                if (o->arr[o->idx] != -1 && (o->arr[o->idx] & 0x4000)) {
+                    func_800B9E9C(o, o->arr[o->idx++] & 0xBFFF, -1, 1.0f, 0);
+                }
+            } else if (r == 3) {
+                func_800B7824(o, 0);
+                func_800B9E74(o, 2);
+                if (o->arr[o->idx] != -1) {
+                    func_800B9E9C(o, o->arr[o->idx++] & 0xBFFF, -1, 1.0f, 0);
+                }
+                *(s32 *)((u8 *)o + 760) = 0;
+            }
+        } else {
+            if (o->arr[o->idx] != -1) {
+                func_800B9E9C(o, o->arr[o->idx++] & 0xBFFF, -1, 1.0f, 0);
+            }
+        }
+    }
+}

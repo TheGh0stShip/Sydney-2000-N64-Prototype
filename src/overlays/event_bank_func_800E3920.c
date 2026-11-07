@@ -1,103 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3920\n.ent func_800E3920\n"
-    "func_800E3920:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $19,36($29)\n"
-    "move $19,$5\n"
-    "sw $31,40($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "lw $2,4($19)\n"
-    "lw $3,16($16)\n"
-    "subu $2,$2,$3\n"
-    "sra $17,$2,0x8\n"
-    "lw $3,0($19)\n"
-    "lw $2,4($16)\n"
-    "addiu $4,$3,-3\n"
-    "sltiu $3,$4,24\n"
-    "lw $18,4($2)\n"
-    "beqz $3,L_800E3A7C\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-30432\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "li $2,5\n"
-    "j func_80078DA0\n"
-    "sw $2,172($16)\n"
-    "li $2,7\n"
-    "j func_80078DA0\n"
-    "sw $2,172($16)\n"
-    "jal func_8007B834\n"
-    "move $4,$16\n"
-    "jal func_80075FC8\n"
-    "move $4,$18\n"
-    "lui $6,0x7fff\n"
-    "li $2,8\n"
-    "lui $5,0x800f\n"
-    "sw $2,172($16)\n"
-    "lw $4,11284($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "srl $2,$3,0x13\n"
-    "mtc1 $2,$f4\n"
-    "cvt.d.w $f4,$f4\n"
-    "bgez $2,L_800E3A08\n"
-    "sw $3,11284($5)\n"
-    "lui $1,0x8008\n"
-    "ldc1 $f0,-30336($1)\n"
-    "add.d $f4,$f4,$f0\n"
-    "L_800E3A08:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-30328($1)\n"
-    "cvt.s.d $f0,$f4\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-30324($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-30320($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "move $4,$16\n"
-    "jal func_8007BBE4\n"
-    "swc1 $f0,608($16)\n"
-    "move $4,$16\n"
-    "move $5,$2\n"
-    "sw $0,16($29)\n"
-    "lw $7,608($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "move $4,$16\n"
-    "jal func_800B9E74\n"
-    "li $5,4\n"
-    "move $4,$16\n"
-    "jal func_800794B0\n"
-    "move $5,$17\n"
-    "j func_80078DBC\n"
-    "nop\n"
-    "li $2,9\n"
-    "sw $2,172($16)\n"
-    "L_800E3A7C:\n"
-    "lw $2,4($19)\n"
-    "sw $2,16($16)\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800E3920\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned int u32;
+typedef unsigned char u8;
+typedef float f32;
+extern u32 D_800F2C14;
+extern void func_8007B834(u8 *);
+extern void func_80075FC8(s32);
+extern s32 func_8007BBE4(u8 *);
+extern void func_800B9E9C(u8 *, s32, s32, f32, s32);
+extern void func_800B9E74(u8 *, s32);
+extern void func_800794B0(u8 *, s32);
+void func_80078C60(u8 *o, s32 *m)
+{
+    s32 d = (m[1] - *(s32 *)(o + 16)) >> 8;
+    s32 p = *(s32 *)(*(u8 **)(o + 4) + 4);
+    switch (m[0]) {
+    case 3:
+        break;
+    case 12:
+        *(s32 *)(o + 172) = 5;
+        func_800794B0(o, d);
+        break;
+    case 15:
+        *(s32 *)(o + 172) = 7;
+        func_800794B0(o, d);
+        break;
+    case 17:
+        func_8007B834(o);
+        func_80075FC8(p);
+        *(s32 *)(o + 172) = 8;
+        D_800F2C14 = (D_800F2C14 * 16807) & 0x7FFFFFFF;
+        *(f32 *)(o + 608) = (f32)(D_800F2C14 >> 19) * (1.0f / 4096.0f) * 0.2f + 0.8f;
+        func_800B9E9C(o, func_8007BBE4(o), -1, *(f32 *)(o + 608), 0);
+        func_800B9E74(o, 4);
+        func_800794B0(o, d);
+        break;
+    case 5:
+        func_800794B0(o, d);
+        break;
+    case 26:
+        func_800794B0(o, d);
+        break;
+    case 13:
+        *(s32 *)(o + 172) = 9;
+        break;
+    }
+    *(s32 *)(o + 16) = m[1];
+}

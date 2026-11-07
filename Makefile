@@ -74,6 +74,8 @@ verify-overlays: $(BASEROM) overlay-survey-check
 	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff64fa0_sn.tsv=sn --project . --vram-delta 0x7FF64FA0
 	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffc0e30_sn.tsv=sn --project . --vram-delta 0x7FFC0E30
 	$(N64DK) match-batch config/overlay/event_bank/matching_delta_800004f0_sn.tsv=sn --project . --vram-delta 0x800004F0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff73a50_sn.tsv=sn --project . --vram-delta 0x7FF73A50
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff8c7d0_sn.tsv=sn --project . --vram-delta 0x7FF8C7D0
 	$(N64DK) match-batch config/overlay/ceremony/matching_delta_800061b0_sn.tsv=sn --project . --vram-delta 0x800061B0
 	$(N64DK) match-batch config/overlay/ceremony/matching_delta_80007760_sn.tsv=sn --project . --vram-delta 0x80007760
 	$(N64DK) match-batch config/overlay/closing/matching_delta_80002550_sn.tsv=sn --project . --vram-delta 0x80002550

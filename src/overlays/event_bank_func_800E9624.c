@@ -1,110 +1,63 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9624\n.ent func_800E9624\n"
-    "func_800E9624:\n"
-    "addiu $29,$29,-88\n"
-    "sw $18,72($29)\n"
-    "move $18,$4\n"
-    "li $4,1\n"
-    "sw $16,64($29)\n"
-    "move $16,$5\n"
-    "sdc1 $f20,80($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,-30008($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-30004($1)\n"
-    "mfc1 $5,$f20\n"
-    "addiu $2,$18,20\n"
-    "sw $31,76($29)\n"
-    "sw $17,68($29)\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "jal func_80017B04\n"
-    "swc1 $f0,20($18)\n"
-    "lbu $3,425($18)\n"
-    "li $2,17\n"
-    "beq $3,$2,L_800E96AC\n"
-    "li $2,3\n"
-    "bne $3,$2,L_800E96B8\n"
-    "andi $2,$16,0xff\n"
-    "L_800E96AC:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,-30000($1)\n"
-    "andi $2,$16,0xff\n"
-    "L_800E96B8:\n"
-    "beqz $2,L_800E96E0\n"
-    "addiu $2,$18,20\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29996($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29992($1)\n"
-    "swc1 $f20,68($2)\n"
-    "swc1 $f0,64($2)\n"
-    "j func_8007B26C\n"
-    "swc1 $f2,72($2)\n"
-    "L_800E96E0:\n"
-    "lwc1 $f0,900($18)\n"
-    "addiu $3,$18,900\n"
-    "swc1 $f0,64($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "swc1 $f0,68($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,72($2)\n"
-    "jal func_800AD9E8\n"
-    "move $4,$18\n"
-    "addiu $2,$18,20\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,368($18)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$18,368\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($3)\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,392($18)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$18,392\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "move $4,$18\n"
-    "swc1 $f0,8($3)\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $5,892($18)\n"
-    "lw $7,632($18)\n"
-    "jal func_800B9FA4\n"
-    "li $6,-1\n"
-    "andi $2,$16,0xff\n"
-    "bnez $2,L_800E979C\n"
-    "move $4,$18\n"
-    "li $5,1\n"
-    "addiu $6,$29,24\n"
-    "addiu $17,$29,56\n"
-    "move $7,$17\n"
-    "addiu $16,$29,40\n"
-    "sw $16,16($29)\n"
-    "jal func_800B9BD4\n"
-    "sw $0,20($29)\n"
-    "move $4,$18\n"
-    "addiu $5,$29,24\n"
-    "move $6,$17\n"
-    "jal func_800B9964\n"
-    "move $7,$16\n"
-    "L_800E979C:\n"
-    "lw $31,76($29)\n"
-    "lw $18,72($29)\n"
-    "lw $17,68($29)\n"
-    "lw $16,64($29)\n"
-    "ldc1 $f20,80($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,88\n"
-    ".end func_800E9624\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+typedef float f32;
+typedef struct { f32 m[4][4]; f32 p[3]; } Mtx;
+extern void func_80017B04(s32, f32);
+extern void func_800AD9E8(u8 *);
+extern void func_800B9FA4(u8 *, s32, s32, s32, s32, s32);
+extern void func_800B9BD4(u8 *, s32, f32 *, f32 *, f32 *, s32);
+extern void func_800B9964(u8 *, f32 *, f32 *, f32 *);
+void func_8007B194(u8 *o, u8 flag)
+{
+    Mtx *m;
+    Mtx *m2;
+    Mtx *m3;
+    f32 y;
+    f32 *v;
+    f32 a[4];
+    f32 b[4];
+    f32 c[2];
+    y = 328.32535f;
+    m = (Mtx *)(o + 20);
+    m->m[2][1] = 0.0f;
+    m->m[2][0] = 0.0f;
+    m->m[1][2] = 0.0f;
+    m->m[1][0] = 0.0f;
+    m->m[0][2] = 0.0f;
+    m->m[0][1] = 0.0f;
+    m->p[2] = 0.0f;
+    m->p[1] = 0.0f;
+    m->p[0] = 0.0f;
+    m->m[0][0] = m->m[1][1] = m->m[2][2] = 1.0f;
+    func_80017B04(1, y);
+    if (o[425] == 17 || o[425] == 3) {
+        y = 329.96365f;
+    }
+    if (flag) {
+        m2 = (Mtx *)(o + 20);
+        m2->p[0] = 1669.4785f;
+        m2->p[1] = y;
+        m2->p[2] = 91.747597f;
+    } else {
+        m2 = (Mtx *)(o + 20);
+        v = (f32 *)(o + 900);
+        m2->p[0] = v[0];
+        m2->p[1] = v[1];
+        m2->p[2] = v[2];
+    }
+    func_800AD9E8(o);
+    m3 = (Mtx *)(o + 20);
+    v = (f32 *)(o + 368);
+    v[0] = m3->p[0];
+    v[1] = m3->p[1];
+    v[2] = m3->p[2];
+    v = (f32 *)(o + 392);
+    v[0] = m3->p[0];
+    v[1] = m3->p[1];
+    v[2] = m3->p[2];
+    func_800B9FA4(o, *(s32 *)(o + 892), -1, *(s32 *)(o + 632), 0, 0);
+    if (!flag) {
+        func_800B9BD4(o, 1, a, c, b, 0);
+        func_800B9964(o, a, c, b);
+    }
+}

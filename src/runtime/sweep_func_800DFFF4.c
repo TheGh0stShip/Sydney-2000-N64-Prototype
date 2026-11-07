@@ -1,151 +1,85 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DFFF4\n.ent func_800DFFF4\n"
-    "func_800DFFF4:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $21,36($29)\n"
-    "move $21,$5\n"
-    "sw $20,32($29)\n"
-    "move $20,$0\n"
-    "sw $31,40($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "beqz $21,L_800E0068\n"
-    "sw $16,16($29)\n"
-    "lw $4,188($19)\n"
-    "beqz $4,L_800E0084\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addiu $17,$4,28540\n"
-    "lbu $18,1265($2)\n"
-    "lbu $2,425($17)\n"
-    "beq $18,$2,L_800E0068\n"
-    "nop\n"
-    "lw $16,4($17)\n"
-    "jal func_800C8500\n"
-    "move $4,$17\n"
-    "move $4,$17\n"
-    "move $6,$20\n"
-    "sb $18,425($4)\n"
-    "jal func_800C8120\n"
-    "move $5,$16\n"
-    "L_800E0068:\n"
-    "lw $2,188($19)\n"
-    "beqz $2,L_800E0084\n"
-    "li $5,2\n"
-    "move $4,$2\n"
-    "move $2,$5\n"
-    "jal func_800E9974\n"
-    "sh $2,19100($19)\n"
-    "L_800E0084:\n"
-    "move $4,$19\n"
-    "jal func_800DF2B4\n"
-    "move $5,$0\n"
-    "beqz $21,L_800E00A0\n"
-    "lui $3,0x8010\n"
-    "j L_800E00B0\n"
-    "li $2,1\n"
-    "L_800E00A0:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lhu $2,2524($2)\n"
-    "addiu $2,$2,1\n"
-    "L_800E00B0:\n"
-    "sh $2,-7370($3)\n"
-    "move $6,$0\n"
-    "li $12,1\n"
-    "li $11,2\n"
-    "li $10,3\n"
-    "lui $7,0x8010\n"
-    "addiu $8,$7,13360\n"
-    "lui $2,0x8010\n"
-    "addiu $5,$2,-12916\n"
-    "move $4,$19\n"
-    "lui $2,0x8010\n"
-    "lw $9,-15760($2)\n"
-    "L_800E00E0:\n"
-    "lw $3,524($9)\n"
-    "beq $3,$12,L_800E0120\n"
-    "slti $2,$3,2\n"
-    "bnez $2,L_800E0104\n"
-    "nop\n"
-    "beq $3,$11,L_800E013C\n"
-    "nop\n"
-    "beql $3,$10,L_800E0158\n"
-    "li $20,1\n"
-    "L_800E0104:\n"
-    "lw $2,13360($7)\n"
-    "sw $2,11284($4)\n"
-    "lw $2,13360($7)\n"
-    "sw $2,11496($4)\n"
-    "lw $2,13360($7)\n"
-    "j L_800E0170\n"
-    "sw $2,11708($4)\n"
-    "L_800E0120:\n"
-    "lw $2,4($8)\n"
-    "sw $2,11284($4)\n"
-    "lw $2,13360($7)\n"
-    "sw $2,11496($4)\n"
-    "lw $2,13360($7)\n"
-    "j L_800E0170\n"
-    "sw $2,11708($4)\n"
-    "L_800E013C:\n"
-    "lw $2,4($8)\n"
-    "sw $2,11284($4)\n"
-    "lw $2,4($8)\n"
-    "sw $2,11496($4)\n"
-    "lw $2,13360($7)\n"
-    "j L_800E0170\n"
-    "sw $2,11708($4)\n"
-    "L_800E0158:\n"
-    "lw $2,4($8)\n"
-    "sw $2,11284($4)\n"
-    "lw $2,4($8)\n"
-    "sw $2,11496($4)\n"
-    "lw $2,4($8)\n"
-    "sw $2,11708($4)\n"
-    "L_800E0170:\n"
-    "addiu $2,$6,17\n"
-    "sw $0,0($5)\n"
-    "sw $2,4($5)\n"
-    "addiu $5,$5,8\n"
-    "addiu $4,$4,636\n"
-    "addiu $6,$6,1\n"
-    "sltiu $2,$6,12\n"
-    "bnez $2,L_800E00E0\n"
-    "addiu $9,$9,4\n"
-    "beqz $20,L_800E01B8\n"
-    "lui $4,0xfff7\n"
-    "lui $3,0x8010\n"
-    "addiu $3,$3,-7384\n"
-    "lw $2,452($3)\n"
-    "ori $4,$4,0xffff\n"
-    "and $2,$2,$4\n"
-    "j L_800E01D0\n"
-    "sw $2,452($3)\n"
-    "L_800E01B8:\n"
-    "lui $2,0x8010\n"
-    "addiu $2,$2,-7384\n"
-    "lw $3,452($2)\n"
-    "lui $4,0x8\n"
-    "or $3,$3,$4\n"
-    "sw $3,452($2)\n"
-    "L_800E01D0:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,17\n"
-    "li $2,1\n"
-    "sb $2,19102($19)\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800DFFF4\n.set at\n.set reorder\n");
+typedef struct { int a; char p0[208]; int b; char p1[208]; int c; char p2[636 - 428]; } Ent;
+typedef struct { char p0[4]; int t; char p1[425 - 8]; unsigned char cur; } Sub;
+typedef struct {
+    char p0[188]; char *g; char p1[11284 - 192]; Ent e[12];
+    char p2[19100 - 11284 - 12 * 636]; short h; unsigned char done;
+} Obj;
+typedef struct { char p0[524]; int mode[12]; char p1[1265 - 572]; unsigned char sel; char p2[2524 - 1266]; unsigned short cnt; } Glob;
+typedef struct { int z; int v; } Pair;
+typedef struct { char p0[452]; unsigned int flags; } Flg;
+
+extern Glob *D_800FC270;
+extern int D_80103430[2];
+extern Pair D_800FCD8C[12];
+extern unsigned short D_800FE336;
+extern Flg D_800FE328;
+extern char D_800F5900[];
+extern void func_800C8500(Sub *);
+extern void func_800C8120(Sub *, int, int);
+extern void func_800E9974(char *, int);
+extern void func_800DF2B4(Obj *, int);
+extern void func_800D53A0(char *, int);
+
+void func_800DFFF4(Obj *o, int a)
+{
+    int flag = 0;
+    unsigned int i;
+
+    if (a != 0) {
+        if (o->g != 0) {
+            Sub *s = (Sub *)(o->g + 28540);
+            unsigned char b = D_800FC270->sel;
+            if (b != s->cur) {
+                int t = s->t;
+                func_800C8500(s);
+                s->cur = b;
+                func_800C8120(s, t, flag);
+            }
+        }
+    }
+    if (o->g != 0) {
+        o->h = 2;
+        func_800E9974(o->g, 2);
+    }
+    func_800DF2B4(o, 0);
+    if (a != 0) {
+        D_800FE336 = 1;
+    } else {
+        D_800FE336 = D_800FC270->cnt + 1;
+    }
+    for (i = 0; i < 12; i++) {
+        switch (D_800FC270->mode[i]) {
+        case 0:
+        default:
+            o->e[i].a = D_80103430[0];
+            o->e[i].b = D_80103430[0];
+            o->e[i].c = D_80103430[0];
+            break;
+        case 1:
+            o->e[i].a = D_80103430[1];
+            o->e[i].b = D_80103430[0];
+            o->e[i].c = D_80103430[0];
+            break;
+        case 2:
+            o->e[i].a = D_80103430[1];
+            o->e[i].b = D_80103430[1];
+            o->e[i].c = D_80103430[0];
+            break;
+        case 3:
+            flag = 1;
+            o->e[i].a = D_80103430[1];
+            o->e[i].b = D_80103430[1];
+            o->e[i].c = D_80103430[1];
+            break;
+        }
+        D_800FCD8C[i].z = 0;
+        D_800FCD8C[i].v = i + 17;
+    }
+    if (flag != 0) {
+        D_800FE328.flags &= ~0x80000;
+    } else {
+        D_800FE328.flags |= 0x80000;
+    }
+    func_800D53A0(D_800F5900, 17);
+    o->done = 1;
+}

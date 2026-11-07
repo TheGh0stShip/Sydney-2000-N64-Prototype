@@ -1,152 +1,80 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D3054\n.ent func_800D3054\n"
-    "func_800D3054:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "lw $3,172($17)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_800D3270\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-24832\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lw $2,500($17)\n"
-    "addiu $2,$2,-256\n"
-    "bgez $2,L_800D3270\n"
-    "sw $2,500($17)\n"
-    "lwc1 $f0,1384($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-24808($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,1392($17)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800D30D0\n"
-    "swc1 $f0,1384($17)\n"
-    "li $2,1\n"
-    "swc1 $f2,1384($17)\n"
-    "sw $2,172($17)\n"
-    "L_800D30D0:\n"
-    "mtc1 $0,$f0\n"
-    "mfc1 $5,$f0\n"
-    "lwc1 $f0,1384($17)\n"
-    "addiu $4,$17,508\n"
-    "swc1 $f0,16($29)\n"
-    "lw $7,1388($17)\n"
-    "jal func_8001A1D8\n"
-    "move $6,$5\n"
-    "jal func_800D328C\n"
-    "move $4,$17\n"
-    "lw $2,180($17)\n"
-    "move $16,$0\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "andi $2,$16,0xff\n"
-    "L_800D3114:\n"
-    "addiu $16,$16,1\n"
-    "sll $4,$2,0x1\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $2,$4,$17\n"
-    "addiu $4,$4,528\n"
-    "lw $2,708($2)\n"
-    "addu $4,$17,$4\n"
-    "lh $3,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,4\n"
-    "bnez $2,L_800D3114\n"
-    "andi $2,$16,0xff\n"
-    "j L_800D3270\n"
-    "nop\n"
-    "lhu $2,1396($17)\n"
-    "addiu $2,$2,30\n"
-    "sh $2,1396($17)\n"
-    "sll $2,$2,0x10\n"
-    "sra $2,$2,0x10\n"
-    "slti $2,$2,255\n"
-    "bnez $2,L_800D31EC\n"
-    "li $2,255\n"
-    "lw $3,240($17)\n"
-    "sh $2,1396($17)\n"
-    "li $2,2\n"
-    "sw $2,172($17)\n"
-    "j L_800D31EC\n"
-    "sw $3,500($17)\n"
-    "lw $2,500($17)\n"
-    "blez $2,L_800D3270\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800D3270\n"
-    "sw $2,500($17)\n"
-    "lhu $2,1398($17)\n"
-    "bnez $2,L_800D31CC\n"
-    "li $2,3\n"
-    "sh $0,1396($17)\n"
-    "sw $0,1384($17)\n"
-    "L_800D31CC:\n"
-    "j L_800D3270\n"
-    "sw $2,172($17)\n"
-    "lhu $2,1396($17)\n"
-    "addiu $2,$2,-40\n"
-    "sh $2,1396($17)\n"
-    "sll $2,$2,0x10\n"
-    "blez $2,L_800D3200\n"
-    "nop\n"
-    "L_800D31EC:\n"
-    "lbu $5,1397($17)\n"
-    "jal func_800B32D4\n"
-    "addiu $4,$17,252\n"
-    "j L_800D3270\n"
-    "nop\n"
-    "L_800D3200:\n"
-    "jal func_800D6EA0\n"
-    "addiu $4,$17,252\n"
-    "li $2,4\n"
-    "sw $2,172($17)\n"
-    "lwc1 $f0,1384($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-24804($1)\n"
-    "sub.s $f2,$f0,$f2\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-24800($1)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800D3264\n"
-    "swc1 $f2,1384($17)\n"
-    "mtc1 $0,$f0\n"
-    "addiu $4,$17,508\n"
-    "swc1 $f2,16($29)\n"
-    "mfc1 $5,$f0\n"
-    "lw $7,1388($17)\n"
-    "jal func_8001A1D8\n"
-    "move $6,$5\n"
-    "jal func_800D328C\n"
-    "move $4,$17\n"
-    "j L_800D3270\n"
-    "nop\n"
-    "L_800D3264:\n"
-    "sw $0,1384($17)\n"
-    "jal func_800D29E0\n"
-    "move $4,$17\n"
-    "L_800D3270:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D3054\n.set at\n.set reorder\n");
+typedef struct VT { char p0[64]; short off; short p1; void (*fn)(char *); } VT;
+typedef struct { char p0[180]; VT *vt; char p1[212 - 184]; } Elem;
+typedef struct {
+    char p0[172]; int state; char p1[180 - 176]; VT *vt;
+    char p2[240 - 184]; int a240; char p3[252 - 244]; char snd[500 - 252];
+    int a500; char p4[508 - 504]; char mtx[528 - 508]; Elem e[4];
+    char p5[1384 - 528 - 4 * 212]; float pos; float spd; float lim; short h; unsigned short g;
+} Obj;
+
+extern void func_8001A1D8(char *, float, float, float, float);
+extern void func_800B32D4(char *, int);
+extern void func_800D29E0(Obj *);
+extern void func_800D328C(Obj *);
+extern void func_800D6EA0(char *);
+
+void func_800D3054(Obj *o)
+{
+    unsigned char i;
+    float f;
+
+    switch (o->state) {
+    case 0:
+        o->a500 -= 256;
+        if (o->a500 >= 0) break;
+        o->pos += 6.0f;
+        if (o->lim <= o->pos) {
+            o->pos = o->lim;
+            o->state = 1;
+        }
+        func_8001A1D8(o->mtx, 0.0f, 0.0f, o->spd, o->pos);
+        func_800D328C(o);
+        o->vt->fn((char *)o + o->vt->off);
+        for (i = 0; i < 4; i++) {
+            (o->e + i)->vt->fn((char *)&o->e[i] + (o->e + i)->vt->off);
+        }
+        break;
+    case 1:
+        o->h += 30;
+        if (o->h >= 255) {
+            o->h = 255;
+            o->state = 2;
+            o->a500 = o->a240;
+        }
+        func_800B32D4(o->snd, (unsigned char)o->h);
+        break;
+    case 2:
+        if (o->a500 > 0) {
+            o->a500 -= 256;
+            if (o->a500 <= 0) {
+                if (o->g == 0) {
+                    o->h = 0;
+                    o->pos = 0.0f;
+                }
+                o->state = 3;
+            }
+        }
+        break;
+    case 3:
+        o->h -= 40;
+        if (o->h > 0) {
+            func_800B32D4(o->snd, (unsigned char)o->h);
+            break;
+        }
+        func_800D6EA0(o->snd);
+        o->state = 4;
+    case 4:
+        f = o->pos - 10.0f;
+        o->pos = f;
+        if (1.0f < f) {
+            func_8001A1D8(o->mtx, 0.0f, 0.0f, o->spd, f);
+            func_800D328C(o);
+        } else {
+            o->pos = 0.0f;
+            func_800D29E0(o);
+        }
+        break;
+    case 5:
+        break;
+    }
+}

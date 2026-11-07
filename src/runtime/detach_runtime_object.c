@@ -1,4 +1,17 @@
-/* Runtime-stage C reconstruction; no matching credit until verified manifest entry. */
-typedef struct RuntimeNode RuntimeNode;
-struct RuntimeNode { unsigned int type; RuntimeNode *parent, *firstChild, *next; };
-void func_800AC334(RuntimeNode *object) { RuntimeNode *previous=object->parent; if(previous) { register RuntimeNode *first __asm__("$2")=previous->firstChild; if(first==object) previous->firstChild=object->next; else { do { previous=first; __asm__("" : "=r"(first) : "0"(first)); first=first->next; } while(first != object); previous->next=object->next; } object->next=0; object->parent=0; } }
+typedef struct Node { int pad0; struct Node *parent; struct Node *child; struct Node *next; } Node;
+void func_800AC334(Node *n) {
+    Node *p = n->parent;
+    Node *c;
+    if (p != 0) {
+        c = p->child;
+        if (c == n) {
+            p->child = n->next;
+        } else {
+            Node *prev;
+            do { prev = c; c = c->next; } while (c != n);
+            prev->next = n->next;
+        }
+        n->next = 0;
+        n->parent = 0;
+    }
+}

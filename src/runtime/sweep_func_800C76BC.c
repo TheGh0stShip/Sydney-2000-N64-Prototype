@@ -1,143 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C76BC\n.ent func_800C76BC\n"
-    "func_800C76BC:\n"
-    "addiu $29,$29,-64\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "sw $31,48($29)\n"
-    "sw $19,44($29)\n"
-    "sw $18,40($29)\n"
-    "sw $16,32($29)\n"
-    "sdc1 $f20,56($29)\n"
-    "lw $2,380($17)\n"
-    "beqz $2,L_800C78B0\n"
-    "addiu $4,$29,24\n"
-    "lwc1 $f2,1752($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30716($1)\n"
-    "mtc1 $0,$f4\n"
-    "mul.s $f20,$f2,$f0\n"
-    "sw $2,24($29)\n"
-    "mfc1 $5,$f4\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30712($1)\n"
-    "mfc1 $7,$f20\n"
-    "move $6,$5\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "jal func_800B31DC\n"
-    "nop\n"
-    "jal func_800B31F8\n"
-    "move $18,$2\n"
-    "li $4,1\n"
-    "jal func_800B31EC\n"
-    "move $19,$2\n"
-    "jal func_800B3208\n"
-    "li $4,56\n"
-    "lwc1 $f2,1752($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30708($1)\n"
-    "mul.s $f0,$f2,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30704($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800C7778\n"
-    "sub.s $f0,$f0,$f2\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $3,$f6\n"
-    "j L_800C778C\n"
-    "addiu $16,$17,1292\n"
-    "L_800C7778:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $3,$f6\n"
-    "or $3,$3,$2\n"
-    "addiu $16,$17,1292\n"
-    "L_800C778C:\n"
-    "move $4,$16\n"
-    "addiu $5,$17,1244\n"
-    "jal func_800B360C\n"
-    "sw $3,1732($17)\n"
-    "move $4,$16\n"
-    "jal func_800B3254\n"
-    "lui $5,0x8\n"
-    "jal func_800B31EC\n"
-    "move $4,$18\n"
-    "lwc1 $f2,1748($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30700($1)\n"
-    "mov.s $f4,$f20\n"
-    "mul.s $f20,$f2,$f0\n"
-    "addiu $4,$29,24\n"
-    "mfc1 $5,$f4\n"
-    "lw $2,592($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30696($1)\n"
-    "mfc1 $7,$f20\n"
-    "move $6,$0\n"
-    "sw $2,24($29)\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "jal func_800B31DC\n"
-    "nop\n"
-    "move $18,$2\n"
-    "jal func_800B31EC\n"
-    "li $4,1\n"
-    "jal func_800B3208\n"
-    "li $4,56\n"
-    "lwc1 $f2,1748($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30692($1)\n"
-    "mul.s $f0,$f2,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30688($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800C7840\n"
-    "sub.s $f0,$f0,$f2\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $3,$f6\n"
-    "j L_800C7854\n"
-    "addiu $16,$17,1512\n"
-    "L_800C7840:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $3,$f6\n"
-    "or $3,$3,$2\n"
-    "addiu $16,$17,1512\n"
-    "L_800C7854:\n"
-    "move $4,$16\n"
-    "addiu $5,$17,1268\n"
-    "jal func_800B360C\n"
-    "sw $3,1736($17)\n"
-    "move $4,$16\n"
-    "jal func_800B3254\n"
-    "lui $5,0x8\n"
-    "jal func_800B31EC\n"
-    "move $4,$18\n"
-    "jal func_800B3208\n"
-    "andi $4,$19,0xffff\n"
-    "mov.s $f4,$f20\n"
-    "addiu $4,$29,24\n"
-    "mfc1 $5,$f4\n"
-    "lui $7,0x43ce\n"
-    "ori $7,$7,0x8000\n"
-    "lw $2,804($17)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30684($1)\n"
-    "move $6,$0\n"
-    "sw $2,24($29)\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "L_800C78B0:\n"
-    "lw $31,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f20,56($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800C76BC\n.set at\n.set reorder\n");
+typedef struct { int v; int pad; } Tmp;
+typedef struct {
+    char p0[0x17C]; int a;
+    char p1[0x250 - 0x180]; int b;
+    char p2[0x324 - 0x254]; int c;
+    char p3[0x4DC - 0x328]; char va[0x4F4 - 0x4DC]; char vb[0x50C - 0x4F4];
+    char ma[0x5E8 - 0x50C]; char mb[0x6C4 - 0x5E8];
+    unsigned int ra; unsigned int rb;
+    char p4[0x6D4 - 0x6CC]; float fb; float fa;
+} Obj;
+extern void func_8001A1D8(Tmp *, float, float, float, float);
+extern int func_800B31DC(void);
+extern void func_800B31EC(int);
+extern int func_800B31F8(void);
+extern void func_800B3208(int);
+extern void func_800B3254(void *, int);
+extern void func_800B360C(void *, void *);
+
+void func_800C76BC(Obj *o)
+{
+    Tmp t;
+    float s, p;
+    int m, l;
+    if (o->a == 0) return;
+    p = 0.0f;
+    s = o->fa * 413.0f;
+    t.v = o->a;
+    func_8001A1D8(&t, p, p, s, 10.0f);
+    m = func_800B31DC();
+    l = func_800B31F8();
+    func_800B31EC(1);
+    func_800B3208(56);
+    o->ra = o->fa * 100.0f;
+    func_800B360C(o->ma, o->va);
+    func_800B3254(o->ma, 0x80000);
+    func_800B31EC(m);
+    p = s;
+    s = o->fb * 413.0f;
+    t.v = o->b;
+    func_8001A1D8(&t, p, 0.0f, s, 10.0f);
+    m = func_800B31DC();
+    func_800B31EC(1);
+    func_800B3208(56);
+    o->rb = o->fb * 100.0f;
+    func_800B360C(o->mb, o->vb);
+    func_800B3254(o->mb, 0x80000);
+    func_800B31EC(m);
+    func_800B3208((unsigned short)l);
+    p = s;
+    s = 413.0f;
+    t.v = o->c;
+    func_8001A1D8(&t, p, 0.0f, s, 10.0f);
+}

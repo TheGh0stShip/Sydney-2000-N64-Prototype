@@ -1,105 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80118880\n.ent func_80118880\n"
-    "func_80118880:\n"
-    "addiu $29,$29,-56\n"
-    "sw $20,32($29)\n"
-    "move $20,$6\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-5124\n"
-    "andi $3,$5,0xff\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x8008\n"
-    "lui $6,0x800f\n"
-    "addiu $5,$16,-5164\n"
-    "addiu $6,$6,10072\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sdc1 $f22,48($29)\n"
-    "sdc1 $f20,40($29)\n"
-    "lw $4,0($3)\n"
-    "jal func_80005A3C\n"
-    "li $7,1\n"
-    "lw $2,-5164($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f22,-7336($1)\n"
-    "addiu $19,$2,8\n"
-    "addiu $17,$2,14\n"
-    "lhu $18,6($2)\n"
-    "beqz $18,L_801189E0\n"
-    "li $2,3\n"
-    "lhu $3,0($19)\n"
-    "bnel $3,$2,L_801189D4\n"
-    "addiu $17,$17,14\n"
-    "lhu $2,2($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-7332($1)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lhu $2,4($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,-7328($1)\n"
-    "sll $16,$2,0x3\n"
-    "addu $16,$16,$2\n"
-    "sub.s $f20,$f20,$f0\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$20,$16\n"
-    "jal func_8002EFF0\n"
-    "mov.s $f12,$f20\n"
-    "mov.s $f12,$f20\n"
-    "swc1 $f0,24($16)\n"
-    "jal func_8002E810\n"
-    "sw $0,28($16)\n"
-    "swc1 $f0,32($16)\n"
-    "lh $2,-4($17)\n"
-    "lwc1 $f10,24($16)\n"
-    "lwc1 $f8,32($16)\n"
-    "mul.s $f10,$f10,$f22\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,0($16)\n"
-    "swc1 $f0,12($16)\n"
-    "lh $2,-2($17)\n"
-    "mul.s $f8,$f8,$f22\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,4($16)\n"
-    "swc1 $f0,16($16)\n"
-    "lh $2,0($17)\n"
-    "lwc1 $f6,0($16)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "add.s $f6,$f6,$f10\n"
-    "swc1 $f0,8($16)\n"
-    "mov.s $f4,$f0\n"
-    "add.s $f4,$f4,$f8\n"
-    "lwc1 $f2,12($16)\n"
-    "sub.s $f2,$f2,$f10\n"
-    "swc1 $f0,20($16)\n"
-    "sub.s $f0,$f0,$f8\n"
-    "swc1 $f6,0($16)\n"
-    "swc1 $f4,8($16)\n"
-    "swc1 $f2,12($16)\n"
-    "swc1 $f0,20($16)\n"
-    "addiu $17,$17,14\n"
-    "L_801189D4:\n"
-    "addiu $19,$19,14\n"
-    "j func_8007E860\n"
-    "addiu $18,$18,-1\n"
-    "L_801189E0:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f22,48($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_80118880\n.set at\n.set reorder\n");
+typedef int s32;
+typedef short s16;
+typedef unsigned short u16;
+typedef unsigned char u8;
+typedef float f32;
+typedef struct { u16 type; s16 x, y, z; u16 ang; u16 idx; u16 pad; } Ent;
+typedef struct { u8 pad[6]; u16 count; Ent e[1]; } Hdr;
+extern void *D_8007EBFC[];
+extern Hdr *D_8007EBD4;
+extern u8 D_800F2758[];
+extern void func_80005A3C(void *, void *, void *, s32);
+extern f32 func_8002EFF0(f32);
+extern f32 func_8002E810(f32);
+void func_8007E7F0(s32 a0, u8 id, f32 *out)
+{
+    Ent *e;
+    s32 n;
+    f32 *o;
+    f32 *d;
+    f32 a;
+    f32 dx, dz;
+    func_80005A3C(D_8007EBFC[id], &D_8007EBD4, D_800F2758, 1);
+    e = D_8007EBD4->e;
+    n = D_8007EBD4->count;
+    while (1) {
+        if (n == 0) break;
+        if (e->type == 3) {
+            a = 6.2831845f - e->ang * 9.58738e-5f;
+            o = out + e->idx * 9;
+            o[6] = func_8002EFF0(a);
+            o[7] = 0.0f;
+            o[8] = func_8002E810(a);
+            d = o + 6;
+            dx = d[0] * 65.534f;
+            dz = d[2] * 65.534f;
+            o[3] = o[0] = e->x;
+            o[4] = o[1] = e->y;
+            o[5] = o[2] = e->z;
+            o[0] += dx;
+            o[2] += dz;
+            o[3] -= dx;
+            o[5] -= dz;
+        }
+        e++;
+        n--;
+    }
+}

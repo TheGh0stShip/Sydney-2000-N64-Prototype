@@ -1,114 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B1724\n.ent func_800B1724\n"
-    "func_800B1724:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "lui $5,0x1\n"
-    "ori $5,$5,0xc200\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,30304\n"
-    "li $6,5\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $3,23416($18)\n"
-    "lbu $2,23419($18)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "addu $2,$2,$4\n"
-    "lbu $16,0($2)\n"
-    "lbu $4,23423($18)\n"
-    "li $2,3\n"
-    "sw $2,23412($18)\n"
-    "li $2,15\n"
-    "sw $5,23428($18)\n"
-    "beq $4,$6,L_800B17C4\n"
-    "sb $2,23450($18)\n"
-    "lw $5,21292($18)\n"
-    "lbu $3,426($5)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800B17A0\n"
-    "li $2,2\n"
-    "bne $4,$2,L_800B17B4\n"
-    "nop\n"
-    "L_800B17A0:\n"
-    "addiu $4,$18,22984\n"
-    "jal func_800A9AE4\n"
-    "addiu $5,$5,820\n"
-    "j func_800725F4\n"
-    "nop\n"
-    "L_800B17B4:\n"
-    "beq $4,$6,L_800B17C4\n"
-    "addiu $4,$18,22984\n"
-    "jal func_800A9BE8\n"
-    "li $5,11\n"
-    "L_800B17C4:\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$18,12020\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$18,14820\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$18,16220\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$18,17620\n"
-    "andi $3,$16,0xff\n"
-    "sltiu $2,$3,5\n"
-    "beqz $2,L_800B18B0\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4400\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,15\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "addiu $7,$18,21296\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "lbu $3,23423($18)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800B18B0\n"
-    "addiu $4,$18,22984\n"
-    "j func_800726D8\n"
-    "li $5,13\n"
-    "lui $17,0x800f\n"
-    "addiu $17,$17,9952\n"
-    "move $4,$17\n"
-    "li $6,15\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10028\n"
-    "lw $5,24($16)\n"
-    "addiu $7,$18,21296\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "li $6,15\n"
-    "lw $5,24($16)\n"
-    "addiu $7,$18,21604\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "jal func_800AB2A4\n"
-    "addiu $5,$5,2304\n"
-    "lbu $3,23423($18)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800B18B0\n"
-    "addiu $4,$18,22984\n"
-    "li $5,15\n"
-    "jal func_800A9BE8\n"
-    "nop\n"
-    "L_800B18B0:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800B1724\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+extern u8 D_80077660[][4];
+extern u8 D_800F26E0[];
+extern s32 D_800F272C[];
+extern void func_800A9AE4(u8 *, u8 *);
+extern void func_800A9BE8(u8 *, s32);
+extern void func_800AB2A4(void *, s32, s32, void *, s32, s32);
+extern void func_800D29E0(u8 *);
+void func_80072554(u8 *o)
+{
+    u8 v;
+    u8 *e;
+    v = D_80077660[o[23416]][o[23419]];
+    *(s32 *)(o + 23412) = 3;
+    *(s32 *)(o + 23428) = 115200;
+    o[23450] = 15;
+    if (o[23423] != 5) {
+        e = *(u8 **)(o + 21292);
+        if (e[426] == 1 || o[23423] == 2) {
+            func_800A9AE4(o + 22984, e + 820);
+        } else if (o[23423] != 5) {
+            func_800A9BE8(o + 22984, 11);
+        }
+    }
+    func_800D29E0(o + 12020);
+    func_800D29E0(o + 14820);
+    func_800D29E0(o + 16220);
+    func_800D29E0(o + 17620);
+    switch (v) {
+    case 0:
+        break;
+    case 1:
+    case 2:
+        func_800AB2A4(D_800F26E0, D_800F272C[6], 15, o + 21296, 0, 0);
+        if (o[23423] == 5) {
+            func_800A9BE8(o + 22984, 13);
+        }
+        break;
+    case 3:
+    case 4:
+        func_800AB2A4(D_800F26E0, D_800F272C[6], 15, o + 21296, 0, 0);
+        func_800AB2A4(D_800F26E0, D_800F272C[6] + 2304, 15, o + 21604, 0, 0);
+        if (o[23423] == 5) {
+            func_800A9BE8(o + 22984, 15);
+        }
+        break;
+    }
+}

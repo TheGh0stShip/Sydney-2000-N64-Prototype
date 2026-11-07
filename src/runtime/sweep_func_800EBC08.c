@@ -1,142 +1,61 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EBC08\n.ent func_800EBC08\n"
-    "func_800EBC08:\n"
-    "addiu $29,$29,-72\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $4,$19,448\n"
-    "li $5,897\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "sw $30,48($29)\n"
-    "li $30,45\n"
-    "sw $23,44($29)\n"
-    "li $23,22\n"
-    "sw $22,40($29)\n"
-    "li $22,186\n"
-    "sw $21,36($29)\n"
-    "lui $21,0xb2ff\n"
-    "ori $21,$21,0xffff\n"
-    "sw $20,32($29)\n"
-    "lui $20,0xff\n"
-    "sw $31,52($29)\n"
-    "sw $16,16($29)\n"
-    "sdc1 $f22,64($29)\n"
-    "sdc1 $f20,56($29)\n"
-    "lw $6,260($19)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f22,-15256($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f20,-15252($1)\n"
-    "jal func_800EA308\n"
-    "ori $20,$20,0xffff\n"
-    "move $5,$2\n"
-    "lui $4,0xb2ff\n"
-    "ori $4,$4,0xffff\n"
-    "lui $3,0xff\n"
-    "ori $3,$3,0xffff\n"
-    "move $2,$30\n"
-    "sh $2,2($5)\n"
-    "li $2,6\n"
-    "sh $2,46($5)\n"
-    "li $2,682\n"
-    "sh $2,48($5)\n"
-    "sh $0,44($5)\n"
-    "lwc1 $f0,0($18)\n"
-    "lwc1 $f2,4($18)\n"
-    "lwc1 $f4,8($18)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f6,-15248($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f8,-15244($1)\n"
-    "addiu $16,$19,224\n"
-    "sw $4,52($5)\n"
-    "sw $3,56($5)\n"
-    "swc1 $f0,4($5)\n"
-    "swc1 $f2,8($5)\n"
-    "swc1 $f4,12($5)\n"
-    "swc1 $f6,40($5)\n"
-    "swc1 $f8,36($5)\n"
-    "L_800EBCF0:\n"
-    "sltiu $2,$17,8\n"
-    "beqz $2,L_800EBD50\n"
-    "addiu $4,$19,448\n"
-    "li $5,898\n"
-    "lw $6,0($16)\n"
-    "jal func_800EA308\n"
-    "addiu $16,$16,4\n"
-    "move $5,$2\n"
-    "sh $30,2($5)\n"
-    "sh $23,46($5)\n"
-    "sh $22,48($5)\n"
-    "sh $0,44($5)\n"
-    "lwc1 $f0,0($18)\n"
-    "lwc1 $f2,4($18)\n"
-    "lwc1 $f4,8($18)\n"
-    "addiu $17,$17,1\n"
-    "sw $21,52($5)\n"
-    "sw $20,56($5)\n"
-    "swc1 $f22,40($5)\n"
-    "swc1 $f20,36($5)\n"
-    "swc1 $f0,4($5)\n"
-    "swc1 $f2,8($5)\n"
-    "j L_800EBCF0\n"
-    "swc1 $f4,12($5)\n"
-    "L_800EBD50:\n"
-    "move $17,$0\n"
-    "li $30,135\n"
-    "li $23,36\n"
-    "li $22,113\n"
-    "lui $21,0xb2ff\n"
-    "ori $21,$21,0xffff\n"
-    "lui $20,0xff\n"
-    "ori $20,$20,0xffff\n"
-    "addiu $16,$19,192\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f22,-15240($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f20,-15236($1)\n"
-    "L_800EBD84:\n"
-    "sltiu $2,$17,4\n"
-    "beqz $2,L_800EBDE4\n"
-    "addiu $4,$19,448\n"
-    "li $5,898\n"
-    "lw $6,0($16)\n"
-    "jal func_800EA308\n"
-    "addiu $16,$16,4\n"
-    "move $5,$2\n"
-    "sh $30,2($5)\n"
-    "sh $23,46($5)\n"
-    "sh $22,48($5)\n"
-    "sh $0,44($5)\n"
-    "lwc1 $f0,0($18)\n"
-    "lwc1 $f2,4($18)\n"
-    "lwc1 $f4,8($18)\n"
-    "addiu $17,$17,1\n"
-    "sw $21,52($5)\n"
-    "sw $20,56($5)\n"
-    "swc1 $f22,40($5)\n"
-    "swc1 $f20,36($5)\n"
-    "swc1 $f0,4($5)\n"
-    "swc1 $f2,8($5)\n"
-    "j L_800EBD84\n"
-    "swc1 $f4,12($5)\n"
-    "L_800EBDE4:\n"
-    "lw $31,52($29)\n"
-    "lw $30,48($29)\n"
-    "lw $23,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f22,64($29)\n"
-    "ldc1 $f20,56($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_800EBC08\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec3;
+typedef struct {
+    short p0; short kind; Vec3 pos;
+    char p1[36 - 16]; float sx; float sy; short h44; short h46; short h48; short p2;
+    unsigned int c0; unsigned int c1;
+} Spr;
+typedef struct {
+    char p0[192]; int b[4]; char p1[224 - 208]; int a[8];
+    char p2[260 - 256]; int id; char p3[448 - 264]; char pool[4];
+} Obj;
+extern Spr *func_800EA308(void *, int, int);
+
+void func_800EBC08(Obj *o, Vec3 *v)
+{
+    Spr *p;
+    unsigned int i;
+    int *q;
+
+    p = func_800EA308(o->pool, 897, o->id);
+    p->kind = 45;
+    p->h46 = 6;
+    p->h48 = 682;
+    p->h44 = 0;
+    { float x = v->x, y = v->y, z = v->z; p->pos.x = x; p->pos.y = y; p->pos.z = z; }
+    p->c0 = 0xB2FFFFFF;
+    p->c1 = 0x00FFFFFF;
+    p->sy = 0.010922333f;
+    p->sx = 1.0f;
+    i = 0; q = o->a;
+    while (1) {
+        if (!(i < 8)) break;
+        p = func_800EA308(o->pool, 898, *q);
+        q++;
+        p->kind = 45;
+        p->h46 = 22;
+        p->h48 = 186;
+        p->h44 = 0;
+        { float x = v->x, y = v->y, z = v->z; p->pos.x = x; p->pos.y = y; p->pos.z = z; }
+        p->c0 = 0xB2FFFFFF;
+        p->c1 = 0x00FFFFFF;
+        p->sy = 0.030036418f;
+        p->sx = 0.2f;
+        i++;
+    }
+    i = 0;
+    q = o->b;
+    while (1) {
+        if (!(i < 4)) break;
+        p = func_800EA308(o->pool, 898, q[i]);
+        p->kind = 135;
+        p->h46 = 36;
+        p->h48 = 113;
+        p->h44 = 0;
+        { float x = v->x, y = v->y, z = v->z; p->pos.x = x; p->pos.y = y; p->pos.z = z; }
+        p->c0 = 0xB2FFFFFF;
+        p->c1 = 0x00FFFFFF;
+        p->sy = 0.008191750f;
+        p->sx = 0.3f;
+        i++;
+    }
+}
