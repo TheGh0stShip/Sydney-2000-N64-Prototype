@@ -1,63 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80117CB4\n.ent func_80117CB4\n"
-    "func_80117CB4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $3,0($17)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_80117D78\n"
-    "move $16,$4\n"
-    "lw $2,332($16)\n"
-    "lw $2,28($2)\n"
-    "lw $3,332($16)\n"
-    "addiu $2,$2,84\n"
-    "sw $2,1844($16)\n"
-    "lw $2,28($3)\n"
-    "lbu $3,336($16)\n"
-    "addiu $2,$2,84\n"
-    "beqz $3,L_80117D38\n"
-    "sw $2,1364($16)\n"
-    "lw $2,332($16)\n"
-    "lw $2,28($2)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-7648($1)\n"
-    "lwc1 $f2,88($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_80117D78\n"
-    "addiu $4,$16,936\n"
-    "sb $0,336($16)\n"
-    "jal func_8001A114\n"
-    "move $5,$0\n"
-    "j func_8007EEC0\n"
-    "move $4,$0\n"
-    "L_80117D38:\n"
-    "lw $2,332($16)\n"
-    "lw $2,28($2)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-7644($1)\n"
-    "lwc1 $f2,88($2)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_80117D78\n"
-    "li $2,1\n"
-    "sb $2,336($16)\n"
-    "addiu $4,$16,936\n"
-    "jal func_8001A114\n"
-    "li $5,1\n"
-    "li $4,1\n"
-    "jal func_80017DF0\n"
-    "nop\n"
-    "L_80117D78:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80117CB4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+extern void func_8001A114(void *, int);
+extern void func_80017DF0(int);
+typedef struct { u8 pad[28]; u8 *e; } Mdl;
+void func_8007EE04(u8 *o, int *a)
+{
+    if (a[0] == 5) {
+        *(u8 **)(o + 1844) = (*(Mdl **)(o + 332))->e + 84;
+        *(u8 **)(o + 1364) = (*(Mdl **)(o + 332))->e + 84;
+        if (o[336]) {
+            if (-6.5533996f < *(float *)((*(Mdl **)(o + 332))->e + 88)) {
+                o[336] = 0;
+                func_8001A114(o + 936, 0);
+                func_80017DF0(0);
+            }
+        } else if (*(float *)((*(Mdl **)(o + 332))->e + 88) < -6.5533996f) {
+            o[336] = 1;
+            func_8001A114(o + 936, 1);
+            func_80017DF0(1);
+        }
+    }
+    *(int *)(o + 16) = a[1];
+}

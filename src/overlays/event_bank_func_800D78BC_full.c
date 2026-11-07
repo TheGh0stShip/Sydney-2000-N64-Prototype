@@ -6,8 +6,6 @@ typedef struct {
 #define W(o,x) (*(int *)((char *)(o) + (x)))
 #define F(o,x) (*(float *)((char *)(o) + (x)))
 
-extern void *D_80071038[];
-extern void *D_800710D8[];
 extern volatile int D_800F2728, D_800F2724;
 extern int D_800F2778, D_800F2780, D_800F2714, D_800F2744;
 extern int *D_800FC270;
@@ -32,9 +30,6 @@ extern void func_800D771C(void *);
 
 void func_800D78BC(char *s, int run)
 {
-    static void *const unused_tbl[] = {&&c0, &&c1, &&c2, &&c3, &&c4, &&c5, &&c6, &&c8, &&c9, &&c11, &&c12,
-        &&c13, &&c14, &&c15, &&c16, &&c24, &&c25, &&c26, &&c28, &&c29, &&c30, &&c31, &&c32, &&c33,
-        &&c34, &&c35, &&c36, &&c37, &&c38, &&c39, &&n0, &&n2, &&n4, &&n5};
     unsigned int k;
     char *snd;
     char *q;
@@ -48,15 +43,49 @@ void func_800D78BC(char *s, int run)
             func_80073CF0(s);
         }
     }
-    k = B(s, 0x60F);
-    if (k >= 40) goto c0;
-    goto *D_80071038[k];
+    switch (B(s, 0x60F)) {
+    case 0:
+    default:
+        goto c0;
+    case 1: goto c1;
+    case 2: goto c2;
+    case 3: goto c3;
+    case 4: goto c4;
+    case 5: goto c5;
+    case 6: goto c6;
+    case 8: goto c8;
+    case 9: goto c9;
+    case 11: goto c11;
+    case 12: goto c12;
+    case 13: goto c13;
+    case 14: goto c14;
+    case 15: goto c15;
+    case 16: goto c16;
+    case 24: goto c24;
+    case 25: goto c25;
+    case 26: goto c26;
+    case 28: goto c28;
+    case 29: goto c29;
+    case 30: goto c30;
+    case 31: goto c31;
+    case 32: goto c32;
+    case 33: goto c33;
+    case 34: goto c34;
+    case 35: goto c35;
+    case 36: goto c36;
+    case 37: goto c37;
+    case 38: goto c38;
+    case 39: goto c39;
+    }
 c1: func_80071CC4(s); goto tail;
 c2:
     if ((W(s, 0x6164) -= 256) > 0) goto n5;
-    k = B(s, 0x615);
-    if (k >= 6) goto n5;
-    goto *D_800710D8[k];
+    switch (B(s, 0x615)) {
+    case 0: case 1: goto n0;
+    case 2: case 3: goto n2;
+    case 4: goto n4;
+    case 5: default: goto n5;
+    }
 n0:
     func_800755FC(s);
     func_800A9BE8(s + 0x45C, 2);
@@ -64,7 +93,7 @@ n0:
     B(s, 0x60F) = 3;
     goto n5;
 n4:
-    func_80099D70(s + 0x4EFC, 0, (float)W(D_800FC270, 0xD10) / *(float *)0x800710F0 * *(float *)0x800710F4);
+    func_80099D70(s + 0x4EFC, 0, (float)W(D_800FC270, 0xD10) / 30.0f * 0.00390625f);
 n2:
     func_800A9BE8(s + 0x45C, 5);
     B(s, 0x60F) = 7;

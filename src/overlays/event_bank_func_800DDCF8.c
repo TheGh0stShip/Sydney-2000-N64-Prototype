@@ -1,111 +1,76 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DDCF8\n.ent func_800DDCF8\n"
-    "func_800DDCF8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,25284($17)\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800DDE74\n"
-    "sw $2,25284($17)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,143\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "li $2,1\n"
-    "sb $2,25383($17)\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,6\n"
-    "beq $3,$2,L_800DDD8C\n"
-    "li $2,4\n"
-    "lbu $3,1557($17)\n"
-    "beq $3,$2,L_800DDD8C\n"
-    "nop\n"
-    "jal func_800759A0\n"
-    "move $4,$17\n"
-    "L_800DDD8C:\n"
-    "lbu $2,1557($17)\n"
-    "li $16,5\n"
-    "beq $2,$16,L_800DDDB0\n"
-    "addiu $4,$17,12884\n"
-    "lui $5,0x8007\n"
-    "addiu $5,$5,31340\n"
-    "move $6,$0\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "L_800DDDB0:\n"
-    "lbu $3,1557($17)\n"
-    "li $2,2\n"
-    "bne $3,$2,L_800DDDF4\n"
-    "addiu $4,$17,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,17\n"
-    "addiu $2,$17,1360\n"
-    "li $3,1\n"
-    "sb $3,185($2)\n"
-    "sb $3,184($2)\n"
-    "sb $0,186($2)\n"
-    "sb $0,187($2)\n"
-    "li $2,14848\n"
-    "sw $2,25284($17)\n"
-    "li $2,39\n"
-    "j func_80072448\n"
-    "sb $2,1551($17)\n"
-    "L_800DDDF4:\n"
-    "beq $3,$16,L_800DDE04\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800DDE24\n"
-    "addiu $4,$17,23124\n"
-    "L_800DDE04:\n"
-    "addiu $4,$17,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,14\n"
-    "li $2,3840\n"
-    "sw $2,25284($17)\n"
-    "li $2,15\n"
-    "j func_80072448\n"
-    "sb $2,1551($17)\n"
-    "L_800DDE24:\n"
-    "li $2,7680\n"
-    "sw $2,25284($17)\n"
-    "li $2,37\n"
-    "jal func_800CC418\n"
-    "sb $2,1551($17)\n"
-    "jal func_800767CC\n"
-    "move $4,$17\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beqz $2,L_800DDE74\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "lui $2,0x8007\n"
-    "lw $7,30908($2)\n"
-    "li $6,12\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "L_800DDE74:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DDCF8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+
+typedef struct {
+    u8 pad[0x68];
+    s32 vol;
+} Snd;
+
+typedef struct G { u8 pad[2560]; s32 mode; } G;
+
+extern Snd D_800F1AE0;
+extern G *D_800FC270;
+extern u8 D_800F26E0[];
+extern s32 D_800F2744;
+extern s32 D_800778BC;
+extern u8 D_80077A6C[];
+
+extern s32 func_8001D4B8(Snd *s, s32 a, s32 b, s32 c);
+extern void func_8001D640(Snd *s, s32 h, s32 v);
+extern void func_800759A0(u8 *p);
+extern void func_800D33A0(u8 *p, u8 *s, s32 a, s32 b);
+extern void func_800A9BE8(u8 *p, s32 a);
+extern void func_800CC418(u8 *p);
+extern void func_800767CC(u8 *p);
+extern s32 func_80017D54(void);
+extern void func_800AB2A4(u8 *a, s32 b, s32 c, s32 d, s32 e, s32 f);
+
+static inline s32 scl(s32 v, s32 m)
+{
+    return (v * m) >> 15;
+}
+
+#define W(o) (*(s32 *)(p + (o)))
+#define B(o) (*(u8 *)(p + (o)))
+
+void func_800DDCF8(u8 *p)
+{
+    s32 h;
+    u8 *e;
+
+    W(25284) -= 256;
+    if (W(25284) > 0) {
+        return;
+    }
+    h = func_8001D4B8(&D_800F1AE0, 143, 0, 1);
+    func_8001D640(&D_800F1AE0, h, scl(D_800F1AE0.vol, 32767));
+    B(25383) = 1;
+    if (D_800FC270->mode != 6 && B(1557) != 4) {
+        func_800759A0(p);
+    }
+    if (B(1557) != 5) {
+        func_800D33A0(p + 12884, D_80077A6C, 0, -1);
+    }
+    if (B(1557) == 2) {
+        func_800A9BE8(p + 1116, 17);
+        e = p + 1360;
+        e[185] = 1;
+        e[184] = 1;
+        e[186] = 0;
+        e[187] = 0;
+        W(25284) = 14848;
+        B(1551) = 39;
+    } else if (B(1557) == 5 || B(1557) == 1) {
+        func_800A9BE8(p + 1116, 14);
+        W(25284) = 3840;
+        B(1551) = 15;
+    } else {
+        W(25284) = 7680;
+        B(1551) = 37;
+        func_800CC418(p + 23124);
+    }
+    func_800767CC(p);
+    if (func_80017D54()) {
+        func_800AB2A4(D_800F26E0, D_800F2744, 12, D_800778BC, 0, 0);
+    }
+}

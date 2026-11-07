@@ -1,0 +1,1 @@
+0x10b0ac	0x68	src/overlays/event_bank_func_8010B0AC.c	--section-base=.text:0x8007B46C --section-base=.rodata:0x80078B2C --symbol=func_80017B04:0x80017B04 --symbol=func_80081E34:0x80081E34 --symbol=func_800B3870:0x800B3870 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	092599327ee96fd53d096f4fa7504cb0b3b3f82d76bcd2b91920dba45114e234

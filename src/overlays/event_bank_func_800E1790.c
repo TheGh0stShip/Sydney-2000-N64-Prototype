@@ -1,85 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E1790\n.ent func_800E1790\n"
-    "func_800E1790:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lbu $2,1548($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $2,20208($2)\n"
-    "lbu $6,733($2)\n"
-    "sll $2,$6,0x4\n"
-    "addu $4,$16,$2\n"
-    "lh $3,25098($4)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800E18AC\n"
-    "li $2,0x9000\n"
-    "lw $3,25088($4)\n"
-    "slt $2,$2,$3\n"
-    "bnez $2,L_800E17F8\n"
-    "li $5,217\n"
-    "lw $2,25092($4)\n"
-    "slti $2,$2,1537\n"
-    "beqz $2,L_800E17F8\n"
-    "li $17,292\n"
-    "j func_80075E0C\n"
-    "li $5,225\n"
-    "L_800E17F8:\n"
-    "li $17,291\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E1834\n"
-    "addu $5,$6,$5\n"
-    "lw $3,25320($16)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800E1838\n"
-    "lui $6,0x7fff\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E1834:\n"
-    "lui $6,0x7fff\n"
-    "L_800E1838:\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x4\n"
-    "subu $3,$3,$2\n"
-    "sll $3,$3,0x5\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "and $2,$2,$6\n"
-    "sw $2,10004($5)\n"
-    "srl $2,$2,0x1c\n"
-    "sltiu $2,$2,5\n"
-    "beqz $2,L_800E18AC\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E18AC\n"
-    "li $2,1\n"
-    "lw $3,25320($16)\n"
-    "bne $3,$2,L_800E18AC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$17\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E18AC:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E1790\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef short s16;
+typedef int s32;
+typedef unsigned int u32;
+
+typedef struct G { u8 pad[0xA04]; s32 on; } G;
+extern u32 D_800F2714;
+extern G *D_800FC270;
+extern u8 D_800F3BC0[];
+extern void func_800C0110(u8 *a, s32 b, s32 c, s32 d);
+
+#define B(o) (*(u8 *)(p + (o)))
+#define W(o) (*(s32 *)(p + (o)))
+typedef struct Obj { u8 pad[0x4EF0]; u8 *tbl[8]; } Obj;
+
+
+void func_800E1790(u8 *p)
+{
+    s32 k;
+    s32 s;
+    s32 t;
+    s32 v;
+    u8 *e;
+
+    k = ((Obj *)p)->tbl[B(0x60C)][733];
+    e = p + k * 16;
+    if (*(s16 *)(e + 25098) != 1) {
+        s = 217;
+        if (*(s32 *)(e + 25088) <= 0x9000 && *(s32 *)(e + 25092) < 1537) {
+            t = 292;
+            s = 225;
+        } else {
+            t = 291;
+        }
+        v = k + s;
+        if (D_800FC270->on != 0 && W(25320) == 1) {
+            func_800C0110(D_800F3BC0, v, 0, 0);
+        }
+        D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+        if ((D_800F2714 >> 28) < 5 && D_800FC270->on != 0 && W(25320) == 1) {
+            func_800C0110(D_800F3BC0, t, 0, 0);
+        }
+    }
+}

@@ -1,0 +1,1 @@
+0xcdf40	0x84	src/overlays/event_bank_func_800CDF40_full.c	--section-base=.text:0x80071820 --section-base=.rdata:0x80070938 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	64ea8a006d3d38e7f32a5f3b63235703d6ac06e2afb64e67fe2867b5b644a199

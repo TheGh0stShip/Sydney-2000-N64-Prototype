@@ -1,153 +1,96 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B7130\n.ent func_800B7130\n"
-    "func_800B7130:\n"
-    "addiu $29,$29,-56\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $21,36($29)\n"
-    "move $21,$5\n"
-    "sw $22,40($29)\n"
-    "move $22,$6\n"
-    "addiu $5,$18,352\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x800f\n"
-    "sdc1 $f20,48($29)\n"
-    "mtc1 $7,$f20\n"
-    "lui $7,0x8008\n"
-    "sw $31,44($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,28($21)\n"
-    "lw $4,10800($17)\n"
-    "lh $19,0($2)\n"
-    "addiu $7,$7,27504\n"
-    "sw $21,196($18)\n"
-    "lw $20,72($29)\n"
-    "sll $16,$19,0x2\n"
-    "addu $6,$16,$19\n"
-    "sll $6,$6,0x2\n"
-    "subu $6,$6,$19\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x2\n"
-    "addiu $5,$18,340\n"
-    "move $6,$16\n"
-    "lui $7,0x8008\n"
-    "lw $4,10800($17)\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,27512\n"
-    "addiu $5,$18,328\n"
-    "sll $6,$19,0x1\n"
-    "addu $6,$6,$19\n"
-    "sll $6,$6,0x2\n"
-    "lui $7,0x8008\n"
-    "lw $4,10800($17)\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,27524\n"
-    "move $4,$0\n"
-    "move $6,$4\n"
-    "move $5,$4\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,27560($1)\n"
-    "L_800B71F0:\n"
-    "slt $2,$4,$19\n"
-    "beql $2,$0,L_800B7268\n"
-    "sw $0,332($18)\n"
-    "lw $2,352($18)\n"
-    "addu $2,$5,$2\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,0($2)\n"
-    "sll $2,$4,0x2\n"
-    "lw $3,340($18)\n"
-    "addiu $4,$4,1\n"
-    "addu $2,$2,$3\n"
-    "sw $0,0($2)\n"
-    "lw $2,328($18)\n"
-    "addiu $5,$5,76\n"
-    "addu $2,$6,$2\n"
-    "addiu $6,$6,12\n"
-    "swc1 $f0,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "j L_800B71F0\n"
-    "swc1 $f0,0($2)\n"
-    "L_800B7268:\n"
-    "sw $22,360($18)\n"
-    "sw $22,244($18)\n"
-    "sh $0,248($18)\n"
-    "sw $0,324($18)\n"
-    "blez $20,L_800B7328\n"
-    "sw $20,212($18)\n"
-    "addiu $5,$18,216\n"
-    "sll $6,$20,0x2\n"
-    "addu $6,$6,$20\n"
-    "sll $6,$6,0x2\n"
-    "addu $6,$6,$20\n"
-    "sll $6,$6,0x2\n"
-    "lui $2,0x800f\n"
-    "lui $7,0x8008\n"
-    "lw $4,10800($2)\n"
-    "addiu $7,$7,27536\n"
-    "jal func_800AA804\n"
-    "sw $0,216($18)\n"
-    "blez $20,L_800B72E8\n"
-    "move $3,$0\n"
-    "li $5,0xffff\n"
-    "move $4,$3\n"
-    "L_800B72C0:\n"
-    "lw $2,216($18)\n"
-    "addu $2,$4,$2\n"
-    "sh $5,4($2)\n"
-    "lw $2,216($18)\n"
-    "addiu $3,$3,1\n"
-    "addu $2,$4,$2\n"
-    "sw $0,80($2)\n"
-    "slt $2,$3,$20\n"
-    "bnez $2,L_800B72C0\n"
-    "addiu $4,$4,84\n"
-    "L_800B72E8:\n"
-    "lui $2,0x800f\n"
-    "lw $4,10800($2)\n"
-    "addiu $5,$18,220\n"
-    "move $6,$19\n"
-    "lui $7,0x8008\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,27548\n"
-    "blez $19,L_800B7328\n"
-    "move $3,$0\n"
-    "L_800B730C:\n"
-    "lw $2,220($18)\n"
-    "addu $2,$2,$3\n"
-    "addiu $3,$3,1\n"
-    "sb $0,0($2)\n"
-    "slt $2,$3,$19\n"
-    "bnez $2,L_800B730C\n"
-    "nop\n"
-    "L_800B7328:\n"
-    "move $4,$21\n"
-    "move $5,$22\n"
-    "jal func_8000A994\n"
-    "swc1 $f20,232($18)\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,48($29)\n"
-    "move $2,$0\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800B7130\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef int s32;
+typedef float f32;
+typedef struct { f32 x, y, z; } Vec;
+typedef struct { f32 m[3][4]; u8 pad[16]; Vec t; } Mtx76;
+typedef struct { u8 pad[4]; unsigned short id; u8 pad2[80 - 6]; s32 f80; } Sub;
+typedef struct { s16 count; } Info;
+typedef struct { u8 pad[28]; Info *info; } Src;
+typedef struct {
+    u8 pad0[196];
+    Src *src;
+    u8 pad1[212 - 200];
+    s32 nsub;
+    Sub *subA;
+    u8 *subB;
+    u8 pad2[232 - 224];
+    f32 f232;
+    u8 pad3[244 - 236];
+    s32 f244;
+    s16 f248;
+    u8 pad4[324 - 250];
+    s32 f324;
+    Vec *scale;
+    s32 f332;
+    u8 pad5[340 - 336];
+    s32 *morph;
+    u8 pad6[352 - 344];
+    Mtx76 *mats;
+    u8 pad7[360 - 356];
+    s32 f360;
+} Obj;
+extern void *D_800F2A30;
+void func_800AA804(void *heap, void *dst, s32 size, char *name);
+void func_8000A994(Src *src, s32 a);
+static inline void setone(Vec *v)
+{
+    v->z = 1.0f;
+    v->y = 1.0f;
+    v->x = 1.0f;
+}
+static inline void ident(Mtx76 *mt)
+{
+    mt->m[2][1] = 0.0f;
+    mt->m[2][0] = 0.0f;
+    mt->m[1][2] = 0.0f;
+    mt->m[1][0] = 0.0f;
+    mt->m[0][2] = 0.0f;
+    mt->m[0][1] = 0.0f;
+    mt->t.z = 0.0f;
+    mt->t.y = 0.0f;
+    mt->t.x = 0.0f;
+    mt->m[2][2] = 1.0f;
+    mt->m[1][1] = 1.0f;
+    mt->m[0][0] = 1.0f;
+}
+s32 func_800B7130(Obj *o, Src *src, s32 a2, f32 a3, s32 m)
+{
+    s32 n;
+    s32 i;
+    s32 j;
+    n = src->info->count;
+    o->src = src;
+    func_800AA804(D_800F2A30, &o->mats, n * sizeof(Mtx76), "m_pMats");
+    func_800AA804(D_800F2A30, &o->morph, n * sizeof(s32), "m_pMorph");
+    func_800AA804(D_800F2A30, &o->scale, n * sizeof(Vec), "m_pScale");
+    i = 0;
+    while (1) {
+        if (!(i < n)) break;
+        ident(&o->mats[i]);
+        o->morph[i] = 0;
+        setone(&o->scale[i]);
+        i++;
+    }
+    o->f332 = 0;
+    o->f360 = a2;
+    o->f244 = a2;
+    o->f248 = 0;
+    o->f324 = 0;
+    o->nsub = m;
+    if (m > 0) {
+        o->subA = 0;
+        func_800AA804(D_800F2A30, &o->subA, m * sizeof(Sub), "SubSkelA");
+        for (j = 0; j < m; j++) {
+            o->subA[j].id = 0xFFFF;
+            o->subA[j].f80 = 0;
+        }
+        func_800AA804(D_800F2A30, &o->subB, n, "SubSkelB");
+        for (j = 0; j < n; j++) {
+            o->subB[j] = 0;
+        }
+    }
+    o->f232 = a3;
+    func_8000A994(src, a2);
+    return 0;
+}

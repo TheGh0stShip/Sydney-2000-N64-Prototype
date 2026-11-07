@@ -1,72 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80118A08\n.ent func_80118A08\n"
-    "func_80118A08:\n"
-    "addiu $29,$29,-56\n"
-    "sw $19,36($29)\n"
-    "move $19,$4\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$19,3296\n"
-    "sw $18,32($29)\n"
-    "move $18,$0\n"
-    "sw $22,48($29)\n"
-    "lui $22,0x8008\n"
-    "sw $21,44($29)\n"
-    "lui $21,0x8008\n"
-    "lui $2,0x8008\n"
-    "sw $20,40($29)\n"
-    "addiu $20,$2,-5100\n"
-    "li $2,8\n"
-    "sw $31,52($29)\n"
-    "sw $16,24($29)\n"
-    "sh $2,16($29)\n"
-    "sw $0,20($29)\n"
-    "li $4,1\n"
-    "L_80118A58:\n"
-    "addiu $5,$29,16\n"
-    "move $6,$17\n"
-    "li $7,4\n"
-    "jal func_800125DC\n"
-    "sw $0,0($17)\n"
-    "move $5,$0\n"
-    "lw $4,0($17)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,20\n"
-    "addiu $5,$22,-4976\n"
-    "lw $4,20($29)\n"
-    "jal func_800B3870\n"
-    "li $6,288\n"
-    "lw $4,0($17)\n"
-    "jal func_80017C3C\n"
-    "andi $16,$18,0xff\n"
-    "move $5,$0\n"
-    "li $6,4\n"
-    "addiu $7,$21,-5000\n"
-    "lw $4,0($17)\n"
-    "jal func_80017C20\n"
-    "addu $17,$17,$6\n"
-    "sll $16,$16,0x2\n"
-    "addu $2,$16,$20\n"
-    "lw $4,0($2)\n"
-    "jal func_8000EB20\n"
-    "addiu $18,$18,1\n"
-    "move $5,$0\n"
-    "addu $16,$19,$16\n"
-    "lw $4,3296($16)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,25\n"
-    "bnez $2,L_80118A58\n"
-    "li $4,1\n"
-    "lw $31,52($29)\n"
-    "lw $22,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_80118A08\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef unsigned short u16;
+typedef int s32;
+
+extern s32 D_8007EC14[];
+extern char D_8007EC78[];
+extern char D_8007EC90[];
+
+extern void func_800125DC(s32 a, s16 *cfg, s32 *out, s32 n);
+extern void func_80017C4C(s32 h, s32 a, s32 *out);
+extern void func_800B3870(s32 h, char *s, s32 n);
+extern void func_80017C3C(s32 h);
+extern void func_80017C20(s32 h, s32 a, s32 b, char *s);
+extern s32 func_8000EB20(s32 a);
+extern void func_80017CF4(s32 h, s32 a, u16 b);
+
+typedef struct Obj {
+    u8 pad[0xCE0];
+    s32 slots[25];
+} Obj;
+
+void func_80118A08(Obj *p)
+{
+    s16 cfg;
+    s32 h;
+    s32 *slot;
+    u8 i;
+
+    slot = p->slots;
+    i = 0;
+    cfg = 8;
+    h = 0;
+    do {
+        *slot = 0;
+        func_800125DC(1, &cfg, slot, 4);
+        func_80017C4C(*slot, 0, &h);
+        func_800B3870(h, D_8007EC90, 288);
+        func_80017C3C(*slot);
+        func_80017C20(*slot, 0, 4, D_8007EC78);
+        slot++;
+        func_80017CF4((p->slots)[i], 0, func_8000EB20(D_8007EC14[i]));
+        i++;
+    } while (i < 25);
+}

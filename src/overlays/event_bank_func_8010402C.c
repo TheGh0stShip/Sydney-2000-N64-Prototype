@@ -1,142 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8010402C\n.ent func_8010402C\n"
-    "func_8010402C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $8,0x800f\n"
-    "lw $4,5104($8)\n"
-    "li $5,35\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$5\n"
-    "addiu $6,$16,430\n"
-    "sw $31,28($29)\n"
-    "mflo $10\n"
-    "srl $9,$10,0x10\n"
-    "sltiu $2,$9,20\n"
-    "bnez $2,L_80104194\n"
-    "sw $3,5104($8)\n"
-    "lbu $2,1229($16)\n"
-    "addu $2,$9,$2\n"
-    "sltiu $2,$2,24\n"
-    "bnez $2,L_8010411C\n"
-    "li $2,43\n"
-    "li $2,37\n"
-    "sh $2,430($16)\n"
-    "lw $4,5104($8)\n"
-    "li $5,10\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$5\n"
-    "addiu $6,$16,432\n"
-    "mflo $10\n"
-    "srl $5,$10,0x10\n"
-    "blez $5,L_8010410C\n"
-    "sw $3,5104($8)\n"
-    "li $2,38\n"
-    "L_801040FC:\n"
-    "sh $2,0($6)\n"
-    "addiu $5,$5,-1\n"
-    "bgtz $5,L_801040FC\n"
-    "addiu $6,$6,2\n"
-    "L_8010410C:\n"
-    "li $2,39\n"
-    "sh $2,0($6)\n"
-    "j func_8007AF84\n"
-    "addiu $6,$6,2\n"
-    "L_8010411C:\n"
-    "sh $2,430($16)\n"
-    "lw $4,5104($8)\n"
-    "li $5,20\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$5\n"
-    "addiu $6,$16,432\n"
-    "mflo $10\n"
-    "srl $5,$10,0x10\n"
-    "blez $5,L_8010417C\n"
-    "sw $3,5104($8)\n"
-    "li $2,44\n"
-    "L_8010416C:\n"
-    "sh $2,0($6)\n"
-    "addiu $5,$5,-1\n"
-    "bgtz $5,L_8010416C\n"
-    "addiu $6,$6,2\n"
-    "L_8010417C:\n"
-    "li $2,45\n"
-    "sh $2,0($6)\n"
-    "lbu $2,1229($16)\n"
-    "addiu $6,$6,2\n"
-    "addiu $2,$2,1\n"
-    "sb $2,1229($16)\n"
-    "L_80104194:\n"
-    "srl $5,$9,0x2\n"
-    "lui $7,0x800f\n"
-    "lui $8,0x7fff\n"
-    "ori $8,$8,0xffff\n"
-    "lui $2,0x8008\n"
-    "addiu $9,$2,-17500\n"
-    "L_801041AC:\n"
-    "lw $4,5104($7)\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x4\n"
-    "subu $3,$3,$2\n"
-    "sll $3,$3,0x5\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "and $2,$2,$8\n"
-    "sw $2,5104($7)\n"
-    "srl $2,$2,0x1d\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$2,$9\n"
-    "lhu $2,0($2)\n"
-    "addiu $5,$5,-1\n"
-    "sh $2,0($6)\n"
-    "bgtz $5,L_801041AC\n"
-    "addiu $6,$6,2\n"
-    "li $2,-1\n"
-    "sh $2,0($6)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,788($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8010402C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef unsigned short u16;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+
+extern u32 D_800F13F0[];
+extern u16 D_8007BBA4[];
+extern void func_800B9E9C(u8 *o, s32 a, s32 b, s32 c, s32 d);
+
+static inline u32 rnd(u32 n)
+{
+    D_800F13F0[0] = (D_800F13F0[0] * 16807) & 0x7FFFFFFF;
+    return ((D_800F13F0[0] >> 15) * n) >> 16;
+}
+
+void func_8010402C(u8 *o)
+{
+    s16 *p = (s16 *)(o + 430);
+    u32 r = rnd(35);
+    s32 n;
+
+    if (r >= 20) {
+        if (r + o[1229] >= 24) {
+            *p++ = 37;
+            for (n = rnd(10); n > 0; n--) {
+                *p++ = 38;
+            }
+            *p++ = 39;
+        } else {
+            *p++ = 43;
+            for (n = rnd(20); n > 0; n--) {
+                *p++ = 44;
+            }
+            *p++ = 45;
+            o[1229]++;
+        }
+    }
+    n = r >> 2;
+    do {
+        D_800F13F0[0] = (D_800F13F0[0] * 16807) & 0x7FFFFFFF;
+        n--;
+        *p++ = D_8007BBA4[D_800F13F0[0] >> 29];
+    } while (n > 0);
+    *p = -1;
+    o[429] = 0;
+    func_800B9E9C(o, *(s16 *)(o + 430), -1, *(s32 *)(o + 632), 0);
+    *(f32 *)(o + 632) = *(f32 *)(o + 788);
+}

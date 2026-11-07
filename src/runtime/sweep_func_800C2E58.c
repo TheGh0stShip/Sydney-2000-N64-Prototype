@@ -1,112 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C2E58\n.ent func_800C2E58\n"
-    "func_800C2E58:\n"
-    "addiu $29,$29,-32\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,3($5)\n"
-    "andi $2,$2,0x10\n"
-    "beqz $2,L_800C2F9C\n"
-    "move $17,$4\n"
-    "lw $2,220($17)\n"
-    "lw $2,4($2)\n"
-    "lui $3,0x8\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800C2ED0\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,89\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "j L_800C2FCC\n"
-    "nop\n"
-    "L_800C2ED0:\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,130\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "lw $2,220($17)\n"
-    "lw $4,28($2)\n"
-    "lw $3,4($4)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800C2F60\n"
-    "slti $2,$3,2\n"
-    "beqz $2,L_800C2F38\n"
-    "li $2,2\n"
-    "beqz $3,L_800C2F48\n"
-    "nop\n"
-    "j L_800C2F8C\n"
-    "nop\n"
-    "L_800C2F38:\n"
-    "beq $3,$2,L_800C2F78\n"
-    "nop\n"
-    "j L_800C2F8C\n"
-    "nop\n"
-    "L_800C2F48:\n"
-    "lw $2,0($4)\n"
-    "lw $4,8($4)\n"
-    "lw $3,0($2)\n"
-    "xor $3,$3,$4\n"
-    "j L_800C2F8C\n"
-    "sw $3,0($2)\n"
-    "L_800C2F60:\n"
-    "lw $2,0($4)\n"
-    "lhu $4,10($4)\n"
-    "lhu $3,0($2)\n"
-    "xor $3,$3,$4\n"
-    "j L_800C2F8C\n"
-    "sh $3,0($2)\n"
-    "L_800C2F78:\n"
-    "lw $2,0($4)\n"
-    "lbu $4,11($4)\n"
-    "lbu $3,0($2)\n"
-    "xor $3,$3,$4\n"
-    "sb $3,0($2)\n"
-    "L_800C2F8C:\n"
-    "jal func_800B0F60\n"
-    "move $4,$17\n"
-    "j L_800C2FAC\n"
-    "lui $2,0x8010\n"
-    "L_800C2F9C:\n"
-    "lbu $5,0($5)\n"
-    "jal func_800B1550\n"
-    "move $4,$17\n"
-    "lui $2,0x8010\n"
-    "L_800C2FAC:\n"
-    "lw $3,-15760($2)\n"
-    "lw $2,3432($3)\n"
-    "bnez $2,L_800C2FCC\n"
-    "li $2,1\n"
-    "sw $2,3432($3)\n"
-    "lui $4,0x800f\n"
-    "jal func_800D56A8\n"
-    "addiu $4,$4,22784\n"
-    "L_800C2FCC:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C2E58\n.set at\n.set reorder\n");
+typedef struct { void *ptr; int size; int value; } Toggle;
+typedef struct { char pad[4]; int flags; char pad8[0x1C - 8]; Toggle *tog; } Ent;
+typedef struct { char pad[0x68]; int vol; } Snd;
+typedef struct { char pad[0xD68]; int started; } Game;
+
+extern Snd D_800F1AE0;
+extern char D_800F5900[];
+extern Game *D_800FC270;
+extern int func_8001D4B8(Snd *s, int id, int a, int b);
+extern void func_8001D640(Snd *s, int h, int vol);
+extern void func_800B0F60(char *o);
+extern void func_800B1550(char *o, int c);
+extern void func_800D56A8(char *p);
+
+void func_800C2E58(char *o, unsigned char *msg)
+{
+    Toggle *t;
+    Game *g;
+
+    if (msg[3] & 0x10) {
+        if ((*(Ent **)(o + 0xDC))->flags & 0x80000) {
+            int k;
+            k = 32767;
+            func_8001D640(&D_800F1AE0, func_8001D4B8(&D_800F1AE0, 89, 0, 1), (D_800F1AE0.vol * k) >> 15);
+            return;
+        }
+        {
+            int k;
+            k = 32767;
+            func_8001D640(&D_800F1AE0, func_8001D4B8(&D_800F1AE0, 130, 0, 1), (D_800F1AE0.vol * k) >> 15);
+        }
+        t = (*(Ent **)(o + 0xDC))->tog;
+        switch (t->size) {
+        case 0:
+            *(int *)t->ptr ^= t->value;
+            break;
+        case 1:
+            *(unsigned short *)t->ptr ^= (unsigned short)t->value;
+            break;
+        case 2:
+            *(unsigned char *)t->ptr ^= (unsigned char)t->value;
+            break;
+        }
+        func_800B0F60(o);
+    } else {
+        func_800B1550(o, msg[0]);
+    }
+    g = D_800FC270;
+    if (g->started == 0) {
+        g->started = 1;
+        func_800D56A8(D_800F5900);
+    }
+}

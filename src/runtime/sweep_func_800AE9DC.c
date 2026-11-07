@@ -1,76 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE9DC\n.ent func_800AE9DC\n"
-    "func_800AE9DC:\n"
-    "addiu $29,$29,-64\n"
-    "sw $16,40($29)\n"
-    "move $16,$4\n"
-    "sw $17,44($29)\n"
-    "sw $31,52($29)\n"
-    "sw $18,48($29)\n"
-    "sdc1 $f20,56($29)\n"
-    "lw $2,4($16)\n"
-    "mtc1 $5,$f20\n"
-    "beqz $2,L_800AEA0C\n"
-    "move $17,$6\n"
-    "mtc1 $0,$f20\n"
-    "L_800AEA0C:\n"
-    "lw $3,0($16)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800AEACC\n"
-    "move $2,$0\n"
-    "addiu $2,$16,64\n"
-    "addiu $6,$29,24\n"
-    "sw $2,16($29)\n"
-    "lw $4,68($16)\n"
-    "mfc1 $5,$f20\n"
-    "jal func_800AF2D4\n"
-    "addiu $7,$16,60\n"
-    "addiu $3,$17,20\n"
-    "lwc1 $f0,24($29)\n"
-    "addiu $4,$29,24\n"
-    "swc1 $f0,64($3)\n"
-    "lwc1 $f0,4($4)\n"
-    "swc1 $f0,68($3)\n"
-    "lwc1 $f0,8($4)\n"
-    "swc1 $f0,72($3)\n"
-    "lw $3,12($16)\n"
-    "beqz $3,L_800AEAA8\n"
-    "move $18,$2\n"
-    "mtc1 $0,$f0\n"
-    "c.le.s $f0,$f20\n"
-    "nop\n"
-    "bc1f L_800AEA88\n"
-    "move $4,$16\n"
-    "jal func_800AE8C0\n"
-    "move $5,$17\n"
-    "j L_800AEAA8\n"
-    "nop\n"
-    "L_800AEA88:\n"
-    "lw $2,72($16)\n"
-    "move $5,$17\n"
-    "sltiu $2,$2,1\n"
-    "jal func_800AE8C0\n"
-    "sw $2,72($16)\n"
-    "lw $2,72($16)\n"
-    "sltiu $2,$2,1\n"
-    "sw $2,72($16)\n"
-    "L_800AEAA8:\n"
-    "lwc1 $f0,24($29)\n"
-    "addiu $2,$29,24\n"
-    "swc1 $f0,16($16)\n"
-    "lwc1 $f0,4($2)\n"
-    "addiu $3,$16,16\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,8($2)\n"
-    "move $2,$18\n"
-    "swc1 $f0,8($3)\n"
-    "L_800AEACC:\n"
-    "lw $31,52($29)\n"
-    "lw $18,48($29)\n"
-    "lw $17,44($29)\n"
-    "lw $16,40($29)\n"
-    "ldc1 $f20,56($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800AE9DC\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[64]; Vec pos; } Sub;
+typedef struct { char pad[20]; Sub sub; } Obj;
+typedef struct {
+    int state; int frozen; int v8; int v12; Vec cur;
+    char pad0[60 - 28]; int idx; int v64; void *anim; int flip;
+} Trk;
+extern int func_800AF2D4(void *, float, Vec *, int *, int *);
+extern void func_800AE8C0(Trk *, Obj *);
+static inline void vcpy(Vec *a, Vec *r) { r->x = a->x; r->y = a->y; r->z = a->z; }
+static inline void topos(Vec *a, Sub *s) { s->pos.x = a->x; s->pos.y = a->y; s->pos.z = a->z; }
+int func_800AE9DC(Trk *t, float dt, Obj *o)
+{
+    Vec p;
+    int r;
+    if (t->frozen) dt = 0.0f;
+    if (t->state != 4) return 0;
+    r = func_800AF2D4(t->anim, dt, &p, &t->idx, &t->v64);
+    topos(&p, &o->sub);
+    if (t->v12) {
+        if (0.0f <= dt) {
+            func_800AE8C0(t, o);
+        } else {
+            t->flip = !t->flip;
+            func_800AE8C0(t, o);
+            t->flip = !t->flip;
+        }
+    }
+    vcpy(&p, &t->cur);
+    return r;
+}

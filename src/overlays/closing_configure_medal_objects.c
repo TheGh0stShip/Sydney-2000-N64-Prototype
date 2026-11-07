@@ -1,93 +1,35 @@
-/* Configure ten medal objects, attach their records, then derive the camera vector. */
-__asm__(
-    ".set noreorder\n.text\n.globl func_80071958\n.ent func_80071958\n"
-    "func_80071958:\n"
-    "addiu $29,$29,-112\n"
-    "sw $20,96($29)\n"
-    "move $20,$4\n"
-    "sw $19,92($29)\n"
-    "move $19,$0\n"
-    "sw $22,104($29)\n"
-    "addiu $22,$29,72\n"
-    "sw $21,100($29)\n"
-    "addiu $21,$29,40\n"
-    "sw $31,108($29)\n"
-    "sw $18,88($29)\n"
-    "sw $17,84($29)\n"
-    "sw $16,80($29)\n"
-    "li $5,1\n"
-    "1:\n"
-    "addiu $6,$29,24\n"
-    "andi $16,$19,0xff\n"
-    "sll $18,$16,2\n"
-    "addu $17,$20,$18\n"
-    "sw $21,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $4,1124($17)\n"
-    "jal func_800B9BD4\n"
-    "move $7,$22\n"
-    "beqz $2,2f\n"
-    "li $5,9\n"
-    "sw $0,16($29)\n"
-    "lw $4,1124($17)\n"
-    "lui $7,0x3f80\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "2:\n"
-    "addu $2,$18,$16\n"
-    "sll $2,$2,2\n"
-    "subu $2,$2,$16\n"
-    "sll $2,$2,2\n"
-    "addiu $2,$2,1204\n"
-    "addu $16,$20,$2\n"
-    "move $5,$16\n"
-    "addiu $6,$29,24\n"
-    "sw $21,16($29)\n"
-    "lw $4,1124($17)\n"
-    "jal func_800B8DC8\n"
-    "move $7,$22\n"
-    "beqz $2,3f\n"
-    "addiu $4,$20,2444\n"
-    "jal func_800AEF6C\n"
-    "move $5,$0\n"
-    "move $4,$16\n"
-    "lw $5,1124($17)\n"
-    "jal func_800AE72C\n"
-    "move $6,$2\n"
-    "3:\n"
-    "addiu $19,$19,1\n"
-    "andi $2,$19,0xff\n"
-    "sltiu $2,$2,10\n"
-    "bnez $2,1b\n"
-    "li $5,1\n"
-    "jal func_80071AAC\n"
-    "move $4,$20\n"
-    "lw $2,1124($20)\n"
-    "lw $3,1128($20)\n"
-    "lwc1 $f0,84($2)\n"
-    "lwc1 $f2,84($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $2,$2,84\n"
-    "addiu $3,$3,84\n"
-    "swc1 $f0,56($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,4($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,60($29)\n"
-    "lwc1 $f2,8($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "addiu $4,$20,232\n"
-    "addiu $5,$29,56\n"
-    "jal func_800A7A64\n"
-    "swc1 $f2,64($29)\n"
-    "lw $31,108($29)\n"
-    "lw $22,104($29)\n"
-    "lw $21,100($29)\n"
-    "lw $20,96($29)\n"
-    "lw $19,92($29)\n"
-    "lw $18,88($29)\n"
-    "lw $17,84($29)\n"
-    "lw $16,80($29)\n"
-    "jr $31\n"
-    ".end func_80071958\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[84]; Vec vel; } Body;
+typedef struct { char pad[76]; } Rec;
+typedef struct { char pad[232]; char cam[1124 - 232]; void *a[10]; char pad2[1204 - 1164]; Rec rec[10]; char pad3[2444 - 1964]; char pool[4]; } Scene;
+extern int func_800B9BD4(void *, int, void *, void *, void *, int);
+extern void func_800B9E9C(void *, int, int, float, int);
+extern int func_800B8DC8(void *, Rec *, void *, void *, void *);
+extern void *func_800AEF6C(void *, int);
+extern void func_800AE72C(Rec *, void *, void *);
+extern void func_80071AAC(Scene *);
+extern void func_800A7A64(void *, Vec *);
+static __inline__ void vsub(Vec *o, Vec *a, Vec *b) { o->x = a->x - b->x; o->y = a->y - b->y; o->z = a->z - b->z; }
+void func_80071958(Scene *s) {
+    float a[4];
+    float b[4];
+    Vec d;
+    int c[2];
+    int i;
+    i = 0;
+    do {
+        u8 n = i;
+        Rec *r;
+        if (func_800B9BD4(s->a[n], 1, a, c, b, 0)) func_800B9E9C(s->a[n], 9, -1, 1.0f, 0);
+        r = &s->rec[n];
+        if (func_800B8DC8(s->a[n], r, a, c, b)) {
+            void *h = func_800AEF6C(s->pool, 0);
+            func_800AE72C(r, s->a[n], h);
+        }
+        i++;
+    } while ((u8)i < 10);
+    func_80071AAC(s);
+    vsub(&d, &((Body *)s->a[0])->vel, &((Body *)s->a[1])->vel);
+    func_800A7A64(s->cam, &d);
+}

@@ -1,94 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A6DB0\n.ent func_800A6DB0\n"
-    "func_800A6DB0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "li $4,1\n"
-    "addiu $5,$29,16\n"
-    "addiu $6,$16,204\n"
-    "li $7,-1\n"
-    "li $2,4\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$16,208\n"
-    "sw $31,32($29)\n"
-    "sh $2,16($29)\n"
-    "jal func_800125DC\n"
-    "sw $0,20($29)\n"
-    "bltz $2,L_800A6EF8\n"
-    "move $5,$0\n"
-    "lw $4,204($16)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,20\n"
-    "bltz $2,L_800A6EF8\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,9412\n"
-    "lhu $2,16($29)\n"
-    "lw $4,20($29)\n"
-    "sll $6,$2,0x3\n"
-    "addu $6,$6,$2\n"
-    "jal func_800B3870\n"
-    "sll $6,$6,0x2\n"
-    "lw $4,204($16)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "bltz $2,L_800A6EF8\n"
-    "move $5,$0\n"
-    "lw $4,204($16)\n"
-    "li $6,2\n"
-    "lui $7,0x800f\n"
-    "jal func_80017C20\n"
-    "addiu $7,$7,9556\n"
-    "bltz $2,L_800A6EF8\n"
-    "lui $4,0x8008\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,22564\n"
-    "move $5,$0\n"
-    "lw $4,204($16)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "lw $2,204($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,22580($1)\n"
-    "move $4,$17\n"
-    "sw $2,196($17)\n"
-    "addiu $2,$16,228\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,228($16)\n"
-    "lw $2,192($17)\n"
-    "li $5,1\n"
-    "ori $2,$2,0x2\n"
-    "jal func_800ADC54\n"
-    "sw $2,192($17)\n"
-    "move $4,$17\n"
-    "lw $2,192($4)\n"
-    "lui $3,0x40\n"
-    "or $2,$2,$3\n"
-    "li $3,-5\n"
-    "and $2,$2,$3\n"
-    "ori $2,$2,0x8\n"
-    "jal func_800ADC38\n"
-    "sw $2,192($4)\n"
-    "move $4,$16\n"
-    "li $2,1\n"
-    "jal L_800A6F0C\n"
-    "sw $2,192($4)\n"
-    "L_800A6EF8:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    "L_800A6F0C:\n"
-    ".end func_800A6DB0\n.set at\n.set reorder\n");
+typedef unsigned short u16;
+typedef signed int s32;
+typedef float f32;
+typedef struct Req { u16 n; void *buf; } Req;
+typedef struct Mtx { f32 m[3][4]; f32 pad[4]; f32 t[3]; } Mtx;
+typedef struct Node { char pad[0xC0]; s32 flags; s32 handle; } Node;
+extern char D_800F24C4[];
+extern char D_800F2554[];
+extern s32 func_800125DC(s32, Req *, s32 *, s32);
+extern s32 func_80017C4C(s32, s32, void **);
+extern void func_800B3870(void *, void *, s32);
+extern s32 func_80017C3C(s32);
+extern s32 func_80017C20(s32, s32, s32, void *);
+extern s32 func_8000EB20(char *);
+extern void func_80017CF4(s32, s32, u16);
+extern void func_800ADC54(Node *, s32);
+extern void func_800ADC38(Node *);
+extern void func_800A6F0C(char *);
+void func_800A6DB0(char *o)
+{
+    Req r;
+    Node *n;
+    Mtx *m;
+    r.n = 4;
+    r.buf = 0;
+    n = (Node *)(o + 208);
+    if (func_800125DC(1, &r, (s32 *)(o + 204), -1) < 0) return;
+    if (func_80017C4C(*(s32 *)(o + 204), 0, &r.buf) < 0) return;
+    func_800B3870(r.buf, D_800F24C4, r.n * 36);
+    if (func_80017C3C(*(s32 *)(o + 204)) < 0) return;
+    if (func_80017C20(*(s32 *)(o + 204), 0, 2, D_800F2554) < 0) return;
+    func_80017CF4(*(s32 *)(o + 204), 0, func_8000EB20("CAMERA_FLASH"));
+    n->handle = *(s32 *)(o + 204);
+    m = (Mtx *)(o + 228);
+    m->m[2][1] = 0;
+    m->m[2][0] = 0;
+    m->m[1][2] = 0;
+    m->m[1][0] = 0;
+    m->m[0][2] = 0;
+    m->m[0][1] = 0;
+    m->t[2] = 0;
+    m->t[1] = 0;
+    m->t[0] = 0;
+    m->m[2][2] = 1.0f;
+    m->m[1][1] = 1.0f;
+    m->m[0][0] = 1.0f;
+    n->flags |= 2;
+    func_800ADC54(n, 1);
+    n->flags = ((n->flags | 0x400000) & ~4) | 8;
+    func_800ADC38(n);
+    *(s32 *)(o + 192) = 1;
+    func_800A6F0C(o);
+}

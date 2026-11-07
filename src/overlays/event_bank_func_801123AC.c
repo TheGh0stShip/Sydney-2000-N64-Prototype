@@ -1,54 +1,24 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801123AC\n.ent func_801123AC\n"
-    "func_801123AC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "li $2,59\n"
-    "lui $5,0x800f\n"
-    "sw $31,28($29)\n"
-    "sh $2,430($16)\n"
-    "lw $4,5104($5)\n"
-    "li $6,10\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "addiu $4,$16,432\n"
-    "mflo $8\n"
-    "srl $2,$8,0x10\n"
-    "sltiu $2,$2,6\n"
-    "bnez $2,L_80112424\n"
-    "sw $3,5104($5)\n"
-    "j func_8007D738\n"
-    "li $2,63\n"
-    "L_80112424:\n"
-    "li $2,64\n"
-    "sh $2,432($16)\n"
-    "li $2,-1\n"
-    "sh $2,2($4)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,804($16)\n"
-    "sb $0,743($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_801123AC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef int s32;
+typedef float f32;
+extern unsigned int D_800F13F0;
+extern void func_800B9E9C(u8 *obj, s32 a, s32 b, s32 c, s32 d);
+static __inline__ unsigned int rand_n(unsigned int n)
+{
+    unsigned int seed = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    D_800F13F0 = seed;
+    return ((seed >> 15) * n) >> 16;
+}
+void func_801123AC(u8 *obj){
+    s16 *q;
+    *(s16 *)(obj + 430) = 59;
+    q = (s16 *)(obj + 432);
+    if (rand_n(10) >= 6) q[0] = 63; else q[0] = 64;
+    q++;
+    *q = -1;
+    obj[429] = 0;
+    func_800B9E9C(obj, *(s16 *)(obj + 430), -1, *(s32 *)(obj + 632), 0);
+    obj[743] = 0;
+    *(f32 *)(obj + 632) = *(f32 *)(obj + 804);
+}

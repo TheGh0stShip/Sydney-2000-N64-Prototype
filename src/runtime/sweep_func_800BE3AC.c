@@ -1,122 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BE3AC\n.ent func_800BE3AC\n"
-    "func_800BE3AC:\n"
-    "addiu $29,$29,-120\n"
-    "sw $22,96($29)\n"
-    "move $22,$4\n"
-    "sdc1 $f20,112($29)\n"
-    "mtc1 $6,$f20\n"
-    "sw $31,108($29)\n"
-    "sw $30,104($29)\n"
-    "sw $23,100($29)\n"
-    "sw $21,92($29)\n"
-    "sw $20,88($29)\n"
-    "sw $19,84($29)\n"
-    "sw $18,80($29)\n"
-    "sw $17,76($29)\n"
-    "sw $16,72($29)\n"
-    "sw $5,124($29)\n"
-    "sw $7,132($29)\n"
-    "lw $20,208($22)\n"
-    "lw $8,132($29)\n"
-    "lw $16,8($20)\n"
-    "mfc1 $7,$f20\n"
-    "move $6,$5\n"
-    "sw $8,20($29)\n"
-    "lw $8,136($29)\n"
-    "addiu $17,$29,32\n"
-    "sw $17,16($29)\n"
-    "sw $0,28($29)\n"
-    "move $5,$16\n"
-    "jal func_800BCEE8\n"
-    "sw $8,24($29)\n"
-    "bnez $2,L_800BE430\n"
-    "li $2,1\n"
-    "L_800BE428:\n"
-    "j L_800BE528\n"
-    "move $2,$0\n"
-    "L_800BE430:\n"
-    "lbu $3,0($20)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800BE514\n"
-    "li $19,1\n"
-    "li $30,1\n"
-    "move $21,$17\n"
-    "li $23,4\n"
-    "move $17,$0\n"
-    "L_800BE450:\n"
-    "andi $4,$19,0xff\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$20,$2\n"
-    "lhu $2,2($2)\n"
-    "beqz $2,L_800BE4F0\n"
-    "move $18,$0\n"
-    "sll $4,$4,0x2\n"
-    "L_800BE46C:\n"
-    "addu $4,$20,$4\n"
-    "andi $3,$17,0xffff\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $3,8($4)\n"
-    "sll $2,$2,0x3\n"
-    "addu $16,$3,$2\n"
-    "lbu $2,36($16)\n"
-    "bne $2,$30,L_800BE4C8\n"
-    "move $4,$22\n"
-    "mfc1 $7,$f20\n"
-    "lw $6,124($29)\n"
-    "lw $8,132($29)\n"
-    "sw $8,20($29)\n"
-    "lw $8,136($29)\n"
-    "move $5,$16\n"
-    "sw $21,16($29)\n"
-    "sw $0,28($29)\n"
-    "jal func_800BCEE8\n"
-    "sw $8,24($29)\n"
-    "bnel $2,$0,L_800BE4F0\n"
-    "li $18,1\n"
-    "lbu $2,36($16)\n"
-    "L_800BE4C8:\n"
-    "beq $2,$23,L_800BE428\n"
-    "addiu $17,$17,1\n"
-    "andi $4,$19,0xff\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$20,$2\n"
-    "lhu $3,2($2)\n"
-    "andi $2,$17,0xffff\n"
-    "sltu $2,$2,$3\n"
-    "bnel $2,$0,L_800BE46C\n"
-    "sll $4,$4,0x2\n"
-    "L_800BE4F0:\n"
-    "bnez $18,L_800BE500\n"
-    "addiu $19,$19,1\n"
-    "j L_800BE528\n"
-    "move $2,$0\n"
-    "L_800BE500:\n"
-    "lbu $3,0($20)\n"
-    "andi $2,$19,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800BE450\n"
-    "move $17,$0\n"
-    "L_800BE514:\n"
-    "move $4,$22\n"
-    "move $5,$0\n"
-    "jal func_800BC480\n"
-    "addiu $6,$29,32\n"
-    "li $2,1\n"
-    "L_800BE528:\n"
-    "lw $31,108($29)\n"
-    "lw $30,104($29)\n"
-    "lw $23,100($29)\n"
-    "lw $22,96($29)\n"
-    "lw $21,92($29)\n"
-    "lw $20,88($29)\n"
-    "lw $19,84($29)\n"
-    "lw $18,80($29)\n"
-    "lw $17,76($29)\n"
-    "lw $16,72($29)\n"
-    "ldc1 $f20,112($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,120\n"
-    ".end func_800BE3AC\n.set at\n.set reorder\n");
+typedef struct { char pad[36]; unsigned char type; char pad25[72 - 37]; } Node;
+typedef struct { unsigned char n; char pad1; unsigned short cnt[3]; Node *lv[4]; } Grid;
+typedef struct { char p[40]; } Res;
+typedef struct { char pad[0xD0]; Grid *grid; } Obj;
+
+extern int func_800BCEE8(Obj *o, Node *n, int p, float f, Res *r, int q, int s, int z);
+extern void func_800BC480(Obj *o, int z, Res *r);
+
+int func_800BE3AC(Obj *o, int p, float f, int q, int s)
+{
+    Grid *g;
+    Res res;
+    unsigned char k;
+    unsigned short m;
+    int hit;
+    Node *nd;
+
+    g = o->grid;
+    nd = g->lv[0];
+    if (func_800BCEE8(o, nd, p, f, &res, q, s, 0) == 0) {
+        return 0;
+    }
+    for (k = 1; k < g->n; k++) {
+        hit = 0;
+        for (m = 0; m < g->cnt[k]; m++) {
+            nd = &g->lv[k][m];
+            if (nd->type == 1) {
+                if (func_800BCEE8(o, nd, p, f, &res, q, s, 0)) {
+                    hit = 1;
+                    break;
+                }
+            }
+            if (nd->type == 4) {
+                return 0;
+            }
+        }
+        if (!hit) {
+            return 0;
+        }
+    }
+    func_800BC480(o, 0, &res);
+    return 1;
+}

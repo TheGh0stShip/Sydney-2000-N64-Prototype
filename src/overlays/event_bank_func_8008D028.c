@@ -1,69 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008D028\n.ent func_8008D028\n"
-    "func_8008D028:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "li $2,0x8000\n"
-    "sw $17,20($29)\n"
-    "addu $17,$16,$2\n"
-    "sw $20,32($29)\n"
-    "lui $20,0x8010\n"
-    "sw $19,28($29)\n"
-    "li $19,8\n"
-    "sw $18,24($29)\n"
-    "li $18,3\n"
-    "sw $31,36($29)\n"
-    "lw $4,-15760($20)\n"
-    "lb $3,1045($17)\n"
-    "lbu $2,2572($4)\n"
-    "slt $2,$3,$2\n"
-    "beqz $2,L_8008D0E8\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lb $3,2576($2)\n"
-    "beq $3,$19,L_8008D0A4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $2,32($2)\n"
-    "j func_80074D38\n"
-    "nop\n"
-    "L_8008D0A4:\n"
-    "li $2,3\n"
-    "bne $2,$18,L_8008D0D8\n"
-    "move $4,$16\n"
-    "jal func_8007492C\n"
-    "li $5,1\n"
-    "lw $4,23004($16)\n"
-    "jal func_8007B04C\n"
-    "nop\n"
-    "mfc1 $5,$f0\n"
-    "jal func_80074DAC\n"
-    "move $4,$16\n"
-    "jal func_80075050\n"
-    "move $4,$16\n"
-    "L_8008D0D8:\n"
-    "lbu $2,1045($17)\n"
-    "addiu $2,$2,1\n"
-    "j func_80074CEC\n"
-    "sb $2,1045($17)\n"
-    "L_8008D0E8:\n"
-    "li $3,0x8000\n"
-    "addu $3,$16,$3\n"
-    "lbu $2,1045($3)\n"
-    "addiu $2,$2,-1\n"
-    "sb $2,1045($3)\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8008D028\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef struct Ent { s8 kind; char pad[11]; } Ent;
+typedef struct Kind { u8 type; char pad[59]; } Kind;
+typedef struct G {
+    char pad[0x20];
+    Kind kinds[42];
+    char pad9F8[0xA0C - 0x9F8];
+    u8 count;
+    char padA0D[3];
+    Ent ents[1];
+} G;
+typedef struct Obj {
+    char pad[0x59DC];
+    int unk59DC;
+    char pad59E0[0x8415 - 0x59E0];
+    u8 idx;
+} Obj;
+extern G *D_800FC270;
+extern void func_8007492C(Obj *, int);
+extern float func_8007B04C(int);
+extern void func_80074DAC(Obj *, float);
+extern void func_80075050(Obj *);
+void func_8008D028(Obj *o)
+{
+    int t;
+    while (1) {
+        s8 i = o->idx;
+        if (!(i < D_800FC270->count)) break;
+        i = D_800FC270->ents[i].kind;
+        if (i != 8) {
+            t = D_800FC270->kinds[i].type;
+        } else {
+            t = 3;
+        }
+        if (t == 3) {
+            func_8007492C(o, 1);
+            func_80074DAC(o, func_8007B04C(o->unk59DC));
+            func_80075050(o);
+        }
+        o->idx++;
+    }
+    o->idx--;
+}

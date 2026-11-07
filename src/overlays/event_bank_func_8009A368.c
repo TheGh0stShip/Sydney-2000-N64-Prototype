@@ -1,113 +1,73 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009A368\n.ent func_8009A368\n"
-    "func_8009A368:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $4,12136($16)\n"
-    "jal func_8009B670\n"
-    "nop\n"
-    "li $3,0x8000\n"
-    "addu $3,$16,$3\n"
-    "lbu $3,84($3)\n"
-    "sltiu $3,$3,2\n"
-    "beqz $3,L_8009A4E0\n"
-    "move $18,$2\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8009A3D8\n"
-    "li $2,1\n"
-    "lw $5,12136($16)\n"
-    "lbu $3,426($5)\n"
-    "bne $3,$2,L_8009A3D8\n"
-    "li $4,4\n"
-    "lbu $5,424($5)\n"
-    "j func_80074DF8\n"
-    "lui $17,0x8010\n"
-    "L_8009A3D8:\n"
-    "lw $2,12136($16)\n"
-    "li $4,38\n"
-    "lbu $5,425($2)\n"
-    "lui $17,0x8010\n"
-    "lw $2,-15760($17)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009A40C\n"
-    "addu $5,$4,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009A40C:\n"
-    "lw $3,-15760($17)\n"
-    "lw $5,2560($3)\n"
-    "li $2,4\n"
-    "bne $5,$2,L_8009A4E0\n"
-    "li $4,-1\n"
-    "lw $3,2564($3)\n"
-    "bne $3,$5,L_8009A45C\n"
-    "li $2,5\n"
-    "li $2,0x8000\n"
-    "addu $2,$16,$2\n"
-    "lb $3,80($2)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_8009A44C\n"
-    "li $2,2\n"
-    "j func_80074EA4\n"
-    "li $4,533\n"
-    "L_8009A44C:\n"
-    "beql $3,$2,L_8009A494\n"
-    "li $4,540\n"
-    "j func_80074EA8\n"
-    "andi $3,$18,0xff\n"
-    "L_8009A45C:\n"
-    "bne $3,$2,L_8009A498\n"
-    "andi $3,$18,0xff\n"
-    "li $2,0x8000\n"
-    "addu $2,$16,$2\n"
-    "lb $3,80($2)\n"
-    "li $2,2\n"
-    "bne $3,$2,L_8009A494\n"
-    "li $4,547\n"
-    "lw $2,12136($16)\n"
-    "lbu $3,426($2)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_8009A494\n"
-    "li $4,552\n"
-    "li $4,557\n"
-    "L_8009A494:\n"
-    "andi $3,$18,0xff\n"
-    "L_8009A498:\n"
-    "sltiu $2,$3,4\n"
-    "bnez $2,L_8009A4B4\n"
-    "move $5,$3\n"
-    "sltiu $2,$3,8\n"
-    "beqz $2,L_8009A4B4\n"
-    "li $5,5\n"
-    "li $5,4\n"
-    "L_8009A4B4:\n"
-    "bltz $4,L_8009A4E0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009A4E0\n"
-    "addu $5,$4,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009A4E0:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009A368\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef int s32;
+
+typedef struct G { u8 pad[2560]; s32 mode; s32 on; } G;
+
+extern G *D_800FC270;
+extern u8 D_800F3BC0[];
+
+extern u8 func_8009B670(u8 *o);
+extern void func_800C0110(u8 *a, s32 b, s32 c, s32 d);
+
+#define W(o) (*(s32 *)(p + (o)))
+#define OBJ (*(u8 **)(p + 12136))
+#define Q(o) (*(u8 *)(p + 0x8000 + (o)))
+#define QS(o) (*(s8 *)(p + 0x8000 + (o)))
+
+void func_80074D78(u8 *p)
+{
+    u8 r;
+    s32 b;
+    s32 n;
+    s32 x;
+    s32 a;
+
+    r = func_8009B670(OBJ);
+    if (Q(84) >= 2) {
+        return;
+    }
+    if (D_800FC270->mode == 5 && OBJ[426] == 1) {
+        a = 4;
+        b = OBJ[424];
+    } else {
+        a = 38;
+        b = OBJ[425];
+    }
+    x = a + b;
+    if (D_800FC270->on != 0) {
+        func_800C0110(D_800F3BC0, x, 0, 0);
+    }
+    a = -1;
+    if (D_800FC270->mode != 4) {
+        return;
+    }
+    if (D_800FC270->on == 4) {
+        if (QS(80) == 1) {
+            a = 533;
+        } else if (QS(80) == 2) {
+            a = 540;
+        }
+    } else if (D_800FC270->on == 5) {
+        if (QS(80) != 2) {
+            a = 547;
+        } else if (OBJ[426] == 1) {
+            a = 557;
+        } else {
+            a = 552;
+        }
+    }
+    if (r < 4) {
+        b = r;
+    } else if (r < 8) {
+        b = 4;
+    } else {
+        b = 5;
+    }
+    if (a >= 0) {
+        x = a + b;
+        if (D_800FC270->on != 0) {
+            func_800C0110(D_800F3BC0, x, 0, 0);
+        }
+    }
+}

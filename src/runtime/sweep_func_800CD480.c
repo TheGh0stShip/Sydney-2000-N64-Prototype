@@ -1,134 +1,90 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CD480\n.ent func_800CD480\n"
-    "func_800CD480:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,0($19)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800CD4C8\n"
-    "move $18,$4\n"
-    "slti $2,$3,6\n"
-    "bnez $2,L_800CD630\n"
-    "li $2,7\n"
-    "beq $3,$2,L_800CD614\n"
-    "nop\n"
-    "j L_800CD630\n"
-    "nop\n"
-    "L_800CD4C8:\n"
-    "lw $2,180($18)\n"
-    "lh $4,32($2)\n"
-    "lw $2,36($2)\n"
-    "jalr $2\n"
-    "addu $4,$18,$4\n"
-    "lw $2,468($18)\n"
-    "beqz $2,L_800CD538\n"
-    "move $7,$0\n"
-    "move $6,$7\n"
-    "move $5,$18\n"
-    "L_800CD4F0:\n"
-    "sltiu $2,$7,2\n"
-    "beqz $2,L_800CD53C\n"
-    "lui $2,0x800f\n"
-    "lw $4,472($5)\n"
-    "blez $4,L_800CD528\n"
-    "addiu $2,$4,-256\n"
-    "bgtz $2,L_800CD528\n"
-    "sw $2,472($5)\n"
-    "addu $3,$6,$18\n"
-    "addiu $3,$3,484\n"
-    "sw $4,472($5)\n"
-    "lw $2,192($3)\n"
-    "xori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "L_800CD528:\n"
-    "addiu $6,$6,212\n"
-    "addiu $5,$5,4\n"
-    "j L_800CD4F0\n"
-    "addiu $7,$7,1\n"
-    "L_800CD538:\n"
-    "lui $2,0x800f\n"
-    "L_800CD53C:\n"
-    "lw $2,10096($2)\n"
-    "beqz $2,L_800CD630\n"
-    "nop\n"
-    "lw $2,464($18)\n"
-    "beqz $2,L_800CD55C\n"
-    "nop\n"
-    "lwc1 $f0,12($2)\n"
-    "swc1 $f0,452($18)\n"
-    "L_800CD55C:\n"
-    "lwc1 $f0,452($18)\n"
-    "lwc1 $f2,460($18)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800CD574\n"
-    "swc1 $f2,452($18)\n"
-    "L_800CD574:\n"
-    "lwc1 $f0,452($18)\n"
-    "mtc1 $0,$f2\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1tl L_800CD58C\n"
-    "swc1 $f2,452($18)\n"
-    "L_800CD58C:\n"
-    "lwc1 $f2,460($18)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26124($1)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800CD5B4\n"
-    "nop\n"
-    "lwc1 $f0,452($18)\n"
-    "j L_800CD5B8\n"
-    "div.s $f0,$f0,$f2\n"
-    "L_800CD5B4:\n"
-    "lwc1 $f0,452($18)\n"
-    "L_800CD5B8:\n"
-    "swc1 $f0,456($18)\n"
-    "addiu $17,$18,424\n"
-    "lwc1 $f0,432($18)\n"
-    "move $4,$17\n"
-    "jal func_8001A154\n"
-    "swc1 $f0,436($18)\n"
-    "move $4,$17\n"
-    "jal func_8001A148\n"
-    "move $16,$2\n"
-    "lwc1 $f2,440($18)\n"
-    "lwc1 $f0,456($18)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "move $4,$17\n"
-    "lw $6,12($16)\n"
-    "mfc1 $5,$f2\n"
-    "jal func_8001A188\n"
-    "move $16,$2\n"
-    "lw $5,456($18)\n"
-    "lw $6,12($16)\n"
-    "jal func_8001A1B0\n"
-    "move $4,$17\n"
-    "j L_800CD630\n"
-    "nop\n"
-    "L_800CD614:\n"
-    "lw $2,180($18)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$18,$4\n"
-    "jal func_800AC308\n"
-    "move $4,$18\n"
-    "L_800CD630:\n"
-    "lw $2,4($19)\n"
-    "sw $2,16($18)\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800CD480\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+typedef struct { char pad[0xC]; float v; } Axis;
+typedef struct { char pad[0xC0]; int flags; char rest[212 - 0xC4]; } Sub;
+typedef struct { int type; int val; } Msg;
+typedef struct {
+    char pad0[0x10];
+    int val;
+    char pad14[0xB4 - 0x14];
+    VEnt *vt;
+    char padb8[0x1A8 - 0xB8];
+    char ctl[0x1B0 - 0x1A8];
+    float src;
+    float dst;
+    float scale;
+    char pad1bc[0x1C4 - 0x1BC];
+    float cur;
+    float ratio;
+    float lim;
+    Axis *in;
+    int blink;
+    int t[2];
+    char pad1e0[0x1E4 - 0x1E0];
+    Sub subs[2];
+} Meter;
+
+extern int D_800F2770;
+extern Axis *func_8001A154(char *c);
+extern Axis *func_8001A148(char *c);
+extern void func_8001A188(char *c, float v, float w);
+extern void func_8001A1B0(char *c, float v, float w);
+extern void func_800AC308(Meter *m);
+
+static inline void toggle(Sub *u) { u->flags ^= 4; }
+
+void func_800CD480(Meter *m, Msg *msg)
+{
+    unsigned int i;
+    int t;
+    Axis *ax;
+    Axis *ay;
+
+    switch (msg->type) {
+    case 5:
+        m->vt[4].fn((char *)m + m->vt[4].adj);
+        if (m->blink != 0) {
+            i = 0;
+            while (1) {
+                if (i >= 2) break;
+                t = m->t[i];
+                if (t > 0) {
+                    m->t[i] = t - 256;
+                    if (t - 256 <= 0) {
+                        m->t[i] = t;
+                        toggle(&m->subs[i]);
+                    }
+                }
+                i++;
+            }
+        }
+        if (D_800F2770 != 0) {
+            if (m->in != 0) {
+                m->cur = m->in->v;
+            }
+            if (m->cur > m->lim) {
+                m->cur = m->lim;
+            }
+            if (m->cur < 0.0f) {
+                m->cur = 0.0f;
+            }
+            if (m->lim != 1.0f) {
+                m->ratio = m->cur / m->lim;
+            } else {
+                m->ratio = m->cur;
+            }
+            m->dst = m->src;
+            ax = func_8001A154(m->ctl);
+            ay = func_8001A148(m->ctl);
+            func_8001A188(m->ctl, m->scale * m->ratio, ax->v);
+            func_8001A1B0(m->ctl, m->ratio, ay->v);
+        }
+        break;
+    case 7:
+        m->vt[3].fn((char *)m + m->vt[3].adj);
+        func_800AC308(m);
+        break;
+    case 0:
+        break;
+    }
+    m->val = msg->val;
+}

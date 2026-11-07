@@ -1,168 +1,49 @@
-/*
- * Release both medal-object arrays, queue their teardown callbacks, and clear
- * the two queue allocators.  Symbolic MIPS preserves the original virtual-call
- * ordering and delay-slot scheduling while the recovered object layouts mature.
- */
-__asm__(
-    ".set noreorder\n.text\n.globl func_80072368\n.ent func_80072368\n"
-    "func_80072368:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $20,32($29)\n"
-    "move $20,$0\n"
-    "lui $2,0x800f\n"
-    "sw $21,36($29)\n"
-    "addiu $21,$2,9952\n"
-    "sw $31,40($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "1:\n"
-    "sw $16,16($29)\n"
-    "andi $3,$20,0xff\n"
-    "sltiu $2,$3,10\n"
-    "beqz $2,6f\n"
-    "sll $2,$3,2\n"
-    "addu $18,$19,$2\n"
-    "lw $4,1124($18)\n"
-    "jal func_800AC308\n"
-    "addiu $16,$19,1084\n"
-    "lw $3,1124($18)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,1124($18)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,1164($18)\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,1164($18)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $17,1124($18)\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$21\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,2f\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "2:\n"
-    "lw $17,1164($18)\n"
-    "lw $2,180($17)\n"
-    "addiu $16,$19,1104\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$21\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,3f\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "3:\n"
-    "j 1b\n"
-    "addiu $20,$20,1\n"
-    "6:\n"
-    "lw $17,1084($19)\n"
-    "beqz $17,9f\n"
-    "addiu $16,$19,1084\n"
-    "sw $0,1084($19)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,7f\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,1088\n"
-    "7:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,8f\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,1092\n"
-    "8:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,1084($19)\n"
-    "9:\n"
-    "lw $17,1104($19)\n"
-    "beqz $17,12f\n"
-    "addiu $16,$19,1104\n"
-    "sw $0,1104($19)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,10f\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,1108\n"
-    "10:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,11f\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,1112\n"
-    "11:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,1104($19)\n"
-    "12:\n"
-    "sb $0,9053($19)\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80072368\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef struct { short off; short pad; void (*fn)(); } VEnt;
+typedef struct { VEnt e[10]; } VT;
+typedef struct { u8 pad[180]; VT *vt; } Obj;
+typedef struct { void *base; int f4; int f8; Obj **top; u16 cap; u16 cnt; } Pool;
+typedef struct { u8 pad[1084]; Pool p1; Pool p2; Obj *a[10]; Obj *b[10]; u8 pad2[9053 - 1204]; u8 flag; } Scene;
+extern void func_800AC308(Obj *);
+extern void func_800AACB0(void *, Obj *, int);
+extern void func_800AA658(void *, void *);
+extern char D_800F26E0[];
+#define VCALL(o, k) ((o)->vt->e[k].fn((char *)(o) + (o)->vt->e[k].off))
+static __inline__ void push(Pool *p, Obj *o) {
+    if (p->cnt < p->cap) {
+        o->vt->e[1].fn((char *)o + o->vt->e[1].off, 2);
+        *p->top = o;
+        p->top++;
+        p->cnt++;
+    }
+}
+#define PFREE(P) { Obj *b = (Obj *)(P).base; if (b != 0) { Pool *p = &(P); (P).base = 0;     if (p->f4) func_800AA658(b, &(P).f4); if (p->f8) func_800AA658(b, &(P).f8);     p->cap = 0; p->cnt = 0; p->top = 0; (P).base = 0; } }
+void func_80072368(Scene *s) {
+    int i = 0;
+    char *ctx = D_800F26E0;
+    Obj *o;
+    Pool *p;
+    while (1) {
+        u8 n = i;
+        if (n >= 10) break;
+        func_800AC308(s->a[n]);
+        VCALL(s->a[n], 3);
+        VCALL(s->a[n], 9);
+        VCALL(s->b[n], 3);
+        VCALL(s->b[n], 9);
+        o = s->a[n];
+        VCALL(o, 3);
+        func_800AACB0(ctx, o, 0);
+        push(&s->p1, o);
+        o = s->b[n];
+        p = &s->p2;
+        VCALL(o, 3);
+        func_800AACB0(ctx, o, 0);
+        push(p, o);
+        i++;
+    }
+    PFREE(s->p1);
+    PFREE(s->p2);
+    s->flag = 0;
+}

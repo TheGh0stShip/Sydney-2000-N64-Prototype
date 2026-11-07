@@ -1,164 +1,123 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B06A8\n.ent func_800B06A8\n"
-    "func_800B06A8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,220($16)\n"
-    "lw $4,4($2)\n"
-    "lui $2,0x20\n"
-    "and $2,$4,$2\n"
-    "bnel $2,$0,L_800B06D0\n"
-    "li $5,1\n"
-    "L_800B06D0:\n"
-    "lui $2,0x1\n"
-    "and $2,$4,$2\n"
-    "beqz $2,L_800B075C\n"
-    "nop\n"
-    "lw $2,196($16)\n"
-    "beqz $2,L_800B08D4\n"
-    "nop\n"
-    "beqz $5,L_800B0708\n"
-    "addiu $2,$16,260\n"
-    "lw $3,192($2)\n"
-    "li $4,-5\n"
-    "and $3,$3,$4\n"
-    "j L_800B0720\n"
-    "sw $3,192($2)\n"
-    "L_800B0708:\n"
-    "lw $2,784($16)\n"
-    "bnez $2,L_800B0720\n"
-    "addiu $3,$16,260\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x4\n"
-    "sw $2,192($3)\n"
-    "L_800B0720:\n"
-    "lw $2,220($16)\n"
-    "lw $2,4($2)\n"
-    "lui $3,0x8\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800B074C\n"
-    "addiu $4,$16,456\n"
-    "lui $5,0xc8dc\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0x1414\n"
-    "j L_800B08D4\n"
-    "nop\n"
-    "L_800B074C:\n"
-    "jal func_800191E0\n"
-    "li $5,-192\n"
-    "j L_800B08D4\n"
-    "nop\n"
-    "L_800B075C:\n"
-    "lw $3,8($16)\n"
-    "beqz $3,L_800B08D4\n"
-    "nop\n"
-    "beqz $5,L_800B083C\n"
-    "lui $6,0x1\n"
-    "lui $5,0x8\n"
-    "L_800B0774:\n"
-    "beqz $3,L_800B079C\n"
-    "nop\n"
-    "lw $4,192($3)\n"
-    "and $2,$4,$6\n"
-    "beqz $2,L_800B0790\n"
-    "or $2,$4,$5\n"
-    "sw $2,192($3)\n"
-    "L_800B0790:\n"
-    "lw $3,12($3)\n"
-    "j L_800B0774\n"
-    "nop\n"
-    "L_800B079C:\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x2\n"
-    "beqz $2,L_800B07B4\n"
-    "nop\n"
-    "jal func_800C19DC\n"
-    "move $4,$16\n"
-    "L_800B07B4:\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B08D4\n"
-    "nop\n"
-    "lw $2,808($16)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800B08D4\n"
-    "li $2,255\n"
-    "sb $2,797($16)\n"
-    "lbu $3,797($16)\n"
-    "sb $2,796($16)\n"
-    "li $2,64\n"
-    "sb $2,798($16)\n"
-    "lbu $5,798($16)\n"
-    "li $2,220\n"
-    "sb $2,799($16)\n"
-    "li $2,170\n"
-    "sb $2,800($16)\n"
-    "li $2,70\n"
-    "sb $2,801($16)\n"
-    "lbu $2,796($16)\n"
-    "addiu $4,$16,684\n"
-    "sw $0,804($16)\n"
-    "sll $3,$3,0x8\n"
-    "or $5,$5,$3\n"
-    "sll $2,$2,0x10\n"
-    "or $5,$5,$2\n"
-    "lui $2,0xff00\n"
-    "jal func_800191E0\n"
-    "or $5,$5,$2\n"
-    "li $2,1\n"
-    "j L_800B08D4\n"
-    "sw $2,808($16)\n"
-    "L_800B083C:\n"
-    "lw $2,784($16)\n"
-    "bnez $2,L_800B08D4\n"
-    "lui $2,0x8\n"
-    "and $2,$4,$2\n"
-    "beqz $2,L_800B0874\n"
-    "lui $6,0x1\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x2\n"
-    "beqz $2,L_800B08D4\n"
-    "nop\n"
-    "jal func_800C3D20\n"
-    "move $4,$16\n"
-    "j L_800B08D4\n"
-    "nop\n"
-    "L_800B0874:\n"
-    "lui $5,0xfff7\n"
-    "ori $5,$5,0xffff\n"
-    "L_800B087C:\n"
-    "beqz $3,L_800B08A4\n"
-    "nop\n"
-    "lw $4,192($3)\n"
-    "and $2,$4,$6\n"
-    "beqz $2,L_800B0898\n"
-    "and $2,$4,$5\n"
-    "sw $2,192($3)\n"
-    "L_800B0898:\n"
-    "lw $3,12($3)\n"
-    "j L_800B087C\n"
-    "nop\n"
-    "L_800B08A4:\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x2\n"
-    "beqz $2,L_800B08BC\n"
-    "nop\n"
-    "jal func_800C3D20\n"
-    "move $4,$16\n"
-    "L_800B08BC:\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B08D4\n"
-    "nop\n"
-    "lw $2,684($16)\n"
-    "sw $2,456($16)\n"
-    "L_800B08D4:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B06A8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef unsigned int u32;
+typedef struct { u8 pad[4]; s32 flags; } Info;
+typedef struct { u8 pad[192]; s32 flags; } Node;
+typedef struct Obj {
+    u8 pad0[8];
+    struct Obj *child;
+    struct Obj *next;
+    u8 pad1[192 - 16];
+    s32 flags192;
+    s32 f196;
+    u8 pad2[220 - 200];
+    Info *info;
+    u8 pad3[260 - 224];
+    Node sub;
+    s32 f456;
+    u8 pad4[684 - 460];
+    s32 col;
+    u8 pad5[784 - 688];
+    s32 f784;
+    u8 pad6[796 - 788];
+    u8 r;
+    u8 g;
+    u8 b;
+    u8 c799;
+    u8 c800;
+    u8 c801;
+    u8 pad7[2];
+    s32 f804;
+    s32 mode;
+    u8 pad8[852 - 812];
+    s32 f852;
+} Obj;
+void func_800191E0(void *p, u32 c);
+void func_800C19DC(Obj *o);
+void func_800C3D20(Obj *o);
+static inline void clrf(Node *n, s32 m)
+{
+    n->flags &= ~m;
+}
+static inline void setf(Node *n, s32 m)
+{
+    n->flags |= m;
+}
+static inline s32 more(Obj *c)
+{
+    return c != 0;
+}
+void func_800B06A8(Obj *o, s32 on)
+{
+    s32 fl = o->info->flags;
+    Obj *c;
+    if (fl & 0x200000) {
+        on = 1;
+    }
+    if (fl & 0x10000) {
+        if (o->f196 == 0) {
+            return;
+        }
+        if (on) {
+            clrf(&o->sub, 4);
+        } else if (o->f784 == 0) {
+            setf(&o->sub, 4);
+        }
+        if (o->info->flags & 0x80000) {
+            func_800191E0(&o->f456, 0xC8DC1414);
+        } else {
+            func_800191E0(&o->f456, 0xFFFFFF40);
+        }
+        return;
+    }
+    c = o->child;
+    if (c == 0) {
+        return;
+    }
+    if (on) {
+        while (more(c)) {
+            if (c->flags192 & 0x10000) {
+                c->flags192 |= 0x80000;
+            }
+            c = c->next;
+        }
+        if (o->f852 & 2) {
+            func_800C19DC(o);
+        }
+        if (o->f852 & 1) {
+            if ((u32)(o->mode - 3) < 2) {
+                o->g = 255;
+                o->r = 255;
+                o->b = 64;
+                o->c799 = 220;
+                o->c800 = 170;
+                o->c801 = 70;
+                o->f804 = 0;
+                func_800191E0(&o->col, o->b | (o->g << 8) | (o->r << 16) | 0xFF000000);
+                o->mode = 1;
+            }
+        }
+    } else {
+        if (o->f784 != 0) {
+            return;
+        }
+        if (fl & 0x80000) {
+            if (o->f852 & 2) {
+                func_800C3D20(o);
+            }
+            return;
+        }
+        while (more(c)) {
+            if (c->flags192 & 0x10000) {
+                c->flags192 &= ~0x80000;
+            }
+            c = c->next;
+        }
+        if (o->f852 & 2) {
+            func_800C3D20(o);
+        }
+        if (o->f852 & 1) {
+            o->f456 = o->col;
+        }
+    }
+}

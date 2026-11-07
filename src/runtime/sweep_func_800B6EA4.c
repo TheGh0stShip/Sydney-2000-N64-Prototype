@@ -1,104 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B6EA4\n.ent func_800B6EA4\n"
-    "func_800B6EA4:\n"
-    "addiu $29,$29,-64\n"
-    "sw $23,52($29)\n"
-    "move $23,$4\n"
-    "sw $16,24($29)\n"
-    "move $16,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10128\n"
-    "li $5,5\n"
-    "sw $31,56($29)\n"
-    "sw $22,48($29)\n"
-    "sw $21,44($29)\n"
-    "sw $20,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "jal func_800B3178\n"
-    "sw $17,28($29)\n"
-    "li $4,250\n"
-    "lui $3,0x8010\n"
-    "li $2,9\n"
-    "jal func_800D98FC\n"
-    "sh $2,-9996($3)\n"
-    "move $18,$0\n"
-    "lui $3,0x8010\n"
-    "addiu $22,$3,-12652\n"
-    "lui $20,0x8010\n"
-    "sll $3,$16,0x1\n"
-    "addu $3,$3,$16\n"
-    "sll $19,$3,0x5\n"
-    "addiu $21,$19,3596\n"
-    "lui $3,0x8010\n"
-    "sw $2,-12660($3)\n"
-    "li $4,89\n"
-    "L_800B6F24:\n"
-    "andi $16,$18,0xff\n"
-    "sll $17,$16,0x2\n"
-    "addu $17,$17,$16\n"
-    "sll $17,$17,0x2\n"
-    "addu $17,$17,$22\n"
-    "addiu $2,$16,1\n"
-    "lw $3,-15760($20)\n"
-    "sll $16,$16,0x4\n"
-    "sw $2,0($17)\n"
-    "addu $3,$3,$21\n"
-    "addu $3,$3,$16\n"
-    "jal func_800D98FC\n"
-    "sw $3,4($17)\n"
-    "lw $3,-15760($20)\n"
-    "sw $2,8($17)\n"
-    "addu $2,$19,$3\n"
-    "addu $2,$16,$2\n"
-    "addu $16,$16,$19\n"
-    "lw $2,3608($2)\n"
-    "addu $3,$3,$16\n"
-    "sw $2,12($17)\n"
-    "lw $2,3604($3)\n"
-    "addiu $18,$18,1\n"
-    "sw $2,16($17)\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,6\n"
-    "bnel $2,$0,L_800B6F24\n"
-    "li $4,89\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "jal func_800D53A0\n"
-    "li $5,6\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10968\n"
-    "jal func_800BC180\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "li $5,12\n"
-    "li $6,1\n"
-    "move $7,$23\n"
-    "li $17,2\n"
-    "jal func_800BBD78\n"
-    "sw $17,16($29)\n"
-    "move $4,$16\n"
-    "li $5,13\n"
-    "li $6,1\n"
-    "move $7,$23\n"
-    "jal func_800BBD78\n"
-    "sw $17,16($29)\n"
-    "move $4,$16\n"
-    "li $5,13\n"
-    "move $6,$0\n"
-    "move $7,$6\n"
-    "jal func_800BBD78\n"
-    "sw $17,16($29)\n"
-    "lw $31,56($29)\n"
-    "lw $23,52($29)\n"
-    "lw $22,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800B6EA4\n.set at\n.set reorder\n");
+typedef struct { int a; int b; int c; int d; } Slot;
+typedef struct { Slot slots[6]; } Team;
+typedef struct { char pad[0xE0C]; Team teams[1]; } Game;
+typedef struct { int id; Slot *slot; int h; int d; int c; } Entry;
+
+extern char D_800F2790[];
+extern char D_800F5900[];
+extern char D_800F2AD8[];
+extern short D_800FD8F4;
+extern int D_800FCE8C;
+extern Entry D_800FCE94[];
+extern Game *D_800FC270;
+extern void func_800B3178(char *p, int n);
+extern int func_800D98FC(int n);
+extern void func_800D53A0(char *p, int n);
+extern void func_800BC180(char *p);
+extern void func_800BBD78(char *p, int a, int b, int c, int d);
+
+void func_800B6EA4(int who, int team)
+{
+    unsigned char i;
+    Entry *e;
+
+    func_800B3178(D_800F2790, 5);
+    D_800FD8F4 = 9;
+    D_800FCE8C = func_800D98FC(250);
+    for (i = 0; i < 6; i++) {
+        e = &D_800FCE94[i];
+        e->id = i + 1;
+        e->slot = &D_800FC270->teams[team].slots[i];
+        e->h = func_800D98FC(89);
+        e->d = (D_800FC270->teams[team].slots + i)->d;
+        e->c = D_800FC270->teams[team].slots[i].c;
+    }
+    func_800D53A0(D_800F5900, 6);
+    func_800BC180(D_800F2AD8);
+    func_800BBD78(D_800F2AD8, 12, 1, who, 2);
+    func_800BBD78(D_800F2AD8, 13, 1, who, 2);
+    func_800BBD78(D_800F2AD8, 13, 0, 0, 2);
+}

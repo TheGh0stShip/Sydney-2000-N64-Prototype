@@ -1,111 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B5960\n.ent func_800B5960\n"
-    "func_800B5960:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B59A4\n"
-    "move $16,$4\n"
-    "addiu $2,$16,20\n"
-    "lwc1 $f0,4($17)\n"
-    "addiu $3,$17,4\n"
-    "swc1 $f0,64($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "swc1 $f0,68($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,72($2)\n"
-    "L_800B59A4:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x4\n"
-    "beqz $2,L_800B59D0\n"
-    "addiu $3,$17,28\n"
-    "lwc1 $f0,28($17)\n"
-    "swc1 $f0,376($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$16,376\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,8($2)\n"
-    "L_800B59D0:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x2\n"
-    "beqz $2,L_800B59FC\n"
-    "addiu $3,$17,16\n"
-    "lwc1 $f0,16($17)\n"
-    "swc1 $f0,388($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$16,388\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,8($2)\n"
-    "L_800B59FC:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x20\n"
-    "beqz $2,L_800B5A64\n"
-    "addiu $4,$16,204\n"
-    "addiu $5,$17,48\n"
-    "jal func_800B3870\n"
-    "li $6,32\n"
-    "lw $2,232($16)\n"
-    "beql $2,$0,L_800B5A24\n"
-    "sw $0,188($16)\n"
-    "L_800B5A24:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10028\n"
-    "lw $2,232($16)\n"
-    "lw $3,24($4)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,232($16)\n"
-    "lw $2,224($16)\n"
-    "lw $3,24($4)\n"
-    "lwc1 $f0,204($16)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,224($16)\n"
-    "lw $2,228($16)\n"
-    "lw $3,24($4)\n"
-    "swc1 $f0,200($16)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,228($16)\n"
-    "L_800B5A64:\n"
-    "move $4,$16\n"
-    "jal func_800B4C2C\n"
-    "addiu $5,$16,376\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x400\n"
-    "beqz $2,L_800B5A88\n"
-    "nop\n"
-    "lhu $2,100($17)\n"
-    "sh $2,196($16)\n"
-    "L_800B5A88:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x800\n"
-    "beqz $2,L_800B5AA0\n"
-    "nop\n"
-    "lwc1 $f0,96($17)\n"
-    "swc1 $f0,252($16)\n"
-    "L_800B5AA0:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x200\n"
-    "beqz $2,L_800B5AB8\n"
-    "nop\n"
-    "lwc1 $f0,92($17)\n"
-    "swc1 $f0,244($16)\n"
-    "L_800B5AB8:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x100\n"
-    "beqz $2,L_800B5AD0\n"
-    "nop\n"
-    "lwc1 $f0,88($17)\n"
-    "swc1 $f0,248($16)\n"
-    "L_800B5AD0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B5960\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct {
+    int flags;
+    Vec pos;
+    Vec b;
+    Vec a;
+    char pad28[0x30 - 0x28];
+    char blk[0x58 - 0x30];
+    float f58;
+    float f5c;
+    float f60;
+    unsigned short h64;
+} Desc;
+typedef struct { char pad[0x18]; int step; } Clock;
+typedef struct { char pad[0x40]; Vec pos; } Body;
+static inline void set_pos(Body *b, Vec *v) { b->pos.x = v->x; b->pos.y = v->y; b->pos.z = v->z; }
+
+extern Clock D_800F272C;
+extern void func_800B3870(void *d, void *s, int n);
+extern void func_800B4C2C(char *o, Vec *v);
+
+void func_800B5960(char *o, Desc *d)
+{
+    Vec *dst;
+    Vec *src;
+    Clock *c;
+
+    if (d->flags & 1) {
+        set_pos((Body *)(o + 0x14), &d->pos);
+    }
+    if (d->flags & 4) {
+        dst = (Vec *)(o + 0x178);
+        src = &d->a;
+        dst->x = src->x; dst->y = src->y; dst->z = src->z;
+    }
+    if (d->flags & 2) {
+        dst = (Vec *)(o + 0x184);
+        src = &d->b;
+        dst->x = src->x; dst->y = src->y; dst->z = src->z;
+    }
+    if (d->flags & 0x20) {
+        func_800B3870(o + 0xCC, d->blk, 0x20);
+        if (*(int *)(o + 0xE8) == 0) {
+            *(int *)(o + 0xBC) = 0;
+        }
+        c = &D_800F272C;
+        *(int *)(o + 0xE8) += c->step;
+        *(int *)(o + 0xE0) += c->step;
+        *(int *)(o + 0xE4) += c->step;
+        *(float *)(o + 0xC8) = *(float *)(o + 0xCC);
+    }
+    func_800B4C2C(o, (Vec *)(o + 0x178));
+    if (d->flags & 0x400) {
+        *(unsigned short *)(o + 0xC4) = d->h64;
+    }
+    if (d->flags & 0x800) {
+        *(float *)(o + 0xFC) = d->f60;
+    }
+    if (d->flags & 0x200) {
+        *(float *)(o + 0xF4) = d->f5c;
+    }
+    if (d->flags & 0x100) {
+        *(float *)(o + 0xF8) = d->f58;
+    }
+}

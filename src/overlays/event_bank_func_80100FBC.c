@@ -1,86 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80100FBC\n.ent func_80100FBC\n"
-    "func_80100FBC:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,32($29)\n"
-    "move $16,$4\n"
-    "addiu $5,$29,16\n"
-    "addiu $6,$29,20\n"
-    "sw $31,40($29)\n"
-    "sw $17,36($29)\n"
-    "lw $17,4($16)\n"
-    "addiu $7,$29,24\n"
-    "jal func_8007719C\n"
-    "move $4,$17\n"
-    "lbu $3,24($29)\n"
-    "beqz $3,L_80101044\n"
-    "slti $2,$3,3\n"
-    "beqz $2,L_80101008\n"
-    "slti $2,$3,5\n"
-    "lw $2,16($29)\n"
-    "j func_8007AEA4\n"
-    "sw $2,1212($16)\n"
-    "L_80101008:\n"
-    "beqz $2,L_80101048\n"
-    "lui $6,0x7fff\n"
-    "lbu $2,1208($16)\n"
-    "bnez $2,L_8010103C\n"
-    "li $2,2\n"
-    "lbu $3,23423($17)\n"
-    "bne $3,$2,L_80101030\n"
-    "nop\n"
-    "j func_8007AEA8\n"
-    "sw $0,1212($16)\n"
-    "L_80101030:\n"
-    "lw $2,16($29)\n"
-    "j func_8007AEA4\n"
-    "sw $2,1212($16)\n"
-    "L_8010103C:\n"
-    "lw $2,20($29)\n"
-    "sw $2,1212($16)\n"
-    "L_80101044:\n"
-    "lui $6,0x7fff\n"
-    "L_80101048:\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "srl $2,$3,0x13\n"
-    "mtc1 $2,$f4\n"
-    "cvt.d.w $f4,$f4\n"
-    "bgez $2,L_80101098\n"
-    "sw $3,5104($5)\n"
-    "lui $1,0x8008\n"
-    "ldc1 $f0,-30016($1)\n"
-    "add.d $f4,$f4,$f0\n"
-    "L_80101098:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-30008($1)\n"
-    "cvt.s.d $f0,$f4\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-30004($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "addiu $4,$16,840\n"
-    "addiu $5,$16,1216\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $2,$f6\n"
-    "addiu $2,$2,768\n"
-    "jal func_800AC718\n"
-    "sw $2,736($16)\n"
-    "sw $0,1248($16)\n"
-    "lw $31,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80100FBC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct S { char pad[23423]; u8 unk5B7F; } S;
+typedef struct Obj {
+    char pad[4];
+    S *s;
+    char pad8[736 - 8];
+    int unk2E0;
+    char pad2E4[840 - 740];
+    char unk348[1208 - 840];
+    u8 unk4B8;
+    char pad4B9[3];
+    int unk4BC;
+    char unk4C0[1248 - 1216];
+    int unk4E0;
+} Obj;
+extern unsigned int D_800F13F0;
+extern void func_8007719C(S *, int *, int *, u8 *);
+extern void func_800AC718(void *, void *);
+void func_8007AE1C(Obj *o)
+{
+    int a, b;
+    u8 c;
+    S *s = o->s;
+    func_8007719C(s, &a, &b, &c);
+    switch (c) {
+    case 1:
+    case 2:
+        o->unk4BC = a;
+        break;
+    case 3:
+    case 4:
+        if (o->unk4B8 == 0) {
+            if (s->unk5B7F == 2) {
+                o->unk4BC = 0;
+            } else {
+                o->unk4BC = a;
+            }
+        } else {
+            o->unk4BC = b;
+        }
+        break;
+    }
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    o->unk2E0 = (int)((float)(D_800F13F0 >> 19) * 0.000244140625f * 7680.0f) + 768;
+    func_800AC718(o->unk348, o->unk4C0);
+    o->unk4E0 = 0;
+}

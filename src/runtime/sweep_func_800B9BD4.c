@@ -1,74 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9BD4\n.ent func_800B9BD4\n"
-    "func_800B9BD4:\n"
-    "addiu $29,$29,-88\n"
-    "sw $18,56($29)\n"
-    "move $18,$4\n"
-    "sw $22,72($29)\n"
-    "move $22,$5\n"
-    "lw $2,104($29)\n"
-    "sw $21,68($29)\n"
-    "lw $21,108($29)\n"
-    "sw $6,96($29)\n"
-    "addiu $6,$18,244\n"
-    "sw $16,48($29)\n"
-    "move $16,$0\n"
-    "sw $31,84($29)\n"
-    "sw $30,80($29)\n"
-    "sw $23,76($29)\n"
-    "sw $20,64($29)\n"
-    "sw $19,60($29)\n"
-    "sw $17,52($29)\n"
-    "sw $0,356($18)\n"
-    "sw $2,16($29)\n"
-    "jal func_800B794C\n"
-    "sw $21,20($29)\n"
-    "lw $3,212($18)\n"
-    "beqz $3,L_800B9C94\n"
-    "sltu $19,$0,$2\n"
-    "li $30,0xffff\n"
-    "addiu $20,$29,24\n"
-    "li $23,1\n"
-    "move $17,$16\n"
-    "L_800B9C48:\n"
-    "lw $2,216($18)\n"
-    "addu $6,$17,$2\n"
-    "lhu $2,4($6)\n"
-    "beq $2,$30,L_800B9C80\n"
-    "move $4,$18\n"
-    "move $5,$22\n"
-    "addiu $7,$29,40\n"
-    "sw $20,16($29)\n"
-    "jal func_800B794C\n"
-    "sw $21,20($29)\n"
-    "beqz $2,L_800B9C80\n"
-    "addiu $2,$16,1\n"
-    "sllv $2,$23,$2\n"
-    "or $19,$19,$2\n"
-    "L_800B9C80:\n"
-    "lw $2,212($18)\n"
-    "addiu $16,$16,1\n"
-    "sltu $2,$16,$2\n"
-    "bnez $2,L_800B9C48\n"
-    "addiu $17,$17,84\n"
-    "L_800B9C94:\n"
-    "move $4,$18\n"
-    "lw $6,224($4)\n"
-    "lw $5,96($29)\n"
-    "jal func_800B7FE0\n"
-    "sw $0,228($4)\n"
-    "move $2,$19\n"
-    "lw $31,84($29)\n"
-    "lw $30,80($29)\n"
-    "lw $23,76($29)\n"
-    "lw $22,72($29)\n"
-    "lw $21,68($29)\n"
-    "lw $20,64($29)\n"
-    "lw $19,60($29)\n"
-    "lw $18,56($29)\n"
-    "lw $17,52($29)\n"
-    "lw $16,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,88\n"
-    ".end func_800B9BD4\n.set at\n.set reorder\n");
+typedef unsigned short u16;
+typedef struct { int a, b, c, d; } B16;
+typedef struct { int a, b; } B8;
+typedef struct { int v0; u16 v4; char rest[84 - 6]; } Rec;
+typedef struct {
+    char pad0[212]; unsigned int n; Rec *recs;
+    char pad1[224 - 220]; int v224; int v228;
+    char pad2[244 - 232]; char self[356 - 244]; int v356;
+} Obj;
+extern int func_800B794C(Obj *, int, void *, void *, void *, int);
+extern void func_800B7FE0(Obj *, int, int);
+unsigned int func_800B9BD4(Obj *o, int a, int b, void *c, void *d, int e)
+{
+    B16 x;
+    B8 y;
+    unsigned int i;
+    unsigned int mask;
+    o->v356 = 0;
+    mask = func_800B794C(o, a, o->self, c, d, e) != 0;
+    for (i = 0; i < o->n; i++) {
+        if (o->recs[i].v4 != 0xffff) {
+            if (func_800B794C(o, a, &o->recs[i], &y, &x, e)) mask |= 1 << (i + 1);
+        }
+    }
+    o->v228 = 0;
+    func_800B7FE0(o, b, o->v224);
+    return mask;
+}

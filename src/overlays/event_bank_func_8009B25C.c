@@ -1,81 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009B25C\n.ent func_8009B25C\n"
-    "func_8009B25C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lw $2,12136($4)\n"
-    "lw $2,744($2)\n"
-    "mtc1 $5,$f6\n"
-    "beqz $2,L_8009B348\n"
-    "lui $2,0x8010\n"
-    "lui $3,0x8007\n"
-    "addiu $3,$3,28440\n"
-    "lw $6,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5344($1)\n"
-    "lbu $5,3411($6)\n"
-    "lw $4,2560($6)\n"
-    "sll $2,$5,0x3\n"
-    "subu $2,$2,$5\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f4,0($2)\n"
-    "mul.s $f0,$f4,$f0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5348($1)\n"
-    "c.lt.s $f6,$f0\n"
-    "mul.s $f0,$f4,$f2\n"
-    "bc1f L_8009B2E0\n"
-    "nop\n"
-    "lw $2,2564($6)\n"
-    "beqz $2,L_8009B36C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075D70\n"
-    "li $5,1\n"
-    "L_8009B2E0:\n"
-    "c.lt.s $f6,$f0\n"
-    "nop\n"
-    "bc1f L_8009B308\n"
-    "nop\n"
-    "lw $2,2564($6)\n"
-    "beqz $2,L_8009B36C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075D70\n"
-    "move $5,$0\n"
-    "L_8009B308:\n"
-    "c.lt.s $f6,$f4\n"
-    "nop\n"
-    "bc1f L_8009B330\n"
-    "nop\n"
-    "lw $2,2564($6)\n"
-    "beqz $2,L_8009B36C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075D70\n"
-    "li $5,3\n"
-    "L_8009B330:\n"
-    "lw $2,2564($6)\n"
-    "beqz $2,L_8009B36C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075D70\n"
-    "li $5,28\n"
-    "L_8009B348:\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009B36C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,2\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_8009B36C:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8009B25C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef float f32;
+
+typedef struct {
+    char pad0[0xA00];
+    s32 mode;
+    s32 sub;
+    char padA08[0xD53 - 0xA08];
+    u8 level;
+} Game;
+
+extern Game *D_800FC270;
+extern u8 D_800F3BC0[];
+extern f32 D_80076F18[][7];
+extern void func_800C0110(void *, s32, s32, s32);
+
+void func_80075C6C(u8 *obj, f32 v)
+{
+    Game *g;
+    f32 base;
+    f32 lo;
+    f32 mid;
+    s32 snd;
+
+    if (*(s32 *)(*(u8 **)(obj + 12136) + 744) != 0) {
+        g = D_800FC270;
+        base = D_80076F18[g->level][g->mode];
+        lo = base * 0.8f;
+        mid = base * 0.93f;
+        if (v < lo) {
+            if (g->sub != 0) {
+                func_800C0110(D_800F3BC0, 1, 0, 0);
+            }
+        } else if (v < mid) {
+            if (g->sub != 0) {
+                func_800C0110(D_800F3BC0, 0, 0, 0);
+            }
+        } else if (v < base) {
+            if (g->sub != 0) {
+                func_800C0110(D_800F3BC0, 3, 0, 0);
+            }
+        } else {
+            if (g->sub != 0) {
+                func_800C0110(D_800F3BC0, 28, 0, 0);
+            }
+        }
+    } else {
+        if (D_800FC270->sub != 0) {
+            func_800C0110(D_800F3BC0, 2, 0, 0);
+        }
+    }
+}

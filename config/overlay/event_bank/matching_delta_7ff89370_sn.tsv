@@ -1,0 +1,1 @@
+0xf2b60	0xb0	src/overlays/event_bank_func_800F2B60.c	--section-base=.text:0x8007BED0  --symbol=func_800B9830:0x800B9830 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	2f0a94c34d0772f8be022fc3c711d8aa319fa56a39a2842a365a31c349e65dc6

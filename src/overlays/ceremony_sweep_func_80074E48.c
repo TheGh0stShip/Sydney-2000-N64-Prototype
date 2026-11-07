@@ -1,128 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80074E48\n.ent func_80074E48\n"
-    "func_80074E48:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $20,32($29)\n"
-    "move $20,$0\n"
-    "sw $31,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "andi $3,$20,0xff\n"
-    "sltiu $2,$3,3\n"
-    "beqz $2,L_80074F60\n"
-    "move $18,$0\n"
-    "sll $21,$3,0x4\n"
-    "andi $16,$18,0xff\n"
-    "sltiu $2,$16,4\n"
-    "beqz $2,L_80074F58\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$21\n"
-    "addu $16,$19,$16\n"
-    "lw $4,1452($16)\n"
-    "jal func_800AC308\n"
-    "nop\n"
-    "lw $4,1452($16)\n"
-    "lw $2,180($4)\n"
-    "lh $3,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "lw $4,1452($16)\n"
-    "lw $2,180($4)\n"
-    "lh $3,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "lw $17,1452($16)\n"
-    "lw $2,180($17)\n"
-    "addiu $16,$19,1432\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_80074F50\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "L_80074F50:\n"
-    "j func_80073710\n"
-    "addiu $18,$18,1\n"
-    "L_80074F58:\n"
-    "j func_800736FC\n"
-    "addiu $20,$20,1\n"
-    "L_80074F60:\n"
-    "lw $17,1432($19)\n"
-    "beqz $17,L_80074FA8\n"
-    "addiu $16,$19,1432\n"
-    "sw $0,1432($19)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80074F84\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,1436\n"
-    "L_80074F84:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80074F98\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,1440\n"
-    "L_80074F98:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,1432($19)\n"
-    "L_80074FA8:\n"
-    "addiu $16,$19,1956\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$19,2360\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$19,3356\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$19,3568\n"
-    "addiu $16,$19,500\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800A7910\n"
-    "move $4,$16\n"
-    "sb $0,10338($19)\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80074E48\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef struct { short off; short pad; void (*fn)(); } VEnt;
+typedef struct { VEnt e[10]; } VT;
+typedef struct { u8 pad[180]; VT *vt; } Obj;
+typedef struct { void *base; int f4; int f8; Obj **top; u16 cap; u16 cnt; } Pool;
+typedef struct { u8 pad[1432]; Pool pool; Obj *grid[3][4]; } Cer;
+extern void func_800AC308(Obj *);
+extern void func_800AACB0(void *, Obj *, int);
+extern void func_800AA658(void *, void *);
+extern void func_800AC334(void *);
+extern void func_800ADC1C(void *);
+extern void func_800A7910(void *);
+extern char D_800F26E0[];
+#define VCALL(o, k) ((o)->vt->e[k].fn((char *)(o) + (o)->vt->e[k].off))
+static __inline__ void push(Pool *p, Obj *o) {
+    if (p->cnt < p->cap) {
+        o->vt->e[1].fn((char *)o + o->vt->e[1].off, 2);
+        *p->top = o;
+        p->top++;
+        p->cnt++;
+    }
+}
+#define PFREE(P) { Obj *b = (Obj *)(P).base; if (b != 0) { Pool *p = &(P); (P).base = 0; \
+    if (p->f4) func_800AA658(b, &(P).f4); if (p->f8) func_800AA658(b, &(P).f8); \
+    p->cap = 0; p->cnt = 0; p->top = 0; (P).base = 0; } }
+void func_80074E48(Cer *c) {
+    int i = 0;
+
+    while (1) {
+        u8 n = i;
+        int j;
+        if (n >= 3) break;
+        j = 0;
+        while (1) {
+            u8 m = j;
+            Obj *ob;
+            Pool *p;
+            if (m >= 4) break;
+            func_800AC308(c->grid[n][m]);
+            VCALL(c->grid[n][m], 3);
+            VCALL(c->grid[n][m], 9);
+            ob = c->grid[n][m];
+            p = &c->pool;
+            VCALL(ob, 3);
+            func_800AACB0(D_800F26E0, ob, 0);
+            push(p, ob);
+            j++;
+        }
+        i++;
+    }
+    PFREE(c->pool);
+    func_800AC334((u8 *)c + 1956); func_800ADC1C((u8 *)c + 1956);
+    func_800AC334((u8 *)c + 2360); func_800ADC1C((u8 *)c + 2360);
+    func_800ADC1C((u8 *)c + 3356);
+    func_800ADC1C((u8 *)c + 3568);
+    func_800AC334((u8 *)c + 500); func_800A7910((u8 *)c + 500);
+    ((u8 *)c)[10338] = 0;
+}

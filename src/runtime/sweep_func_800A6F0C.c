@@ -1,71 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A6F0C\n.ent func_800A6F0C\n"
-    "func_800A6F0C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "li $2,2\n"
-    "lui $4,0x800f\n"
-    "lui $7,0x8008\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$16,196\n"
-    "li $6,72\n"
-    "addiu $7,$7,22584\n"
-    "sw $31,20($29)\n"
-    "jal func_800AA804\n"
-    "sb $2,200($16)\n"
-    "beqz $2,L_800A6F50\n"
-    "nop\n"
-    "j L_800A6FFC\n"
-    "sb $0,200($16)\n"
-    "L_800A6F50:\n"
-    "lw $2,196($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,22600($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,22604($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,22608($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,22612($1)\n"
-    "swc1 $f0,0($2)\n"
-    "swc1 $f4,4($2)\n"
-    "swc1 $f6,8($2)\n"
-    "lw $2,196($16)\n"
-    "swc1 $f0,12($2)\n"
-    "addiu $2,$2,12\n"
-    "swc1 $f4,4($2)\n"
-    "swc1 $f2,8($2)\n"
-    "lw $2,196($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,22616($1)\n"
-    "swc1 $f0,24($2)\n"
-    "addiu $2,$2,24\n"
-    "sw $0,4($2)\n"
-    "swc1 $f2,8($2)\n"
-    "lw $2,196($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,22620($1)\n"
-    "swc1 $f0,36($2)\n"
-    "addiu $2,$2,36\n"
-    "swc1 $f4,4($2)\n"
-    "swc1 $f2,8($2)\n"
-    "lw $2,196($16)\n"
-    "swc1 $f0,48($2)\n"
-    "addiu $2,$2,48\n"
-    "swc1 $f4,4($2)\n"
-    "swc1 $f6,8($2)\n"
-    "lw $2,196($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,22624($1)\n"
-    "swc1 $f0,60($2)\n"
-    "addiu $2,$2,60\n"
-    "sw $0,4($2)\n"
-    "swc1 $f6,8($2)\n"
-    "L_800A6FFC:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A6F0C\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct {
+    char pad0[196]; Vec *pts; char state;
+} Obj;
+extern char D_800F2758[];
+extern int func_800AA804(void *, void *, int, char *);
+static inline void vset(Vec *v, float x, float y, float z) { v->x = x; v->y = y; v->z = z; }
+void func_800A6F0C(Obj *o)
+{
+    o->state = 2;
+    if (func_800AA804(D_800F2758, &o->pts, 72, "CROWD_SECTIONS")) {
+        o->state = 0;
+        return;
+    }
+    vset(&o->pts[0], -2949.0298f, 262.136f, -1638.3499f);
+    vset(&o->pts[1], -2949.0298f, 262.136f, 1638.3499f);
+    vset(&o->pts[2], -1966.0199f, 0.0f, 1638.3499f);
+    vset(&o->pts[3], 2949.0298f, 262.136f, 1638.3499f);
+    vset(&o->pts[4], 2949.0298f, 262.136f, -1638.3499f);
+    vset(&o->pts[5], 1966.0199f, 0.0f, -1638.3499f);
+}

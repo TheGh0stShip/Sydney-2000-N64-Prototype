@@ -1,42 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A74C8\n.ent func_800A74C8\n"
-    "func_800A74C8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,22736\n"
-    "sw $31,32($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $2,180($18)\n"
-    "addiu $2,$18,204\n"
-    "beqz $2,L_800A752C\n"
-    "move $19,$5\n"
-    "addiu $16,$18,2324\n"
-    "beq $2,$16,L_800A752C\n"
-    "move $17,$2\n"
-    "addiu $16,$16,-212\n"
-    "L_800A750C:\n"
-    "lw $2,180($16)\n"
-    "li $5,2\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "bne $17,$16,L_800A750C\n"
-    "addiu $16,$16,-212\n"
-    "L_800A752C:\n"
-    "move $4,$18\n"
-    "jal func_800AC3A4\n"
-    "move $5,$19\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A74C8\n.set at\n.set reorder\n");
+typedef struct VEnt { short delta; short index; void (*fn)(void *, int); } VEnt;
+typedef struct Elem { char pad[180]; VEnt *vptr; char pad2[212 - 184]; } Elem;
+typedef struct Obj { char pad[180]; void *vptr; char pad2[204 - 184]; Elem arr[10]; } Obj;
+extern char D_800858D0[];
+extern void func_800AC3A4(Obj *, int);
+void func_800A74C8(Obj *a, int flag)
+{
+    Elem *base;
+    Elem *q;
+    a->vptr = D_800858D0;
+    base = a->arr;
+    if (base != 0) {
+        Elem *p;
+        q = base + 10;
+        if (base != q) { p = base;
+            do {
+                q--;
+                q->vptr[1].fn((char *)q + q->vptr[1].delta, 2);
+            } while (p != q);
+        }
+    }
+    func_800AC3A4(a, flag);
+}

@@ -1,144 +1,88 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C4894\n.ent func_800C4894\n"
-    "func_800C4894:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,220($18)\n"
-    "lw $3,4($2)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800C48D0\n"
-    "li $20,2\n"
-    "move $20,$2\n"
-    "L_800C48D0:\n"
-    "move $19,$0\n"
-    "lui $21,0x800f\n"
-    "L_800C48D8:\n"
-    "andi $17,$19,0xff\n"
-    "sltu $2,$17,$20\n"
-    "beqz $2,L_800C4988\n"
-    "sll $17,$17,0x2\n"
-    "addu $17,$18,$17\n"
-    "lw $16,244($17)\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $17,244($17)\n"
-    "lw $2,180($17)\n"
-    "addiu $16,$18,224\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "addiu $4,$21,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800C4980\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "L_800C4980:\n"
-    "j L_800C48D8\n"
-    "addiu $19,$19,1\n"
-    "L_800C4988:\n"
-    "lw $17,224($18)\n"
-    "beqz $17,L_800C49D4\n"
-    "addiu $16,$18,224\n"
-    "sw $0,224($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800C49AC\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,228\n"
-    "L_800C49AC:\n"
-    "lw $2,8($16)\n"
-    "beql $2,$0,L_800C49C8\n"
-    "sh $0,16($16)\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,232\n"
-    "sh $0,16($16)\n"
-    "L_800C49C8:\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,224($18)\n"
-    "L_800C49D4:\n"
-    "jal func_800C2160\n"
-    "move $4,$18\n"
-    "lui $16,0x800f\n"
-    "lw $2,16632($16)\n"
-    "beqz $2,L_800C49F8\n"
-    "addiu $4,$16,16632\n"
-    "jal func_8001A248\n"
-    "nop\n"
-    "sw $0,16632($16)\n"
-    "L_800C49F8:\n"
-    "lw $2,440($18)\n"
-    "addiu $16,$18,260\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,440($18)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $3,792($18)\n"
-    "beqz $3,L_800C4A70\n"
-    "nop\n"
-    "lw $2,180($3)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,792($18)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,792\n"
-    "sw $0,792($18)\n"
-    "L_800C4A70:\n"
-    "jal func_800C3764\n"
-    "move $4,$18\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800C4894\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(void *, ...); } VEntry;
+typedef struct { char pad0[8]; VEntry release; VEntry pad1; VEntry reset; char pad2[40]; VEntry stop; } VTable;
+typedef struct { char pad0[180]; VTable *vt; char pad1[12]; int handle; } Unit;
+typedef struct { void *heap; void *a; void *b; Unit **cur; unsigned short cap; unsigned short n; } Pool;
+typedef struct { char pad0[4]; int mode; } Cfg;
+typedef struct {
+    char pad0[220];
+    Cfg *cfg;
+    Pool pool;
+    Unit *units[4];
+    Unit sub;
+    char pad1[792 - 260 - sizeof(Unit)];
+    Unit *extra;
+} Obj;
+extern char D_800F26E0[];
+extern char D_800F2758[];
+extern int D_800F40F8;
+extern void func_800B35F0(Unit *);
+extern void func_800AACB0(void *, Unit *, int);
+extern void func_800AA658(void *, void *);
+extern void func_8001A248(int *);
+extern void func_800C2160(Obj *);
+extern void func_800C3764(Obj *);
+static inline void pool_push(Pool *p, Unit *u)
+{
+    if (p->n < p->cap) {
+        u->vt->release.fn((char *)u + u->vt->release.offset, 2);
+        *p->cur = u;
+        p->cur++;
+        p->n++;
+    }
+}
+static inline void pool_free(Pool *p)
+{
+    void *heap = p->heap;
+    if (heap) {
+        p->heap = 0;
+        if (p->a) func_800AA658(heap, &p->a);
+        if (p->b) func_800AA658(heap, &p->b);
+        p->cap = 0;
+        p->n = 0;
+        p->cur = 0;
+        p->heap = 0;
+    }
+}
+void func_800C4894(Obj *o)
+{
+    unsigned char i;
+    unsigned int n;
+    Unit *u;
+    Unit *v;
+    Unit *s;
+
+    n = 2;
+    if (o->cfg->mode == 4) {
+        n = 4;
+    }
+    i = 0;
+    while (1) {
+        Pool *p;
+        if (i >= n) break;
+        u = o->units[i];
+        func_800B35F0(u);
+        u->vt->reset.fn((char *)u + u->vt->reset.offset);
+        v = o->units[i];
+        p = &o->pool;
+        v->vt->reset.fn((char *)v + v->vt->reset.offset);
+        func_800AACB0(D_800F26E0, v, 0);
+        pool_push(p, v);
+        i++;
+    }
+    pool_free(&o->pool);
+    func_800C2160(o);
+    if (D_800F40F8 != 0) {
+        func_8001A248(&D_800F40F8);
+        D_800F40F8 = 0;
+    }
+    s = &o->sub;
+    o->sub.vt->stop.fn((char *)s + o->sub.vt->stop.offset);
+    o->sub.vt->reset.fn((char *)s + o->sub.vt->reset.offset);
+    if (o->extra != 0) {
+        o->extra->vt->reset.fn((char *)o->extra + o->extra->vt->reset.offset);
+        o->extra->vt->stop.fn((char *)o->extra + o->extra->vt->stop.offset);
+        func_800AA658(D_800F2758, &o->extra);
+        o->extra = 0;
+    }
+    func_800C3764(o);
+}

@@ -1,167 +1,105 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800944A8\n.ent func_800944A8\n"
-    "func_800944A8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $16,16($29)\n"
-    "li $16,-1\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "move $8,$0\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "lbu $2,30123($18)\n"
-    "sltiu $2,$2,2\n"
-    "lw $17,2560($3)\n"
-    "beqz $2,L_800946E0\n"
-    "addiu $9,$3,2576\n"
-    "move $7,$8\n"
-    "move $6,$9\n"
-    "bnez $8,L_80094534\n"
-    "sll $2,$7,0x1\n"
-    "lw $5,22988($18)\n"
-    "lbu $2,1($6)\n"
-    "lbu $3,425($5)\n"
-    "bne $3,$2,L_8009451C\n"
-    "move $4,$0\n"
-    "lbu $2,424($5)\n"
-    "lb $3,0($6)\n"
-    "xor $2,$2,$3\n"
-    "sltiu $4,$2,1\n"
-    "L_8009451C:\n"
-    "beql $4,$0,L_8009452C\n"
-    "addiu $6,$6,12\n"
-    "j func_80075240\n"
-    "li $8,1\n"
-    "L_8009452C:\n"
-    "j func_80075240\n"
-    "addiu $7,$7,1\n"
-    "L_80094534:\n"
-    "addu $2,$2,$7\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$9\n"
-    "lw $4,22988($18)\n"
-    "lbu $19,8($2)\n"
-    "jal func_8009B670\n"
-    "nop\n"
-    "move $4,$2\n"
-    "slti $2,$17,6\n"
-    "lw $3,22988($18)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5080($1)\n"
-    "lwc1 $f2,4352($3)\n"
-    "cvt.s.w $f2,$f2\n"
-    "beqz $2,L_800946B0\n"
-    "div.s $f2,$f2,$f0\n"
-    "bltz $17,L_800946B0\n"
-    "li $2,5\n"
-    "bne $17,$2,L_800945A4\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,3568($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1t L_800945BC\n"
-    "li $2,4\n"
-    "j func_80075344\n"
-    "nop\n"
-    "L_800945A4:\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1288($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800945F4\n"
-    "li $2,4\n"
-    "L_800945BC:\n"
-    "bne $17,$2,L_800945DC\n"
-    "nop\n"
-    "lw $2,22988($18)\n"
-    "lw $2,764($2)\n"
-    "beql $2,$0,L_800946B0\n"
-    "li $16,293\n"
-    "j func_80075404\n"
-    "li $2,-1\n"
-    "L_800945DC:\n"
-    "lw $2,22988($18)\n"
-    "lw $2,764($2)\n"
-    "beql $2,$0,L_800946B0\n"
-    "li $16,65\n"
-    "j func_80075404\n"
-    "li $2,-1\n"
-    "L_800945F4:\n"
-    "bne $17,$2,L_80094614\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1332($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1t L_800946B0\n"
-    "li $16,292\n"
-    "L_80094614:\n"
-    "lw $2,22988($18)\n"
-    "lw $2,764($2)\n"
-    "beqz $2,L_80094650\n"
-    "sll $2,$19,0x18\n"
-    "lb $3,30120($18)\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "lw $3,30204($18)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lbu $2,4($2)\n"
-    "sltiu $2,$2,3\n"
-    "bnez $2,L_800946B0\n"
-    "li $16,32\n"
-    "sll $2,$19,0x18\n"
-    "L_80094650:\n"
-    "sra $3,$2,0x18\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_80094670\n"
-    "sll $2,$4,0x18\n"
-    "sra $2,$2,0x18\n"
-    "slt $2,$2,$3\n"
-    "beqz $2,L_800946E0\n"
-    "nop\n"
-    "L_80094670:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "sll $3,$4,0x18\n"
-    "lbu $2,2572($2)\n"
-    "sra $4,$3,0x18\n"
-    "addiu $2,$2,-1\n"
-    "slt $2,$4,$2\n"
-    "beqz $2,L_800946AC\n"
-    "lui $3,0x8007\n"
-    "addiu $3,$3,5296\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $16,0($2)\n"
-    "j func_80075404\n"
-    "li $2,-1\n"
-    "L_800946AC:\n"
-    "li $16,99\n"
-    "L_800946B0:\n"
-    "li $2,-1\n"
-    "beq $16,$2,L_800946E0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800946E0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$16\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800946E0:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800944A8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef struct GEnt { s8 s0; u8 u1; char pad2[6]; s8 s8_; char pad9[3]; } GEnt;
+typedef struct G {
+    char pad0[0x508];
+    float f508;
+    char pad50C[0x534 - 0x50C];
+    float f534;
+    char pad538[0xA00 - 0x538];
+    int kind;
+    int iA04;
+    char padA08[0xA0C - 0xA08];
+    u8 count;
+    char padA0D[3];
+    GEnt ents[1];
+    char padA1C[0xDF0 - 0xA1C];
+    float fDF0;
+} G;
+typedef struct P {
+    char pad[0x1A8];
+    u8 u1A8;
+    u8 u1A9;
+    char pad1AA[0x2FC - 0x1AA];
+    int i2FC;
+    char pad300[0x1100 - 0x300];
+    int i1100;
+} P;
+typedef struct Ent { char pad[4]; u8 type; char pad5[0x1C - 5]; } Ent;
+typedef struct Obj {
+    char pad[0x59CC];
+    P *p59CC;
+    char pad59D0[0x75A8 - 0x59D0];
+    s8 cur;
+    char pad75A9[2];
+    u8 u75AB;
+    char pad75AC[0x75FC - 0x75AC];
+    Ent *ents;
+} Obj;
+extern G *D_800FC270;
+extern char D_800F3BC0[];
+extern int D_800714B0[];
+extern s8 func_8009B670(P *);
+extern void func_800C0110(void *, int, int, int);
+void func_800944A8(Obj *o)
+{
+    int id = -1;
+    int found = 0;
+    int kind = D_800FC270->kind;
+    GEnt *ents = D_800FC270->ents;
+    GEnt *e;
+    int i;
+    s8 x;
+    s8 r;
+    float f;
+    if (o->u75AB < 2) {
+        i = found;
+        e = ents;
+        while (1) {
+            P *p;
+            int m;
+            if (found) break;
+            p = o->p59CC;
+            m = 0;
+            if (p->u1A9 == e->u1) {
+                if (p->u1A8 == e->s0) m = 1;
+            }
+            if (m) {
+                found = 1;
+            } else {
+                e++;
+                i++;
+            }
+        }
+        x = ents[i].s8_;
+        r = func_8009B670(o->p59CC);
+        f = o->p59CC->i1100;
+        f /= 100.0f;
+        if (kind < 6) {
+        if (kind >= 0) {
+            if (kind == 5 ? D_800FC270->fDF0 < f : D_800FC270->f508 < f) {
+                if (kind == 4) {
+                    if (o->p59CC->i2FC == 0) id = 293;
+                } else {
+                    if (o->p59CC->i2FC == 0) id = 65;
+                }
+            } else if (kind == 4 && D_800FC270->f534 < f) {
+                id = 292;
+            } else if (o->p59CC->i2FC != 0 && o->ents[o->cur].type < 3) {
+                id = 32;
+            } else if (x == -1 || r < x) {
+                if (r < D_800FC270->count - 1) {
+                    id = D_800714B0[r];
+                } else {
+                    id = 99;
+                }
+            } else {
+                return;
+            }
+        }
+        }
+        if (id != -1 && D_800FC270->iA04 != 0) {
+            func_800C0110(D_800F3BC0, id, 0, 0);
+        }
+    }
+}

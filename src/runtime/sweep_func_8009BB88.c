@@ -1,79 +1,36 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009BB88\n.ent func_8009BB88\n"
-    "func_8009BB88:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $16,16($29)\n"
-    "sw $31,24($29)\n"
-    "jal func_800B4784\n"
-    "move $16,$4\n"
-    "beqz $2,L_8009BBB4\n"
-    "lui $2,0x800f\n"
-    "j L_8009BBC8\n"
-    "sw $0,6004($2)\n"
-    "L_8009BBB4:\n"
-    "lui $3,0x800f\n"
-    "li $2,1\n"
-    "sw $2,6004($3)\n"
-    "jal func_800B4794\n"
-    "move $4,$2\n"
-    "L_8009BBC8:\n"
-    "beqz $17,L_8009BBE8\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,6880\n"
-    "jal func_8001D550\n"
-    "li $5,1\n"
-    "lui $4,0x800f\n"
-    "jal func_800C013C\n"
-    "addiu $4,$4,15296\n"
-    "L_8009BBE8:\n"
-    "andi $4,$16,0xff\n"
-    "slti $2,$4,5\n"
-    "beqz $2,L_8009BC10\n"
-    "slti $2,$4,3\n"
-    "beqz $2,L_8009BC24\n"
-    "li $2,2\n"
-    "beq $4,$2,L_8009BC38\n"
-    "lui $3,0x800f\n"
-    "j L_8009BC60\n"
-    "nop\n"
-    "L_8009BC10:\n"
-    "li $2,5\n"
-    "beq $4,$2,L_8009BC38\n"
-    "lui $3,0x800f\n"
-    "j L_8009BC60\n"
-    "nop\n"
-    "L_8009BC24:\n"
-    "bnez $17,L_8009BC3C\n"
-    "lui $16,0x800f\n"
-    "lui $4,0x800f\n"
-    "jal func_800C013C\n"
-    "addiu $4,$4,15296\n"
-    "L_8009BC38:\n"
-    "lui $16,0x800f\n"
-    "L_8009BC3C:\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,9830\n"
-    "li $6,-1\n"
-    "jal func_800A3394\n"
-    "move $7,$6\n"
-    "jal func_800A31BC\n"
-    "move $4,$16\n"
-    "lui $3,0x800f\n"
-    "L_8009BC60:\n"
-    "lw $2,6004($3)\n"
-    "beqz $2,L_8009BC78\n"
-    "nop\n"
-    "sw $0,6004($3)\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "L_8009BC78:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009BB88\n.set at\n.set reorder\n");
+extern int func_800B4784(void);
+extern void func_800B4794(int);
+extern void func_8001D550(void *, int);
+extern void func_800C013C(void *);
+extern void func_800A3394(void *, int, int, int);
+extern void func_800A31BC(void *);
+extern int D_800F1774;
+extern char D_800F1AE0[];
+extern char D_800F3BC0[];
+void func_8009BB88(unsigned char mode, int flag)
+{
+    if (func_800B4784()) {
+        D_800F1774 = 0;
+    } else {
+        D_800F1774 = 1;
+        func_800B4794(1);
+    }
+    if (flag) {
+        func_8001D550(D_800F1AE0, 1);
+        func_800C013C(D_800F3BC0);
+    }
+    switch (mode) {
+    case 3:
+    case 4:
+        if (!flag) func_800C013C(D_800F3BC0);
+    case 2:
+    case 5:
+        func_800A3394(D_800F1AE0, 9830, -1, -1);
+        func_800A31BC(D_800F1AE0);
+        break;
+    }
+    if (D_800F1774) {
+        D_800F1774 = 0;
+        func_800B4794(0);
+    }
+}

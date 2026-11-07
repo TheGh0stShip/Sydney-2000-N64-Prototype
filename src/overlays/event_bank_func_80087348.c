@@ -1,81 +1,52 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80087348\n.ent func_80087348\n"
-    "func_80087348:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $4,2560($3)\n"
-    "li $2,4\n"
-    "bne $4,$2,L_8008738C\n"
-    "lui $6,0x7fff\n"
-    "lw $3,2564($3)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800873D0\n"
-    "li $7,356\n"
-    "beq $3,$4,L_800873D0\n"
-    "li $7,358\n"
-    "j func_80076000\n"
-    "li $7,357\n"
-    "L_8008738C:\n"
-    "ori $6,$6,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,10004($5)\n"
-    "srl $3,$3,0x1d\n"
-    "beqz $3,L_800873D0\n"
-    "li $7,161\n"
-    "li $7,162\n"
-    "L_800873D0:\n"
-    "li $2,-1\n"
-    "beq $7,$2,L_80087418\n"
-    "li $16,-1\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80087414\n"
-    "li $2,1\n"
-    "lw $3,21568($17)\n"
-    "bne $3,$2,L_80087418\n"
-    "li $2,-1\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$7\n"
-    "li $6,3072\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_80087414:\n"
-    "li $2,-1\n"
-    "L_80087418:\n"
-    "beq $16,$2,L_80087450\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80087450\n"
-    "li $2,1\n"
-    "lw $3,21568($17)\n"
-    "bne $3,$2,L_80087450\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$16\n"
-    "li $6,18432\n"
-    "jal func_800C0110\n"
-    "move $7,$0\n"
-    "L_80087450:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80087348\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef unsigned int u32;
+
+typedef struct {
+    char pad0[0xA00];
+    s32 mode;
+    s32 sub;
+} Game;
+
+extern Game *D_800FC270;
+extern u32 D_800F2714;
+extern u8 D_800F3BC0[];
+extern void func_800C0110(void *, s32, s32, s32);
+
+#define STATE(o) (*(s32 *)((o) + 21568))
+
+void func_80075F70(u8 *o)
+{
+    Game *g = D_800FC270;
+    s32 a;
+    s32 b;
+
+    if (g->mode == 4) {
+        if (g->sub == 5) {
+            a = 356;
+        } else if (g->sub != g->mode) {
+            a = 357;
+        } else {
+            a = 358;
+        }
+        b = -1;
+    } else {
+        D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+        if ((D_800F2714 >> 29) != 0) {
+            a = 162;
+        } else {
+            a = 161;
+        }
+        b = -1;
+    }
+    if (a != -1) {
+        if (D_800FC270->sub != 0 && STATE(o) == 1) {
+            func_800C0110(D_800F3BC0, a, 3072, 0);
+        }
+    }
+    if (b != -1) {
+        if (D_800FC270->sub != 0 && STATE(o) == 1) {
+            func_800C0110(D_800F3BC0, b, 18432, 0);
+        }
+    }
+}

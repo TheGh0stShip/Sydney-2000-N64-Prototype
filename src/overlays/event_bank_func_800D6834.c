@@ -1,77 +1,61 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6834\n.ent func_800D6834\n"
-    "func_800D6834:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $3,1557($18)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_800D6918\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4080\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_8007543C\n"
-    "move $4,$18\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,95\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$16\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "lw $3,104($4)\n"
-    "li $2,19660\n"
-    "mult $3,$2\n"
-    "move $5,$17\n"
-    "li $7,45\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "li $4,11520\n"
-    "jal func_8009BEE0\n"
-    "sw $17,24976($18)\n"
-    "j func_80071DA8\n"
-    "nop\n"
-    "addiu $4,$18,12884\n"
-    "lui $5,0x8007\n"
-    "addiu $5,$5,30044\n"
-    "li $6,1\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "move $4,$18\n"
-    "li $5,42\n"
-    "move $6,$0\n"
-    "jal func_80076564\n"
-    "move $7,$6\n"
-    "L_800D6918:\n"
-    "lbu $5,1554($18)\n"
-    "jal func_800A9BE8\n"
-    "addiu $4,$18,1116\n"
-    "lw $3,24996($18)\n"
-    "li $2,2\n"
-    "sb $2,1551($18)\n"
-    "jal func_800177EC\n"
-    "sw $3,24932($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D6834\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Snd { char pad[104]; int volume; } Snd;
+typedef struct Obj {
+    char pad[1116];
+    char unk45C[1551 - 1116];
+    u8 unk60F;
+    char pad610[1554 - 1552];
+    u8 unk612;
+    char pad613[1557 - 1555];
+    u8 state;
+    char pad616[12884 - 1558];
+    char unk3254[24932 - 12884];
+    int unk6164;
+    char pad6168[24976 - 24936];
+    int handle;
+    char pad6194[24996 - 24980];
+    int unk61A4;
+} Obj;
+extern Snd D_800F1AE0;
+extern char D_8007755C[];
+extern void func_8007543C(Obj *);
+extern int func_8001D4B8(Snd *, int, int, int);
+extern void func_8001D640(Snd *, int, int);
+extern void func_8001D5D8(Snd *, int, int, int, int, int);
+extern void func_8009BEE0(int);
+extern void func_800D33A0(void *, void *, int, int);
+extern void func_80076564(Obj *, int, int, int);
+extern void func_800A9BE8(void *, int);
+extern void func_800177EC(void);
+static __inline__ int scale(int v, int k)
+{
+    return (v * k) >> 15;
+}
+
+void func_80071CC4(Obj *o)
+{
+    int h;
+    switch (o->state) {
+    case 0:
+    case 1:
+        func_8007543C(o);
+        h = func_8001D4B8(&D_800F1AE0, 95, 0, -1);
+        func_8001D640(&D_800F1AE0, h, 0);
+        func_8001D5D8(&D_800F1AE0, h, scale(D_800F1AE0.volume, 19660), 45, 0, 0);
+        o->handle = h;
+        func_8009BEE0(11520);
+        break;
+    case 2:
+        func_800D33A0(o->unk3254, D_8007755C, 1, -1);
+        func_80076564(o, 42, 0, 0);
+        break;
+    case 3:
+    case 4:
+    case 5:
+        break;
+    }
+    func_800A9BE8(o->unk45C, o->unk612);
+    o->unk60F = 2;
+    o->unk6164 = o->unk61A4;
+    func_800177EC();
+}

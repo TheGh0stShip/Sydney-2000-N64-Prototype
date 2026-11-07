@@ -49,7 +49,6 @@ extern void func_800A9BE8(void *p, int n);
 extern float func_8007BB9C(ModeObj *obj);
 extern void func_80074C58(ModeOwner *p, float f);
 extern void func_80072E88(ModeOwner *p, int arg);
-extern void *D_80071078[];
 
 void func_80072078(ModeOwner *p, ModeArg *arg, int arg2)
 {
@@ -84,11 +83,9 @@ cancel:
             p->state = 17;
             D_800F2728 = 0;
         } else if (p->obj->kind == 1) {
-            static void *const unused_tbl[] = { &&C1, &&C10, &&C14, &&C12 };
-            unsigned int i = p->state - 1;
-            if (i >= 14) goto done;
-            goto *D_80071078[i];
-C1:
+            switch (p->state) {
+            case 1:
+            case 2:
                 func_800D29E0(p->a);
                 func_800D29E0(p->b);
                 func_800D29E0(p->c);
@@ -96,16 +93,20 @@ C1:
                 func_800AC25C(p, 95, 17, 0);
                 func_800A9BE8(p->snd, 4);
                 p->w7CC0 = -7680;
-                goto done;
-C10:
+                break;
+            case 10:
+            case 11:
                 p->state = 12;
-                goto done;
-C14:
+                break;
+            case 14:
                 p->w7CC0 = 0x700;
-                goto done;
-C12:
+                break;
+            case 12:
+            case 13:
                 p->w7CC4 = 256;
                 p->w7CC0 = 256;
+                break;
+            }
         } else if (p->sub == 2) {
             func_800D29E0(p->a);
             p->w7CC0 = 0;

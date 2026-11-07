@@ -1,64 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A7A64\n.ent func_800A7A64\n"
-    "func_800A7A64:\n"
-    "addiu $29,$29,-104\n"
-    "sw $16,96($29)\n"
-    "move $16,$4\n"
-    "sw $31,100($29)\n"
-    "lbu $2,188($16)\n"
-    "beqz $2,L_800A7B30\n"
-    "move $4,$5\n"
-    "lui $2,0x800f\n"
-    "lw $6,9852($2)\n"
-    "jal func_800AC9B8\n"
-    "addiu $5,$29,16\n"
-    "move $5,$0\n"
-    "addiu $4,$29,16\n"
-    "L_800A7A98:\n"
-    "lbu $2,188($16)\n"
-    "andi $3,$5,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_800A7B30\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $3,268($2)\n"
-    "beqz $3,L_800A7B30\n"
-    "nop\n"
-    "lb $2,176($3)\n"
-    "beqz $2,L_800A7ADC\n"
-    "addiu $2,$3,96\n"
-    "lwc1 $f0,16($29)\n"
-    "swc1 $f0,96($3)\n"
-    "lwc1 $f0,16($4)\n"
-    "j L_800A7AF0\n"
-    "swc1 $f0,16($2)\n"
-    "L_800A7ADC:\n"
-    "lwc1 $f0,16($29)\n"
-    "swc1 $f0,20($3)\n"
-    "lwc1 $f0,16($4)\n"
-    "addiu $2,$3,20\n"
-    "swc1 $f0,16($2)\n"
-    "L_800A7AF0:\n"
-    "lwc1 $f0,32($4)\n"
-    "swc1 $f0,32($2)\n"
-    "lwc1 $f0,4($4)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,20($4)\n"
-    "swc1 $f0,20($2)\n"
-    "lwc1 $f0,36($4)\n"
-    "swc1 $f0,36($2)\n"
-    "lwc1 $f0,8($4)\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,24($4)\n"
-    "swc1 $f0,24($2)\n"
-    "lwc1 $f0,40($4)\n"
-    "swc1 $f0,40($2)\n"
-    "j L_800A7A98\n"
-    "addiu $5,$5,1\n"
-    "L_800A7B30:\n"
-    "lw $31,100($29)\n"
-    "lw $16,96($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,104\n"
-    ".end func_800A7A64\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { float x, y, z; } Vector3;
+typedef struct { float m[16]; Vector3 position; } MotionTransform;
+typedef struct {
+    char pad0[20]; MotionTransform b;
+    char pad1[96 - 96]; MotionTransform a;
+    char pad2[176 - 172]; signed char flag;
+} Node;
+typedef struct {
+    char pad0[188]; u8 count;
+    char pad1[268 - 189]; Node *nodes[1];
+} Obj;
+extern void func_800AC9B8(Vector3 *, MotionTransform *, Vector3 *);
+extern Vector3 *runtimeMotionUpVector;
+static inline void rot(MotionTransform *s, MotionTransform *d)
+{
+    d->m[0] = s->m[0]; d->m[4] = s->m[4]; d->m[8] = s->m[8];
+    d->m[1] = s->m[1]; d->m[5] = s->m[5]; d->m[9] = s->m[9];
+    d->m[2] = s->m[2]; d->m[6] = s->m[6]; d->m[10] = s->m[10];
+}
+void func_800A7A64(Obj *o, Vector3 *dir)
+{
+    MotionTransform t;
+    u8 i;
+    Node *n;
+    if (o->count == 0) return;
+    func_800AC9B8(dir, &t, runtimeMotionUpVector);
+    i = 0;
+    while (1) {
+        if (!(i < o->count)) break;
+        n = o->nodes[i];
+        if (n == 0) break;
+        if (n->flag) rot(&t, &n->a);
+        else rot(&t, &n->b);
+        i++;
+    }
+}

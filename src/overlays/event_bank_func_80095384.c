@@ -1,90 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80095384\n.ent func_80095384\n"
-    "func_80095384:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lbu $3,30123($16)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800953D0\n"
-    "li $2,20\n"
-    "lui $4,0x800f\n"
-    "lui $2,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,24\n"
-    "lw $5,10052($2)\n"
-    "move $7,$16\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "j func_80076124\n"
-    "nop\n"
-    "L_800953D0:\n"
-    "sb $2,30121($16)\n"
-    "lb $2,30120($16)\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "lw $2,30204($16)\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lhu $2,2($3)\n"
-    "addiu $2,$2,-1\n"
-    "sh $2,2($3)\n"
-    "lbu $2,30123($16)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_80095414\n"
-    "move $5,$0\n"
-    "j func_800761D4\n"
-    "move $3,$5\n"
-    "L_80095414:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lbu $3,2572($2)\n"
-    "sltu $2,$5,$3\n"
-    "beqz $2,L_80095454\n"
-    "move $4,$0\n"
-    "move $6,$3\n"
-    "lw $3,30204($16)\n"
-    "L_80095434:\n"
-    "lbu $2,4($3)\n"
-    "sltiu $2,$2,3\n"
-    "bnel $2,$0,L_80095444\n"
-    "addiu $5,$5,1\n"
-    "L_80095444:\n"
-    "addiu $4,$4,1\n"
-    "sltu $2,$4,$6\n"
-    "bnez $2,L_80095434\n"
-    "addiu $3,$3,28\n"
-    "L_80095454:\n"
-    "li $2,1\n"
-    "bne $5,$2,L_80095484\n"
-    "move $3,$0\n"
-    "lb $3,30120($16)\n"
-    "lui $4,0x8010\n"
-    "sllv $2,$3,$2\n"
-    "addu $2,$2,$3\n"
-    "lw $3,-15760($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "lb $2,2584($3)\n"
-    "sltiu $3,$2,1\n"
-    "L_80095484:\n"
-    "beqz $3,L_800954AC\n"
-    "nop\n"
-    "lb $3,30120($16)\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "lw $3,30204($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "li $3,3\n"
-    "sb $3,4($2)\n"
-    "L_800954AC:\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80095384\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef unsigned short u16;
+typedef struct Slot { char pad[8]; s8 b8; char pad9[3]; } Slot;
+typedef struct Glob { char pad[2572]; u8 count; char padA0D[3]; Slot slots[1]; } Glob;
+typedef struct E { char pad[2]; u16 h2; u8 b4; char pad5[28 - 5]; } E;
+typedef struct Obj {
+    char pad[30120];
+    s8 idx;
+    u8 unk75A9;
+    char pad75AA;
+    u8 st;
+    char pad75AC[30204 - 30124];
+    E *ents;
+} Obj;
+extern Glob *D_800FC270;
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern void func_800AB2A4(void *, int, int, Obj *, int, int);
+void func_800760D4(Obj *o)
+{
+    unsigned int cnt;
+    unsigned int i;
+    int c;
+    if (o->st == 4) {
+        func_800AB2A4(D_800F26E0, D_800F2744, 24, o, 0, 0);
+    } else {
+        o->unk75A9 = 20;
+    }
+    o->ents[o->idx].h2--;
+    cnt = 0;
+    if (o->st == 3 || o->st == 4) {
+        c = 0;
+    } else {
+        for (i = 0; i < D_800FC270->count; i++) {
+            if (o->ents[i].b4 < 3) {
+                cnt++;
+            }
+        }
+        c = cnt == 1 && D_800FC270->slots[o->idx].b8 == 0;
+    }
+    if (c) {
+        o->ents[o->idx].b4 = 3;
+    }
+}

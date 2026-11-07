@@ -1,101 +1,88 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E0F00\n.ent func_800E0F00\n"
-    "func_800E0F00:\n"
-    "addiu $29,$29,-80\n"
-    "sw $19,52($29)\n"
-    "move $19,$4\n"
-    "addiu $4,$19,25424\n"
-    "sw $16,40($29)\n"
-    "move $16,$5\n"
-    "andi $5,$6,0xff\n"
-    "sw $31,72($29)\n"
-    "sw $23,68($29)\n"
-    "sw $22,64($29)\n"
-    "sw $21,60($29)\n"
-    "sw $20,56($29)\n"
-    "sw $18,48($29)\n"
-    "jal func_800AEF6C\n"
-    "sw $17,44($29)\n"
-    "move $4,$2\n"
-    "jal func_800AF0BC\n"
-    "addiu $5,$29,24\n"
-    "move $20,$0\n"
-    "lui $2,0x8008\n"
-    "addiu $23,$2,2680\n"
-    "li $22,73\n"
-    "andi $16,$16,0xff\n"
-    "sll $2,$16,0x2\n"
-    "addu $2,$2,$16\n"
-    "sll $21,$2,0x3\n"
-    "andi $18,$20,0xff\n"
-    "sltiu $2,$18,10\n"
-    "beqz $2,L_800E104C\n"
-    "addiu $4,$19,20188\n"
-    "lw $3,12($4)\n"
-    "lw $2,8($4)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800E0FD4\n"
-    "move $17,$0\n"
-    "lhu $2,18($4)\n"
-    "addiu $2,$2,-1\n"
-    "sh $2,18($4)\n"
-    "addiu $2,$3,-4\n"
-    "sw $2,12($4)\n"
-    "lw $17,-4($3)\n"
-    "li $4,272\n"
-    "sw $0,-4($3)\n"
-    "jal func_800AAA58\n"
-    "move $5,$17\n"
-    "move $16,$2\n"
-    "jal func_800ADED4\n"
-    "move $4,$16\n"
-    "sw $23,180($16)\n"
-    "sw $22,0($16)\n"
-    "sw $0,260($16)\n"
-    "sw $0,264($16)\n"
-    "sw $0,268($16)\n"
-    "L_800E0FD4:\n"
-    "beqz $17,L_800E104C\n"
-    "move $5,$19\n"
-    "lw $2,180($17)\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "beqz $17,L_800E104C\n"
-    "sll $3,$18,0x2\n"
-    "addu $2,$3,$21\n"
-    "addu $2,$19,$2\n"
-    "addu $3,$19,$3\n"
-    "sw $17,20240($2)\n"
-    "lwc1 $f0,25220($3)\n"
-    "swc1 $f0,16($29)\n"
-    "lw $5,25348($19)\n"
-    "lw $6,25356($19)\n"
-    "lw $7,24($29)\n"
-    "jal func_80080FA8\n"
-    "move $4,$17\n"
-    "jal func_80080F10\n"
-    "move $4,$17\n"
-    "lw $2,180($17)\n"
-    "addiu $20,$20,1\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "j func_8007557C\n"
-    "andi $18,$20,0xff\n"
-    "L_800E104C:\n"
-    "lw $31,72($29)\n"
-    "lw $23,68($29)\n"
-    "lw $22,64($29)\n"
-    "lw $21,60($29)\n"
-    "lw $20,56($29)\n"
-    "lw $19,52($29)\n"
-    "lw $18,48($29)\n"
-    "lw $17,44($29)\n"
-    "lw $16,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_800E0F00\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef unsigned short u16;
+typedef int s32;
+typedef float f32;
+
+typedef struct {
+    char pad0[16];
+    s16 off16;
+    s16 pad18;
+    void (*fn20)(void *, void *);
+    char pad24[64 - 24];
+    s16 off64;
+    s16 pad66;
+    void (*fn68)(void *);
+} VT;
+
+typedef struct {
+    char pad0[8];
+    u8 **base;
+    u8 **top;
+    char pad16[2];
+    u16 count;
+} Pool;
+
+extern u8 D_80080A78[];
+extern void *func_800AEF6C(void *, s32);
+extern void func_800AF0BC(void *, s32 *);
+extern u8 *func_800AAA58(s32, void *);
+extern void func_800ADED4(void *);
+extern void func_80080FA8(void *, s32, s32, s32, f32);
+extern void func_80080F10(void *);
+
+#define S32(o) (*(s32 *)(obj + (o)))
+#define VTP(p) (*(VT **)((p) + 180))
+
+static inline u8 *pool_new(Pool *pl, void *vt, s32 tag, u8 *obj)
+{
+    u8 *p = 0;
+    u8 *q;
+    if (pl->top > pl->base) {
+        pl->count--;
+        pl->top--;
+        p = *pl->top;
+        *pl->top = 0;
+        q = func_800AAA58(272, p);
+        func_800ADED4(q);
+        *(void **)(q + 180) = vt;
+        *(s32 *)q = tag;
+        *(s32 *)(q + 260) = 0;
+        *(s32 *)(q + 264) = 0;
+        *(s32 *)(q + 268) = 0;
+    }
+    if (p != 0) {
+        VTP(p)->fn20(p + VTP(p)->off16, obj);
+    }
+    return p;
+}
+
+void func_80075510(u8 *obj, u8 slot, u8 kind)
+{
+    s32 info[4];
+    s32 n;
+    u8 i;
+    u8 *e;
+    void *vt;
+    s32 tag;
+
+    func_800AF0BC(func_800AEF6C(obj + 25424, kind), info);
+    n = 0;
+    vt = D_80080A78;
+    tag = 73;
+    while (1) {
+        i = n;
+        if (i >= 10) {
+            break;
+        }
+        e = pool_new((Pool *)(obj + 20188), vt, tag, obj);
+        if (e == 0) {
+            break;
+        }
+        *(u8 **)(obj + (slot * 40 + i * 4) + 20240) = e;
+        func_80080FA8(e, S32(25348), S32(25356), info[0], *(f32 *)(obj + (i << 2) + 25220));
+        func_80080F10(e);
+        n++;
+        VTP(e)->fn68(e + VTP(e)->off64);
+    }
+}

@@ -1,159 +1,134 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BC884\n.ent func_800BC884\n"
-    "func_800BC884:\n"
-    "addiu $29,$29,-176\n"
-    "sw $18,144($29)\n"
-    "move $18,$4\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,2400\n"
-    "sw $31,152($29)\n"
-    "sw $19,148($29)\n"
-    "sw $17,140($29)\n"
-    "sw $16,136($29)\n"
-    "sdc1 $f22,168($29)\n"
-    "sdc1 $f20,160($29)\n"
-    "jal func_80017D84\n"
-    "li $5,-1\n"
-    ".word 0x144000BE\n"
-    "move $4,$18\n"
-    "addiu $5,$29,24\n"
-    "addiu $6,$29,40\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2452($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2456($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2460($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2464($1)\n"
-    "addiu $7,$18,4552\n"
-    "swc1 $f0,40($29)\n"
-    "swc1 $f2,4($6)\n"
-    "sw $0,48($29)\n"
-    "sw $0,24($29)\n"
-    "swc1 $f4,4($5)\n"
-    "swc1 $f6,8($5)\n"
-    "jal func_80081F08\n"
-    "sw $0,16($29)\n"
-    "move $4,$18\n"
-    "jal func_8008382C\n"
-    "li $5,5\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,2468($1)\n"
-    "move $4,$18\n"
-    "mfc1 $6,$f20\n"
-    "jal func_800837C0\n"
-    "move $5,$0\n"
-    "jal func_80071948\n"
-    "move $4,$18\n"
-    "addiu $16,$29,56\n"
-    "move $4,$16\n"
-    "lui $5,0xbfc9\n"
-    "ori $5,$5,0xfd9\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2472($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2476($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2480($1)\n"
-    "li $6,3\n"
-    "sw $0,92($29)\n"
-    "sw $0,88($29)\n"
-    "sw $0,80($29)\n"
-    "sw $0,72($29)\n"
-    "sw $0,64($29)\n"
-    "sw $0,60($29)\n"
-    "sw $0,128($29)\n"
-    "sw $0,124($29)\n"
-    "sw $0,120($29)\n"
-    "swc1 $f20,40($16)\n"
-    "swc1 $f20,20($16)\n"
-    "swc1 $f20,56($29)\n"
-    "swc1 $f0,120($29)\n"
-    "swc1 $f2,124($29)\n"
-    "jal func_800AD434\n"
-    "swc1 $f4,128($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,2484($1)\n"
-    "move $4,$18\n"
-    "mfc1 $6,$f20\n"
-    "jal func_800830C4\n"
-    "move $5,$16\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,40($2)\n"
-    "mul.s $f0,$f0,$f20\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2488($1)\n"
-    "lwc1 $f6,44($2)\n"
-    "addiu $17,$18,4996\n"
-    "mul.s $f6,$f6,$f2\n"
-    "lwc1 $f8,4588($17)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2492($1)\n"
-    "lwc1 $f2,48($2)\n"
-    "div.s $f4,$f8,$f4\n"
-    "mul.s $f4,$f4,$f2\n"
-    "addiu $16,$18,4968\n"
-    "move $4,$16\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f10,2496($1)\n"
-    "lui $5,0x3d4c\n"
-    "ori $5,$5,0xcccd\n"
-    "add.s $f0,$f0,$f6\n"
-    "lui $6,0xbac4\n"
-    "ori $6,$6,0x9ba6\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2500($1)\n"
-    "mul.s $f0,$f0,$f10\n"
-    "move $7,$0\n"
-    "swc1 $f10,17464($18)\n"
-    "div.s $f8,$f8,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2504($1)\n"
-    "sub.s $f8,$f8,$f4\n"
-    "swc1 $f2,17460($18)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2508($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f6,17456($18)\n"
-    "swc1 $f8,17452($18)\n"
-    "jal func_800BB99C\n"
-    "swc1 $f0,17468($18)\n"
-    "jal func_800BBA1C\n"
-    "move $4,$16\n"
-    "move $4,$18\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2512($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2516($1)\n"
-    "li $2,1\n"
-    "sw $0,4596($17)\n"
-    "sw $0,17132($18)\n"
-    "sw $0,3860($18)\n"
-    "sw $0,17596($18)\n"
-    "sw $0,17604($18)\n"
-    "sw $2,17592($18)\n"
-    "sw $0,17584($18)\n"
-    "sw $0,17572($18)\n"
-    "sw $0,17588($18)\n"
-    "sw $0,17576($18)\n"
-    "sw $0,17568($18)\n"
-    "sw $0,17600($18)\n"
-    "sb $0,17552($18)\n"
-    "sb $0,17204($18)\n"
-    "sb $0,17208($18)\n"
-    "sb $0,17207($18)\n"
-    "sb $0,17206($18)\n"
-    "sb $0,17205($18)\n"
-    "swc1 $f0,17144($18)\n"
-    "jal func_80071D2C\n"
-    "swc1 $f2,17140($18)\n"
-    "lw $2,17148($18)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,2520($1)\n"
-    "li $19,1\n"
-    "swc1 $f20,92($2)\n"
-    "lw $4,17148($18)\n"
-    ".end func_800BC884\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+
+typedef struct Vec { f32 x, y, z; } Vec;
+typedef struct Mtx { f32 m[3][4]; u8 pad[16]; Vec pos; } Mtx;
+typedef struct G { u8 pad[40]; f32 a, b, c; } G;
+typedef struct Obj { u8 pad[92]; f32 y; u8 pad2[96]; s32 flags; } Obj;
+extern G *D_800FC270;
+
+extern s32 func_80017D84(char *s, s32 a);
+extern void func_80081F08(u8 *p, Vec *a, Vec *b, u8 *c, s32 d);
+extern void func_8008382C(u8 *p, s32 a);
+extern void func_800837C0(u8 *p, s32 a, f32 v);
+extern void func_80071948(u8 *p);
+extern void func_800AD434(Mtx *m, f32 a, s32 b);
+extern void func_800830C4(u8 *p, Mtx *m, f32 v);
+extern void func_800BB99C(u8 *a, f32 b, f32 c, s32 d);
+extern void func_800BBA1C(u8 *a);
+extern void func_80071D2C(u8 *p);
+extern void func_800AD890(Obj *o, s32 a);
+extern void func_800AD9E8(Obj *o);
+extern void func_80082A84(u8 *p, s32 a, s32 b, s32 c, s32 d, s32 e);
+
+#define W(o) (*(s32 *)(p + (o)))
+#define F(o) (*(f32 *)(p + (o)))
+#define B(o) (*(u8 *)(p + (o)))
+#define OBJ(i) (((Obj **)(p + 17148))[i])
+
+static inline void vset(Vec *v, f32 x, f32 y, f32 z)
+{
+    v->x = x;
+    v->y = y;
+    v->z = z;
+}
+
+static inline void reset(Mtx *m)
+{
+    m->m[2][1] = 0.0f;
+    m->m[2][0] = 0.0f;
+    m->m[1][2] = 0.0f;
+    m->m[1][0] = 0.0f;
+    m->m[0][2] = 0.0f;
+    m->m[0][1] = 0.0f;
+    m->pos.z = 0.0f;
+    m->pos.y = 0.0f;
+    m->pos.x = 0.0f;
+    m->m[2][2] = 1.0f;
+    m->m[1][1] = 1.0f;
+    m->m[0][0] = 1.0f;
+}
+
+void func_800BC884(u8 *p)
+{
+    Vec v1;
+    Vec v2;
+    Mtx m;
+    u8 i;
+    f32 h;
+    f32 s;
+    f32 t;
+    f32 u;
+    u8 *q;
+
+    if (func_80017D84("GRAPHICS__VIRTUALGYM__HEIGHTDEPTHJUMP__HDJUMP_BGP", -1) != 0) {
+        return;
+    }
+    vset(&v2, 98.300995f, 16.3835f, 0.0f);
+    vset(&v1, 0.0f, 49.150497f, -163.83499f);
+    func_80081F08(p, &v1, &v2, p + 4552, 0);
+    func_8008382C(p, 5);
+    func_800837C0(p, 0, 1.0f);
+    func_80071948(p);
+    reset(&m);
+    m.pos.x = 40.958748f;
+    m.pos.y = 32.767f;
+    m.pos.z = 29.490297f;
+    func_800AD434(&m, -1.5707961f, 3);
+    func_800830C4(p, &m, 0.25f);
+    q = p + 4996;
+    s = D_800FC270->a * 0.25f + D_800FC270->b * 0.75f;
+    h = *(f32 *)(q + 4588);
+    t = h / 40.0f * D_800FC270->c;
+    F(17464) = 0.007f;
+    F(17456) = 0.003f;
+    F(17460) = 0.005f;
+    F(17452) = h / 35.0f - t;
+    F(17468) = s * 0.007f + 0.005f;
+    {
+        u8 *r = p + 4968;
+        func_800BB99C(r, 0.05f, -0.0015f, 0);
+        func_800BBA1C(r);
+    }
+    *(s32 *)(q + 4596) = 0;
+    W(17132) = 0;
+    W(3860) = 0;
+    W(17596) = 0;
+    W(17604) = 0;
+    W(17592) = 1;
+    W(17584) = 0;
+    W(17572) = 0;
+    W(17588) = 0;
+    W(17576) = 0;
+    W(17568) = 0;
+    W(17600) = 0;
+    B(17552) = 0;
+    B(17204) = 0;
+    B(17208) = 0;
+    B(17207) = 0;
+    B(17206) = 0;
+    B(17205) = 0;
+    F(17144) = 0.1f;
+    F(17140) = 0.06f;
+    func_80071D2C(p);
+    OBJ(0)->y = -49.1505f;
+    OBJ(0)->flags &= ~4;
+    func_800AD890(OBJ(0), 1);
+    func_800AD9E8(OBJ(0));
+    i = 1;
+    while (1) {
+        if (!(i < W(17556))) {
+            break;
+        }
+        (*(Obj **)(p + (i << 2) + 17148))->y = i * -29.490301f + -49.1505f;
+        (*(Obj **)(p + (i << 2) + 17148))->flags &= ~4;
+        func_800AD890((*(Obj **)(p + (i << 2) + 17148)), 1);
+        func_800AD9E8((*(Obj **)(p + (i << 2) + 17148)));
+        i++;
+    }
+    W(3852) = 23040;
+    func_80082A84(p, 5, 0, 0, 0, 0);
+    func_80082A84(p, 38, W(17556), 0, 0, 0);
+}

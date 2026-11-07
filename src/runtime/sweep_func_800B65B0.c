@@ -1,76 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B65B0\n.ent func_800B65B0\n"
-    "func_800B65B0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $5,4($17)\n"
-    "lw $2,16($16)\n"
-    "lw $3,0($17)\n"
-    "subu $2,$5,$2\n"
-    "sra $4,$2,0x8\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800B6668\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800B6668\n"
-    "nop\n"
-    "beqz $4,L_800B66A4\n"
-    "nop\n"
-    "jal func_800AE1EC\n"
-    "move $4,$16\n"
-    "lwc1 $f2,200($16)\n"
-    "lwc1 $f0,380($16)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800B6620\n"
-    "addiu $4,$16,292\n"
-    "jal func_800AEAE8\n"
-    "move $5,$16\n"
-    "L_800B6620:\n"
-    "move $4,$16\n"
-    "jal func_800B47B0\n"
-    "addiu $5,$16,384\n"
-    "lwc1 $f4,428($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,27300($1)\n"
-    "c.lt.s $f4,$f2\n"
-    "nop\n"
-    "bc1f L_800B6658\n"
-    "swc1 $f0,380($16)\n"
-    "jal func_800B6454\n"
-    "move $4,$16\n"
-    "j L_800B6668\n"
-    "nop\n"
-    "L_800B6658:\n"
-    "move $4,$16\n"
-    "lw $5,376($16)\n"
-    "jal func_800B48CC\n"
-    "move $6,$0\n"
-    "L_800B6668:\n"
-    "lw $2,4($17)\n"
-    "lw $3,296($16)\n"
-    "bnez $3,L_800B66A4\n"
-    "sw $2,16($16)\n"
-    "lw $2,268($16)\n"
-    "beqz $2,L_800B668C\n"
-    "nop\n"
-    "jal func_800ADFAC\n"
-    "move $4,$16\n"
-    "L_800B668C:\n"
-    "lhu $2,196($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B66A4\n"
-    "nop\n"
-    "jal func_800AE304\n"
-    "move $4,$16\n"
-    "L_800B66A4:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B65B0\n.set at\n.set reorder\n");
+typedef struct { int type; int time; } Msg;
+typedef struct {
+    char pad0[16]; int time;
+    char pad1[196 - 20]; unsigned short flags;
+    char pad2[200 - 198]; float f200;
+    char pad3[268 - 204]; int v268;
+    char pad4[292 - 272]; char sub292[4]; int v296;
+    char pad5[376 - 300]; int v376; float f380; char sub384[428 - 384]; float f428;
+} Obj;
+extern void func_800AE1EC(Obj *, int);
+extern void func_800ADFAC(Obj *);
+extern void func_800AE304(Obj *);
+extern void func_800B48CC(Obj *, int, int);
+extern void func_800AEAE8(void *, Obj *);
+extern float func_800B47B0(Obj *, void *);
+extern void func_800B6454(Obj *);
+void func_800B65B0(Obj *o, Msg *m)
+{
+    int d = (m->time - o->time) >> 8;
+    switch (m->type) {
+    case 3:
+        break;
+    case 5:
+        if (d == 0) return;
+        func_800AE1EC(o, m->time);
+        if (o->f200 < o->f380) func_800AEAE8(o->sub292, o);
+        o->f380 = func_800B47B0(o, o->sub384);
+        if (o->f428 < 1.0f) func_800B6454(o);
+        else func_800B48CC(o, o->v376, 0);
+        break;
+    }
+    o->time = m->time;
+    if (o->v296 == 0) {
+        if (o->v268) func_800ADFAC(o);
+        if (o->flags & 1) func_800AE304(o);
+    }
+}

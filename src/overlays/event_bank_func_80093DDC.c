@@ -1,94 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80093DDC\n.ent func_80093DDC\n"
-    "func_80093DDC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "lui $17,0x800f\n"
-    "sw $18,24($29)\n"
-    "li $18,3\n"
-    "sw $31,28($29)\n"
-    "sb $0,30120($16)\n"
-    "lui $2,0x8010\n"
-    "lw $4,-15760($2)\n"
-    "lb $3,30120($16)\n"
-    "lbu $2,2572($4)\n"
-    "slt $2,$3,$2\n"
-    "beqz $2,L_80093F10\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lb $3,2576($2)\n"
-    "li $2,8\n"
-    "beq $3,$2,L_80093E50\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,32($2)\n"
-    "j func_80074BA8\n"
-    "li $2,1\n"
-    "L_80093E50:\n"
-    "li $3,3\n"
-    "li $2,1\n"
-    "beq $3,$2,L_80093F00\n"
-    "nop\n"
-    "lb $3,30120($16)\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "lw $3,30204($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lbu $2,4($2)\n"
-    "sltiu $2,$2,3\n"
-    "beqz $2,L_80093F00\n"
-    "lui $5,0x7fff\n"
-    "lw $4,11284($17)\n"
-    "ori $5,$5,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$5\n"
-    "srl $2,$3,0xf\n"
-    "move $4,$16\n"
-    "sw $3,11284($17)\n"
-    "lb $3,30120($16)\n"
-    "mult $2,$18\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "lw $3,30204($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $2,16($2)\n"
-    "mflo $7\n"
-    "srl $6,$7,0x10\n"
-    "sll $5,$6,0x1\n"
-    "addu $5,$5,$6\n"
-    "jal func_80074C84\n"
-    "subu $5,$2,$5\n"
-    "jal func_8007620C\n"
-    "move $4,$16\n"
-    "L_80093F00:\n"
-    "lbu $2,30120($16)\n"
-    "addiu $2,$2,1\n"
-    "j func_80074B50\n"
-    "sb $2,30120($16)\n"
-    "L_80093F10:\n"
-    "lbu $2,30120($16)\n"
-    "addiu $2,$2,-1\n"
-    "sb $2,30120($16)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80093DDC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef struct Slot { s8 type; char pad[11]; } Slot;
+typedef struct Ent { char pad[32]; u8 kind; char pad21[60 - 33]; } Ent;
+typedef struct Glob { Ent ents[42]; char padA08[2572 - 42 * 60]; u8 count; char padA0D[3]; Slot slots[1]; } Glob;
+typedef struct E { char pad[4]; u8 b4; char pad5[16 - 5]; int w10; char pad14[28 - 20]; } E;
+typedef struct Obj {
+    char pad[30120];
+    s8 idx;
+    char pad75A9[30204 - 30121];
+    E *ents;
+} Obj;
+extern Glob *D_800FC270;
+extern unsigned int D_800F2C14;
+extern void func_80074C84(Obj *, int, int);
+extern void func_8007620C(Obj *);
+static __inline__ unsigned int rnd(unsigned int *p, unsigned int n)
+{
+    *p = (*p * 16807) & 0x7FFFFFFF;
+    return ((*p >> 15) * n) >> 16;
+}
+
+void func_80074B2C(Obj *o)
+{
+    o->idx = 0;
+    while (1) {
+        u8 k;
+        if (!(o->idx < D_800FC270->count)) break;
+        if (D_800FC270->slots[o->idx].type != 8) {
+            k = D_800FC270->ents[D_800FC270->slots[o->idx].type].kind;
+        } else {
+            k = 3;
+        }
+        if (k != 1) {
+            if (o->ents[o->idx].b4 < 3) {
+                unsigned int r;
+                r = rnd(&D_800F2C14, 3);
+                func_80074C84(o, o->ents[o->idx].w10 - r * 3, r);
+                func_8007620C(o);
+            }
+        }
+        o->idx++;
+    }
+    o->idx--;
+}

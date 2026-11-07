@@ -1,107 +1,54 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CB204\n.ent func_800CB204\n"
-    "func_800CB204:\n"
-    "addiu $29,$29,-72\n"
-    "sdc1 $f22,56($29)\n"
-    "mtc1 $6,$f22\n"
-    "sw $17,36($29)\n"
-    "move $17,$5\n"
-    "sdc1 $f24,64($29)\n"
-    "mtc1 $7,$f24\n"
-    "lw $5,96($29)\n"
-    "sw $18,40($29)\n"
-    "lw $18,104($29)\n"
-    "sw $31,44($29)\n"
-    "sw $16,32($29)\n"
-    "sdc1 $f20,48($29)\n"
-    "beqz $5,L_800CB250\n"
-    "sw $0,24($29)\n"
-    "jal func_80019680\n"
-    "addiu $4,$29,24\n"
-    "j L_800CB260\n"
-    "addiu $16,$29,24\n"
-    "L_800CB250:\n"
-    "addiu $4,$29,24\n"
-    "jal func_8001A330\n"
-    "li $5,0xffff\n"
-    "addiu $16,$29,24\n"
-    "L_800CB260:\n"
-    "mtc1 $0,$f20\n"
-    "lw $7,88($29)\n"
-    "lwc1 $f0,92($29)\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mfc1 $5,$f20\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26976($1)\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "mfc1 $7,$f0\n"
-    "move $6,$5\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "beqz $18,L_800CB2CC\n"
-    "li $2,128\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "li $5,255\n"
-    "move $6,$5\n"
-    "jal func_80019338\n"
-    "move $7,$5\n"
-    "j L_800CB2DC\n"
-    "move $4,$17\n"
-    "L_800CB2CC:\n"
-    "move $4,$16\n"
-    "jal func_800191E0\n"
-    "li $5,-1\n"
-    "move $4,$17\n"
-    "L_800CB2DC:\n"
-    "lw $2,100($29)\n"
-    "li $5,2\n"
-    "sb $2,201($17)\n"
-    "lw $2,192($17)\n"
-    "lui $3,0x2\n"
-    "or $2,$2,$3\n"
-    "jal func_800ADC54\n"
-    "sw $2,192($17)\n"
-    "lw $2,192($17)\n"
-    "lw $4,24($29)\n"
-    "lw $3,180($17)\n"
-    "ori $2,$2,0x2\n"
-    "sw $2,192($17)\n"
-    "sw $4,196($17)\n"
-    "lh $4,64($3)\n"
-    "lw $2,68($3)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26972($1)\n"
-    "addiu $2,$17,20\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,20($17)\n"
-    "swc1 $f22,84($17)\n"
-    "swc1 $f24,88($17)\n"
-    "lw $31,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f24,64($29)\n"
-    "ldc1 $f22,56($29)\n"
-    "ldc1 $f20,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_800CB204\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+
+extern void func_80019680(int *h, int c);
+extern void func_8001A330(int *h, int c);
+extern void func_8001A1D8(int *h, float a, float b, int c, float d);
+extern void func_8001A210(int *h, float a, float b, float c, float d, int e);
+extern void func_80019338(int *h, int r, int g, int b, int a);
+extern void func_800191E0(int *h, int c);
+extern void func_800ADC54(char *o, int f);
+
+void func_800CB204(int unused, char *o, float x, float y, int p4, float p5, int p6, int p7, int p8)
+{
+    int h;
+    int t;
+    int fl;
+    float *m;
+    VEnt *vt;
+
+    h = 0;
+    if (p6) {
+        func_80019680(&h, p6);
+    } else {
+        func_8001A330(&h, 0xFFFF);
+    }
+    func_8001A1D8(&h, 0.0f, 0.0f, p4, p5);
+    func_8001A210(&h, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    if (p8) {
+        func_80019338(&h, 255, 255, 255, 128);
+    } else {
+        func_800191E0(&h, -1);
+    }
+    *(unsigned char *)(o + 0xC9) = p7;
+    *(int *)(o + 0xC0) |= 0x20000;
+    func_800ADC54(o, 2);
+    fl = *(int *)(o + 0xC0);
+    t = h;
+    *(int *)(o + 0xC0) = fl | 2;
+    *(int *)(o + 0xC4) = t;
+    vt = *(VEnt **)(o + 0xB4);
+    vt[8].fn(o + vt[8].adj);
+    m = (float *)(o + 0x14);
+    m[9] = 0.0f;
+    m[8] = 0.0f;
+    m[6] = 0.0f;
+    m[4] = 0.0f;
+    m[2] = 0.0f;
+    m[1] = 0.0f;
+    m[18] = 0.0f;
+    m[17] = 0.0f;
+    m[16] = 0.0f;
+    m[0] = m[5] = m[10] = 1.0f;
+    *(float *)(o + 0x54) = x;
+    *(float *)(o + 0x58) = y;
+}

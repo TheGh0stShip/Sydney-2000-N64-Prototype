@@ -1,130 +1,61 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E6D4C\n.ent func_800E6D4C\n"
-    "func_800E6D4C:\n"
-    "addiu $29,$29,-128\n"
-    "sw $18,120($29)\n"
-    "move $18,$5\n"
-    "sw $31,124($29)\n"
-    "sw $17,116($29)\n"
-    "sw $16,112($29)\n"
-    "lhu $2,24($18)\n"
-    "lw $6,32($18)\n"
-    "sll $2,$2,0x2\n"
-    "addu $4,$4,$2\n"
-    "srl $5,$6,0x4\n"
-    "sll $3,$5,0x4\n"
-    "subu $3,$6,$3\n"
-    "srl $3,$3,0x1\n"
-    "sll $2,$5,0x3\n"
-    "addu $2,$2,$5\n"
-    "andi $6,$6,0x1\n"
-    "lw $5,4($4)\n"
-    "beqz $6,L_800E6DC4\n"
-    "addu $2,$2,$3\n"
-    "sll $3,$2,0x2\n"
-    "addiu $2,$3,412\n"
-    "addu $4,$5,$2\n"
-    "addiu $6,$4,36\n"
-    "addiu $7,$4,32\n"
-    "addiu $3,$3,88\n"
-    "addu $3,$5,$3\n"
-    "addiu $5,$3,36\n"
-    "j L_800E6DE8\n"
-    "addiu $8,$3,32\n"
-    "L_800E6DC4:\n"
-    "sll $3,$2,0x2\n"
-    "addiu $2,$3,408\n"
-    "addu $4,$5,$2\n"
-    "addiu $6,$4,4\n"
-    "addiu $7,$4,36\n"
-    "addiu $3,$3,84\n"
-    "addu $3,$5,$3\n"
-    "addiu $5,$3,4\n"
-    "addiu $8,$3,36\n"
-    "L_800E6DE8:\n"
-    "addiu $17,$29,16\n"
-    "lh $2,0($4)\n"
-    "lh $3,0($3)\n"
-    "lh $4,2($4)\n"
-    "mtc1 $2,$f14\n"
-    "cvt.s.w $f14,$f14\n"
-    "mtc1 $3,$f16\n"
-    "cvt.s.w $f16,$f16\n"
-    "mtc1 $4,$f12\n"
-    "cvt.s.w $f12,$f12\n"
-    "swc1 $f14,16($29)\n"
-    "swc1 $f16,4($17)\n"
-    "swc1 $f12,8($17)\n"
-    "lh $2,0($6)\n"
-    "lh $3,0($5)\n"
-    "lh $4,2($6)\n"
-    "mtc1 $2,$f10\n"
-    "cvt.s.w $f10,$f10\n"
-    "mtc1 $3,$f8\n"
-    "cvt.s.w $f8,$f8\n"
-    "mtc1 $4,$f6\n"
-    "cvt.s.w $f6,$f6\n"
-    "swc1 $f10,32($29)\n"
-    "swc1 $f8,36($29)\n"
-    "swc1 $f6,40($29)\n"
-    "lh $2,0($7)\n"
-    "mtc1 $2,$f4\n"
-    "cvt.s.w $f4,$f4\n"
-    "sub.s $f14,$f14,$f4\n"
-    "sub.s $f10,$f10,$f4\n"
-    "lh $2,0($8)\n"
-    "addiu $16,$29,96\n"
-    "mtc1 $2,$f2\n"
-    "cvt.s.w $f2,$f2\n"
-    "sub.s $f16,$f16,$f2\n"
-    "addiu $5,$29,80\n"
-    "move $6,$16\n"
-    "sub.s $f8,$f8,$f2\n"
-    "lh $2,2($7)\n"
-    "addiu $4,$29,64\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "sub.s $f12,$f12,$f0\n"
-    "swc1 $f4,48($29)\n"
-    "swc1 $f2,52($29)\n"
-    "sub.s $f6,$f6,$f0\n"
-    "swc1 $f0,56($29)\n"
-    "swc1 $f14,64($29)\n"
-    "swc1 $f10,80($29)\n"
-    "swc1 $f16,68($29)\n"
-    "swc1 $f8,84($29)\n"
-    "swc1 $f12,72($29)\n"
-    "jal func_800AD820\n"
-    "swc1 $f6,88($29)\n"
-    "move $4,$16\n"
-    "jal func_800AD6D0\n"
-    "move $5,$4\n"
-    "lwc1 $f10,96($29)\n"
-    "lwc1 $f2,16($29)\n"
-    "mul.s $f2,$f10,$f2\n"
-    "lwc1 $f12,100($29)\n"
-    "lwc1 $f6,4($17)\n"
-    "mul.s $f6,$f12,$f6\n"
-    "lwc1 $f4,104($29)\n"
-    "lwc1 $f8,8($17)\n"
-    "mul.s $f8,$f4,$f8\n"
-    "lwc1 $f0,0($18)\n"
-    "mul.s $f10,$f10,$f0\n"
-    "lwc1 $f0,8($18)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "add.s $f2,$f2,$f6\n"
-    "mtc1 $0,$f0\n"
-    "sub.s $f0,$f0,$f10\n"
-    "add.s $f2,$f2,$f8\n"
-    "sub.s $f0,$f0,$f4\n"
-    "add.s $f0,$f0,$f2\n"
-    "div.s $f0,$f0,$f12\n"
-    "swc1 $f0,36($18)\n"
-    "lw $31,124($29)\n"
-    "lw $18,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,128\n"
-    ".end func_800E6D4C\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { short y; short pad; } YE;
+typedef struct { short x; short z; } XZ;
+typedef struct { char pad[84]; YE y[81]; XZ xz[81]; } Tile;
+typedef struct { int pad; Tile *tiles[1]; } Land;
+typedef struct { float x; float pad4; float z; char padc[0x18 - 0xC]; unsigned short tile; char pad1a[0x20 - 0x1A]; unsigned int cell; float y; } Probe;
+
+extern void func_800AD820(Vec *a, Vec *b, Vec *out);
+extern void func_800AD6D0(Vec *a, Vec *b);
+
+static inline void vset3(Vec *v, float x, float y, float z) { v->x = x; v->y = y; v->z = z; }
+static inline float dot(Vec *a, Vec *b) { return a->x * b->x + a->y * b->y + a->z * b->z; }
+static inline void vsub(Vec *o, Vec *a, Vec *b) { o->x = a->x - b->x; o->y = a->y - b->y; o->z = a->z - b->z; }
+
+void func_800E6D4C(Land *l, Probe *q)
+{
+    Tile *t;
+    unsigned int c;
+    int n;
+    unsigned int row;
+    unsigned int col;
+    XZ *pa, *pb, *pc;
+    YE *ya, *yb, *yc;
+    Vec p0;
+    Vec p1;
+    Vec p2;
+    Vec e1;
+    Vec e2;
+    Vec nrm;
+    float d;
+
+    t = l->tiles[q->tile];
+    c = q->cell;
+    row = c / 16;
+    col = (c - row * 16) / 2;
+    n = row * 9 + col;
+    if (c & 1) {
+        pa = &t->xz[n + 1];
+        pb = pa + 9;
+        pc = pa + 8;
+        ya = &t->y[n + 1];
+        yb = ya + 9;
+        yc = ya + 8;
+    } else {
+        pa = &t->xz[n];
+        pb = pa + 1;
+        pc = pa + 9;
+        ya = &t->y[n];
+        yb = ya + 1;
+        yc = ya + 9;
+    }
+    vset3(&p0, pa->x, ya->y, pa->z);
+    vset3(&p1, pb->x, yb->y, pb->z);
+    vset3(&p2, pc->x, yc->y, pc->z);
+    vsub(&e1, &p0, &p2);
+    vsub(&e2, &p1, &p2);
+    func_800AD820(&e1, &e2, &nrm);
+    func_800AD6D0(&nrm, &nrm);
+    d = dot(&nrm, &p0);
+    q->y = (0.0f - nrm.x * q->x - nrm.z * q->z + d) / nrm.y;
+}

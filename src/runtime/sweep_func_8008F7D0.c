@@ -1,27 +1,28 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008F7D0\n.ent func_8008F7D0\n"
-    "func_8008F7D0:\n"
-    "lui $2,0x8004\n"
-    "lw $2,-27568($2)\n"
-    "beqz $2,L_8008F814\n"
-    "sltiu $2,$4,12\n"
-    "beqz $2,L_8008F814\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,16544\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "li $2,1\n"
-    "jr $31\n"
-    "sb $2,3416($3)\n"
-    "L_8008F814:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "jr $31\n"
-    "sb $0,3416($2)\n"
-    ".end func_8008F7D0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef struct { u8 pad[3416]; u8 flag; } State;
+extern s32 D_80039450;
+extern State *D_800FC270;
+void func_8008F7D0(s32 mode)
+{
+    if (D_80039450 != 0) {
+        switch (mode) {
+        case 2:
+        case 4:
+        case 5:
+        case 6:
+        case 9:
+            D_800FC270->flag = 1;
+            return;
+        case 0:
+        case 1:
+        case 3:
+        case 7:
+        case 8:
+        case 10:
+        case 11:
+            break;
+        }
+    }
+    D_800FC270->flag = 0;
+}

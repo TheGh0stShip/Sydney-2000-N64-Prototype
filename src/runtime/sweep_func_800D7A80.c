@@ -1,106 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D7A80\n.ent func_800D7A80\n"
-    "func_800D7A80:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $18,32($29)\n"
-    "move $18,$5\n"
-    "move $8,$6\n"
-    "lui $6,0x7fff\n"
-    "lui $5,0x800f\n"
-    "sdc1 $f20,40($29)\n"
-    "mtc1 $7,$f20\n"
-    "lw $4,10004($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sw $31,36($29)\n"
-    "sw $16,24($29)\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "srl $7,$3,0x1d\n"
-    "sltiu $2,$18,8\n"
-    "beqz $2,L_800D7B70\n"
-    "sw $3,10004($5)\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-22872\n"
-    "sll $3,$18,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "j L_800D7B44\n"
-    "sw $0,16($29)\n"
-    "li $2,6\n"
-    "sw $2,16($29)\n"
-    "move $4,$17\n"
-    "move $5,$8\n"
-    "move $6,$0\n"
-    "j L_800D7B50\n"
-    "li $7,2\n"
-    "j L_800D7B40\n"
-    "li $2,3\n"
-    "j L_800D7B40\n"
-    "li $2,4\n"
-    "li $2,7\n"
-    "L_800D7B40:\n"
-    "sw $2,16($29)\n"
-    "L_800D7B44:\n"
-    "move $4,$17\n"
-    "move $5,$8\n"
-    "move $6,$0\n"
-    "L_800D7B50:\n"
-    "jal L_800D7BF4\n"
-    "nop\n"
-    "j L_800D7B90\n"
-    "move $16,$2\n"
-    "jal func_800D7D84\n"
-    "move $4,$17\n"
-    "j L_800D7BD8\n"
-    "move $2,$0\n"
-    "L_800D7B70:\n"
-    "lui $4,0x8009\n"
-    "addiu $4,$4,-22976\n"
-    "li $5,179\n"
-    "lui $6,0x8009\n"
-    "jal func_800AAA60\n"
-    "addiu $6,$6,-22928\n"
-    "j L_800D7BD8\n"
-    "move $2,$0\n"
-    "L_800D7B90:\n"
-    "beqz $16,L_800D7BD8\n"
-    "move $2,$16\n"
-    "lw $2,64($29)\n"
-    "beqz $18,L_800D7BBC\n"
-    "sw $2,512($16)\n"
-    "mtc1 $0,$f0\n"
-    "addiu $4,$16,20\n"
-    "mfc1 $6,$f0\n"
-    "mfc1 $5,$f20\n"
-    "jal func_800AD58C\n"
-    "move $7,$6\n"
-    "L_800D7BBC:\n"
-    "move $4,$16\n"
-    "sll $2,$18,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $6,184($2)\n"
-    "jal func_800D8C50\n"
-    "move $5,$0\n"
-    "move $2,$16\n"
-    "L_800D7BD8:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    "L_800D7BF4:\n"
-    ".end func_800D7A80\n.set at\n.set reorder\n");
+typedef struct { char pad[184]; int judge[8]; } Ctl;
+typedef struct { char pad0[20]; char body[492]; int v512; } Judge;
+extern unsigned int D_800F2714;
+extern Judge *func_800D7BF4(Ctl *, int, int, int, int);
+extern void func_800D7D84(Ctl *);
+extern void func_800AAA60(const char *, int, const char *);
+extern void func_800AD58C(void *, float, float, float);
+extern void func_800D8C50(Judge *, int, int);
+Judge *func_800D7A80(Ctl *o, int kind, int x, float f, int arg)
+{
+    Judge *p;
+    int r;
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    r = D_800F2714 >> 29;
+    switch (kind) {
+    case 0:
+        p = func_800D7BF4(o, x, 0, r, 0);
+        break;
+    case 6:
+        p = func_800D7BF4(o, x, 0, 2, 6);
+        break;
+    case 3:
+        p = func_800D7BF4(o, x, 0, r, 3);
+        break;
+    case 4:
+        p = func_800D7BF4(o, x, 0, r, 4);
+        break;
+    case 7:
+        p = func_800D7BF4(o, x, 0, r, 7);
+        break;
+    case 1:
+        func_800D7D84(o);
+        return 0;
+    case 5:
+        return 0;
+    default:
+        func_800AAA60("c:/dev/olympics_2000/code/common/Bgrnd_Ctrl.cpp", 179, "Unknown JUDGETYPE passed to BGRND_CTRL::CreateJudge");
+        return 0;
+    }
+    if (p != 0) {
+        p->v512 = arg;
+        if (kind != 0) func_800AD58C(p->body, f, 0.0f, 0.0f);
+        func_800D8C50(p, 0, o->judge[kind]);
+    }
+    return p;
+}

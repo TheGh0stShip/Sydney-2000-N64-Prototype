@@ -1,84 +1,40 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801203B8\n.ent func_801203B8\n"
-    "func_801203B8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lw $3,208($16)\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_801204D0\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $2,216($2)\n"
-    "move $5,$0\n"
-    "lw $4,196($2)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,16\n"
-    "addiu $3,$16,260\n"
-    "lw $4,184($3)\n"
-    "lw $2,188($3)\n"
-    "mult $4,$2\n"
-    "lw $5,196($3)\n"
-    "mflo $4\n"
-    "blez $4,L_801204B4\n"
-    "move $6,$0\n"
-    "li $7,10\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,2640($1)\n"
-    "addiu $3,$5,32\n"
-    "L_80120420:\n"
-    "lw $2,208($16)\n"
-    "beqz $2,L_80120434\n"
-    "nop\n"
-    "bne $2,$7,L_80120460\n"
-    "nop\n"
-    "L_80120434:\n"
-    "lwc1 $f2,0($5)\n"
-    "lwc1 $f0,-8($3)\n"
-    "add.s $f2,$f2,$f0\n"
-    "lw $2,16($29)\n"
-    "swc1 $f2,0($2)\n"
-    "lwc1 $f0,-28($3)\n"
-    "lwc1 $f2,-4($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "mul.s $f0,$f0,$f4\n"
-    "j func_80081304\n"
-    "swc1 $f0,4($2)\n"
-    "L_80120460:\n"
-    "lwc1 $f2,0($5)\n"
-    "lwc1 $f0,-8($3)\n"
-    "add.s $f2,$f2,$f0\n"
-    "lw $2,16($29)\n"
-    "swc1 $f2,0($2)\n"
-    "lwc1 $f0,-28($3)\n"
-    "lwc1 $f2,-4($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,-24($3)\n"
-    "lwc1 $f2,0($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $6,$6,1\n"
-    "addiu $3,$3,52\n"
-    "lw $2,16($29)\n"
-    "addiu $2,$2,36\n"
-    "sw $2,16($29)\n"
-    "slt $2,$6,$4\n"
-    "bnez $2,L_80120420\n"
-    "addiu $5,$5,52\n"
-    "L_801204B4:\n"
-    "lw $2,208($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $2,216($2)\n"
-    "lw $4,196($2)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "L_801204D0:\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_801203B8\n.set at\n.set reorder\n");
+typedef struct V { float a[3]; char pad[12]; float b[3]; char pad2[52 - 36]; } V;
+typedef struct Out { float x, y, z; char pad[36 - 12]; } Out;
+typedef struct M { char pad[196]; int h; } M;
+typedef struct Mesh { char pad[184]; int w; int hgt; char pad2[196 - 192]; V *verts; } Mesh;
+typedef struct Obj {
+    char pad[208];
+    int mode;
+    char padD4[216 - 212];
+    M *ms[11];
+    char pad104[260 - 260];
+    Mesh mesh;
+} Obj;
+extern void func_80017C4C(int, int, Out **);
+extern void func_80017C3C(int);
+void func_80081238(Obj *o)
+{
+    Out *out;
+    V *v;
+    int i, n;
+    Mesh *m;
+    if (o->mode != -1) {
+        func_80017C4C(o->ms[o->mode]->h, 0, &out);
+        m = &o->mesh;
+        n = m->w * m->hgt;
+        v = m->verts;
+        for (i = 0; i < n; i++, v++) {
+            if (o->mode == 0 || o->mode == 10) {
+                out->x = v->a[0] + v->b[0];
+                out->y = (v->a[1] + v->b[1]) * 1.1825397014617920f;
+                out->z = v->a[2] + v->b[2];
+            } else {
+                out->x = v->a[0] + v->b[0];
+                out->y = v->a[1] + v->b[1];
+                out->z = v->a[2] + v->b[2];
+            }
+            out++;
+        }
+        func_80017C3C(o->ms[o->mode]->h);
+    }
+}

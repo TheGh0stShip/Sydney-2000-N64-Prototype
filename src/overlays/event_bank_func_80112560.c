@@ -1,48 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80112560\n.ent func_80112560\n"
-    "func_80112560:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lbu $2,743($16)\n"
-    "bnez $2,L_801125A4\n"
-    "addiu $5,$16,430\n"
-    "move $3,$0\n"
-    "li $4,68\n"
-    "L_80112584:\n"
-    "sh $4,0($5)\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnez $2,L_80112584\n"
-    "addiu $5,$5,2\n"
-    "j func_8007D8D8\n"
-    "li $2,-1\n"
-    "L_801125A4:\n"
-    "move $3,$0\n"
-    "li $4,62\n"
-    "L_801125AC:\n"
-    "sh $4,0($5)\n"
-    "addiu $3,$3,1\n"
-    "andi $2,$3,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnez $2,L_801125AC\n"
-    "addiu $5,$5,2\n"
-    "li $2,-1\n"
-    "sh $2,0($5)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,804($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80112560\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef int s32;
+typedef float f32;
+
+extern void func_800B9E9C(u8 *obj, s32 a, s32 b, s32 c, s32 d);
+
+void func_80112560(u8 *obj)
+{
+    u8 i;
+    s16 *q;
+
+    q = (s16 *)(obj + 430);
+
+    if (obj[743] == 0) {
+        i = 0;
+        do {
+            *q = 68;
+            i++;
+            q++;
+        } while (i < 5);
+        *q = -1;
+        obj[429] = 0;
+        func_800B9E9C(obj, *(s16 *)(obj + 430), -1, *(s32 *)(obj + 632), 0);
+    } else {
+        i = 0;
+        do {
+            *q = 62;
+            i++;
+            q++;
+        } while (i < 5);
+        *q = -1;
+        obj[429] = 0;
+        func_800B9E9C(obj, *(s16 *)(obj + 430), -1, *(s32 *)(obj + 632), 0);
+    }
+    *(f32 *)(obj + 632) = *(f32 *)(obj + 804);
+}

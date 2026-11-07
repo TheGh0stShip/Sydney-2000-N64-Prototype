@@ -1,0 +1,1 @@
+0xc8f64	0x94	src/overlays/event_bank_func_800C8F64_full.c	--section-base=.text:0x80071764 --section-base=.rdata:0x80070948 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	256722eca010d8e0ff9fe9e3a19672346d9629b9cd8d4992e6b31527b770dccd

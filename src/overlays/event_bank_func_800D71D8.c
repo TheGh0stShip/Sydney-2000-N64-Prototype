@@ -1,103 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D71D8\n.ent func_800D71D8\n"
-    "func_800D71D8:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,24932($16)\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800D7330\n"
-    "sw $2,24932($16)\n"
-    "lbu $3,1557($16)\n"
-    "bnez $3,L_800D724C\n"
-    "li $2,5\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$16,12884\n"
-    "jal func_80075F84\n"
-    "move $4,$16\n"
-    "li $4,225\n"
-    "addiu $6,$16,2016\n"
-    "lbu $5,1550($16)\n"
-    "jal func_8009AC98\n"
-    "li $7,2\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,12\n"
-    "lui $2,0x1\n"
-    "ori $2,$2,0xc200\n"
-    "sw $2,24932($16)\n"
-    "li $2,30\n"
-    "j func_800727C0\n"
-    "sb $2,1551($16)\n"
-    "L_800D724C:\n"
-    "beq $3,$2,L_800D725C\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800D7268\n"
-    "li $2,4\n"
-    "L_800D725C:\n"
-    "li $2,31\n"
-    "j func_800727C0\n"
-    "sb $2,1551($16)\n"
-    "L_800D7268:\n"
-    "bne $3,$2,L_800D7298\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,24940($16)\n"
-    "lw $2,3344($2)\n"
-    "slt $2,$2,$3\n"
-    "bnez $2,L_800D7298\n"
-    "nop\n"
-    "jal func_80073CF0\n"
-    "move $4,$16\n"
-    "j func_800727C0\n"
-    "nop\n"
-    "L_800D7298:\n"
-    "lbu $3,1557($16)\n"
-    "li $2,2\n"
-    "bne $3,$2,L_800D72D0\n"
-    "nop\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$16,12884\n"
-    "li $4,3\n"
-    "li $2,-7680\n"
-    "sw $2,24944($16)\n"
-    "move $2,$4\n"
-    "jal func_8009BD48\n"
-    "sb $2,1557($16)\n"
-    "j func_80072790\n"
-    "move $4,$16\n"
-    "L_800D72D0:\n"
-    "lw $3,1628($16)\n"
-    "beql $3,$0,L_800D72DC\n"
-    "li $3,1\n"
-    "L_800D72DC:\n"
-    "lui $2,0x800f\n"
-    "sw $3,5104($2)\n"
-    "lbu $3,1557($16)\n"
-    "li $2,3\n"
-    "bne $3,$2,L_800D7300\n"
-    "move $4,$16\n"
-    "jal func_80074E18\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "L_800D7300:\n"
-    "li $5,91\n"
-    "li $6,17\n"
-    "jal func_800AC25C\n"
-    "move $7,$0\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,5\n"
-    "lui $2,0x8007\n"
-    "lbu $3,30224($2)\n"
-    "li $2,8\n"
-    "sb $2,1551($16)\n"
-    "sb $3,1552($16)\n"
-    "L_800D7330:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D71D8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+
+typedef struct G { u8 pad[3344]; s32 lim; } G;
+extern G *D_800FC270;
+extern s32 D_800F13F0;
+extern u8 D_80077610;
+
+extern void func_800D29E0(u8 *p);
+extern void func_80075F84(u8 *p);
+extern void func_8009AC98(s32 a, s32 b, u8 *c, s32 d);
+extern void func_800A9BE8(u8 *p, s32 a);
+extern void func_80073CF0(u8 *p);
+extern void func_8009BD48(s32 a);
+extern void func_80074E18(u8 *p);
+extern void func_800AC25C(u8 *p, s32 a, s32 b, s32 c);
+
+#define W(o) (*(s32 *)(p + (o)))
+#define B(o) (*(u8 *)(p + (o)))
+
+void func_800D71D8(u8 *p)
+{
+    s32 v;
+
+    W(24932) -= 256;
+    if (W(24932) > 0) {
+        return;
+    }
+    if (B(1557) == 0) {
+        func_800D29E0(p + 12884);
+        func_80075F84(p);
+        func_8009AC98(225, B(1550), p + 2016, 2);
+        func_800A9BE8(p + 1116, 12);
+        W(24932) = 0x1C200;
+        B(1551) = 30;
+        return;
+    }
+    if (B(1557) == 5 || B(1557) == 1) {
+        B(1551) = 31;
+        return;
+    }
+    if (B(1557) == 4 && D_800FC270->lim >= W(24940)) {
+        func_80073CF0(p);
+        return;
+    }
+    if (B(1557) == 2) {
+        func_800D29E0(p + 12884);
+        W(24944) = -7680;
+        B(1557) = 3;
+        func_8009BD48(3);
+    } else {
+        v = W(1628);
+        if (v == 0) {
+            v = 1;
+        }
+        D_800F13F0 = v;
+        if (B(1557) == 3) {
+            func_80074E18(p);
+        }
+    }
+    func_800AC25C(p, 91, 17, 0);
+    func_800A9BE8(p + 1116, 5);
+    B(1552) = D_80077610;
+    B(1551) = 8;
+}

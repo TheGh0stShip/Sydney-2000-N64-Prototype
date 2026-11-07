@@ -1,128 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B9480\n.ent func_800B9480\n"
-    "func_800B9480:\n"
-    "addiu $29,$29,-136\n"
-    "sw $19,108($29)\n"
-    "move $19,$4\n"
-    "sw $31,132($29)\n"
-    "sw $30,128($29)\n"
-    "sw $23,124($29)\n"
-    "sw $22,120($29)\n"
-    "sw $21,116($29)\n"
-    "sw $20,112($29)\n"
-    "sw $18,104($29)\n"
-    "sw $17,100($29)\n"
-    "sw $16,96($29)\n"
-    "lw $2,208($19)\n"
-    "beqz $2,L_800B9620\n"
-    "move $22,$0\n"
-    "li $30,4\n"
-    "addiu $21,$19,20\n"
-    "L_800B94C4:\n"
-    "lw $2,208($19)\n"
-    "lbu $2,0($2)\n"
-    "andi $3,$22,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_800B9604\n"
-    "move $18,$0\n"
-    "move $20,$3\n"
-    "sll $23,$20,0x2\n"
-    "L_800B94E4:\n"
-    "lw $3,208($19)\n"
-    "sll $2,$20,0x1\n"
-    "addu $2,$3,$2\n"
-    "lhu $2,2($2)\n"
-    "andi $4,$18,0xffff\n"
-    "sltu $2,$4,$2\n"
-    "beqz $2,L_800B95FC\n"
-    "addu $3,$3,$23\n"
-    "sll $2,$4,0x3\n"
-    "addu $2,$2,$4\n"
-    "lw $3,8($3)\n"
-    "sll $2,$2,0x3\n"
-    "addu $16,$3,$2\n"
-    "lwc1 $f0,12($16)\n"
-    "addiu $17,$16,12\n"
-    "swc1 $f0,24($16)\n"
-    "lwc1 $f0,4($17)\n"
-    "addiu $2,$16,24\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($17)\n"
-    "swc1 $f0,8($2)\n"
-    "lh $2,38($16)\n"
-    "bltz $2,L_800B95BC\n"
-    "addiu $5,$19,20\n"
-    "addiu $6,$29,16\n"
-    "li $7,1\n"
-    "sll $4,$2,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "subu $4,$4,$2\n"
-    "lw $2,352($19)\n"
-    "sll $4,$4,0x2\n"
-    "jal func_800AC5CC\n"
-    "addu $4,$2,$4\n"
-    "addiu $4,$29,16\n"
-    "move $5,$16\n"
-    "move $6,$17\n"
-    "jal func_800AD2A8\n"
-    "li $7,1\n"
-    "lbu $2,36($16)\n"
-    "bnel $2,$30,L_800B94E4\n"
-    "addiu $18,$18,1\n"
-    "addiu $5,$16,52\n"
-    "addiu $6,$16,40\n"
-    "lh $2,38($16)\n"
-    "move $7,$0\n"
-    "sll $4,$2,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "subu $4,$4,$2\n"
-    "lw $2,352($19)\n"
-    "sll $4,$4,0x2\n"
-    "j L_800B95EC\n"
-    "addu $4,$2,$4\n"
-    "L_800B95BC:\n"
-    "move $4,$21\n"
-    "move $5,$16\n"
-    "move $6,$17\n"
-    "jal func_800AD2A8\n"
-    "li $7,1\n"
-    "lbu $2,36($16)\n"
-    "bnel $2,$30,L_800B94E4\n"
-    "addiu $18,$18,1\n"
-    "move $4,$21\n"
-    "addiu $5,$16,52\n"
-    "addiu $6,$16,40\n"
-    "move $7,$0\n"
-    "L_800B95EC:\n"
-    "jal func_800AD2A8\n"
-    "nop\n"
-    "j L_800B94E4\n"
-    "addiu $18,$18,1\n"
-    "L_800B95FC:\n"
-    "j L_800B94C4\n"
-    "addiu $22,$22,1\n"
-    "L_800B9604:\n"
-    "lw $3,208($19)\n"
-    "lw $2,24($3)\n"
-    "sw $2,20($3)\n"
-    "lui $2,0x800f\n"
-    "lw $3,208($19)\n"
-    "lw $2,10052($2)\n"
-    "sw $2,24($3)\n"
-    "L_800B9620:\n"
-    "lw $31,132($29)\n"
-    "lw $30,128($29)\n"
-    "lw $23,124($29)\n"
-    "lw $22,120($29)\n"
-    "lw $21,116($29)\n"
-    "lw $20,112($29)\n"
-    "lw $19,108($29)\n"
-    "lw $18,104($29)\n"
-    "lw $17,100($29)\n"
-    "lw $16,96($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,136\n"
-    ".end func_800B9480\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[12]; Vec cur; Vec prev; unsigned char type; char pad25; short link; char a[12]; char b[72 - 52]; } Node;
+typedef struct { unsigned char n; char pad1; unsigned short cnt[3]; Node *lv[3]; int last; int now; } Grid;
+typedef struct { char p[76]; } Link;
+typedef struct { char pad[0x14]; char xf[0xD0 - 0x14]; Grid *grid; char pad_d4[0x160 - 0xD4]; Link *links; } Obj;
+typedef struct { char p[80]; } Tmp;
+
+extern int D_800F2744;
+extern void func_800AC5CC(Link *l, void *xf, Tmp *t, int n);
+extern void func_800AD2A8(void *xf, void *a, void *b, int n);
+
+static inline void vcopy(Vec *a, Vec *b) { a->x = b->x; a->y = b->y; a->z = b->z; }
+
+void func_800B9480(Obj *o)
+{
+    unsigned char k;
+    unsigned short m;
+    Node *n;
+    Tmp t;
+
+    if (o->grid == 0) {
+        return;
+    }
+    k = 0;
+    while (1) {
+        if (k >= o->grid->n) break;
+        m = 0;
+        while (1) {
+            if (m >= o->grid->cnt[k]) break;
+            n = &o->grid->lv[k][m];
+            vcopy(&n->prev, &n->cur);
+            if (n->link >= 0) {
+                func_800AC5CC(&o->links[n->link], o->xf, &t, 1);
+                func_800AD2A8(&t, n, &n->cur, 1);
+                if (n->type == 4) {
+                    func_800AD2A8(&o->links[n->link], n->b, n->a, 0);
+                }
+            } else {
+                func_800AD2A8(o->xf, n, &n->cur, 1);
+                if (n->type == 4) {
+                    func_800AD2A8(o->xf, n->b, n->a, 0);
+                }
+            }
+            m++;
+        }
+        k++;
+    }
+    o->grid->last = o->grid->now;
+    o->grid->now = D_800F2744;
+}

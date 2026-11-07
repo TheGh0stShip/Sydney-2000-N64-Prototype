@@ -1,125 +1,77 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80089FD8\n.ent func_80089FD8\n"
-    "func_80089FD8:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,36($29)\n"
-    "move $19,$4\n"
-    "sw $20,40($29)\n"
-    "move $20,$6\n"
-    "sw $31,44($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "jal func_800754C8\n"
-    "sw $16,24($29)\n"
-    "move $4,$19\n"
-    "jal func_80074EA0\n"
-    "li $5,1\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "lbu $3,1047($2)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_8008A070\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4072\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "li $4,0x8264\n"
-    "addu $4,$19,$4\n"
-    "j func_80071CF8\n"
-    "li $5,2\n"
-    "li $4,0x8264\n"
-    "addu $4,$19,$4\n"
-    "j func_80071CF8\n"
-    "li $5,14\n"
-    "li $4,0x8264\n"
-    "addu $4,$19,$4\n"
-    "li $5,8\n"
-    "jal func_800A9BE8\n"
-    "nop\n"
-    "L_8008A070:\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "lbu $3,1047($2)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_8008A128\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4096\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "li $7,120\n"
-    "li $18,0x8000\n"
-    "addu $18,$19,$18\n"
-    "lw $5,1072($18)\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "move $4,$16\n"
-    "li $5,96\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$16\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "lw $3,104($4)\n"
-    "li $2,24575\n"
-    "mult $3,$2\n"
-    "move $5,$17\n"
-    "li $7,120\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "sw $17,1076($18)\n"
-    "L_8008A128:\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "lbu $3,1047($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8008A148\n"
-    "lui $2,0x1\n"
-    "j func_80071DDC\n"
-    "li $2,-7680\n"
-    "L_8008A148:\n"
-    "ori $2,$2,0xc200\n"
-    "sw $2,26568($19)\n"
-    "addiu $4,$19,25832\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "li $3,4\n"
-    "sb $3,1046($2)\n"
-    "addiu $3,$19,23008\n"
-    "li $2,1\n"
-    "sb $2,185($3)\n"
-    "sb $2,184($3)\n"
-    "sb $2,186($3)\n"
-    "jal func_800817F4\n"
-    "sb $0,187($3)\n"
-    "move $4,$19\n"
-    "jal func_800735F4\n"
-    "move $5,$20\n"
-    "lw $31,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80089FD8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Snd { char pad[0x68]; int vol; } Snd;
+typedef struct Sub { char pad[0xB8]; u8 b8; u8 b9; u8 bA; u8 bB; } Sub;
+typedef struct Obj {
+    char pad[0x59E0];
+    Sub sub;
+    char pad5A9C[0x64E8 - 0x5A9C];
+    char unk64E8[0x67C8 - 0x64E8];
+    int unk67C8;
+    char pad67CC[0x8264 - 0x67CC];
+    char unk8264[0x8416 - 0x8264];
+    u8 unk8416;
+    u8 state;
+    char pad8418[0x8430 - 0x8418];
+    int unk8430;
+    int unk8434;
+} Obj;
+extern Snd D_800F1AE0;
+extern void func_800754C8(Obj *);
+extern void func_80074EA0(Obj *, int);
+extern void func_800A9BE8(void *, int);
+extern void func_8001D5D8();
+extern int func_8001D4B8(Snd *, int, int, int);
+extern void func_8001D640(Snd *, int, int);
+extern void func_800817F4(void *);
+extern void func_800735F4(Obj *, int);
+void func_80089FD8(Obj *o, int a1, int a2)
+{
+    int h;
+    int m;
+    Sub *s;
+    func_800754C8(o);
+    func_80074EA0(o, 1);
+    switch (o->state) {
+    case 0:
+    case 1:
+    case 3:
+    case 4:
+        func_800A9BE8(o->unk8264, 2);
+        break;
+    case 2:
+        func_800A9BE8(o->unk8264, 14);
+        break;
+    case 5:
+        func_800A9BE8(o->unk8264, 8);
+        break;
+    }
+    switch (o->state) {
+    case 0:
+    case 1:
+    case 5:
+        { int k = o->unk8430; func_8001D5D8(&D_800F1AE0, k, 0, 120, 1, 0); }
+        h = func_8001D4B8(&D_800F1AE0, 96, 0, -1);
+        func_8001D640(&D_800F1AE0, h, 0);
+        m = 24575;
+        func_8001D5D8(&D_800F1AE0, h, (D_800F1AE0.vol * m) >> 15, 120, 0, 0);
+        o->unk8434 = h;
+        break;
+    case 2:
+    case 3:
+    case 4:
+        break;
+    }
+    if (o->state == 5) {
+        o->unk67C8 = -7680;
+    } else {
+        o->unk67C8 = 115200;
+    }
+    o->unk8416 = 4;
+    s = &o->sub;
+    s->b9 = 1;
+    s->b8 = 1;
+    s->bA = 1;
+    s->bB = 0;
+    func_800817F4(o->unk64E8);
+    func_800735F4(o, a2);
+}

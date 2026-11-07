@@ -1,41 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DE9F0\n.ent func_800DE9F0\n"
-    "func_800DE9F0:\n"
-    "addiu $29,$29,-24\n"
-    "mtc1 $7,$f0\n"
-    "lw $10,40($29)\n"
-    "sltiu $2,$5,13\n"
-    "beqz $2,L_800DEA6C\n"
-    "sw $31,16($29)\n"
-    "move $7,$0\n"
-    "lui $3,0x8010\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x5\n"
-    "lw $3,-15760($3)\n"
-    "move $9,$2\n"
-    "move $8,$3\n"
-    "addu $2,$8,$9\n"
-    "sw $6,3684($2)\n"
-    "swc1 $f0,3688($2)\n"
-    "andi $2,$7,0xff\n"
-    "L_800DEA38:\n"
-    "addiu $7,$7,1\n"
-    "sll $2,$2,0x1\n"
-    "addu $3,$2,$9\n"
-    "addu $2,$2,$10\n"
-    "lhu $2,0($2)\n"
-    "addu $3,$8,$3\n"
-    "sh $2,3676($3)\n"
-    "andi $2,$7,0xff\n"
-    "sltiu $2,$2,4\n"
-    "bnez $2,L_800DEA38\n"
-    "andi $2,$7,0xff\n"
-    "jal func_800DE670\n"
-    "nop\n"
-    "L_800DEA6C:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800DE9F0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef unsigned int u32;
+extern u8 *D_800FC270;
+extern void func_800DE670(int, u32);
+typedef struct { u16 a[4]; int v; float f; u8 pad[80]; } Rec;
+typedef struct { u8 pad[3676]; Rec r[13]; } Big;
+void func_800DE9F0(int a0, u32 idx, int val, float f, u16 *src)
+{
+    u8 i;
+    if (idx < 13) {
+        i = 0;
+        ((Big *)D_800FC270)->r[idx].v = val;
+        ((Big *)D_800FC270)->r[idx].f = f;
+        for (; i < 4; i++) {
+            ((Big *)D_800FC270)->r[idx].a[i] = src[i];
+        }
+        func_800DE670(a0, idx);
+    }
+}

@@ -1,68 +1,34 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011246C\n.ent func_8011246C\n"
-    "func_8011246C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,10\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $31,28($29)\n"
-    "sw $3,5104($5)\n"
-    "mflo $8\n"
-    "srl $2,$8,0x10\n"
-    "move $3,$2\n"
-    "sltiu $2,$3,7\n"
-    "bnez $2,L_801124F8\n"
-    "sltiu $2,$3,4\n"
-    "addiu $3,$16,432\n"
-    "li $2,61\n"
-    "sh $2,430($16)\n"
-    "li $2,62\n"
-    "sh $2,432($16)\n"
-    "li $2,1\n"
-    "j func_8007D834\n"
-    "sb $2,743($16)\n"
-    "L_801124F8:\n"
-    "bnez $2,L_80112510\n"
-    "addiu $3,$16,432\n"
-    "li $2,59\n"
-    "sh $2,430($16)\n"
-    "j func_8007D82C\n"
-    "li $2,63\n"
-    "L_80112510:\n"
-    "li $2,59\n"
-    "sh $2,430($16)\n"
-    "li $2,64\n"
-    "sb $0,743($16)\n"
-    "sh $2,432($16)\n"
-    "li $2,-1\n"
-    "sh $2,2($3)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,804($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011246C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned int u32;
+extern u32 D_800F13F0;
+extern void func_800B9E9C(u8 *, short, int, float, int);
+static inline u32 rnd(u32 n)
+{
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    return ((D_800F13F0 >> 15) * n) >> 16;
+}
+void func_8007D77C(u8 *o)
+{
+    u32 r = rnd(10);
+    short *p;
+    if (r >= 7) {
+        p = (short *)(o + 432);
+        *(short *)(o + 430) = 61;
+        p[0] = 62;
+        o[743] = 1;
+    } else if (r >= 4) {
+        p = (short *)(o + 432);
+        *(short *)(o + 430) = 59;
+        o[743] = 0;
+        p[0] = 63;
+    } else {
+        p = (short *)(o + 432);
+        *(short *)(o + 430) = 59;
+        o[743] = 0;
+        p[0] = 64;
+    }
+    p[1] = -1;
+    o[429] = 0;
+    func_800B9E9C(o, *(short *)(o + 430), -1, *(float *)(o + 632), 0);
+    *(float *)(o + 632) = *(float *)(o + 804);
+}

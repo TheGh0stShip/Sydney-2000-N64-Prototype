@@ -1,0 +1,1 @@
+0x1203b8	0x128	src/overlays/event_bank_func_801203B8.c	--symbol=func_80017C4C:0x80017C4C --symbol=func_80017C3C:0x80017C3C --section-base=.rodata:0x80080A50 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d2272b6bd5b5c4eac03b9da9fa2843b53b984a3a45f1e465616d15bcaef7f8c1

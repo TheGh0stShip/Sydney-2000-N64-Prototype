@@ -1,161 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A2D00\n.ent func_800A2D00\n"
-    "func_800A2D00:\n"
-    "addiu $29,$29,-80\n"
-    "sdc1 $f20,48($29)\n"
-    "mtc1 $7,$f20\n"
-    "sdc1 $f26,72($29)\n"
-    "mtc1 $0,$f26\n"
-    "lw $3,100($29)\n"
-    "sw $18,40($29)\n"
-    "move $18,$5\n"
-    "sw $31,44($29)\n"
-    "sw $17,36($29)\n"
-    "sw $16,32($29)\n"
-    "sdc1 $f24,64($29)\n"
-    "sdc1 $f22,56($29)\n"
-    "c.eq.s $f20,$f26\n"
-    "nop\n"
-    "bc1t L_800A2F20\n"
-    "li $2,-1\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addiu $2,$2,116\n"
-    "addu $17,$4,$2\n"
-    "lwc1 $f0,0($6)\n"
-    "lwc1 $f2,0($17)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f0,4($6)\n"
-    "lwc1 $f2,4($17)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $16,$29,16\n"
-    "swc1 $f0,4($16)\n"
-    "lwc1 $f2,8($6)\n"
-    "lwc1 $f0,8($17)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "move $4,$16\n"
-    "move $5,$16\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f2,8($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,20876($1)\n"
-    "c.eq.s $f20,$f2\n"
-    "nop\n"
-    "bc1t L_800A2DB4\n"
-    "mov.s $f24,$f0\n"
-    "div.s $f24,$f24,$f20\n"
-    "L_800A2DB4:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20880($1)\n"
-    "c.lt.s $f0,$f24\n"
-    "nop\n"
-    "bc1f L_800A2DD8\n"
-    "addiu $2,$17,12\n"
-    "mov.s $f20,$f26\n"
-    "j L_800A2ED8\n"
-    "mov.s $f22,$f20\n"
-    "L_800A2DD8:\n"
-    "lwc1 $f4,16($29)\n"
-    "lwc1 $f0,12($17)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lwc1 $f6,4($16)\n"
-    "lwc1 $f0,4($2)\n"
-    "mul.s $f6,$f6,$f0\n"
-    "lwc1 $f2,8($2)\n"
-    "lwc1 $f0,8($16)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "add.s $f4,$f4,$f6\n"
-    "add.s $f4,$f4,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,20884($1)\n"
-    "lw $2,96($29)\n"
-    "sub.s $f6,$f2,$f4\n"
-    "sll $2,$2,0x2\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f22,$f6,$f0\n"
-    "add.s $f4,$f4,$f2\n"
-    "mul.s $f20,$f4,$f0\n"
-    "jal func_80038550\n"
-    "cvt.d.s $f12,$f22\n"
-    "cvt.s.d $f22,$f0\n"
-    "jal func_80038550\n"
-    "cvt.d.s $f12,$f20\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,20888($1)\n"
-    "c.lt.s $f24,$f2\n"
-    "nop\n"
-    "bc1f L_800A2E5C\n"
-    "cvt.s.d $f20,$f0\n"
-    "mov.s $f24,$f2\n"
-    "L_800A2E5C:\n"
-    "c.le.s $f22,$f26\n"
-    "nop\n"
-    "bc1f L_800A2E74\n"
-    "nop\n"
-    "j L_800A2E84\n"
-    "mov.s $f22,$f26\n"
-    "L_800A2E74:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20892($1)\n"
-    "mul.s $f0,$f24,$f0\n"
-    "div.s $f22,$f22,$f0\n"
-    "L_800A2E84:\n"
-    "mtc1 $0,$f0\n"
-    "c.le.s $f20,$f0\n"
-    "nop\n"
-    "bc1f L_800A2EA0\n"
-    "nop\n"
-    "j L_800A2EB0\n"
-    "mov.s $f20,$f0\n"
-    "L_800A2EA0:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20896($1)\n"
-    "mul.s $f0,$f24,$f0\n"
-    "div.s $f20,$f20,$f0\n"
-    "L_800A2EB0:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20900($1)\n"
-    "c.lt.s $f0,$f22\n"
-    "nop\n"
-    "bc1tl L_800A2EC8\n"
-    "mov.s $f22,$f0\n"
-    "L_800A2EC8:\n"
-    "c.lt.s $f0,$f20\n"
-    "nop\n"
-    "bc1tl L_800A2ED8\n"
-    "mov.s $f20,$f0\n"
-    "L_800A2ED8:\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $5,$18\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "add.s $f2,$f22,$f20\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20904($1)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "move $4,$16\n"
-    "move $16,$2\n"
-    "trunc.w.s $f8,$f2\n"
-    "mfc1 $6,$f8\n"
-    "jal func_8001D640\n"
-    "move $5,$16\n"
-    "move $2,$16\n"
-    "L_800A2F20:\n"
-    "lw $31,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f26,72($29)\n"
-    "ldc1 $f24,64($29)\n"
-    "ldc1 $f22,56($29)\n"
-    "ldc1 $f20,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_800A2D00\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { Vec p; Vec dir; } Ear;
+typedef struct { char pad[116]; Ear ear[1]; } Obj;
+extern char D_800F1AE0[];
+extern float func_800AD6D0(Vec *, Vec *);
+extern double func_80038550(double);
+extern int func_8001D4B8(void *, int, int, int);
+extern void func_8001D640(void *, int, int);
+static inline void vsub(Vec *a, Vec *b, Vec *r) { r->x = a->x - b->x; r->y = a->y - b->y; r->z = a->z - b->z; }
+static inline float vdot(Vec *a, Vec *b) { return a->x * b->x + a->y * b->y + a->z * b->z; }
+int func_800A2D00(Obj *o, int snd, Vec *pos, float range, int n, int idx)
+{
+    Ear *e;
+    Vec t;
+    float dist;
+    float dot;
+    float l, r;
+    int h;
+    if (range == 0.0f) return -1;
+    e = &o->ear[idx];
+    vsub(pos, &e->p, &t);
+    dist = func_800AD6D0(&t, &t);
+    if (range != 1.0f) dist /= range;
+    if (500.0f < dist) {
+        l = r = 0.0f;
+    } else {
+        dot = vdot(&t, &e->dir);
+        l = (0.8f - dot) * (float)(n * 4);
+        r = (dot + 0.8f) * (float)(n * 4);
+        l = func_80038550(l);
+        r = func_80038550(r);
+        if (dist < 10.0f) dist = 10.0f;
+        if (l <= 0.0f) l = 0.0f;
+        else l = l / (dist * 0.5f);
+        if (r <= 0.0f) r = 0.0f;
+        else r = r / (dist * 0.5f);
+        if (32767.0f < l) l = 32767.0f;
+        if (32767.0f < r) r = 32767.0f;
+    }
+    h = func_8001D4B8(D_800F1AE0, snd, 0, 1);
+    func_8001D640(D_800F1AE0, h, (l + r) * 0.5f);
+    return h;
+}

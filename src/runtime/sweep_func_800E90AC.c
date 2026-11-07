@@ -1,129 +1,78 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E90AC\n.ent func_800E90AC\n"
-    "func_800E90AC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $16,16($29)\n"
-    "andi $16,$5,0xffff\n"
-    "li $5,1024\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "li $6,1\n"
-    "sw $31,24($29)\n"
-    "sw $16,8($2)\n"
-    "jal func_800E9A2C\n"
-    "sw $16,636($17)\n"
-    "lui $3,0x8010\n"
-    "lui $2,0x8010\n"
-    "addiu $2,$2,-2740\n"
-    "sw $2,-2940($3)\n"
-    "sltiu $2,$16,6\n"
-    "beqz $2,L_800E927C\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-16296\n"
-    "sll $3,$16,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_800B31EC\n"
-    "li $4,3\n"
-    "move $4,$17\n"
-    "addiu $16,$17,648\n"
-    "jal func_800E9B18\n"
-    "move $5,$16\n"
-    "move $4,$17\n"
-    "jal func_800E9974\n"
-    "li $5,89\n"
-    "move $4,$16\n"
-    "jal func_800AC030\n"
-    "move $5,$17\n"
-    "lui $4,0x8010\n"
-    "addiu $4,$4,-2936\n"
-    "jal func_800B3178\n"
-    "li $5,1\n"
-    "j L_800E9270\n"
-    "move $4,$17\n"
-    "move $4,$17\n"
-    "addiu $16,$17,840\n"
-    "jal func_800E9B18\n"
-    "move $5,$16\n"
-    "move $4,$16\n"
-    "li $5,1\n"
-    "jal func_800DE4B8\n"
-    "move $6,$17\n"
-    "move $4,$17\n"
-    "jal func_800E9974\n"
-    "li $5,1\n"
-    "j L_800E9270\n"
-    "move $4,$17\n"
-    "move $4,$17\n"
-    "addiu $16,$17,840\n"
-    "jal func_800E9B18\n"
-    "move $5,$16\n"
-    "move $4,$16\n"
-    "li $5,2\n"
-    "jal func_800DE4B8\n"
-    "move $6,$17\n"
-    "move $4,$17\n"
-    "jal func_800E9974\n"
-    "li $5,3\n"
-    "j L_800E9270\n"
-    "move $4,$17\n"
-    "move $4,$17\n"
-    "addiu $16,$17,3412\n"
-    "jal func_800E9B18\n"
-    "move $5,$16\n"
-    "move $4,$16\n"
-    "li $5,3\n"
-    "jal func_800DF11C\n"
-    "move $6,$17\n"
-    "move $4,$17\n"
-    "jal func_800E9974\n"
-    "li $5,2\n"
-    "move $4,$17\n"
-    "j L_800E9274\n"
-    "li $5,1\n"
-    "move $4,$17\n"
-    "addiu $16,$17,22520\n"
-    "jal func_800E9B18\n"
-    "move $5,$16\n"
-    "move $4,$16\n"
-    "li $5,4\n"
-    "jal func_800E4E98\n"
-    "move $6,$17\n"
-    "move $4,$17\n"
-    "jal func_800E9974\n"
-    "li $5,4\n"
-    "j L_800E9270\n"
-    "move $4,$17\n"
-    "move $4,$17\n"
-    "addiu $16,$17,22708\n"
-    "jal func_800E9B18\n"
-    "move $5,$16\n"
-    "jal func_800B7048\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "li $5,5\n"
-    "lbu $2,3410($3)\n"
-    "move $6,$17\n"
-    "andi $2,$2,0xfc\n"
-    "jal func_800B6C58\n"
-    "sb $2,3410($3)\n"
-    "move $4,$17\n"
-    "L_800E9270:\n"
-    "move $5,$0\n"
-    "L_800E9274:\n"
-    "jal func_800E9A48\n"
-    "nop\n"
-    "L_800E927C:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E90AC\n.set at\n.set reorder\n");
+typedef struct { char pad[8]; int mode; char padc[3410 - 0xC]; unsigned char flags; } Cfg;
+typedef struct { short id; } Cue;
+typedef struct {
+    char pad0[0x27C];
+    int mode;
+    char pad280[0x288 - 0x280];
+    char intro[840 - 0x288];
+    char menu[3412 - 840];
+    char opts[22520 - 3412];
+    char race[22708 - 22520];
+    char res[4];
+} Game;
+
+extern Cfg *D_800FC270;
+extern short *D_800FF484;
+extern short D_800FF54C[];
+extern Cue D_800FF488;
+extern void func_800E9A2C(Game *g, int f, int n);
+extern void func_800B31EC(int n);
+extern void func_800E9B18(Game *g, void *scr);
+extern void func_800E9974(Game *g, int n);
+extern void func_800AC030(void *scr, Game *g);
+extern void func_800B3178(Cue *c, int n);
+extern void func_800DE4B8(void *scr, int n, Game *g);
+extern void func_800DF11C(void *scr, int n, Game *g);
+extern void func_800E4E98(void *scr, int n, Game *g);
+extern void func_800B7048(void *scr);
+extern void func_800B6C58(void *scr, int n, Game *g);
+extern void func_800E9A48(Game *g, int n);
+
+void func_800E90AC(Game *g, unsigned short mode)
+{
+    D_800FC270->mode = mode;
+    g->mode = mode;
+    func_800E9A2C(g, 1024, 1);
+    D_800FF484 = D_800FF54C;
+    switch (mode) {
+    case 0:
+        func_800B31EC(3);
+        func_800E9B18(g, g->intro);
+        func_800E9974(g, 89);
+        func_800AC030(g->intro, g);
+        func_800B3178(&D_800FF488, 1);
+        func_800E9A48(g, 0);
+        break;
+    case 1:
+        func_800E9B18(g, g->menu);
+        func_800DE4B8(g->menu, 1, g);
+        func_800E9974(g, 1);
+        func_800E9A48(g, 0);
+        break;
+    case 2:
+        func_800E9B18(g, g->menu);
+        func_800DE4B8(g->menu, 2, g);
+        func_800E9974(g, 3);
+        func_800E9A48(g, 0);
+        break;
+    case 3:
+        func_800E9B18(g, g->opts);
+        func_800DF11C(g->opts, 3, g);
+        func_800E9974(g, 2);
+        func_800E9A48(g, 1);
+        break;
+    case 4:
+        func_800E9B18(g, g->race);
+        func_800E4E98(g->race, 4, g);
+        func_800E9974(g, 4);
+        func_800E9A48(g, 0);
+        break;
+    case 5:
+        func_800E9B18(g, g->res);
+        func_800B7048(g->res);
+        D_800FC270->flags &= 0xFC;
+        func_800B6C58(g->res, 5, g);
+        func_800E9A48(g, 0);
+        break;
+    }
+}

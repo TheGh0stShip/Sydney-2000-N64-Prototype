@@ -1,83 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B4050\n.ent func_800B4050\n"
-    "func_800B4050:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,30304\n"
-    "sw $31,28($29)\n"
-    "lbu $3,23416($16)\n"
-    "lbu $2,23419($16)\n"
-    "sll $3,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "addu $2,$2,$4\n"
-    "lbu $3,0($2)\n"
-    "li $2,1\n"
-    "sb $2,23437($16)\n"
-    "sb $0,23448($16)\n"
-    "andi $3,$3,0xff\n"
-    "sltiu $2,$3,5\n"
-    "beqz $2,L_800B4144\n"
-    "sw $0,23432($16)\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4976\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "addiu $4,$16,21296\n"
-    "li $5,1\n"
-    "jal func_80081100\n"
-    "move $6,$5\n"
-    "lw $3,21292($16)\n"
-    "j func_80074F6C\n"
-    "li $2,1\n"
-    "addiu $4,$16,21296\n"
-    "move $5,$0\n"
-    "jal func_80081100\n"
-    "li $6,1\n"
-    "lw $3,21292($16)\n"
-    "j func_80074F6C\n"
-    "li $2,1\n"
-    "addiu $4,$16,21296\n"
-    "li $5,1\n"
-    "jal func_80081100\n"
-    "move $6,$5\n"
-    "addiu $4,$16,21604\n"
-    "move $5,$0\n"
-    "j func_80074F5C\n"
-    "move $6,$5\n"
-    "addiu $4,$16,21604\n"
-    "li $5,1\n"
-    "jal func_80081100\n"
-    "move $6,$0\n"
-    "addiu $4,$16,21296\n"
-    "move $5,$0\n"
-    "li $6,1\n"
-    "jal func_80081100\n"
-    "nop\n"
-    "lw $3,21292($16)\n"
-    "li $2,2\n"
-    "sb $2,1208($3)\n"
-    "sb $2,23438($16)\n"
-    "L_800B4144:\n"
-    "li $2,1\n"
-    "sb $2,23437($16)\n"
-    "lui $2,0x800f\n"
-    "lui $4,0x800f\n"
-    "sb $0,23436($16)\n"
-    "lw $5,10052($2)\n"
-    "addiu $4,$4,9952\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $7,21292($16)\n"
-    "jal func_800AB2A4\n"
-    "li $6,14\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B4050\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Ent { char pad[1208]; u8 unk4B8; } Ent;
+typedef struct Obj {
+    char pad[21292];
+    Ent *ent;
+    char unk5330[21604 - 21296];
+    char unk5464[23416 - 21604];
+    u8 unk5B78;
+    char pad5B79[2];
+    u8 unk5B7B;
+    char pad5B7C[23432 - 23420];
+    int unk5B88;
+    u8 unk5B8C;
+    u8 unk5B8D;
+    u8 unk5B8E;
+    char pad5B8F[23448 - 23439];
+    u8 unk5B98;
+} Obj;
+extern u8 D_80077660[][4];
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern void func_80081100(void *, int, int);
+extern void func_800AB2A4(void *, int, int, Ent *, int, int);
+void func_80074E80(Obj *o)
+{
+    u8 k = D_80077660[o->unk5B78][o->unk5B7B];
+    o->unk5B8D = 1;
+    o->unk5B98 = 0;
+    o->unk5B88 = 0;
+    switch (k) {
+    case 0:
+        break;
+    case 1:
+        func_80081100(o->unk5330, 1, 1);
+        o->ent->unk4B8 = 1;
+        o->unk5B8E = 1;
+        break;
+    case 2:
+        func_80081100(o->unk5330, 0, 1);
+        o->ent->unk4B8 = 1;
+        o->unk5B8E = 1;
+        break;
+    case 3:
+        func_80081100(o->unk5330, 1, 1);
+        func_80081100(o->unk5464, 0, 0);
+        o->ent->unk4B8 = 2;
+        o->unk5B8E = 2;
+        break;
+    case 4:
+        func_80081100(o->unk5464, 1, 0);
+        func_80081100(o->unk5330, 0, 1);
+        o->ent->unk4B8 = 2;
+        o->unk5B8E = 2;
+        break;
+    }
+    o->unk5B8D = 1;
+    o->unk5B8C = 0;
+    func_800AB2A4(D_800F26E0, D_800F2744, 14, o->ent, 0, 0);
+}

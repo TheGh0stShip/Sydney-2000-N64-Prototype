@@ -1,92 +1,54 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80110A2C\n.ent func_80110A2C\n"
-    "func_80110A2C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "move $5,$0\n"
-    "sw $31,32($29)\n"
-    "jal func_8007C914\n"
-    "sw $17,28($29)\n"
-    "move $4,$16\n"
-    "jal func_8007CA64\n"
-    "move $5,$0\n"
-    "lbu $2,733($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29600($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,-29596($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f8,-29592($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-29588($1)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29584($1)\n"
-    "sw $0,1492($16)\n"
-    "sw $0,88($16)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29580($1)\n"
-    "li $2,1\n"
-    "sb $2,1488($16)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "addiu $2,$16,1260\n"
-    "swc1 $f6,1496($16)\n"
-    "swc1 $f8,84($16)\n"
-    "swc1 $f4,1260($16)\n"
-    "swc1 $f2,92($16)\n"
-    "swc1 $f2,812($16)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "addiu $2,$16,20\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,368($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$16,368\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($3)\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,392($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$16,392\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "move $4,$16\n"
-    "swc1 $f0,8($3)\n"
-    "lw $2,648($16)\n"
-    "li $5,37\n"
-    "sb $0,0($2)\n"
-    "sb $0,1($2)\n"
-    "sb $0,2($2)\n"
-    "sb $0,3($2)\n"
-    "sb $0,4($2)\n"
-    "sb $0,5($2)\n"
-    "sb $0,6($2)\n"
-    "sb $0,7($2)\n"
-    "lwc1 $f0,804($16)\n"
-    "li $17,1\n"
-    "swc1 $f0,632($16)\n"
-    "sw $0,16($29)\n"
-    "sw $17,20($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9FA4\n"
-    "li $6,-1\n"
-    "move $4,$16\n"
-    "jal func_800B9E74\n"
-    "li $5,2\n"
-    "lw $3,796($16)\n"
-    "li $2,7\n"
-    "sb $17,744($16)\n"
-    "sw $2,172($16)\n"
-    "sw $3,1256($16)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80110A2C\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+typedef float f32;
+#define U8(o) (*(u8 *)(a + (o)))
+#define S32(o) (*(s32 *)(a + (o)))
+#define F32(o) (*(f32 *)(a + (o)))
+#define PTR(o) (*(char **)(a + (o)))
+extern void func_8007C914(char *, s32);
+extern void func_8007CA64(char *, s32);
+extern void func_800B9E74(char *, s32);
+extern void func_800B9FA4(char *, s32, s32, f32, s32, s32);
+static inline void snap(char *a)
+{
+    char *p = a + 0x14;
+    char *q;
+
+    F32(0x170) = *(f32 *)(p + 0x40);
+    q = a + 0x170;
+    *(f32 *)(q + 4) = *(f32 *)(p + 0x44);
+    *(f32 *)(q + 8) = *(f32 *)(p + 0x48);
+    F32(0x188) = *(f32 *)(p + 0x40);
+    q = a + 0x188;
+    *(f32 *)(q + 4) = *(f32 *)(p + 0x44);
+    *(f32 *)(q + 8) = *(f32 *)(p + 0x48);
+}
+void func_8007BD3C(char *a)
+{
+    f32 t;
+    char *q;
+    char *b;
+    func_8007C914(a, 0);
+    func_8007CA64(a, 0);
+    F32(0x5D8) = 255.0f;
+    F32(0x54) = -1769.41797f;
+    F32(0x4EC) = 0.144174799f;
+    t = (8.74f - U8(0x2DD) * 2.49f) * 32.767f;
+    S32(0x5D4) = 0;
+    S32(0x58) = 0;
+    U8(0x5D0) = 1;
+    F32(0x5C) = t;
+    F32(0x32C) = t;
+    q = a + 0x4EC;
+    *(f32 *)(q + 4) = 0.0f;
+    *(f32 *)(q + 8) = 0.0f;
+    snap(a);
+    b = PTR(0x288);
+    b[0] = 0; b[1] = 0; b[2] = 0; b[3] = 0; b[4] = 0; b[5] = 0; b[6] = 0; b[7] = 0;
+    F32(0x278) = F32(0x324);
+    func_800B9FA4(a, 37, -1, F32(0x278), 0, 1);
+    func_800B9E74(a, 2);
+    U8(0x2E8) = 1;
+    S32(0xAC) = 7;
+    S32(0x4E8) = S32(0x31C);
+}

@@ -1,72 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009D474\n.ent func_8009D474\n"
-    "func_8009D474:\n"
-    "addiu $29,$29,-48\n"
-    "sdc1 $f20,40($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,18540($1)\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,2108($18)\n"
-    "mtc1 $5,$f4\n"
-    "mtc1 $7,$f2\n"
-    "mul.s $f20,$f4,$f20\n"
-    "beqz $6,L_8009D528\n"
-    "sw $2,16($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,18544($1)\n"
-    "mul.s $f0,$f2,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,18548($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_8009D4E4\n"
-    "sub.s $f0,$f0,$f2\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $7,$f4\n"
-    "j L_8009D4F8\n"
-    "addiu $17,$29,16\n"
-    "L_8009D4E4:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $7,$f4\n"
-    "or $7,$7,$2\n"
-    "addiu $17,$29,16\n"
-    "L_8009D4F8:\n"
-    "move $4,$17\n"
-    "nor $16,$0,$7\n"
-    "andi $16,$16,0xff\n"
-    "sll $2,$16,0x8\n"
-    "or $16,$16,$2\n"
-    "lui $5,0xff\n"
-    "jal func_800191E0\n"
-    "or $5,$16,$5\n"
-    "move $4,$17\n"
-    "lui $5,0x80ff\n"
-    "j L_8009D548\n"
-    "or $5,$16,$5\n"
-    "L_8009D528:\n"
-    "addiu $16,$29,16\n"
-    "move $4,$16\n"
-    "lui $5,0xff\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0xffff\n"
-    "move $4,$16\n"
-    "lui $5,0x80ff\n"
-    "ori $5,$5,0xffff\n"
-    "L_8009D548:\n"
-    "jal func_800191E0\n"
-    "nop\n"
-    "swc1 $f20,2072($18)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_8009D474\n.set at\n.set reorder\n");
+typedef struct { char pad[2072]; float scale; char pad2[32]; int handle; } Obj;
+extern void func_800191E0(int *, unsigned int);
+void func_8009D474(Obj *o, float amount, int fade, float level)
+{
+    int handle;
+    float scaled;
+    scaled = 586.0f;
+    handle = o->handle;
+    scaled = amount * scaled;
+    if (fade) {
+        unsigned int v = level * 255.0f;
+        int *h = &handle;
+        unsigned int c = ~v & 0xFF;
+        func_800191E0(h, c | (c << 8) | 0xFF0000);
+        func_800191E0(h, c | (c << 8) | 0x80FF0000);
+    } else {
+        func_800191E0(&handle, 0xFFFFFF);
+        func_800191E0(&handle, 0x80FFFFFF);
+    }
+    o->scale = scaled;
+}

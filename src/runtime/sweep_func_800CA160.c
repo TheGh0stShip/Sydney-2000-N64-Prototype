@@ -1,134 +1,63 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CA160\n.ent func_800CA160\n"
-    "func_800CA160:\n"
-    "addiu $29,$29,-56\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $22,40($29)\n"
-    "move $22,$5\n"
-    "sw $20,32($29)\n"
-    "move $20,$0\n"
-    "sw $21,36($29)\n"
-    "addiu $21,$19,184\n"
-    "lui $2,0x800f\n"
-    "sw $30,48($29)\n"
-    "addiu $30,$2,18368\n"
-    "lui $2,0x800f\n"
-    "sw $23,44($29)\n"
-    "addiu $23,$2,18448\n"
-    "sw $31,52($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "sw $7,4596($19)\n"
-    "sw $6,4588($19)\n"
-    "L_800CA1B4:\n"
-    "andi $17,$20,0xff\n"
-    "sltiu $2,$17,20\n"
-    "beqz $2,L_800CA314\n"
-    "move $5,$21\n"
-    "sll $18,$17,0x2\n"
-    "addu $16,$19,$18\n"
-    "lui $8,0x800f\n"
-    "addiu $8,$8,18288\n"
-    "addu $2,$18,$8\n"
-    "sw $0,4508($16)\n"
-    "lw $4,0($2)\n"
-    "jal func_80013E7C\n"
-    "move $6,$0\n"
-    "beqz $2,L_800CA324\n"
-    "sw $2,4508($16)\n"
-    "move $5,$21\n"
-    "addu $2,$18,$30\n"
-    "sw $0,4428($16)\n"
-    "lw $4,0($2)\n"
-    "jal func_80013E7C\n"
-    "move $6,$0\n"
-    "move $3,$2\n"
-    "beqz $3,L_800CA324\n"
-    "sw $3,4428($16)\n"
-    "sll $2,$17,0x1\n"
-    "addu $2,$2,$17\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$17\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$17\n"
-    "sll $2,$2,0x2\n"
-    "addiu $2,$2,188\n"
-    "addu $16,$19,$2\n"
-    "move $4,$16\n"
-    "lw $2,192($16)\n"
-    "li $5,1\n"
-    "sw $3,196($16)\n"
-    "ori $2,$2,0x2\n"
-    "jal func_800ADC54\n"
-    "sw $2,192($16)\n"
-    "addiu $4,$16,20\n"
-    "move $5,$22\n"
-    "jal func_800B3870\n"
-    "li $6,76\n"
-    "lw $2,184($19)\n"
-    "lw $2,16($2)\n"
-    "lw $2,0($2)\n"
-    "lwc1 $f2,164($16)\n"
-    "lwc1 $f0,4($2)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "addu $2,$18,$23\n"
-    "swc1 $f2,164($16)\n"
-    "lwc1 $f0,0($2)\n"
-    "add.s $f2,$f2,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-27216($1)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-27212($1)\n"
-    "swc1 $f0,96($16)\n"
-    "bnez $17,L_800CA2B4\n"
-    "swc1 $f2,164($16)\n"
-    "lwc1 $f0,88($16)\n"
-    "swc1 $f0,4612($19)\n"
-    "L_800CA2B4:\n"
-    "addiu $3,$17,-10\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-27208($1)\n"
-    "mtc1 $2,$f4\n"
-    "cvt.s.w $f4,$f4\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-27204($1)\n"
-    "lwc1 $f0,164($16)\n"
-    "move $5,$19\n"
-    "add.s $f0,$f0,$f2\n"
-    "lw $2,180($16)\n"
-    "addiu $20,$20,1\n"
-    "swc1 $f0,164($16)\n"
-    "swc1 $f4,160($16)\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "li $2,1\n"
-    "j L_800CA1B4\n"
-    "sb $2,176($16)\n"
-    "L_800CA314:\n"
-    "addiu $4,$19,20\n"
-    "move $5,$22\n"
-    "jal func_800B3870\n"
-    "li $6,76\n"
-    "L_800CA324:\n"
-    "lw $31,52($29)\n"
-    "lw $30,48($29)\n"
-    "lw $23,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800CA160\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+typedef struct { char pad[0x58]; float f58; char pad5c[0x60 - 0x5C]; float f60; char pad64[0xA0 - 0x64]; float x; float y; char pada8[0xB0 - 0xA8]; unsigned char act; char padb1[3]; VEnt *vt; char padb8[0xC0 - 0xB8]; int flags; int tex; char rest[212 - 0xC8]; } Sub;
+typedef struct { char pad[4]; float y; } Pt;
+typedef struct { char pad[0x10]; Pt **pts; } Bank;
+typedef struct {
+    char pad0[0x14];
+    char cfg[0xB8 - 0x14];
+    Bank *bank;
+    Sub subs[20];
+    int tex[20];
+    int img[20];
+    char pad11ec[0x11EC - 0x11EC];
+    int a2;
+    int pad11f0;
+    int a3;
+    char pad11f8[0x1204 - 0x11F8];
+    float base;
+} Board;
+
+extern int D_800F4770[];
+extern int D_800F47C0[];
+extern float D_800F4810[];
+extern int func_80013E7C(int id, Bank **b, int n);
+extern void func_800ADC54(Sub *s, int n);
+extern void func_800B3870(void *d, void *s, int n);
+
+void func_800CA160(Board *b, void *src, int a2, int a3)
+{
+    unsigned char i;
+    Sub *s;
+
+    b->a3 = a3;
+    b->a2 = a2;
+    i = 0;
+    while (1) {
+        if (i >= 20) break;
+        b->img[i] = 0;
+        if ((b->img[i] = func_80013E7C(D_800F4770[i], &b->bank, 0)) == 0) {
+            return;
+        }
+        b->tex[i] = 0;
+        if ((b->tex[i] = func_80013E7C(D_800F47C0[i], &b->bank, 0)) == 0) {
+            return;
+        }
+        s = &b->subs[i];
+        s->tex = b->tex[i];
+        s->flags |= 2;
+        func_800ADC54(s, 1);
+        func_800B3870((char *)s + 0x14, src, 76);
+        s->y -= (*b->bank->pts)->y;
+        s->y = s->y + D_800F4810[i] - 75.3641f;
+        s->f60 = 1.5f;
+        if (i == 0) {
+            b->base = s->f58;
+        }
+        s->x = (float)((i - 10) * 7) * 0.32767f;
+        s->y += 32.767f;
+        s->vt[2].fn((char *)s + s->vt[2].adj, b);
+        s->act = 1;
+        i++;
+    }
+    func_800B3870(b->cfg, src, 76);
+}

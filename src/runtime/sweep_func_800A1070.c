@@ -1,121 +1,75 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A1070\n.ent func_800A1070\n"
-    "func_800A1070:\n"
-    "addiu $29,$29,-48\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $19,36($29)\n"
-    "lui $19,0x8008\n"
-    "addiu $19,$19,20000\n"
-    "move $4,$19\n"
-    "sw $31,40($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $0,212($16)\n"
-    "jal func_8000EB20\n"
-    "sw $0,216($16)\n"
-    "addiu $4,$16,212\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20060($1)\n"
-    "andi $7,$2,0xffff\n"
-    "mfc1 $5,$f0\n"
-    "li $17,2\n"
-    "sw $17,16($29)\n"
-    "jal func_80013208\n"
-    "move $6,$5\n"
-    "lui $18,0x8008\n"
-    "addiu $18,$18,20008\n"
-    "jal func_8000EB20\n"
-    "move $4,$18\n"
-    "addiu $4,$16,216\n"
-    "lui $5,0x4244\n"
-    "ori $5,$5,0x9a1c\n"
-    "lui $6,0x4051\n"
-    "ori $6,$6,0xb573\n"
-    "andi $7,$2,0xffff\n"
-    "jal func_80013208\n"
-    "sw $17,16($29)\n"
-    "move $4,$16\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20064($1)\n"
-    "addiu $2,$16,20\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "lw $2,216($16)\n"
-    "li $5,1\n"
-    "swc1 $f0,20($16)\n"
-    "sw $0,252($16)\n"
-    "sb $0,256($16)\n"
-    "jal func_800AD890\n"
-    "sw $2,196($16)\n"
-    "move $4,$16\n"
-    "jal func_800ADC54\n"
-    "li $5,1\n"
-    "addiu $17,$16,272\n"
-    "move $4,$17\n"
-    "li $5,1\n"
-    "lw $2,192($16)\n"
-    "lw $3,212($16)\n"
-    "ori $2,$2,0x2\n"
-    "sw $2,192($16)\n"
-    "jal func_800AD890\n"
-    "sw $3,468($16)\n"
-    "move $4,$17\n"
-    "jal func_800ADC54\n"
-    "li $5,1\n"
-    "lui $3,0x40\n"
-    "ori $3,$3,0x2\n"
-    "move $4,$17\n"
-    "move $5,$16\n"
-    "lw $2,192($4)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,20068($1)\n"
-    "or $2,$2,$3\n"
-    "sw $2,192($4)\n"
-    "li $2,1\n"
-    "sb $2,448($16)\n"
-    "addiu $2,$16,368\n"
-    "swc1 $f0,64($2)\n"
-    "sw $0,68($2)\n"
-    "jal func_800AC37C\n"
-    "sw $0,72($2)\n"
-    "jal func_8000EB20\n"
-    "move $4,$18\n"
-    "move $4,$19\n"
-    "jal func_8000EB20\n"
-    "sh $2,484($16)\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,20016\n"
-    "jal func_8000EB20\n"
-    "sh $2,486($16)\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,20024\n"
-    "jal func_8000EB20\n"
-    "sh $2,488($16)\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,20036\n"
-    "jal func_8000EB20\n"
-    "sh $2,490($16)\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,20048\n"
-    "jal func_8000EB20\n"
-    "sh $2,492($16)\n"
-    "sh $2,494($16)\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800A1070\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { float r[3][4]; char pad[16]; Vec t; } Xf;
+typedef struct { char pad[0x40]; Vec pos; } Body;
+typedef struct {
+    char pad0[0x14];
+    Xf xf;
+    char pad60[0xC0 - 0x60];
+    int flags;
+    int img;
+    char padc8[0xD4 - 0xC8];
+    int icon;
+    int bar;
+    char paddc[0xFC - 0xDC];
+    int fc;
+    unsigned char b100;
+    char pad101[0x1E4 - 0x101];
+    short ids[6];
+} Gauge;
+
+extern unsigned short func_8000EB20(char *s);
+extern void func_80013208(int *out, float w, float h, int id, int n);
+extern void func_800AD890(void *o, int n);
+extern void func_800ADC54(void *o, int n);
+extern void func_800AC37C(void *o, void *p);
+
+static inline void ident(Xf *x)
+{
+    x->r[2][1] = 0.0f;
+    x->r[2][0] = 0.0f;
+    x->r[1][2] = 0.0f;
+    x->r[1][0] = 0.0f;
+    x->r[0][2] = 0.0f;
+    x->r[0][1] = 0.0f;
+    x->t.z = 0.0f;
+    x->t.y = 0.0f;
+    x->t.x = 0.0f;
+    x->r[2][2] = 1.0f;
+    x->r[1][1] = 1.0f;
+    x->r[0][0] = 1.0f;
+}
+
+void func_800A1070(Gauge *g)
+{
+    Gauge *s;
+    Body *b;
+
+    g->icon = 0;
+    g->bar = 0;
+    func_80013208(&g->icon, 16.3835f, 16.3835f, func_8000EB20("POSICON"), 2);
+    func_80013208(&g->bar, 49.150497f, 3.2766998f, func_8000EB20("POSBAR"), 2);
+    ident(&g->xf);
+    g->img = g->bar;
+    g->fc = 0;
+    g->b100 = 0;
+    func_800AD890(g, 1);
+    func_800ADC54(g, 1);
+    g->flags |= 2;
+    ((Gauge *)((char *)g + 0x110))->img = g->icon;
+    s = (Gauge *)((char *)g + 0x110);
+    func_800AD890(s, 1);
+    func_800ADC54(s, 1);
+    s->flags |= 0x400002;
+    *((unsigned char *)g + 0x1C0) = 1;
+    b = (Body *)((char *)g + 0x170);
+    b->pos.x = -32.767f;
+    b->pos.y = 0.0f;
+    b->pos.z = 0.0f;
+    func_800AC37C(s, g);
+    g->ids[0] = func_8000EB20("POSBAR");
+    g->ids[1] = func_8000EB20("POSICON");
+    g->ids[2] = func_8000EB20("ROLLBAR");
+    g->ids[3] = func_8000EB20("ROLLICON");
+    g->ids[4] = func_8000EB20("TWISTBAR");
+    g->ids[5] = func_8000EB20("TWIST2ICON");
+}

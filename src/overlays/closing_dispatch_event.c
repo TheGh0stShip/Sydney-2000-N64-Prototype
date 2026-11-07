@@ -1,112 +1,56 @@
-/* Dispatch a closing event through the two overlay-resident command tables. */
-__asm__(
-    ".set noreorder\n.text\n.globl func_80070C94\n.ent func_80070C94\n"
-    "func_80070C94:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$5\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,0($18)\n"
-    "addiu $3,$2,-1\n"
-    "sltiu $2,$3,11\n"
-    "beqz $2,9f\n"
-    "move $17,$4\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2592\n"
-    "sll $3,$3,2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_800B4794\n"
-    "li $4,1\n"
-    "jal func_80070E38\n"
-    "move $4,$17\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "j 8f\n"
-    "nop\n"
-    "lw $2,228($17)\n"
-    "beqz $2,9f\n"
-    "nop\n"
-    "jal func_80071BC0\n"
-    "move $4,$17\n"
-    "j 8f\n"
-    "nop\n"
-    "addiu $16,$17,1076\n"
-    "lbu $5,17($18)\n"
-    "jal func_800BC07C\n"
-    "move $4,$16\n"
-    "lbu $2,3($16)\n"
-    "beqz $2,9f\n"
-    "nop\n"
-    "jal func_80071834\n"
-    "move $4,$17\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "li $6,20\n"
-    "lw $5,10052($2)\n"
-    "lw $7,4($17)\n"
-    "li $2,15\n"
-    "sw $17,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $2,20($29)\n"
-    "j 8f\n"
-    "nop\n"
-    "lw $3,16($18)\n"
-    "sltiu $2,$3,13\n"
-    "beqz $2,9f\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2640\n"
-    "sll $3,$3,2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "li $6,10\n"
-    "sll $3,$4,2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,15\n"
-    "mult $2,$6\n"
-    "move $4,$17\n"
-    "sw $3,10004($5)\n"
-    "mflo $8\n"
-    "srl $2,$8,16\n"
-    "sll $2,$2,2\n"
-    "addu $2,$17,$2\n"
-    "lw $5,1124($2)\n"
-    "jal func_800725F8\n"
-    "li $6,1\n"
-    "j 8f\n"
-    "nop\n"
-    "li $2,2\n"
-    "sw $2,16($29)\n"
-    "addiu $4,$17,2476\n"
-    "addiu $5,$17,1964\n"
-    "li $6,1\n"
-    "jal func_800A9B78\n"
-    "8:\n"
-    "move $7,$6\n"
-    "9:\n"
-    "lw $2,4($18)\n"
-    "sw $2,16($17)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    ".end func_80070C94\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned int u32;
+typedef struct { int type; int value; int pad8; int padC; int flag; } Msg;
+extern void func_800B4794(int);
+extern void func_80070E38(u8 *);
+extern void func_80071BC0(u8 *);
+extern void func_800BC07C(u8 *, int);
+extern void func_80071834(u8 *);
+extern void func_800AB2A4(void *, int, int, int, u8 *, int);
+extern void func_800725F8(u8 *, void *, int);
+extern void func_800A9B78(void *, void *, int, int, int);
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern u32 D_800F2714;
+static __inline__ u32 rnd(u32 n) { D_800F2714 = D_800F2714 * 16807 & 0x7FFFFFFF; return ((D_800F2714 >> 15) * n) >> 16; }
+void func_80070C94(u8 *o, Msg *m) {
+    u8 *p;
+    switch (m->type) {
+    case 3:
+        func_800B4794(1);
+        func_80070E38(o);
+        func_800B4794(0);
+        break;
+    case 5:
+        if (*(int *)(o + 228) == 0) break;
+        func_80071BC0(o);
+        break;
+    case 1:
+    case 2:
+        p = o + 1076;
+        func_800BC07C(p, ((u8 *)m)[17]);
+        if (p[3] == 0) break;
+    case 7: {
+        int w;
+        func_80071834(o);
+        w = *(int *)(o + 4);
+        func_800AB2A4(D_800F26E0, D_800F2744, 20, w, o, 15);
+        break;
+    }
+    case 11:
+        switch (m->flag) {
+        case 0:
+            break;
+        case 1: case 2: case 3: case 4: case 5:
+            func_800725F8(o, *(void **)((rnd(10) << 2) + o + 1124), 1);
+            break;
+        case 8:
+            func_800A9B78(o + 2476, o + 1964, 1, 1, 2);
+            break;
+        case 12:
+            break;
+        }
+        break;
+    }
+    *(int *)(o + 16) = m->value;
+}

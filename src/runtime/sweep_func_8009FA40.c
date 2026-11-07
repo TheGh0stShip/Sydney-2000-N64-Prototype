@@ -1,136 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009FA40\n.ent func_8009FA40\n"
-    "func_8009FA40:\n"
-    "addiu $29,$29,-64\n"
-    "sw $21,52($29)\n"
-    "move $21,$4\n"
-    "sw $19,44($29)\n"
-    "li $19,1\n"
-    "sw $31,56($29)\n"
-    "sw $20,48($29)\n"
-    "sw $18,40($29)\n"
-    "sw $17,36($29)\n"
-    "sw $16,32($29)\n"
-    "lw $20,204($21)\n"
-    "L_8009FA6C:\n"
-    "lw $2,188($21)\n"
-    "addiu $2,$2,-1\n"
-    "slt $2,$19,$2\n"
-    "beqz $2,L_8009FB2C\n"
-    "move $18,$0\n"
-    "addiu $17,$29,16\n"
-    "addiu $16,$20,4\n"
-    "L_8009FA88:\n"
-    "lw $3,184($21)\n"
-    "addiu $2,$3,-1\n"
-    "slt $2,$18,$2\n"
-    "mult $3,$19\n"
-    "beqz $2,L_8009FB24\n"
-    "nop\n"
-    "mflo $6\n"
-    "addu $5,$6,$18\n"
-    "addiu $2,$5,1\n"
-    "sh $5,0($20)\n"
-    "sh $2,-2($16)\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$5\n"
-    "lw $3,196($21)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f0,0($2)\n"
-    "lwc1 $f2,52($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $3,$2,52\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f2,4($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "move $4,$17\n"
-    "swc1 $f2,4($17)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,8($3)\n"
-    "move $5,$17\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $18,$18,1\n"
-    "addiu $20,$20,8\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f0,8($17)\n"
-    "swc1 $f0,0($16)\n"
-    "j L_8009FA88\n"
-    "addiu $16,$16,8\n"
-    "L_8009FB24:\n"
-    "j L_8009FA6C\n"
-    "addiu $19,$19,1\n"
-    "L_8009FB2C:\n"
-    "li $18,1\n"
-    "L_8009FB30:\n"
-    "lw $2,184($21)\n"
-    "addiu $2,$2,-1\n"
-    "slt $2,$18,$2\n"
-    "beqz $2,L_8009FC0C\n"
-    "move $19,$0\n"
-    "addiu $17,$29,16\n"
-    "addiu $16,$20,4\n"
-    "L_8009FB4C:\n"
-    "lw $2,188($21)\n"
-    "addiu $2,$2,-1\n"
-    "slt $2,$19,$2\n"
-    "beql $2,$0,L_8009FB30\n"
-    "addiu $18,$18,1\n"
-    "lw $2,184($21)\n"
-    "mult $2,$19\n"
-    "mflo $6\n"
-    "addu $5,$6,$18\n"
-    "sll $3,$5,0x1\n"
-    "addu $3,$3,$5\n"
-    "sll $3,$3,0x2\n"
-    "sh $5,0($20)\n"
-    "lhu $2,186($21)\n"
-    "addu $3,$3,$5\n"
-    "addu $2,$2,$5\n"
-    "sh $2,-2($16)\n"
-    "lw $4,184($21)\n"
-    "sll $3,$3,0x2\n"
-    "addu $4,$5,$4\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "lw $5,196($21)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$5\n"
-    "addu $2,$2,$5\n"
-    "lwc1 $f0,0($3)\n"
-    "lwc1 $f2,0($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f2,4($3)\n"
-    "lwc1 $f0,4($2)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "addiu $19,$19,1\n"
-    "swc1 $f2,4($17)\n"
-    "lwc1 $f0,8($3)\n"
-    "lwc1 $f2,8($2)\n"
-    "addiu $20,$20,8\n"
-    "sub.s $f0,$f0,$f2\n"
-    "move $4,$17\n"
-    "move $5,$17\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f0,8($17)\n"
-    "swc1 $f0,0($16)\n"
-    "j L_8009FB4C\n"
-    "addiu $16,$16,8\n"
-    "L_8009FC0C:\n"
-    "lw $31,56($29)\n"
-    "lw $21,52($29)\n"
-    "lw $20,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_8009FA40\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { Vec p; char pad[52 - 12]; } Pt;
+typedef struct { unsigned short a; unsigned short b; float len; } Edge;
+typedef struct {
+    char pad0[0xB8];
+    int cols;
+    int rows;
+    char padc0[0xC4 - 0xC0];
+    Pt *pts;
+    char padc8[0xCC - 0xC8];
+    Edge *edges;
+} Mesh;
+
+extern float func_800AD6D0(Vec *a, Vec *b);
+
+static inline void vsub(Vec *o, Vec *a, Vec *b) { o->x = a->x - b->x; o->y = a->y - b->y; o->z = a->z - b->z; }
+
+void func_8009FA40(Mesh *m)
+{
+    Edge *e;
+    int i;
+    int j;
+    int k;
+    Vec d;
+
+    e = m->edges;
+    j = 1;
+    while (1) {
+        if (j >= m->rows - 1) break;
+        i = 0;
+        while (1) {
+            if (i >= m->cols - 1) break;
+            k = m->cols * j + i;
+            e->a = k;
+            e->b = k + 1;
+            vsub(&d, &m->pts[k].p, &m->pts[k + 1].p);
+            e->len = func_800AD6D0(&d, &d);
+            i++;
+            e++;
+        }
+        j++;
+    }
+    i = 1;
+    while (1) {
+        if (i >= m->cols - 1) break;
+        j = 0;
+        while (1) {
+            if (j >= m->rows - 1) break;
+            k = m->cols * j + i;
+            e->a = k;
+            e->b = k + m->cols;
+            vsub(&d, &m->pts[k].p, &m->pts[k + m->cols].p);
+            e->len = func_800AD6D0(&d, &d);
+            e++;
+            j++;
+        }
+        i++;
+    }
+}

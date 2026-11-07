@@ -1,128 +1,84 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0CF4\n.ent func_800A0CF4\n"
-    "func_800A0CF4:\n"
-    "addiu $29,$29,-136\n"
-    "sw $19,124($29)\n"
-    "move $19,$4\n"
-    "sw $17,116($29)\n"
-    "move $17,$5\n"
-    "lui $2,0x800f\n"
-    "sw $18,120($29)\n"
-    "addiu $18,$2,6656\n"
-    "move $5,$18\n"
-    "li $6,4\n"
-    "sw $16,112($29)\n"
-    "addiu $16,$29,24\n"
-    "sw $31,128($29)\n"
-    "lw $2,208($17)\n"
-    "lui $7,0x800f\n"
-    "sw $16,16($29)\n"
-    "lw $4,8($2)\n"
-    "jal func_800BE28C\n"
-    "addiu $7,$7,6704\n"
-    "beqz $2,L_800A0EB0\n"
-    "nop\n"
-    "lw $2,4412($17)\n"
-    "beqz $2,L_800A0EB0\n"
-    "move $5,$0\n"
-    "addiu $4,$29,96\n"
-    "jal func_80037F30\n"
-    "li $6,12\n"
-    "lui $2,0x800f\n"
-    "lwc1 $f0,6616($2)\n"
-    "addiu $6,$19,244\n"
-    "swc1 $f0,100($29)\n"
-    "lw $8,96($29)\n"
-    "lw $9,100($29)\n"
-    "lw $10,104($29)\n"
-    "sw $8,80($29)\n"
-    "sw $9,84($29)\n"
-    "sw $10,88($29)\n"
-    "lwc1 $f0,24($29)\n"
-    "lw $4,184($6)\n"
-    "lw $5,188($6)\n"
-    "swc1 $f0,84($17)\n"
-    "lwc1 $f0,4($16)\n"
-    "addiu $2,$17,84\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($16)\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f4,84($17)\n"
-    "lwc1 $f0,36($18)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "addiu $3,$18,36\n"
-    "swc1 $f4,64($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,4($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,68($29)\n"
-    "lwc1 $f2,8($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "swc1 $f2,72($29)\n"
-    "lwc1 $f0,460($19)\n"
-    "addiu $4,$4,-1\n"
-    "div.s $f4,$f4,$f0\n"
-    "mtc1 $4,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lwc1 $f0,480($19)\n"
-    "addiu $5,$5,-1\n"
-    "div.s $f2,$f2,$f0\n"
-    "mtc1 $5,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f2,$f2,$f0\n"
-    "trunc.w.s $f6,$f4\n"
-    "mfc1 $3,$f6\n"
-    "trunc.w.s $f6,$f2\n"
-    "mfc1 $4,$f6\n"
-    "blezl $3,L_800A0E28\n"
-    "li $3,1\n"
-    "L_800A0E28:\n"
-    "slti $2,$3,17\n"
-    "beql $2,$0,L_800A0E34\n"
-    "li $3,16\n"
-    "L_800A0E34:\n"
-    "blezl $4,L_800A0E3C\n"
-    "li $4,1\n"
-    "L_800A0E3C:\n"
-    "slti $2,$4,8\n"
-    "beql $2,$0,L_800A0E48\n"
-    "li $4,7\n"
-    "L_800A0E48:\n"
-    "sw $0,236($19)\n"
-    "lwc1 $f0,80($29)\n"
-    "swc1 $f0,488($19)\n"
-    "lwc1 $f0,84($29)\n"
-    "addiu $2,$19,488\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,88($29)\n"
-    "swc1 $f0,8($2)\n"
-    "lw $2,240($6)\n"
-    "sh $3,256($6)\n"
-    "sh $4,258($6)\n"
-    "ori $2,$2,0x3\n"
-    "sw $2,240($6)\n"
-    "lw $2,4416($17)\n"
-    "beqz $2,L_800A0EB0\n"
-    "li $2,1\n"
-    "lbu $3,426($17)\n"
-    "bnel $3,$2,L_800A0EB0\n"
-    "sw $0,4416($17)\n"
-    "lui $4,0x8004\n"
-    "lbu $5,732($17)\n"
-    "lui $6,0x3f33\n"
-    "ori $6,$6,0x3333\n"
-    "jal func_800084C0\n"
-    "addiu $4,$4,17904\n"
-    "sw $0,4416($17)\n"
-    "L_800A0EB0:\n"
-    "lw $31,128($29)\n"
-    "lw $19,124($29)\n"
-    "lw $18,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,136\n"
-    ".end func_800A0CF4\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { Vec p; char pad[40 - 12]; } Hit;
+typedef struct { char pad[0x24]; Vec org; } Area;
+typedef struct { char pad[8]; void *root; } Tree;
+typedef struct { char pad[0xB8]; int nx; int nz; char padc0[0xF0 - 0xC0]; int flags; char padf4[0x100 - 0xF4]; short ix; short iz; } Map;
+typedef struct {
+    char pad0[0x54];
+    Vec pos;
+    char pad60[0xD0 - 0x60];
+    Tree *tree;
+    char padd4[0x1AA - 0xD4];
+    unsigned char state;
+    char pad1ab[0x2DC - 0x1AB];
+    unsigned char snd;
+    char pad2dd[0x113C - 0x2DD];
+    int ready;
+    int fresh;
+} Ent;
+typedef struct {
+    char pad0[0xEC];
+    int fec;
+    char padf0[0x1CC - 0xF0];
+    float w;
+    char pad1d0[0x1E0 - 0x1D0];
+    float h;
+    char pad1e4[0x1E8 - 0x1E4];
+    Vec home;
+} Hud;
+
+extern Area D_800F1A00;
+extern char D_800F1A30[];
+extern float D_800F19D8;
+extern char D_800445F0[];
+extern int func_800BE28C(void *root, Area *a, int n, char *tag, Hit *h);
+extern void func_80037F30(void *p, int v, int n);
+extern void func_800084C0(char *bank, int id, float vol);
+
+static inline void vcopy(Vec *a, Vec *b) { a->x = b->x; a->y = b->y; a->z = b->z; }
+static inline void vsub(Vec *o, Vec *a, Vec *b) { o->x = a->x - b->x; o->y = a->y - b->y; o->z = a->z - b->z; }
+
+void func_800A0CF4(Hud *hud, Ent *e)
+{
+    Hit hit;
+    Vec d;
+    Vec cp;
+    Vec tmp;
+    Map *m;
+    int ix;
+    int iz;
+    int nx;
+    int nz;
+
+    if (func_800BE28C(e->tree->root, &D_800F1A00, 4, D_800F1A30, &hit) == 0) {
+        return;
+    }
+    if (e->ready == 0) {
+        return;
+    }
+    func_80037F30(&tmp, 0, 12);
+    tmp.y = D_800F19D8;
+    cp = tmp;
+    m = (Map *)((char *)hud + 0xF4);
+    nx = m->nx;
+    nz = m->nz;
+    vcopy(&e->pos, &hit.p);
+    vsub(&d, &e->pos, &D_800F1A00.org);
+    ix = d.x / hud->w * (float)(nx - 1);
+    iz = d.z / hud->h * (float)(nz - 1);
+    if (ix <= 0) ix = 1;
+    if (ix > 16) ix = 16;
+    if (iz <= 0) iz = 1;
+    if (iz > 7) iz = 7;
+    hud->fec = 0;
+    vcopy(&hud->home, &cp);
+    m->flags |= 3;
+    m->ix = ix;
+    m->iz = iz;
+    if (e->fresh != 0) {
+        if (e->state == 1) {
+            func_800084C0(D_800445F0, e->snd, 0.7f);
+        }
+        e->fresh = 0;
+    }
+}

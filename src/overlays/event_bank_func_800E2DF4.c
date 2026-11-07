@@ -1,55 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E2DF4\n.ent func_800E2DF4\n"
-    "func_800E2DF4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $2,1550($4)\n"
-    "lui $3,0x8010\n"
-    "addiu $2,$2,1\n"
-    "sb $2,1550($4)\n"
-    "lw $5,-15760($3)\n"
-    "lbu $3,2572($5)\n"
-    "andi $2,$2,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800E2E44\n"
-    "li $3,2\n"
-    "lw $3,2560($5)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800E2E44\n"
-    "move $3,$0\n"
-    "lbu $2,3410($5)\n"
-    "andi $2,$2,0x4\n"
-    "beql $2,$0,L_800E2E44\n"
-    "li $3,1\n"
-    "L_800E2E44:\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800E2E80\n"
-    "slti $2,$3,2\n"
-    "beql $2,$0,L_800E2E68\n"
-    "li $2,2\n"
-    "beqz $3,L_800E2E94\n"
-    "nop\n"
-    "j func_800774AC\n"
-    "nop\n"
-    "L_800E2E68:\n"
-    "bne $3,$2,L_800E2E9C\n"
-    "nop\n"
-    "jal func_80077378\n"
-    "nop\n"
-    "j func_800774AC\n"
-    "nop\n"
-    "L_800E2E80:\n"
-    "li $4,1\n"
-    "jal func_8009C0D8\n"
-    "li $5,-1\n"
-    "j func_800774AC\n"
-    "nop\n"
-    "L_800E2E94:\n"
-    "jal func_80073E8C\n"
-    "nop\n"
-    "L_800E2E9C:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800E2DF4\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+extern u8 *D_800FC270;
+extern void func_80073E8C(u8 *);
+extern void func_80077378(u8 *);
+extern void func_8009C0D8(s32, s32);
+void func_80077404(u8 *o)
+{
+    s32 st;
+    u8 *g;
+    o[1550]++;
+    g = D_800FC270;
+    if (o[1550] < g[2572]) st = 2; else if (*(s32 *)(g + 2560) != 5 || (g[3410] & 4)) st = 0; else st = 1;
+    switch (st) {
+    case 2:
+        func_80077378(o);
+        break;
+    case 1:
+        func_8009C0D8(1, -1);
+        break;
+    case 0:
+        func_80073E8C(o);
+        break;
+    }
+}

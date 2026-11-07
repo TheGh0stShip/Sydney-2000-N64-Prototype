@@ -1,74 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80087588\n.ent func_80087588\n"
-    "func_80087588:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "lui $2,0x8007\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lbu $3,21623($16)\n"
-    "lbu $2,30512($2)\n"
-    "bne $3,$2,L_80087644\n"
-    "move $17,$5\n"
-    "lui $2,0x8010\n"
-    "sb $5,21615($16)\n"
-    "lw $4,-15760($2)\n"
-    "lw $3,2560($4)\n"
-    "li $2,6\n"
-    "beq $3,$2,L_80087644\n"
-    "li $2,5\n"
-    "lbu $3,1557($16)\n"
-    "bne $3,$2,L_800875EC\n"
-    "li $3,1\n"
-    "jal func_80075688\n"
-    "move $4,$16\n"
-    "li $2,19\n"
-    "j func_80076274\n"
-    "sb $2,1551($16)\n"
-    "L_800875EC:\n"
-    "lbu $5,21615($16)\n"
-    "sll $2,$5,0x3\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lh $2,21266($2)\n"
-    "beq $2,$3,L_80087644\n"
-    "addiu $5,$5,579\n"
-    "li $2,-1\n"
-    "beq $5,$2,L_80087648\n"
-    "li $2,1\n"
-    "lw $2,2564($4)\n"
-    "beqz $2,L_80087648\n"
-    "li $2,1\n"
-    "lw $2,21568($16)\n"
-    "bne $2,$3,L_80087648\n"
-    "li $2,1\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_80087644:\n"
-    "li $2,1\n"
-    "L_80087648:\n"
-    "sllv $2,$2,$17\n"
-    "lbu $3,21623($16)\n"
-    "nor $2,$0,$2\n"
-    "and $3,$3,$2\n"
-    "bnez $3,L_80087678\n"
-    "sb $3,21623($16)\n"
-    "lbu $3,1557($16)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_80087678\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,20\n"
-    "L_80087678:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80087588\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Glob { char pad[2560]; int phase; int sound; } Glob;
+typedef struct Rec { char pad[34]; short state; } Rec;
+typedef struct Obj {
+    char pad[1116];
+    char unk45C[1551 - 1116];
+    u8 unk60F;
+    char pad610[1557 - 1552];
+    u8 state;
+    char pad616[21232 - 1558];
+    Rec recs[8];
+    char pad2[21568 - 21232 - 8 * 36];
+    int mode;
+    char pad5444[21615 - 21572];
+    u8 sel;
+    char pad5470[21623 - 21616];
+    u8 mask;
+} Obj;
+extern Glob *D_800FC270;
+extern u8 D_80077730;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *, int, int, int);
+extern void func_80075688(Obj *);
+extern void func_800A9BE8(void *, int);
+#define PLAY(o, id) \
+    if ((id) != -1 && D_800FC270->sound != 0 && (o)->mode == 1) func_800C0110(D_800F3BC0, (id), 0, 0)
+void func_800761B8(Obj *o, u8 bit)
+{
+    if (o->mask == D_80077730) {
+        o->sel = bit;
+        if (D_800FC270->phase != 6) {
+            if (o->state == 5) {
+                func_80075688(o);
+                o->unk60F = 19;
+            } else if (o->recs[o->sel].state != 1) {
+                PLAY(o, o->sel + 579);
+            }
+        }
+    }
+    o->mask &= ~(1 << bit);
+    if (o->mask == 0 && o->state == 5) {
+        func_800A9BE8(o->unk45C, 20);
+    }
+}

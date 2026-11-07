@@ -1,62 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A4E30\n.ent func_800A4E30\n"
-    "func_800A4E30:\n"
-    "move $6,$4\n"
-    "lbu $2,252($6)\n"
-    "bnez $2,L_800A4ED4\n"
-    "lui $3,0x800f\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,9080\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9056\n"
-    "lb $3,254($6)\n"
-    "lb $2,253($6)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,21196($1)\n"
-    "lwc1 $f2,236($6)\n"
-    "sll $3,$3,0x2\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "lwc1 $f0,0($2)\n"
-    "addu $3,$3,$5\n"
-    "sub.s $f0,$f0,$f6\n"
-    "addiu $2,$6,4668\n"
-    "lwc1 $f4,0($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "sw $0,72($2)\n"
-    "swc1 $f4,64($2)\n"
-    "swc1 $f0,68($2)\n"
-    "lb $3,254($6)\n"
-    "lb $2,253($6)\n"
-    "lwc1 $f2,236($6)\n"
-    "sll $3,$3,0x2\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "lwc1 $f0,0($2)\n"
-    "addu $3,$3,$5\n"
-    "add.s $f0,$f0,$f6\n"
-    "addiu $2,$6,4880\n"
-    "lwc1 $f4,0($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "sw $0,72($2)\n"
-    "swc1 $f4,64($2)\n"
-    "swc1 $f0,68($2)\n"
-    "lui $3,0x800f\n"
-    "L_800A4ED4:\n"
-    "addiu $3,$3,9056\n"
-    "lb $2,253($6)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,21200($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,21204($1)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f0,0($2)\n"
-    "addiu $3,$6,5304\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f4,64($3)\n"
-    "sw $0,72($3)\n"
-    "jr $31\n"
-    "swc1 $f0,68($3)\n"
-    ".end func_800A4E30\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef float f32;
+typedef struct { u8 pad[64]; f32 x; f32 y; f32 z; u8 pad2[136]; } Part;
+typedef struct {
+    u8 pad0[236];
+    f32 f236;
+    u8 pad1[12];
+    u8 b252;
+    s8 i253;
+    s8 i254;
+    u8 pad2[4668 - 255];
+    Part parts[4];
+} Obj;
+extern f32 D_800F2360[];
+extern f32 D_800F2378[];
+static inline void set_part_pos(Part *p, f32 x, f32 y, f32 z)
+{
+    p->x = x;
+    p->y = y;
+    p->z = z;
+}
+void func_800A4E30(Obj *o)
+{
+    if (o->b252 == 0) {
+        set_part_pos(&o->parts[0], D_800F2378[o->i254], D_800F2360[o->i253] - 16.0f - o->f236, 0.0f);
+        set_part_pos(&o->parts[1], D_800F2378[o->i254], D_800F2360[o->i253] + 16.0f + o->f236, 0.0f);
+    }
+    set_part_pos(&o->parts[3], 47.0f, D_800F2360[o->i253] - 16.0f, 0.0f);
+}

@@ -1,99 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011D2C0\n.ent func_8011D2C0\n"
-    "func_8011D2C0:\n"
-    "addiu $29,$29,-80\n"
-    "sw $16,64($29)\n"
-    "move $16,$4\n"
-    "sw $31,68($29)\n"
-    "sdc1 $f20,72($29)\n"
-    "lw $2,196($16)\n"
-    "bnez $2,L_8011D368\n"
-    "sw $0,428($16)\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,2592\n"
-    "li $5,-1\n"
-    "jal func_800140A0\n"
-    "li $6,1\n"
-    "lw $3,4($16)\n"
-    "move $4,$16\n"
-    "lw $3,29672($3)\n"
-    "move $5,$2\n"
-    "sw $5,404($16)\n"
-    "sw $3,408($16)\n"
-    "sw $0,16($29)\n"
-    "lw $6,408($16)\n"
-    "jal func_800B7130\n"
-    "move $7,$0\n"
-    "move $4,$16\n"
-    "jal func_800ADC54\n"
-    "li $5,1\n"
-    "move $4,$16\n"
-    "jal func_800AD890\n"
-    "li $5,1\n"
-    "li $2,7\n"
-    "sb $2,202($16)\n"
-    "lw $2,192($16)\n"
-    "lw $3,208($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,2628($1)\n"
-    "ori $2,$2,0x2000\n"
-    "sw $2,192($16)\n"
-    "lw $2,8($3)\n"
-    "swc1 $f0,40($2)\n"
-    "lw $2,208($16)\n"
-    "lw $2,8($2)\n"
-    "swc1 $f0,0($2)\n"
-    "L_8011D368:\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,2632($1)\n"
-    "li $6,-1\n"
-    "mfc1 $7,$f20\n"
-    "li $2,1\n"
-    "sw $0,16($29)\n"
-    "jal func_800B9FA4\n"
-    "sw $2,20($29)\n"
-    "move $4,$16\n"
-    "li $5,1\n"
-    "addiu $6,$29,24\n"
-    "addiu $7,$29,56\n"
-    "addiu $2,$29,40\n"
-    "sw $2,16($29)\n"
-    "jal func_800B9BD4\n"
-    "sw $0,20($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,2636($1)\n"
-    "mfc1 $5,$f20\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,2640($1)\n"
-    "swc1 $f0,84($16)\n"
-    "lwc1 $f0,428($16)\n"
-    "addiu $2,$16,84\n"
-    "swc1 $f2,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "addiu $2,$16,20\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,368($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$16,368\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "move $4,$16\n"
-    "jal func_800B8C70\n"
-    "swc1 $f0,8($3)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,2644($1)\n"
-    "sw $0,432($16)\n"
-    "sw $0,436($16)\n"
-    "sw $0,440($16)\n"
-    "sw $0,444($16)\n"
-    "sw $0,172($16)\n"
-    "swc1 $f0,424($16)\n"
-    "lw $31,68($29)\n"
-    "lw $16,64($29)\n"
-    "ldc1 $f20,72($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_8011D2C0\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+typedef unsigned int u32;
+typedef float f32;
+#define F32(x) (*(f32 *)(o + (x)))
+#define S32(x) (*(s32 *)(o + (x)))
+#define PTR(x) (*(u8 **)(o + (x)))
+extern u8 D_80080A20[];
+extern s32 func_800140A0(void *, s32, s32);
+extern void func_800B7130(u8 *, s32, s32, s32, s32);
+extern void func_800ADC54(u8 *, s32);
+extern void func_800AD890(u8 *, s32);
+extern void func_800B9FA4(u8 *, s32, s32, f32, s32, s32);
+extern s32 func_800B9BD4(u8 *p, s32 a, f32 *b, void *c, f32 *d, s32 e);
+extern void func_800B8C70(u8 *obj, f32 v);
+static inline void vset(f32 *v, f32 x, f32 y, f32 z)
+{
+    v[0] = x;
+    v[1] = y;
+    v[2] = z;
+}
+void func_80081C40(u8 *o)
+{
+    f32 a[4];
+    f32 c[4];
+    struct { s32 x; unsigned short y; } b;
+    s32 v;
+    s32 h;
+    f32 *q;
+    u8 *p;
+    F32(428) = 0.0f;
+    if (S32(196) == 0) {
+        v = func_800140A0(D_80080A20, -1, 1);
+        S32(408) = *(s32 *)(PTR(4) + 29672);
+        S32(404) = v;
+        func_800B7130(o, v, S32(408), 0, 0);
+        func_800ADC54(o, 1);
+        func_800AD890(o, 1);
+        o[202] = 7;
+        *(u32 *)(o + 192) |= 0x2000;
+        *(f32 *)(*(u8 **)(PTR(208) + 8) + 40) = 0.00471238885f;
+        *(f32 *)(*(u8 **)(PTR(208) + 8)) = 0.00471238885f;
+    }
+    func_800B9FA4(o, 0, -1, 0.4f, 0, 1);
+    func_800B9BD4(o, 1, a, &b, c, 0);
+    vset((f32 *)(o + 84), 0.01f, F32(428), 0.00471238885f);
+    p = o + 20;
+    F32(368) = *(f32 *)(p + 64);
+    q = (f32 *)(o + 368);
+    q[1] = *(f32 *)(p + 68);
+    q[2] = *(f32 *)(p + 72);
+    func_800B8C70(o, 0.4f);
+    S32(432) = 0;
+    S32(436) = 0;
+    S32(440) = 0;
+    S32(444) = 0;
+    S32(172) = 0;
+    F32(424) = 0.25f;
+}

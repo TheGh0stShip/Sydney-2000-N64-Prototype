@@ -1,67 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AAA70\n.ent func_800AAA70\n"
-    "func_800AAA70:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $18,32($29)\n"
-    "move $18,$5\n"
-    "li $5,-1\n"
-    "sw $31,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $16,24($29)\n"
-    "lw $4,644($17)\n"
-    "jal func_800BBB04\n"
-    "move $19,$6\n"
-    "move $16,$2\n"
-    "beqz $16,L_800AAB38\n"
-    "nor $2,$0,$18\n"
-    "lbu $3,5($16)\n"
-    "and $4,$3,$2\n"
-    "beq $4,$3,L_800AAB38\n"
-    "nop\n"
-    "lw $2,0($16)\n"
-    "bnel $2,$19,L_800AAB08\n"
-    "sb $4,17($29)\n"
-    "sb $4,5($16)\n"
-    "lw $4,644($17)\n"
-    "jal func_800BBB04\n"
-    "li $5,-2\n"
-    "beqz $2,L_800AAAF0\n"
-    "nop\n"
-    "lw $3,648($17)\n"
-    "lbu $2,5($2)\n"
-    "j L_800AAAF8\n"
-    "sb $2,5($3)\n"
-    "L_800AAAF0:\n"
-    "lw $2,648($17)\n"
-    "sb $0,5($2)\n"
-    "L_800AAAF8:\n"
-    "lw $4,648($17)\n"
-    "lbu $5,5($16)\n"
-    "j L_800AAB30\n"
-    "nop\n"
-    "L_800AAB08:\n"
-    "lb $2,427($17)\n"
-    "move $5,$19\n"
-    "sb $0,18($29)\n"
-    "sb $0,19($29)\n"
-    "sb $2,16($29)\n"
-    "lw $4,644($17)\n"
-    "jal func_800BBB30\n"
-    "addiu $6,$29,16\n"
-    "lw $4,648($17)\n"
-    "lbu $5,17($29)\n"
-    "L_800AAB30:\n"
-    "jal func_800BC07C\n"
-    "nop\n"
-    "L_800AAB38:\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800AAA70\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef struct { int key; char pad; u8 bits; } Ent;
+typedef struct { signed char a; u8 bits; u8 c; u8 d; } Msg;
+typedef struct {
+    char pad0[427]; signed char id;
+    char pad1[644 - 428]; void *list; Ent *cur;
+} Obj;
+extern Ent *func_800BBB04(void *, int);
+extern void func_800BBB30(void *, int, Msg *);
+extern void func_800BC07C(Ent *, int);
+void func_800AAA70(Obj *o, u16 bits, int key)
+{
+    Msg m;
+    Ent *e;
+    Ent *e2;
+    u8 nb;
+    int id;
+    e = func_800BBB04(o->list, -1);
+    if (e == 0) return;
+    nb = e->bits & ~bits;
+    if (nb == e->bits) return;
+    if (e->key == key) {
+        e->bits = nb;
+        e2 = func_800BBB04(o->list, -2);
+        if (e2) o->cur->bits = e2->bits;
+        else o->cur->bits = 0;
+        func_800BC07C(o->cur, e->bits);
+        return;
+    }
+    m.bits = nb;
+    id = o->id;
+    m.c = 0;
+    m.d = 0;
+    m.a = id;
+    func_800BBB30(o->list, key, &m);
+    func_800BC07C(o->cur, m.bits);
+}

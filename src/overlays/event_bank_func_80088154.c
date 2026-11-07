@@ -1,82 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80088154\n.ent func_80088154\n"
-    "func_80088154:\n"
-    "addiu $29,$29,-72\n"
-    "sw $18,48($29)\n"
-    "move $18,$4\n"
-    "sw $31,64($29)\n"
-    "sw $21,60($29)\n"
-    "sw $20,56($29)\n"
-    "sw $19,52($29)\n"
-    "sw $17,44($29)\n"
-    "sw $16,40($29)\n"
-    "lbu $3,1550($18)\n"
-    "lbu $2,1555($18)\n"
-    "move $17,$0\n"
-    "mult $3,$2\n"
-    "li $21,8\n"
-    "li $20,1\n"
-    "lui $2,0x8010\n"
-    "move $19,$2\n"
-    "mflo $3\n"
-    "sllv $2,$3,$20\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($19)\n"
-    "addiu $2,$2,2576\n"
-    "addu $16,$3,$2\n"
-    "lbu $3,1555($18)\n"
-    "andi $2,$17,0xff\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_80088254\n"
-    "li $2,2\n"
-    "lb $3,0($16)\n"
-    "lbu $6,0($16)\n"
-    "beq $3,$21,L_800881F4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lw $3,-15760($19)\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$3,$2\n"
-    "lbu $2,32($3)\n"
-    "j func_80076E28\n"
-    "nop\n"
-    "L_800881F4:\n"
-    "li $2,3\n"
-    "beq $2,$20,L_8008822C\n"
-    "addiu $4,$29,16\n"
-    "sll $6,$6,0x18\n"
-    "lbu $5,1($16)\n"
-    "jal func_8009A828\n"
-    "sra $6,$6,0x18\n"
-    "move $4,$18\n"
-    "addiu $5,$29,16\n"
-    "lui $7,0x4120\n"
-    "jal func_80076C78\n"
-    "li $6,10\n"
-    "j func_80076E68\n"
-    "move $4,$18\n"
-    "L_8008822C:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5204($1)\n"
-    "move $4,$18\n"
-    "andi $5,$17,0xff\n"
-    "mfc1 $6,$f0\n"
-    "addiu $16,$16,12\n"
-    "jal func_800742E0\n"
-    "addiu $17,$17,1\n"
-    "j func_80076DE4\n"
-    "nop\n"
-    "L_80088254:\n"
-    "sb $2,21618($18)\n"
-    "lw $31,64($29)\n"
-    "lw $21,60($29)\n"
-    "lw $20,56($29)\n"
-    "lw $19,52($29)\n"
-    "lw $18,48($29)\n"
-    "lw $17,44($29)\n"
-    "lw $16,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_80088154\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef struct Slot { s8 type; u8 b1; short unk2; char pad4[8]; } Slot;
+typedef struct Ent { char pad[32]; u8 kind; char pad21[60 - 33]; } Ent;
+typedef struct Glob { Ent ents[1]; } Glob;
+typedef struct Obj {
+    char pad[1550];
+    u8 index;
+    char pad60F[1555 - 1551];
+    u8 stride;
+    char pad614[21618 - 1556];
+    u8 mode;
+} Obj;
+extern Glob *D_800FC270;
+extern void func_8009A828(void *, int, int);
+extern float func_80076C78(Obj *, void *, int, float);
+extern void func_800742E0(Obj *, int, float);
+void func_80076D84(Obj *o)
+{
+    char buf[24];
+    Slot *p = (Slot *)((char *)D_800FC270 + 2576) + o->index * o->stride;
+    u8 i = 0;
+    u8 k;
+    float f;
+    while (1) {
+        u8 t;
+        if (!(i < o->stride)) break;
+        t = p->type;
+        if (p->type != 8) {
+            k = D_800FC270->ents[p->type].kind;
+        } else {
+            k = 3;
+        }
+        if (k != 1) {
+            func_8009A828(buf, p->b1, (s8)t);
+            f = func_80076C78(o, buf, 10, 10.0f);
+        } else {
+            f = -1.0f;
+        }
+        func_800742E0(o, i, f);
+        p++;
+        i++;
+    }
+    o->mode = 2;
+}

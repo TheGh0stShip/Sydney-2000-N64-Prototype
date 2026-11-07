@@ -1,69 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DD940\n.ent func_800DD940\n"
-    "func_800DD940:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,25284($18)\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800DDA14\n"
-    "sw $2,25284($18)\n"
-    "lbu $2,1557($18)\n"
-    "bnez $2,L_800DD988\n"
-    "lui $17,0x800f\n"
-    "addiu $4,$18,20560\n"
-    "li $5,1\n"
-    "jal func_80099D70\n"
-    "move $6,$0\n"
-    "lui $17,0x800f\n"
-    "L_800DD988:\n"
-    "addiu $17,$17,6880\n"
-    "move $4,$17\n"
-    "move $6,$0\n"
-    "li $7,270\n"
-    "lw $5,25328($18)\n"
-    "li $2,0x9600\n"
-    "sw $2,25284($18)\n"
-    "li $2,5\n"
-    "sb $2,1551($18)\n"
-    "li $2,1\n"
-    "sw $2,16($29)\n"
-    "jal func_8001D5D8\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "li $5,96\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$17\n"
-    "move $16,$2\n"
-    "move $5,$16\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$17\n"
-    "lw $3,104($4)\n"
-    "li $2,6553\n"
-    "mult $3,$2\n"
-    "move $5,$16\n"
-    "li $7,120\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "sw $16,25332($18)\n"
-    "L_800DDA14:\n"
-    "li $4,23040\n"
-    "jal func_8009B9EC\n"
-    "move $5,$0\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800DD940\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+typedef struct { u8 pad[104]; s32 vol; } Snd;
+extern Snd D_800F1AE0;
+extern s32 func_8001D4B8(Snd *, s32, s32, s32);
+extern void func_8001D640(Snd *, s32, s32);
+extern void func_8001D5D8(Snd *, s32, s32, s32, s32, s32);
+extern void func_80099D70(u8 *, int, float);
+extern void func_8009B9EC(int, int);
+static inline s32 scl(s32 v, s32 m)
+{
+    return (v * m) >> 15;
+}
+void func_80071F50(u8 *o)
+{
+    s32 h;
+    s32 x;
+    if ((*(s32 *)(o + 25284) -= 256) <= 0) {
+        if (!o[1557]) {
+            func_80099D70(o + 20560, 1, 0.0f);
+        }
+        x = *(s32 *)(o + 25328);
+        *(s32 *)(o + 25284) = 0x9600;
+        o[1551] = 5;
+        func_8001D5D8(&D_800F1AE0, x, 0, 270, 1, 0);
+        h = func_8001D4B8(&D_800F1AE0, 96, 0, -1);
+        func_8001D640(&D_800F1AE0, h, 0);
+        func_8001D5D8(&D_800F1AE0, h, scl(D_800F1AE0.vol, 6553), 120, 0, 0);
+        *(s32 *)(o + 25332) = h;
+    }
+    func_8009B9EC(23040, 0);
+}

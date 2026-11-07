@@ -1,86 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B08E4\n.ent func_800B08E4\n"
-    "func_800B08E4:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $31,28($29)\n"
-    "lw $2,220($16)\n"
-    "sw $0,16($29)\n"
-    "lw $2,4($2)\n"
-    "lui $3,0x1\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800B0918\n"
-    "nop\n"
-    "lw $2,456($16)\n"
-    "sw $2,16($29)\n"
-    "L_800B0918:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800B09FC\n"
-    "nop\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B0940\n"
-    "nop\n"
-    "lw $2,684($16)\n"
-    "bnel $2,$0,L_800B0940\n"
-    "sw $2,16($29)\n"
-    "L_800B0940:\n"
-    "lw $2,16($29)\n"
-    "beqz $2,L_800B09FC\n"
-    "addiu $4,$29,16\n"
-    "lbu $3,797($16)\n"
-    "lbu $5,798($16)\n"
-    "lbu $2,796($16)\n"
-    "sll $3,$3,0x8\n"
-    "or $5,$5,$3\n"
-    "sll $2,$2,0x10\n"
-    "or $5,$5,$2\n"
-    "lui $2,0xff00\n"
-    "jal func_800191E0\n"
-    "or $5,$5,$2\n"
-    "lwc1 $f0,804($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,25508($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "move $4,$16\n"
-    "jal L_800B0A0C\n"
-    "swc1 $f0,804($16)\n"
-    "beqz $2,L_800B09FC\n"
-    "li $5,1\n"
-    "lw $3,808($16)\n"
-    "beq $3,$5,L_800B09B4\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800B09DC\n"
-    "move $4,$16\n"
-    "j L_800B09FC\n"
-    "nop\n"
-    "L_800B09B4:\n"
-    "move $4,$16\n"
-    "li $2,220\n"
-    "sb $2,799($4)\n"
-    "li $2,170\n"
-    "sb $2,800($4)\n"
-    "li $2,70\n"
-    "sb $2,801($4)\n"
-    "li $2,2\n"
-    "j L_800B09F4\n"
-    "sw $2,808($4)\n"
-    "L_800B09DC:\n"
-    "li $2,255\n"
-    "sb $2,799($4)\n"
-    "sb $2,800($4)\n"
-    "li $2,64\n"
-    "sb $2,801($4)\n"
-    "sw $5,808($4)\n"
-    "L_800B09F4:\n"
-    "jal L_800B0A0C\n"
-    "sw $0,804($4)\n"
-    "L_800B09FC:\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    "L_800B0A0C:\n"
-    ".end func_800B08E4\n.set at\n.set reorder\n");
+typedef struct { char pad[4]; int flags; } Cfg;
+typedef struct {
+    char pad0[8]; int enabled;
+    char pad1[208]; Cfg *cfg;
+    char pad2[232]; int handle;
+    char pad3[224]; int alt;
+    char pad4[108]; unsigned char r, g, b, cr, cg, cb;
+    char pad5[2]; float timer; int phase;
+    char pad6[40]; int mode;
+} Obj;
+extern void func_800191E0(int *, unsigned int);
+extern int func_800B0A0C(Obj *);
+void func_800B08E4(Obj *o)
+{
+    int h = 0;
+    if (o->cfg->flags & 0x10000) h = o->handle;
+    if (!o->enabled) return;
+    if ((o->mode & 1) && o->alt) h = o->alt;
+    if (!h) return;
+    func_800191E0(&h, o->b | (o->g << 8) | (o->r << 16) | 0xFF000000);
+    o->timer += 0.0333333351f;
+    if (!func_800B0A0C(o)) return;
+    {
+    int ph = o->phase;
+    Obj *p;
+    switch (ph) {
+    case 1:
+        p = o;
+        p->cr = 220; p->cg = 170; p->cb = 70;
+        p->phase = 2;
+        break;
+    case 2:
+        p = o;
+        p->cr = 255; p->cg = 255; p->cb = 64;
+        p->phase = 1;
+        break;
+    default:
+        return;
+    }
+    p->timer = 0.0f;
+    func_800B0A0C(p);
+    }
+}

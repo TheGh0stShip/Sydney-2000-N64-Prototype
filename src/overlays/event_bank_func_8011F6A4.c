@@ -1,69 +1,25 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011F6A4\n.ent func_8011F6A4\n"
-    "func_8011F6A4:\n"
-    "addiu $29,$29,-72\n"
-    "sw $16,48($29)\n"
-    "move $16,$4\n"
-    "sw $17,52($29)\n"
-    "addiu $17,$16,20\n"
-    "move $4,$17\n"
-    "addiu $5,$16,4380\n"
-    "li $6,76\n"
-    "lui $2,0x8008\n"
-    "sw $31,64($29)\n"
-    "sw $19,60($29)\n"
-    "sw $18,56($29)\n"
-    "addiu $10,$2,2992\n"
-    "lw $3,0($10)\n"
-    "lw $8,4($10)\n"
-    "lw $9,8($10)\n"
-    "sw $3,16($29)\n"
-    "sw $8,20($29)\n"
-    "sw $9,24($29)\n"
-    "jal func_800B3870\n"
-    "sw $0,4296($16)\n"
-    "move $4,$17\n"
-    "addiu $18,$29,16\n"
-    "move $5,$18\n"
-    "addiu $19,$29,32\n"
-    "move $6,$19\n"
-    "mtc1 $0,$f0\n"
-    "li $7,1\n"
-    "swc1 $f0,4288($16)\n"
-    "swc1 $f0,4280($16)\n"
-    "swc1 $f0,4276($16)\n"
-    "swc1 $f0,4272($16)\n"
-    "swc1 $f0,4268($16)\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f0,4264($16)\n"
-    "move $4,$17\n"
-    "lwc1 $f0,32($29)\n"
-    "move $5,$18\n"
-    "swc1 $f0,4332($16)\n"
-    "lwc1 $f0,36($29)\n"
-    "addiu $2,$16,4332\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,40($29)\n"
-    "move $6,$19\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,16($29)\n"
-    "li $7,1\n"
-    "neg.s $f0,$f0\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f0,32($29)\n"
-    "swc1 $f0,4344($16)\n"
-    "lwc1 $f0,36($29)\n"
-    "addiu $16,$16,4344\n"
-    "swc1 $f0,4($16)\n"
-    "lwc1 $f0,40($29)\n"
-    "swc1 $f0,8($16)\n"
-    "lw $31,64($29)\n"
-    "lw $19,60($29)\n"
-    "lw $18,56($29)\n"
-    "lw $17,52($29)\n"
-    "lw $16,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_8011F6A4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { float x, y, z; } Vec;
+typedef struct { float m[16]; Vec p; } Mtx;
+extern void func_800B3870(Mtx *, u8 *, int);
+extern void func_800AD2A8(Mtx *, Vec *, Vec *, int);
+static inline void vcpy(Vec *d, Vec *s)
+{
+    d->x = s->x;
+    d->y = s->y;
+    d->z = s->z;
+}
+void func_80081E34(u8 *o)
+{
+    Mtx *m = (Mtx *)(o + 20);
+    Vec a = { 21.462385f, 0.0f, 0.0f };
+    Vec b;
+    *(int *)(o + 4296) = 0;
+    func_800B3870(m, o + 4380, 76);
+    *(float *)(o + 4264) = *(float *)(o + 4268) = *(float *)(o + 4272) = *(float *)(o + 4276) = *(float *)(o + 4280) = *(float *)(o + 4288) = 0.0f;
+    func_800AD2A8(m, &a, &b, 1);
+    vcpy((Vec *)(o + 4332), &b);
+    a.x = -a.x;
+    func_800AD2A8(m, &a, &b, 1);
+    vcpy((Vec *)(o + 4344), &b);
+}

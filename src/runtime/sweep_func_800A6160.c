@@ -1,113 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A6160\n.ent func_800A6160\n"
-    "func_800A6160:\n"
-    "addiu $29,$29,-248\n"
-    "sw $17,236($29)\n"
-    "move $17,$4\n"
-    "sw $16,232($29)\n"
-    "move $16,$5\n"
-    "sw $18,240($29)\n"
-    "move $18,$6\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$17,188\n"
-    "li $6,212\n"
-    "lui $7,0x8008\n"
-    "addiu $7,$7,22184\n"
-    "sw $31,244($29)\n"
-    "jal func_800AA804\n"
-    "sw $16,192($17)\n"
-    "jal func_800ADED4\n"
-    "addiu $4,$29,16\n"
-    "addiu $3,$29,16\n"
-    "addiu $4,$29,224\n"
-    "lw $2,188($17)\n"
-    "L_800A61B4:\n"
-    "lw $8,0($3)\n"
-    "lw $9,4($3)\n"
-    "lw $10,8($3)\n"
-    "lw $11,12($3)\n"
-    "sw $8,0($2)\n"
-    "sw $9,4($2)\n"
-    "sw $10,8($2)\n"
-    "sw $11,12($2)\n"
-    "addiu $3,$3,16\n"
-    "bne $3,$4,L_800A61B4\n"
-    "addiu $2,$2,16\n"
-    "lw $8,0($3)\n"
-    "sw $8,0($2)\n"
-    "lw $2,188($17)\n"
-    "sb $0,177($2)\n"
-    "lw $4,188($17)\n"
-    "jal func_800ADC54\n"
-    "move $5,$18\n"
-    "li $2,3\n"
-    "bne $16,$2,L_800A621C\n"
-    "sltiu $2,$16,3\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beql $2,$0,L_800A6218\n"
-    "li $16,24\n"
-    "L_800A6218:\n"
-    "sltiu $2,$16,3\n"
-    "L_800A621C:\n"
-    "beqz $2,L_800A6238\n"
-    "addiu $2,$16,-4\n"
-    "jal func_80017D54\n"
-    "nop\n"
-    "beql $2,$0,L_800A6234\n"
-    "li $16,25\n"
-    "L_800A6234:\n"
-    "addiu $2,$16,-4\n"
-    "L_800A6238:\n"
-    "sltiu $2,$2,3\n"
-    "beqz $2,L_800A627C\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2552($2)\n"
-    "li $2,8\n"
-    "bne $3,$2,L_800A6268\n"
-    "li $2,7\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,22192\n"
-    "j L_800A6294\n"
-    "addiu $5,$17,184\n"
-    "L_800A6268:\n"
-    "bne $3,$2,L_800A62A4\n"
-    "addiu $5,$17,184\n"
-    "lui $4,0x8008\n"
-    "j L_800A6294\n"
-    "addiu $4,$4,22248\n"
-    "L_800A627C:\n"
-    "addiu $5,$17,184\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,9136\n"
-    "sll $3,$16,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $4,0($3)\n"
-    "L_800A6294:\n"
-    "jal func_80013E7C\n"
-    "move $6,$0\n"
-    "lw $3,188($17)\n"
-    "sw $2,196($3)\n"
-    "L_800A62A4:\n"
-    "lw $3,188($17)\n"
-    "li $2,86\n"
-    "sw $2,0($3)\n"
-    "lw $3,188($17)\n"
-    "lw $2,180($3)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "addiu $4,$29,16\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "lw $31,244($29)\n"
-    "lw $18,240($29)\n"
-    "lw $17,236($29)\n"
-    "lw $16,232($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,248\n"
-    ".end func_800A6160\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+typedef struct {
+    int type;
+    char pad4[0xB1 - 4];
+    unsigned char bb1;
+    char padb2[0xB4 - 0xB2];
+    VEnt *vt;
+    char padb8[0xC4 - 0xB8];
+    int model;
+    char padc8[0xD4 - 0xC8];
+} Big;
+typedef struct { char pad[0x9F8]; int venue; } Game;
+
+extern char D_800F2758[];
+extern char *D_800F23B0[];
+extern Game *D_800FC270;
+extern void func_800AA804(char *pool, void *slot, int size, char *name);
+extern void func_800ADED4(Big *b);
+extern void func_800ADC54(Big *b, int f);
+extern int func_80017D54(void);
+extern int func_80013E7C(char *name, void *p, int z);
+extern void func_800ADE84(Big *b, int f);
+
+void func_800A6160(char *o, unsigned int kind, int flag)
+{
+    Big tmp;
+    Big *b;
+
+    *(unsigned int *)(o + 0xC0) = kind;
+    func_800AA804(D_800F2758, o + 0xBC, sizeof(Big), "ENVOBJ");
+    func_800ADED4(&tmp);
+    **(Big **)(o + 0xBC) = tmp;
+    (*(Big **)(o + 0xBC))->bb1 = 0;
+    func_800ADC54(*(Big **)(o + 0xBC), flag);
+    if (kind == 3) {
+        if (func_80017D54() == 0) {
+            kind = 24;
+        }
+    }
+    if (kind < 3) {
+        if (func_80017D54() == 0) {
+            kind = 25;
+        }
+    }
+    if (kind - 4 < 3) {
+        int v = D_800FC270->venue;
+        if (v == 8) {
+            (*(Big **)(o + 0xBC))->model = func_80013E7C("GRAPHICS__ENVIRONMENTS__POOL__NATIONAL__NDIVEPOOL_OBB", o + 0xB8, 0);
+        } else if (v == 7) {
+            (*(Big **)(o + 0xBC))->model = func_80013E7C("GRAPHICS__ENVIRONMENTS__POOL__NATIONAL__NSWIMPOOL_OBB", o + 0xB8, 0);
+        }
+    } else {
+        (*(Big **)(o + 0xBC))->model = func_80013E7C(D_800F23B0[kind], o + 0xB8, 0);
+    }
+    (*(Big **)(o + 0xBC))->type = 86;
+    b = *(Big **)(o + 0xBC);
+    b->vt[8].fn((char *)b + b->vt[8].adj);
+    func_800ADE84(&tmp, 2);
+}

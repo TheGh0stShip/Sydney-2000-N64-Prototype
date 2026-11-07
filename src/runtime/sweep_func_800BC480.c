@@ -1,108 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BC480\n.ent func_800BC480\n"
-    "func_800BC480:\n"
-    "addiu $29,$29,-56\n"
-    "sw $22,48($29)\n"
-    "move $22,$4\n"
-    "sw $19,36($29)\n"
-    "move $19,$5\n"
-    "sw $16,24($29)\n"
-    "move $16,$6\n"
-    "sw $31,52($29)\n"
-    "sw $21,44($29)\n"
-    "sw $20,40($29)\n"
-    "sw $18,32($29)\n"
-    "jal func_800BE55C\n"
-    "sw $17,28($29)\n"
-    "move $8,$2\n"
-    "lwc1 $f0,12($16)\n"
-    "addiu $18,$16,12\n"
-    "swc1 $f0,12($8)\n"
-    "lwc1 $f0,4($18)\n"
-    "addiu $2,$8,12\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($18)\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,0($16)\n"
-    "swc1 $f0,0($8)\n"
-    "lwc1 $f0,4($16)\n"
-    "addiu $17,$16,24\n"
-    "swc1 $f0,4($8)\n"
-    "lwc1 $f0,8($16)\n"
-    "addiu $3,$8,24\n"
-    "swc1 $f0,8($8)\n"
-    "lwc1 $f0,24($16)\n"
-    "li $6,26\n"
-    "swc1 $f0,24($8)\n"
-    "lwc1 $f0,4($17)\n"
-    "lui $2,0x800f\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,8($17)\n"
-    "addiu $21,$2,9952\n"
-    "swc1 $f0,8($3)\n"
-    "lw $2,36($16)\n"
-    "move $7,$22\n"
-    "sw $2,36($8)\n"
-    "lui $2,0x800f\n"
-    "addiu $20,$2,10028\n"
-    "lw $5,24($20)\n"
-    "move $4,$21\n"
-    "sw $19,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $8,20($29)\n"
-    "beqz $19,L_800BC5F0\n"
-    "nop\n"
-    "jal func_800BE55C\n"
-    "nop\n"
-    "move $8,$2\n"
-    "lwc1 $f0,12($16)\n"
-    "lwc1 $f2,16($16)\n"
-    "neg.s $f0,$f0\n"
-    "swc1 $f0,12($16)\n"
-    "lwc1 $f0,20($16)\n"
-    "neg.s $f2,$f2\n"
-    "swc1 $f2,16($16)\n"
-    "lwc1 $f2,12($16)\n"
-    "neg.s $f0,$f0\n"
-    "swc1 $f0,20($16)\n"
-    "swc1 $f2,12($8)\n"
-    "lwc1 $f0,4($18)\n"
-    "addiu $2,$8,12\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($18)\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,0($16)\n"
-    "swc1 $f0,0($8)\n"
-    "lwc1 $f0,4($16)\n"
-    "swc1 $f0,4($8)\n"
-    "lwc1 $f0,8($16)\n"
-    "swc1 $f0,8($8)\n"
-    "lwc1 $f0,24($16)\n"
-    "swc1 $f0,24($8)\n"
-    "lwc1 $f0,4($17)\n"
-    "addiu $2,$8,24\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($17)\n"
-    "move $4,$21\n"
-    "swc1 $f0,8($2)\n"
-    "lw $2,36($16)\n"
-    "li $6,26\n"
-    "sw $2,36($8)\n"
-    "lw $5,24($20)\n"
-    "move $7,$19\n"
-    "sw $22,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $8,20($29)\n"
-    "L_800BC5F0:\n"
-    "lw $31,52($29)\n"
-    "lw $22,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800BC480\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { Vec a; Vec n; Vec c; int i; } Ray;
+typedef struct { char pad[0x18]; int step; } Clock;
+
+extern char D_800F26E0[];
+extern Clock D_800F272C;
+extern Ray *func_800BE55C(void);
+extern void func_800AB2A4(char *q, int step, int kind, int a, int b, Ray *r);
+
+static inline void vcopy(Vec *d, Vec *s)
+{
+    d->x = s->x;
+    d->y = s->y;
+    d->z = s->z;
+}
+
+static inline void rcopy(Ray *d, Ray *s)
+{
+    vcopy(&d->n, &s->n);
+    d->a.x = s->a.x;
+    d->a.y = s->a.y;
+    d->a.z = s->a.z;
+    vcopy(&d->c, &s->c);
+    d->i = s->i;
+}
+
+void func_800BC480(int a, int b, Ray *r)
+{
+    Ray *t;
+
+    t = func_800BE55C();
+    rcopy(t, r);
+    func_800AB2A4(D_800F26E0, D_800F272C.step, 26, a, b, t);
+    if (b) {
+        t = func_800BE55C();
+        r->n.x = -r->n.x;
+        r->n.y = -r->n.y;
+        r->n.z = -r->n.z;
+        rcopy(t, r);
+        func_800AB2A4(D_800F26E0, D_800F272C.step, 26, b, a, t);
+    }
+}

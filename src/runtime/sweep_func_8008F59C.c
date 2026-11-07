@@ -1,70 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008F59C\n.ent func_8008F59C\n"
-    "func_8008F59C:\n"
-    "addiu $29,$29,-64\n"
-    "sw $21,44($29)\n"
-    "move $21,$0\n"
-    "lui $2,0x8010\n"
-    "sw $17,28($29)\n"
-    "addiu $17,$2,1448\n"
-    "lui $2,0x800f\n"
-    "sdc1 $f20,56($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,16452($1)\n"
-    "addiu $2,$2,4308\n"
-    "sw $16,24($29)\n"
-    "addiu $16,$2,-28\n"
-    "sw $20,40($29)\n"
-    "addiu $20,$2,12\n"
-    "sw $19,36($29)\n"
-    "addiu $19,$2,24\n"
-    "sw $18,32($29)\n"
-    "move $18,$2\n"
-    "sw $31,48($29)\n"
-    "L_8008F5EC:\n"
-    "slti $2,$21,2\n"
-    "beqz $2,L_8008F670\n"
-    "li $6,3\n"
-    "lw $4,0($17)\n"
-    "lui $5,0x3ca3\n"
-    "ori $5,$5,0xd70a\n"
-    "jal func_800AD434\n"
-    "addiu $4,$4,20\n"
-    "li $5,1\n"
-    "move $6,$18\n"
-    "sw $20,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $4,0($17)\n"
-    "jal func_800B9BD4\n"
-    "move $7,$19\n"
-    "lwc1 $f4,12($16)\n"
-    "mul.s $f4,$f4,$f20\n"
-    "addiu $21,$21,1\n"
-    "addiu $20,$20,56\n"
-    "lwc1 $f2,16($16)\n"
-    "addiu $19,$19,56\n"
-    "mul.s $f2,$f2,$f20\n"
-    "addiu $18,$18,56\n"
-    "lwc1 $f0,20($16)\n"
-    "lw $2,0($17)\n"
-    "addiu $17,$17,4\n"
-    "mul.s $f0,$f0,$f20\n"
-    "addiu $16,$16,56\n"
-    "addiu $2,$2,20\n"
-    "swc1 $f4,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "j L_8008F5EC\n"
-    "swc1 $f0,72($2)\n"
-    "L_8008F670:\n"
-    "lw $31,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,56($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_8008F59C\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[64]; Vec pos; } Sub;
+typedef struct { char pad[20]; Sub sub; } Obj;
+typedef struct { char pad0[12]; Vec v; char pad1[28 - 24]; char a[12]; char b[12]; char c[4]; } Rec;
+extern Obj *D_801005A8[];
+extern Rec D_800F10B8[];
+extern void func_800AD434(void *, float, int);
+extern void func_800B9BD4(Obj *, int, void *, void *, void *, int);
+static inline void setpos(Sub *s, float x, float y, float z) { s->pos.x = x; s->pos.y = y; s->pos.z = z; }
+void func_8008F59C(void)
+{
+    int i = 0;
+    while (1) {
+        if (!(i < 2)) break;
+        func_800AD434(&D_801005A8[i]->sub, 0.02f, 3);
+        func_800B9BD4(D_801005A8[i], 1, D_800F10B8[i].a, D_800F10B8[i].c, D_800F10B8[i].b, 0);
+        setpos(&D_801005A8[i]->sub, D_800F10B8[i].v.x * 32.766998f, D_800F10B8[i].v.y * 32.766998f, D_800F10B8[i].v.z * 32.766998f);
+        i++;
+    }
+}

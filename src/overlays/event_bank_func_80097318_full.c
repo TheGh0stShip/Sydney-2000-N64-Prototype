@@ -58,8 +58,6 @@ extern s32 D_800F2744;
 extern s32 D_800F13F0;
 extern char D_800F1AE0[];
 extern char D_80076E50[];
-extern void *const D_80071060[];
-extern void *const D_80071078[];
 
 extern void func_800A62EC(void *);
 extern void func_800AB2A4(void *, s32, s32, void *, s32, s32);
@@ -187,13 +185,8 @@ void func_80097318(u8 *obj, Event *evt)
     ((SubState *)(obj + (s32)p))->w88 = D_800F13F0;
     func_800A9B78(obj + 0x7DE4, W(obj, 0x2F68), 0, 1, 2);
     p = (SubState *)(obj + 0x8000);
-    {
-        static void *const unused_tbl[] = { &&A0, &&A1, &&A2, &&A3, &&A5 };
-        unsigned int s = p->state;
-        if (s >= 6) goto A_end;
-        goto *D_80071060[s];
-    }
-A0:
+    switch (p->state) {
+    case 0:
     p = SUB(obj);
     if (p->w4C != 0) {
         func_8009B80C(obj + 0x2B8, 2, -1, 2);
@@ -217,43 +210,45 @@ A0:
         func_8009AEC0(2, obj + 0x830);
     }
     SUB(obj)->b52 = 1;
-    goto A_end;
-A1:
+        break;
+    case 1:
     func_800A9BE8(obj + 0x7DE4, 1);
-A5:
+    case 5:
     SUB(obj)->w6C = 0x9600;
     SUB(obj)->b52 = 1;
-    goto A_end;
-A2:
+        break;
+    case 2:
     func_800D33A0(obj + 0x2B8, D_80076E50, 1, -1);
-A3:
+    case 3:
+    case 4:
     func_800A9BE8(obj + 0x7DE4, 16);
     SUB(obj)->w6C = 0x12C00;
     SUB(obj)->b52 = 1;
-A_end:
+    }
     func_800B4794(0);
     p = SUB(obj);
     func_8009BB88(p->state, 1);
     if (p->w4C != 0) {
         func_800764E0(obj);
     }
-    {
-        static void *const unused_tbl2[] = { &&B0, &&B2, &&B_end };
-        unsigned int s = p->state;
-        if (s >= 6) goto B_end;
-        goto *D_80071078[s];
-    }
-B0:
+    switch (p->state) {
+    case 0:
+    case 1:
+    case 5:
     {
         s32 h = func_8001D4B8(D_800F1AE0, 95, 0, -1);
         func_8001D640(D_800F1AE0, h, 0);
         func_8001D5D8(D_800F1AE0, h, mulq15(*(s32 *)(D_800F1AE0 + 0x68), 19660), 45, 0, 0);
         SUB(obj)->w98 = h;
     }
-    goto B_end;
-B2:
+        break;
+    case 2:
     func_800768EC(obj, 30, 0, 0);
-B_end:
+        break;
+    case 3:
+    case 4:
+        break;
+    }
     if (SUB(obj)->state != 2 && SUB(obj)->state != 4) {
         func_8009B9EC(11520, 0);
     }

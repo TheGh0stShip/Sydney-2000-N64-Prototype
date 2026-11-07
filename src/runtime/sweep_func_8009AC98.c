@@ -1,152 +1,68 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009AC98\n.ent func_8009AC98\n"
-    "func_8009AC98:\n"
-    "addiu $29,$29,-64\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $16,24($29)\n"
-    "move $16,$5\n"
-    "move $4,$16\n"
-    "li $5,1\n"
-    "sw $6,72($29)\n"
-    "lui $6,0x800f\n"
-    "addiu $6,$6,6040\n"
-    "sw $22,48($29)\n"
-    "move $22,$7\n"
-    "move $7,$0\n"
-    "sw $31,60($29)\n"
-    "sw $30,56($29)\n"
-    "sw $23,52($29)\n"
-    "sw $21,44($29)\n"
-    "sw $20,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "jal func_800DA804\n"
-    "sw $0,16($29)\n"
-    "lui $3,0x8010\n"
-    "lw $4,-15760($3)\n"
-    "move $21,$2\n"
-    "lw $3,2564($4)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8009AD18\n"
-    "lui $3,0x8010\n"
-    "lui $3,0x800f\n"
-    "j L_8009AD4C\n"
-    "li $2,695\n"
-    "L_8009AD18:\n"
-    "addiu $2,$16,1\n"
-    "sw $2,1616($3)\n"
-    "lw $3,2564($4)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_8009AD48\n"
-    "lui $3,0x800f\n"
-    "li $2,235\n"
-    "bne $17,$2,L_8009AD4C\n"
-    "li $2,696\n"
-    "lui $3,0x800f\n"
-    "j L_8009AD4C\n"
-    "li $2,316\n"
-    "L_8009AD48:\n"
-    "li $2,697\n"
-    "L_8009AD4C:\n"
-    "sw $2,5284($3)\n"
-    "lui $3,0x800f\n"
-    "addiu $3,$3,5268\n"
-    "andi $2,$22,0xff\n"
-    "sw $2,8($3)\n"
-    "move $19,$0\n"
-    "lui $2,0x800f\n"
-    "addiu $30,$2,6040\n"
-    "lui $23,0x8010\n"
-    "move $20,$3\n"
-    "L_8009AD74:\n"
-    "andi $3,$19,0xff\n"
-    "andi $2,$21,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_8009AE78\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$30\n"
-    "lw $17,0($2)\n"
-    "sll $2,$3,0x4\n"
-    "lui $8,0x8010\n"
-    "addiu $8,$8,1632\n"
-    "addu $18,$2,$8\n"
-    "lb $3,0($17)\n"
-    "li $2,8\n"
-    "beq $3,$2,L_8009ADCC\n"
-    "sb $19,8($17)\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($23)\n"
-    "addiu $2,$2,20\n"
-    "j L_8009ADD8\n"
-    "addu $3,$3,$2\n"
-    "L_8009ADCC:\n"
-    "jal func_800D98FC\n"
-    "li $4,13\n"
-    "move $3,$2\n"
-    "L_8009ADD8:\n"
-    "andi $2,$19,0xff\n"
-    "addiu $16,$2,1\n"
-    "sw $16,0($18)\n"
-    "sw $3,4($18)\n"
-    "lbu $4,1($17)\n"
-    "jal func_800D98FC\n"
-    "addiu $4,$4,149\n"
-    "sw $2,8($18)\n"
-    "lh $3,2($17)\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_8009AE24\n"
-    "li $3,246\n"
-    "lw $2,4($17)\n"
-    "sw $2,12($18)\n"
-    "sll $2,$16,0x1\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x3\n"
-    "j L_8009AE38\n"
-    "addu $2,$2,$20\n"
-    "L_8009AE24:\n"
-    "sll $2,$16,0x1\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$20\n"
-    "li $3,245\n"
-    "L_8009AE38:\n"
-    "sw $3,16($2)\n"
-    "andi $4,$19,0xff\n"
-    "addiu $19,$19,1\n"
-    "addiu $2,$4,1\n"
-    "sll $3,$2,0x1\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x3\n"
-    "addu $3,$3,$20\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addiu $2,$2,30\n"
-    "sh $2,2($3)\n"
-    "andi $2,$22,0xff\n"
-    "j L_8009AD74\n"
-    "sw $2,8($3)\n"
-    "L_8009AE78:\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,5268\n"
-    "andi $6,$21,0xff\n"
-    "lw $4,72($29)\n"
-    "jal func_800D7130\n"
-    "addiu $6,$6,1\n"
-    "lw $31,60($29)\n"
-    "lw $30,56($29)\n"
-    "lw $23,52($29)\n"
-    "lw $22,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_8009AC98\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef short s16;
+typedef int s32;
+typedef struct { s8 type; u8 label; s16 extra; s32 value; u8 index; } MenuSource;
+typedef struct { s16 x; s16 y; s32 pad4; s32 flag; s32 pad12; s32 kind; s32 pad20; } MenuItem;
+typedef struct { s32 id; void *icon; void *text; s32 value; } MenuRecord;
+typedef struct { u8 pad[60]; } Slot;
+typedef struct { u8 pad0[20]; Slot slots[42]; u8 pad1[2564 - 20 - 42 * 60]; s32 mode; } GameState;
+extern MenuSource *D_800F1798[];
+extern MenuItem D_800F1494[];
+extern GameState *D_800FC270;
+extern s32 D_80100650;
+extern MenuRecord D_80100660[];
+extern u8 func_800DA804(s32, s32, MenuSource **, s32, s32);
+extern void *func_800D98FC(s32);
+extern void func_800D7130(s32, MenuItem *, s32);
+void func_8009AC98(s32 id, s32 sel, s32 target, u8 flag)
+{
+    u8 count;
+    u8 i;
+    MenuSource *src;
+    MenuRecord *rec;
+    void *icon;
+
+    count = func_800DA804(sel, 1, D_800F1798, 0, 0);
+    if (D_800FC270->mode == 5) {
+        D_800F1494[0].kind = 695;
+    } else {
+        D_80100650 = sel + 1;
+        if (D_800FC270->mode == 4) {
+            if (id == 235) {
+                D_800F1494[0].kind = 316;
+            } else {
+                D_800F1494[0].kind = 696;
+            }
+        } else {
+            D_800F1494[0].kind = 697;
+        }
+    }
+    D_800F1494[0].flag = flag;
+    i = 0;
+    while (1) {
+        if (!(i < count))
+            break;
+        rec = &D_80100660[i];
+        src = D_800F1798[i];
+        src->index = i;
+        if (src->type != 8) {
+            icon = &D_800FC270->slots[src->type];
+        } else {
+            icon = func_800D98FC(13);
+        }
+        rec->id = i + 1;
+        rec->icon = icon;
+        rec->text = func_800D98FC(src->label + 149);
+        if (src->extra != -1) {
+            rec->value = src->value;
+            D_800F1494[i + 1].kind = 246;
+        } else {
+            D_800F1494[i + 1].kind = 245;
+        }
+        D_800F1494[i + 1].y = i * 20 + 30;
+        D_800F1494[i + 1].flag = flag;
+        i++;
+    }
+    func_800D7130(target, D_800F1494, count + 1);
+}

@@ -1,127 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800807EC\n.ent func_800807EC\n"
-    "func_800807EC:\n"
-    "addiu $29,$29,-24\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "sw $31,16($29)\n"
-    "lw $6,2560($3)\n"
-    "li $2,4\n"
-    "bne $6,$2,L_80080828\n"
-    "move $5,$0\n"
-    "lw $3,2564($3)\n"
-    "bne $3,$6,L_80080820\n"
-    "li $2,5\n"
-    "j func_80077598\n"
-    "li $5,2\n"
-    "L_80080820:\n"
-    "beql $3,$2,L_80080828\n"
-    "li $5,1\n"
-    "L_80080828:\n"
-    "li $2,0x8000\n"
-    "addu $6,$4,$2\n"
-    "lw $3,3284($6)\n"
-    "li $2,190\n"
-    "beq $3,$2,L_8008086C\n"
-    "li $2,0x8000\n"
-    "lwc1 $f0,3276($6)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5076($1)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "mtc1 $0,$f2\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_8008086C\n"
-    "swc1 $f0,3276($6)\n"
-    "swc1 $f2,3276($6)\n"
-    "li $2,0x8000\n"
-    "L_8008086C:\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f2,3276($2)\n"
-    "mtc1 $0,$f0\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1fl L_800808AC\n"
-    "li $2,0x8000\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5080($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1fl L_800808AC\n"
-    "li $2,0x8000\n"
-    "lbu $2,3229($2)\n"
-    "j func_800776F4\n"
-    "addiu $5,$5,46\n"
-    "L_800808AC:\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f2,3276($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5084($1)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1fl L_800808F0\n"
-    "li $2,0x8000\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5088($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1fl L_800808F0\n"
-    "li $2,0x8000\n"
-    "lbu $2,3229($2)\n"
-    "j func_800776F4\n"
-    "ori $5,$5,0x28\n"
-    "L_800808F0:\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f2,3276($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5092($1)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1fl L_80080934\n"
-    "li $2,0x8000\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5096($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1fl L_80080934\n"
-    "li $2,0x8000\n"
-    "lbu $2,3229($2)\n"
-    "j func_800776F4\n"
-    "addiu $5,$5,37\n"
-    "L_80080934:\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f2,3276($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5100($1)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1fl L_80080978\n"
-    "li $2,0x8000\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5104($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1fl L_80080978\n"
-    "li $2,0x8000\n"
-    "lbu $2,3229($2)\n"
-    "j func_800776F4\n"
-    "addiu $5,$5,43\n"
-    "L_80080978:\n"
-    "addu $2,$4,$2\n"
-    "lbu $2,3229($2)\n"
-    "addiu $5,$5,49\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800809A8\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $6,30720\n"
-    "lui $7,0x1\n"
-    "jal func_800C0110\n"
-    "ori $7,$7,0xe000\n"
-    "L_800809A8:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800807EC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct G { char pad[0xA00]; int kind; int sub; } G;
+typedef struct Obj {
+    char pad[0x8C9D];
+    u8 unk8C9D;
+    char pad8C9E[0x8CCC - 0x8C9E];
+    float level;
+    char pad8CD0[4];
+    int unk8CD4;
+} Obj;
+extern G *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *, int, int, int);
+static inline void play(Obj *o, int id)
+{
+    if (o->unk8C9D != 3 && o->unk8C9D != 4) {
+        func_800C0110(D_800F3BC0, id, 30720, 122880);
+    }
+}
+void func_800807EC(Obj *o)
+{
+    int id = 0;
+    if (D_800FC270->kind == 4) {
+        if (D_800FC270->sub == 4) {
+            id = 2;
+        } else if (D_800FC270->sub == 5) {
+            id = 1;
+        }
+    }
+    if (o->unk8CD4 != 190) {
+        o->level -= 10.0f;
+        if (o->level < 0.0f) {
+            o->level = 0.0f;
+        }
+    }
+    if (0.0f <= o->level && o->level < 10.0f) {
+        play(o, id + 46);
+    } else if (10.0f <= o->level && o->level < 20.0f) {
+        play(o, id | 40);
+    } else if (20.0f <= o->level && o->level < 30.0f) {
+        play(o, id + 37);
+    } else if (30.0f <= o->level && o->level < 40.0f) {
+        play(o, id + 43);
+    } else {
+        play(o, id + 49);
+    }
+}

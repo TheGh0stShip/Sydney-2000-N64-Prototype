@@ -1,74 +1,36 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80070AD4\n.ent func_80070AD4\n"
-    "func_80070AD4:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$5\n"
-    "sw $31,36($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,0($18)\n"
-    "addiu $3,$2,-1\n"
-    "sltiu $2,$3,7\n"
-    "beqz $2,L_80070BC0\n"
-    "move $17,$4\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2000\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_800B4794\n"
-    "li $4,1\n"
-    "lw $2,16($18)\n"
-    "bnez $2,L_80070B40\n"
-    "move $4,$0\n"
-    "move $5,$4\n"
-    "move $6,$4\n"
-    "jal func_80008570\n"
-    "move $7,$4\n"
-    "L_80070B40:\n"
-    "jal func_80070A1C\n"
-    "move $4,$17\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "j func_800709FC\n"
-    "nop\n"
-    "lw $2,268($17)\n"
-    "beqz $2,L_80070BC0\n"
-    "nop\n"
-    "jal func_800715B4\n"
-    "move $4,$17\n"
-    "j func_800709FC\n"
-    "nop\n"
-    "addiu $16,$17,272\n"
-    "lbu $5,17($18)\n"
-    "jal func_800BC07C\n"
-    "move $4,$16\n"
-    "lbu $2,3($16)\n"
-    "beqz $2,L_80070BC0\n"
-    "nop\n"
-    "jal func_80071078\n"
-    "move $4,$17\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "li $6,20\n"
-    "lw $5,10052($2)\n"
-    "lw $7,4($17)\n"
-    "li $2,15\n"
-    "sw $17,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $2,20($29)\n"
-    "L_80070BC0:\n"
-    "lw $2,4($18)\n"
-    "sw $2,16($17)\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80070AD4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { int type; int value; int pad8; int padC; int flag; } Msg;
+extern void func_800B4794(int);
+extern void func_80008570(int, int, int, int);
+extern void func_80070A1C(u8 *);
+extern void func_800715B4(u8 *);
+extern void func_800BC07C(u8 *, int);
+extern void func_80071078(u8 *);
+extern void func_800AB2A4(void *, int, int, int, u8 *, int);
+extern char D_800F26E0[];
+extern int D_800F2744;
+void func_80070AD4(u8 *o, Msg *m) {
+    u8 *p;
+    switch (m->type) {
+    case 3:
+        func_800B4794(1);
+        if (m->flag == 0) func_80008570(0, 0, 0, 0);
+        func_80070A1C(o);
+        func_800B4794(0);
+        break;
+    case 5:
+        if (*(int *)(o + 268) == 0) break;
+        func_800715B4(o);
+        break;
+    case 1:
+    case 2:
+        p = o + 272;
+        func_800BC07C(p, ((u8 *)m)[17]);
+        if (p[3] == 0) break;
+    case 7:
+        func_80071078(o);
+        { int w = *(int *)(o + 4); func_800AB2A4(D_800F26E0, D_800F2744, 20, w, o, 15); }
+        break;
+    }
+    *(int *)(o + 16) = m->value;
+}

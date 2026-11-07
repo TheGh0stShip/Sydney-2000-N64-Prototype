@@ -1,58 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800884D4\n.ent func_800884D4\n"
-    "func_800884D4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,21540($16)\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_80088588\n"
-    "sw $2,21540($16)\n"
-    "lbu $3,1557($16)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_80088588\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,5208\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_800753E8\n"
-    "move $4,$16\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,2\n"
-    "li $2,3\n"
-    "j func_800771B4\n"
-    "sw $0,21540($16)\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5232($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,5236($1)\n"
-    "lwc1 $f0,3344($2)\n"
-    "cvt.s.w $f0,$f0\n"
-    "div.s $f0,$f0,$f2\n"
-    "mul.s $f0,$f0,$f4\n"
-    "addiu $4,$16,16704\n"
-    "mfc1 $6,$f0\n"
-    "jal func_80099D70\n"
-    "li $5,7\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,5\n"
-    "li $2,6\n"
-    "sb $2,1551($16)\n"
-    "L_80088588:\n"
-    "li $4,11520\n"
-    "jal func_8009B9EC\n"
-    "move $5,$0\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800884D4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Obj {
+    char pad0[0x45C];
+    char unk45C[0x60F - 0x45C];
+    u8 unk60F;
+    char pad610[0x615 - 0x610];
+    u8 state;
+    char pad616[0x4140 - 0x616];
+    char unk4140[0x5424 - 0x4140];
+    int timer;
+} Obj;
+typedef struct Glob { char pad[0xD10]; int unkD10; } Glob;
+extern Glob *D_800FC270;
+extern void func_800753E8(Obj *);
+extern void func_800A9BE8(void *, int);
+extern void func_80099D70(void *, int, float);
+extern void func_8009B9EC(int, int);
+void func_800884D4(Obj *o)
+{
+    o->timer -= 256;
+    if (o->timer <= 0) {
+        switch (o->state) {
+        case 0:
+        case 1:
+            func_800753E8(o);
+            func_800A9BE8(o->unk45C, 2);
+            o->timer = 0;
+            o->unk60F = 3;
+            break;
+        case 4:
+            func_80099D70(o->unk4140, 7, (float)D_800FC270->unkD10 / 30.0f * 0.00390625f);
+        case 2:
+        case 3:
+            func_800A9BE8(o->unk45C, 5);
+            o->unk60F = 6;
+            break;
+        case 5:
+            break;
+        }
+    }
+    func_8009B9EC(11520, 0);
+}

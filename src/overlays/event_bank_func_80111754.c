@@ -1,65 +1,38 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80111754\n.ent func_80111754\n"
-    "func_80111754:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,40($29)\n"
-    "move $18,$4\n"
-    "sw $17,36($29)\n"
-    "addiu $17,$18,1296\n"
-    "andi $5,$5,0xff\n"
-    "sw $31,44($29)\n"
-    "bnez $5,L_80111788\n"
-    "sw $16,32($29)\n"
-    "lui $5,0x3fc9\n"
-    "ori $5,$5,0xfd9\n"
-    "j func_8007CAA0\n"
-    "nop\n"
-    "L_80111788:\n"
-    "lui $5,0x4096\n"
-    "ori $5,$5,0xcbe3\n"
-    "lwc1 $f0,64($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29552($1)\n"
-    "move $4,$17\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f0,68($17)\n"
-    "addiu $16,$29,16\n"
-    "swc1 $f0,4($16)\n"
-    "lwc1 $f0,72($17)\n"
-    "li $6,3\n"
-    "swc1 $f0,8($16)\n"
-    "sw $0,36($17)\n"
-    "sw $0,32($17)\n"
-    "sw $0,24($17)\n"
-    "sw $0,16($17)\n"
-    "sw $0,8($17)\n"
-    "sw $0,4($17)\n"
-    "sw $0,72($17)\n"
-    "sw $0,68($17)\n"
-    "sw $0,64($17)\n"
-    "swc1 $f2,40($17)\n"
-    "swc1 $f2,20($17)\n"
-    "jal func_800AD434\n"
-    "swc1 $f2,1296($18)\n"
-    "lwc1 $f0,16($29)\n"
-    "swc1 $f0,64($17)\n"
-    "lwc1 $f0,4($16)\n"
-    "swc1 $f0,68($17)\n"
-    "lwc1 $f0,8($16)\n"
-    "swc1 $f0,72($17)\n"
-    "lbu $2,1489($18)\n"
-    "beqz $2,L_80111824\n"
-    "addiu $4,$18,1296\n"
-    "lui $5,0x4049\n"
-    "ori $5,$5,0xfd9\n"
-    "jal func_800AD4E0\n"
-    "li $6,3\n"
-    "L_80111824:\n"
-    "lw $31,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80111754\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { float x, y, z; } Vec;
+typedef struct { float m[16]; Vec p; } Mtx;
+extern void func_800AD434(Mtx *, float, int);
+extern void func_800AD4E0(Mtx *, float, int);
+static inline void getpos(Mtx *m, Vec *v)
+{
+    v->x = m->p.x;
+    v->y = m->p.y;
+    v->z = m->p.z;
+}
+static inline void setpos(Mtx *m, Vec *v)
+{
+    m->p.x = v->x;
+    m->p.y = v->y;
+    m->p.z = v->z;
+}
+static inline void rot(Mtx *m, float a, Vec *t)
+{
+    getpos(m, t);
+    m->p.x = m->p.y = m->p.z = m->m[1] = m->m[2] = m->m[4] = m->m[6] = m->m[8] = m->m[9] = 0.0f;
+    m->m[0] = m->m[5] = m->m[10] = 1.0f;
+    func_800AD434(m, a, 3);
+    setpos(m, t);
+}
+void func_8007CA64(u8 *o, u8 b)
+{
+    Mtx *m = (Mtx *)(o + 1296);
+    Vec t;
+    if (!b) {
+        rot(m, 1.5707961f, &t);
+    } else {
+        rot(m, 4.7123885f, &t);
+    }
+    if (o[1489]) {
+        func_800AD4E0((Mtx *)(o + 1296), 3.1415923f, 3);
+    }
+}

@@ -1,66 +1,36 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80111E80\n.ent func_80111E80\n"
-    "func_80111E80:\n"
-    "addiu $29,$29,-48\n"
-    "move $8,$4\n"
-    "addiu $2,$8,20\n"
-    "sw $31,40($29)\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,24($29)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$29,24\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($3)\n"
-    "lbu $2,745($8)\n"
-    "lhu $3,746($8)\n"
-    "lw $4,4($8)\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x18\n"
-    "addu $3,$3,$2\n"
-    "sh $3,746($8)\n"
-    "andi $3,$3,0xffff\n"
-    "sltiu $2,$3,21\n"
-    "bnez $2,L_80111EE0\n"
-    "sltiu $2,$3,3\n"
-    "j func_8007D1F8\n"
-    "li $2,-2\n"
-    "L_80111EE0:\n"
-    "beqz $2,L_80111EEC\n"
-    "li $2,2\n"
-    "sb $2,745($8)\n"
-    "L_80111EEC:\n"
-    "lbu $2,735($8)\n"
-    "beqz $2,L_80111F0C\n"
-    "nop\n"
-    "lwc1 $f0,24($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29488($1)\n"
-    "j func_8007D22C\n"
-    "add.s $f0,$f0,$f2\n"
-    "L_80111F0C:\n"
-    "lwc1 $f0,24($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29484($1)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,24($29)\n"
-    "lbu $2,735($8)\n"
-    "beqz $2,L_80111F40\n"
-    "addiu $5,$29,24\n"
-    "addiu $4,$4,15956\n"
-    "lhu $6,746($8)\n"
-    "lwc1 $f0,1496($8)\n"
-    "j func_8007D260\n"
-    "li $7,1\n"
-    "L_80111F40:\n"
-    "addiu $4,$4,15956\n"
-    "lhu $6,746($8)\n"
-    "lwc1 $f0,1496($8)\n"
-    "move $7,$0\n"
-    "jal func_8008D8E8\n"
-    "swc1 $f0,16($29)\n"
-    "lw $31,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_80111E80\n.set at\n.set reorder\n");
+typedef int s32;
+typedef signed char s8;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef float f32;
+extern void func_8008D8E8(u8 *, f32 *, u16, s32, f32);
+void func_8007D190(u8 *o)
+{
+    f32 v[3];
+    u8 *p = o + 20;
+    f32 *q;
+    u8 *h;
+    u16 t;
+    v[0] = *(f32 *)(p + 64);
+    q = v;
+    q[1] = *(f32 *)(p + 68);
+    q[2] = *(f32 *)(p + 72);
+    h = *(u8 **)(o + 4);
+    t = *(u16 *)(o + 746) + *(s8 *)(o + 745);
+    *(u16 *)(o + 746) = t;
+    if (t > 20) {
+        *(s8 *)(o + 745) = -2;
+    } else if (t < 3) {
+        *(s8 *)(o + 745) = 2;
+    }
+    if (o[735]) {
+        v[0] += 49.1504974f;
+    } else {
+        v[0] -= 16.3834991f;
+    }
+    if (o[735]) {
+        func_8008D8E8(h + 15956, v, *(u16 *)(o + 746), 1, *(f32 *)(o + 1496));
+    } else {
+        func_8008D8E8(h + 15956, v, *(u16 *)(o + 746), 0, *(f32 *)(o + 1496));
+    }
+}

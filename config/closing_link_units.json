@@ -51,28 +51,24 @@
     "@n64dk/sdk/signature.py": "df21b6578ffdc407f1f611210a31ca5ca7d4aba1ec58c7405dad764ea1a438ee",
     "@n64dk/sdk/validate.py": "38fcb06ef459fe1b380498f44ce8f1bfbd6e6159279f79385e85944a643d44e6",
     "@n64dk/survey.py": "8b31343eb226981035292339ab477aa0f82f3c01b54deeccd160133e42f33b2b",
-    "config/overlay/closing/matching_sn.tsv": "6b6faf796fce67969a0a26c0dadd207cad8a3b39603da390897603cd8fdd77c3",
+    "config/overlay/closing/matching_delta_80002550_sn.tsv": "4a7e816eaf0de5a28502c2a6b4224d7135fb66b7725263ab92fdd25cfd5343f4",
+    "config/overlay/closing/matching_sn.tsv": "36b1b90f8e1efa8cb84581f1ea917ebf349fe516c13ea68ae3c2d876526b0910",
     "config/segments.toml": "b6b7a8b4f214123341c9c44089402e1c2f55a4f3d8ccf91f70cb8bc797afa488",
     "config/survey/symbol_addrs.txt": "1145627a27f7cb90ada4263725fa50e68c3afbd07d10bdea816dbf78eb5415d3",
     "src/overlays/ceremony_initialize_event_record.c": "fadf84924026ddfc05cf86db2b144592be315fbfed34f501d3d501a2a255a297",
     "src/overlays/ceremony_noop_event.c": "3ef9a9d8b24236754dee8490446f8cb05143c0cc9b3341228f9e7a90b63b1e21",
     "src/overlays/ceremony_shutdown.c": "34770c3c799bbd2bda8e33a062f372a34b669e4672ad0283a7c1f524898188be",
-    "src/overlays/closing_configure_medal_objects.c": "d0d14c912b2fea5391c199992ffe3ea8771dc68f452f6c5cecde2b0da7051863",
-    "src/overlays/closing_dispatch_event.c": "22b8a0f42986b8cbc5caf51d33ad79c684c5d00da4adaa99917574ec7f9987f8",
-    "src/overlays/closing_finalize_objects.c": "82e7a6cf394f3b3b0814181b4b1fdc5eab27c812160f47ae780871ca68b8bd89",
-    "src/overlays/closing_initialize_medal_objects.c": "ee0417b07a3552e54c0277f47daf21643cc07a937cf9d8fdafbcd5ad53d15349",
+    "src/overlays/closing_configure_medal_objects.c": "2289ac3dbf0707348f4fc4e61ad216dceced1740ef3eda11483abc6102422c23",
+    "src/overlays/closing_dispatch_event.c": "fac6345d2d43f3fe5760d7b9a9c8b9d69f9168c75db09961bd21fed2c6934f94",
+    "src/overlays/closing_finalize_objects.c": "e4722158b6c9ee0fd44f9784bffb864ab3dda504ca11bf2db52165a561797aea",
+    "src/overlays/closing_initialize_medal_objects.c": "78593f03ab31cff8093a6c903aa04d5fd4374d336c73350d9744277dd39be39f",
     "src/overlays/closing_initialize_scene.c": "773b0f6c3e3da99298c32e5453203260698eb2b1bfd0a54c20e20d180abf37a7",
-    "src/overlays/closing_offset_medal_objects.c": "461b43599f92008f4dcc2c991387e630ff6a437826a39db66b0c7f0fae1fcb35",
-    "src/overlays/closing_release_medal_objects.c": "7400b9119b5f849de82dcc146bcc9004b87ce12ad5b129ab02d8ba292a5a47c8",
-    "src/overlays/closing_return_stack.c": "f574eb69fd14ac6a3e88c05a4004b45c17ab8612073388df3fe19549c86ebb1a",
-    "src/overlays/closing_return_stack_112.c": "9aa060b40406bceeb51395b83b2bc60f8e5cfcb0c28aaa185d702e647725347f",
-    "src/overlays/closing_return_stack_136.c": "6403c5da0c1bf925e17c47a4830ae1bb48d6ad9f7a98ae3618a449dfbdd77207",
-    "src/overlays/closing_return_stack_184.c": "5941fe5006eedaa92b474f41df030f3fc976728081fa5e4063e008ce16676ef8",
+    "src/overlays/closing_offset_medal_objects.c": "14784f87ab86ff3fecddc9e9c5851a03539e204f741283c9bc65127c183dfe1b",
+    "src/overlays/closing_release_medal_objects.c": "aa55b37a871d8d83b117832ca054f0d248a9dd483bf04b501f1aa75d6b17443e",
     "src/overlays/closing_return_stack_296.c": "636ece6b64194b9149f6087c664677619c30982fde04580a8c4d49d9321001bd",
-    "src/overlays/closing_return_stack_88.c": "9fee8928b6b4edbf4d2c24820f8a7a33e10f320c969bc19ad94fc34d9190addd",
-    "src/overlays/closing_run_sequence.c": "0f9b80fce1a6c8bef7dfeb6863256709ffbf98e58feb8694e3efb579ca78f3b3",
-    "src/overlays/closing_select_resource.c": "4d2d6cae2e0b8adc8dcca36ef4d9af9d4b7b38a9e21a38e1f1fc5f8b34d8b886",
-    "tools/build_source_image.py": "6af0990acc33e508adaef2f5e9b4bc967c2cb95202f075c57dba1489868200a3",
+    "src/overlays/closing_run_sequence.c": "eaedd5ae7b87beddb4b972bda88cd72c147b102815cc8eb0b052b4f8a069cbcf",
+    "src/overlays/closing_select_resource.c": "377a09c29eb065d190f024f0126406c3f265b41dc3543c8b8cc470a9cbc4ffc6",
+    "tools/build_source_image.py": "e86c99447da1a5d969c01fdb1a862d3970798f48c82ea12ebf8d07774cac2667",
     "tools/normalize_kmc_wrappers.py": "3ac9f62ec8ff37005fc2a8eba57d66b23ca3c947edee525d2427b24beeb618a1",
     "tools/verify_ido_normalized.py": "ed3c4b4cd0fd9ba79ba8fb92e1e339a2a29f4a6c29da1a6521d80ebe8ed71d49",
     "tools/verify_sn_normalized.py": "a0401769c0a1e27684188481413e4f9ba505f550010d865b8bd6beae3c03855d"
@@ -94,92 +90,11 @@
         "-mhard-float",
         "-meb"
       ],
-      "id": "matching_sn.tsv:e549421c7083b7ac",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "e3943336da30e6ca1cb9116074580477dd65aa09a5b9a92b293086f4972ec181",
-      "pipeline": "sn",
-      "row_sha256": "e549421c7083b7ac79d7068d11e6e53c2473584f5f7aaae6cde9a9a74e6c84b7",
-      "section_bases": {
-        ".text": 2147945620
-      },
-      "sections": [
-        {
-          "emitted_size": 420,
-          "name": ".text",
-          "owned_size": 420,
-          "rom_start": 452416,
-          "sha256": "0235dbe0b3ae815158f2e61d73acb283b39df3b1f99e40d11effe1fee76b327f",
-          "unowned_zero_tail": 0,
-          "vram": 2147945620
-        }
-      ],
-      "source": "src/overlays/closing_dispatch_event.c",
-      "source_sha256": "22b8a0f42986b8cbc5caf51d33ad79c684c5d00da4adaa99917574ec7f9987f8",
-      "symbols": {
-        "func_80070E38": 2147946040,
-        "func_80071834": 2147948596,
-        "func_80071BC0": 2147949504,
-        "func_800725F8": 2147952120,
-        "func_800A9B78": 2148178808,
-        "func_800AB2A4": 2148184740,
-        "func_800B4794": 2148222868,
-        "func_800BC07C": 2148253820
-      },
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:5bfced65aa0e9411",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "7bfadb2b1bc4a7b6e6ca13b260707debd8903818cef1c1f3f4d1ed504d87cc9b",
-      "pipeline": "sn",
-      "row_sha256": "5bfced65aa0e94111aac2ac4a15959d55e6c9c1be2e89bc8099e7fc1c8c5d28e",
-      "section_bases": {
-        ".text": 2147946040
-      },
-      "sections": [
-        {
-          "emitted_size": 4,
-          "name": ".text",
-          "owned_size": 4,
-          "rom_start": 452836,
-          "sha256": "a052d359d3b3fe4221e24aa0a743120b184950a999a044df970d0885f2d6ce34",
-          "unowned_zero_tail": 0,
-          "vram": 2147946040
-        }
-      ],
-      "source": "src/overlays/closing_return_stack.c",
-      "source_sha256": "f574eb69fd14ac6a3e88c05a4004b45c17ab8612073388df3fe19549c86ebb1a",
-      "symbols": {},
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
       "id": "matching_sn.tsv:ab07eb6c6aeeb4dc",
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "60cd9574ff68c8eeb5d7af54b1d240b1127ac0ffb68dd4e016d3e7cd8ffc5a0a",
+      "object_sha256_at_discovery": "2119f8299a1fb76e90057aaea799c073a30f7eaa30f5be7a9ad82122780face5",
       "pipeline": "sn",
       "row_sha256": "ab07eb6c6aeeb4dc88460b481084b457bd499d580d6ebd862c5480133afa66d4",
       "section_bases": {
@@ -257,7 +172,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "556e8e32d42a6da8eb2aaf3c0ae96b3ff937d0ba95e8161433c9f03e1659988c",
+      "object_sha256_at_discovery": "fdd33c5a4e749cf10b4ad62ffcd63b977f5b179cf87dd8284954db6c6504e5c5",
       "pipeline": "sn",
       "row_sha256": "14f1bd6b5b40f08a500bef996d1274041fc9421ed265614782d0a10ac16c8ae2",
       "section_bases": {
@@ -289,377 +204,11 @@
         "-mhard-float",
         "-meb"
       ],
-      "id": "matching_sn.tsv:5d73440935e9258d",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "323ef2d4a47868be8eec5cc6db9c472ef98831bff41b78b8bdc58f7efb22ae85",
-      "pipeline": "sn",
-      "row_sha256": "5d73440935e9258dd220d25a46b1a33f15ccaeb2941f69aa31653b77d50d94bd",
-      "section_bases": {
-        ".text": 2147948888
-      },
-      "sections": [
-        {
-          "emitted_size": 340,
-          "name": ".text",
-          "owned_size": 340,
-          "rom_start": 455684,
-          "sha256": "1e54b8ab71f47e7867bd9995c8dbb903217cb4b0142729514eb862cb9c429169",
-          "unowned_zero_tail": 0,
-          "vram": 2147948888
-        }
-      ],
-      "source": "src/overlays/closing_configure_medal_objects.c",
-      "source_sha256": "d0d14c912b2fea5391c199992ffe3ea8771dc68f452f6c5cecde2b0da7051863",
-      "symbols": {
-        "func_80071AAC": 2147949228,
-        "func_800A7A64": 2148170340,
-        "func_800AE72C": 2148198188,
-        "func_800AEF6C": 2148200300,
-        "func_800B8DC8": 2148240840,
-        "func_800B9BD4": 2148244436,
-        "func_800B9E9C": 2148245148
-      },
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:d1c26af595644c85",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "d1e623fe2e105b9e4244bde651f93d93030e96c6d8a698457dbf637123dfab3b",
-      "pipeline": "sn",
-      "row_sha256": "d1c26af595644c850225fa01f830026a3d81a2c7cbc57bcb7c5bad007618861f",
-      "section_bases": {
-        ".text": 2147949228
-      },
-      "sections": [
-        {
-          "emitted_size": 4,
-          "name": ".text",
-          "owned_size": 4,
-          "rom_start": 456024,
-          "sha256": "0c3389f212211c587dc7f2824dac6f3edaf128c6065caa5d652b2be19cfafe09",
-          "unowned_zero_tail": 0,
-          "vram": 2147949228
-        }
-      ],
-      "source": "src/overlays/closing_return_stack_112.c",
-      "source_sha256": "9aa060b40406bceeb51395b83b2bc60f8e5cfcb0c28aaa185d702e647725347f",
-      "symbols": {},
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:6c9a0ec0bccdce5e",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "f49356c5757c8aeef108fe49373fc1545e46c33e1d1d92ce5f00132443dc6188",
-      "pipeline": "sn",
-      "row_sha256": "6c9a0ec0bccdce5e92bf0eb4b32a854bd6b6722999c20c21bf40d71f75d48071",
-      "section_bases": {
-        ".text": 2147949232
-      },
-      "sections": [
-        {
-          "emitted_size": 272,
-          "name": ".text",
-          "owned_size": 272,
-          "rom_start": 456028,
-          "sha256": "b1c1abbb05a993ae31674790a9cd3d048a37cbadbd62e21b4c8cb33a3409b75f",
-          "unowned_zero_tail": 0,
-          "vram": 2147949232
-        }
-      ],
-      "source": "src/overlays/closing_offset_medal_objects.c",
-      "source_sha256": "461b43599f92008f4dcc2c991387e630ff6a437826a39db66b0c7f0fae1fcb35",
-      "symbols": {
-        "func_800AC5CC": 2148189644,
-        "func_800AD9E8": 2148194792
-      },
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:1e42a36004d6b0ad",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "82be9762c95280f4cd63002f5de279f533d75dfc10c8fbc0e80182446264e33d",
-      "pipeline": "sn",
-      "row_sha256": "1e42a36004d6b0ad0c67c807cf7350615314fd467c6ef31ccfed8a15335820bf",
-      "section_bases": {
-        ".text": 2147949504
-      },
-      "sections": [
-        {
-          "emitted_size": 4,
-          "name": ".text",
-          "owned_size": 4,
-          "rom_start": 456300,
-          "sha256": "23020bbaac429c151f7facd9b6df01641f079e317c792134f79d91ac4cfe7b44",
-          "unowned_zero_tail": 0,
-          "vram": 2147949504
-        }
-      ],
-      "source": "src/overlays/closing_return_stack_136.c",
-      "source_sha256": "6403c5da0c1bf925e17c47a4830ae1bb48d6ad9f7a98ae3618a449dfbdd77207",
-      "symbols": {},
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:6ec593cc3b2e434f",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "5f9553e1cdf4ad5079cba9b72b5a2f24499e7a952b5fd6a65ab7ca706f6fa875",
-      "pipeline": "sn",
-      "row_sha256": "6ec593cc3b2e434f6860b7934239358f08eb34bed417dc3df13fea11fce7e900",
-      "section_bases": {
-        ".text": 2147950968
-      },
-      "sections": [
-        {
-          "emitted_size": 4,
-          "name": ".text",
-          "owned_size": 4,
-          "rom_start": 457764,
-          "sha256": "b6465877b90a18a85e33cd665b35cc6640fa0486610037da349d4bf5870b9c94",
-          "unowned_zero_tail": 0,
-          "vram": 2147950968
-        }
-      ],
-      "source": "src/overlays/closing_return_stack_88.c",
-      "source_sha256": "9fee8928b6b4edbf4d2c24820f8a7a33e10f320c969bc19ad94fc34d9190addd",
-      "symbols": {},
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:74aed10021fbc923",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "e69918be6a61e4d39951e965b2283da1bd799fbee6111cfedec6c1f0fed7697c",
-      "pipeline": "sn",
-      "row_sha256": "74aed10021fbc9236fc6785458c1e57b1f66951fadc9ed8e00ecdcdacd9845b8",
-      "section_bases": {
-        ".text": 2147949508
-      },
-      "sections": [
-        {
-          "emitted_size": 1460,
-          "name": ".text",
-          "owned_size": 1460,
-          "rom_start": 456304,
-          "sha256": "1b00a748baa1372ee6f6cfac55ac50b22cd57710ca820112fc686f64269f88b4",
-          "unowned_zero_tail": 0,
-          "vram": 2147949508
-        }
-      ],
-      "source": "src/overlays/closing_run_sequence.c",
-      "source_sha256": "0f9b80fce1a6c8bef7dfeb6863256709ffbf98e58feb8694e3efb579ca78f3b3",
-      "symbols": {
-        "func_8001D550": 2147603792,
-        "func_80071954": 2147948884,
-        "func_80071AAC": 2147949228,
-        "func_800725C0": 2147952064,
-        "func_800A3194": 2148151700,
-        "func_800A31BC": 2148151740,
-        "func_800A3240": 2148151872,
-        "func_800A3298": 2148151960,
-        "func_800A3394": 2148152212,
-        "func_800A851C": 2148173084,
-        "func_800A9BE8": 2148178920,
-        "func_800AB2A4": 2148184740,
-        "func_800AC334": 2148188980,
-        "func_800ADC38": 2148195384,
-        "func_800B3870": 2148218992,
-        "func_800B9964": 2148243812,
-        "func_800B9BD4": 2148244436,
-        "func_800B9E9C": 2148245148,
-        "func_800C013C": 2148270396
-      },
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:91f4347c90c05150",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "dd9e5907bec5c4d7ce78a93e2063cc0888434d184cb07cc9d30cf60a10f3a566",
-      "pipeline": "sn",
-      "row_sha256": "91f4347c90c051508ac29881512539869faec8d0d57554db4bd1ce485c23f0d8",
-      "section_bases": {
-        ".text": 2147950972
-      },
-      "sections": [
-        {
-          "emitted_size": 488,
-          "name": ".text",
-          "owned_size": 488,
-          "rom_start": 457768,
-          "sha256": "83ef80d2ef682d38202ab755672caef33983b56ee035b0944bd03142c0139011",
-          "unowned_zero_tail": 0,
-          "vram": 2147950972
-        }
-      ],
-      "source": "src/overlays/closing_initialize_medal_objects.c",
-      "source_sha256": "ee0417b07a3552e54c0277f47daf21643cc07a937cf9d8fdafbcd5ad53d15349",
-      "symbols": {
-        "func_800AC9B8": 2148190648,
-        "func_800AD2A8": 2148192936,
-        "func_800AD434": 2148193332,
-        "func_800AD9E8": 2148194792,
-        "func_800B9E9C": 2148245148,
-        "func_800B9FA4": 2148245412
-      },
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:825a719889dc9f9f",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "d90d3034d00e47f4cc186589f33d5c92d8d7bc24ad0361755618310d39d80a32",
-      "pipeline": "sn",
-      "row_sha256": "825a719889dc9f9f3b9effffe3b9f3f0049ea243e56bffb102d7b44ead96e9cf",
-      "section_bases": {
-        ".text": 2147951460
-      },
-      "sections": [
-        {
-          "emitted_size": 4,
-          "name": ".text",
-          "owned_size": 4,
-          "rom_start": 458256,
-          "sha256": "516284a8d7c814a35ecb660573df4ff8bac3aef6aae9e7e0c0ef9593b8f126d1",
-          "unowned_zero_tail": 0,
-          "vram": 2147951460
-        }
-      ],
-      "source": "src/overlays/closing_return_stack_184.c",
-      "source_sha256": "5941fe5006eedaa92b474f41df030f3fc976728081fa5e4063e008ce16676ef8",
-      "symbols": {},
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "id": "matching_sn.tsv:f8b90c054533a593",
-      "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
-      "normalization": null,
-      "object_sha256_at_discovery": "1a0ab92cc14d007862d2e413b3bddec05bf0f2fb3c25c25c7871eac8f3d2d26f",
-      "pipeline": "sn",
-      "row_sha256": "f8b90c054533a593e17ad19f63711bba4c77a2a2227a988be89c113c94c01e35",
-      "section_bases": {
-        ".text": 2147951464
-      },
-      "sections": [
-        {
-          "emitted_size": 596,
-          "name": ".text",
-          "owned_size": 596,
-          "rom_start": 458260,
-          "sha256": "3338fa38f98720f9fd5c98e1a8cf5bfa3851ddb7911b320d94ceb335265cde04",
-          "unowned_zero_tail": 0,
-          "vram": 2147951464
-        }
-      ],
-      "source": "src/overlays/closing_release_medal_objects.c",
-      "source_sha256": "7400b9119b5f849de82dcc146bcc9004b87ce12ad5b129ab02d8ba292a5a47c8",
-      "symbols": {
-        "func_800AA658": 2148181592,
-        "func_800AACB0": 2148183216,
-        "func_800AC308": 2148188936
-      },
-      "vram_delta": 2147493204
-    },
-    {
-      "discarded_sections": [],
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
       "id": "matching_sn.tsv:d195670e7979b82e",
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "c6036519333269bb53305b80c6380ed1e1dbdd1d9fb4f0af658235383e6e2ea1",
+      "object_sha256_at_discovery": "350da24c370f66c750b2e114057b3b7c3600963c87f5a22bb61d9d146a15f638",
       "pipeline": "sn",
       "row_sha256": "d195670e7979b82eb4bff395fb66b6ee8b53dbdc5580f4d547ef805cf3b61c23",
       "section_bases": {
@@ -695,7 +244,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "baf82709a65f055d342b863e9054d9b20e8da48de74d2dfc76a6f8615a9b000b",
+      "object_sha256_at_discovery": "ccf5eb50f399af2994e20cf23b5c24e2060f5eb699eeda0474e307ad9b45deb8",
       "pipeline": "sn",
       "row_sha256": "9d51c5a9e38b9736c2cc1ca59e11dd9a5c7a8f9d34fe013b8e1b9c1053aee1aa",
       "section_bases": {
@@ -736,7 +285,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "b5d64f5fd5eb18f15f9cd0e66a6337c90ce578649ccc786652c2e207bbbb6f34",
+      "object_sha256_at_discovery": "a68c3afa891a5c5af66cea097b4350dc67f5523292a2889d4005e3a6ea5ea212",
       "pipeline": "sn",
       "row_sha256": "f4e4ca0d1c9fb15530fe5c6f13292febe779f522842188a5454d1af4ca72e889",
       "section_bases": {
@@ -793,33 +342,54 @@
         "-mhard-float",
         "-meb"
       ],
-      "id": "matching_sn.tsv:fd87c19c4bb03c65",
+      "id": "matching_delta_80002550_sn.tsv:cb9226ed0bc9fdcf",
       "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "64dc3f5ac565d9dd7aaa5ec2db6497f83467fe2986adeae9df7788f08cd85c92",
+      "object_sha256_at_discovery": "1c81c1a52a7f74a696647a62efc26f5d8525cea6ff17a97d3bd7e35f09ef5898",
       "pipeline": "sn",
-      "row_sha256": "fd87c19c4bb03c65c374ce3a000350c94602dbe8d4e893f7d2a79bec06ab157f",
+      "row_sha256": "cb9226ed0bc9fdcf14a6297ec30dbb342c91fe3110af7f79191c0184451fa069",
       "section_bases": {
-        ".text": 2147952068
+        ".rdata": 2147944992,
+        ".rodata": 2147944992,
+        ".text": 2147945616
       },
       "sections": [
         {
-          "emitted_size": 56,
+          "emitted_size": 424,
           "name": ".text",
-          "owned_size": 56,
-          "rom_start": 458864,
-          "sha256": "11453ec162f62c4dbd4b74e9c8afb15853170851c421810df0c3f2938396af11",
+          "owned_size": 424,
+          "rom_start": 452416,
+          "sha256": "c6c0bc676abcc0d2f0d0ae5946e8ca53696c50e72a3ccea18806fbcbd0d50a97",
           "unowned_zero_tail": 0,
-          "vram": 2147952068
+          "vram": 2147945616
+        },
+        {
+          "emitted_size": 100,
+          "name": ".rdata",
+          "owned_size": 100,
+          "rom_start": 451792,
+          "sha256": "03204f107cda6f5d7ef837f449e45fa72c2ba589a9cc82189d773baa21fbfb28",
+          "unowned_zero_tail": 0,
+          "vram": 2147944992
         }
       ],
-      "source": "src/overlays/closing_select_resource.c",
-      "source_sha256": "4d2d6cae2e0b8adc8dcca36ef4d9af9d4b7b38a9e21a38e1f1fc5f8b34d8b886",
+      "source": "src/overlays/closing_dispatch_event.c",
+      "source_sha256": "fac6345d2d43f3fe5760d7b9a9c8b9d69f9168c75db09961bd21fed2c6934f94",
       "symbols": {
-        "func_8001CBA8": 2147601320
+        "D_800F26E0": 2148476640,
+        "D_800F2714": 2148476692,
+        "D_800F2744": 2148476740,
+        "func_80070E38": 2147946040,
+        "func_80071834": 2147948596,
+        "func_80071BC0": 2147949504,
+        "func_800725F8": 2147952120,
+        "func_800A9B78": 2148178808,
+        "func_800AB2A4": 2148184740,
+        "func_800B4794": 2148222868,
+        "func_800BC07C": 2148253820
       },
-      "vram_delta": 2147493204
+      "vram_delta": 2147493200
     },
     {
       "discarded_sections": [],
@@ -831,15 +401,317 @@
         "-mhard-float",
         "-meb"
       ],
-      "id": "matching_sn.tsv:5e3e926ef47e8826",
+      "id": "matching_delta_80002550_sn.tsv:ea5e8902144d16e2",
       "includes": [],
-      "manifest": "config/overlay/closing/matching_sn.tsv",
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "0dea5ae655a65bf9599cceec8d7640fa4d9337c0dfdf2163e0e06ae1ab1a04d9",
+      "object_sha256_at_discovery": "75f344db2eed644cb075b4950bf413ebbe89419d9014486bb370974a8e5d7ab6",
       "pipeline": "sn",
-      "row_sha256": "5e3e926ef47e8826c331fe8eaeaf0f618b06b7218264d190fd74009e035ab4a6",
+      "row_sha256": "ea5e8902144d16e29d5ffa4de20c3c87c033c5d91f949e19973865a547450bb8",
       "section_bases": {
-        ".text": 2147952268
+        ".text": 2147948884
+      },
+      "sections": [
+        {
+          "emitted_size": 344,
+          "name": ".text",
+          "owned_size": 344,
+          "rom_start": 455684,
+          "sha256": "1b002fa1945eb29550f7e7d189e0695b5c05bb6753be5afbb7ea28a9b62d724a",
+          "unowned_zero_tail": 0,
+          "vram": 2147948884
+        }
+      ],
+      "source": "src/overlays/closing_configure_medal_objects.c",
+      "source_sha256": "2289ac3dbf0707348f4fc4e61ad216dceced1740ef3eda11483abc6102422c23",
+      "symbols": {
+        "func_80071AAC": 2147949228,
+        "func_800A7A64": 2148170340,
+        "func_800AE72C": 2148198188,
+        "func_800AEF6C": 2148200300,
+        "func_800B8DC8": 2148240840,
+        "func_800B9BD4": 2148244436,
+        "func_800B9E9C": 2148245148
+      },
+      "vram_delta": 2147493200
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_delta_80002550_sn.tsv:d1e0bcf7640c00e9",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "6a3c26546c524f559dd6c3fe9211ee2b6dbe945a4d85c7c1e36af3101d7172cf",
+      "pipeline": "sn",
+      "row_sha256": "d1e0bcf7640c00e944185c8664241ddd47375cf8518ebf0c456226de2a094882",
+      "section_bases": {
+        ".rdata": 2147945460,
+        ".rodata": 2147945460,
+        ".text": 2147949228
+      },
+      "sections": [
+        {
+          "emitted_size": 276,
+          "name": ".text",
+          "owned_size": 276,
+          "rom_start": 456028,
+          "sha256": "425f4b2a01203a3b3fd485fac441594e4e46c298895d0bc8585e7973df41f942",
+          "unowned_zero_tail": 0,
+          "vram": 2147949228
+        },
+        {
+          "emitted_size": 4,
+          "name": ".rdata",
+          "owned_size": 4,
+          "rom_start": 452260,
+          "sha256": "b899c301b46d846a2fe7918dd9051d1ac30965963d5ba4ad949dad4c5cf9431c",
+          "unowned_zero_tail": 0,
+          "vram": 2147945460
+        }
+      ],
+      "source": "src/overlays/closing_offset_medal_objects.c",
+      "source_sha256": "14784f87ab86ff3fecddc9e9c5851a03539e204f741283c9bc65127c183dfe1b",
+      "symbols": {
+        "func_800AC5CC": 2148189644,
+        "func_800AD9E8": 2148194792
+      },
+      "vram_delta": 2147493200
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_delta_80002550_sn.tsv:044b9b87af71426c",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "85efd8e8a97c9ae3fc28402932c0b01d38de522d04c1e4d99c63af1557568f35",
+      "pipeline": "sn",
+      "row_sha256": "044b9b87af71426c3fbe8740192844e50f8cc373b0554314c3cf9bad5a30ca71",
+      "section_bases": {
+        ".rdata": 2147945464,
+        ".rodata": 2147945464,
+        ".text": 2147949504
+      },
+      "sections": [
+        {
+          "emitted_size": 1464,
+          "name": ".text",
+          "owned_size": 1464,
+          "rom_start": 456304,
+          "sha256": "a331aed282d848ed0bb9ba6794ecc3740d7d184cbc7431bdc5ed37df316a8a37",
+          "unowned_zero_tail": 0,
+          "vram": 2147949504
+        },
+        {
+          "emitted_size": 36,
+          "name": ".rdata",
+          "owned_size": 36,
+          "rom_start": 452264,
+          "sha256": "8379e70bc1dc28a851c06f17d8ab6b74830236ab7f81e295969f4b0fd1512fdd",
+          "unowned_zero_tail": 0,
+          "vram": 2147945464
+        }
+      ],
+      "source": "src/overlays/closing_run_sequence.c",
+      "source_sha256": "eaedd5ae7b87beddb4b972bda88cd72c147b102815cc8eb0b052b4f8a069cbcf",
+      "symbols": {
+        "D_800F1AE0": 2148473568,
+        "D_800F26E0": 2148476640,
+        "D_800F2744": 2148476740,
+        "D_800F3BC0": 2148481984,
+        "func_8001D550": 2147603792,
+        "func_80071954": 2147948884,
+        "func_80071AAC": 2147949228,
+        "func_80072178": 2147950968,
+        "func_800725C0": 2147952064,
+        "func_800A3194": 2148151700,
+        "func_800A31BC": 2148151740,
+        "func_800A3240": 2148151872,
+        "func_800A3298": 2148151960,
+        "func_800A3394": 2148152212,
+        "func_800A851C": 2148173084,
+        "func_800A9BE8": 2148178920,
+        "func_800AB2A4": 2148184740,
+        "func_800AC334": 2148188980,
+        "func_800ADC38": 2148195384,
+        "func_800B3870": 2148218992,
+        "func_800B9964": 2148243812,
+        "func_800B9BD4": 2148244436,
+        "func_800B9E9C": 2148245148,
+        "func_800C013C": 2148270396
+      },
+      "vram_delta": 2147493200
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_delta_80002550_sn.tsv:bfc2992afd35a679",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "bfdfdbe8b1a4af8bfa060e3f1b537266eb2a4b2bb625f01219383fa8f9266285",
+      "pipeline": "sn",
+      "row_sha256": "bfc2992afd35a679e8baf7514b5e41cc8bf2d8aaefbe4ef27955d25863dee701",
+      "section_bases": {
+        ".rdata": 2147945500,
+        ".rodata": 2147945500,
+        ".text": 2147950968
+      },
+      "sections": [
+        {
+          "emitted_size": 492,
+          "name": ".text",
+          "owned_size": 492,
+          "rom_start": 457768,
+          "sha256": "500536e5cfb1420b17598a1f389c6f6baffc2e8d6369fedb0cc3def86334f780",
+          "unowned_zero_tail": 0,
+          "vram": 2147950968
+        },
+        {
+          "emitted_size": 16,
+          "name": ".rdata",
+          "owned_size": 16,
+          "rom_start": 452300,
+          "sha256": "66141c2733dbd2c97e5c713e87f6b28948737d91be022c5f266728cb99424822",
+          "unowned_zero_tail": 0,
+          "vram": 2147945500
+        }
+      ],
+      "source": "src/overlays/closing_initialize_medal_objects.c",
+      "source_sha256": "78593f03ab31cff8093a6c903aa04d5fd4374d336c73350d9744277dd39be39f",
+      "symbols": {
+        "func_800AC9B8": 2148190648,
+        "func_800AD2A8": 2148192936,
+        "func_800AD434": 2148193332,
+        "func_800AD9E8": 2148194792,
+        "func_800B9E9C": 2148245148,
+        "func_800B9FA4": 2148245412,
+        "runtimeMotionUpVector": 2148476540
+      },
+      "vram_delta": 2147493200
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_delta_80002550_sn.tsv:5152744d7aca9e5f",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "552131075d76d991b6a3969c2033543d9916feb8db07e5e306c4669fe79f3c47",
+      "pipeline": "sn",
+      "row_sha256": "5152744d7aca9e5ffa2926ba2b7a097615b12a81f1cb21e1829f253ce399fa00",
+      "section_bases": {
+        ".text": 2147951460
+      },
+      "sections": [
+        {
+          "emitted_size": 596,
+          "name": ".text",
+          "owned_size": 596,
+          "rom_start": 458260,
+          "sha256": "3338fa38f98720f9fd5c98e1a8cf5bfa3851ddb7911b320d94ceb335265cde04",
+          "unowned_zero_tail": 0,
+          "vram": 2147951460
+        }
+      ],
+      "source": "src/overlays/closing_release_medal_objects.c",
+      "source_sha256": "aa55b37a871d8d83b117832ca054f0d248a9dd483bf04b501f1aa75d6b17443e",
+      "symbols": {
+        "D_800F26E0": 2148476640,
+        "func_800AA658": 2148181592,
+        "func_800AACB0": 2148183216,
+        "func_800AC308": 2148188936
+      },
+      "vram_delta": 2147493200
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_delta_80002550_sn.tsv:122079b049099908",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "dacc68b1e63d0c15d2f8a9cc2305b8d090fba420da828010973186a26b83270c",
+      "pipeline": "sn",
+      "row_sha256": "122079b049099908bee23630054a5c353d0473a963e80a86e6e71f559c2814e0",
+      "section_bases": {
+        ".text": 2147952064
+      },
+      "sections": [
+        {
+          "emitted_size": 56,
+          "name": ".text",
+          "owned_size": 56,
+          "rom_start": 458864,
+          "sha256": "11453ec162f62c4dbd4b74e9c8afb15853170851c421810df0c3f2938396af11",
+          "unowned_zero_tail": 0,
+          "vram": 2147952064
+        }
+      ],
+      "source": "src/overlays/closing_select_resource.c",
+      "source_sha256": "377a09c29eb065d190f024f0126406c3f265b41dc3543c8b8cc470a9cbc4ffc6",
+      "symbols": {
+        "D_80070C2C": 2147945516,
+        "D_80070C3C": 2147945532,
+        "func_8001CBA8": 2147601320
+      },
+      "vram_delta": 2147493200
+    },
+    {
+      "discarded_sections": [],
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "id": "matching_delta_80002550_sn.tsv:6f2af61ca4fde37a",
+      "includes": [],
+      "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
+      "normalization": null,
+      "object_sha256_at_discovery": "3f8ce33b862163c40f57edad2f89ca7e6bdcd3cbabcf7e4177328dfdd44fa6f3",
+      "pipeline": "sn",
+      "row_sha256": "6f2af61ca4fde37ab93afee29596bb725e6a63ebac53b9af7bd49f0f1c63116c",
+      "section_bases": {
+        ".text": 2147952264
       },
       "sections": [
         {
@@ -849,12 +721,13 @@
           "rom_start": 459064,
           "sha256": "b006ed505515400ba5b313edca2da3c84da1e5b8373586513cb1fbc2f331362b",
           "unowned_zero_tail": 0,
-          "vram": 2147952268
+          "vram": 2147952264
         }
       ],
       "source": "src/overlays/closing_finalize_objects.c",
-      "source_sha256": "82e7a6cf394f3b3b0814181b4b1fdc5eab27c812160f47ae780871ca68b8bd89",
+      "source_sha256": "e4722158b6c9ee0fd44f9784bffb864ab3dda504ca11bf2db52165a561797aea",
       "symbols": {
+        "D_8008C140": 2148057408,
         "func_8007F1A4": 2148004260,
         "func_800A86AC": 2148173484,
         "func_800A9C2C": 2148178988,
@@ -863,7 +736,7 @@
         "func_800AE4D8": 2148197592,
         "func_800AF064": 2148200548
       },
-      "vram_delta": 2147493204
+      "vram_delta": 2147493200
     }
   ],
   "version": 1

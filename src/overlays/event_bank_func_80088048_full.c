@@ -16,13 +16,13 @@ float func_80088048(int unused, float *p, unsigned char n, float x)
     double dr;
     unsigned int u;
 
-    scale = (p[0] + p[1]) * *(float *)0x8007143C * (D_80077480[D_800FC270->sel] - *(float *)0x80071438);
+    scale = (p[0] + p[1]) * 0.5f * (D_80077480[D_800FC270->sel] - 1.5f);
     sum = 0.0f;
-    fix = *(double *)0x80071440;
-    k = *(float *)0x80071448;
-    a = *(float *)0x8007144C;
-    b = *(float *)0x80071450;
-    inv = x / (scale + *(float *)0x80071438);
+    fix = 4294967296.0;
+    k = 0.00024414062f;
+    a = 0.25f;
+    b = 0.75f;
+    inv = x / (scale + 1.5f);
     for (;;) {
         { unsigned char t = n; if (t == 0) break; }
         D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;

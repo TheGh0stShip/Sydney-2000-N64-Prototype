@@ -1,60 +1,31 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80118B10\n.ent func_80118B10\n"
-    "func_80118B10:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $20,32($29)\n"
-    "move $20,$6\n"
-    "sw $19,28($29)\n"
-    "lw $19,56($29)\n"
-    "li $6,1\n"
-    "sw $31,36($29)\n"
-    "jal func_800A6160\n"
-    "sw $16,16($29)\n"
-    "li $2,22\n"
-    "bne $17,$2,L_80118B5C\n"
-    "addiu $4,$18,196\n"
-    "move $5,$19\n"
-    "j func_8007EAD4\n"
-    "li $6,2\n"
-    "L_80118B5C:\n"
-    "move $5,$19\n"
-    "li $6,1\n"
-    "jal func_800E56FC\n"
-    "addiu $17,$17,-20\n"
-    "addiu $4,$18,196\n"
-    "jal func_800AC37C\n"
-    "move $5,$18\n"
-    "addiu $16,$18,736\n"
-    "move $4,$16\n"
-    "jal func_800AC37C\n"
-    "move $5,$18\n"
-    "move $4,$16\n"
-    "andi $5,$17,0xff\n"
-    "jal func_800E79E0\n"
-    "sw $19,216($16)\n"
-    "jal func_8007E978\n"
-    "move $4,$18\n"
-    "move $4,$18\n"
-    "jal func_8007E520\n"
-    "move $5,$20\n"
-    "jal func_80017860\n"
-    "li $4,1\n"
-    "li $4,33\n"
-    "li $5,56\n"
-    "li $6,86\n"
-    "jal func_80017820\n"
-    "li $7,1\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80118B10\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+extern void func_800A6160(u8 *, s32, s32);
+extern void func_800E56FC(u8 *, s32, s32);
+extern void func_800AC37C(u8 *, u8 *);
+extern void func_800E79E0(u8 *, u8);
+extern void func_8007E978(u8 *);
+extern void func_8007E520(u8 *, s32);
+extern void func_80017860(s32);
+extern void func_80017820(s32, s32, s32, s32);
+void func_8007EA80(u8 *o, s32 k, s32 c, s32 d, s32 e)
+{
+    u8 *p;
+    s32 n;
+    func_800A6160(o, k, 1);
+    if (k == 22) {
+        func_800E56FC(o + 196, e, 2);
+    } else {
+        func_800E56FC(o + 196, e, 1);
+    }
+    n = k - 20;
+    func_800AC37C(o + 196, o);
+    p = o + 736;
+    func_800AC37C(p, o);
+    *(s32 *)(p + 216) = e;
+    func_800E79E0(p, n);
+    func_8007E978(o);
+    func_8007E520(o, c);
+    func_80017860(1);
+    func_80017820(33, 56, 86, 1);
+}

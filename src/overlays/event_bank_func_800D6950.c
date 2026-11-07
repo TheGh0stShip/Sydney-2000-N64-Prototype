@@ -1,79 +1,57 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D6950\n.ent func_800D6950\n"
-    "func_800D6950:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $4,24932($17)\n"
-    "lbu $6,1548($17)\n"
-    "addiu $4,$4,256\n"
-    "addiu $5,$6,1\n"
-    "sll $3,$5,0x1\n"
-    "addu $3,$3,$5\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x9\n"
-    "slt $2,$2,$4\n"
-    "beqz $2,L_800D6A50\n"
-    "sw $4,24932($17)\n"
-    "lbu $2,1555($17)\n"
-    "addiu $2,$2,-1\n"
-    "slt $2,$6,$2\n"
-    "beqz $2,L_800D69D4\n"
-    "andi $2,$5,0xff\n"
-    "sb $5,1548($17)\n"
-    "move $4,$17\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $5,20188($2)\n"
-    "jal func_80076334\n"
-    "move $6,$0\n"
-    "jal func_800755FC\n"
-    "move $4,$17\n"
-    "j func_80071EE4\n"
-    "li $4,15360\n"
-    "L_800D69D4:\n"
-    "jal func_80076940\n"
-    "move $4,$17\n"
-    "move $4,$17\n"
-    "andi $2,$2,0xff\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$17,$2\n"
-    "lw $5,20188($2)\n"
-    "jal func_80076334\n"
-    "li $6,1\n"
-    "addiu $4,$17,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,3\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,210\n"
-    "move $6,$0\n"
-    "li $2,30720\n"
-    "sw $2,24932($17)\n"
-    "li $2,4\n"
-    "li $7,1\n"
-    "jal func_8001D4B8\n"
-    "sb $2,1551($17)\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "L_800D6A50:\n"
-    "li $4,15360\n"
-    "jal func_8009B9EC\n"
-    "move $5,$0\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D6950\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+
+typedef struct {
+    u8 pad[0x68];
+    s32 vol;
+} Snd;
+
+extern Snd D_800F1AE0;
+
+extern void func_80076334(u8 *p, s32 a, s32 b);
+extern void func_800755FC(u8 *p);
+extern u8 func_80076940(u8 *p);
+extern void func_800A9BE8(u8 *p, s32 a);
+extern s32 func_8001D4B8(Snd *s, s32 a, s32 b, s32 c);
+extern void func_8001D640(Snd *s, s32 h, s32 v);
+extern void func_8009B9EC(s32 a, s32 b);
+
+static inline s32 scl(s32 v, s32 m)
+{
+    return (v * m) >> 15;
+}
+
+#define W(o) (*(s32 *)(p + (o)))
+#define B(o) (*(u8 *)(p + (o)))
+typedef struct Obj {
+    u8 pad[0x4EDC];
+    s32 tbl[8];
+} Obj;
+
+#define TBL(i) (((Obj *)p)->tbl[i])
+
+void func_800D6950(u8 *p)
+{
+    s32 n;
+    s32 m;
+    s32 h;
+
+    n = B(0x60C);
+    W(0x6164) += 256;
+    m = n + 1;
+    if (m * 23040 < W(0x6164)) {
+        if (n < B(0x613) - 1) {
+            B(0x60C) = m;
+            func_80076334(p, TBL(B(0x60C)), 0);
+            func_800755FC(p);
+        } else {
+            func_80076334(p, TBL(func_80076940(p)), 1);
+            func_800A9BE8(p + 0x45C, 3);
+            W(0x6164) = 30720;
+            B(0x60F) = 4;
+            h = func_8001D4B8(&D_800F1AE0, 210, 0, 1);
+            func_8001D640(&D_800F1AE0, h, scl(D_800F1AE0.vol, 32767));
+        }
+    }
+    func_8009B9EC(15360, 0);
+}

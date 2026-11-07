@@ -1,74 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801153E8\n.ent func_801153E8\n"
-    "func_801153E8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$5\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,0($17)\n"
-    "addiu $3,$2,-1\n"
-    "sltiu $2,$3,7\n"
-    "beqz $2,L_801154DC\n"
-    "move $16,$4\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,-7856\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_800B4794\n"
-    "li $4,1\n"
-    "jal func_8007E170\n"
-    "move $4,$16\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "j func_8007EF9C\n"
-    "nop\n"
-    "jal func_8007E96C\n"
-    "move $4,$16\n"
-    "j func_8007EF9C\n"
-    "nop\n"
-    "lbu $2,17($17)\n"
-    "beqz $2,L_801154DC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,7\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "move $7,$16\n"
-    "j func_8007EF94\n"
-    "sw $0,16($29)\n"
-    "lbu $2,17($17)\n"
-    "beqz $2,L_801154DC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,7\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "move $7,$16\n"
-    "j func_8007EF94\n"
-    "sw $0,16($29)\n"
-    "jal func_8007E834\n"
-    "move $4,$16\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,3\n"
-    "lui $2,0x800f\n"
-    "lui $7,0x800f\n"
-    "lw $5,10052($2)\n"
-    "addiu $7,$7,4512\n"
-    "sw $16,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "L_801154DC:\n"
-    "lw $2,4($17)\n"
-    "sw $2,16($16)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_801153E8\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+extern u8 D_800F26E0[];
+extern s32 D_800F2744;
+extern u8 D_800F11A0[];
+extern void func_800B4794(s32);
+extern void func_8007E170(u8 *);
+extern void func_8007E96C(u8 *);
+extern void func_8007E834(u8 *);
+extern void func_800AB2A4(u8 *, s32, s32, void *, void *, s32);
+void func_8007EEA8(u8 *o, s32 *m)
+{
+    switch (m[0]) {
+    case 3:
+        func_800B4794(1);
+        func_8007E170(o);
+        func_800B4794(0);
+        break;
+    case 5:
+        func_8007E96C(o);
+        break;
+    case 1:
+        if (((u8 *)m)[17]) func_800AB2A4(D_800F26E0, D_800F2744, 7, o, 0, 0);
+        break;
+    case 2:
+        if (((u8 *)m)[17]) func_800AB2A4(D_800F26E0, D_800F2744, 7, o, 0, 0);
+        break;
+    case 7:
+        func_8007E834(o);
+        func_800AB2A4(D_800F26E0, D_800F2744, 3, D_800F11A0, o, 0);
+        break;
+    case 4:
+    case 6:
+        break;
+    }
+    *(s32 *)(o + 16) = m[1];
+}

@@ -1,68 +1,12 @@
-/*
- * Finalize every embedded closing-screen object, then finalize the root with
- * the caller-selected mode.  The original sentinel walk is retained exactly:
- * its apparently invariant pointers are overlay-relocated values at runtime.
- */
-__asm__(
-    ".set noreorder\n"
-    ".text\n"
-    ".globl func_8007268C\n"
-    ".ent func_8007268C\n"
-    "func_8007268C:\n"
-    "addiu $sp,$sp,-32\n"
-    "sw $16,16($sp)\n"
-    "move $16,$4\n"
-    "sw $17,20($sp)\n"
-    "move $17,$5\n"
-    "addiu $4,$16,0x1fd8\n"
-    "addiu $3,$16,0x21dc\n"
-    "beq $3,$0,2f\n"
-    "sw $31,24($sp)\n"
-    "addiu $2,$16,0x235c\n"
-    "beql $3,$2,3f\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-16\n"
-    "1:\n"
-    "bne $3,$2,1b\n"
-    "addiu $2,$2,-16\n"
-    "2:\n"
-    "lui $2,0x8009\n"
-    "3:\n"
-    "addiu $2,$2,-16064\n"
-    "li $5,2\n"
-    "jal func_800AC3A4\n"
-    "sw $2,0xb4($4)\n"
-    "addiu $4,$16,0xaa0\n"
-    "jal func_8007F1A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,0x9ac\n"
-    "jal func_800A9C2C\n"
-    "li $5,2\n"
-    "addiu $4,$16,0x99c\n"
-    "jal func_800AF064\n"
-    "li $5,2\n"
-    "addiu $4,$16,0x98c\n"
-    "jal func_800AF064\n"
-    "li $5,2\n"
-    "addiu $4,$16,0x86c\n"
-    "jal func_800ADE84\n"
-    "li $5,2\n"
-    "addiu $4,$16,0x7ac\n"
-    "jal func_800AC3A4\n"
-    "li $5,2\n"
-    "addiu $4,$16,0x250\n"
-    "jal func_800AE4D8\n"
-    "li $5,2\n"
-    "addiu $4,$16,0xe8\n"
-    "jal func_800A86AC\n"
-    "li $5,2\n"
-    "move $4,$16\n"
-    "jal func_800AC3A4\n"
-    "move $5,$17\n"
-    "lw $31,24($sp)\n"
-    "lw $17,20($sp)\n"
-    "lw $16,16($sp)\n"
-    "jr $31\n"
-    "addiu $sp,$sp,32\n"
-    ".end func_8007268C\n"
-    ".set reorder\n");
+typedef unsigned char u8;
+extern void func_800AC3A4(void *, int); extern void func_8007F1A4(void *, int); extern void func_800A9C2C(void *, int);
+extern void func_800AF064(void *, int); extern void func_800ADE84(void *, int); extern void func_800AE4D8(void *, int); extern void func_800A86AC(void *, int);
+extern char D_8008C140[];
+void func_8007268C(u8 *o, int mode) {
+    u8 *sub = o + 0x1FD8; u8 *b = o + 0x21DC;
+    if (b != 0) { u8 *p = b + 0x180; while (b != p) p -= 16; }
+    *(void **)(sub + 0xB4) = D_8008C140; func_800AC3A4(sub, 2);
+    func_8007F1A4(o + 0xAA0, 2); func_800A9C2C(o + 0x9AC, 2); func_800AF064(o + 0x99C, 2); func_800AF064(o + 0x98C, 2);
+    func_800ADE84(o + 0x86C, 2); func_800AC3A4(o + 0x7AC, 2); func_800AE4D8(o + 0x250, 2); func_800A86AC(o + 0xE8, 2);
+    func_800AC3A4(o, mode);
+}

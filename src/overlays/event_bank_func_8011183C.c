@@ -1,102 +1,66 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011183C\n.ent func_8011183C\n"
-    "func_8011183C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "li $4,1\n"
-    "addiu $5,$29,16\n"
-    "addiu $6,$17,1272\n"
-    "li $7,-1\n"
-    "li $2,4\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "sh $2,16($29)\n"
-    "jal func_800125DC\n"
-    "sw $0,20($29)\n"
-    "bltz $2,L_801119A8\n"
-    "move $5,$0\n"
-    "lw $4,1272($17)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,20\n"
-    "bltz $2,L_801119A8\n"
-    "lui $5,0x8008\n"
-    "addiu $5,$5,-8532\n"
-    "lhu $2,16($29)\n"
-    "lw $4,20($29)\n"
-    "sll $6,$2,0x3\n"
-    "addu $6,$6,$2\n"
-    "jal func_800B3870\n"
-    "sll $6,$6,0x2\n"
-    "lw $4,1272($17)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "bltz $2,L_801119A8\n"
-    "move $5,$0\n"
-    "lw $4,1272($17)\n"
-    "li $6,2\n"
-    "lui $7,0x8008\n"
-    "jal func_80017C20\n"
-    "addiu $7,$7,-8544\n"
-    "bltz $2,L_801119A8\n"
-    "lui $4,0x8008\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,-29548\n"
-    "move $5,$0\n"
-    "lw $4,1272($17)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "addiu $16,$17,1276\n"
-    "lw $2,1272($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29536($1)\n"
-    "move $4,$16\n"
-    "swc1 $f0,1496($17)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29532($1)\n"
-    "li $5,1\n"
-    "sw $2,1472($17)\n"
-    "addiu $2,$17,1296\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,1296($17)\n"
-    "sw $0,64($2)\n"
-    "sw $0,68($2)\n"
-    "jal func_800ADC54\n"
-    "sw $0,72($2)\n"
-    "lw $2,192($16)\n"
-    "move $4,$16\n"
-    "ori $2,$2,0x14\n"
-    "sw $2,192($16)\n"
-    "li $2,87\n"
-    "sw $2,1276($17)\n"
-    "lw $2,192($16)\n"
-    "move $5,$17\n"
-    "ori $2,$2,0x2\n"
-    "jal func_800AC37C\n"
-    "sw $2,192($16)\n"
-    "jal func_800ADC38\n"
-    "move $4,$16\n"
-    "move $4,$17\n"
-    "move $5,$0\n"
-    "li $2,1\n"
-    "sb $2,1488($4)\n"
-    "jal func_8007CA64\n"
-    "sb $0,1489($4)\n"
-    "L_801119A8:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8011183C\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned short u16;
+typedef unsigned char u8;
+typedef float f32;
+extern u8 D_8007DEAC[];
+extern u8 D_8007DEA0[];
+extern s32 func_800125DC(s32, u16 *, u8 *, s32);
+extern s32 func_80017C4C(s32, s32, u8 **);
+extern s32 func_80017C3C(s32);
+extern s32 func_80017C20(s32, s32, s32, u8 *);
+extern u16 func_8000EB20(char *);
+extern void func_80017CF4(s32, s32, u16);
+extern void func_800B3870(u8 *, u8 *, s32);
+extern void func_800ADC54(u8 *, s32);
+extern void func_800AC37C(u8 *, u8 *);
+extern void func_800ADC38(u8 *);
+extern void func_8007CA64(u8 *, s32);
+static inline void ident(u8 *q)
+{
+    *(s32 *)(q + 36) = 0;
+    *(s32 *)(q + 32) = 0;
+    *(s32 *)(q + 24) = 0;
+    *(s32 *)(q + 16) = 0;
+    *(s32 *)(q + 8) = 0;
+    *(s32 *)(q + 4) = 0;
+    *(s32 *)(q + 72) = 0;
+    *(s32 *)(q + 68) = 0;
+    *(s32 *)(q + 64) = 0;
+    *(f32 *)(q + 40) = 1.0f;
+    *(f32 *)(q + 20) = 1.0f;
+    *(f32 *)(q + 0) = 1.0f;
+}
+static inline void zt(u8 *q)
+{
+    *(s32 *)(q + 64) = 0;
+    *(s32 *)(q + 68) = 0;
+    *(s32 *)(q + 72) = 0;
+}
+void func_8007CB4C(u8 *o)
+{
+    u16 n;
+    u8 *p;
+    u8 *q;
+    n = 4;
+    p = 0;
+    if (func_800125DC(1, &n, o + 1272, -1) < 0) return;
+    if (func_80017C4C(*(s32 *)(o + 1272), 0, &p) < 0) return;
+    func_800B3870(p, D_8007DEAC, n * 36);
+    if (func_80017C3C(*(s32 *)(o + 1272)) < 0) return;
+    if (func_80017C20(*(s32 *)(o + 1272), 0, 2, D_8007DEA0) < 0) return;
+    func_80017CF4(*(s32 *)(o + 1272), 0, func_8000EB20("SWIM_WAKE"));
+    q = o + 1276;
+    *(s32 *)(o + 1472) = *(s32 *)(o + 1272);
+    *(f32 *)(o + 1496) = 255.0f;
+    ident(o + 1296);
+    zt(o + 1296);
+    func_800ADC54(q, 1);
+    *(s32 *)(q + 192) |= 0x14;
+    *(s32 *)(o + 1276) = 87;
+    *(s32 *)(q + 192) |= 2;
+    func_800AC37C(q, o);
+    func_800ADC38(q);
+    o[1488] = 1;
+    o[1489] = 0;
+    func_8007CA64(o, 0);
+}

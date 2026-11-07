@@ -1,96 +1,39 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AD890\n.ent func_800AD890\n"
-    "func_800AD890:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $2,208($16)\n"
-    "bnez $2,L_800AD928\n"
-    "move $17,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$16,208\n"
-    "li $6,28\n"
-    "lui $7,0x8008\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,24288\n"
-    "bnez $2,L_800AD9D4\n"
-    "move $5,$0\n"
-    "lw $2,208($16)\n"
-    "sb $0,0($2)\n"
-    "lw $2,208($16)\n"
-    "sb $0,1($2)\n"
-    "L_800AD8E4:\n"
-    "andi $4,$5,0xff\n"
-    "sltiu $2,$4,3\n"
-    "beqz $2,L_800AD918\n"
-    "addiu $5,$5,1\n"
-    "lw $2,208($16)\n"
-    "sll $3,$4,0x1\n"
-    "addu $2,$2,$3\n"
-    "sh $0,2($2)\n"
-    "lw $2,208($16)\n"
-    "sll $3,$4,0x2\n"
-    "addu $2,$2,$3\n"
-    "j L_800AD8E4\n"
-    "sw $0,8($2)\n"
-    "L_800AD918:\n"
-    "lw $2,208($16)\n"
-    "sw $0,20($2)\n"
-    "lw $2,208($16)\n"
-    "sw $0,24($2)\n"
-    "L_800AD928:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "andi $2,$17,0xff\n"
-    "lw $3,208($16)\n"
-    "lui $7,0x8008\n"
-    "sh $2,2($3)\n"
-    "lw $5,208($16)\n"
-    "addiu $7,$7,24296\n"
-    "lhu $2,2($5)\n"
-    "addiu $5,$5,8\n"
-    "sll $6,$2,0x3\n"
-    "addu $6,$6,$2\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x3\n"
-    "beqz $2,L_800AD974\n"
-    "li $3,1\n"
-    "lw $2,208($16)\n"
-    "j L_800AD9D4\n"
-    "sh $0,2($2)\n"
-    "L_800AD974:\n"
-    "lw $2,208($16)\n"
-    "sb $3,0($2)\n"
-    "lw $2,208($16)\n"
-    "sb $3,1($2)\n"
-    "lw $2,208($16)\n"
-    "sw $0,20($2)\n"
-    "lw $2,208($16)\n"
-    "mtc1 $0,$f0\n"
-    "lw $2,8($2)\n"
-    "swc1 $f0,32($2)\n"
-    "swc1 $f0,28($2)\n"
-    "swc1 $f0,24($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,16($2)\n"
-    "swc1 $f0,12($2)\n"
-    "swc1 $f0,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "swc1 $f0,0($2)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24308($1)\n"
-    "sb $3,36($2)\n"
-    "li $3,-1\n"
-    "sh $3,38($2)\n"
-    "swc1 $f0,40($2)\n"
-    "L_800AD9D4:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800AD890\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef struct { float m[9]; u8 on; char pad; short id; float r; } Col;
+typedef struct { u8 b0; u8 b1; u16 s[3]; Col *c[3]; int v20; int v24; } Hdr;
+typedef struct { char pad[208]; Hdr *h; } Obj;
+extern char D_800F2758[];
+extern int func_800AA804(void *, void *, int, char *);
+void func_800AD890(Obj *o, u8 n)
+{
+    u8 i;
+    Col *c;
+    if (o->h == 0) {
+        if (func_800AA804(D_800F2758, &o->h, 28, "CSHAPE")) return;
+        o->h->b0 = 0;
+        o->h->b1 = 0;
+        i = 0;
+        while (1) {
+            if (!(i < 3)) break;
+            o->h->s[i] = 0;
+            o->h->c[i] = 0;
+            i++;
+        }
+        o->h->v20 = 0;
+        o->h->v24 = 0;
+    }
+    o->h->s[0] = n;
+    if (func_800AA804(D_800F2758, &o->h->c[0], o->h->s[0] * 72, "COLSHAPE")) {
+        o->h->s[0] = 0;
+        return;
+    }
+    o->h->b0 = 1;
+    o->h->b1 = 1;
+    o->h->v20 = 0;
+    c = o->h->c[0];
+    c->m[0] = c->m[1] = c->m[2] = c->m[3] = c->m[4] = c->m[5] = c->m[6] = c->m[7] = c->m[8] = 0.0f;
+    c->on = 1;
+    c->id = -1;
+    c->r = 100.0f;
+}

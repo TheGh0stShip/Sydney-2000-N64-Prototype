@@ -1,95 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_801227F8\n.ent func_801227F8\n"
-    "func_801227F8:\n"
-    "addiu $29,$29,-48\n"
-    "sw $20,40($29)\n"
-    "move $20,$4\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "li $5,350\n"
-    "li $6,13\n"
-    "li $7,15\n"
-    "sw $31,44($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "jal func_800DAD10\n"
-    "sw $16,24($29)\n"
-    "jal func_800B31EC\n"
-    "move $4,$0\n"
-    "move $17,$0\n"
-    "lui $2,0x800f\n"
-    "addiu $19,$2,19712\n"
-    "li $18,1\n"
-    "andi $3,$17,0xff\n"
-    "sltiu $2,$3,10\n"
-    "beqz $2,L_801228A4\n"
-    "sll $16,$3,0x3\n"
-    "subu $16,$16,$3\n"
-    "sll $16,$16,0x3\n"
-    "subu $16,$16,$3\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$20\n"
-    "addiu $16,$16,1616\n"
-    "move $5,$19\n"
-    "lw $2,180($16)\n"
-    "addiu $17,$17,1\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $5,216($19)\n"
-    "move $4,$16\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$18,$5\n"
-    "j func_80082238\n"
-    "sb $18,176($16)\n"
-    "L_801228A4:\n"
-    "move $4,$20\n"
-    "move $6,$0\n"
-    "lui $16,0x8010\n"
-    "lw $2,-15760($16)\n"
-    "lui $3,0x800f\n"
-    "lw $2,3352($2)\n"
-    "addiu $3,$3,16752\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$2,$3\n"
-    "lhu $5,0($2)\n"
-    "move $7,$6\n"
-    "sw $0,16($29)\n"
-    "jal func_80082A84\n"
-    "sw $0,20($29)\n"
-    "move $4,$20\n"
-    "lw $2,-15760($16)\n"
-    "li $5,25\n"
-    "lw $6,3356($2)\n"
-    "move $7,$0\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "jal func_80082A84\n"
-    "addiu $6,$6,1\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,19712\n"
-    "addiu $17,$20,216\n"
-    "lw $2,180($17)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$17\n"
-    "lw $5,216($16)\n"
-    "li $16,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$16,$5\n"
-    "sb $16,176($17)\n"
-    "lw $31,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_801227F8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef short s16;
+typedef int s32;
+
+typedef struct Ctx { u8 pad[216]; s32 bit; } Ctx;
+typedef struct Cls { u8 pad[16]; s16 off; s16 pad2; void (*fn)(u8 *, Ctx *); } Cls;
+typedef struct G { u8 pad[3352]; s32 a; s32 b; } G;
+
+extern u8 D_800F2758[];
+extern Ctx D_800F4D00;
+extern u16 D_800F4170[];
+extern G *D_800FC270;
+
+extern void func_800DAD10(u8 *a, s32 b, s32 c, s32 d);
+extern void func_800B31EC(s32 a);
+extern void func_800ADC54(u8 *e, s32 m);
+extern void func_80082A84(u8 *p, s32 a, s32 b, s32 c, s32 d, s32 e);
+
+typedef struct Ent { u8 b[220]; } Ent;
+#define CLS(e) (*(Cls **)((e) + 180))
+
+static inline void act(Ctx *c, u8 *e)
+{
+    CLS(e)->fn(e + CLS(e)->off, c);
+    func_800ADC54(e, 1 << c->bit);
+    e[176] = 1;
+}
+
+void func_801227F8(u8 *p)
+{
+    u8 i;
+    u8 *e;
+
+    func_800DAD10(D_800F2758, 350, 13, 15);
+    func_800B31EC(0);
+    i = 0;
+    while (1) {
+        if (!(i < 10)) break;
+        act(&D_800F4D00, p + i * 220 + 1616);
+        i++;
+    }
+    func_80082A84(p, D_800F4170[D_800FC270->a], 0, 0, 0, 0);
+    func_80082A84(p, 25, D_800FC270->b + 1, 0, 0, 0);
+    act(&D_800F4D00, p + 216);
+}

@@ -1,62 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CB5D8\n.ent func_800CB5D8\n"
-    "func_800CB5D8:\n"
-    "addiu $29,$29,-56\n"
-    "sw $17,44($29)\n"
-    "move $17,$4\n"
-    "addiu $5,$17,1672\n"
-    "sw $16,40($29)\n"
-    "lui $16,0x8009\n"
-    "addiu $16,$16,-27104\n"
-    "lui $6,0x43ef\n"
-    "ori $6,$6,0x8000\n"
-    "lui $7,0x4160\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-26940($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-26936($1)\n"
-    "li $2,3\n"
-    "sw $18,48($29)\n"
-    "li $18,1\n"
-    "sw $31,52($29)\n"
-    "sw $16,24($29)\n"
-    "sw $2,28($29)\n"
-    "sw $18,32($29)\n"
-    "swc1 $f0,16($29)\n"
-    "jal func_800CB204\n"
-    "swc1 $f2,20($29)\n"
-    "jal func_8000EB20\n"
-    "move $4,$16\n"
-    "addiu $4,$17,1868\n"
-    "li $5,14\n"
-    "lui $7,0x3d4c\n"
-    "ori $7,$7,0xcccd\n"
-    "li $6,4\n"
-    "jal func_8001A3B8\n"
-    "sh $2,3166($17)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,19712\n"
-    "addiu $17,$17,2944\n"
-    "lw $2,180($17)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $5,216($16)\n"
-    "move $4,$17\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$18,$5\n"
-    "move $4,$17\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,18528\n"
-    "jal func_800B360C\n"
-    "sb $18,176($4)\n"
-    "lw $31,52($29)\n"
-    "lw $18,48($29)\n"
-    "lw $17,44($29)\n"
-    "lw $16,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800CB5D8\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(void *, void *); } VEnt;
+typedef struct {
+    char p0[0xB0];
+    unsigned char b176;
+    char p1[0xB4 - 0xB1];
+    VEnt *vt;
+} Ent;
+typedef struct {
+    char p0[0x688];
+    char a1672[0x74C - 0x688];
+    char a1868[0xB80 - 0x74C];
+    Ent e;
+    char p1[0xC5E - 0xB80 - sizeof(Ent)];
+    short h3166;
+} Obj;
+typedef struct { char p0[0xD8]; int sh; } Cfg;
+
+extern char D_80089620[];
+extern Cfg D_800F4D00;
+extern char D_800F4860[];
+extern void func_800CB204(Obj *, void *, float, float, float, float, char *, int, int);
+extern short func_8000EB20(char *);
+extern void func_8001A3B8(void *, int, int, float);
+extern void func_800ADC54(void *, int);
+extern void func_800B360C(void *, void *);
+
+void func_800CB5D8(Obj *o)
+{
+    Ent *e;
+    Cfg *c;
+
+    func_800CB204(o, o->a1672, 479.0f, 14.0f, 120.0f, 16.0f, D_80089620, 3, 1);
+    o->h3166 = func_8000EB20(D_80089620);
+    func_8001A3B8(o->a1868, 14, 4, 0.05f);
+    c = &D_800F4D00;
+    e = &o->e;
+    e->vt[2].fn((char *)e + e->vt[2].adj, c);
+    func_800ADC54(e, 1 << c->sh);
+    e->b176 = 1;
+    func_800B360C(e, D_800F4860);
+}

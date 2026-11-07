@@ -1,139 +1,101 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E8EB4\n.ent func_800E8EB4\n"
-    "func_800E8EB4:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "sw $31,32($29)\n"
-    "sw $18,24($29)\n"
-    "jal func_800A32CC\n"
-    "sw $17,20($29)\n"
-    "jal func_800A3218\n"
-    "move $4,$16\n"
-    "jal func_800A3240\n"
-    "move $4,$16\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,15296\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800C0168\n"
-    "move $4,$16\n"
-    "lw $2,644($19)\n"
-    "beqz $2,L_800E9090\n"
-    "addiu $16,$19,27876\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "addiu $16,$19,28096\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "addiu $16,$19,28316\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800CE594\n"
-    "lui $18,0x800f\n"
-    "lw $17,9872($18)\n"
-    "beqz $17,L_800E8F9C\n"
-    "addiu $16,$18,9872\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800E8F78\n"
-    "sw $0,9872($18)\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,4\n"
-    "L_800E8F78:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800E8F8C\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,8\n"
-    "L_800E8F8C:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,9872($18)\n"
-    "L_800E8F9C:\n"
-    "lui $18,0x8010\n"
-    "lw $17,-13424($18)\n"
-    "beqz $17,L_800E8FEC\n"
-    "addiu $16,$18,-13424\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800E8FC4\n"
-    "sw $0,-13424($18)\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,4\n"
-    "L_800E8FC4:\n"
-    "lw $2,8($16)\n"
-    "beql $2,$0,L_800E8FE0\n"
-    "sh $0,16($16)\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$16,8\n"
-    "sh $0,16($16)\n"
-    "L_800E8FE0:\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,-13424($18)\n"
-    "L_800E8FEC:\n"
-    "jal func_800DB124\n"
-    "li $4,1\n"
-    "jal func_800AC334\n"
-    "addiu $4,$19,260\n"
-    "jal func_800C8500\n"
-    "addiu $4,$19,28540\n"
-    "addiu $16,$19,23368\n"
-    "jal func_800C04DC\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "move $16,$0\n"
-    "andi $2,$16,0xffff\n"
-    "L_800E9020:\n"
-    "sll $4,$2,0x3\n"
-    "subu $4,$4,$2\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$2\n"
-    "sll $4,$4,0x3\n"
-    "addiu $4,$4,24632\n"
-    "jal func_800C0A5C\n"
-    "addu $4,$19,$4\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xffff\n"
-    "sltiu $2,$2,13\n"
-    "bnez $2,L_800E9020\n"
-    "andi $2,$16,0xffff\n"
-    "lui $4,0x800f\n"
-    "jal func_800D5760\n"
-    "addiu $4,$4,22784\n"
-    "jal func_80006A18\n"
-    "addiu $4,$19,216\n"
-    "jal func_800137FC\n"
-    "nop\n"
-    "jal func_80014384\n"
-    "nop\n"
-    "jal func_800DAFBC\n"
-    "nop\n"
-    "jal func_800E9794\n"
-    "move $4,$19\n"
-    "jal func_800B31D0\n"
-    "sw $0,644($19)\n"
-    "L_800E9090:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800E8EB4\n.set at\n.set reorder\n");
+typedef struct { int heap; int a; int b; int wp; unsigned short cap; unsigned short used; } Pool;
+typedef struct { char pad[232]; } Lane;
+typedef struct {
+    char pad0[0xD8];
+    char snd[0x104 - 0xD8];
+    char hud[0x284 - 0x104];
+    int live;
+    char pad288[0x5B48 - 0x288];
+    char board[0x6038 - 0x5B48];
+    Lane lanes[13];
+    char pad[0x6CE4 - (0x6038 + 13 * 232)];
+    char c0[0x6DC0 - 0x6CE4];
+    char c1[0x6E9C - 0x6DC0];
+    char c2[0x6F7C - 0x6E9C];
+    char chan[4];
+} Game;
+
+extern char D_800F1AE0[];
+extern char D_800F3BC0[];
+extern Pool D_800F2690;
+extern Pool D_800FCB90;
+extern char D_800F5900[];
+extern void func_800A32CC(void *p);
+extern void func_800A3218(void *p);
+extern void func_800A3240(void *p);
+extern void func_800AC334(void *p);
+extern void func_800C0168(void *p);
+extern void func_800B35F0(void *p);
+extern void func_800CE594(void);
+extern void func_800AA658(int h, int *p);
+extern void func_800DB124(int n);
+extern void func_800C8500(void *p);
+extern void func_800C04DC(void *p);
+extern void func_800C0A5C(Lane *l);
+extern void func_800D5760(char *p);
+extern void func_80006A18(void *p);
+extern void func_800137FC(void);
+extern void func_80014384(void);
+extern void func_800DAFBC(void);
+extern void func_800E9794(Game *g);
+extern void func_800B31D0(void);
+
+static inline void pool_free(Pool *p)
+{
+    int h = p->heap;
+
+    if (h != 0) {
+        p->heap = 0;
+        if (p->a != 0) {
+            func_800AA658(h, &p->a);
+        }
+        if (p->b != 0) {
+            func_800AA658(h, &p->b);
+        }
+        p->cap = 0;
+        p->used = 0;
+        p->wp = 0;
+        p->heap = 0;
+    }
+}
+
+void func_800E8EB4(Game *g)
+{
+    unsigned short i;
+
+    func_800A32CC(D_800F1AE0);
+    func_800A3218(D_800F1AE0);
+    func_800A3240(D_800F1AE0);
+    func_800AC334(D_800F3BC0);
+    func_800C0168(D_800F3BC0);
+    if (g->live == 0) {
+        return;
+    }
+    func_800AC334(g->c0);
+    func_800B35F0(g->c0);
+    func_800AC334(g->c1);
+    func_800B35F0(g->c1);
+    func_800AC334(g->c2);
+    func_800B35F0(g->c2);
+    func_800CE594();
+    pool_free(&D_800F2690);
+    pool_free(&D_800FCB90);
+    func_800DB124(1);
+    func_800AC334(g->hud);
+    func_800C8500(g->chan);
+    func_800C04DC(g->board);
+    func_800AC334(g->board);
+    i = 0;
+    do {
+        func_800C0A5C(&g->lanes[i]);
+        i++;
+    } while (i < 13);
+    func_800D5760(D_800F5900);
+    func_80006A18(g->snd);
+    func_800137FC();
+    func_80014384();
+    func_800DAFBC();
+    func_800E9794(g);
+    g->live = 0;
+    func_800B31D0();
+}

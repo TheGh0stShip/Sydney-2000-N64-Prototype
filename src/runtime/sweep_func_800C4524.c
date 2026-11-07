@@ -1,140 +1,89 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C4524\n.ent func_800C4524\n"
-    "func_800C4524:\n"
-    "addiu $29,$29,-56\n"
-    "sw $18,40($29)\n"
-    "lui $18,0x800f\n"
-    "lw $2,16632($18)\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "sw $31,48($29)\n"
-    "sw $19,44($29)\n"
-    "bnez $2,L_800C45C4\n"
-    "sw $16,32($29)\n"
-    "addiu $16,$29,24\n"
-    "move $4,$16\n"
-    "lui $5,0x8009\n"
-    "addiu $5,$5,-31228\n"
-    "jal func_80019680\n"
-    "sw $0,24($29)\n"
-    "move $4,$16\n"
-    "lui $5,0xc8ff\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0xffff\n"
-    "lui $5,0xc160\n"
-    "lui $6,0xc000\n"
-    "lui $7,0x42ce\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-31216($1)\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mtc1 $0,$f0\n"
-    "mfc1 $5,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-31212($1)\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "mfc1 $7,$f0\n"
-    "move $6,$5\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "lw $2,24($29)\n"
-    "sw $2,16632($18)\n"
-    "L_800C45C4:\n"
-    "addiu $16,$17,260\n"
-    "lw $2,16632($18)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-31208($1)\n"
-    "move $4,$16\n"
-    "sw $2,196($16)\n"
-    "lui $2,0x800f\n"
-    "lw $3,25584($2)\n"
-    "addiu $2,$17,356\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,356($17)\n"
-    "lw $5,216($3)\n"
-    "li $18,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$18,$5\n"
-    "lw $2,192($16)\n"
-    "lw $3,180($16)\n"
-    "lui $19,0x2\n"
-    "sb $18,201($16)\n"
-    "or $2,$2,$19\n"
-    "sw $2,192($16)\n"
-    "lh $4,64($3)\n"
-    "lw $2,68($3)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "move $5,$17\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $18,176($16)\n"
-    "lw $2,792($17)\n"
-    "bnez $2,L_800C471C\n"
-    "addiu $5,$17,792\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "li $6,212\n"
-    "lui $7,0x8009\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,-31248\n"
-    "lw $5,792($17)\n"
-    "jal func_800AAA58\n"
-    "li $4,212\n"
-    "jal func_800CE3A8\n"
-    "move $4,$2\n"
-    "li $5,7\n"
-    "move $6,$0\n"
-    "li $2,14\n"
-    "sw $2,16($29)\n"
-    "li $2,2\n"
-    "sw $2,20($29)\n"
-    "lw $4,792($17)\n"
-    "jal func_800CE468\n"
-    "li $7,51\n"
-    "lw $4,792($17)\n"
-    "lw $2,192($4)\n"
-    "li $3,3\n"
-    "sb $3,201($4)\n"
-    "or $2,$2,$19\n"
-    "sw $2,192($4)\n"
-    "lw $2,792($17)\n"
-    "sb $18,176($2)\n"
-    "lw $3,792($17)\n"
-    "lw $2,180($3)\n"
-    "move $5,$17\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,792($17)\n"
-    "lw $2,180($3)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_800C471C:\n"
-    "lw $31,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800C4524\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(void *, ...); } VEnt;
+typedef struct { float m[19]; } Mtx;
+typedef struct {
+    char p0[0x60];
+    Mtx mtx;
+    char p0b[0xB0 - 0x60 - sizeof(Mtx)];
+    unsigned char b176;
+    char p1[3];
+    VEnt *vt;
+    char p2[0xC0 - 0xB8];
+    int flags;
+    int h196;
+    char p3;
+    unsigned char b201;
+    char p4[212 - 0xCA];
+} Ent;
+typedef struct {
+    char p0[0x104];
+    Ent sub;
+    char p2[0x318 - 0x104 - sizeof(Ent)];
+    Ent *extra;
+} Obj;
+typedef struct { char p0[0xD8]; int sh; } Cfg;
+
+extern int D_800F40F8;
+extern Cfg *D_800F63F0;
+extern char D_800F2758[];
+extern void func_80019680(int *, const char *);
+extern void func_800191E0(int *, int);
+extern void func_8001A1D8(int *, float, float, float, float);
+extern void func_8001A210(int *, float, float, float, float, int);
+extern void func_800ADC54(void *, int);
+extern void func_800AA804(void *, Ent **, int, const char *);
+extern void *func_800AAA58(int, void *);
+extern void func_800CE3A8(void *);
+extern void func_800CE468(Ent *, int, int, int, int, int);
+
+static const char D_psu_flag[] = "Player Setup Flag";
+static const char D_psu_back[] = "PSU_BACK";
+
+void func_800C4524(Obj *o)
+{
+    Ent *s;
+    Mtx *p;
+
+    if (D_800F40F8 == 0) {
+        int h;
+        h = 0;
+        func_80019680(&h, D_psu_back);
+        func_800191E0(&h, 0xC8FFFFFF);
+        func_8001A1D8(&h, -14.0f, -2.0f, 103.0f, 57.0f);
+        func_8001A210(&h, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+        D_800F40F8 = h;
+    }
+    s = &o->sub;
+    s->h196 = D_800F40F8;
+    p = &o->sub.mtx;
+    p->m[9] = 0.0f;
+    p->m[8] = 0.0f;
+    p->m[6] = 0.0f;
+    p->m[4] = 0.0f;
+    p->m[2] = 0.0f;
+    p->m[1] = 0.0f;
+    p->m[18] = 0.0f;
+    p->m[17] = 0.0f;
+    p->m[16] = 0.0f;
+    p->m[10] = 1.0f;
+    p->m[5] = 1.0f;
+    o->sub.mtx.m[0] = 1.0f;
+    func_800ADC54(s, 1 << D_800F63F0->sh);
+    s->b201 = 1;
+    s->flags |= 0x20000;
+    s->vt[8].fn((char *)s + s->vt[8].adj);
+    s->vt[2].fn((char *)s + s->vt[2].adj, o);
+    s->b176 = 1;
+    if (o->extra == 0) {
+        func_800AA804(D_800F2758, &o->extra, 212, D_psu_flag);
+        func_800CE3A8(func_800AAA58(212, o->extra));
+        func_800CE468(o->extra, 7, 0, 51, 14, 2);
+        {
+            Ent *q = o->extra;
+            q->b201 = 3;
+            q->flags |= 0x20000;
+        }
+        o->extra->b176 = 1;
+        o->extra->vt[2].fn((char *)o->extra + o->extra->vt[2].adj, o);
+        o->extra->vt[8].fn((char *)o->extra + o->extra->vt[8].adj);
+    }
+}

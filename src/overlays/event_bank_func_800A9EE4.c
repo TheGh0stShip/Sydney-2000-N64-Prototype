@@ -1,106 +1,61 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A9EE4\n.ent func_800A9EE4\n"
-    "func_800A9EE4:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $20,40($29)\n"
-    "li $2,0x8000\n"
-    "sw $19,36($29)\n"
-    "addu $19,$18,$2\n"
-    "sw $31,44($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $3,286($19)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_800AA004\n"
-    "move $20,$5\n"
-    "lw $2,16($20)\n"
-    "beql $2,$0,L_800A9FFC\n"
-    "move $4,$18\n"
-    "lw $5,13772($18)\n"
-    "jal func_80075264\n"
-    "nop\n"
-    "lbu $2,286($19)\n"
-    "addiu $2,$2,-2\n"
-    "sltiu $2,$2,3\n"
-    "bnez $2,L_800A9F80\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,215\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "move $7,$6\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "L_800A9F80:\n"
-    "lbu $3,286($19)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_800AA004\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,111\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$16\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "lw $3,104($4)\n"
-    "li $2,32767\n"
-    "mult $3,$2\n"
-    "move $5,$17\n"
-    "li $7,0x9600\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "addiu $4,$18,6296\n"
-    "jal func_800A6308\n"
-    "sw $17,344($19)\n"
-    "j func_800722F4\n"
-    "nop\n"
-    "L_800A9FFC:\n"
-    "jal func_80075264\n"
-    "move $5,$0\n"
-    "L_800AA004:\n"
-    "lw $2,16($20)\n"
-    "beqz $2,L_800AA020\n"
-    "nop\n"
-    "jal func_800771D4\n"
-    "move $4,$18\n"
-    "j func_8007231C\n"
-    "li $2,0x8000\n"
-    "L_800AA020:\n"
-    "jal func_80077120\n"
-    "move $4,$18\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "li $3,7680\n"
-    "sw $3,300($2)\n"
-    "li $3,11\n"
-    "sb $3,285($2)\n"
-    "lw $31,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "lui $2,0x800f\n"
-    "sw $0,10024($2)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800A9EE4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+
+typedef struct {
+    u8 pad[0x68];
+    s32 vol;
+} Snd;
+
+typedef struct Arg { u8 pad[16]; s32 on; } Arg;
+
+extern Snd D_800F1AE0;
+extern s32 D_800F2728;
+
+extern void func_80075264(u8 *p, s32 a);
+extern s32 func_8001D4B8(Snd *s, s32 a, s32 b, s32 c);
+extern void func_8001D640(Snd *s, s32 h, s32 v);
+extern void func_8001D5D8(Snd *s, s32 h, s32 v, s32 a, s32 b, s32 c);
+extern void func_800A6308(u8 *p);
+extern void func_800771D4(u8 *p);
+extern void func_80077120(u8 *p);
+
+static inline s32 scl(s32 v, s32 m)
+{
+    return (v * m) >> 15;
+}
+
+#define W(o) (*(s32 *)(p + (o)))
+#define Q(o) (*(u8 *)(p + 0x8000 + (o)))
+#define QW(o) (*(s32 *)(p + 0x8000 + (o)))
+
+void func_800A9EE4(u8 *p, Arg *a)
+{
+    s32 h;
+
+    if (Q(286) != 5) {
+        if (a->on != 0) {
+            func_80075264(p, W(13772));
+            if ((u8)(Q(286) - 2) >= 3) {
+                h = func_8001D4B8(&D_800F1AE0, 215, 0, 0);
+                func_8001D640(&D_800F1AE0, h, scl(D_800F1AE0.vol, 32767));
+            }
+            if (Q(286) != 4) {
+                h = func_8001D4B8(&D_800F1AE0, 111, 0, -1);
+                func_8001D640(&D_800F1AE0, h, 0);
+                func_8001D5D8(&D_800F1AE0, h, scl(D_800F1AE0.vol, 32767), 0x9600, 0, 0);
+                QW(344) = h;
+                func_800A6308(p + 6296);
+            }
+        } else {
+            func_80075264(p, 0);
+        }
+    }
+    if (a->on != 0) {
+        func_800771D4(p);
+    } else {
+        func_80077120(p);
+    }
+    QW(300) = 7680;
+    Q(285) = 11;
+    D_800F2728 = 0;
+}

@@ -1,67 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009F660\n.ent func_8009F660\n"
-    "func_8009F660:\n"
-    "addiu $29,$29,-48\n"
-    "sw $31,40($29)\n"
-    "sw $17,36($29)\n"
-    "sw $16,32($29)\n"
-    "lwc1 $f0,0($6)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,19408($1)\n"
-    "move $16,$4\n"
-    "swc1 $f0,784($16)\n"
-    "lwc1 $f0,4($6)\n"
-    "addiu $2,$16,784\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($6)\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $2,$16,924\n"
-    "sw $0,924($16)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "lwc1 $f2,0($7)\n"
-    "mul.s $f2,$f2,$f4\n"
-    "swc1 $f2,16($29)\n"
-    "lwc1 $f0,4($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "addiu $2,$29,16\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($7)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,0($6)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,84($16)\n"
-    "lwc1 $f0,4($6)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $3,$16,84\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,8($6)\n"
-    "lwc1 $f2,8($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$16,2624\n"
-    "swc1 $f0,8($3)\n"
-    "sw $0,2624($16)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "lw $2,180($16)\n"
-    "move $17,$5\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "move $5,$17\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sw $0,1160($16)\n"
-    "lw $31,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_8009F660\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { short d; short pad; void (*f)(); } VEnt;
+typedef struct { char pad[16]; VEnt a; VEnt b; } VTab;
+typedef struct {
+    char pad0[84]; Vec v84;
+    char pad1[180 - 96]; VTab *vt;
+    char pad2[784 - 184]; Vec v784;
+    char pad3[924 - 796]; Vec v924;
+    char pad4[1160 - 936]; int v1160;
+    char pad5[2624 - 1164]; Vec v2624;
+} Obj;
+static inline void vcpy(Vec *a, Vec *r) { r->x = a->x; r->y = a->y; r->z = a->z; }
+static inline void vzero(Vec *r) { r->x = 0.0f; r->y = 0.0f; r->z = 0.0f; }
+static inline void vscl(Vec *a, float k, Vec *r) { r->x = a->x * k; r->y = a->y * k; r->z = a->z * k; }
+static inline void vadd(Vec *a, Vec *b, Vec *r) { r->x = a->x + b->x; r->y = a->y + b->y; r->z = a->z + b->z; }
+void func_8009F660(Obj *o, int arg, Vec *p, Vec *v)
+{
+    Vec t;
+    vcpy(p, &o->v784);
+    vzero(&o->v924);
+    vscl(v, 31.620155f, &t);
+    vadd(p, &t, &o->v84);
+    vzero(&o->v2624);
+    o->vt->b.f((char *)o + o->vt->b.d);
+    o->vt->a.f((char *)o + o->vt->a.d, arg);
+    o->v1160 = 0;
+}

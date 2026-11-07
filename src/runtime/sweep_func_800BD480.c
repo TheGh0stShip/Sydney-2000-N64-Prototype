@@ -1,125 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BD480\n.ent func_800BD480\n"
-    "func_800BD480:\n"
-    "addiu $29,$29,-168\n"
-    "sw $30,160($29)\n"
-    "move $30,$4\n"
-    "sw $31,164($29)\n"
-    "sw $23,156($29)\n"
-    "sw $22,152($29)\n"
-    "sw $21,148($29)\n"
-    "sw $20,144($29)\n"
-    "sw $19,140($29)\n"
-    "sw $18,136($29)\n"
-    "sw $17,132($29)\n"
-    "sw $16,128($29)\n"
-    "lw $20,208($30)\n"
-    "lwc1 $f0,0($5)\n"
-    "lw $16,8($20)\n"
-    "move $2,$6\n"
-    "swc1 $f0,68($29)\n"
-    "lwc1 $f0,4($5)\n"
-    "move $21,$7\n"
-    "swc1 $f0,72($29)\n"
-    "lwc1 $f0,8($5)\n"
-    "addiu $6,$29,16\n"
-    "swc1 $f0,76($29)\n"
-    "lwc1 $f0,0($2)\n"
-    "swc1 $f0,96($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "addiu $5,$29,56\n"
-    "swc1 $f0,100($29)\n"
-    "lwc1 $f0,8($2)\n"
-    "move $4,$16\n"
-    "jal func_800BC618\n"
-    "swc1 $f0,104($29)\n"
-    "beqz $2,L_800BD5D0\n"
-    "li $2,1\n"
-    "lbu $3,0($20)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800BD5F4\n"
-    "li $19,1\n"
-    "li $23,1\n"
-    "li $22,4\n"
-    "move $17,$0\n"
-    "L_800BD524:\n"
-    "andi $4,$19,0xff\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$20,$2\n"
-    "lhu $2,2($2)\n"
-    "beqz $2,L_800BD5C8\n"
-    "move $18,$0\n"
-    "sll $4,$4,0x2\n"
-    "L_800BD540:\n"
-    "addu $4,$20,$4\n"
-    "andi $3,$17,0xffff\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $3,8($4)\n"
-    "sll $2,$2,0x3\n"
-    "addu $16,$3,$2\n"
-    "lbu $2,36($16)\n"
-    "bne $2,$23,L_800BD584\n"
-    "move $4,$16\n"
-    "addiu $5,$29,56\n"
-    "addiu $6,$29,16\n"
-    "jal func_800BC618\n"
-    "move $7,$21\n"
-    "bnel $2,$0,L_800BD5C8\n"
-    "li $18,1\n"
-    "lbu $2,36($16)\n"
-    "L_800BD584:\n"
-    "bnel $2,$22,L_800BD5A8\n"
-    "addiu $17,$17,1\n"
-    "addiu $4,$29,56\n"
-    "move $5,$16\n"
-    "addiu $6,$29,16\n"
-    "jal func_800BCAEC\n"
-    "move $7,$21\n"
-    "bnez $2,L_800BD5D8\n"
-    "addiu $17,$17,1\n"
-    "L_800BD5A8:\n"
-    "andi $4,$19,0xff\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$20,$2\n"
-    "lhu $3,2($2)\n"
-    "andi $2,$17,0xffff\n"
-    "sltu $2,$2,$3\n"
-    "bnel $2,$0,L_800BD540\n"
-    "sll $4,$4,0x2\n"
-    "L_800BD5C8:\n"
-    "bnez $18,L_800BD5E0\n"
-    "addiu $19,$19,1\n"
-    "L_800BD5D0:\n"
-    "j L_800BD608\n"
-    "move $2,$0\n"
-    "L_800BD5D8:\n"
-    "j L_800BD5C8\n"
-    "li $18,1\n"
-    "L_800BD5E0:\n"
-    "lbu $3,0($20)\n"
-    "andi $2,$19,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800BD524\n"
-    "move $17,$0\n"
-    "L_800BD5F4:\n"
-    "move $4,$30\n"
-    "move $5,$0\n"
-    "jal func_800BC480\n"
-    "addiu $6,$29,16\n"
-    "li $2,1\n"
-    "L_800BD608:\n"
-    "lw $31,164($29)\n"
-    "lw $30,160($29)\n"
-    "lw $23,156($29)\n"
-    "lw $22,152($29)\n"
-    "lw $21,148($29)\n"
-    "lw $20,144($29)\n"
-    "lw $19,140($29)\n"
-    "lw $18,136($29)\n"
-    "lw $17,132($29)\n"
-    "lw $16,128($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,168\n"
-    ".end func_800BD480\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[36]; unsigned char type; char pad25[72 - 37]; } Node;
+typedef struct { unsigned char n; char pad1; unsigned short cnt[3]; Node *lv[4]; } Grid;
+typedef struct { char p0[12]; Vec a; char p1[16]; Vec b; char p2[20]; } Seg;
+typedef struct { char p[40]; } Res;
+typedef struct { char pad[0xD0]; Grid *grid; } Obj;
+
+extern int func_800BC618(Node *n, Seg *s, Res *r, int arg);
+extern int func_800BCAEC(Seg *s, Node *n, Res *r, int arg);
+extern void func_800BC480(Obj *o, int z, Res *r);
+
+int func_800BD480(Obj *o, Vec *a, Vec *b, int arg)
+{
+    Grid *g;
+    Res res;
+    Seg seg;
+    unsigned char k;
+    unsigned short m;
+    int hit;
+    Node *nd;
+
+    g = o->grid;
+    nd = g->lv[0];
+    seg.a.x = a->x;
+    seg.a.y = a->y;
+    seg.a.z = a->z;
+    seg.b.x = b->x;
+    seg.b.y = b->y;
+    seg.b.z = b->z;
+    if (func_800BC618(nd, &seg, &res, arg) == 0) {
+        return 0;
+    }
+    for (k = 1; k < g->n; k++) {
+        hit = 0;
+        for (m = 0; m < g->cnt[k]; m++) {
+            nd = &g->lv[k][m];
+            if (nd->type == 1) {
+                if (func_800BC618(nd, &seg, &res, arg)) {
+                    hit = 1;
+                    break;
+                }
+            }
+            if (nd->type == 4) {
+                if (func_800BCAEC(&seg, nd, &res, arg)) {
+                    hit = 1;
+                    break;
+                }
+            }
+        }
+        if (!hit) {
+            return 0;
+        }
+    }
+    func_800BC480(o, 0, &res);
+    return 1;
+}

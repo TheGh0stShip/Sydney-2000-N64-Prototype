@@ -1,62 +1,24 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C92A0\n.ent func_800C92A0\n"
-    "func_800C92A0:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lb $2,18180($16)\n"
-    "lw $3,18192($16)\n"
-    "addu $2,$2,$3\n"
-    "lb $3,-1($2)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_800C9370\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,2040\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $4,0x8007\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,2000\n"
-    "move $5,$0\n"
-    "lw $4,17564($16)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "lui $4,0x8007\n"
-    "j func_80070A68\n"
-    "addiu $4,$4,2008\n"
-    "lui $4,0x8007\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,2016\n"
-    "move $5,$0\n"
-    "lw $4,17564($16)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "lui $4,0x8007\n"
-    "j func_80070A68\n"
-    "addiu $4,$4,2008\n"
-    "lui $4,0x8007\n"
-    "jal func_8000EB20\n"
-    "addiu $4,$4,2000\n"
-    "move $5,$0\n"
-    "lw $4,17564($16)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,2024\n"
-    "jal func_8000EB20\n"
-    "nop\n"
-    "move $5,$0\n"
-    "lw $4,17780($16)\n"
-    "jal func_80017CF4\n"
-    "andi $6,$2,0xffff\n"
-    "L_800C9370:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800C92A0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+extern int func_8000EB20(const char *);
+extern void func_80017CF4(int, int, u16);
+void func_800709B0(u8 *o)
+{
+    switch ((*(signed char **)(o + 18192))[*(signed char *)(o + 18180) - 1]) {
+    case 0:
+    case 3:
+        func_80017CF4(*(int *)(o + 17564), 0, func_8000EB20("FOOTON"));
+        func_80017CF4(*(int *)(o + 17780), 0, func_8000EB20("FOOTRON"));
+        break;
+    case 1:
+    case 4:
+        func_80017CF4(*(int *)(o + 17564), 0, func_8000EB20("FOOTOFF"));
+        func_80017CF4(*(int *)(o + 17780), 0, func_8000EB20("FOOTRON"));
+        break;
+    case 2:
+    case 5:
+        func_80017CF4(*(int *)(o + 17564), 0, func_8000EB20("FOOTON"));
+        func_80017CF4(*(int *)(o + 17780), 0, func_8000EB20("FOOTROFF"));
+        break;
+    }
+}

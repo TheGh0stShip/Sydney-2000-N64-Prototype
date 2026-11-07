@@ -1,90 +1,42 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D48AC\n.ent func_800D48AC\n"
-    "func_800D48AC:\n"
-    "addiu $29,$29,-16\n"
-    "move $8,$4\n"
-    "lui $2,0x8007\n"
-    "addiu $12,$2,2128\n"
-    "lwl $9,0($12)\n"
-    "lwr $9,3($12)\n"
-    "lwl $10,4($12)\n"
-    "lwr $10,7($12)\n"
-    "lb $11,8($12)\n"
-    "swl $9,0($29)\n"
-    "swr $9,3($29)\n"
-    "swl $10,4($29)\n"
-    "swr $10,7($29)\n"
-    "sb $11,8($29)\n"
-    "lw $2,19780($8)\n"
-    "move $4,$0\n"
-    "addiu $2,$2,-1\n"
-    "bgez $2,L_800D4900\n"
-    "sw $2,19780($8)\n"
-    "li $2,1\n"
-    "sw $2,19812($8)\n"
-    "L_800D4900:\n"
-    "lb $3,19722($8)\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800D4974\n"
-    "sw $0,3860($8)\n"
-    "slti $2,$3,3\n"
-    "beqz $2,L_800D492C\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800D4940\n"
-    "addu $2,$4,$29\n"
-    "j func_80071CEC\n"
-    "nop\n"
-    "L_800D492C:\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800D498C\n"
-    "addu $2,$4,$29\n"
-    "j func_80071CEC\n"
-    "nop\n"
-    "L_800D4940:\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "li $6,3\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "j func_80071CCC\n"
-    "sllv $3,$2,$6\n"
-    "L_800D4974:\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "j func_80071CB0\n"
-    "li $6,6\n"
-    "L_800D498C:\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "li $6,9\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $3,10004($5)\n"
-    "mflo $9\n"
-    "srl $4,$9,0x10\n"
-    "addu $2,$4,$29\n"
-    "lbu $2,0($2)\n"
-    "sb $2,19744($8)\n"
-    "jr $31\n"
-    "addiu $29,$29,16\n"
-    ".end func_800D48AC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef int s32;
+typedef unsigned int u32;
+
+typedef struct T9 { s8 b[9]; } T9;
+extern T9 D_80070850;
+extern u32 D_800F2714;
+
+#define B(o) (*(s8 *)(p + (o)))
+#define W(o) (*(s32 *)(p + (o)))
+
+static inline u32 rnd(u32 n)
+{
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    return ((D_800F2714 >> 15) * n) >> 16;
+}
+
+void func_800D48AC(u8 *p)
+{
+    T9 t;
+    u8 i;
+
+    t = D_80070850;
+    i = 0;
+    if (--W(19780) < 0) {
+        W(19812) = 1;
+    }
+    W(3860) = 0;
+    switch (B(19722)) {
+    case 1:
+        i = rnd(3);
+        break;
+    case 2:
+        i = rnd(6);
+        break;
+    case 3:
+        i = rnd(9);
+        break;
+    }
+    p[19744] = t.b[i];
+}

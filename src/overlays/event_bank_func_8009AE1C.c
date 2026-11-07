@@ -1,198 +1,77 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009AE1C\n.ent func_8009AE1C\n"
-    "func_8009AE1C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "li $2,0x8000\n"
-    "sw $16,16($29)\n"
-    "addu $16,$17,$2\n"
-    "li $2,5\n"
-    "sw $31,24($29)\n"
-    "lbu $3,84($16)\n"
-    "mtc1 $5,$f4\n"
-    ".word 0x10620100\n"
-    "lui $3,0x8010\n"
-    "lw $2,-15760($3)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5296($1)\n"
-    "lwc1 $f2,1276($2)\n"
-    "sb $0,83($16)\n"
-    "lw $2,12136($17)\n"
-    "add.s $f6,$f2,$f0\n"
-    "lw $2,744($2)\n"
-    ".word 0x104000ED\n"
-    "sub.s $f8,$f2,$f0\n"
-    "c.le.s $f6,$f4\n"
-    "nop\n"
-    "bc1f L_8009AEB4\n"
-    "nop\n"
-    "lw $2,-15760($3)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009AEA8\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,134\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009AEA8:\n"
-    "li $2,1\n"
-    "j func_80075C58\n"
-    "sb $2,83($16)\n"
-    "L_8009AEB4:\n"
-    "c.lt.s $f2,$f4\n"
-    "nop\n"
-    "bc1f L_8009AEF4\n"
-    "nop\n"
-    "lw $2,-15760($3)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009AEE8\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,384\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009AEE8:\n"
-    "li $2,2\n"
-    "j func_80075C58\n"
-    "sb $2,83($16)\n"
-    "L_8009AEF4:\n"
-    "c.lt.s $f8,$f4\n"
-    "nop\n"
-    "bc1f L_8009AF48\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($3)\n"
-    "lwc1 $f0,1320($2)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1fl L_8009AF48\n"
-    "lui $2,0x8010\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009AF3C\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,384\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009AF3C:\n"
-    "li $2,3\n"
-    "j func_80075C58\n"
-    "sb $2,83($16)\n"
-    "L_8009AF48:\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1320($2)\n"
-    "c.le.s $f4,$f0\n"
-    "nop\n"
-    "bc1fl L_8009AFA4\n"
-    "lui $2,0x8010\n"
-    "c.lt.s $f8,$f4\n"
-    "nop\n"
-    "bc1fl L_8009AFA4\n"
-    "lui $2,0x8010\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009AF90\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,384\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009AF90:\n"
-    "li $2,0x8000\n"
-    "addu $2,$17,$2\n"
-    "li $3,4\n"
-    "j func_80075C58\n"
-    "sb $3,83($2)\n"
-    "L_8009AFA4:\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1320($2)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_8009AFF0\n"
-    "nop\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_8009AFDC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,385\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_8009AFDC:\n"
-    "li $2,0x8000\n"
-    "addu $2,$17,$2\n"
-    "li $3,5\n"
-    "j func_80075C58\n"
-    "sb $3,83($2)\n"
-    "L_8009AFF0:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5300($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_8009B020\n"
-    "nop\n"
-    "lw $2,2564($2)\n"
-    ".word 0x1040008E\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075C4C\n"
-    "li $5,131\n"
-    "L_8009B020:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5304($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_8009B050\n"
-    "nop\n"
-    "lw $2,2564($2)\n"
-    ".word 0x10400082\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075C4C\n"
-    "li $5,225\n"
-    "L_8009B050:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5308($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_8009B080\n"
-    "nop\n"
-    "lw $2,2564($2)\n"
-    ".word 0x10400076\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075C4C\n"
-    "li $5,224\n"
-    "L_8009B080:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5312($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_8009B0B0\n"
-    "nop\n"
-    "lw $2,2564($2)\n"
-    ".word 0x1040006A\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075C4C\n"
-    "li $5,223\n"
-    "L_8009B0B0:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5316($1)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_8009B0E0\n"
-    "nop\n"
-    "lw $2,2564($2)\n"
-    ".word 0x1040005E\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_80075C4C\n"
-    "li $5,222\n"
-    "L_8009B0E0:\n"
-    "lui $1,0x8007\n"
-    ".end func_8009AE1C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef float f32;
+
+typedef struct {
+    char pad0[0x4FC];
+    f32 base;
+    char pad500[0x528 - 0x500];
+    f32 limit;
+    char pad52C[0xA04 - 0x52C];
+    s32 sub;
+} Game;
+
+extern Game *D_800FC270;
+extern u8 D_800F3BC0[];
+extern void func_800C0110(void *, s32, s32, s32);
+
+#define SND(n) if (D_800FC270->sub != 0) { func_800C0110(D_800F3BC0, (n), 0, 0); }
+
+void func_8007582C(u8 *obj, f32 v)
+{
+    f32 base;
+    f32 hi;
+    f32 lo;
+
+    if (obj[0x8054] == 5) {
+        return;
+    }
+    base = D_800FC270->base;
+    obj[0x8053] = 0;
+    hi = base + 1.25f;
+    lo = base - 1.25f;
+    if (*(s32 *)(*(u8 **)(obj + 12136) + 744) != 0) {
+        if (hi <= v) {
+            SND(134);
+            obj[0x8053] = 1;
+        } else if (base < v) {
+            SND(384);
+            obj[0x8053] = 2;
+        } else if (lo < v && D_800FC270->limit < v) {
+            SND(384);
+            obj[0x8053] = 3;
+        } else if (v <= D_800FC270->limit && lo < v) {
+            SND(384);
+            obj[0x8053] = 4;
+        } else if (D_800FC270->limit < v) {
+            SND(385);
+            obj[0x8053] = 5;
+            } else if (80.0f < v) {
+            SND(131);
+        } else if (77.0f < v) {
+            SND(225);
+        } else if (73.0f < v) {
+            SND(224);
+        } else if (70.0f < v) {
+            SND(223);
+        } else if (67.0f < v) {
+            SND(222);
+        } else if (63.0f < v) {
+            SND(221);
+        } else if (60.0f < v) {
+            SND(220);
+        } else if (57.0f < v) {
+            SND(219);
+        } else if (53.0f < v) {
+            SND(218);
+        } else if (50.0f < v) {
+            SND(217);
+        } else if (25.0f < v) {
+            SND(130);
+        } else {
+            SND(227);
+        }
+    } else {
+        SND(2);
+    }
+}

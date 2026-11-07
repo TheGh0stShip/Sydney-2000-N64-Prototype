@@ -1,96 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C4738\n.ent func_800C4738\n"
-    "func_800C4738:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "lui $2,0x8010\n"
-    "addiu $10,$2,8192\n"
-    "li $6,-1\n"
-    "lui $2,0x8010\n"
-    "addiu $9,$2,8240\n"
-    "lui $2,0x8010\n"
-    "addiu $8,$2,8224\n"
-    "lui $2,0x8010\n"
-    "addiu $7,$2,8256\n"
-    "sw $31,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "move $4,$0\n"
-    "L_800C4780:\n"
-    "andi $3,$18,0xff\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $5,$2,0x2\n"
-    "addu $2,$3,$10\n"
-    "sb $6,0($2)\n"
-    "addu $2,$3,$9\n"
-    "addu $3,$3,$8\n"
-    "sb $6,0($2)\n"
-    "sb $0,0($3)\n"
-    "andi $2,$4,0xff\n"
-    "L_800C47AC:\n"
-    "addu $2,$2,$5\n"
-    "addu $2,$2,$7\n"
-    "sb $0,0($2)\n"
-    "addiu $4,$4,1\n"
-    "andi $2,$4,0xff\n"
-    "sltiu $2,$2,12\n"
-    "bnez $2,L_800C47AC\n"
-    "andi $2,$4,0xff\n"
-    "addiu $18,$18,1\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,12\n"
-    "bnel $2,$0,L_800C4780\n"
-    "move $4,$0\n"
-    "move $18,$0\n"
-    "lui $2,0x8010\n"
-    "addiu $20,$2,6496\n"
-    "lui $2,0x8010\n"
-    "addiu $19,$2,8208\n"
-    "L_800C47F4:\n"
-    "andi $17,$18,0xff\n"
-    "sll $16,$17,0x1\n"
-    "addu $16,$16,$17\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$17\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$17\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$20\n"
-    "lw $2,180($16)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "addu $17,$17,$19\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnez $2,L_800C47F4\n"
-    "sb $0,0($17)\n"
-    "lui $2,0x800f\n"
-    "lw $3,10012($2)\n"
-    "li $2,7\n"
-    "bne $3,$2,L_800C4874\n"
-    "lui $3,0x800f\n"
-    "li $2,-1\n"
-    "sb $2,16637($3)\n"
-    "L_800C4874:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C4738\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(void *); } VEntry;
+typedef struct { char pad0[24]; VEntry reset; char pad1[40]; VEntry init; } VTable;
+typedef struct { char pad0[180]; VTable *vt; char pad1[28]; } Unit;
+extern signed char D_80102000[12];
+extern unsigned char D_80102010[8];
+extern unsigned char D_80102020[12];
+extern signed char D_80102030[12];
+extern unsigned char D_80102040[12][12];
+extern Unit D_80101960[8];
+extern int D_800F271C;
+extern signed char D_800F40FD;
+void func_800C4738(void)
+{
+    unsigned char i;
+    unsigned char j;
+    for (i = 0; i < 12; i++) {
+        D_80102000[i] = -1;
+        D_80102030[i] = -1;
+        D_80102020[i] = 0;
+        for (j = 0; j < 12; j++) D_80102040[i][j] = 0;
+    }
+    for (i = 0; i < 8; i++) {
+        Unit *u = &D_80101960[i];
+        u->vt->init.fn((char *)u + u->vt->init.offset);
+        u->vt->reset.fn((char *)u + u->vt->reset.offset);
+        D_80102010[i] = 0;
+    }
+    if (D_800F271C == 7) D_800F40FD = -1;
+}

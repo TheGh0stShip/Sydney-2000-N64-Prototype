@@ -1,108 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D1E80\n.ent func_800D1E80\n"
-    "func_800D1E80:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "jal func_800D2328\n"
-    "sw $16,16($29)\n"
-    "jal func_800D2760\n"
-    "move $4,$17\n"
-    "addiu $16,$17,3456\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800CC47C\n"
-    "move $4,$16\n"
-    "addiu $16,$17,3236\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,1916\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,1704\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,1492\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,2552\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,2340\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,2128\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,1280\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,1068\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,856\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,424\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,212\n"
-    "jal func_800AC334\n"
-    "addiu $4,$17,644\n"
-    "lw $2,2792($17)\n"
-    "beqz $2,L_800D1F40\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2792\n"
-    "sw $0,2792($17)\n"
-    "L_800D1F40:\n"
-    "lw $2,2788($17)\n"
-    "beqz $2,L_800D1F58\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2788\n"
-    "sw $0,2788($17)\n"
-    "L_800D1F58:\n"
-    "lw $2,2784($17)\n"
-    "beqz $2,L_800D1F70\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2784\n"
-    "sw $0,2784($17)\n"
-    "L_800D1F70:\n"
-    "lw $2,2780($17)\n"
-    "beqz $2,L_800D1F88\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2780\n"
-    "sw $0,2780($17)\n"
-    "L_800D1F88:\n"
-    "lw $2,2772($17)\n"
-    "beqz $2,L_800D1FA0\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2772\n"
-    "sw $0,2772($17)\n"
-    "L_800D1FA0:\n"
-    "lw $2,2768($17)\n"
-    "beqz $2,L_800D1FB8\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2768\n"
-    "sw $0,2768($17)\n"
-    "L_800D1FB8:\n"
-    "lw $2,2776($17)\n"
-    "beqz $2,L_800D1FD0\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2776\n"
-    "sw $0,2776($17)\n"
-    "L_800D1FD0:\n"
-    "lw $2,2764($17)\n"
-    "beqz $2,L_800D1FE8\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$17,2764\n"
-    "sw $0,2764($17)\n"
-    "L_800D1FE8:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D1E80\n.set at\n.set reorder\n");
+typedef struct { char p[212]; } A212;
+typedef struct {
+    char p0[0xD4];
+    A212 a[2];
+    char p1[8];
+    A212 b[10];
+    int h[8];
+    char p2[0xCA4 - 0xAEC];
+    char x3236[0xD80 - 0xCA4];
+    char x3456[1];
+} Obj;
+
+extern void func_800D2328(Obj *);
+extern void func_800D2760(Obj *);
+extern void func_800AC334(void *);
+extern void func_800CC47C(void *);
+extern void func_800B35F0(void *);
+extern void func_8001A248(int *);
+
+void func_800D1E80(Obj *o)
+{
+    func_800D2328(o);
+    func_800D2760(o);
+    func_800AC334(o->x3456);
+    func_800CC47C(o->x3456);
+    func_800B35F0(o->x3236);
+    func_800AC334(o->x3236);
+    func_800AC334(&o->b[6]);
+    func_800AC334(&o->b[5]);
+    func_800AC334(&o->b[4]);
+    func_800AC334(&o->b[9]);
+    func_800AC334(&o->b[8]);
+    func_800AC334(&o->b[7]);
+    func_800AC334(&o->b[3]);
+    func_800AC334(&o->b[2]);
+    func_800AC334(&o->b[1]);
+    func_800AC334(&o->a[1]);
+    func_800AC334(&o->a[0]);
+    func_800AC334(&o->b[0]);
+    if (o->h[7] != 0) { func_8001A248(&o->h[7]); o->h[7] = 0; }
+    if (o->h[6] != 0) { func_8001A248(&o->h[6]); o->h[6] = 0; }
+    if (o->h[5] != 0) { func_8001A248(&o->h[5]); o->h[5] = 0; }
+    if (o->h[4] != 0) { func_8001A248(&o->h[4]); o->h[4] = 0; }
+    if (o->h[2] != 0) { func_8001A248(&o->h[2]); o->h[2] = 0; }
+    if (o->h[1] != 0) { func_8001A248(&o->h[1]); o->h[1] = 0; }
+    if (o->h[3] != 0) { func_8001A248(&o->h[3]); o->h[3] = 0; }
+    if (o->h[0] != 0) { func_8001A248(&o->h[0]); o->h[0] = 0; }
+}

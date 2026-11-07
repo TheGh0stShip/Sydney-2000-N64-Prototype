@@ -1,67 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008A718\n.ent func_8008A718\n"
-    "func_8008A718:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "li $2,0x8000\n"
-    "sw $16,24($29)\n"
-    "addu $16,$17,$2\n"
-    "sw $31,36($29)\n"
-    "sw $18,32($29)\n"
-    "lbu $4,1047($16)\n"
-    "move $18,$5\n"
-    "jal func_8009BD50\n"
-    "sw $0,1040($16)\n"
-    "lbu $3,1047($16)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_8008A768\n"
-    "li $2,4\n"
-    "lbu $2,1048($16)\n"
-    "sb $2,1047($16)\n"
-    "lbu $3,1047($16)\n"
-    "li $2,4\n"
-    "L_8008A768:\n"
-    "beq $3,$2,L_8008A780\n"
-    "li $2,2\n"
-    "beq $3,$2,L_8008A780\n"
-    "li $2,3\n"
-    "bnel $3,$2,L_8008A79C\n"
-    "lui $4,0x800f\n"
-    "L_8008A780:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,21\n"
-    "li $2,1\n"
-    "sw $0,16($29)\n"
-    "j func_8007243C\n"
-    "sw $2,20($29)\n"
-    "L_8008A79C:\n"
-    "addiu $4,$4,9952\n"
-    "li $6,21\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $5,4($18)\n"
-    "jal func_800AB2A4\n"
-    "move $7,$17\n"
-    "jal func_80075050\n"
-    "move $4,$17\n"
-    "li $2,0x8000\n"
-    "addu $16,$17,$2\n"
-    "lw $5,1080($16)\n"
-    "li $17,-1\n"
-    "beq $5,$17,L_8008A7E8\n"
-    "sb $0,1046($16)\n"
-    "lui $4,0x800f\n"
-    "jal func_8001D680\n"
-    "addiu $4,$4,6880\n"
-    "sw $17,1080($16)\n"
-    "L_8008A7E8:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8008A718\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Obj {
+    char pad[0x8410];
+    int unk8410;
+    char pad8414[2];
+    u8 unk8416;
+    u8 state;
+    u8 next;
+    char pad8419[0x8438 - 0x8419];
+    int handle;
+} Obj;
+typedef struct Arg { int unk0; int unk4; } Arg;
+extern char D_800F26E0[];
+extern char D_800F1AE0[];
+extern void func_8009BD50(int);
+extern void func_800AB2A4(void *, int, int, void *, int, int);
+extern void func_80075050(Obj *);
+extern void func_8001D680(void *, int);
+void func_8008A718(Obj *o, Arg *a)
+{
+    o->unk8410 = 0;
+    func_8009BD50(o->state);
+    if (o->state == 5) {
+        o->state = o->next;
+    }
+    if (o->state == 4 || o->state == 2 || o->state == 3) {
+        func_800AB2A4(D_800F26E0, a->unk4, 21, o, 0, 1);
+    } else {
+        func_800AB2A4(D_800F26E0, a->unk4, 21, o, 0, 0);
+    }
+    func_80075050(o);
+    o->unk8416 = 0;
+    if (o->handle != -1) {
+        func_8001D680(D_800F1AE0, o->handle);
+        o->handle = -1;
+    }
+}

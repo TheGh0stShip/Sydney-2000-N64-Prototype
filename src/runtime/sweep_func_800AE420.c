@@ -1,54 +1,29 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE420\n.ent func_800AE420\n"
-    "func_800AE420:\n"
-    "addiu $29,$29,-40\n"
-    "sdc1 $f20,32($29)\n"
-    "mtc1 $0,$f20\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $16,16($29)\n"
-    "addiu $16,$17,20\n"
-    "mfc1 $5,$f20\n"
-    "move $4,$16\n"
-    "sw $31,28($29)\n"
-    "swc1 $f20,168($17)\n"
-    "swc1 $f20,164($17)\n"
-    "swc1 $f20,160($17)\n"
-    "move $6,$5\n"
-    "jal func_800AD58C\n"
-    "move $7,$5\n"
-    "bnez $18,L_800AE488\n"
-    "addiu $2,$18,4\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24636($1)\n"
-    "swc1 $f20,64($16)\n"
-    "swc1 $f20,68($16)\n"
-    "j L_800AE4B8\n"
-    "swc1 $f0,72($16)\n"
-    "L_800AE488:\n"
-    "lwc1 $f0,4($18)\n"
-    "swc1 $f0,64($16)\n"
-    "lwc1 $f0,4($2)\n"
-    "swc1 $f0,68($16)\n"
-    "lwc1 $f0,8($2)\n"
-    "swc1 $f0,72($16)\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x200\n"
-    "beql $2,$0,L_800AE4BC\n"
-    "sw $0,200($17)\n"
-    "lwc1 $f0,92($18)\n"
-    "swc1 $f0,244($17)\n"
-    "L_800AE4B8:\n"
-    "sw $0,200($17)\n"
-    "L_800AE4BC:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800AE420\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { float m[16]; Vec pos; } Xf;
+typedef struct { int flags; Vec v; char pad[92 - 16]; float f92; } Src;
+typedef struct {
+    char pad0[20]; Xf xf;
+    char pad1[160 - 96]; Vec v160;
+    char pad2[200 - 172]; int v200;
+    char pad3[244 - 204]; float f244;
+} Obj;
+extern void func_800AD58C(Xf *, float, float, float);
+static inline void vcpy(Vec *a, Vec *r) { r->x = a->x; r->y = a->y; r->z = a->z; }
+void func_800AE420(Obj *o, Src *s)
+{
+    Xf *x = &o->xf;
+    o->v160.x = o->v160.y = o->v160.z = 0.0f;
+    func_800AD58C(x, o->v160.x, o->v160.y, o->v160.z);
+    if (s == 0) {
+        x->pos.x = 0.0f;
+        x->pos.y = 0.0f;
+        x->pos.z = -98.30099487f;
+    } else {
+        Vec *v = &s->v;
+        x->pos.x = v->x;
+        x->pos.y = v->y;
+        x->pos.z = v->z;
+        if (s->flags & 0x200) o->f244 = s->f92;
+    }
+    o->v200 = 0;
+}

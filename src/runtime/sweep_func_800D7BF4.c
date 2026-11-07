@@ -1,109 +1,71 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D7BF4\n.ent func_800D7BF4\n"
-    "func_800D7BF4:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $19,28($29)\n"
-    "move $19,$5\n"
-    "sw $21,36($29)\n"
-    "move $21,$6\n"
-    "sw $17,20($29)\n"
-    "move $17,$0\n"
-    "addiu $4,$18,352\n"
-    "sw $20,32($29)\n"
-    "sw $31,44($29)\n"
-    "sw $22,40($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,12($4)\n"
-    "lw $2,8($4)\n"
-    "lw $22,64($29)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800D7C74\n"
-    "move $20,$7\n"
-    "lhu $2,18($4)\n"
-    "addiu $2,$2,-1\n"
-    "sh $2,18($4)\n"
-    "addiu $2,$3,-4\n"
-    "sw $2,12($4)\n"
-    "lw $17,-4($3)\n"
-    "li $4,528\n"
-    "sw $0,-4($3)\n"
-    "jal func_800AAA58\n"
-    "move $5,$17\n"
-    "jal func_800D9360\n"
-    "move $4,$2\n"
-    "L_800D7C74:\n"
-    "beqz $17,L_800D7C90\n"
-    "move $5,$18\n"
-    "lw $2,180($17)\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "L_800D7C90:\n"
-    "lhu $2,374($18)\n"
-    "addiu $3,$2,1\n"
-    "andi $2,$2,0xffff\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$18,$2\n"
-    "sh $3,374($18)\n"
-    "sll $3,$22,0x2\n"
-    "addu $16,$18,$3\n"
-    "sw $17,232($2)\n"
-    "lw $2,184($16)\n"
-    "bnez $2,L_800D7CD8\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,29264\n"
-    "addu $2,$3,$2\n"
-    "lw $4,0($2)\n"
-    "jal func_800BA2D0\n"
-    "nop\n"
-    "sw $2,184($16)\n"
-    "L_800D7CD8:\n"
-    "lwc1 $f0,0($19)\n"
-    "swc1 $f0,84($17)\n"
-    "lwc1 $f0,4($19)\n"
-    "addiu $2,$17,84\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($19)\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,0($19)\n"
-    "swc1 $f0,368($17)\n"
-    "lwc1 $f0,4($19)\n"
-    "addiu $2,$17,368\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($19)\n"
-    "swc1 $f0,8($2)\n"
-    "andi $2,$20,0xff\n"
-    "sll $3,$2,0x2\n"
-    "addu $16,$18,$3\n"
-    "lw $2,216($16)\n"
-    "bnez $2,L_800D7D44\n"
-    "li $5,-1\n"
-    "lui $2,0x800f\n"
-    "addiu $2,$2,29248\n"
-    "addu $2,$3,$2\n"
-    "lw $4,0($2)\n"
-    "jal func_800140A0\n"
-    "li $6,1\n"
-    "sw $2,216($16)\n"
-    "L_800D7D44:\n"
-    "lw $5,216($16)\n"
-    "jal func_800D9358\n"
-    "move $4,$17\n"
-    "move $2,$17\n"
-    "sb $21,516($2)\n"
-    "sw $22,488($2)\n"
-    "lw $31,44($29)\n"
-    "lw $22,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D7BF4\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(void *, void *); } VEnt;
+typedef struct { float x, y, z; } Vec;
+typedef struct {
+    char p0[0x54];
+    Vec pos;
+    char p1[0xB4 - 0x60];
+    VEnt *vt;
+    char p2[0x170 - 0xB8];
+    Vec pos2;
+    char p3[0x1E8 - 0x17C];
+    int j;
+    char p4[0x204 - 0x1EC];
+    unsigned char c;
+} Ent;
+typedef struct { char p0[8]; Ent **base; Ent **top; char p1[2]; unsigned short n; } Pool;
+typedef struct {
+    char p0[0xB8];
+    int a184[8];
+    int a216[4];
+    Ent *list[30];
+    Pool pool;
+    char p1[0x176 - 0x174];
+    unsigned short cnt;
+} Obj;
+
+extern int D_800F7250[];
+extern int D_800F7240[];
+extern void *func_800AAA58(int, void *);
+extern void func_800D9360(void *);
+extern int func_800BA2D0(int);
+extern int func_800140A0(int, int, int);
+extern void func_800D9358(Ent *, int);
+
+static inline void vcopy(Vec *d, Vec *s)
+{
+    d->x = s->x;
+    d->y = s->y;
+    d->z = s->z;
+}
+
+Ent *func_800D7BF4(Obj *o, Vec *pos, unsigned char c, unsigned char k, int j)
+{
+    Ent *e;
+    Pool *p;
+
+    e = 0;
+    p = &o->pool;
+    if (p->top > p->base) {
+        p->n--;
+        p->top--;
+        e = *p->top;
+        *p->top = 0;
+        func_800D9360(func_800AAA58(528, e));
+    }
+    if (e != 0) {
+        e->vt[2].fn((char *)e + e->vt[2].adj, o);
+    }
+    o->list[o->cnt++] = e;
+    if (o->a184[j] == 0) {
+        o->a184[j] = func_800BA2D0(D_800F7250[j]);
+    }
+    vcopy(&e->pos, pos);
+    vcopy(&e->pos2, pos);
+    if (o->a216[k] == 0) {
+        o->a216[k] = func_800140A0(D_800F7240[k], -1, 1);
+    }
+    func_800D9358(e, o->a216[k]);
+    e->c = c;
+    e->j = j;
+    return e;
+}

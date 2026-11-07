@@ -1,101 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C90B0\n.ent func_800C90B0\n"
-    "func_800C90B0:\n"
-    "addiu $29,$29,-72\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "sw $22,56($29)\n"
-    "move $22,$5\n"
-    "sw $18,40($29)\n"
-    "lui $18,0x8009\n"
-    "addiu $18,$18,-29512\n"
-    "move $4,$18\n"
-    "sw $31,60($29)\n"
-    "sw $21,52($29)\n"
-    "sw $20,48($29)\n"
-    "sw $19,44($29)\n"
-    "sw $16,32($29)\n"
-    "sdc1 $f20,64($29)\n"
-    "jal func_8000EB20\n"
-    "sw $0,24($29)\n"
-    "addiu $21,$29,24\n"
-    "move $4,$21\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f20,-29496($1)\n"
-    "andi $7,$2,0xffff\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "li $20,2\n"
-    "jal func_80013208\n"
-    "sw $20,16($29)\n"
-    "addiu $16,$17,188\n"
-    "lw $2,24($29)\n"
-    "move $4,$16\n"
-    "sw $2,384($17)\n"
-    "lw $2,192($16)\n"
-    "li $5,1\n"
-    "or $2,$2,$20\n"
-    "jal func_800ADC54\n"
-    "sw $2,192($16)\n"
-    "lw $2,368($17)\n"
-    "move $5,$22\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,368($17)\n"
-    "li $19,1\n"
-    "sb $19,364($17)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29492($1)\n"
-    "move $4,$18\n"
-    "sw $0,24($29)\n"
-    "jal func_8000EB20\n"
-    "swc1 $f0,356($17)\n"
-    "move $4,$21\n"
-    "mfc1 $5,$f20\n"
-    "andi $7,$2,0xffff\n"
-    "sw $20,16($29)\n"
-    "jal func_80013208\n"
-    "move $6,$5\n"
-    "addiu $16,$17,400\n"
-    "lw $2,24($29)\n"
-    "move $4,$16\n"
-    "sw $2,596($17)\n"
-    "lw $2,192($16)\n"
-    "li $5,1\n"
-    "ori $2,$2,0x12\n"
-    "jal func_800ADC54\n"
-    "sw $2,192($16)\n"
-    "lw $2,580($17)\n"
-    "move $5,$22\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,580($17)\n"
-    "sb $19,576($17)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29488($1)\n"
-    "swc1 $f0,568($17)\n"
-    "lw $31,60($29)\n"
-    "lw $22,56($29)\n"
-    "lw $21,52($29)\n"
-    "lw $20,48($29)\n"
-    "lw $19,44($29)\n"
-    "lw $18,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f20,64($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_800C90B0\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+typedef struct {
+    char pad0[0xC0];
+    int flags;
+} Part;
+
+extern unsigned short func_8000EB20(char *name);
+extern void func_80013208(int *out, float a, float b, int id, int k);
+extern void func_800ADC54(char *p, int on);
+
+void func_800C90B0(char *o, int arg)
+{
+    char *name;
+    int h;
+    char *p;
+    char *q;
+    VEnt *vt;
+
+    name = "GYM_BACKGROUND1";
+    h = 0;
+    func_80013208(&h, 655.33997f, 655.33997f, func_8000EB20(name), 2);
+    p = o + 0xBC;
+    *(int *)(o + 0x180) = h;
+    ((Part *)p)->flags |= 2;
+    func_800ADC54(p, 1);
+    vt = *(VEnt **)(o + 0x170);
+    vt[2].fn(p + vt[2].adj, arg);
+    *(char *)(o + 0x16C) = 1;
+    vt = *(VEnt **)(o + 0x170);
+    vt[8].fn(p + vt[8].adj);
+    h = 0;
+    *(float *)(o + 0x164) = 327.66998f;
+
+    func_80013208(&h, 655.33997f, 655.33997f, func_8000EB20(name), 2);
+    q = o + 0x190;
+    *(int *)(o + 0x254) = h;
+    ((Part *)q)->flags |= 0x12;
+    func_800ADC54(q, 1);
+    vt = *(VEnt **)(o + 0x244);
+    vt[2].fn(q + vt[2].adj, arg);
+    *(char *)(o + 0x240) = 1;
+    vt = *(VEnt **)(o + 0x244);
+    vt[8].fn(q + vt[8].adj);
+    *(float *)(o + 0x238) = 294.90298f;
+}

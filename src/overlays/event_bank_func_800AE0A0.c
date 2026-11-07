@@ -1,244 +1,111 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE0A0\n.ent func_800AE0A0\n"
-    "func_800AE0A0:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,36($29)\n"
-    "move $19,$4\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "sw $31,44($29)\n"
-    "sw $20,40($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lbu $2,286($2)\n"
-    "sltiu $2,$2,2\n"
-    ".word 0x104000FC\n"
-    "move $20,$5\n"
-    "move $17,$0\n"
-    "move $18,$17\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "lw $4,2560($3)\n"
-    "li $2,5\n"
-    "bne $4,$2,L_800AE11C\n"
-    "li $16,-1\n"
-    "lwc1 $f0,3584($3)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5084($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800AE198\n"
-    "nop\n"
-    "j func_80076498\n"
-    "sub.s $f0,$f0,$f2\n"
-    "L_800AE11C:\n"
-    "li $2,4\n"
-    "bne $4,$2,L_800AE178\n"
-    "lui $2,0x8010\n"
-    "lwc1 $f0,1348($3)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5088($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800AE154\n"
-    "sub.s $f0,$f0,$f2\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $3,$f4\n"
-    "j func_80076454\n"
-    "nop\n"
-    "L_800AE154:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $3,$f4\n"
-    "or $3,$3,$2\n"
-    "lw $2,13772($19)\n"
-    "sltu $2,$3,$2\n"
-    "bnel $2,$0,L_800AE174\n"
-    "li $18,1\n"
-    "L_800AE174:\n"
-    "lui $2,0x8010\n"
-    "L_800AE178:\n"
-    "lw $2,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5092($1)\n"
-    "lwc1 $f0,1304($2)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800AE1A8\n"
-    "sub.s $f0,$f0,$f2\n"
-    "L_800AE198:\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $3,$f4\n"
-    "j func_800764A8\n"
-    "nop\n"
-    "L_800AE1A8:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f4,$f0\n"
-    "mfc1 $3,$f4\n"
-    "or $3,$3,$2\n"
-    "lw $2,13772($19)\n"
-    "sltu $2,$3,$2\n"
-    "bnel $2,$0,L_800AE1C8\n"
-    "li $17,1\n"
-    "L_800AE1C8:\n"
-    "lw $4,11704($19)\n"
-    "jal func_8009B670\n"
-    "nop\n"
-    "lui $3,0x8010\n"
-    "lw $3,-15760($3)\n"
-    "li $4,32\n"
-    "sb $2,16($29)\n"
-    "lbu $2,2572($3)\n"
-    "beqz $2,L_800AE250\n"
-    "move $5,$0\n"
-    "move $7,$3\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "lw $8,13772($19)\n"
-    "lw $6,316($2)\n"
-    "L_800AE204:\n"
-    "lw $2,20($6)\n"
-    "sltu $2,$8,$2\n"
-    "bnel $2,$0,L_800AE234\n"
-    "addiu $7,$7,12\n"
-    "sll $2,$4,0x18\n"
-    "lb $3,2584($7)\n"
-    "sra $2,$2,0x18\n"
-    "slt $3,$3,$2\n"
-    "lbu $2,2584($7)\n"
-    "bnel $3,$0,L_800AE230\n"
-    "move $4,$2\n"
-    "L_800AE230:\n"
-    "addiu $7,$7,12\n"
-    "L_800AE234:\n"
-    "lui $3,0x8010\n"
-    "lw $2,-15760($3)\n"
-    "lbu $2,2572($2)\n"
-    "addiu $5,$5,1\n"
-    "slt $2,$5,$2\n"
-    "bnez $2,L_800AE204\n"
-    "addiu $6,$6,32\n"
-    "L_800AE250:\n"
-    "sll $4,$4,0x18\n"
-    "li $2,0x8000\n"
-    "addu $2,$19,$2\n"
-    "lb $3,284($2)\n"
-    "lw $2,316($2)\n"
-    "sll $3,$3,0x5\n"
-    "addu $5,$3,$2\n"
-    "lbu $3,3($5)\n"
-    "bnez $3,L_800AE2F0\n"
-    "sra $8,$4,0x18\n"
-    ".word 0x1620007E\n"
-    "li $16,486\n"
-    "beqz $18,L_800AE2E4\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "li $16,463\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "sltiu $2,$2,70\n"
-    ".word 0x10400067\n"
-    "sw $3,11284($5)\n"
-    "j func_80076764\n"
-    "li $16,467\n"
-    "L_800AE2E4:\n"
-    "lb $2,16($29)\n"
-    "j func_80076670\n"
-    "li $16,481\n"
-    "L_800AE2F0:\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800AE3EC\n"
-    "li $2,2\n"
-    "lw $3,13772($19)\n"
-    "lw $2,16($5)\n"
-    ".word 0x1462005B\n"
-    "li $16,483\n"
-    ".word 0x16200059\n"
-    "li $16,487\n"
-    "beqz $18,L_800AE378\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "li $16,463\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "sltiu $2,$2,70\n"
-    ".word 0x10400042\n"
-    "sw $3,11284($5)\n"
-    "j func_80076764\n"
-    "li $16,468\n"
-    "L_800AE378:\n"
-    "lb $2,16($29)\n"
-    "li $16,482\n"
-    "slt $2,$8,$2\n"
-    ".word 0x1040003B\n"
-    "slti $2,$8,4\n"
-    ".word 0x10400039\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "sltiu $2,$2,21\n"
-    ".word 0x14400025\n"
-    "sw $3,11284($5)\n"
-    "j func_80076764\n"
-    "addiu $16,$8,24\n"
-    "L_800AE3EC:\n"
-    ".word 0x14620022\n"
-    "li $2,-1\n"
-    "lw $3,13772($19)\n"
-    "lw $2,16($5)\n"
-    ".word 0x1462001D\n"
-    "li $16,485\n"
-    ".word 0x1620001B\n"
-    "li $16,488\n"
-    ".word 0x12400018\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    ".end func_800AE0A0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+
+#define W(p, o) (*(s32 *)((u8 *)(p) + (o)))
+#define q (o + 0x8000)
+#define F(p, o) (*(f32 *)((u8 *)(p) + (o)))
+
+extern u8 *D_800FC270;
+extern u32 D_800F2C14[];
+extern u8 D_800F3BC0[];
+extern s8 func_8009B670(s32 a);
+extern void func_800C0110(u8 *a, s32 b, s32 c, s32 d);
+
+static inline u32 rnd(u32 n)
+{
+    D_800F2C14[0] = (D_800F2C14[0] * 16807) & 0x7FFFFFFF;
+    return ((D_800F2C14[0] >> 15) * n) >> 16;
+}
+
+void func_800AE0A0(u8 *o, s32 arg)
+{
+    s32 a, b, res, i;
+    s8 k[2];
+    s8 t;
+    s32 m;
+    u8 *g, *d;
+
+    if (q[286] >= 2) {
+        return;
+    }
+    b = 0;
+    a = b;
+    res = -1;
+    g = D_800FC270;
+    if (W(g, 2560) == 5) {
+        if ((u32)F(g, 3584) < (u32)W(o, 13772)) {
+            b = 1;
+        }
+    } else {
+        if (W(g, 2560) == 4) {
+            if ((u32)F(g, 1348) < (u32)W(o, 13772)) {
+                a = 1;
+            }
+        }
+        if ((u32)F(D_800FC270, 1304) < (u32)W(o, 13772)) {
+            b = 1;
+        }
+    }
+    k[0] = func_8009B670(W(o, 11704));
+    t = 32;
+    for (i = 0; i < D_800FC270[2572]; i++) {
+        if ((u32)W(o, 13772) >= (u32)W((u8 *)W(q, 316) + i * 32, 20)) {
+            if ((s8)D_800FC270[i * 12 + 2584] < t) {
+                t = D_800FC270[i * 12 + 2584];
+            }
+        }
+    }
+    m = t;
+    d = (u8 *)((s8)q[284] * 32 + W(q, 316));
+    if (d[3] == 0) {
+        if (b) {
+            res = 486;
+        } else if (a) {
+            res = 463;
+            if (rnd(100) < 70) {
+                res = 467;
+            }
+        } else {
+            res = 481;
+            if (m < k[0] && m < 4 && rnd(100) >= 21) {
+                res = m + 24;
+            }
+        }
+    } else if (d[3] == 1) {
+        if ((u32)W(o, 13772) != (u32)W(d, 16)) {
+            res = 483;
+        } else if (b) {
+            res = 487;
+        } else if (a) {
+            res = 463;
+            if (rnd(100) < 70) {
+                res = 468;
+            }
+        } else {
+            res = 482;
+            if (m < k[0] && m < 4 && rnd(100) >= 21) {
+                res = m + 24;
+            }
+        }
+    } else if (d[3] == 2) {
+        if ((u32)W(o, 13772) != (u32)W(d, 16)) {
+            res = 485;
+        } else if (b) {
+            res = 488;
+        } else if (a) {
+            res = 463;
+            if (rnd(100) < 70) {
+                res = 469;
+            }
+        } else {
+            res = 484;
+        }
+    }
+    if (res != -1 && W(D_800FC270, 2564) != 0) {
+        func_800C0110(D_800F3BC0, res, arg, 0);
+    }
+    W((u8 *)W(q, 316) + (s8)q[284] * 32, 16) = W(o, 13772);
+}

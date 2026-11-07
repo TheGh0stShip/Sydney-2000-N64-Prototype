@@ -1,93 +1,47 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A0BA8\n.ent func_800A0BA8\n"
-    "func_800A0BA8:\n"
-    "addiu $29,$29,-56\n"
-    "sw $19,36($29)\n"
-    "move $19,$4\n"
-    "move $5,$0\n"
-    "sw $31,40($29)\n"
-    "sw $18,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "sdc1 $f20,48($29)\n"
-    "lw $4,196($19)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,16\n"
-    "addiu $2,$19,244\n"
-    "lw $18,184($2)\n"
-    "lw $17,188($2)\n"
-    "mult $18,$17\n"
-    "lw $5,196($2)\n"
-    "mflo $6\n"
-    "blez $6,L_800A0C4C\n"
-    "move $16,$0\n"
-    "addiu $4,$5,32\n"
-    "L_800A0BFC:\n"
-    "lwc1 $f2,0($5)\n"
-    "lwc1 $f0,-8($4)\n"
-    "add.s $f2,$f2,$f0\n"
-    "lw $3,16($29)\n"
-    "swc1 $f2,0($3)\n"
-    "lwc1 $f2,-28($4)\n"
-    "lwc1 $f0,-4($4)\n"
-    "addiu $16,$16,1\n"
-    "add.s $f2,$f2,$f0\n"
-    "addiu $5,$5,52\n"
-    "addiu $2,$3,36\n"
-    "swc1 $f2,4($3)\n"
-    "lwc1 $f0,-24($4)\n"
-    "lwc1 $f2,0($4)\n"
-    "addiu $4,$4,52\n"
-    "add.s $f0,$f0,$f2\n"
-    "sw $2,16($29)\n"
-    "slt $2,$16,$6\n"
-    "bnez $2,L_800A0BFC\n"
-    "swc1 $f0,8($3)\n"
-    "L_800A0C4C:\n"
-    "move $5,$0\n"
-    "mult $18,$17\n"
-    "addiu $6,$29,16\n"
-    "lw $4,196($19)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,19904($1)\n"
-    "mflo $17\n"
-    "jal func_80017C4C\n"
-    "move $16,$5\n"
-    "L_800A0C70:\n"
-    "slt $2,$16,$17\n"
-    "beqz $2,L_800A0CC8\n"
-    "nop\n"
-    "beqz $16,L_800A0CB4\n"
-    "nop\n"
-    "beq $16,$17,L_800A0CB4\n"
-    "nop\n"
-    "lw $2,16($29)\n"
-    "lwc1 $f0,-32($2)\n"
-    "lwc1 $f2,40($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $4,$2,12\n"
-    "move $5,$4\n"
-    "swc1 $f0,12($2)\n"
-    "swc1 $f20,4($4)\n"
-    "jal func_800AD6D0\n"
-    "sw $0,8($4)\n"
-    "L_800A0CB4:\n"
-    "lw $2,16($29)\n"
-    "addiu $16,$16,1\n"
-    "addiu $2,$2,36\n"
-    "j L_800A0C70\n"
-    "sw $2,16($29)\n"
-    "L_800A0CC8:\n"
-    "lw $4,196($19)\n"
-    "jal func_80017C3C\n"
-    "nop\n"
-    "lw $31,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f20,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800A0BA8\n.set at\n.set reorder\n");
+typedef signed int s32;
+typedef float f32;
+typedef struct Vec3 { f32 x, y, z; } Vec3;
+typedef struct Vtx { Vec3 p; Vec3 n; f32 pad[3]; } Vtx;
+typedef struct Pt { Vec3 a; f32 pad[3]; Vec3 b; f32 pad2[4]; } Pt;
+typedef struct Grid { char pad[0xB8]; s32 w; s32 h; s32 padC0; Pt *pts; } Grid;
+extern s32 func_80017C4C(s32, s32, Vtx **);
+extern s32 func_80017C3C(s32);
+extern void func_800AD6D0(Vec3 *, Vec3 *);
+void func_800A0BA8(char *o)
+{
+    Vtx *buf;
+    Grid *g;
+    Pt *s;
+    s32 w, h, cnt, i;
+    f32 k;
+
+    func_80017C4C(*(s32 *)(o + 196), 0, &buf);
+    g = (Grid *)(o + 244);
+    w = g->w;
+    h = g->h;
+    s = g->pts;
+    for (i = 0; i < w * h; i++, s++) {
+        buf->p.x = s->a.x + s->b.x;
+        buf->p.y = s->a.y + s->b.y;
+        buf->p.z = s->a.z + s->b.z;
+        buf++;
+    }
+    k = 0.5f;
+    func_80017C4C(*(s32 *)(o + 196), 0, &buf);
+    cnt = w * h;
+    i = 0;
+    while (1) {
+        if (!(i < cnt)) break;
+        if (i != 0 && i != cnt) {
+            Vec3 *n;
+            buf->n.x = buf[-1].p.y - buf[1].p.y;
+            n = &buf->n;
+            n->y = k;
+            n->z = 0;
+            func_800AD6D0(n, n);
+        }
+        i++;
+        buf++;
+    }
+    func_80017C3C(*(s32 *)(o + 196));
+}

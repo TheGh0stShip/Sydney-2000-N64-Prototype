@@ -1,88 +1,79 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C68C8\n.ent func_800C68C8\n"
-    "func_800C68C8:\n"
-    "addiu $29,$29,-40\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$0\n"
-    "sw $20,32($29)\n"
-    "lui $20,0x800f\n"
-    "sw $31,36($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "andi $16,$18,0xff\n"
-    "sltiu $2,$16,32\n"
-    "beqz $2,L_800C6998\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$19,$16\n"
-    "lw $3,236($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $17,236($16)\n"
-    "lw $2,180($17)\n"
-    "addiu $16,$19,216\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "addiu $4,$20,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800C6990\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "L_800C6990:\n"
-    "j func_80072230\n"
-    "addiu $18,$18,1\n"
-    "L_800C6998:\n"
-    "lw $17,216($19)\n"
-    "beqz $17,L_800C69E0\n"
-    "addiu $16,$19,216\n"
-    "sw $0,216($19)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800C69BC\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,220\n"
-    "L_800C69BC:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800C69D0\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$19,224\n"
-    "L_800C69D0:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,216($19)\n"
-    "L_800C69E0:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C68C8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef unsigned short u16;
+typedef int s32;
+
+typedef struct VEnt {
+    s16 off;
+    s16 pad;
+    void (*fn)();
+} VEnt;
+
+typedef struct Obj {
+    u8 pad[180];
+    VEnt *vt;
+} Obj;
+
+typedef struct List {
+    Obj *head;
+    s32 a;
+    s32 b;
+    Obj **wp;
+    u16 cap;
+    u16 cnt;
+} List;
+
+typedef struct Mgr {
+    u8 pad[216];
+    List list;
+    Obj *objs[32];
+} Mgr;
+
+extern char D_800F26E0[];
+extern void func_800AACB0(char *a, Obj *o, s32 z);
+extern void func_800AA658(Obj *o, void *p);
+
+#define VCALL(o, n) ((o)->vt[n].fn((u8 *)(o) + (o)->vt[n].off))
+
+void func_800C68C8(Mgr *m)
+{
+    u8 i;
+    Obj *o;
+    List *l;
+
+    i = 0;
+    while (1) {
+        if (!(i < 32)) {
+            break;
+        }
+        VCALL(m->objs[i], 9);
+        o = m->objs[i];
+        l = &m->list;
+        o->vt[3].fn((u8 *)o + o->vt[3].off);
+        func_800AACB0(D_800F26E0, o, 0);
+        if (l->cnt < l->cap) {
+            o->vt[1].fn((u8 *)o + o->vt[1].off, 2);
+            *l->wp = o;
+            l->wp++;
+            l->cnt++;
+        }
+        i++;
+    }
+    {
+    Obj *h = m->list.head;
+    List *k = &m->list;
+    if (h != 0) {
+        m->list.head = 0;
+        if (k->a != 0) {
+            func_800AA658(h, &m->list.a);
+        }
+        if (k->b != 0) {
+            func_800AA658(h, &m->list.b);
+        }
+        k->cap = 0;
+        k->cnt = 0;
+        k->wp = 0;
+        m->list.head = 0;
+    }
+    }
+}

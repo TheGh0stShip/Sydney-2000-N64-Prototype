@@ -1,57 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A5E34\n.ent func_800A5E34\n"
-    "func_800A5E34:\n"
-    "lb $2,253($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,261($2)\n"
-    "sltiu $2,$3,7\n"
-    "beqz $2,L_800A5ED0\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,21376\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "li $2,-1\n"
-    "j L_800A5ECC\n"
-    "sh $2,256($4)\n"
-    "li $2,23\n"
-    "j L_800A5ECC\n"
-    "sh $0,256($4)\n"
-    "li $2,24\n"
-    "sh $2,256($4)\n"
-    "j L_800A5ECC\n"
-    "li $2,42\n"
-    "li $2,43\n"
-    "sh $2,256($4)\n"
-    "j L_800A5ECC\n"
-    "li $2,57\n"
-    "li $2,58\n"
-    "sh $2,256($4)\n"
-    "j L_800A5ECC\n"
-    "li $2,74\n"
-    "li $2,75\n"
-    "sh $2,256($4)\n"
-    "j L_800A5ECC\n"
-    "li $2,86\n"
-    "li $2,87\n"
-    "sh $2,256($4)\n"
-    "li $2,105\n"
-    "L_800A5ECC:\n"
-    "sh $2,258($4)\n"
-    "L_800A5ED0:\n"
-    "andi $2,$5,0xff\n"
-    "bnez $2,L_800A5EF0\n"
-    "nop\n"
-    "lb $2,253($4)\n"
-    "lhu $3,256($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "sh $3,262($2)\n"
-    "L_800A5EF0:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800A5E34\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef short s16;
+typedef struct { u8 a; u8 type; s16 val; } Slot;
+typedef struct {
+    u8 pad0[253];
+    s8 cur;
+    u8 pad1[2];
+    s16 lo;
+    s16 hi;
+    Slot slots[1];
+} Obj;
+void func_800A5E34(Obj *o, u8 keep)
+{
+    switch (o->slots[o->cur].type) {
+    case 0: o->lo = -1; o->hi = -1; break;
+    case 1: o->lo = 0; o->hi = 23; break;
+    case 2: o->lo = 24; o->hi = 42; break;
+    case 3: o->lo = 43; o->hi = 57; break;
+    case 4: o->lo = 58; o->hi = 74; break;
+    case 5: o->lo = 75; o->hi = 86; break;
+    case 6: o->lo = 87; o->hi = 105; break;
+    }
+    if (!keep) {
+        o->slots[o->cur].val = o->lo;
+    }
+}

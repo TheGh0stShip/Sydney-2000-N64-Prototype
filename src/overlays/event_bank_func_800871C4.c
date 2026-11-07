@@ -1,110 +1,66 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800871C4\n.ent func_800871C4\n"
-    "func_800871C4:\n"
-    "addiu $29,$29,-24\n"
-    "move $8,$4\n"
-    "sw $31,16($29)\n"
-    "lbu $3,1550($8)\n"
-    "lbu $5,1555($8)\n"
-    "mult $3,$5\n"
-    "move $6,$0\n"
-    "lui $4,0x8010\n"
-    "mflo $3\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($4)\n"
-    "addiu $2,$2,2576\n"
-    "beqz $5,L_80087224\n"
-    "addu $3,$3,$2\n"
-    "lw $4,21200($8)\n"
-    "L_80087208:\n"
-    "beq $3,$4,L_80087224\n"
-    "nop\n"
-    "addiu $6,$6,1\n"
-    "andi $2,$6,0xff\n"
-    "sltu $2,$2,$5\n"
-    "bnez $2,L_80087208\n"
-    "addiu $3,$3,12\n"
-    "L_80087224:\n"
-    "lw $3,21204($8)\n"
-    "beqz $3,L_80087258\n"
-    "move $7,$0\n"
-    "lw $2,21200($8)\n"
-    "lwc1 $f0,4($3)\n"
-    "lwc1 $f2,4($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5004($1)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1tl L_80087258\n"
-    "li $7,1\n"
-    "L_80087258:\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "lw $4,2560($3)\n"
-    "li $2,4\n"
-    "bnel $4,$2,L_80087280\n"
-    "li $2,1\n"
-    "lw $3,2564($3)\n"
-    "slt $2,$3,$2\n"
-    "beqz $2,L_800872B4\n"
-    "li $2,1\n"
-    "L_80087280:\n"
-    "bne $7,$2,L_8008728C\n"
-    "li $5,623\n"
-    "li $5,621\n"
-    "L_8008728C:\n"
-    "andi $2,$6,0xff\n"
-    "sll $3,$2,0x3\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$8,$3\n"
-    "lh $2,21264($3)\n"
-    "beql $2,$0,L_800872FC\n"
-    "addiu $5,$5,-1\n"
-    "j func_80075F30\n"
-    "li $2,-1\n"
-    "L_800872B4:\n"
-    "bne $3,$4,L_800872D0\n"
-    "nop\n"
-    "li $2,1\n"
-    "bne $7,$2,L_800872DC\n"
-    "li $5,543\n"
-    "j func_80075F0C\n"
-    "li $5,539\n"
-    "L_800872D0:\n"
-    "bne $7,$2,L_800872DC\n"
-    "li $5,542\n"
-    "li $5,538\n"
-    "L_800872DC:\n"
-    "andi $2,$6,0xff\n"
-    "sll $3,$2,0x3\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$8,$3\n"
-    "lh $2,21264($3)\n"
-    "beql $2,$0,L_800872FC\n"
-    "addiu $5,$5,-2\n"
-    "L_800872FC:\n"
-    "li $2,-1\n"
-    "beq $5,$2,L_80087334\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_80087334\n"
-    "li $2,1\n"
-    "lw $3,21568($8)\n"
-    "bne $3,$2,L_80087334\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_80087334:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800871C4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Slot { char pad[4]; float f4; char pad8[4]; } Slot;
+typedef struct Glob { char pad[2560]; int w0A00; int w0A04; char padA08[4]; u8 count; char padA0D[3]; Slot slots[1]; } Glob;
+typedef struct Arr { short h0; char pad[34]; } Arr;
+typedef struct Obj {
+    char pad[1550];
+    u8 index;
+    char pad60F[1555 - 1551];
+    u8 stride;
+    char pad614[21200 - 1556];
+    Slot *cur;
+    Slot *nxt;
+    char pad61E8[21264 - 21208];
+    Arr arr[8];
+    char pad6228[21568 - 21264 - 8 * 36];
+    int w62E8;
+} Obj;
+extern Glob *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(void *, int, int, int);
+void func_80075DF4(Obj *o)
+{
+    Slot *s = &D_800FC270->slots[o->index * o->stride];
+    u8 i;
+    int c;
+    int id;
+    for (i = 0; i < o->stride; i++, s++) {
+        if (s == o->cur) {
+            break;
+        }
+    }
+    c = 0;
+    if (o->nxt != 0 && o->nxt->f4 - o->cur->f4 <= 0.35f) {
+        c = 1;
+    }
+    if (D_800FC270->w0A00 != 4 || D_800FC270->w0A04 < 4) {
+        if (c == 1) {
+            id = 621;
+        } else {
+            id = 623;
+        }
+        if (o->arr[i].h0 == 0) {
+            id -= 1;
+        }
+    } else {
+        if (D_800FC270->w0A04 == 4) {
+            if (c == 1) {
+                id = 539;
+            } else {
+                id = 543;
+            }
+        } else {
+            if (c == 1) {
+                id = 538;
+            } else {
+                id = 542;
+            }
+        }
+        if (o->arr[i].h0 == 0) {
+            id -= 2;
+        }
+    }
+    if (id != -1 && D_800FC270->w0A04 != 0 && o->w62E8 == 1) {
+        func_800C0110(D_800F3BC0, id, 0, 0);
+    }
+}

@@ -1,94 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A998C\n.ent func_800A998C\n"
-    "func_800A998C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,32($29)\n"
-    "sw $31,36($29)\n"
-    "lw $5,0($5)\n"
-    "li $2,5\n"
-    "beq $5,$2,L_800A99C4\n"
-    "move $16,$4\n"
-    "slti $2,$5,6\n"
-    "bnez $2,L_800A9AC4\n"
-    "li $2,7\n"
-    "beq $5,$2,L_800A9AA4\n"
-    "nop\n"
-    "j L_800A9AC4\n"
-    "nop\n"
-    "L_800A99C4:\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800A9AC4\n"
-    "addiu $2,$29,16\n"
-    "addiu $4,$16,20\n"
-    "lwc1 $f0,64($4)\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f0,68($4)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,72($4)\n"
-    "swc1 $f0,8($2)\n"
-    "lbu $2,187($16)\n"
-    "beqz $2,L_800A9A54\n"
-    "addiu $3,$16,84\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,23380($1)\n"
-    "sw $0,36($4)\n"
-    "sw $0,32($4)\n"
-    "sw $0,24($4)\n"
-    "sw $0,16($4)\n"
-    "sw $0,8($4)\n"
-    "sw $0,4($4)\n"
-    "sw $0,72($4)\n"
-    "sw $0,68($4)\n"
-    "sw $0,64($4)\n"
-    "swc1 $f0,40($4)\n"
-    "swc1 $f0,20($4)\n"
-    "lw $2,4($16)\n"
-    "swc1 $f0,20($16)\n"
-    "addiu $2,$2,20\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,84($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "j L_800A9A64\n"
-    "swc1 $f0,8($3)\n"
-    "L_800A9A54:\n"
-    "lw $5,4($16)\n"
-    "li $6,76\n"
-    "jal func_800B3870\n"
-    "addiu $5,$5,20\n"
-    "L_800A9A64:\n"
-    "lbu $2,184($16)\n"
-    "beqz $2,L_800A9A78\n"
-    "nop\n"
-    "lwc1 $f0,20($29)\n"
-    "swc1 $f0,88($16)\n"
-    "L_800A9A78:\n"
-    "lbu $2,185($16)\n"
-    "beqz $2,L_800A9A8C\n"
-    "nop\n"
-    "lwc1 $f0,16($29)\n"
-    "swc1 $f0,84($16)\n"
-    "L_800A9A8C:\n"
-    "lbu $2,186($16)\n"
-    "beqz $2,L_800A9AC4\n"
-    "nop\n"
-    "lwc1 $f0,24($29)\n"
-    "j L_800A9AC4\n"
-    "swc1 $f0,92($16)\n"
-    "L_800A9AA4:\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800A9AC4\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "L_800A9AC4:\n"
-    "lw $31,36($29)\n"
-    "lw $16,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A998C\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vector3;
+typedef struct { float m[16]; Vector3 position; } MotionTransform;
+typedef struct { short offset; short pad; void (*fn)(void *); } VEntry;
+typedef struct { char pad[24]; VEntry handle; } VTable;
+typedef struct Obj {
+    char pad0[4]; struct Obj *parent; char pad1[12];
+    MotionTransform transform;
+    char pad2[84]; VTable *vt;
+    unsigned char useY, useX, useZ, identity;
+} Obj;
+extern void func_800B3870(void *, void *, int);
+void func_800A998C(Obj *o, int *msg)
+{
+    switch (*msg) {
+    case 5:
+        if (o->parent) {
+            Vector3 saved;
+            MotionTransform *t = &o->transform;
+            Vector3 *s = &saved;
+            s->x = t->position.x;
+            s->y = t->position.y;
+            s->z = t->position.z;
+            if (o->identity) {
+                float one = 1.0f;
+                Vector3 *p = &o->transform.position;
+                t->m[9] = 0; t->m[8] = 0; t->m[6] = 0; t->m[4] = 0; t->m[2] = 0; t->m[1] = 0;
+                t->position.z = 0; t->position.y = 0; t->position.x = 0;
+                t->m[10] = one; t->m[5] = one; o->transform.m[0] = one;
+                {
+                    MotionTransform *pt = &o->parent->transform;
+                    p->x = pt->position.x;
+                    p->y = pt->position.y;
+                    p->z = pt->position.z;
+                }
+            } else {
+                func_800B3870(t, &o->parent->transform, 76);
+            }
+            if (o->useY) o->transform.position.y = saved.y;
+            if (o->useX) o->transform.position.x = saved.x;
+            if (o->useZ) o->transform.position.z = saved.z;
+        }
+        break;
+    case 3:
+        break;
+    case 7:
+        if (o->parent) o->vt->handle.fn((char *)o + o->vt->handle.offset);
+        break;
+    }
+}

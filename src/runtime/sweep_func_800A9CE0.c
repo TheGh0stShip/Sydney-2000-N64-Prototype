@@ -1,101 +1,27 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A9CE0\n.ent func_800A9CE0\n"
-    "func_800A9CE0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "lui $2,0x800f\n"
-    "sw $20,32($29)\n"
-    "addiu $20,$2,10072\n"
-    "sw $31,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $16,16($29)\n"
-    "lw $3,0($18)\n"
-    "move $4,$20\n"
-    "lbu $2,0($3)\n"
-    "move $5,$17\n"
-    "sb $2,4($17)\n"
-    "lw $2,0($18)\n"
-    "lui $7,0x8008\n"
-    "addiu $2,$2,4\n"
-    "sw $2,0($18)\n"
-    "lbu $6,4($17)\n"
-    "addiu $7,$7,23520\n"
-    "sw $0,0($17)\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x3\n"
-    "lbu $2,4($17)\n"
-    "beqz $2,L_800A9E30\n"
-    "move $19,$0\n"
-    "andi $2,$19,0xff\n"
-    "L_800A9D54:\n"
-    "sll $16,$2,0x3\n"
-    "lw $2,0($17)\n"
-    "lw $3,0($18)\n"
-    "addu $2,$16,$2\n"
-    "sw $3,0($2)\n"
-    "lw $2,0($18)\n"
-    "addiu $2,$2,8\n"
-    "sw $2,0($18)\n"
-    "lw $2,0($17)\n"
-    "addu $2,$16,$2\n"
-    "sw $0,4($2)\n"
-    "lw $2,0($17)\n"
-    "addu $5,$16,$2\n"
-    "lw $3,0($5)\n"
-    "lhu $2,6($3)\n"
-    "beqz $2,L_800A9E18\n"
-    "lui $7,0x8008\n"
-    "move $4,$20\n"
-    "addiu $5,$5,4\n"
-    "move $6,$2\n"
-    "addiu $7,$7,23528\n"
-    "jal func_800AA804\n"
-    "sll $6,$6,0x2\n"
-    "lw $4,0($17)\n"
-    "addu $2,$16,$4\n"
-    "lw $2,0($2)\n"
-    "lhu $2,6($2)\n"
-    "beqz $2,L_800A9E18\n"
-    "move $5,$0\n"
-    "move $6,$16\n"
-    "addu $3,$6,$4\n"
-    "L_800A9DD0:\n"
-    "andi $2,$5,0xff\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,4($3)\n"
-    "lw $4,0($18)\n"
-    "addu $2,$2,$3\n"
-    "sw $4,0($2)\n"
-    "lw $2,0($18)\n"
-    "addiu $2,$2,4\n"
-    "sw $2,0($18)\n"
-    "lw $4,0($17)\n"
-    "addu $2,$6,$4\n"
-    "lw $2,0($2)\n"
-    "addiu $5,$5,1\n"
-    "lhu $3,6($2)\n"
-    "andi $2,$5,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A9DD0\n"
-    "addu $3,$6,$4\n"
-    "L_800A9E18:\n"
-    "addiu $19,$19,1\n"
-    "lbu $3,4($17)\n"
-    "andi $2,$19,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A9D54\n"
-    "andi $2,$19,0xff\n"
-    "L_800A9E30:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A9CE0\n.set at\n.set reorder\n");
+typedef struct { char pad[6]; unsigned short count; } Frame;
+typedef struct { Frame *frame; char **links; } Item;
+typedef struct { Item *items; unsigned char count; } Table;
+extern char D_800F2758[];
+extern void func_800AA804(void *, void *, int, char *);
+void func_800A9CE0(Table *t, char **cur)
+{
+    char *heap = D_800F2758;
+    unsigned char i;
+    t->count = **cur;
+    *cur += 4;
+    t->items = 0;
+    func_800AA804(heap, t, t->count * 8, "FRAME");
+    for (i = 0; i < t->count; i++) {
+        unsigned char j;
+        t->items[i].frame = (Frame *)*cur;
+        *cur += 8;
+        t->items[i].links = 0;
+        if (t->items[i].frame->count) {
+            func_800AA804(heap, &t->items[i].links, t->items[i].frame->count * 4, "FRMELINK");
+            for (j = 0; j < t->items[i].frame->count; j++) {
+                t->items[i].links[j] = *cur;
+                *cur += 4;
+            }
+        }
+    }
+}

@@ -1,74 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80112810\n.ent func_80112810\n"
-    "func_80112810:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "sdc1 $f20,24($29)\n"
-    "lwc1 $f20,768($16)\n"
-    "lwc1 $f0,820($16)\n"
-    "mul.s $f2,$f20,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-29160($1)\n"
-    "mul.s $f2,$f2,$f4\n"
-    "mtc1 $5,$f6\n"
-    "mtc1 $0,$f0\n"
-    "mtc1 $6,$f8\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_80112868\n"
-    "nop\n"
-    "sub.s $f0,$f8,$f6\n"
-    "mul.s $f2,$f2,$f0\n"
-    "add.s $f0,$f6,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "L_80112868:\n"
-    "mfc1 $5,$f2\n"
-    "move $4,$16\n"
-    "jal func_800B8C70\n"
-    "swc1 $f2,632($16)\n"
-    "lbu $2,735($16)\n"
-    "beqz $2,L_80112898\n"
-    "nop\n"
-    "lwc1 $f0,632($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29156($1)\n"
-    "j func_8007DBB4\n"
-    "neg.s $f0,$f0\n"
-    "L_80112898:\n"
-    "lwc1 $f0,632($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29152($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "swc1 $f0,1260($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29148($1)\n"
-    "c.lt.s $f0,$f20\n"
-    "nop\n"
-    "bc1tl L_801128E0\n"
-    "mov.s $f20,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29144($1)\n"
-    "c.lt.s $f20,$f0\n"
-    "nop\n"
-    "bc1fl L_801128EC\n"
-    "sub.s $f20,$f20,$f0\n"
-    "mov.s $f20,$f0\n"
-    "L_801128E0:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29140($1)\n"
-    "sub.s $f20,$f20,$f0\n"
-    "L_801128EC:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29136($1)\n"
-    "mul.s $f20,$f20,$f0\n"
-    "sw $0,240($16)\n"
-    "swc1 $f20,236($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80112810\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Obj {
+    char pad[236];
+    float unkEC;
+    int unkF0;
+    char padF4[632 - 244];
+    float unk278;
+    char pad27C[735 - 636];
+    u8 unk2DF;
+    char pad2E0[768 - 736];
+    float unk300;
+    char pad304[820 - 772];
+    float unk334;
+    char pad338[1260 - 824];
+    float unk4EC;
+} Obj;
+extern void func_800B8C70(Obj *, float);
+void func_8007DB20(Obj *o, float a, float b)
+{
+    float s = o->unk300;
+    float t = s * o->unk334;
+    t *= 0.7f;
+    if (t > 0.0f) {
+        t *= b - a;
+        t += a + 0.7f;
+    }
+    o->unk278 = t;
+    func_800B8C70(o, t);
+    if (o->unk2DF) {
+        o->unk4EC = -o->unk278 * 1.4089809656143188f;
+    } else {
+        o->unk4EC = o->unk278 * 1.4417479038238525f;
+    }
+    if (s > 0.4f) {
+        s = 0.4f;
+    } else if (s < 0.05f) {
+        s = 0.05f;
+    }
+    s -= 0.05f;
+    s *= 2.857142857f;
+    o->unkF0 = 0;
+    o->unkEC = s;
+}

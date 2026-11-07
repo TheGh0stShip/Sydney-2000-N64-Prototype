@@ -1,89 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80111D40\n.ent func_80111D40\n"
-    "func_80111D40:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "move $8,$0\n"
-    "li $2,59\n"
-    "sw $31,28($29)\n"
-    "sh $2,430($16)\n"
-    "li $2,1\n"
-    "beq $5,$2,L_80111D88\n"
-    "addiu $7,$16,432\n"
-    "slti $2,$5,2\n"
-    "bnez $2,L_80111D90\n"
-    "lui $10,0x7fff\n"
-    "li $2,2\n"
-    "beql $5,$2,L_80111D90\n"
-    "li $8,90\n"
-    "j func_8007D0A4\n"
-    "ori $10,$10,0xffff\n"
-    "L_80111D88:\n"
-    "li $8,30\n"
-    "lui $10,0x7fff\n"
-    "L_80111D90:\n"
-    "ori $10,$10,0xffff\n"
-    "lui $9,0x800f\n"
-    "lw $4,5104($9)\n"
-    "li $5,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $6,$3,$10\n"
-    "srl $2,$6,0xf\n"
-    "mult $2,$5\n"
-    "mflo $11\n"
-    "srl $2,$11,0x10\n"
-    "sltu $2,$2,$8\n"
-    "beqz $2,L_80111DE8\n"
-    "sw $6,5104($9)\n"
-    "j func_8007D148\n"
-    "li $2,67\n"
-    "L_80111DE8:\n"
-    "li $4,50\n"
-    "sll $3,$6,0x2\n"
-    "addu $3,$3,$6\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$6\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$10\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$4\n"
-    "mflo $11\n"
-    "srl $2,$11,0x10\n"
-    "sltu $2,$2,$8\n"
-    "beqz $2,L_80111E34\n"
-    "sw $3,5104($9)\n"
-    "j func_8007D148\n"
-    "li $2,66\n"
-    "L_80111E34:\n"
-    "li $2,65\n"
-    "sh $2,0($7)\n"
-    "addiu $7,$7,2\n"
-    "li $2,-1\n"
-    "sh $2,0($7)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,804($16)\n"
-    "sb $0,743($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80111D40\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+
+extern u32 D_800F13F0;
+extern void func_800B9E9C(void *, s32, s32, s32, s32);
+
+static inline u32 rnd(u32 n)
+{
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    return ((D_800F13F0 >> 15) * n) >> 16;
+}
+
+void func_8007D050(u8 *o, s32 kind)
+{
+    s16 *p;
+    u32 thr;
+
+    thr = 0;
+    *(s16 *)(o + 430) = 59;
+    p = (s16 *)(o + 432);
+    switch (kind) {
+    case 0:
+        break;
+    case 1:
+        thr = 30;
+        break;
+    case 2:
+        thr = 90;
+        break;
+    }
+    if (rnd(100) < thr) {
+        *p++ = 67;
+    } else if (rnd(50) < thr) {
+        *p++ = 66;
+    } else {
+        *p++ = 65;
+    }
+    *p = -1;
+    o[429] = 0;
+    func_800B9E9C(o, *(s16 *)(o + 430), -1, *(s32 *)(o + 632), 0);
+    o[743] = 0;
+    *(f32 *)(o + 632) = *(f32 *)(o + 804);
+}

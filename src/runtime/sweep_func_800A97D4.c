@@ -1,122 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A97D4\n.ent func_800A97D4\n"
-    "func_800A97D4:\n"
-    "addiu $29,$29,-48\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "move $4,$6\n"
-    "sw $31,44($29)\n"
-    "sw $20,40($29)\n"
-    "sw $19,36($29)\n"
-    "sw $18,32($29)\n"
-    "sw $16,24($29)\n"
-    "sw $5,220($17)\n"
-    "addiu $5,$17,184\n"
-    "lui $2,0x800f\n"
-    "addiu $16,$2,10072\n"
-    "move $6,$16\n"
-    "move $20,$7\n"
-    "li $7,1\n"
-    "jal func_80005A3C\n"
-    "sw $4,240($17)\n"
-    "beqz $2,L_800A996C\n"
-    "move $19,$16\n"
-    "move $4,$19\n"
-    "addiu $5,$17,216\n"
-    "lui $7,0x8008\n"
-    "lw $3,184($17)\n"
-    "addiu $7,$7,23152\n"
-    "lhu $8,6($3)\n"
-    "move $2,$3\n"
-    "sw $2,16($29)\n"
-    "lhu $18,4($3)\n"
-    "andi $16,$8,0xffff\n"
-    "sll $6,$16,0x1\n"
-    "addu $6,$6,$16\n"
-    "sll $6,$6,0x2\n"
-    "addu $6,$6,$16\n"
-    "sll $6,$6,0x3\n"
-    "sh $8,228($17)\n"
-    "jal func_800AA804\n"
-    "sh $18,226($17)\n"
-    "move $4,$19\n"
-    "addiu $5,$17,204\n"
-    "sll $6,$16,0x2\n"
-    "lui $7,0x8008\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,23160\n"
-    "lhu $2,228($17)\n"
-    "beqz $2,L_800A98BC\n"
-    "move $4,$0\n"
-    "andi $2,$4,0xff\n"
-    "L_800A9894:\n"
-    "addiu $4,$4,1\n"
-    "lw $3,204($17)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sw $0,0($2)\n"
-    "lhu $3,228($17)\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A9894\n"
-    "andi $2,$4,0xff\n"
-    "L_800A98BC:\n"
-    "move $4,$19\n"
-    "addiu $5,$17,200\n"
-    "andi $6,$18,0xffff\n"
-    "sll $6,$6,0x3\n"
-    "lui $7,0x8008\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,23168\n"
-    "move $16,$0\n"
-    "lw $2,16($29)\n"
-    "lhu $3,228($17)\n"
-    "addiu $2,$2,8\n"
-    "beqz $3,L_800A9928\n"
-    "sw $2,16($29)\n"
-    "move $4,$17\n"
-    "L_800A98F4:\n"
-    "move $6,$20\n"
-    "lw $5,16($29)\n"
-    "jal func_800A8F38\n"
-    "andi $7,$16,0xff\n"
-    "lw $2,16($29)\n"
-    "addiu $16,$16,1\n"
-    "addiu $2,$2,96\n"
-    "sw $2,16($29)\n"
-    "lhu $3,228($17)\n"
-    "andi $2,$16,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A98F4\n"
-    "move $4,$17\n"
-    "L_800A9928:\n"
-    "lhu $2,226($17)\n"
-    "beqz $2,L_800A9964\n"
-    "move $16,$0\n"
-    "addiu $5,$29,16\n"
-    "L_800A9938:\n"
-    "andi $4,$16,0xff\n"
-    "addiu $16,$16,1\n"
-    "lw $2,200($17)\n"
-    "sll $4,$4,0x3\n"
-    "jal func_800A9CE0\n"
-    "addu $4,$2,$4\n"
-    "lhu $3,226($17)\n"
-    "andi $2,$16,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A9938\n"
-    "addiu $5,$29,16\n"
-    "L_800A9964:\n"
-    "sw $0,192($17)\n"
-    "sw $0,236($17)\n"
-    "L_800A996C:\n"
-    "lw $31,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800A97D4\n.set at\n.set reorder\n");
+typedef struct { short a; short b; unsigned short nfrm; unsigned short ncam; } VdHdr;
+typedef struct { char pad[0x68]; } VdCam;
+typedef struct { char pad[8]; } VdFrm;
+typedef struct {
+    char pad0[0xB8];
+    VdHdr *hdr;
+    char padbc[0xC0 - 0xBC];
+    int fc0;
+    char padc4[0xC8 - 0xC4];
+    VdFrm *frms;
+    int *camst;
+    char padd0[0xD8 - 0xD0];
+    VdCam *cams;
+    int id;
+    char pade0[0xE2 - 0xE0];
+    unsigned short nfrm;
+    unsigned short ncam;
+    char pade6[0xEC - 0xE6];
+    int fec;
+    int src;
+} Vd;
+
+extern char D_800F2758[];
+extern int func_80005A3C(int src, void *out, char *heap, int n);
+extern void func_800AA804(char *heap, void *out, int size, char *tag);
+extern void func_800A8F38(Vd *v, char *cur, int arg, unsigned char i);
+extern void func_800A9CE0(VdFrm *f, char **cur);
+
+void func_800A97D4(Vd *v, int id, int src, int arg)
+{
+    char *cur;
+    unsigned char i;
+    unsigned char j;
+    char *heap;
+    unsigned short ncam;
+    unsigned short nfrm;
+
+    v->id = id;
+    v->src = src;
+    if (func_80005A3C(src, &v->hdr, D_800F2758, 1) == 0) {
+        return;
+    }
+    heap = D_800F2758;
+    cur = (char *)v->hdr;
+    ncam = v->hdr->ncam;
+    nfrm = v->hdr->nfrm;
+    v->ncam = ncam;
+    v->nfrm = nfrm;
+    func_800AA804(heap, &v->cams, ncam * sizeof(VdCam), "VD_CAMD");
+    func_800AA804(heap, &v->camst, ncam * sizeof(int), "VD_CAMS");
+    for (j = 0; j < v->ncam; j++) {
+        v->camst[j] = 0;
+    }
+    func_800AA804(heap, &v->frms, nfrm * sizeof(VdFrm), "VD_FRMS");
+    cur += 8;
+    for (i = 0; i < v->ncam; i++) {
+        func_800A8F38(v, cur, arg, i);
+        cur += 96;
+    }
+    for (i = 0; i < v->nfrm; i++) {
+        func_800A9CE0(&v->frms[i], &cur);
+    }
+    v->fc0 = 0;
+    v->fec = 0;
+}

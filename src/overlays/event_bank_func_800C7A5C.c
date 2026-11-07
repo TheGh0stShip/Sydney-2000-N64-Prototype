@@ -1,332 +1,160 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C7A5C\n.ent func_800C7A5C\n"
-    "func_800C7A5C:\n"
-    "addiu $29,$29,-200\n"
-    "sw $17,156($29)\n"
-    "move $17,$4\n"
-    "lui $4,0x8007\n"
-    "addiu $4,$4,2204\n"
-    "sw $31,160($29)\n"
-    "sw $16,152($29)\n"
-    "sdc1 $f26,192($29)\n"
-    "sdc1 $f24,184($29)\n"
-    "sdc1 $f22,176($29)\n"
-    "sdc1 $f20,168($29)\n"
-    "jal func_80017D84\n"
-    "li $5,-1\n"
-    "bnez $2,L_800C7F40\n"
-    "move $4,$17\n"
-    "addiu $5,$29,24\n"
-    "addiu $6,$29,40\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2252($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2256($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2260($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2264($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f8,2268($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f10,2272($1)\n"
-    "addiu $7,$17,4552\n"
-    "swc1 $f0,24($29)\n"
-    "swc1 $f2,4($5)\n"
-    "swc1 $f4,8($5)\n"
-    "swc1 $f6,40($29)\n"
-    "swc1 $f8,4($6)\n"
-    "swc1 $f10,8($6)\n"
-    "jal func_80081F08\n"
-    "sw $0,16($29)\n"
-    "move $4,$17\n"
-    "jal func_8008382C\n"
-    "li $5,12\n"
-    "move $8,$0\n"
-    "lw $2,4912($17)\n"
-    "move $7,$8\n"
-    "sw $2,17600($17)\n"
-    "lw $4,17600($17)\n"
-    "lhu $2,26($4)\n"
-    "slt $2,$8,$2\n"
-    "beql $2,$0,L_800C7C30\n"
-    "move $4,$17\n"
-    "lw $2,28($4)\n"
-    "addu $6,$2,$7\n"
-    "lhu $3,2($6)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "lw $3,20($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f0,0($2)\n"
-    "swc1 $f0,136($29)\n"
-    "lhu $3,2($6)\n"
-    "lw $4,17600($17)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "lw $3,20($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f0,4($2)\n"
-    "swc1 $f0,140($29)\n"
-    "lhu $3,2($6)\n"
-    "lw $4,17600($17)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "lw $3,20($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lwc1 $f0,8($2)\n"
-    "swc1 $f0,144($29)\n"
-    "lhu $5,2($6)\n"
-    "lhu $2,4($6)\n"
-    "addu $2,$5,$2\n"
-    "slt $2,$5,$2\n"
-    "beqz $2,L_800C7C24\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$5\n"
-    "sll $4,$2,0x2\n"
-    "L_800C7BB4:\n"
-    "lw $2,17600($17)\n"
-    "lw $2,20($2)\n"
-    "lwc1 $f2,136($29)\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f0,0($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,0($2)\n"
-    "lw $2,17600($17)\n"
-    "lw $2,20($2)\n"
-    "lwc1 $f2,140($29)\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f0,4($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lw $2,17600($17)\n"
-    "lw $2,20($2)\n"
-    "lwc1 $f0,144($29)\n"
-    "addu $2,$4,$2\n"
-    "lwc1 $f2,8($2)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "addiu $5,$5,1\n"
-    "swc1 $f2,8($2)\n"
-    "lhu $2,2($6)\n"
-    "lhu $3,4($6)\n"
-    "addu $2,$2,$3\n"
-    "slt $2,$5,$2\n"
-    "bnez $2,L_800C7BB4\n"
-    "addiu $4,$4,12\n"
-    "L_800C7C24:\n"
-    "addiu $7,$7,40\n"
-    "j func_800717F0\n"
-    "addiu $8,$8,1\n"
-    "L_800C7C30:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f22,2276($1)\n"
-    "mfc1 $6,$f22\n"
-    "mtc1 $0,$f20\n"
-    "jal func_800837C0\n"
-    "move $5,$0\n"
-    "mfc1 $5,$f20\n"
-    "jal func_800B8C70\n"
-    "addiu $4,$17,4552\n"
-    "addiu $16,$29,56\n"
-    "move $4,$16\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f24,2280($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2284($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2288($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f26,2292($1)\n"
-    "mfc1 $5,$f24\n"
-    "li $6,3\n"
-    "swc1 $f0,4640($17)\n"
-    "swc1 $f0,4924($17)\n"
-    "swc1 $f20,92($29)\n"
-    "swc1 $f20,88($29)\n"
-    "swc1 $f20,80($29)\n"
-    "swc1 $f20,72($29)\n"
-    "swc1 $f20,64($29)\n"
-    "swc1 $f20,60($29)\n"
-    "swc1 $f20,128($29)\n"
-    "swc1 $f20,124($29)\n"
-    "swc1 $f20,120($29)\n"
-    "swc1 $f22,40($16)\n"
-    "swc1 $f22,20($16)\n"
-    "swc1 $f22,56($29)\n"
-    "swc1 $f2,120($29)\n"
-    "jal func_800AD434\n"
-    "swc1 $f26,128($29)\n"
-    "move $4,$17\n"
-    "move $5,$16\n"
-    "lw $7,17628($17)\n"
-    "jal func_80083064\n"
-    "li $6,10\n"
-    "move $4,$16\n"
-    "mfc1 $5,$f24\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2296($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f24,2300($1)\n"
-    "li $6,3\n"
-    "swc1 $f20,92($29)\n"
-    "swc1 $f20,88($29)\n"
-    "swc1 $f20,80($29)\n"
-    "swc1 $f20,72($29)\n"
-    "swc1 $f20,64($29)\n"
-    "swc1 $f20,60($29)\n"
-    "swc1 $f20,128($29)\n"
-    "swc1 $f20,124($29)\n"
-    "swc1 $f20,120($29)\n"
-    "swc1 $f22,40($16)\n"
-    "swc1 $f22,20($16)\n"
-    "swc1 $f22,56($29)\n"
-    "swc1 $f24,128($29)\n"
-    "jal func_800AD434\n"
-    "swc1 $f0,120($29)\n"
-    "move $4,$17\n"
-    "lb $6,17595($17)\n"
-    "move $5,$16\n"
-    "sll $6,$6,0x1\n"
-    "jal func_80083004\n"
-    "andi $6,$6,0xfe\n"
-    "move $4,$16\n"
-    "lui $5,0x3ec4\n"
-    "ori $5,$5,0x9808\n"
-    "li $6,3\n"
-    "swc1 $f20,92($29)\n"
-    "swc1 $f20,88($29)\n"
-    "swc1 $f20,80($29)\n"
-    "swc1 $f20,72($29)\n"
-    "swc1 $f20,64($29)\n"
-    "swc1 $f20,60($29)\n"
-    "swc1 $f20,128($29)\n"
-    "swc1 $f20,124($29)\n"
-    "swc1 $f20,120($29)\n"
-    "swc1 $f22,40($16)\n"
-    "swc1 $f22,20($16)\n"
-    "swc1 $f22,56($29)\n"
-    "swc1 $f24,120($29)\n"
-    "swc1 $f24,124($29)\n"
-    "jal func_800AD434\n"
-    "swc1 $f26,128($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f24,2304($1)\n"
-    "move $4,$17\n"
-    "mfc1 $6,$f24\n"
-    "jal func_800830C4\n"
-    "move $5,$16\n"
-    "jal func_8007160C\n"
-    "move $4,$17\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2308($1)\n"
-    "lwc1 $f4,40($2)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lwc1 $f0,44($2)\n"
-    "mul.s $f0,$f0,$f24\n"
-    "lwc1 $f2,48($2)\n"
-    "add.s $f2,$f2,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f8,2312($1)\n"
-    "mul.s $f2,$f2,$f8\n"
-    "add.s $f4,$f4,$f0\n"
-    "mul.s $f12,$f4,$f8\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2316($1)\n"
-    "mul.s $f10,$f4,$f6\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2320($1)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "add.s $f2,$f2,$f22\n"
-    "add.s $f10,$f10,$f6\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2324($1)\n"
-    "add.s $f4,$f4,$f0\n"
-    "addiu $16,$17,4968\n"
-    "mfc1 $7,$f20\n"
-    "add.s $f12,$f12,$f8\n"
-    "mfc1 $5,$f10\n"
-    "mfc1 $6,$f4\n"
-    "move $4,$16\n"
-    "swc1 $f2,17152($17)\n"
-    "jal func_800BB99C\n"
-    "swc1 $f12,17156($17)\n"
-    "jal func_800BBA1C\n"
-    "move $4,$16\n"
-    "move $4,$17\n"
-    "li $5,12\n"
-    "move $6,$0\n"
-    "lbu $2,17604($17)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2328($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2332($1)\n"
-    "move $7,$6\n"
-    "sw $0,17620($17)\n"
-    "sw $0,17132($17)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "sw $0,17616($17)\n"
-    "sw $0,17612($17)\n"
-    "sw $0,3860($17)\n"
-    "sb $0,17593($17)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "li $2,23040\n"
-    "sw $2,3852($17)\n"
-    "swc1 $f4,17148($17)\n"
-    "sw $0,16($29)\n"
-    "jal func_80082A84\n"
-    "sw $0,20($29)\n"
-    "move $4,$17\n"
-    "li $5,38\n"
-    "lb $6,17595($17)\n"
-    "move $7,$0\n"
-    "sw $0,16($29)\n"
-    "jal func_80082A84\n"
-    "sw $0,20($29)\n"
-    "lwc1 $f0,17628($17)\n"
-    "cvt.s.w $f0,$f0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2336($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,2340($1)\n"
-    "div.s $f0,$f0,$f2\n"
-    "mul.s $f0,$f0,$f4\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2344($1)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800C7F18\n"
-    "sub.s $f0,$f0,$f2\n"
-    "trunc.w.s $f14,$f0\n"
-    "mfc1 $6,$f14\n"
-    "j func_80071C0C\n"
-    "move $4,$17\n"
-    "L_800C7F18:\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f14,$f0\n"
-    "mfc1 $6,$f14\n"
-    "or $6,$6,$2\n"
-    "move $4,$17\n"
-    "li $5,26\n"
-    "move $7,$0\n"
-    "sw $0,16($29)\n"
-    "jal func_80082A84\n"
-    "sw $0,20($29)\n"
-    "L_800C7F40:\n"
-    "lw $31,160($29)\n"
-    "lw $17,156($29)\n"
-    "lw $16,152($29)\n"
-    "ldc1 $f26,192($29)\n"
-    "ldc1 $f24,184($29)\n"
-    "ldc1 $f22,176($29)\n"
-    "ldc1 $f20,168($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,200\n"
-    ".end func_800C7A5C\n.set at\n.set reorder\n");
+typedef signed char s8;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+
+#define F(o, t) (*(t *)(obj + (o)))
+
+typedef struct {
+    char pad0[0x28];
+    f32 a;
+    f32 b;
+    f32 c;
+} Game;
+
+typedef struct {
+    f32 m[4][4];
+    f32 t[3];
+} Mtx;
+
+typedef struct {
+    f32 x;
+    f32 y;
+    f32 z;
+} Vec;
+
+typedef struct {
+    char pad0[2];
+    u16 first;
+    u16 count;
+    char pad6[40 - 6];
+} Grp;
+
+typedef struct {
+    char pad0[0x14];
+    Vec *v;
+    char pad18[2];
+    u16 ngrp;
+    Grp *grp;
+} Mesh;
+
+extern Game *D_800FC270;
+extern s32 func_80017D84(char *, s32);
+extern void func_80081F08(u8 *, f32 *, f32 *, void *, s32);
+extern void func_8008382C(u8 *, s32);
+extern void func_800837C0(u8 *, s32, f32);
+extern void func_800B8C70(void *, f32);
+extern void func_800AD434(Mtx *, f32, s32);
+extern void func_80083064(u8 *, Mtx *, s32, s32);
+extern void func_80083004(u8 *, Mtx *, s32);
+extern void func_800830C4(u8 *, Mtx *, f32);
+extern void func_8007160C(u8 *);
+extern void func_800BB99C(void *, f32, f32, f32);
+extern void func_800BBA1C(void *);
+extern void func_80082A84(u8 *, s32, s32, s32, s32, s32);
+
+static inline void setv(f32 *v, f32 x, f32 y, f32 z)
+{
+    v[0] = x;
+    v[1] = y;
+    v[2] = z;
+}
+
+static inline void ident(Mtx *m)
+{
+    m->m[2][1] = 0.0f;
+    m->m[2][0] = 0.0f;
+    m->m[1][2] = 0.0f;
+    m->m[1][0] = 0.0f;
+    m->m[0][2] = 0.0f;
+    m->m[0][1] = 0.0f;
+    m->t[2] = 0.0f;
+    m->t[1] = 0.0f;
+    m->t[0] = 0.0f;
+    m->m[2][2] = 1.0f;
+    m->m[1][1] = 1.0f;
+    m->m[0][0] = 1.0f;
+}
+
+void func_8007173C(u8 *obj)
+{
+    f32 p[3];
+    f32 q[3];
+    Mtx m;
+    Vec c;
+    s32 i;
+    s32 k;
+    Grp *e;
+    f32 s;
+    u8 *q4;
+
+    if (func_80017D84("GRAPHICS__VIRTUALGYM__ROPECLIMB__ROPECLIMB_BGP", -1) != 0) {
+        return;
+    }
+    setv(p, 16.3834991f, 49.1504974f, -65.5339966f);
+    setv(q, 26.2135983f, 32.7669983f, -88.4708939f);
+    func_80081F08(obj, p, q, obj + 4552, 0);
+    func_8008382C(obj, 12);
+    F(0x44C0, Mesh *) = F(0x1330, Mesh *);
+    i = 0;
+    while (1) {
+        if (!(i < F(0x44C0, Mesh *)->ngrp)) {
+            break;
+        }
+        e = &F(0x44C0, Mesh *)->grp[i];
+        c.x = F(0x44C0, Mesh *)->v[e->first].x;
+        c.y = F(0x44C0, Mesh *)->v[e->first].y;
+        c.z = F(0x44C0, Mesh *)->v[e->first].z;
+        for (k = e->first; k < e->first + e->count; k++) {
+            F(0x44C0, Mesh *)->v[k].x -= c.x;
+            F(0x44C0, Mesh *)->v[k].y -= c.y;
+            F(0x44C0, Mesh *)->v[k].z -= c.z;
+        }
+        i++;
+    }
+    func_800837C0(obj, 0, 1.0f);
+    func_800B8C70(obj + 4552, 0.0f);
+
+    F(0x1220, f32) = 34.4053459f;
+    F(0x133C, f32) = 34.4053459f;
+    ident(&m);
+    m.t[0] = -65.5339966f;
+    m.t[2] = 16.3834991f;
+    func_800AD434(&m, -0.383972406f, 3);
+    func_80083064(obj, &m, 10, F(0x44DC, s32));
+
+    ident(&m);
+    m.t[0] = -32.7669983f;
+    m.t[2] = 32.7669983f;
+    func_800AD434(&m, -0.383972406f, 3);
+    func_80083004(obj, &m, (u8)(F(0x44BB, s8) * 2));
+
+    ident(&m);
+    m.t[0] = 32.7669983f;
+    m.t[1] = 32.7669983f;
+    m.t[2] = 16.3834991f;
+    func_800AD434(&m, 0.383972406f, 3);
+    func_800830C4(obj, &m, 0.25f);
+    func_8007160C(obj);
+
+    s = D_800FC270->a * 0.75f + D_800FC270->b * 0.25f;
+    F(0x4300, f32) = (D_800FC270->c + D_800FC270->c) * 0.5f + 1.0f;
+    F(0x4304, f32) = s * 0.5f + 0.5f;
+    q4 = obj + 4968;
+    func_800BB99C(q4, s * 0.03f + 0.03f, s * 0.0015f + -0.003f, 0.0f);
+    func_800BBA1C(q4);
+
+    F(0x44D4, s32) = 0;
+    F(0x42EC, s32) = 0;
+    F(0x44D0, s32) = 0;
+    F(0x44CC, s32) = 0;
+    F(0x0F14, s32) = 0;
+    F(0x44B9, u8) = 0;
+    F(0x0F0C, s32) = 23040;
+    F(0x42FC, f32) = 6.8f - F(0x44C4, u8) * 0.01f;
+    func_80082A84(obj, 12, 0, 0, 0, 0);
+    func_80082A84(obj, 38, F(0x44BB, s8), 0, 0, 0);
+    func_80082A84(obj, 26, (u32)((f32)F(0x44DC, s32) / 30.0f * 0.00390625f), 0, 0, 0);
+}

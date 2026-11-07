@@ -1,86 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B5640\n.ent func_800B5640\n"
-    "func_800B5640:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x20\n"
-    "beqz $2,L_800B56C4\n"
-    "move $17,$4\n"
-    "addiu $4,$17,204\n"
-    "addiu $5,$18,48\n"
-    "jal func_800B3870\n"
-    "li $6,32\n"
-    "lw $2,232($17)\n"
-    "beql $2,$0,L_800B5684\n"
-    "sw $0,188($17)\n"
-    "L_800B5684:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10028\n"
-    "lw $2,232($17)\n"
-    "lw $3,24($4)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,232($17)\n"
-    "lw $2,224($17)\n"
-    "lw $3,24($4)\n"
-    "lwc1 $f0,204($17)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,224($17)\n"
-    "lw $2,228($17)\n"
-    "lw $3,24($4)\n"
-    "swc1 $f0,200($17)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,228($17)\n"
-    "L_800B56C4:\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x8\n"
-    "beqz $2,L_800B56F0\n"
-    "addiu $16,$17,292\n"
-    "lw $5,40($18)\n"
-    "jal func_800AEB68\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "jal func_800AE9DC\n"
-    "move $6,$17\n"
-    "L_800B56F0:\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x200\n"
-    "beqz $2,L_800B5708\n"
-    "nop\n"
-    "lwc1 $f0,92($18)\n"
-    "swc1 $f0,244($17)\n"
-    "L_800B5708:\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x400\n"
-    "beqz $2,L_800B5720\n"
-    "nop\n"
-    "lhu $2,100($18)\n"
-    "sh $2,196($17)\n"
-    "L_800B5720:\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x800\n"
-    "beqz $2,L_800B5738\n"
-    "nop\n"
-    "lwc1 $f0,96($18)\n"
-    "swc1 $f0,252($17)\n"
-    "L_800B5738:\n"
-    "lw $2,0($18)\n"
-    "andi $2,$2,0x100\n"
-    "beqz $2,L_800B5750\n"
-    "nop\n"
-    "lwc1 $f0,88($18)\n"
-    "swc1 $f0,248($17)\n"
-    "L_800B5750:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B5640\n.set at\n.set reorder\n");
+typedef struct { int ticks; int pad[5]; int time; } Clock;
+typedef struct {
+    int flags; char pad0[36]; int model; char pad1[4]; char data[40];
+    float f88; float f92; float f96; unsigned short h100;
+} Desc;
+typedef struct {
+    char pad0[188]; int x188; char pad1[4]; unsigned short h196; char pad2[2];
+    float f200; float f204; char pad3[16]; int t224; int t228; int t232; char pad4[8];
+    float f244; float f248; float f252; char pad5[36]; char motion[4];
+} Obj;
+extern Clock D_800F272C;
+extern void func_800B3870(void *, void *, int);
+extern void func_800AEB68(void *, int);
+extern void func_800AE9DC(void *, float, Obj *);
+void func_800B5640(Obj *o, Desc *d)
+{
+    if (d->flags & 0x20) {
+        func_800B3870(&o->f204, d->data, 32);
+        if (!o->t232) o->x188 = 0;
+        o->t232 += D_800F272C.time;
+        o->t224 += D_800F272C.time;
+        o->t228 += D_800F272C.time;
+        o->f200 = o->f204;
+    }
+    if (d->flags & 8) {
+        func_800AEB68(o->motion, d->model);
+        func_800AE9DC(o->motion, 0.0f, o);
+    }
+    if (d->flags & 0x200) o->f244 = d->f92;
+    if (d->flags & 0x400) o->h196 = d->h100;
+    if (d->flags & 0x800) o->f252 = d->f96;
+    if (d->flags & 0x100) o->f248 = d->f88;
+}

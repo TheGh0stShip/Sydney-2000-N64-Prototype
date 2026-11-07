@@ -1,110 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008D760\n.ent func_8008D760\n"
-    "func_8008D760:\n"
-    "addiu $29,$29,-96\n"
-    "sw $16,88($29)\n"
-    "move $16,$4\n"
-    "move $5,$0\n"
-    "sw $31,92($29)\n"
-    "lw $4,188($16)\n"
-    "jal func_80017C4C\n"
-    "addiu $6,$29,80\n"
-    "move $5,$0\n"
-    "lui $10,0xff\n"
-    "ori $10,$10,0xff\n"
-    "lui $1,0x8008\n"
-    "ldc1 $f16,15816($1)\n"
-    "L_8008D794:\n"
-    "lw $2,456($16)\n"
-    "sltu $2,$5,$2\n"
-    "beqz $2,L_8008D8D8\n"
-    "move $4,$0\n"
-    "addiu $9,$16,428\n"
-    "addiu $8,$29,16\n"
-    "addiu $7,$16,440\n"
-    "addiu $6,$16,416\n"
-    "L_8008D7B4:\n"
-    "lw $3,452($16)\n"
-    "sltu $2,$4,$3\n"
-    "beql $2,$0,L_8008D794\n"
-    "addiu $5,$5,1\n"
-    "mtc1 $4,$f0\n"
-    "cvt.d.w $f0,$f0\n"
-    "bltzl $4,L_8008D7D4\n"
-    "add.d $f0,$f0,$f16\n"
-    "L_8008D7D4:\n"
-    "addiu $2,$3,-1\n"
-    "mtc1 $2,$f2\n"
-    "cvt.d.w $f2,$f2\n"
-    "bgez $2,L_8008D7EC\n"
-    "cvt.s.d $f4,$f0\n"
-    "add.d $f2,$f2,$f16\n"
-    "L_8008D7EC:\n"
-    "cvt.s.d $f2,$f2\n"
-    "lwc1 $f0,428($16)\n"
-    "div.s $f2,$f4,$f2\n"
-    "mul.s $f4,$f0,$f2\n"
-    "swc1 $f4,16($29)\n"
-    "lwc1 $f0,4($9)\n"
-    "mul.s $f12,$f0,$f2\n"
-    "swc1 $f12,4($8)\n"
-    "lwc1 $f0,8($9)\n"
-    "mul.s $f14,$f0,$f2\n"
-    "mtc1 $5,$f2\n"
-    "cvt.d.w $f2,$f2\n"
-    "bgez $5,L_8008D828\n"
-    "swc1 $f14,8($8)\n"
-    "add.d $f2,$f2,$f16\n"
-    "L_8008D828:\n"
-    "lw $2,456($16)\n"
-    "addiu $2,$2,-1\n"
-    "mtc1 $2,$f0\n"
-    "cvt.d.w $f0,$f0\n"
-    "bgez $2,L_8008D844\n"
-    "cvt.s.d $f2,$f2\n"
-    "add.d $f0,$f0,$f16\n"
-    "L_8008D844:\n"
-    "cvt.s.d $f0,$f0\n"
-    "lwc1 $f10,440($16)\n"
-    "div.s $f0,$f2,$f0\n"
-    "mul.s $f10,$f10,$f0\n"
-    "swc1 $f10,32($29)\n"
-    "lwc1 $f8,4($7)\n"
-    "mul.s $f8,$f8,$f0\n"
-    "swc1 $f8,36($29)\n"
-    "lwc1 $f6,8($7)\n"
-    "mul.s $f6,$f6,$f0\n"
-    "swc1 $f6,40($29)\n"
-    "lwc1 $f2,416($16)\n"
-    "add.s $f2,$f4,$f2\n"
-    "add.s $f10,$f10,$f2\n"
-    "swc1 $f2,48($29)\n"
-    "lwc1 $f0,4($6)\n"
-    "add.s $f0,$f12,$f0\n"
-    "add.s $f8,$f8,$f0\n"
-    "swc1 $f0,52($29)\n"
-    "lwc1 $f4,8($6)\n"
-    "lw $3,80($29)\n"
-    "add.s $f4,$f14,$f4\n"
-    "swc1 $f10,64($29)\n"
-    "add.s $f6,$f6,$f4\n"
-    "swc1 $f8,68($29)\n"
-    "swc1 $f4,56($29)\n"
-    "swc1 $f6,72($29)\n"
-    "swc1 $f10,0($3)\n"
-    "lwc1 $f0,68($29)\n"
-    "addiu $4,$4,1\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($29)\n"
-    "addiu $2,$3,36\n"
-    "sw $2,80($29)\n"
-    "sw $10,24($3)\n"
-    "j L_8008D7B4\n"
-    "swc1 $f0,8($3)\n"
-    "L_8008D8D8:\n"
-    "lw $31,92($29)\n"
-    "lw $16,88($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,96\n"
-    ".end func_8008D760\n.set at\n.set reorder\n");
+typedef unsigned int u32;
+typedef signed int s32;
+typedef float f32;
+typedef struct Vec3 { f32 x, y, z; } Vec3;
+typedef struct Vtx { Vec3 p; f32 pad[3]; u32 color; f32 pad2[2]; } Vtx;
+typedef struct Obj {
+    char pad0[0xBC];
+    s32 handle;
+    char padC0[0x1A0 - 0xC0];
+    Vec3 org;
+    Vec3 du;
+    Vec3 dv;
+    u32 nu;
+    u32 nv;
+} Obj;
+extern s32 func_80017C4C(s32, s32, Vtx **);
+static inline void vscale(Vec3 *v, Vec3 *o, f32 s)
+{
+    o->x = v->x * s;
+    o->y = v->y * s;
+    o->z = v->z * s;
+}
+static inline void vadd(Vec3 *o, Vec3 *a, Vec3 *b)
+{
+    o->x = a->x + b->x;
+    o->y = a->y + b->y;
+    o->z = a->z + b->z;
+}
+void func_8008D760(Obj *o)
+{
+    Vec3 a, b, c, d;
+    Vtx *buf;
+    u32 i, j;
+
+    func_80017C4C(o->handle, 0, &buf);
+    i = 0;
+    while (1) {
+        if (!(i < o->nv)) break;
+        j = 0;
+        while (1) {
+            if (!(j < o->nu)) break;
+            vscale(&o->du, &a, (f32)j / (f32)(o->nu - 1));
+            vscale(&o->dv, &b, (f32)i / (f32)(o->nv - 1));
+            vadd(&c, &a, &o->org);
+            vadd(&d, &b, &c);
+            buf->p.x = d.x;
+            buf->p.y = d.y;
+            buf->p.z = d.z;
+            buf->color = 0xFF00FF;
+            buf++;
+            j++;
+        }
+        i++;
+    }
+}

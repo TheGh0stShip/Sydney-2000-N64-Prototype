@@ -1,74 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8008A61C\n.ent func_8008A61C\n"
-    "func_8008A61C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "li $2,0x8000\n"
-    "sw $16,24($29)\n"
-    "addu $16,$17,$2\n"
-    "sw $31,32($29)\n"
-    "lbu $3,1046($16)\n"
-    "li $2,15\n"
-    "beq $3,$2,L_8008A704\n"
-    "nop\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$17,26356\n"
-    "jal func_800CEE04\n"
-    "addiu $4,$17,31844\n"
-    "li $2,7680\n"
-    "sw $2,1064($16)\n"
-    "li $2,1536\n"
-    "sw $2,1068($16)\n"
-    "li $2,11\n"
-    "sb $2,1046($16)\n"
-    "lw $2,24364($17)\n"
-    "beqz $2,L_8008A68C\n"
-    "move $3,$0\n"
-    "lw $2,23004($17)\n"
-    "lw $2,744($2)\n"
-    "bnez $2,L_8008A690\n"
-    "nop\n"
-    "L_8008A68C:\n"
-    "li $3,1\n"
-    "L_8008A690:\n"
-    "beqz $3,L_8008A6B8\n"
-    "lui $4,0x800f\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "addiu $4,$4,9952\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $7,12112($17)\n"
-    "jal func_800AB2A4\n"
-    "li $6,17\n"
-    "L_8008A6B8:\n"
-    "lw $2,23004($17)\n"
-    "lw $2,752($2)\n"
-    "bnez $2,L_8008A6F0\n"
-    "addiu $2,$17,23008\n"
-    "lw $2,24364($17)\n"
-    "bnez $2,L_8008A6E4\n"
-    "nop\n"
-    "jal func_80076CA8\n"
-    "move $4,$17\n"
-    "j func_80072380\n"
-    "addiu $2,$17,23008\n"
-    "L_8008A6E4:\n"
-    "jal func_800758F0\n"
-    "move $4,$17\n"
-    "addiu $2,$17,23008\n"
-    "L_8008A6F0:\n"
-    "li $3,1\n"
-    "sb $0,185($2)\n"
-    "sb $3,184($2)\n"
-    "sb $0,186($2)\n"
-    "sb $0,187($2)\n"
-    "L_8008A704:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8008A61C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Info { char pad[744]; int unk2E8; char pad2EC[4]; int unk2F0; } Info;
+typedef struct Sub { char pad[184]; u8 b0; u8 b1; u8 b2; u8 b3; } Sub;
+typedef struct Obj {
+    char pad[12112];
+    void *unk2F50;
+    char pad2F54[23004 - 12116];
+    Info *info;
+    Sub sub;
+    char pad5A9C[24364 - 23008 - sizeof(Sub)];
+    int unk5F2C;
+    char pad5F30[26356 - 24368];
+    char unk66F4[31844 - 26356];
+    char unk7C64[0x8416 - 31844];
+    u8 state;
+    char pad8417[0x8428 - 0x8417];
+    int unk8428;
+    int unk842C;
+} Obj;
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern void func_800ADC1C(void *);
+extern void func_800CEE04(void *);
+extern void func_800AB2A4(void *, int, int, void *, int, int);
+extern void func_80076CA8(Obj *);
+extern void func_800758F0(Obj *);
+void func_800722AC(Obj *o)
+{
+    int flag;
+    if (o->state != 15) {
+        func_800ADC1C(o->unk66F4);
+        func_800CEE04(o->unk7C64);
+        o->unk8428 = 7680;
+        o->unk842C = 1536;
+        o->state = 11;
+        flag = (o->unk5F2C == 0 || o->info->unk2E8 == 0);
+        if (flag) {
+            func_800AB2A4(D_800F26E0, D_800F2744, 17, o->unk2F50, 0, 0);
+        }
+        if (o->info->unk2F0 == 0) {
+            if (o->unk5F2C == 0) {
+                func_80076CA8(o);
+            } else {
+                func_800758F0(o);
+            }
+        }
+        {
+            Sub *s = &o->sub;
+            s->b1 = 0;
+            s->b0 = 1;
+            s->b2 = 0;
+            s->b3 = 0;
+        }
+    }
+}

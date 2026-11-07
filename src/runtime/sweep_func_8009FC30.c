@@ -1,76 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009FC30\n.ent func_8009FC30\n"
-    "func_8009FC30:\n"
-    "addiu $29,$29,-16\n"
-    "move $7,$0\n"
-    "move $6,$7\n"
-    "mtc1 $5,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,19528($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,19532($1)\n"
-    "div.s $f0,$f0,$f2\n"
-    "mul.s $f4,$f0,$f4\n"
-    "L_8009FC5C:\n"
-    "lw $3,184($4)\n"
-    "lw $2,188($4)\n"
-    "mult $3,$2\n"
-    "mflo $8\n"
-    "slt $2,$7,$8\n"
-    "beqz $2,L_8009FD38\n"
-    "nop\n"
-    "lw $2,196($4)\n"
-    "addu $5,$6,$2\n"
-    "lw $2,48($5)\n"
-    "andi $2,$2,0x1\n"
-    "bnel $2,$0,L_8009FD30\n"
-    "addiu $6,$6,52\n"
-    "lwc1 $f0,12($5)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "addiu $3,$5,12\n"
-    "swc1 $f0,24($5)\n"
-    "lwc1 $f0,4($3)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "addiu $2,$5,24\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,8($2)\n"
-    "lw $2,196($4)\n"
-    "addu $2,$6,$2\n"
-    "addiu $2,$2,36\n"
-    "lwc1 $f2,0($2)\n"
-    "mul.s $f2,$f2,$f4\n"
-    "swc1 $f2,0($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,4($29)\n"
-    "lwc1 $f0,8($2)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f0,8($29)\n"
-    "lw $2,196($4)\n"
-    "addu $3,$6,$2\n"
-    "addiu $3,$3,12\n"
-    "lwc1 $f0,0($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addu $2,$6,$2\n"
-    "addiu $2,$2,12\n"
-    "swc1 $f0,0($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "lwc1 $f2,4($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "lwc1 $f2,8($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $6,$6,52\n"
-    "L_8009FD30:\n"
-    "j L_8009FC5C\n"
-    "addiu $7,$7,1\n"
-    "L_8009FD38:\n"
-    "jr $31\n"
-    "addiu $29,$29,16\n"
-    ".end func_8009FC30\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad0[12]; Vec pos; Vec vel; Vec acc; int flags; } Rec;
+typedef struct { char pad0[184]; int w; int h; char pad1[196 - 192]; Rec *recs; } Obj;
+static inline void vscl(Vec *a, float k, Vec *r) { r->x = a->x * k; r->y = a->y * k; r->z = a->z * k; }
+static inline void vadd(Vec *a, Vec *b, Vec *r) { r->x = a->x + b->x; r->y = a->y + b->y; r->z = a->z + b->z; }
+void func_8009FC30(Obj *o, int n)
+{
+    Vec t;
+    int i;
+    float k = (float)n / 30.0f * 0.00390625f;
+    i = 0;
+    while (1) {
+        if (!(i < o->w * o->h)) break;
+        if (!(o->recs[i].flags & 1)) {
+            vscl(&o->recs[i].pos, k, &o->recs[i].vel);
+            vscl(&o->recs[i].acc, k, &t);
+            vadd(&o->recs[i].pos, &t, &o->recs[i].pos);
+        }
+        i++;
+    }
+}

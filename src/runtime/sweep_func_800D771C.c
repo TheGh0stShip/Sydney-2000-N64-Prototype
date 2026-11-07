@@ -1,130 +1,79 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D771C\n.ent func_800D771C\n"
-    "func_800D771C:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $31,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800B35F0\n"
-    "sw $16,16($29)\n"
-    "lw $2,10840($19)\n"
-    "beqz $2,L_800D780C\n"
-    "move $18,$0\n"
-    "L_800D7750:\n"
-    "andi $2,$18,0xff\n"
-    "sll $4,$2,0x2\n"
-    "addu $16,$19,$4\n"
-    "lw $2,220($16)\n"
-    "beql $2,$0,L_800D7778\n"
-    "addiu $18,$18,1\n"
-    "addiu $4,$4,220\n"
-    "jal func_8001A248\n"
-    "addu $4,$19,$4\n"
-    "addiu $18,$18,1\n"
-    "L_800D7778:\n"
-    "andi $2,$18,0xff\n"
-    "sltiu $2,$2,5\n"
-    "bnez $2,L_800D7750\n"
-    "sw $0,220($16)\n"
-    "lhu $2,10852($19)\n"
-    "beqz $2,L_800D7804\n"
-    "move $18,$0\n"
-    "andi $2,$18,0xff\n"
-    "L_800D7798:\n"
-    "sll $16,$2,0x1\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $16,$16,$2\n"
-    "sll $16,$16,0x2\n"
-    "addu $17,$16,$19\n"
-    "addiu $17,$17,240\n"
-    "addiu $16,$16,240\n"
-    "lw $2,180($17)\n"
-    "addu $16,$19,$16\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($17)\n"
-    "addiu $18,$18,1\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lhu $3,10852($19)\n"
-    "andi $2,$18,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800D7798\n"
-    "andi $2,$18,0xff\n"
-    "L_800D7804:\n"
-    "sh $0,10852($19)\n"
-    "sw $0,10840($19)\n"
-    "L_800D780C:\n"
-    "lw $16,8($19)\n"
-    "lui $21,0x800f\n"
-    "lui $20,0x800f\n"
-    "L_800D7818:\n"
-    "beqz $16,L_800D78B8\n"
-    "nop\n"
-    "lw $18,12($16)\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "addiu $4,$20,9952\n"
-    "move $5,$16\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "addiu $17,$21,9904\n"
-    "lhu $2,18($17)\n"
-    "lhu $3,16($17)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800D78B0\n"
-    "li $5,2\n"
-    "lw $2,180($16)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,12($17)\n"
-    "sw $16,0($2)\n"
-    "lw $2,12($17)\n"
-    "lhu $3,18($17)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($17)\n"
-    "sh $3,18($17)\n"
-    "L_800D78B0:\n"
-    "j L_800D7818\n"
-    "move $16,$18\n"
-    "L_800D78B8:\n"
-    "lw $4,10864($19)\n"
-    "jal func_80017860\n"
-    "nop\n"
-    "jal func_80017D64\n"
-    "move $4,$0\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D771C\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+typedef struct Obj { char pad0[0xC]; struct Obj *next; char pad10[0xB4 - 0x10]; VEnt *vt; } Obj;
+typedef struct { char pad[0xB4]; VEnt *vt; char rest[212 - 0xB8]; } Sub;
+typedef struct { char pad[0xC]; Obj **wp; unsigned short cap; unsigned short used; } Pool;
+typedef struct {
+    char pad0[8];
+    Obj *head;
+    char padc[0xDC - 0xC];
+    int snd[5];
+    char padf0[0xF0 - 0xF0];
+    Sub subs[50];
+    char pad[0x2A58 - (0xF0 + 50 * 212)];
+    int active;
+    char pad2a5c[0x2A64 - 0x2A5C];
+    unsigned short nsubs;
+    char pad2a66[0x2A70 - 0x2A66];
+    int res;
+} Scene;
+
+extern Pool D_800F26B0;
+extern char D_800F26E0[];
+extern void func_800B35F0(void *o);
+extern void func_8001A248(int *h);
+extern void func_800AACB0(char *l, Obj *o, int n);
+extern void func_80017860(int r);
+extern void func_80017D64(int n);
+
+static inline void sub_reset(Sub *u, char *self)
+{
+    u->vt[9].fn(self + u->vt[9].adj);
+    u->vt[3].fn(self + u->vt[3].adj);
+}
+
+void func_800D771C(Scene *s)
+{
+    unsigned char i;
+    int off;
+    Obj *o;
+    Obj *next;
+    Pool *p;
+    Sub *u;
+
+    func_800B35F0(s);
+    if (s->active != 0) {
+        i = 0;
+        do {
+            if (s->snd[i] != 0) {
+                func_8001A248(&s->snd[i]);
+            }
+            s->snd[i] = 0;
+            i++;
+        } while (i < 5);
+        for (i = 0; i < s->nsubs; i++) {
+            off = i * sizeof(Sub) + 0xF0;
+            sub_reset(&s->subs[i], (char *)s + off);
+        }
+        s->nsubs = 0;
+        s->active = 0;
+    }
+    o = s->head;
+    while (1) {
+        if (o == 0) break;
+        next = o->next;
+        func_800B35F0(o);
+        o->vt[3].fn((char *)o + o->vt[3].adj);
+        o->vt[3].fn((char *)o + o->vt[3].adj);
+        p = &D_800F26B0;
+        func_800AACB0(D_800F26E0, o, 0);
+        if (p->used < p->cap) {
+            o->vt[1].fn((char *)o + o->vt[1].adj, 2);
+            *p->wp = o;
+            p->wp++;
+            p->used++;
+        }
+        o = next;
+    }
+    func_80017860(s->res);
+    func_80017D64(0);
+}

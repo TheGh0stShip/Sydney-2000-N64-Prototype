@@ -1,61 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A7C98\n.ent func_800A7C98\n"
-    "func_800A7C98:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $19,28($29)\n"
-    "lui $19,0x8010\n"
-    "sw $18,24($29)\n"
-    "li $18,8\n"
-    "sw $17,20($29)\n"
-    "li $17,3\n"
-    "sw $31,32($29)\n"
-    "lw $4,-15760($19)\n"
-    "lb $3,31917($16)\n"
-    "lbu $2,2572($4)\n"
-    "slt $2,$3,$2\n"
-    "beqz $2,L_800A7D44\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lb $3,2576($2)\n"
-    "beq $3,$18,L_800A7D08\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $2,32($2)\n"
-    "j func_80076D0C\n"
-    "nop\n"
-    "L_800A7D08:\n"
-    "li $2,3\n"
-    "bne $2,$17,L_800A7D34\n"
-    "move $4,$16\n"
-    "jal func_80074874\n"
-    "li $5,1\n"
-    "lw $4,12212($16)\n"
-    "jal func_8007BB9C\n"
-    "nop\n"
-    "mfc1 $5,$f0\n"
-    "jal func_80074C58\n"
-    "move $4,$16\n"
-    "L_800A7D34:\n"
-    "lbu $2,31917($16)\n"
-    "addiu $2,$2,1\n"
-    "j func_80076CC0\n"
-    "sb $2,31917($16)\n"
-    "L_800A7D44:\n"
-    "lbu $2,31917($16)\n"
-    "addiu $2,$2,-1\n"
-    "sb $2,31917($16)\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800A7C98\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef int s32;
+typedef float f32;
+
+typedef struct S12 { s8 type; u8 pad[11]; } S12;
+typedef struct S60 { u8 pad[32]; u8 kind; u8 pad2[27]; } S60;
+typedef struct G {
+    S60 ent[42];
+    u8 pad[2572 - 42 * 60];
+    u8 count;
+    u8 pad3[3];
+    S12 arr[1];
+} G;
+extern G *D_800FC270;
+
+extern void func_80074874(u8 *p, s32 a);
+extern f32 func_8007BB9C(s32 a);
+extern void func_80074C58(u8 *p, f32 a);
+
+#define W(o) (*(s32 *)(p + (o)))
+#define SB(o) (*(s8 *)(p + (o)))
+
+void func_800A7C98(u8 *p)
+{
+    while (1) {
+        s32 t;
+        u8 v;
+        if (!(SB(31917) < D_800FC270->count)) break;
+        t = D_800FC270->arr[SB(31917)].type;
+        if (t != 8) {
+            v = D_800FC270->ent[t].kind;
+        } else {
+            v = 3;
+        }
+        if (v == 3) {
+            func_80074874(p, 1);
+            func_80074C58(p, func_8007BB9C(W(12212)));
+        }
+        SB(31917)++;
+    }
+    SB(31917)--;
+}

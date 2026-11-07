@@ -1,66 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011271C\n.ent func_8011271C\n"
-    "func_8011271C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sdc1 $f20,24($29)\n"
-    "mtc1 $5,$f20\n"
-    "sw $31,20($29)\n"
-    "jal func_8007C914\n"
-    "move $5,$0\n"
-    "move $4,$16\n"
-    "jal func_8007CA64\n"
-    "move $5,$0\n"
-    "lbu $2,733($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29184($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-29180($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,-29176($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f8,-29172($1)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "sw $0,1492($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-29168($1)\n"
-    "li $2,1\n"
-    "sb $2,1488($16)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29164($1)\n"
-    "addiu $2,$16,1260\n"
-    "mul.s $f2,$f2,$f0\n"
-    "swc1 $f4,1496($16)\n"
-    "swc1 $f6,84($16)\n"
-    "swc1 $f20,88($16)\n"
-    "swc1 $f8,1260($16)\n"
-    "swc1 $f2,92($16)\n"
-    "swc1 $f2,812($16)\n"
-    "sw $0,4($2)\n"
-    "sw $0,8($2)\n"
-    "addiu $2,$16,20\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,368($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$16,368\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($3)\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,392($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $16,$16,392\n"
-    "swc1 $f0,4($16)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8011271C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { float x, y, z; } Vec;
+typedef struct { float m[16]; Vec p; } Mtx;
+typedef struct { float a; int b; int c; } Trip;
+extern void func_8007C914(u8 *, int);
+extern void func_8007CA64(u8 *, u8);
+static inline void getpos(Mtx *m, Vec *v)
+{
+    v->x = m->p.x;
+    v->y = m->p.y;
+    v->z = m->p.z;
+}
+void func_8007DA2C(u8 *o, float y)
+{
+    float v;
+    Trip *q;
+    Mtx *m;
+    func_8007C914(o, 0);
+    func_8007CA64(o, 0);
+    v = (8.74f - o[733] * 2.49f) * 32.767f;
+    *(int *)(o + 1492) = 0;
+    o[1488] = 1;
+    q = (Trip *)(o + 1260);
+    *(float *)(o + 1496) = 255.0f;
+    *(float *)(o + 84) = -1769.418f;
+    *(float *)(o + 88) = y;
+    q->a = 0.1441748f;
+    *(float *)(o + 92) = v;
+    *(float *)(o + 812) = v;
+    q->b = 0;
+    q->c = 0;
+    m = (Mtx *)(o + 20);
+    getpos(m, (Vec *)(o + 368));
+    getpos(m, (Vec *)(o + 392));
+}

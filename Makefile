@@ -74,6 +74,36 @@ verify-overlays: $(BASEROM) overlay-survey-check
 	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff64fa0_sn.tsv=sn --project . --vram-delta 0x7FF64FA0
 	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffc0e30_sn.tsv=sn --project . --vram-delta 0x7FFC0E30
 	$(N64DK) match-batch config/overlay/event_bank/matching_delta_800004f0_sn.tsv=sn --project . --vram-delta 0x800004F0
+	$(N64DK) match-batch config/overlay/ceremony/matching_delta_800061b0_sn.tsv=sn --project . --vram-delta 0x800061B0
+	$(N64DK) match-batch config/overlay/ceremony/matching_delta_80007760_sn.tsv=sn --project . --vram-delta 0x80007760
+	$(N64DK) match-batch config/overlay/closing/matching_delta_80002550_sn.tsv=sn --project . --vram-delta 0x80002550
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff5c700_sn.tsv=sn --project . --vram-delta 0x7FF5C700
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff60e80_sn.tsv=sn --project . --vram-delta 0x7FF60E80
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff62790_sn.tsv=sn --project . --vram-delta 0x7FF62790
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff64980_sn.tsv=sn --project . --vram-delta 0x7FF64980
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff65f70_sn.tsv=sn --project . --vram-delta 0x7FF65F70
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff67150_sn.tsv=sn --project . --vram-delta 0x7FF67150
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff69ac0_sn.tsv=sn --project . --vram-delta 0x7FF69AC0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff6b310_sn.tsv=sn --project . --vram-delta 0x7FF6B310
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff703c0_sn.tsv=sn --project . --vram-delta 0x7FF703C0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff76df0_sn.tsv=sn --project . --vram-delta 0x7FF76DF0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff79e60_sn.tsv=sn --project . --vram-delta 0x7FF79E60
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff7eec0_sn.tsv=sn --project . --vram-delta 0x7FF7EEC0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff81f10_sn.tsv=sn --project . --vram-delta 0x7FF81F10
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff85a80_sn.tsv=sn --project . --vram-delta 0x7FF85A80
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff89370_sn.tsv=sn --project . --vram-delta 0x7FF89370
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff91b70_sn.tsv=sn --project . --vram-delta 0x7FF91B70
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff94610_sn.tsv=sn --project . --vram-delta 0x7FF94610
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff95340_sn.tsv=sn --project . --vram-delta 0x7FF95340
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ff9b490_sn.tsv=sn --project . --vram-delta 0x7FF9B490
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffa38e0_sn.tsv=sn --project . --vram-delta 0x7FFA38E0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffa7710_sn.tsv=sn --project . --vram-delta 0x7FFA7710
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffa8800_sn.tsv=sn --project . --vram-delta 0x7FFA8800
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffa9ce0_sn.tsv=sn --project . --vram-delta 0x7FFA9CE0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffab940_sn.tsv=sn --project . --vram-delta 0x7FFAB940
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffaecb0_sn.tsv=sn --project . --vram-delta 0x7FFAECB0
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7ffeec30_sn.tsv=sn --project . --vram-delta 0x7FFEEC30
+	$(N64DK) match-batch config/overlay/event_bank/matching_delta_7fff6d70_sn.tsv=sn --project . --vram-delta 0x7FFF6D70
 
 rsp-tools:
 	bash config/rsp/bootstrap_armips.sh

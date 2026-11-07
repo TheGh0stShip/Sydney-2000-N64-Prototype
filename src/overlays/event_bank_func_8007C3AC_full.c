@@ -12,8 +12,6 @@ typedef struct { f32 f; u8 pad[2]; u8 flags; u8 pad2[5]; } Ent;
 typedef struct { s16 d; s16 pad; void (*fn)(); } VEnt;
 typedef struct { s32 a; s32 b; s32 c; } Tmr;
 
-extern void *D_80071158[];
-extern void *D_800711B8[];
 extern s32 D_800F2780;
 extern u8 D_800F26E0[];
 extern s32 D_800F2744;
@@ -71,11 +69,6 @@ typedef struct { u8 pad[0xA14]; Ent e[1]; } Big;
 
 void func_8007C3AC(u8 *p, s32 a1)
 {
-    static void *const unused_tbl[] = {
-        &&c0, &&c1, &&c3, &&c4, &&c5, &&c6, &&c8, &&c9, &&c11, &&c12,
-        &&c13, &&c14, &&c15, &&c16, &&c17, &&c18,
-        &&i01, &&i234, &&i5
-    };
     u32 st;
     u8 *q;
     u8 *o;
@@ -99,10 +92,28 @@ void func_8007C3AC(u8 *p, s32 a1)
         }
     }
     st = W(0x8C94);
-    if (st >= 19) {
-        return;
+    switch (st) {
+    case 0: goto c0;
+    case 1: goto c1;
+    case 2: goto c0;
+    case 3: goto c3;
+    case 4: goto c4;
+    case 5: goto c5;
+    case 6: goto c6;
+    case 7: goto c0;
+    case 8: goto c8;
+    case 9: goto c9;
+    case 10: goto c0;
+    case 11: goto c11;
+    case 12: goto c12;
+    case 13: goto c13;
+    case 14: goto c14;
+    case 15: goto c15;
+    case 16: goto c16;
+    case 17: goto c17;
+    case 18: goto c18;
+    default: return;
     }
-    goto *D_80071158[st];
 
 c1:
     e = p + 0x8000;
@@ -144,14 +155,14 @@ c3:
     goto done;
 
 c4:
-    if (F(0x8844) < *(f32 *)0x800711A4) {
-        F(0x8844) = *(f32 *)0x800711A8;
+    if (F(0x8844) < 344.053466796875f) {
+        F(0x8844) = 360.4369812011719f;
     }
     goto done;
 
 c5:
-    if (F(0x8844) < *(f32 *)0x800711AC) {
-        F(0x8844) = *(f32 *)0x800711B0;
+    if (F(0x8844) < 344.053466796875f) {
+        F(0x8844) = 360.4369812011719f;
     }
 c6:
     if (B(0x8C9F) != 0) {
@@ -200,10 +211,12 @@ c12:
     }
     func_800D6EA0(p + 11564);
     sub = B(0x8C9D);
-    if (sub >= 6) {
-        goto i_end;
+    switch (sub) {
+    case 0: case 1: goto i01;
+    case 2: case 3: case 4: goto i234;
+    case 5: goto i5;
+    default: goto i_end;
     }
-    goto *D_800711B8[sub];
 i01:
     func_800D29E0(p + 11800);
     func_80078140(p);
@@ -241,8 +254,8 @@ c13:
         B(0x8C98) = 0;
         B(0x8C99) = 0;
         if (B(0x8C9D) == 2) {
-            ENT(D_800FC270, B(0x8C98)).f = *(f32 *)0x800711D0;
-            F(0x8CAC) = *(f32 *)0x800711D0;
+            ENT(D_800FC270, B(0x8C98)).f = -1.0f;
+            F(0x8CAC) = -1.0f;
             B(0xC69E) = 0;
             W(0x8C94) = 0;
             func_800AB2A4(D_800F26E0, D_800F2744, 24, p, 0, 0);

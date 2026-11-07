@@ -1,74 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80123E3C\n.ent func_80123E3C\n"
-    "func_80123E3C:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $18,32($29)\n"
-    "move $18,$5\n"
-    "lui $3,0x8008\n"
-    "sw $31,36($29)\n"
-    "sw $16,24($29)\n"
-    "lw $2,13524($17)\n"
-    "addiu $3,$3,15488\n"
-    "sw $0,4960($17)\n"
-    "ori $2,$2,0x20\n"
-    "sw $2,13524($17)\n"
-    "sll $2,$18,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $4,0($2)\n"
-    "jal func_800BA2D0\n"
-    "nop\n"
-    "beqz $2,L_80123F34\n"
-    "sw $2,4956($17)\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,6888\n"
-    "move $5,$0\n"
-    "jal func_800140A0\n"
-    "move $6,$5\n"
-    "beqz $2,L_80123F34\n"
-    "addiu $16,$17,4552\n"
-    "move $4,$16\n"
-    "move $5,$2\n"
-    "sw $0,16($29)\n"
-    "lw $6,4956($17)\n"
-    "jal func_800B7130\n"
-    "move $7,$0\n"
-    "move $4,$16\n"
-    "lui $5,0x8006\n"
-    "jal func_800148F8\n"
-    "addiu $5,$5,23296\n"
-    "move $4,$16\n"
-    "jal func_800AD890\n"
-    "li $5,1\n"
-    "move $4,$16\n"
-    "lw $2,208($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,7192($1)\n"
-    "lw $2,8($2)\n"
-    "li $5,1\n"
-    "jal func_800ADC54\n"
-    "swc1 $f0,40($2)\n"
-    "move $4,$16\n"
-    "jal func_800AC37C\n"
-    "move $5,$17\n"
-    "jal func_800ADC38\n"
-    "move $4,$16\n"
-    "move $4,$17\n"
-    "move $5,$18\n"
-    "lw $2,192($16)\n"
-    "li $3,-1537\n"
-    "and $2,$2,$3\n"
-    "lui $3,0x200\n"
-    "or $2,$2,$3\n"
-    "jal func_80082764\n"
-    "sw $2,192($16)\n"
-    "L_80123F34:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80123E3C\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+extern void *D_80083C80[];
+extern char D_80081AE8[];
+extern char D_80065B00[];
+extern s32 func_800BA2D0(void *);
+extern void *func_800140A0(char *, s32, s32);
+extern void func_800B7130(u8 *, void *, s32, s32, s32);
+extern void func_800148F8(u8 *, char *);
+extern void func_800AD890(u8 *, s32);
+extern void func_800ADC54(u8 *, s32);
+extern void func_800AC37C(u8 *, u8 *);
+extern void func_800ADC38(u8 *);
+extern void func_80082764(u8 *, s32);
+void func_8008382C(u8 *o, s32 i)
+{
+    s32 r;
+    void *m;
+    u8 *p;
+    *(s32 *)(o + 4960) = 0;
+    *(s32 *)(o + 13524) |= 0x20;
+    r = func_800BA2D0(D_80083C80[i]);
+    *(s32 *)(o + 4956) = r;
+    if (r == 0) return;
+    m = func_800140A0(D_80081AE8, 0, 0);
+    if (m == 0) return;
+    p = o + 4552;
+    func_800B7130(p, m, *(s32 *)(o + 4956), 0, 0);
+    func_800148F8(p, D_80065B00);
+    func_800AD890(p, 1);
+    *(float *)(*(u8 **)(*(u8 **)(p + 208) + 8) + 40) = 32.767f;
+    func_800ADC54(p, 1);
+    func_800AC37C(p, o);
+    func_800ADC38(p);
+    *(s32 *)(p + 192) = (*(s32 *)(p + 192) & ~0x600) | 0x2000000;
+    func_80082764(o, i);
+}

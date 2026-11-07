@@ -1,0 +1,2 @@
+0x103e50	0x1dc	src/overlays/event_bank_func_80103E50.c	--symbol=D_800F13F0:0x800F13F0 --symbol=D_800FC270:0x800FC270 --symbol=func_8007B024:0x8007B024 --symbol=func_8007B144:0x8007B144 --symbol=func_8007B3C8:0x8007B3C8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	44d200a476df03ed7dbd98fe0453c66de529474978ca1d5c11c8fb22509cd561
+0x10402C	0x208	src/overlays/event_bank_func_8010402C.c	--symbol=func_8007AF84:0x8007AF84 --symbol=func_800B9E9C:0x800B9E9C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	44e0ff1b057f7e375c770b25ebba148a94857073f2a2547ab66a122385dbc67b

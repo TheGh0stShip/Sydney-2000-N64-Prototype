@@ -1,95 +1,79 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D1FFC\n.ent func_800D1FFC\n"
-    "func_800D1FFC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "addiu $2,$17,96\n"
-    "sw $16,16($29)\n"
-    "lui $16,0x800f\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25060($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25056($1)\n"
-    "addiu $16,$16,19712\n"
-    "sw $31,28($29)\n"
-    "sw $0,72($2)\n"
-    "swc1 $f0,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "lw $2,180($17)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "move $4,$17\n"
-    "lw $5,216($16)\n"
-    "li $16,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$16,$5\n"
-    "lui $2,0x8010\n"
-    "sb $16,176($17)\n"
-    "lw $3,-13500($2)\n"
-    "lbu $2,424($18)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25052($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25048($1)\n"
-    "lw $3,8($3)\n"
-    "sll $2,$2,0x4\n"
-    "addu $2,$2,$3\n"
-    "lw $2,92($2)\n"
-    "sw $2,840($17)\n"
-    "addiu $2,$17,740\n"
-    "swc1 $f0,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "sw $0,72($2)\n"
-    "lbu $5,425($18)\n"
-    "jal func_800CE6C4\n"
-    "addiu $4,$17,2776\n"
-    "move $4,$0\n"
-    "addiu $2,$17,308\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25044($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25040($1)\n"
-    "lui $6,0x8010\n"
-    "sw $0,72($2)\n"
-    "swc1 $f0,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "lbu $3,424($18)\n"
-    "lui $5,0x8010\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addiu $2,$2,20\n"
-    "addu $3,$3,$2\n"
-    "jal func_800B31EC\n"
-    "sw $3,10388($6)\n"
-    "addiu $16,$17,424\n"
-    "move $4,$16\n"
-    "lui $5,0x800f\n"
-    "jal func_800B360C\n"
-    "addiu $5,$5,19328\n"
-    "move $4,$16\n"
-    "jal func_800B2158\n"
-    "move $5,$0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25036($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25032($1)\n"
-    "addiu $17,$17,952\n"
-    "sw $0,72($17)\n"
-    "swc1 $f0,64($17)\n"
-    "swc1 $f2,68($17)\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800D1FFC\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(void *, void *); } VEnt;
+typedef struct { char p[0x40]; float a, b, c; } Sub;
+typedef struct { int a, b, c, d; } E16;
+typedef struct { char p[0x50]; E16 e[1]; } Tab;
+typedef struct { char p[8]; Tab *t; } Root;
+typedef struct { char p[60]; } E60;
+typedef struct { char p[20]; E60 e[1]; } G;
+typedef struct { char p[0xD8]; int sh; } Cfg;
+typedef struct {
+    char p0[0x60];
+    Sub s96;
+    char p1[0xB0 - 0xAC];
+    unsigned char b176;
+    char p2[3];
+    VEnt *vt;
+    char p3[0x134 - 0xB8];
+    Sub s308;
+    char p4[0x1A8 - 0x180];
+    char s424[0x2E4 - 0x1A8];
+    Sub s740;
+    char p5[0x348 - 0x330];
+    int f840;
+    char p6[0x3B8 - 0x34C];
+    Sub s952;
+    char p7[0xAD8 - 0x404];
+    char s2776[1];
+} Obj;
+typedef struct { char p[0x1A8]; unsigned char b424, b425; } P;
+
+extern Cfg D_800F4D00;
+extern Root *D_800FCB44;
+extern G *D_800FC270;
+extern E60 *D_80102894;
+extern char D_800F4B80[];
+extern void func_800ADC54(void *, int);
+extern void func_800CE6C4(void *, int);
+extern void func_800B31EC(int);
+extern void func_800B360C(void *, void *);
+extern void func_800B2158(void *, int);
+
+void func_800D1FFC(Obj *o, P *p)
+{
+    Cfg *c;
+
+    {
+        Sub *s = &o->s96;
+        s->c = 0.0f;
+        s->a = 376.0f;
+        s->b = 200.0f;
+    }
+    c = &D_800F4D00;
+    o->vt[2].fn((char *)o + o->vt[2].adj, c);
+    func_800ADC54(o, 1 << c->sh);
+    o->b176 = 1;
+    o->f840 = (D_800FCB44->t->e + p->b424)->d;
+    {
+        Sub *s = &o->s740;
+        s->a = 117.0f;
+        s->b = 4.0f;
+        s->c = 0.0f;
+    }
+    func_800CE6C4(o->s2776, p->b425);
+    {
+        Sub *s = &o->s308;
+        s->c = 0.0f;
+        s->a = 197.0f;
+        s->b = 2.0f;
+    }
+    D_80102894 = &D_800FC270->e[p->b424];
+    func_800B31EC(0);
+    func_800B360C(o->s424, D_800F4B80);
+    func_800B2158(o->s424, 0);
+    {
+        Sub *s = &o->s952;
+        s->c = 0.0f;
+        s->a = 64.0f;
+        s->b = 3.0f;
+    }
+}

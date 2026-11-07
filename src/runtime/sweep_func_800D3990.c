@@ -1,129 +1,76 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D3990\n.ent func_800D3990\n"
-    "func_800D3990:\n"
-    "addiu $29,$29,-48\n"
-    "sw $21,36($29)\n"
-    "move $21,$4\n"
-    "sw $31,40($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,180($21)\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$21,$4\n"
-    "addiu $20,$21,1156\n"
-    "jal func_800ADC1C\n"
-    "move $4,$20\n"
-    "addiu $16,$21,212\n"
-    "jal func_800D6EA0\n"
-    "move $4,$16\n"
-    "addiu $17,$21,448\n"
-    "jal func_800D6EA0\n"
-    "move $4,$17\n"
-    "addiu $18,$21,684\n"
-    "jal func_800D6EA0\n"
-    "move $4,$18\n"
-    "addiu $19,$21,920\n"
-    "jal func_800D6EA0\n"
-    "move $4,$19\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $0,176($16)\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "sb $0,176($17)\n"
-    "lw $2,180($18)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$18,$4\n"
-    "sb $0,176($18)\n"
-    "lw $2,180($19)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$19,$4\n"
-    "sb $0,176($19)\n"
-    "lw $2,180($20)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$20,$4\n"
-    "sb $0,176($20)\n"
-    "lw $2,180($21)\n"
-    "move $18,$0\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$21,$4\n"
-    "sb $0,176($21)\n"
-    "L_800D3A98:\n"
-    "andi $17,$18,0xff\n"
-    "sltiu $2,$17,4\n"
-    "beqz $2,L_800D3B24\n"
-    "sll $4,$17,0x1\n"
-    "addu $4,$4,$17\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$17\n"
-    "sll $4,$4,0x2\n"
-    "addu $4,$4,$17\n"
-    "sll $4,$4,0x2\n"
-    "addu $16,$4,$21\n"
-    "addiu $16,$16,1368\n"
-    "addiu $4,$4,1368\n"
-    "lw $2,180($16)\n"
-    "addu $4,$21,$4\n"
-    "lh $3,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$4,$3\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sll $4,$17,0x2\n"
-    "addu $2,$21,$4\n"
-    "sb $0,176($16)\n"
-    "lw $2,2224($2)\n"
-    "beql $2,$0,L_800D3A98\n"
-    "addiu $18,$18,1\n"
-    "addiu $4,$4,2224\n"
-    "jal func_8001A248\n"
-    "addu $4,$21,$4\n"
-    "j L_800D3A98\n"
-    "addiu $18,$18,1\n"
-    "L_800D3B24:\n"
-    "lw $2,2220($21)\n"
-    "beqz $2,L_800D3B38\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$21,2220\n"
-    "L_800D3B38:\n"
-    "lw $2,2216($21)\n"
-    "beqz $2,L_800D3B4C\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$21,2216\n"
-    "L_800D3B4C:\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800D3990\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(); } VEnt;
+typedef struct { char pad[0xB0]; unsigned char act; char padb1[3]; VEnt *vt; char rest[212 - 0xB8]; } Sub;
+typedef struct {
+    char pad0[0xB0];
+    unsigned char act;
+    char padb1[3];
+    VEnt *vt;
+    char padb8[0xD4 - 0xB8];
+    Sub w0;
+    char pad1a8[0x1C0 - 0x1A8];
+    Sub w1;
+    char pad294[0x2AC - 0x294];
+    Sub w2;
+    char pad380[0x398 - 0x380];
+    Sub w3;
+    char pad46c[0x484 - 0x46C];
+    Sub panel;
+    Sub cars[4];
+    char pad8a8[0x8A8 - 0x8A8];
+    int snd2;
+    int snd1;
+    int snd[4];
+} Hud;
+
+extern void func_800ADC1C(Sub *s);
+extern void func_800D6EA0(Sub *s);
+extern void func_8001A248(int *h);
+
+static inline void off(Sub *u)
+{
+    u->vt[3].fn((char *)u + u->vt[3].adj);
+    u->act = 0;
+}
+
+static inline void car_off(Sub *u, char *self)
+{
+    u->vt[9].fn(self + u->vt[9].adj);
+    u->vt[3].fn((char *)u + u->vt[3].adj);
+    u->act = 0;
+}
+
+void func_800D3990(Hud *h)
+{
+    unsigned char i;
+    int ofs;
+
+    h->vt[9].fn((char *)h + h->vt[9].adj);
+    func_800ADC1C(&h->panel);
+    func_800D6EA0(&h->w0);
+    func_800D6EA0(&h->w1);
+    func_800D6EA0(&h->w2);
+    func_800D6EA0(&h->w3);
+    off(&h->w0);
+    off(&h->w1);
+    off(&h->w2);
+    off(&h->w3);
+    off(&h->panel);
+    h->vt[3].fn((char *)h + h->vt[3].adj);
+    h->act = 0;
+    i = 0;
+    while (1) {
+        if (i >= 4) break;
+        ofs = i * sizeof(Sub) + 0x558;
+        car_off(&h->cars[i], (char *)h + ofs);
+        if (h->snd[i] != 0) {
+            func_8001A248(&h->snd[i]);
+        }
+        i++;
+    }
+    if (h->snd1 != 0) {
+        func_8001A248(&h->snd1);
+    }
+    if (h->snd2 != 0) {
+        func_8001A248(&h->snd2);
+    }
+}

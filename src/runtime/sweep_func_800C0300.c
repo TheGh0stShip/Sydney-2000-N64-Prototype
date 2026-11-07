@@ -1,128 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C0300\n.ent func_800C0300\n"
-    "func_800C0300:\n"
-    "addiu $29,$29,-80\n"
-    "sdc1 $f20,56($29)\n"
-    "mtc1 $0,$f20\n"
-    "sdc1 $f24,72($29)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f24,-32128($1)\n"
-    "sw $22,48($29)\n"
-    "move $22,$4\n"
-    "sw $19,36($29)\n"
-    "move $19,$0\n"
-    "sdc1 $f22,64($29)\n"
-    "lui $1,0x8009\n"
-    "ldc1 $f22,-32120($1)\n"
-    "lui $2,0x800f\n"
-    "sw $21,44($29)\n"
-    "addiu $21,$2,16464\n"
-    "sw $20,40($29)\n"
-    "li $20,188\n"
-    "sw $18,32($29)\n"
-    "move $18,$22\n"
-    "sw $31,52($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "L_800C035C:\n"
-    "sltiu $2,$19,4\n"
-    "beqz $2,L_800C04A8\n"
-    "addu $17,$22,$20\n"
-    "addiu $16,$17,196\n"
-    "sw $0,384($18)\n"
-    "lw $5,0($21)\n"
-    "jal func_80019680\n"
-    "move $4,$16\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "lui $7,0x4396\n"
-    "ori $7,$7,0x8000\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-32112($1)\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "mfc1 $7,$f24\n"
-    "move $4,$16\n"
-    "swc1 $f24,16($29)\n"
-    "jal func_8001A210\n"
-    "sw $0,20($29)\n"
-    "move $4,$16\n"
-    "lui $5,0xc8ff\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0xffff\n"
-    "move $4,$16\n"
-    "jal func_8001A3AC\n"
-    "li $5,32512\n"
-    "lui $2,0x800f\n"
-    "lw $2,25584($2)\n"
-    "move $4,$17\n"
-    "lw $2,216($2)\n"
-    "li $5,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$5,$2\n"
-    "addiu $3,$18,188\n"
-    "lw $2,192($3)\n"
-    "lw $5,180($3)\n"
-    "lui $4,0x2\n"
-    "sb $0,201($3)\n"
-    "or $2,$2,$4\n"
-    "sw $2,192($3)\n"
-    "lh $4,64($5)\n"
-    "lw $2,68($5)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "andi $4,$19,0x1\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "mtc1 $2,$f2\n"
-    "cvt.d.w $f2,$f2\n"
-    "bltzl $2,L_800C044C\n"
-    "add.d $f2,$f2,$f22\n"
-    "L_800C044C:\n"
-    "andi $3,$19,0x2\n"
-    "srl $3,$3,0x1\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x1\n"
-    "addiu $2,$2,34\n"
-    "mtc1 $2,$f0\n"
-    "cvt.d.w $f0,$f0\n"
-    "bgez $2,L_800C0480\n"
-    "cvt.s.d $f2,$f2\n"
-    "add.d $f0,$f0,$f22\n"
-    "L_800C0480:\n"
-    "addiu $21,$21,4\n"
-    "addiu $20,$20,212\n"
-    "addiu $2,$18,272\n"
-    "swc1 $f2,272($18)\n"
-    "addiu $18,$18,212\n"
-    "addiu $19,$19,1\n"
-    "cvt.s.d $f0,$f0\n"
-    "swc1 $f0,4($2)\n"
-    "j L_800C035C\n"
-    "swc1 $f20,8($2)\n"
-    "L_800C04A8:\n"
-    "lw $31,52($29)\n"
-    "lw $22,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f24,72($29)\n"
-    "ldc1 $f22,64($29)\n"
-    "ldc1 $f20,56($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_800C0300\n.set at\n.set reorder\n");
+typedef struct { short adj; short pad; void (*fn)(void *); } VEnt;
+typedef struct { float x, y, z; } Vec;
+typedef struct {
+    char p0[0x54];
+    Vec pos;
+    char p1[0xB4 - 0x60];
+    VEnt *vt;
+    char p2[0xC0 - 0xB4 - 4];
+    int flags;
+    int s;
+    char p3;
+    unsigned char b;
+    char p4[212 - 0xCA];
+} A212;
+typedef struct { char p0[0xBC]; A212 e[4]; } Obj;
+typedef struct { char p0[0xD8]; int sh; } Cfg;
+
+extern int D_800F4050[];
+extern Cfg *D_800F63F0;
+extern void func_80019680(void *, int);
+extern void func_8001A1D8(void *, float, float, float, float);
+extern void func_8001A210(void *, float, float, float, float, int);
+extern void func_800191E0(void *, int);
+extern void func_8001A3AC(void *, int);
+extern void func_800ADC54(void *, int);
+
+static inline void show(A212 *q, A212 *e)
+{
+    q->b = 0;
+    q->flags |= 0x20000;
+    q->vt[8].fn((char *)e + q->vt[8].adj);
+}
+
+static inline void vset(Vec *v, float x, float y, float z)
+{
+    v->x = x;
+    v->y = y;
+    v->z = z;
+}
+
+void func_800C0300(Obj *o)
+{
+    unsigned int i;
+
+    i = 0;
+    while (1) {
+        A212 *e;
+        void *s;
+        if (!(i < 4)) {
+            break;
+        }
+        o->e[i].s = 0;
+        e = &o->e[i];
+        s = &e->s;
+        func_80019680(s, D_800F4050[i]);
+        func_8001A1D8(s, 0.0f, 0.0f, 301.0f, 82.0f);
+        func_8001A210(s, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+        func_800191E0(s, 0xC8FFFFFF);
+        func_8001A3AC(s, 0x7F00);
+        func_800ADC54(e, 1 << D_800F63F0->sh);
+        show(&o->e[i], e);
+        vset(&o->e[i].pos, (i & 1) * 301, ((i & 2) >> 1) * 82 + 34, 0.0f);
+        i++;
+    }
+}

@@ -1,119 +1,46 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CA354\n.ent func_800CA354\n"
-    "func_800CA354:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $4,4596($16)\n"
-    "beqz $4,L_800CA37C\n"
-    "nop\n"
-    "jal func_800BB8C0\n"
-    "nop\n"
-    "swc1 $f0,4592($16)\n"
-    "L_800CA37C:\n"
-    "lwc1 $f0,4592($16)\n"
-    "lwc1 $f2,4588($16)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800CA394\n"
-    "swc1 $f2,4592($16)\n"
-    "L_800CA394:\n"
-    "lwc1 $f2,4588($16)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-27200($1)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800CA3BC\n"
-    "nop\n"
-    "lwc1 $f0,4592($16)\n"
-    "j L_800CA3C0\n"
-    "div.s $f0,$f0,$f2\n"
-    "L_800CA3BC:\n"
-    "lwc1 $f0,4592($16)\n"
-    "L_800CA3C0:\n"
-    "swc1 $f0,4600($16)\n"
-    "lwc1 $f0,4600($16)\n"
-    "mtc1 $0,$f2\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1tl L_800CA3DC\n"
-    "swc1 $f2,4600($16)\n"
-    "L_800CA3DC:\n"
-    "lwc1 $f0,4600($16)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-27196($1)\n"
-    "mul.s $f2,$f0,$f2\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-27192($1)\n"
-    "lwc1 $f0,4604($16)\n"
-    "c.le.s $f4,$f2\n"
-    "nop\n"
-    "bc1t L_800CA418\n"
-    "swc1 $f0,4608($16)\n"
-    "trunc.w.s $f6,$f2\n"
-    "mfc1 $3,$f6\n"
-    "j L_800CA430\n"
-    "move $5,$0\n"
-    "L_800CA418:\n"
-    "sub.s $f0,$f2,$f4\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $3,$f6\n"
-    "or $3,$3,$2\n"
-    "move $5,$0\n"
-    "L_800CA430:\n"
-    "move $6,$3\n"
-    "andi $4,$6,0xff\n"
-    "beql $4,$0,L_800CA48C\n"
-    "move $5,$6\n"
-    "andi $3,$5,0xff\n"
-    "L_800CA444:\n"
-    "addiu $5,$5,1\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$16,$3\n"
-    "lw $3,4508($3)\n"
-    "addu $2,$16,$2\n"
-    "sw $3,384($2)\n"
-    "andi $2,$5,0xff\n"
-    "sltu $2,$2,$4\n"
-    "bnez $2,L_800CA444\n"
-    "andi $3,$5,0xff\n"
-    "move $5,$6\n"
-    "L_800CA48C:\n"
-    "andi $4,$5,0xff\n"
-    "sltiu $2,$4,20\n"
-    "beqz $2,L_800CA4E0\n"
-    "nop\n"
-    "addiu $5,$5,1\n"
-    "L_800CA4A0:\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$4,0x2\n"
-    "andi $4,$5,0xff\n"
-    "sll $2,$2,0x2\n"
-    "addu $3,$16,$3\n"
-    "lw $3,4428($3)\n"
-    "addu $2,$16,$2\n"
-    "sw $3,384($2)\n"
-    "sltiu $2,$4,20\n"
-    "bnel $2,$0,L_800CA4A0\n"
-    "addiu $5,$5,1\n"
-    "L_800CA4E0:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800CA354\n.set at\n.set reorder\n");
+typedef struct { int ptr; char pad[212 - 4]; } Slot;
+typedef struct {
+    char pad0[0x114C];
+    int lo[20];
+    int hi[20];
+    float max;
+    float cur;
+    int src;
+    float ratio;
+    float a;
+    float b;
+} Meter;
+
+extern float func_800BB8C0(int src);
+
+typedef struct { char pad[0x180]; Slot s[20]; } SlotHdr;
+#define SLOTS(m) (((SlotHdr *)(m))->s)
+
+void func_800CA354(Meter *m)
+{
+    unsigned char i;
+    unsigned char n;
+
+    if (m->src) {
+        m->cur = func_800BB8C0(m->src);
+    }
+    if (m->cur > m->max) {
+        m->cur = m->max;
+    }
+    if (m->max != 1.0f) {
+        m->ratio = m->cur / m->max;
+    } else {
+        m->ratio = m->cur;
+    }
+    if (m->ratio < 0.0f) {
+        m->ratio = 0.0f;
+    }
+    m->b = m->a;
+    n = m->ratio * 20.0f;
+    for (i = 0; i < n; i++) {
+        SLOTS(m)[i].ptr = m->hi[i];
+    }
+    for (i = n; i < 20; i++) {
+        SLOTS(m)[i].ptr = m->lo[i];
+    }
+}

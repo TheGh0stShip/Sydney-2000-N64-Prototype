@@ -1,53 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A7BB4\n.ent func_800A7BB4\n"
-    "func_800A7BB4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $4,12212($16)\n"
-    "lbu $5,425($4)\n"
-    "sw $0,31912($16)\n"
-    "lbu $3,426($4)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800A7C00\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800A7C04\n"
-    "li $3,31\n"
-    "lbu $5,424($4)\n"
-    "j func_80076C08\n"
-    "move $3,$0\n"
-    "L_800A7C00:\n"
-    "li $3,31\n"
-    "L_800A7C04:\n"
-    "andi $5,$5,0xff\n"
-    "lbu $2,31919($16)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A7C34\n"
-    "addu $5,$5,$3\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "lui $7,0x1\n"
-    "ori $7,$7,0x2c00\n"
-    "jal func_800C0110\n"
-    "li $6,15360\n"
-    "L_800A7C34:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800A7C54\n"
-    "nop\n"
-    "jal func_80075838\n"
-    "move $4,$16\n"
-    "L_800A7C54:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A7BB4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+
+extern u8 *D_800FC270;
+extern char D_800F3BC0[];
+
+extern void func_800C0110(char *a, s32 b, s32 c, s32 d);
+extern void func_80075838(u8 *a);
+
+void func_80076BB4(u8 *p)
+{
+    u8 *o;
+    u8 a;
+    s32 x;
+    s32 base;
+    s32 r;
+
+    o = *(u8 **)(p + 12212);
+    a = o[0x1A9];
+    *(s32 *)(p + 31912) = 0;
+    if (o[0x1AA] != 3 && *(s32 *)(D_800FC270 + 0xA00) == 5) {
+        base = 0;
+        x = o[0x1A8];
+    } else {
+        base = 31;
+        x = a;
+    }
+    r = x + base;
+    if (p[31919] != 3 && p[31919] != 4) {
+        func_800C0110(D_800F3BC0, r, 15360, 0x12C00);
+    }
+    if (*(s32 *)(D_800FC270 + 0xA00) == 4) {
+        func_80075838(p);
+    }
+}

@@ -15,6 +15,7 @@ import hashlib
 import importlib.util
 import json
 from pathlib import Path
+import re
 import shlex
 import tempfile
 
@@ -416,7 +417,13 @@ def build_one(unit: Unit, record, project: Path, cfg, work: Path):
         raise ValueError(f'{unit.key}: emitted section set changed')
     owned = {section['name']: section['owned_size'] for section in record['sections']}
     for section in discarded:
-        if owned_references(elf, section['name'], owned):
+        # Some overlay text refers to a literal pool physically stored in a
+        # different load image. Discovery verifies that pool byte-for-byte and
+        # records its independent typed-data owner; retain its placement for
+        # relocation without making this overlay a second physical owner.
+        cross_segment = section.get('reason') == (
+            'verified cross-segment section; physically owned by typed data')
+        if owned_references(elf, section['name'], owned) and not cross_segment:
             raise ValueError(f'{unit.key}: discarded section is referenced by owned output')
         emitted = elf.section(section['name'])
         if len(emitted.data) != section['emitted_size'] or digest(emitted.data) != section['unrelocated_sha256']:
@@ -576,6 +583,10 @@ def main() -> None:
             'matching_delta_7ffc0e30_sn.tsv': ('sn', [], 0x7FFC0E30),
             'matching_delta_800004f0_sn.tsv': ('sn', [], 0x800004F0),
         }
+    for manifest in (ROOT / MANIFEST_DIR).glob('matching_delta_*_sn.tsv'):
+        match = re.fullmatch(r'matching_delta_([0-9a-fA-F]{8})_sn\.tsv', manifest.name)
+        if match:
+            PROFILES[manifest.name] = ('sn', [], int(match.group(1), 16))
     plans = {'resident': 'config/link_units.json',
              'runtime': 'config/runtime_link_units.json',
              'ceremony': 'config/overlay_link_units.json',

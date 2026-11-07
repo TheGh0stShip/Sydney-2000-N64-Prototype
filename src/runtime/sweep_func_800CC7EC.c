@@ -1,118 +1,59 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CC7EC\n.ent func_800CC7EC\n"
-    "func_800CC7EC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,452($18)\n"
-    "bnez $2,L_800CC97C\n"
-    "addiu $16,$18,212\n"
-    "jal func_8001A154\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "jal func_8001A148\n"
-    "move $20,$2\n"
-    "lwc1 $f0,456($18)\n"
-    "lwc1 $f2,464($18)\n"
-    "mov.s $f4,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "lwc1 $f0,460($18)\n"
-    "add.s $f4,$f4,$f0\n"
-    "swc1 $f2,464($18)\n"
-    "mov.s $f0,$f2\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-26500($1)\n"
-    "move $19,$2\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800CC874\n"
-    "swc1 $f4,456($18)\n"
-    "neg.s $f0,$f4\n"
-    "swc1 $f0,456($18)\n"
-    "swc1 $f2,464($18)\n"
-    "L_800CC874:\n"
-    "lwc1 $f0,464($18)\n"
-    "mtc1 $0,$f2\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800CC894\n"
-    "nop\n"
-    "swc1 $f2,456($18)\n"
-    "swc1 $f2,464($18)\n"
-    "L_800CC894:\n"
-    "lwc1 $f6,464($18)\n"
-    "lwc1 $f0,232($18)\n"
-    "mul.s $f6,$f6,$f0\n"
-    "lwc1 $f4,464($18)\n"
-    "lwc1 $f0,236($18)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lwc1 $f0,464($18)\n"
-    "add.s $f0,$f0,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-26496($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f8,-26492($1)\n"
-    "div.s $f0,$f0,$f2\n"
-    "c.le.s $f8,$f0\n"
-    "swc1 $f6,224($18)\n"
-    "bc1t L_800CC8E8\n"
-    "swc1 $f4,228($18)\n"
-    "trunc.w.s $f10,$f0\n"
-    "mfc1 $4,$f10\n"
-    "j L_800CC900\n"
-    "lui $3,0x51eb\n"
-    "L_800CC8E8:\n"
-    "sub.s $f0,$f0,$f8\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f10,$f0\n"
-    "mfc1 $4,$f10\n"
-    "or $4,$4,$2\n"
-    "lui $3,0x51eb\n"
-    "L_800CC900:\n"
-    "ori $3,$3,0x851f\n"
-    "sll $2,$4,0xf\n"
-    "subu $2,$2,$4\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "multu $2,$3\n"
-    "move $4,$16\n"
-    "li $5,203\n"
-    "move $6,$0\n"
-    "li $7,-1\n"
-    "mfhi $3\n"
-    "jal func_8001D4B8\n"
-    "srl $17,$3,0x5\n"
-    "lw $3,104($16)\n"
-    "mult $17,$3\n"
-    "move $4,$16\n"
-    "move $16,$2\n"
-    "move $5,$16\n"
-    "mflo $3\n"
-    "jal func_8001D640\n"
-    "sra $6,$3,0xf\n"
-    "sw $16,468($18)\n"
-    "addiu $16,$18,212\n"
-    "lw $5,224($18)\n"
-    "lw $6,12($20)\n"
-    "jal func_8001A188\n"
-    "move $4,$16\n"
-    "lw $5,228($18)\n"
-    "lw $6,12($19)\n"
-    "jal func_8001A1B0\n"
-    "move $4,$16\n"
-    "L_800CC97C:\n"
-    "lw $31,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800CC7EC\n.set at\n.set reorder\n");
+typedef struct { char pad[0xC]; float v; } Axis;
+typedef struct { char pad[0x68]; int vol; } Snd;
+typedef struct {
+    char pad0[0xD4];
+    char ctl[0xE0 - 0xD4];
+    float outx;
+    float outy;
+    float kx;
+    float ky;
+    char padf0[0x1C4 - 0xF0];
+    unsigned char off;
+    char pad1c5[3];
+    float vel;
+    float acc;
+    float pos;
+    int handle;
+} Throttle;
+
+extern Snd D_800F1AE0;
+extern Axis *func_8001A154(char *c);
+extern Axis *func_8001A148(char *c);
+extern int func_8001D4B8(Snd *s, int id, int a, int b);
+extern void func_8001D640(Snd *s, int h, int vol);
+extern void func_8001A188(char *c, float v, float w);
+extern void func_8001A1B0(char *c, float v, float w);
+
+void func_800CC7EC(Throttle *t)
+{
+    Axis *ax;
+    Axis *ay;
+    unsigned int n;
+    int vol;
+    int h;
+
+    if (t->off) {
+        return;
+    }
+    ax = func_8001A154(t->ctl);
+    ay = func_8001A148(t->ctl);
+    t->pos += t->vel;
+    t->vel += t->acc;
+    if (t->pos > 1000.0f) {
+        t->vel = -t->vel;
+        t->pos = 1000.0f;
+    }
+    if (t->pos < 0.0f) {
+        t->vel = 0.0f;
+        t->pos = 0.0f;
+    }
+    t->outx = t->pos * t->kx;
+    t->outy = t->pos * t->ky;
+    n = (t->pos + t->pos) / 100.0f;
+    vol = (n * 32767) / 100;
+    h = func_8001D4B8(&D_800F1AE0, 203, 0, -1);
+    func_8001D640(&D_800F1AE0, h, (vol * D_800F1AE0.vol) >> 15);
+    t->handle = h;
+    func_8001A188(t->ctl, t->outx, ax->v);
+    func_8001A1B0(t->ctl, t->outy, ay->v);
+}

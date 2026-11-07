@@ -1,131 +1,71 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E1484\n.ent func_800E1484\n"
-    "func_800E1484:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "addiu $4,$16,12884\n"
-    "li $5,1\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lb $6,1550($16)\n"
-    "jal func_8009B80C\n"
-    "li $7,2\n"
-    "lbu $2,1557($16)\n"
-    "li $7,4\n"
-    "beq $2,$7,L_800E1630\n"
-    "li $5,-1\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $4,2560($2)\n"
-    "li $6,5\n"
-    "bne $4,$6,L_800E14E8\n"
-    "move $17,$5\n"
-    "lbu $2,1550($16)\n"
-    "beql $2,$0,L_800E1570\n"
-    "li $5,48\n"
-    "j func_80075B84\n"
-    "li $2,-1\n"
-    "L_800E14E8:\n"
-    "lw $3,2564($2)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800E1528\n"
-    "li $2,2\n"
-    "bnez $4,L_800E1508\n"
-    "nop\n"
-    "j func_80075B80\n"
-    "li $5,331\n"
-    "L_800E1508:\n"
-    "bne $4,$3,L_800E1518\n"
-    "li $2,2\n"
-    "j func_80075B80\n"
-    "li $5,333\n"
-    "L_800E1518:\n"
-    "beql $4,$2,L_800E1570\n"
-    "li $5,335\n"
-    "j func_80075B84\n"
-    "li $2,-1\n"
-    "L_800E1528:\n"
-    "bne $3,$2,L_800E1548\n"
-    "nop\n"
-    "lbu $2,1550($16)\n"
-    "beql $2,$0,L_800E1540\n"
-    "li $5,338\n"
-    "lbu $2,1550($16)\n"
-    "L_800E1540:\n"
-    "j func_80075B80\n"
-    "addiu $17,$2,342\n"
-    "L_800E1548:\n"
-    "bne $3,$7,L_800E1560\n"
-    "nop\n"
-    "lbu $2,1550($16)\n"
-    "addiu $5,$2,339\n"
-    "j func_80075B80\n"
-    "addiu $17,$2,346\n"
-    "L_800E1560:\n"
-    "bne $3,$6,L_800E1574\n"
-    "li $2,-1\n"
-    "li $5,337\n"
-    "li $17,341\n"
-    "L_800E1570:\n"
-    "li $2,-1\n"
-    "L_800E1574:\n"
-    "beq $5,$2,L_800E15F4\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E15AC\n"
-    "li $2,1\n"
-    "lw $3,25320($16)\n"
-    "bne $3,$2,L_800E15B0\n"
-    "lui $2,0x8010\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E15AC:\n"
-    "lui $2,0x8010\n"
-    "L_800E15B0:\n"
-    "lw $4,-15760($2)\n"
-    "lw $3,2560($4)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800E15F8\n"
-    "li $2,-1\n"
-    "lw $2,2564($4)\n"
-    "beqz $2,L_800E15F4\n"
-    "li $2,1\n"
-    "lw $3,25320($16)\n"
-    "bne $3,$2,L_800E15F8\n"
-    "li $2,-1\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,239\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E15F4:\n"
-    "li $2,-1\n"
-    "L_800E15F8:\n"
-    "beq $17,$2,L_800E1630\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800E1630\n"
-    "li $2,1\n"
-    "lw $3,25320($16)\n"
-    "bne $3,$2,L_800E1630\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$17\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800E1630:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E1484\n.set at\n.set reorder\n");
+typedef signed char s8;
+typedef unsigned char u8;
+typedef int s32;
+
+typedef struct {
+    char pad0[0xA00];
+    s32 mode;
+    s32 sub;
+} Game;
+
+extern Game *D_800FC270;
+extern u8 D_800F3BC0[];
+extern void func_8009B80C(void *, s32, s32, s32);
+extern void func_800C0110(void *, s32, s32, s32);
+
+#define LVL(o) ((o)[1550])
+#define STATE(o) (*(s32 *)((o) + 25320))
+
+void func_80075A94(u8 *o)
+{
+    s32 a;
+    s32 b;
+    s32 mode;
+    s32 sub;
+
+    func_8009B80C(o + 12884, 1, (s8)LVL(o), 2);
+    if (o[1557] == 4) {
+        return;
+    }
+    a = -1;
+    b = -1;
+    mode = D_800FC270->mode;
+    if (mode == 5) {
+        if (LVL(o) == 0) {
+            a = 48;
+        }
+    } else {
+        sub = D_800FC270->sub;
+        if (sub == 1) {
+            if (mode == 0) {
+                a = 331;
+            } else if (mode == sub) {
+                a = 333;
+            } else if (mode == 2) {
+                a = 335;
+            }
+        } else if (sub == 2) {
+            if (LVL(o) == 0) {
+                a = 338;
+            }
+            b = LVL(o) + 342;
+        } else if (sub == 4) {
+            a = LVL(o) + 339;
+            b = LVL(o) + 346;
+        } else if (sub == 5) {
+            a = 337;
+            b = 341;
+        }
+    }
+    if (a != -1) {
+        if (D_800FC270->sub != 0 && STATE(o) == 1) {
+            func_800C0110(D_800F3BC0, a, 0, 0);
+        }
+        if (D_800FC270->mode == 4 && D_800FC270->sub != 0 && STATE(o) == 1) {
+            func_800C0110(D_800F3BC0, 239, 0, 0);
+        }
+    }
+    if (b != -1 && D_800FC270->sub != 0 && STATE(o) == 1) {
+        func_800C0110(D_800F3BC0, b, 0, 0);
+    }
+}

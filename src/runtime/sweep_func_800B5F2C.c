@@ -1,96 +1,54 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B5F2C\n.ent func_800B5F2C\n"
-    "func_800B5F2C:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B5F70\n"
-    "move $16,$4\n"
-    "addiu $2,$16,20\n"
-    "lwc1 $f0,4($17)\n"
-    "addiu $3,$17,4\n"
-    "swc1 $f0,64($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "swc1 $f0,68($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,72($2)\n"
-    "L_800B5F70:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x2\n"
-    "beqz $2,L_800B5F9C\n"
-    "addiu $3,$17,16\n"
-    "lwc1 $f0,16($17)\n"
-    "swc1 $f0,376($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$16,376\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,8($2)\n"
-    "L_800B5F9C:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x20\n"
-    "beqz $2,L_800B6004\n"
-    "addiu $4,$16,204\n"
-    "addiu $5,$17,48\n"
-    "jal func_800B3870\n"
-    "li $6,32\n"
-    "lw $2,232($16)\n"
-    "beql $2,$0,L_800B5FC4\n"
-    "sw $0,188($16)\n"
-    "L_800B5FC4:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10028\n"
-    "lw $2,232($16)\n"
-    "lw $3,24($4)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,232($16)\n"
-    "lw $2,224($16)\n"
-    "lw $3,24($4)\n"
-    "lwc1 $f0,204($16)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,224($16)\n"
-    "lw $2,228($16)\n"
-    "lw $3,24($4)\n"
-    "swc1 $f0,200($16)\n"
-    "addu $2,$2,$3\n"
-    "sw $2,228($16)\n"
-    "L_800B6004:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x400\n"
-    "beqz $2,L_800B601C\n"
-    "nop\n"
-    "lhu $2,100($17)\n"
-    "sh $2,196($16)\n"
-    "L_800B601C:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x800\n"
-    "beqz $2,L_800B6034\n"
-    "nop\n"
-    "lwc1 $f0,96($17)\n"
-    "swc1 $f0,252($16)\n"
-    "L_800B6034:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x200\n"
-    "beqz $2,L_800B604C\n"
-    "nop\n"
-    "lwc1 $f0,92($17)\n"
-    "swc1 $f0,244($16)\n"
-    "L_800B604C:\n"
-    "lw $2,0($17)\n"
-    "andi $2,$2,0x100\n"
-    "beqz $2,L_800B6064\n"
-    "nop\n"
-    "lwc1 $f0,88($17)\n"
-    "swc1 $f0,248($16)\n"
-    "L_800B6064:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B5F2C\n.set at\n.set reorder\n");
+typedef unsigned short u16;
+typedef signed int s32;
+typedef float f32;
+typedef struct Vec3 { f32 x, y, z; } Vec3;
+typedef struct Sub { char pad[0x40]; Vec3 pos; } Sub;
+typedef struct Src {
+    s32 flags;
+    Vec3 a;
+    Vec3 b;
+    char pad1C[0x14];
+    char blk[0x28];
+    f32 f58;
+    f32 f5C;
+    f32 f60;
+    u16 h64;
+} Src;
+typedef struct G { char pad[0x18]; s32 x18; } G;
+extern G D_800F272C;
+extern void func_800B3870(void *dst, void *src, s32 n);
+static inline void vcpy(Vec3 *d, Vec3 *s)
+{
+    d->x = s->x;
+    d->y = s->y;
+    d->z = s->z;
+}
+static inline void setpos(Sub *s, Vec3 *v)
+{
+    s->pos.x = v->x;
+    s->pos.y = v->y;
+    s->pos.z = v->z;
+}
+void func_800B5F2C(char *o, Src *a)
+{
+    if (a->flags & 1) {
+        setpos((Sub *)(o + 20), &a->a);
+    }
+    if (a->flags & 2) {
+        vcpy((Vec3 *)(o + 376), &a->b);
+    }
+    if (a->flags & 0x20) {
+        func_800B3870(o + 204, a->blk, 32);
+        if (*(s32 *)(o + 232) == 0) {
+            *(s32 *)(o + 188) = 0;
+        }
+        *(s32 *)(o + 232) += D_800F272C.x18;
+        *(s32 *)(o + 224) += D_800F272C.x18;
+        *(s32 *)(o + 228) += D_800F272C.x18;
+        *(f32 *)(o + 200) = *(f32 *)(o + 204);
+    }
+    if (a->flags & 0x400) *(u16 *)(o + 196) = a->h64;
+    if (a->flags & 0x800) *(f32 *)(o + 252) = a->f60;
+    if (a->flags & 0x200) *(f32 *)(o + 244) = a->f5C;
+    if (a->flags & 0x100) *(f32 *)(o + 248) = a->f58;
+}

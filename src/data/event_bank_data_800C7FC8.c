@@ -1,8 +1,8 @@
-/* Initialized overlay/runtime data at ROM 0xC7FC8. */
+/* Initialized data retained at ROM 0xC7FC8. */
 typedef unsigned int u32;
 typedef char check_u32_size[sizeof(u32) == 4 ? 1 : -1];
 
-u32 event_bank_data_800C7FC8[102] __attribute__((section(".data"))) = {
+u32 event_bank_data_800C7FC8[96] __attribute__((section(".data"))) = {
     0x00000000, 0x00000000, 0x00010306, 0x00000000, 0x80070B48, 0x80070B5C, 0x800709B8, 0x80070C0C,
     0x80070BF8, 0x80070C0C, 0x80070AC0, 0x80070C0C, 0x80070C0C, 0x80070C0C, 0x80070C0C, 0x80070C0C,
     0x45F00000, 0x47524150, 0x48494353, 0x5F5F5649, 0x52545541, 0x4C47594D, 0x5F5F5349, 0x54555053,
@@ -15,5 +15,4 @@ u32 event_bank_data_800C7FC8[102] __attribute__((section(".data"))) = {
     0x41F00000, 0x3B800000, 0x41F00000, 0x3B800000, 0x42C80000, 0x40E00000, 0x40600000, 0x00000000,
     0x00000000, 0x00000000, 0x00000000, 0x800717F8, 0x00000000, 0x800AC37C, 0x00000000, 0x800AC334,
     0x00000000, 0x800AC1B8, 0x00000000, 0x800AC178, 0x00000000, 0x80070960, 0x00000000, 0x8007175C,
-    0x3F800000, 0x3F666666, 0x3DCCCCCD, 0x45F00000, 0x45F00000, 0x3F800000,
 };

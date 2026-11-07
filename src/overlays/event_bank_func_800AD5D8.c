@@ -1,68 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AD5D8\n.ent func_800AD5D8\n"
-    "func_800AD5D8:\n"
-    "addiu $29,$29,-48\n"
-    "sw $21,36($29)\n"
-    "move $21,$4\n"
-    "li $2,0x8000\n"
-    "addu $2,$21,$2\n"
-    "li $3,1\n"
-    "addiu $4,$21,13784\n"
-    "sw $31,40($29)\n"
-    "sw $20,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "jal func_80097504\n"
-    "sw $3,312($2)\n"
-    "addiu $16,$21,29928\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "move $20,$0\n"
-    "li $19,30140\n"
-    "move $18,$21\n"
-    "addu $17,$21,$19\n"
-    "L_800AD638:\n"
-    "addiu $19,$19,212\n"
-    "addiu $16,$18,30140\n"
-    "lw $2,180($16)\n"
-    "addiu $18,$18,212\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,180($16)\n"
-    "addiu $20,$20,1\n"
-    "lh $4,72($2)\n"
-    "lw $2,76($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "sltiu $2,$20,3\n"
-    "bnez $2,L_800AD638\n"
-    "addu $17,$21,$19\n"
-    "addiu $16,$21,11708\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800B35F0\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "addiu $16,$21,30992\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800D29E0\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    ".end func_800AD5D8\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef int s32;
+typedef unsigned int u32;
+
+typedef struct VE { s16 off; s16 pad; void (*fn)(); } VE;
+typedef struct VT { u8 pad[24]; VE a; u8 pad2[40]; VE b; } VT;
+typedef struct Obj { u8 pad[180]; VT *vt; u8 pad2[28]; } Obj;
+
+extern void func_80097504(u8 *p);
+extern void func_800AC334(u8 *p);
+extern void func_800ADC1C(u8 *p);
+extern void func_800B35F0(u8 *p);
+extern void func_800D29E0(u8 *p);
+
+static inline u8 *slot(u8 *p, u32 i)
+{
+    return p + (30140 + 212 * i);
+}
+
+static inline Obj *obj(u8 *p, u32 i)
+{
+    return (Obj *)((p + 212 * i) + 30140);
+}
+
+void func_800AD5D8(u8 *p)
+{
+    u32 i;
+
+    *(s32 *)(p + 0x8000 + 312) = 1;
+    func_80097504(p + 13784);
+    func_800AC334(p + 29928);
+    func_800ADC1C(p + 29928);
+    for (i = 0; i < 3; i++) {
+        Obj *o = obj(p, i);
+        o->vt->a.fn(slot(p, i) + o->vt->a.off);
+        o->vt->b.fn(slot(p, i) + o->vt->b.off);
+    }
+    func_800AC334(p + 11708);
+    func_800B35F0(p + 11708);
+    func_800ADC1C(p + 11708);
+    func_800AC334(p + 30992);
+    func_800D29E0(p + 30992);
+    func_800ADC1C(p + 30992);
+}

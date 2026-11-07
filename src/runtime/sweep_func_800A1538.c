@@ -1,81 +1,48 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A1538\n.ent func_800A1538\n"
-    "func_800A1538:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$6\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "sb $5,256($16)\n"
-    "andi $2,$5,0xff\n"
-    "move $18,$7\n"
-    "addiu $3,$2,-3\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_800A15EC\n"
-    "sw $17,264($16)\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,20176\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lw $4,216($16)\n"
-    "lhu $6,484($16)\n"
-    "jal func_80017CF4\n"
-    "move $5,$0\n"
-    "lw $4,212($16)\n"
-    "lhu $6,486($16)\n"
-    "j L_800A15E4\n"
-    "nop\n"
-    "lw $4,216($16)\n"
-    "lhu $6,488($16)\n"
-    "jal func_80017CF4\n"
-    "move $5,$0\n"
-    "lw $4,212($16)\n"
-    "lhu $6,490($16)\n"
-    "j L_800A15E4\n"
-    "nop\n"
-    "lw $4,216($16)\n"
-    "lhu $6,492($16)\n"
-    "jal func_80017CF4\n"
-    "move $5,$0\n"
-    "lw $4,212($16)\n"
-    "lhu $6,494($16)\n"
-    "L_800A15E4:\n"
-    "jal func_80017CF4\n"
-    "move $5,$0\n"
-    "L_800A15EC:\n"
-    "lwc1 $f0,0($17)\n"
-    "addiu $2,$16,20\n"
-    "swc1 $f0,64($2)\n"
-    "lwc1 $f0,4($17)\n"
-    "swc1 $f0,68($2)\n"
-    "lwc1 $f0,8($17)\n"
-    "move $4,$16\n"
-    "jal func_800AD9E8\n"
-    "swc1 $f0,72($2)\n"
-    "addiu $17,$16,272\n"
-    "jal func_800ADC5C\n"
-    "move $4,$17\n"
-    "andi $2,$18,0xff\n"
-    "beqz $2,L_800A1644\n"
-    "sw $0,252($16)\n"
-    "lw $2,180($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "jal func_800ADC38\n"
-    "move $4,$17\n"
-    "L_800A1644:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800A1538\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[64]; Vec pos; } Sub;
+typedef struct { short d; short pad; void (*f)(); } VEnt;
+typedef struct { char pad[64]; VEnt e; } VTab;
+typedef struct {
+    char pad0[20]; Sub sub;
+    char pad1[180 - 96]; VTab *vt;
+    char pad2[212 - 184]; void *a; void *b;
+    char pad3[252 - 220]; int v252; u8 kind; char pad4[264 - 257]; Vec *src; char pad5[272 - 268]; char ctl[484 - 272];
+    u16 t[6];
+} Obj;
+extern void func_80017CF4(void *, int, int);
+extern void func_800AD9E8(Obj *);
+extern void func_800ADC5C(void *);
+extern void func_800ADC38(void *);
+static inline void topos(Vec *a, Sub *s) { s->pos.x = a->x; s->pos.y = a->y; s->pos.z = a->z; }
+void func_800A1538(Obj *o, u8 kind, Vec *p, u8 flag)
+{
+    o->kind = kind;
+    o->src = p;
+    switch (o->kind) {
+    case 6:
+    case 7:
+    case 8:
+        func_80017CF4(o->b, 0, o->t[0]);
+        func_80017CF4(o->a, 0, o->t[1]);
+        break;
+    case 3:
+        func_80017CF4(o->b, 0, o->t[2]);
+        func_80017CF4(o->a, 0, o->t[3]);
+        break;
+    case 4:
+    case 5:
+        func_80017CF4(o->b, 0, o->t[4]);
+        func_80017CF4(o->a, 0, o->t[5]);
+        break;
+    }
+    topos(p, &o->sub);
+    func_800AD9E8(o);
+    func_800ADC5C(o->ctl);
+    o->v252 = 0;
+    if (flag) {
+        o->vt->e.f((char *)o + o->vt->e.d);
+        func_800ADC38(o->ctl);
+    }
+}

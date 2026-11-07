@@ -1,0 +1,1 @@
+0x127024	0x108	src/overlays/event_bank_func_80127024.c	--section-base=.text:0x80083724 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb --section-base=.rdata:0x80081434 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b3fa4a17a5b257fe5e019286867c7efa915384a10e798ab8a916730f625f5fe1

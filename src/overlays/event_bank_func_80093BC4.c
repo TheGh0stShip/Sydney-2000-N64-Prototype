@@ -1,145 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80093BC4\n.ent func_80093BC4\n"
-    "func_80093BC4:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "move $8,$0\n"
-    "beqz $5,L_80093C0C\n"
-    "sw $31,20($29)\n"
-    "lw $3,22988($16)\n"
-    "beql $3,$0,L_80093C04\n"
-    "move $5,$0\n"
-    "lw $2,792($3)\n"
-    "beql $2,$0,L_80093C04\n"
-    "move $5,$0\n"
-    "lw $2,764($3)\n"
-    "bnez $2,L_80093C04\n"
-    "nop\n"
-    "lw $8,29684($16)\n"
-    "L_80093C04:\n"
-    "bnez $5,L_80093DBC\n"
-    "move $4,$16\n"
-    "L_80093C0C:\n"
-    "lb $3,30120($16)\n"
-    "lw $4,29684($16)\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "lw $3,30204($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $5,16($2)\n"
-    "slt $2,$5,$4\n"
-    "bnel $2,$0,L_80093DBC\n"
-    "move $4,$16\n"
-    "lui $3,0x5555\n"
-    "ori $3,$3,0x5556\n"
-    "subu $2,$5,$4\n"
-    "mult $2,$3\n"
-    "sra $2,$2,0x1f\n"
-    "mfhi $9\n"
-    "subu $3,$9,$2\n"
-    "bnel $3,$0,L_80093CB0\n"
-    "li $2,1\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $3,11284($5)\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "j func_80074B00\n"
-    "sltiu $2,$2,25\n"
-    "L_80093CB0:\n"
-    "bnel $3,$2,L_80093D0C\n"
-    "li $2,2\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $3,11284($5)\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "j func_80074B00\n"
-    "sltiu $2,$2,50\n"
-    "L_80093D0C:\n"
-    "bne $3,$2,L_80093D64\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sllv $3,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $3,11284($5)\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "j func_80074B00\n"
-    "sltiu $2,$2,60\n"
-    "L_80093D64:\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,11284($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $3,11284($5)\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "sltiu $2,$2,80\n"
-    "beqz $2,L_80093DBC\n"
-    "move $4,$16\n"
-    "lw $8,29684($16)\n"
-    "L_80093DBC:\n"
-    "jal func_80074C84\n"
-    "move $5,$8\n"
-    "jal func_8007620C\n"
-    "move $4,$16\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80093BC4\n.set at\n.set reorder\n");
+typedef signed char s8;
+typedef struct P { char pad[0x2FC]; int i2FC; char pad300[0x318 - 0x300]; int i318; } P;
+typedef struct Ent { char pad[0x10]; int i10; char pad14[0x1C - 0x14]; } Ent;
+typedef struct Obj {
+    char pad[0x59CC];
+    P *p59CC;
+    char pad59D0[0x73F4 - 0x59D0];
+    int i73F4;
+    char pad73F8[0x75A8 - 0x73F8];
+    s8 cur;
+    char pad75A9[0x75FC - 0x75A9];
+    Ent *ents;
+} Obj;
+typedef unsigned int u32;
+extern u32 D_800F2C14;
+extern void func_80074C84(Obj *, int);
+extern void func_8007620C(Obj *);
+static inline u32 rnd(u32 *p, u32 n)
+{
+    *p = (*p * 16807) & 0x7FFFFFFF;
+    return ((*p >> 15) * n) >> 16;
+}
+void func_80093BC4(Obj *o, int force)
+{
+    int v = 0;
+    P *p;
+    int q;
+    if (force != 0) {
+        p = o->p59CC;
+        if (p != 0 && p->i318 != 0) {
+            if (p->i2FC == 0) {
+                v = o->i73F4;
+            }
+        } else {
+            force = 0;
+        }
+    }
+    if (force == 0) {
+        int t;
+        t = o->ents[o->cur].i10;
+        if (t >= o->i73F4) {
+            q = (t - o->i73F4) / 3;
+            if (q == 0) {
+                if (rnd(&D_800F2C14, 100) < 25) v = o->i73F4;
+            } else if (q == 1) {
+                if (rnd(&D_800F2C14, 100) < 50) v = o->i73F4;
+            } else if (q == 2) {
+                if (rnd(&D_800F2C14, 100) < 60) v = o->i73F4;
+            } else {
+                if (rnd(&D_800F2C14, 100) < 80) v = o->i73F4;
+            }
+        }
+    }
+    func_80074C84(o, v);
+    func_8007620C(o);
+}

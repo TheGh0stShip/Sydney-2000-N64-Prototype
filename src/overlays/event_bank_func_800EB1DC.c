@@ -1,110 +1,67 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EB1DC\n.ent func_800EB1DC\n"
-    "func_800EB1DC:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $17,28($29)\n"
-    "sw $31,36($29)\n"
-    "sw $18,32($29)\n"
-    "lw $2,1200($16)\n"
-    "lw $4,4($16)\n"
-    "blez $2,L_800EB20C\n"
-    "move $17,$6\n"
-    "j func_8007CEC0\n"
-    "move $2,$0\n"
-    "L_800EB20C:\n"
-    "lbu $2,426($16)\n"
-    "li $18,1\n"
-    "beq $2,$18,L_800EB230\n"
-    "move $3,$0\n"
-    "li $2,0x8000\n"
-    "addu $2,$4,$2\n"
-    "lbu $2,3229($2)\n"
-    "xori $2,$2,0x5\n"
-    "sltu $3,$3,$2\n"
-    "L_800EB230:\n"
-    "beqz $3,L_800EB2F0\n"
-    "li $2,23\n"
-    "lw $3,172($16)\n"
-    "bne $3,$2,L_800EB268\n"
-    "move $4,$16\n"
-    "li $5,16\n"
-    "jal func_800AAB54\n"
-    "move $6,$17\n"
-    "move $4,$16\n"
-    "li $5,16\n"
-    "jal func_800AAA70\n"
-    "addiu $6,$17,256\n"
-    "j func_8007CEC0\n"
-    "li $2,1\n"
-    "L_800EB268:\n"
-    "lbu $2,1044($16)\n"
-    "sll $2,$2,0x3\n"
-    "addu $3,$16,$2\n"
-    "lw $2,744($3)\n"
-    "bgez $2,L_800EB350\n"
-    "move $2,$0\n"
-    "move $4,$16\n"
-    "lhu $5,750($3)\n"
-    "jal func_800AAB54\n"
-    "move $6,$17\n"
-    "lbu $2,1044($16)\n"
-    "move $4,$16\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$16,$2\n"
-    "lhu $5,750($2)\n"
-    "jal func_800AAA70\n"
-    "addiu $6,$17,256\n"
-    "lbu $2,1044($16)\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$16,$2\n"
-    "lw $2,748($2)\n"
-    "bne $2,$18,L_800EB350\n"
-    "li $2,1\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "lw $7,4($16)\n"
-    "li $6,13\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $0,20($29)\n"
-    "j func_8007CEC0\n"
-    "li $2,1\n"
-    "L_800EB2F0:\n"
-    "lw $3,172($16)\n"
-    "beq $3,$2,L_800EB350\n"
-    "andi $2,$5,0x10\n"
-    "beqz $5,L_800EB330\n"
-    "nop\n"
-    "lbu $3,1044($16)\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $3,1080($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $2,16($2)\n"
-    "and $2,$5,$2\n"
-    "bnez $2,L_800EB330\n"
-    "li $2,1536\n"
-    "sw $2,1200($16)\n"
-    "L_800EB330:\n"
-    "lbu $3,1044($16)\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $3,1080($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $2,16($2)\n"
-    "and $2,$5,$2\n"
-    "L_800EB350:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800EB1DC\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef int s32;
+typedef unsigned int u32;
+
+typedef struct Slot { s32 a; s32 b; } Slot;
+typedef struct Obj { u8 pad[744]; Slot s[8]; } Obj;
+typedef struct Mv { u8 pad[16]; u32 mask; u8 pad2[16]; } Mv;
+
+typedef u8 DS;
+extern DS D_800F26E0[];
+extern s32 D_800F2744;
+
+extern void func_800AAB54(u8 *p, s32 a, u8 *b);
+extern void func_800AAA70(u8 *p, s32 a, u8 *b);
+extern void func_800AB2A4(DS *a, s32 b, s32 c, s32 d, s32 e, s32 f);
+
+#define W(o) (*(s32 *)(p + (o)))
+#define B(o) (*(u8 *)(p + (o)))
+#define SL (((Obj *)p)->s[B(1044)])
+#define CUR ((u8 *)W(1080) + B(1044) * 36)
+
+u32 func_800EB1DC(u8 *p, u32 k, u8 *buf)
+{
+    u8 *q;
+    s32 c;
+    u32 r;
+
+    q = *(u8 **)(p + 4);
+    if (W(1200) > 0) {
+        return 0;
+    }
+    {
+        c = 0;
+        if (B(426) != 1) {
+            c = q[0x8000 + 3229] != 5;
+        }
+        if (c) {
+            if (W(172) == 23) {
+                func_800AAB54(p, 16, buf);
+                func_800AAA70(p, 16, buf + 256);
+                r = 1;
+            } else if (SL.a < 0) {
+                func_800AAB54(p, ((u16 *)&SL.b)[1], buf);
+                func_800AAA70(p, *(u16 *)(p + (B(1044) << 3) + 750), buf + 256);
+                if (SL.b == 1) {
+                    s32 t = W(4);
+
+                    func_800AB2A4(D_800F26E0, D_800F2744, 13, t, 0, 0);
+                }
+                r = 1;
+            } else {
+                r = 0;
+            }
+        } else if (W(172) == 23) {
+            r = k & 16;
+        } else {
+            if (k != 0) {
+                if (!(k & *(u32 *)(CUR + 16))) {
+                    W(1200) = 1536;
+                }
+            }
+            r = k & *(u32 *)(CUR + 16);
+        }
+    }
+    return r;
+}

@@ -1,58 +1,30 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E2F80\n.ent func_800E2F80\n"
-    "func_800E2F80:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,25284($16)\n"
-    "addiu $2,$2,-256\n"
-    "bgtz $2,L_800E3034\n"
-    "sw $2,25284($16)\n"
-    "lbu $3,1557($16)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_800E3034\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,5304\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_80075C54\n"
-    "move $4,$16\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,2\n"
-    "li $2,3\n"
-    "j func_80077640\n"
-    "sw $0,25284($16)\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,5328($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,5332($1)\n"
-    "lwc1 $f0,3344($2)\n"
-    "cvt.s.w $f0,$f0\n"
-    "div.s $f0,$f0,$f2\n"
-    "mul.s $f0,$f0,$f4\n"
-    "addiu $4,$16,20560\n"
-    "mfc1 $6,$f0\n"
-    "jal func_80099D70\n"
-    "li $5,1\n"
-    "addiu $4,$16,1116\n"
-    "jal func_800A9BE8\n"
-    "li $5,5\n"
-    "li $2,7\n"
-    "sb $2,1551($16)\n"
-    "L_800E3034:\n"
-    "li $4,11520\n"
-    "jal func_8009B9EC\n"
-    "move $5,$0\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800E2F80\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+extern u8 *D_800FC270;
+extern void func_80075C54(u8 *);
+extern void func_800A9BE8(u8 *, int);
+extern void func_80099D70(u8 *, int, float);
+extern void func_8009B9EC(int, int);
+void func_80077590(u8 *o)
+{
+    if ((*(int *)(o + 25284) -= 256) <= 0) {
+        switch (o[1557]) {
+        case 0:
+        case 1:
+            func_80075C54(o);
+            func_800A9BE8(o + 1116, 2);
+            *(int *)(o + 25284) = 0;
+            o[1551] = 3;
+            break;
+        case 4:
+            func_80099D70(o + 20560, 1, *(int *)(D_800FC270 + 3344) / 30.0f * 0.00390625f);
+        case 2:
+        case 3:
+            func_800A9BE8(o + 1116, 5);
+            o[1551] = 7;
+            break;
+        case 5:
+            break;
+        }
+    }
+    func_8009B9EC(11520, 0);
+}

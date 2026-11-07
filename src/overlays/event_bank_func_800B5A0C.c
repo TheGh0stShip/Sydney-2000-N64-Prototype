@@ -1,77 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B5A0C\n.ent func_800B5A0C\n"
-    "func_800B5A0C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $2,23423($4)\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800B5B08\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "move $6,$0\n"
-    "lbu $3,2572($2)\n"
-    "beqz $3,L_800B5A5C\n"
-    "addiu $7,$2,2576\n"
-    "move $5,$3\n"
-    "move $3,$7\n"
-    "L_800B5A40:\n"
-    "lb $2,8($3)\n"
-    "beqz $2,L_800B5A60\n"
-    "lui $2,0x8010\n"
-    "addiu $6,$6,1\n"
-    "sltu $2,$6,$5\n"
-    "bnez $2,L_800B5A40\n"
-    "addiu $3,$3,12\n"
-    "L_800B5A5C:\n"
-    "lui $2,0x8010\n"
-    "L_800B5A60:\n"
-    "lw $5,-15760($2)\n"
-    "lbu $2,2572($5)\n"
-    "beq $6,$2,L_800B5B08\n"
-    "sll $2,$6,0x1\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$7\n"
-    "lb $3,0($2)\n"
-    "li $2,8\n"
-    "beq $3,$2,L_800B5AA4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$5,$2\n"
-    "lbu $3,32($2)\n"
-    "j func_800768DC\n"
-    "li $2,3\n"
-    "L_800B5AA4:\n"
-    "li $3,3\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800B5ACC\n"
-    "sll $2,$6,0x1\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$7\n"
-    "lb $5,0($2)\n"
-    "j func_80076910\n"
-    "li $3,8\n"
-    "L_800B5ACC:\n"
-    "li $3,100\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$7\n"
-    "lbu $5,1($2)\n"
-    "lbu $2,23423($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800B5B08\n"
-    "addu $5,$3,$5\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $6,7680\n"
-    "jal func_800C0110\n"
-    "li $7,23040\n"
-    "L_800B5B08:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B5A0C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef int s32;
+typedef unsigned int u32;
+
+#define QUIET(o) ((u32)((o)[0x5B7F] - 3) < 2)
+
+typedef struct Ent {
+    s8 type;
+    u8 id;
+    u8 pad2[6];
+    s8 used;
+    u8 pad9[3];
+} Ent;
+
+typedef struct Tm {
+    u8 kind;
+    u8 pad[59];
+} Tm;
+
+typedef struct Glob {
+    u8 pad[32];
+    Tm tm[8];
+} Glob;
+
+extern u8 *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(char *a, s32 b, s32 c, s32 d);
+
+void func_800B5A0C(u8 *o)
+{
+    Ent *e;
+    u32 i;
+    s32 x;
+    s32 k;
+    s32 msg;
+    s32 val;
+
+    if (o[0x5B7F] < 2) {
+        e = (Ent *)(D_800FC270 + 2576);
+        for (i = 0; i < D_800FC270[2572]; i++) {
+            if (e[i].used == 0) {
+                break;
+            }
+        }
+        if (i != D_800FC270[2572]) {
+            if (e[i].type != 8) {
+                x = ((Glob *)D_800FC270)->tm[e[i].type].kind;
+            } else {
+                x = 3;
+            }
+            if (x != 3) {
+                k = 8;
+                val = e[i].type;
+            } else {
+                k = 100;
+                val = e[i].id;
+            }
+            msg = k + val;
+            if (!QUIET(o)) {
+                func_800C0110(D_800F3BC0, msg, 7680, 23040);
+            }
+        }
+    }
+}

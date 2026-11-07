@@ -1,157 +1,88 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D8F0C\n.ent func_800D8F0C\n"
-    "func_800D8F0C:\n"
-    "addiu $29,$29,-24\n"
-    "move $7,$4\n"
-    "li $3,5\n"
-    "sw $31,16($29)\n"
-    "lbu $2,1557($7)\n"
-    "mtc1 $6,$f2\n"
-    "beq $2,$3,L_800D9130\n"
-    "nop\n"
-    "lbu $3,1550($7)\n"
-    "lbu $2,1555($7)\n"
-    "mult $3,$2\n"
-    "lui $4,0x8010\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,4696($1)\n"
-    "andi $3,$5,0xff\n"
-    "c.eq.s $f2,$f0\n"
-    "mflo $8\n"
-    "addu $3,$8,$3\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($4)\n"
-    "addiu $2,$2,2576\n"
-    "addu $5,$3,$2\n"
-    "move $6,$5\n"
-    "bc1t L_800D8FD0\n"
-    "swc1 $f2,4($5)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,4700($1)\n"
-    "c.lt.s $f2,$f4\n"
-    "nop\n"
-    "bc1f L_800D8FC8\n"
-    "move $2,$0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,4704($1)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800D8FC8\n"
-    "li $2,1500\n"
-    "sub.s $f0,$f4,$f2\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,4708($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "trunc.w.s $f14,$f0\n"
-    "mfc1 $2,$f14\n"
-    "j func_80074468\n"
-    "sh $2,2($6)\n"
-    "L_800D8FC8:\n"
-    "j func_80074468\n"
-    "sh $2,2($6)\n"
-    "L_800D8FD0:\n"
-    "li $2,-1\n"
-    "sh $2,2($5)\n"
-    "move $4,$0\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,4712($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f12,4716($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f4,4720($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f10,4724($1)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f8,4728($1)\n"
-    "L_800D9004:\n"
-    "lbu $2,1555($7)\n"
-    "andi $3,$4,0xff\n"
-    "sltu $2,$3,$2\n"
-    "beqz $2,L_800D90C8\n"
-    "sll $2,$3,0x2\n"
-    "addu $3,$7,$2\n"
-    "lw $2,24716($3)\n"
-    "beql $2,$0,L_800D90C8\n"
-    "sw $6,24716($3)\n"
-    "lwc1 $f2,4($6)\n"
-    "c.eq.s $f2,$f6\n"
-    "nop\n"
-    "bc1tl L_800D9004\n"
-    "addiu $4,$4,1\n"
-    "lwc1 $f0,4($2)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800D9064\n"
-    "sw $6,24716($3)\n"
-    "c.eq.s $f0,$f6\n"
-    "nop\n"
-    "bc1f L_800D906C\n"
-    "nop\n"
-    "sw $6,24716($3)\n"
-    "L_800D9064:\n"
-    "j func_80074550\n"
-    "move $6,$2\n"
-    "L_800D906C:\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1fl L_800D9004\n"
-    "addiu $4,$4,1\n"
-    "add.s $f0,$f2,$f12\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800D90B8\n"
-    "swc1 $f0,4($6)\n"
-    "c.lt.s $f10,$f0\n"
-    "nop\n"
-    "bc1f L_800D90BC\n"
-    "li $2,1500\n"
-    "sub.s $f0,$f4,$f0\n"
-    "mul.s $f0,$f0,$f8\n"
-    "trunc.w.s $f14,$f0\n"
-    "mfc1 $2,$f14\n"
-    "j func_80074550\n"
-    "sh $2,2($6)\n"
-    "L_800D90B8:\n"
-    "move $2,$0\n"
-    "L_800D90BC:\n"
-    "sh $2,2($6)\n"
-    "j func_80074494\n"
-    "addiu $4,$4,1\n"
-    "L_800D90C8:\n"
-    "lbu $2,1555($7)\n"
-    "beqz $2,L_800D9104\n"
-    "move $4,$0\n"
-    "andi $2,$4,0xff\n"
-    "L_800D90D8:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$7,$2\n"
-    "lw $2,24716($2)\n"
-    "bnel $2,$0,L_800D90EC\n"
-    "sb $4,8($2)\n"
-    "L_800D90EC:\n"
-    "addiu $4,$4,1\n"
-    "lbu $3,1555($7)\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800D90D8\n"
-    "andi $2,$4,0xff\n"
-    "L_800D9104:\n"
-    "lwc1 $f2,4($5)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,4732($1)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1t L_800D9130\n"
-    "nop\n"
-    "lbu $6,1557($7)\n"
-    "mfc1 $7,$f2\n"
-    "jal func_8009BFE8\n"
-    "move $4,$0\n"
-    "L_800D9130:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800D8F0C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef short s16;
+typedef int s32;
+
+typedef struct {
+    s8 kind;
+    u8 pad1;
+    s16 h2;
+    float f4;
+    s8 b8;
+    u8 pad9;
+    u8 bA;
+    u8 padB;
+} Slot;
+
+extern u8 *D_800FC270;
+extern void func_8009BFE8(s32, Slot *, s32, float);
+
+#define B(o) (*(u8 *)(obj + (o)))
+#define LIST(i) (*(Slot **)(obj + ((i) << 2) + 0x608C))
+
+void func_8007439C(u8 *obj, u8 idx, float v)
+{
+    Slot *e;
+    Slot *s;
+    Slot *cur;
+    u8 i;
+
+    if (B(0x615) == 5) {
+        return;
+    }
+    e = (Slot *)(D_800FC270 + 0xA10) + (B(0x60E) * B(0x613) + idx);
+    s = e;
+    e->f4 = v;
+    if (v != -1.0f) {
+        s16 h;
+        if (v < 15.4f) {
+            if (7.45f < v) {
+                h = (15.4f - v) * 188.679245f;
+            } else {
+                h = 1500;
+            }
+        } else {
+            h = 0;
+        }
+        s->h2 = h;
+    } else {
+        e->h2 = -1;
+    }
+    i = 0;
+    while (1) {
+        if (i >= B(0x613)) break;
+        cur = LIST(i);
+        if (cur == 0) {
+            LIST(i) = s;
+            break;
+        }
+        if (s->f4 != -1.0f) {
+            if (s->f4 < cur->f4 || cur->f4 == -1.0f) {
+                LIST(i) = s;
+                s = cur;
+            } else if (s->f4 == cur->f4) {
+                s16 h;
+                s->f4 = s->f4 + 0.0017f;
+                if (s->f4 < 15.4f) {
+                    if (7.45f < s->f4) {
+                        h = (15.4f - s->f4) * 188.679245f;
+                    } else {
+                        h = 1500;
+                    }
+                } else {
+                    h = 0;
+                }
+                s->h2 = h;
+            }
+        }
+        i++;
+    }
+    for (i = 0; i < B(0x613); i++) {
+        if (LIST(i) != 0) {
+            LIST(i)->b8 = i;
+        }
+    }
+    if (e->f4 != -1.0f) {
+        func_8009BFE8(0, e, B(0x615), e->f4);
+    }
+}

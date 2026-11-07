@@ -1,375 +1,204 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800898F0\n.ent func_800898F0\n"
-    "func_800898F0:\n"
-    "addiu $29,$29,-56\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "sw $22,48($29)\n"
-    "move $22,$5\n"
-    "sw $20,40($29)\n"
-    "move $20,$0\n"
-    "sw $17,28($29)\n"
-    "move $17,$20\n"
-    "addiu $4,$18,6296\n"
-    "sw $31,52($29)\n"
-    "sw $21,44($29)\n"
-    "sw $19,36($29)\n"
-    "jal func_800A62EC\n"
-    "sw $16,24($29)\n"
-    "li $2,0x8000\n"
-    "addu $16,$18,$2\n"
-    "lui $19,0x8010\n"
-    "li $21,15\n"
-    "L_8008993C:\n"
-    "bnez $17,L_80089B30\n"
-    "nop\n"
-    "lw $2,16($22)\n"
-    "bnez $2,L_8008995C\n"
-    "nop\n"
-    "lbu $2,1045($16)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,1045($16)\n"
-    "L_8008995C:\n"
-    "lbu $2,1047($16)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_8008997C\n"
-    "nop\n"
-    "lbu $2,1044($16)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,1044($16)\n"
-    "L_8008997C:\n"
-    "lbu $3,1047($16)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800899BC\n"
-    "move $4,$0\n"
-    "lb $3,1045($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "lw $3,-15760($19)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$3,$2\n"
-    "lwc1 $f2,2580($2)\n"
-    "lwc1 $f0,3344($3)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1t L_800899F8\n"
-    "nop\n"
-    "L_800899BC:\n"
-    "lw $2,-15760($19)\n"
-    "lb $3,1045($16)\n"
-    "lbu $2,2572($2)\n"
-    "slt $3,$3,$2\n"
-    "bnel $3,$0,L_800899F8\n"
-    "li $4,1\n"
-    "lbu $2,1044($16)\n"
-    "sb $0,1045($16)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,1044($16)\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x18\n"
-    "slti $2,$2,3\n"
-    "bnel $2,$0,L_800899F8\n"
-    "li $4,1\n"
-    "L_800899F8:\n"
-    "beqz $4,L_80089AC4\n"
-    "li $2,5\n"
-    "lb $2,1045($16)\n"
-    "lw $4,-15760($19)\n"
-    "sll $3,$2,0x1\n"
-    "addu $3,$3,$2\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$4,$3\n"
-    "lb $3,2576($3)\n"
-    "slti $2,$3,8\n"
-    "beqz $2,L_80089A40\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lbu $3,32($2)\n"
-    "j func_800716D8\n"
-    "li $2,1\n"
-    "L_80089A40:\n"
-    "li $3,3\n"
-    "li $2,1\n"
-    "beq $3,$2,L_80089AB4\n"
-    "li $2,3\n"
-    "bne $3,$2,L_80089A6C\n"
-    "li $2,2\n"
-    "lw $2,-15760($19)\n"
-    "lbu $2,3410($2)\n"
-    "andi $2,$2,0x1\n"
-    "bnez $2,L_80089A88\n"
-    "li $2,2\n"
-    "L_80089A6C:\n"
-    "bnel $3,$2,L_80089AB8\n"
-    "li $20,1\n"
-    "lw $2,-15760($19)\n"
-    "lbu $2,3410($2)\n"
-    "andi $2,$2,0x2\n"
-    "beql $2,$0,L_80089AB8\n"
-    "li $20,1\n"
-    "L_80089A88:\n"
-    "jal func_80076F1C\n"
-    "move $4,$18\n"
-    "lw $2,-15760($19)\n"
-    "lbu $2,2572($2)\n"
-    "lb $3,1045($16)\n"
-    "addiu $2,$2,-1\n"
-    "bne $3,$2,L_8008993C\n"
-    "li $2,18\n"
-    "sb $2,1046($16)\n"
-    "j func_800715CC\n"
-    "li $17,1\n"
-    "L_80089AB4:\n"
-    "li $20,1\n"
-    "L_80089AB8:\n"
-    "li $17,1\n"
-    "j func_800715CC\n"
-    "sb $0,1046($16)\n"
-    "L_80089AC4:\n"
-    "lw $4,-15760($19)\n"
-    "lw $3,2560($4)\n"
-    "bnel $3,$2,L_80089AE4\n"
-    "lui $4,0x800f\n"
-    "lbu $2,3410($4)\n"
-    "andi $2,$2,0x4\n"
-    "beqz $2,L_80089B14\n"
-    "lui $4,0x800f\n"
-    "L_80089AE4:\n"
-    "addiu $4,$4,9952\n"
-    "li $6,7\n"
-    "move $7,$18\n"
-    "li $2,9\n"
-    "sw $21,608($16)\n"
-    "sw $0,16($29)\n"
-    "sw $2,20($29)\n"
-    "lw $5,4($22)\n"
-    "jal func_800AB2A4\n"
-    "li $17,1\n"
-    "j func_800715CC\n"
-    "nop\n"
-    "L_80089B14:\n"
-    "li $17,1\n"
-    "sw $21,608($16)\n"
-    "move $4,$17\n"
-    "jal func_8009C0D8\n"
-    "li $5,-1\n"
-    "j func_800715CC\n"
-    "nop\n"
-    "L_80089B30:\n"
-    "beqz $20,L_80089E30\n"
-    "nop\n"
-    "jal func_800B4794\n"
-    "li $4,1\n"
-    "move $4,$18\n"
-    "jal func_8007492C\n"
-    "move $5,$0\n"
-    "jal func_8000C944\n"
-    "li $16,0x8000\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "lui $2,0x800f\n"
-    "lw $5,10052($2)\n"
-    "addiu $2,$18,12124\n"
-    "sw $2,16($29)\n"
-    "sw $0,20($29)\n"
-    "lw $7,12112($18)\n"
-    "jal func_800AB2A4\n"
-    "li $6,3\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "move $6,$0\n"
-    "lui $2,0x800f\n"
-    "lw $2,5104($2)\n"
-    "addu $16,$18,$16\n"
-    "sw $2,1096($16)\n"
-    "li $2,2\n"
-    "sw $2,16($29)\n"
-    "lw $5,23004($18)\n"
-    "jal func_800A9B78\n"
-    "li $7,1\n"
-    "lbu $3,1047($16)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_80089D48\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,3944\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "li $2,0x8000\n"
-    "addu $16,$18,$2\n"
-    "lw $2,1040($16)\n"
-    "beqz $2,L_80089C58\n"
-    "addiu $4,$18,696\n"
-    "li $5,3\n"
-    "li $6,-1\n"
-    "jal func_8009B80C\n"
-    "li $7,2\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "beq $3,$2,L_80089C2C\n"
-    "li $2,6\n"
-    "bne $3,$2,L_80089C3C\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "jal func_800A9BE8\n"
-    "li $5,24\n"
-    "j func_8007193C\n"
-    "sw $0,1064($16)\n"
-    "L_80089C2C:\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "j func_800718D4\n"
-    "li $5,16\n"
-    "L_80089C3C:\n"
-    "addu $4,$18,$4\n"
-    "move $5,$0\n"
-    "jal func_800A9BE8\n"
-    "nop\n"
-    "li $2,0x9600\n"
-    "j func_8007193C\n"
-    "sw $2,1064($16)\n"
-    "L_80089C58:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,6\n"
-    "bne $3,$2,L_80089C7C\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "j func_80071914\n"
-    "li $5,24\n"
-    "L_80089C7C:\n"
-    "addu $4,$18,$4\n"
-    "li $5,1\n"
-    "jal func_800A9BE8\n"
-    "nop\n"
-    "li $2,23040\n"
-    "sw $2,1064($16)\n"
-    "lw $5,23004($18)\n"
-    "jal func_8009BF6C\n"
-    "addiu $4,$18,696\n"
-    "li $4,2\n"
-    "jal func_8009AEC0\n"
-    "addiu $5,$18,2096\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "j func_800719D4\n"
-    "li $3,1\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "jal func_800A9BE8\n"
-    "li $5,8\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "li $3,0x9600\n"
-    "sw $3,1064($2)\n"
-    "j func_800719D4\n"
-    "li $3,1\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "jal func_800A9BE8\n"
-    "li $5,16\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "li $3,0x9600\n"
-    "sw $3,1064($2)\n"
-    "j func_800719D4\n"
-    "li $3,1\n"
-    "addiu $4,$18,696\n"
-    "lui $5,0x8007\n"
-    "addiu $5,$5,30152\n"
-    "li $6,1\n"
-    "jal func_800D33A0\n"
-    "li $7,-1\n"
-    "li $4,0x8264\n"
-    "addu $4,$18,$4\n"
-    "jal func_800A9BE8\n"
-    "li $5,13\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "li $3,1\n"
-    "sw $0,1064($2)\n"
-    "sb $3,1046($2)\n"
-    "L_80089D48:\n"
-    "li $2,0x8000\n"
-    "addu $16,$18,$2\n"
-    "lw $2,1064($16)\n"
-    "bgtz $2,L_80089D60\n"
-    "li $2,256\n"
-    "sw $2,1064($16)\n"
-    "L_80089D60:\n"
-    "lw $3,1064($16)\n"
-    "li $2,15360\n"
-    "sw $2,1068($16)\n"
-    "slt $2,$3,$2\n"
-    "bnel $2,$0,L_80089D78\n"
-    "sw $3,1068($16)\n"
-    "L_80089D78:\n"
-    "lbu $4,1047($16)\n"
-    "jal func_8009BB88\n"
-    "li $5,1\n"
-    "lw $2,1040($16)\n"
-    "beqz $2,L_80089D98\n"
-    "nop\n"
-    "jal func_80075274\n"
-    "move $4,$18\n"
-    "L_80089D98:\n"
-    "lbu $3,1047($16)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_80089E28\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,3968\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "li $5,95\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,-1\n"
-    "move $4,$16\n"
-    "move $17,$2\n"
-    "move $5,$17\n"
-    "jal func_8001D640\n"
-    "move $6,$0\n"
-    "move $4,$16\n"
-    "lw $3,104($4)\n"
-    "li $2,32767\n"
-    "mult $3,$2\n"
-    "move $5,$17\n"
-    "li $7,45\n"
-    "sw $0,16($29)\n"
-    "sw $0,20($29)\n"
-    "mflo $8\n"
-    "jal func_8001D5D8\n"
-    "sra $6,$8,0xf\n"
-    "li $2,0x8000\n"
-    "addu $2,$18,$2\n"
-    "sw $17,1072($2)\n"
-    "L_80089E28:\n"
-    "jal func_800B4794\n"
-    "move $4,$0\n"
-    "L_80089E30:\n"
-    "lw $31,52($29)\n"
-    "lw $22,48($29)\n"
-    "lw $21,44($29)\n"
-    "lw $20,40($29)\n"
-    "lw $19,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800898F0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef struct P { char pad[744]; int w2E8; } P;
+typedef struct M { char pad[4]; void *w4; char p[16 - 8]; int w16; } M;
+typedef struct A { char pad[104]; int w104; } A;
+typedef struct Ent { char pad[16]; u8 b20; char p[60 - 17]; } Ent;
+typedef struct Tb { s8 c0; char p[3]; float f4; char p2[4]; } Tb;
+typedef struct G {
+    char pad0[16];
+    Ent ent[8];
+    char p1[2560 - 16 - 480];
+    int wA00;
+    char p2[2572 - 2564];
+    u8 nA0C;
+    char p3[3];
+    Tb tab[64];
+    char p4[3344 - 2576 - 768];
+    float fD10;
+    char p5[3410 - 3348];
+    u8 bD52;
+} G;
+typedef struct S {
+    char pad[696];
+    char x2B8[2096 - 696];
+    char x830[6296 - 2096];
+    char x1898[12112 - 6296];
+    int w2F50;
+    char p1b[12124 - 12116];
+    char x2F5C[23004 - 12124];
+    P *p59DC;
+    char p3[0x8260 - 23008];
+    int w8260;
+    char x8264[0x8410 - 0x8264];
+    int w8410;
+    u8 b8414;
+    u8 b8415;
+    u8 b8416;
+    u8 b8417;
+    char p5[0x8428 - 0x8418];
+    int w8428;
+    int w842C;
+    int w8430;
+    char p6[0x8448 - 0x8434];
+    int w8448;
+} S;
+extern G *D_800FC270;
+extern int D_800F13F0;
+extern char D_800F26E0[];
+extern char *D_800F2744;
+extern char D_800775C8[];
+extern A D_800F1AE0;
+extern void func_800AB2A4();
+extern void func_800A62EC(void *);
+extern void func_80076F1C(S *);
+extern void func_8009C0D8(int, int);
+extern void func_800B4794(int);
+extern void func_8007492C(S *, int);
+extern void func_8000C944(void);
+extern void func_800A9B78(void *, P *, int, int, int);
+extern void func_8009B80C(void *, int, int, int);
+extern void func_800A9BE8(void *, int);
+extern void func_8009BF6C(void *, P *);
+extern void func_8009AEC0(int, void *);
+extern void func_800D33A0(void *, void *, int, int);
+extern void func_8009BB88(int, int);
+extern void func_80075274(S *);
+extern int func_8001D4B8(A *, int, int, int);
+extern void func_8001D640(A *, int, int);
+extern void func_8001D5D8(A *, int, int, int, int, int);
+
+void func_800898F0(S *s, M *m)
+{
+    int go;
+    int done;
+    int ok;
+    int t;
+    int idx;
+    int r;
+    int k;
+
+    go = 0;
+    done = go;
+    func_800A62EC(s->x1898);
+    while (1) {
+        if (done) break;
+        if (m->w16 == 0) s->b8415++;
+        if (s->b8417 == 3 || s->b8417 == 4) s->b8414++;
+        ok = 0;
+        if (s->b8417 == 4 && D_800FC270->tab[(s8)s->b8415].f4 >= D_800FC270->fD10) {
+        } else if ((s8)s->b8415 < D_800FC270->nA0C) {
+            ok = 1;
+        } else {
+            s->b8415 = 0;
+            s->b8414++;
+            if ((s8)s->b8414 < 3) ok = 1;
+        }
+        if (ok) {
+            idx = D_800FC270->tab[(s8)s->b8415].c0;
+            if (idx < 8) t = D_800FC270->ent[idx].b20;
+            else t = 3;
+            if (t == 1) {
+                go = 1;
+                done = 1;
+                s->b8416 = 0;
+            } else if ((t == 3 && (D_800FC270->bD52 & 1)) || (t == 2 && (D_800FC270->bD52 & 2))) {
+                func_80076F1C(s);
+                if ((s8)s->b8415 == D_800FC270->nA0C - 1) {
+                    s->b8416 = 18;
+                    done = 1;
+                }
+            } else {
+                go = 1;
+                done = 1;
+                s->b8416 = 0;
+            }
+        } else if (D_800FC270->wA00 != 5 || (D_800FC270->bD52 & 4)) {
+            s->w8260 = 15;
+            func_800AB2A4(D_800F26E0, m->w4, 7, s, 0, 9);
+            done = 1;
+        } else {
+            done = 1;
+            s->w8260 = 15;
+            func_8009C0D8(done, -1);
+        }
+    }
+    if (go == 0) return;
+    func_800B4794(1);
+    func_8007492C(s, 0);
+    func_8000C944();
+    func_800AB2A4(D_800F26E0, D_800F2744, 3, s->w2F50, s->x2F5C, 0);
+    s->w8448 = D_800F13F0;
+    func_800A9B78(s->x8264, s->p59DC, 0, 1, 2);
+    switch (s->b8417) {
+    case 0:
+        if (s->w8410) {
+            func_8009B80C(s->x2B8, 3, -1, 2);
+            switch (D_800FC270->wA00) {
+            case 6:
+                func_800A9BE8(s->x8264, 24);
+                s->w8428 = 0;
+                break;
+            case 5:
+                func_800A9BE8(s->x8264, 16);
+                s->w8428 = 0x9600;
+                break;
+            default:
+                func_800A9BE8(s->x8264, 0);
+                s->w8428 = 0x9600;
+                break;
+            }
+        } else {
+            if (D_800FC270->wA00 == 6) {
+                func_800A9BE8(s->x8264, 24);
+                s->w8428 = 23040;
+            } else {
+                func_800A9BE8(s->x8264, 1);
+                s->w8428 = 23040;
+            }
+            func_8009BF6C(s->x2B8, s->p59DC);
+            func_8009AEC0(2, s->x830);
+        }
+        s->b8416 = 1;
+        break;
+    case 5:
+        func_800A9BE8(s->x8264, 8);
+        s->w8428 = 0x9600;
+        s->b8416 = 1;
+        break;
+    case 1:
+        func_800A9BE8(s->x8264, 16);
+        s->w8428 = 0x9600;
+        s->b8416 = 1;
+        break;
+    case 2:
+        func_800D33A0(s->x2B8, D_800775C8, 1, -1);
+    case 3:
+    case 4:
+        func_800A9BE8(s->x8264, 13);
+        s->w8428 = 0;
+        s->b8416 = 1;
+        break;
+    }
+    if (s->w8428 <= 0) s->w8428 = 256;
+    s->w842C = 15360;
+    if (s->w8428 < 15360) s->w842C = s->w8428;
+    func_8009BB88(s->b8417, 1);
+    if (s->w8410) func_80075274(s);
+    switch (s->b8417) {
+    case 0:
+    case 1:
+    case 5:
+        r = func_8001D4B8(&D_800F1AE0, 95, 0, -1);
+        func_8001D640(&D_800F1AE0, r, 0);
+        k = 32767;
+        func_8001D5D8(&D_800F1AE0, r, D_800F1AE0.w104 * k >> 15, 45, 0, 0);
+        s->w8430 = r;
+        break;
+    case 2:
+    case 3:
+    case 4:
+        break;
+    }
+    func_800B4794(0);
+}

@@ -1,58 +1,86 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A5E9C\n.ent func_800A5E9C\n"
-    "func_800A5E9C:\n"
-    "addiu $29,$29,-48\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "addiu $4,$18,29936\n"
-    "sw $19,36($29)\n"
-    "li $19,1\n"
-    "sw $20,40($29)\n"
-    "move $20,$5\n"
-    "sw $31,44($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "jal func_800CEE04\n"
-    "sw $19,31948($18)\n"
-    "jal func_80097504\n"
-    "addiu $4,$18,13804\n"
-    "addiu $16,$18,31248\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,31912($18)\n"
-    "lw $17,12212($18)\n"
-    ".word 0x14400030\n"
-    "lui $4,0x8010\n"
-    "lb $3,31917($18)\n"
-    "sllv $2,$3,$19\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($4)\n"
-    "li $4,4\n"
-    "addu $2,$3,$2\n"
-    "lw $3,2560($3)\n"
-    "lwc1 $f2,2580($2)\n"
-    "beq $3,$4,L_800A5F40\n"
-    "nop\n"
-    "beqz $3,L_800A5F40\n"
-    "nop\n"
-    "beq $3,$19,L_800A5F40\n"
-    "li $2,2\n"
-    ".word 0x1462000C\n"
-    "lui $2,0x8010\n"
-    "L_800A5F40:\n"
-    "lbu $3,31919($18)\n"
-    "li $2,4\n"
-    "beq $3,$2,L_800A5F68\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1284($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1tl L_800A5F68\n"
-    "swc1 $f2,1284($2)\n"
-    "L_800A5F68:\n"
-    ".end func_800A5E9C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef short s16;
+typedef int s32;
+typedef float f32;
+
+typedef struct Ent { u8 pad[4]; f32 v; u8 pad2[4]; } Ent;
+typedef struct Tm { u8 pad[40]; s32 x; u8 pad2[16]; } Tm;
+typedef struct H2 { u8 pad[32]; Tm tm[8]; } H2;
+typedef struct G {
+    u8 pad[1284];
+    f32 h0;
+    u8 pad1[1328 - 1288];
+    f32 h1;
+    u8 pad2[2560 - 1332];
+    s32 mode;
+    u8 pad3[2576 - 2564];
+    Ent ents[1];
+} G;
+extern G *D_800FC270;
+
+typedef struct VE { s16 off; s16 pad; void (*fn)(); } VE;
+typedef struct VT { u8 pad[8]; VE b; u8 pad2[8]; VE a; } VT;
+
+extern u8 D_800F2AD8[];
+extern u8 D_800F26E0[];
+extern u8 D_800F2758[];
+
+extern void func_800CEE04(u8 *p);
+extern void func_80097504(u8 *p);
+extern void func_800AC334(u8 *p);
+extern void func_800ADC1C(u8 *p);
+extern void func_800BBD78(u8 *a, s32 b, s32 c, s32 d, s32 e);
+extern void func_800AACB0(u8 *a, u8 *b, s32 c);
+extern void func_800AA658(u8 *a, u8 *b);
+
+#define W(o) (*(s32 *)(p + (o)))
+
+void func_800A5E9C(u8 *p, u8 flag)
+{
+    u8 *q;
+    f32 f;
+    s32 m;
+
+    W(31948) = 1;
+    func_800CEE04(p + 29936);
+    func_80097504(p + 13804);
+    func_800AC334(p + 31248);
+    func_800ADC1C(p + 31248);
+    q = (u8 *)W(12212);
+    if (W(31912) == 0) {
+        f = D_800FC270->ents[(s8)p[31917]].v;
+        m = D_800FC270->mode;
+        if (m == 4 || m == 0 || m == 1 || m == 2) {
+            if (p[31919] != 4 && D_800FC270->h0 < f) {
+                D_800FC270->h0 = f;
+            }
+        }
+        if (D_800FC270->mode == 4) {
+            if (D_800FC270->h1 < f) {
+                D_800FC270->h1 = f;
+            }
+        } else if (D_800FC270->mode == 5) {
+            if (*(f32 *)((u8 *)D_800FC270 + 3564) < f) {
+                *(f32 *)((u8 *)D_800FC270 + 3564) = f;
+            }
+        }
+    }
+    if (q != 0) {
+        u8 k = ((u8 *)W(12212))[424];
+        VT *vt;
+        if (k != 8) {
+            ((H2 *)D_800FC270)->tm[k].x = 0;
+        }
+        func_800BBD78(D_800F2AD8, (s8)q[427], 0, 0, 5);
+        func_800BBD78(D_800F2AD8, (s8)q[427], 1, 0, 2);
+        func_800AACB0(D_800F26E0, q, 0);
+        vt = *(VT **)(q + 180);
+        vt->a.fn(q + vt->a.off);
+        vt = *(VT **)(q + 180);
+        vt->b.fn(q + vt->b.off, 2);
+        if (flag == 0) {
+            func_800AA658(D_800F2758, p + 12212);
+        }
+    }
+}

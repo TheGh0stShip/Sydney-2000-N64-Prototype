@@ -1,61 +1,34 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B5264\n.ent func_800B5264\n"
-    "func_800B5264:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $31,24($29)\n"
-    "lw $5,4($17)\n"
-    "lw $2,16($16)\n"
-    "lw $3,0($17)\n"
-    "subu $2,$5,$2\n"
-    "sra $4,$2,0x8\n"
-    "li $2,3\n"
-    "beq $3,$2,L_800B52E4\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800B52E4\n"
-    "nop\n"
-    "beqz $4,L_800B5320\n"
-    "nop\n"
-    "jal func_800AE1EC\n"
-    "move $4,$16\n"
-    "addiu $4,$16,292\n"
-    "lw $5,200($16)\n"
-    "jal func_800AE9DC\n"
-    "move $6,$16\n"
-    "beqz $2,L_800B52D8\n"
-    "move $4,$16\n"
-    "jal func_800AE17C\n"
-    "move $4,$16\n"
-    "move $4,$16\n"
-    "L_800B52D8:\n"
-    "lw $6,452($16)\n"
-    "jal func_800B4B40\n"
-    "addiu $5,$16,376\n"
-    "L_800B52E4:\n"
-    "lw $2,4($17)\n"
-    "lw $3,296($16)\n"
-    "bnez $3,L_800B5320\n"
-    "sw $2,16($16)\n"
-    "lw $2,268($16)\n"
-    "beqz $2,L_800B5308\n"
-    "nop\n"
-    "jal func_800ADFAC\n"
-    "move $4,$16\n"
-    "L_800B5308:\n"
-    "lhu $2,196($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B5320\n"
-    "nop\n"
-    "jal func_800AE304\n"
-    "move $4,$16\n"
-    "L_800B5320:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B5264\n.set at\n.set reorder\n");
+typedef struct { int type; int time; } Msg;
+typedef struct {
+    char pad0[16]; int time;
+    char pad1[196 - 20]; unsigned short flags;
+    char pad2[200 - 198]; int v200;
+    char pad3[268 - 204]; int v268;
+    char pad4[292 - 272]; char sub292[4]; int v296;
+    char pad5[376 - 300]; char sub376[452 - 376]; int v452;
+} Obj;
+extern void func_800AE1EC(Obj *, int);
+extern int func_800AE9DC(void *, int, Obj *);
+extern void func_800AE17C(Obj *);
+extern void func_800B4B40(Obj *, void *, int);
+extern void func_800ADFAC(Obj *);
+extern void func_800AE304(Obj *);
+void func_800B5264(Obj *o, Msg *m)
+{
+    int d = (m->time - o->time) >> 8;
+    switch (m->type) {
+    case 3:
+        break;
+    case 5:
+        if (d == 0) return;
+        func_800AE1EC(o, m->time);
+        if (func_800AE9DC(o->sub292, o->v200, o)) func_800AE17C(o);
+        func_800B4B40(o, o->sub376, o->v452);
+        break;
+    }
+    o->time = m->time;
+    if (o->v296 == 0) {
+        if (o->v268) func_800ADFAC(o);
+        if (o->flags & 1) func_800AE304(o);
+    }
+}

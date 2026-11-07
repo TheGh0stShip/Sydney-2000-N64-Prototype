@@ -1,55 +1,24 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B6188\n.ent func_800B6188\n"
-    "func_800B6188:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $4,21292($16)\n"
-    "li $3,3\n"
-    "sb $0,23422($16)\n"
-    "lbu $2,426($4)\n"
-    "lbu $5,425($4)\n"
-    "beq $2,$3,L_800B61D4\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_800B61D8\n"
-    "li $3,28\n"
-    "lbu $5,424($4)\n"
-    "j func_8007700C\n"
-    "move $3,$0\n"
-    "L_800B61D4:\n"
-    "li $3,28\n"
-    "L_800B61D8:\n"
-    "andi $5,$5,0xff\n"
-    "lbu $2,23423($16)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800B6204\n"
-    "addu $5,$5,$3\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800B6204:\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $3,2560($2)\n"
-    "li $2,4\n"
-    "bne $3,$2,L_800B6230\n"
-    "nop\n"
-    "lbu $2,23416($16)\n"
-    "bnez $2,L_800B6230\n"
-    "nop\n"
-    "jal func_80076944\n"
-    "move $4,$16\n"
-    "L_800B6230:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B6188\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+extern u8 *D_800FC270;
+extern u8 D_800F3BC0[];
+extern void func_800C0110(void *, s32, s32, s32);
+extern void func_80076944(u8 *);
+void func_80076FB8(u8 *o)
+{
+    u8 *p = *(u8 **)(o + 21292);
+    u8 idx;
+    s32 sel;
+    s32 base;
+    s32 n;
+    o[23422] = 0;
+    idx = p[425];
+    if (p[426] != 3 && *(s32 *)(D_800FC270 + 2560) == 5) { base = 0; sel = p[424]; } else { base = 28; sel = idx; }
+    n = sel + base;
+    if (o[23423] != 3 && o[23423] != 4) {
+        func_800C0110(D_800F3BC0, n, 0, 0);
+    }
+    if (*(s32 *)(D_800FC270 + 2560) == 4 && o[23416] == 0) {
+        func_80076944(o);
+    }
+}

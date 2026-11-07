@@ -1,81 +1,23 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800ACE08\n.ent func_800ACE08\n"
-    "func_800ACE08:\n"
-    "addiu $29,$29,-64\n"
-    "sdc1 $f22,40($29)\n"
-    "mov.s $f22,$f14\n"
-    "mul.s $f0,$f22,$f22\n"
-    "sdc1 $f26,56($29)\n"
-    "mtc1 $6,$f26\n"
-    "sdc1 $f24,48($29)\n"
-    "mov.s $f24,$f12\n"
-    "mul.s $f2,$f24,$f26\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,24256($1)\n"
-    "sdc1 $f20,32($29)\n"
-    "mtc1 $0,$f20\n"
-    "mul.s $f2,$f2,$f4\n"
-    "sw $17,20($29)\n"
-    "move $17,$7\n"
-    "sw $16,16($29)\n"
-    "sub.s $f12,$f0,$f2\n"
-    "move $16,$0\n"
-    "c.lt.s $f12,$f20\n"
-    "nop\n"
-    "bc1f L_800ACE74\n"
-    "sw $31,24($29)\n"
-    "move $2,$16\n"
-    "swc1 $f20,4($17)\n"
-    "j L_800ACEFC\n"
-    "swc1 $f20,0($17)\n"
-    "L_800ACE74:\n"
-    "sqrt.s $f0,$f12\n"
-    "c.eq.s $f0,$f0\n"
-    "nop\n"
-    "bc1t L_800ACE90\n"
-    "nop\n"
-    "jal func_8002E800\n"
-    "nop\n"
-    "L_800ACE90:\n"
-    "c.lt.s $f22,$f20\n"
-    "nop\n"
-    "bc1f L_800ACEA8\n"
-    "mov.s $f12,$f0\n"
-    "j L_800ACEAC\n"
-    "sub.s $f0,$f22,$f12\n"
-    "L_800ACEA8:\n"
-    "add.s $f0,$f22,$f12\n"
-    "L_800ACEAC:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24260($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "mtc1 $0,$f4\n"
-    "c.eq.s $f24,$f4\n"
-    "nop\n"
-    "bc1t L_800ACEDC\n"
-    "neg.s $f2,$f0\n"
-    "div.s $f0,$f2,$f24\n"
-    "swc1 $f0,0($17)\n"
-    "addiu $17,$17,4\n"
-    "addiu $16,$16,1\n"
-    "L_800ACEDC:\n"
-    "c.eq.s $f2,$f4\n"
-    "nop\n"
-    "bc1t L_800ACEFC\n"
-    "move $2,$16\n"
-    "div.s $f0,$f26,$f2\n"
-    "swc1 $f0,0($17)\n"
-    "addiu $16,$16,1\n"
-    "move $2,$16\n"
-    "L_800ACEFC:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f26,56($29)\n"
-    "ldc1 $f24,48($29)\n"
-    "ldc1 $f22,40($29)\n"
-    "ldc1 $f20,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,64\n"
-    ".end func_800ACE08\n.set at\n.set reorder\n");
+extern float sqrtf(float);
+int func_800ACE08(float a, float b, float c, float *out)
+{
+    int n = 0;
+    float d = b * b - a * c * 4.0f;
+    float q;
+    if (d < 0.0f) {
+        out[1] = 0.0f;
+        out[0] = 0.0f;
+        return n;
+    }
+    d = sqrtf(d);
+    q = -((b < 0.0f ? b - d : b + d) * 0.5f);
+    if (a != 0.0f) {
+        *out++ = q / a;
+        n++;
+    }
+    if (q != 0.0f) {
+        *out = c / q;
+        n++;
+    }
+    return n;
+}

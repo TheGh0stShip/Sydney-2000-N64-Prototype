@@ -1,75 +1,30 @@
-/* Offset the ten secondary medal objects from their paired primary transforms. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80071AB0\n.ent func_80071AB0\n"
-    "func_80071AB0:\n"
-    "addiu $29,$29,-136\n"
-    "sdc1 $f20,128($29)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f20,3060($1)\n"
-    "sw $18,120($29)\n"
-    "move $18,$4\n"
-    "sw $17,116($29)\n"
-    "move $17,$0\n"
-    "sw $31,124($29)\n"
-    "sw $16,112($29)\n"
-    "1:\n"
-    "andi $16,$17,0xff\n"
-    "sltiu $2,$16,10\n"
-    "beqz $2,2f\n"
-    "sll $16,$16,2\n"
-    "addu $16,$18,$16\n"
-    "lw $3,1124($16)\n"
-    "li $5,17\n"
-    "lw $2,180($3)\n"
-    "addiu $6,$29,16\n"
-    "lh $4,40($2)\n"
-    "lw $2,44($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "addiu $4,$29,16\n"
-    "li $7,1\n"
-    "lw $5,1124($16)\n"
-    "lw $6,1164($16)\n"
-    "addiu $5,$5,20\n"
-    "jal func_800AC5CC\n"
-    "addiu $6,$6,20\n"
-    "lw $2,1164($16)\n"
-    "addiu $2,$2,20\n"
-    "lwc1 $f0,16($2)\n"
-    "mul.s $f2,$f0,$f20\n"
-    "swc1 $f0,96($29)\n"
-    "lwc1 $f0,20($2)\n"
-    "mul.s $f6,$f0,$f20\n"
-    "swc1 $f0,100($29)\n"
-    "lwc1 $f0,24($2)\n"
-    "mul.s $f4,$f0,$f20\n"
-    "swc1 $f0,104($29)\n"
-    "swc1 $f2,96($29)\n"
-    "swc1 $f6,100($29)\n"
-    "swc1 $f4,104($29)\n"
-    "lw $2,1164($16)\n"
-    "lwc1 $f0,84($2)\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,84($2)\n"
-    "addiu $2,$2,84\n"
-    "lwc1 $f0,100($29)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,104($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "lw $4,1164($16)\n"
-    "jal func_800AD9E8\n"
-    "addiu $17,$17,1\n"
-    "j 1b\n"
-    "andi $16,$17,0xff\n"
-    "2:\n"
-    "lw $31,124($29)\n"
-    "lw $18,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "ldc1 $f20,128($29)\n"
-    "jr $31\n"
-    ".end func_80071AB0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct { float x, y, z; } Vec;
+typedef struct { char pad[40]; short off; short pad2; void (*fn)(void *, int, void *); } VT;
+typedef struct { char pad[180]; VT *vt; } Obj;
+typedef struct { char pad[16]; Vec pos; } Xf;
+typedef struct { char pad[84]; Vec vel; } Body;
+typedef struct { char pad[1124]; Obj *a[10]; Body *b[10]; } Scene;
+extern void func_800AC5CC(void *, void *, void *, int);
+extern void func_800AD9E8(Body *);
+static __inline__ void vscale(Vec *o, Xf *in, float k) { o->x = in->pos.x; o->y = in->pos.y; o->z = in->pos.z; o->x = o->x * k; o->y = o->y * k; o->z = o->z * k; }
+static __inline__ void vadd(Vec *d, Vec *s) { d->x = s->x + d->x; d->y = s->y + d->y; d->z = s->z + d->z; }
+void func_80071AB0(Scene *s) {
+    int i;
+    char buf[80];
+    Vec v;
+    float k = 45.873798f;
+    i = 0;
+    while (1) {
+        u8 n = i;
+        Obj *a;
+        if (n >= 10) break;
+        a = s->a[n];
+        a->vt->fn((char *)a + a->vt->off, 17, buf);
+        func_800AC5CC(buf, (char *)s->a[n] + 20, (char *)s->b[n] + 20, 1);
+        vscale(&v, (Xf *)((char *)s->b[n] + 20), k);
+        vadd(&s->b[n]->vel, &v);
+        func_800AD9E8(s->b[n]);
+        i++;
+    }
+}

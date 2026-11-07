@@ -1,63 +1,32 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80123C34\n.ent func_80123C34\n"
-    "func_80123C34:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "lw $11,56($29)\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $2,3846($18)\n"
-    "lw $10,60($29)\n"
-    "beqz $2,L_80123CF4\n"
-    "move $4,$0\n"
-    "andi $5,$5,0xffff\n"
-    "lui $9,0x800f\n"
-    "addiu $8,$9,18272\n"
-    "lui $2,0x800f\n"
-    "addiu $19,$2,16760\n"
-    "andi $16,$4,0xff\n"
-    "L_80123C7C:\n"
-    "sll $2,$16,0x1\n"
-    "addu $2,$18,$2\n"
-    "lhu $17,3816($2)\n"
-    "bne $17,$5,L_80123CE0\n"
-    "addiu $4,$4,1\n"
-    "move $4,$0\n"
-    "sw $6,18272($9)\n"
-    "sw $7,4($8)\n"
-    "sw $11,8($8)\n"
-    "jal func_800B31EC\n"
-    "sw $10,12($8)\n"
-    "sll $4,$16,0x3\n"
-    "subu $4,$4,$16\n"
-    "sll $4,$4,0x3\n"
-    "subu $4,$4,$16\n"
-    "sll $4,$4,0x2\n"
-    "addiu $4,$4,1616\n"
-    "addu $4,$18,$4\n"
-    "sll $5,$17,0x1\n"
-    "addu $5,$5,$17\n"
-    "sll $5,$5,0x3\n"
-    "jal func_800B360C\n"
-    "addu $5,$5,$19\n"
-    "j func_800836E4\n"
-    "nop\n"
-    "L_80123CE0:\n"
-    "lbu $3,3846($18)\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_80123C7C\n"
-    "andi $16,$4,0xff\n"
-    "L_80123CF4:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80123C34\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef struct Item { char pad[220]; } Item;
+typedef struct Def { char pad[24]; } Def;
+typedef struct Args { int a; int b; int c; int d; } Args;
+typedef struct Obj {
+    char pad[1616];
+    Item items[10];
+    char pad2[3816 - 1616 - 10 * 220];
+    u16 keys[15];
+    u8 count;
+} Obj;
+extern Args D_800F4760;
+extern Def D_800F4178[];
+extern void func_800B31EC(int);
+extern void func_800B360C(Item *, Def *);
+void func_80083624(Obj *o, u16 key, int a, int b, int c, int d)
+{
+    int i;
+    for (i = 0; (u8)i < o->count; i++) {
+        u16 k = o->keys[(u8)i];
+        if (k == key) {
+            D_800F4760.a = a;
+            D_800F4760.b = b;
+            D_800F4760.c = c;
+            D_800F4760.d = d;
+            func_800B31EC(0);
+            func_800B360C(&o->items[(u8)i], &D_800F4178[k]);
+            return;
+        }
+    }
+}

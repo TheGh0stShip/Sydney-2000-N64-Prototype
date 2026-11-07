@@ -1,87 +1,81 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009FAD0\n.ent func_8009FAD0\n"
-    "func_8009FAD0:\n"
-    "addiu $29,$29,-32\n"
-    "sw $17,20($29)\n"
-    "move $17,$4\n"
-    "sw $31,24($29)\n"
-    "sw $16,16($29)\n"
-    "lbu $3,24041($17)\n"
-    "sltiu $2,$3,6\n"
-    "beqz $2,L_8009FC00\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4616\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lbu $3,24039($17)\n"
-    "sltiu $2,$3,24\n"
-    "beqz $2,L_8009FC00\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,4640\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$17,13020\n"
-    "lui $4,0x800f\n"
-    "jal func_800C013C\n"
-    "addiu $4,$4,15296\n"
-    "li $2,3\n"
-    "sw $0,24072($17)\n"
-    "j func_80073E40\n"
-    "sb $2,24039($17)\n"
-    "j func_80073E40\n"
-    "sw $0,24072($17)\n"
-    "lbu $3,24041($17)\n"
-    "li $2,3\n"
-    "beq $3,$2,L_8009FC00\n"
-    "nop\n"
-    "lbu $2,24122($17)\n"
-    "bnez $2,L_8009FC00\n"
-    "li $2,1\n"
-    "addiu $4,$17,18068\n"
-    "jal func_800D2328\n"
-    "sw $2,24092($17)\n"
-    "jal func_800D29E0\n"
-    "addiu $4,$17,13020\n"
-    "move $4,$17\n"
-    "jal func_80074800\n"
-    "li $5,1\n"
-    "addiu $4,$17,23728\n"
-    "jal func_800A9BE8\n"
-    "li $5,5\n"
-    "li $2,30720\n"
-    "sw $2,24072($17)\n"
-    "li $2,20\n"
-    "j func_80073E40\n"
-    "sb $2,24039($17)\n"
-    "addiu $16,$17,23456\n"
-    "jal func_800ADC1C\n"
-    "move $4,$16\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "sb $0,176($16)\n"
-    "lbu $3,24042($17)\n"
-    "li $2,20\n"
-    "sw $0,24072($17)\n"
-    "sb $2,24039($17)\n"
-    "j func_80073E40\n"
-    "sb $3,24041($17)\n"
-    "jal func_80072A5C\n"
-    "move $4,$17\n"
-    "L_8009FC00:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009FAD0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed short s16;
+typedef int s32;
+
+typedef struct VtEnt {
+    s16 off;
+    s16 pad;
+    void (*fn)(void *);
+} VtEnt;
+
+typedef struct Vt {
+    VtEnt e[4];
+} Vt;
+
+extern u8 D_800F3BC0[];
+extern void func_800D29E0(void *);
+extern void func_800C013C(void *);
+extern void func_800D2328(void *);
+extern void func_80074800(void *, s32);
+extern void func_800A9BE8(void *, s32);
+extern void func_800ADC1C(void *);
+extern void func_80072A5C(void *);
+
+#define B(o) (*(u8 *)(p + (o)))
+#define W(o) (*(s32 *)(p + (o)))
+
+void func_80073D10(u8 *p)
+{
+    u8 *o;
+    VtEnt *e;
+
+    switch (B(0x5DE9)) {
+    case 0:
+    case 3:
+    case 4:
+        switch (B(0x5DE7)) {
+        case 1:
+        case 3:
+            func_800D29E0(p + 0x32DC);
+            func_800C013C(D_800F3BC0);
+            W(0x5E08) = 0;
+            B(0x5DE7) = 3;
+            break;
+        case 0:
+        case 23:
+            break;
+        case 19:
+        case 20:
+        case 21:
+            W(0x5E08) = 0;
+            break;
+        case 5:
+        case 15:
+        case 16:
+            if (B(0x5DE9) != 3 && B(0x5E3A) == 0) {
+                W(0x5E1C) = 1;
+                func_800D2328(p + 0x4694);
+                func_800D29E0(p + 0x32DC);
+                func_80074800(p, 1);
+                func_800A9BE8(p + 0x5CB0, 5);
+                W(0x5E08) = 0x7800;
+                B(0x5DE7) = 20;
+            }
+            break;
+        }
+        break;
+    case 5:
+        o = p + 0x5BA0;
+        func_800ADC1C(o);
+        e = &(*(Vt **)(o + 0xB4))->e[3];
+        e->fn(o + e->off);
+        o[0xB0] = 0;
+        W(0x5E08) = 0;
+        B(0x5DE7) = 20;
+        B(0x5DE9) = B(0x5DEA);
+        break;
+    case 2:
+        func_80072A5C(p);
+        break;
+    }
+}

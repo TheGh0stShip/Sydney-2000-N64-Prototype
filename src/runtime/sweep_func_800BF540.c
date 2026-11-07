@@ -1,107 +1,53 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BF540\n.ent func_800BF540\n"
-    "func_800BF540:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "lui $2,0x800f\n"
-    "sw $31,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "sb $0,207($16)\n"
-    "sb $0,208($16)\n"
-    "sb $0,209($16)\n"
-    "sb $0,206($16)\n"
-    "lw $3,14468($2)\n"
-    "li $2,54\n"
-    "sw $2,0($16)\n"
-    "lui $2,0x800f\n"
-    "addiu $18,$2,10072\n"
-    "sw $0,184($16)\n"
-    "sw $0,188($16)\n"
-    "sw $0,192($16)\n"
-    "sw $0,196($16)\n"
-    "sh $0,200($16)\n"
-    "sh $0,202($16)\n"
-    "bnez $3,L_800BF5A4\n"
-    "sh $0,204($16)\n"
-    "li $3,1\n"
-    "L_800BF5A4:\n"
-    "addiu $17,$16,184\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-32464\n"
-    "lui $7,0x800f\n"
-    "sw $2,224($16)\n"
-    "lui $2,0x800f\n"
-    "addiu $7,$7,16036\n"
-    "sw $3,228($16)\n"
-    "lw $3,10012($2)\n"
-    "lw $4,220($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$7\n"
-    "lw $4,0($2)\n"
-    "jal func_80005A3C\n"
-    "li $7,1\n"
-    "bnez $2,L_800BF60C\n"
-    "lui $3,0x4d4d\n"
-    "j L_800BF6AC\n"
-    "move $2,$0\n"
-    "L_800BF60C:\n"
-    "lw $4,184($16)\n"
-    "lw $2,0($4)\n"
-    "ori $3,$3,0x4f43\n"
-    "bnel $2,$3,L_800BF634\n"
-    "move $4,$18\n"
-    "lw $3,4($4)\n"
-    "lui $2,0x3\n"
-    "beq $3,$2,L_800BF65C\n"
-    "nop\n"
-    "move $4,$18\n"
-    "L_800BF634:\n"
-    "jal func_800AA658\n"
-    "move $5,$17\n"
-    "lui $4,0x8009\n"
-    "addiu $4,$4,-32452\n"
-    "li $5,430\n"
-    "lui $6,0x8009\n"
-    "jal func_800AAA60\n"
-    "addiu $6,$6,-32408\n"
-    "j L_800BF6AC\n"
-    "move $2,$0\n"
-    "L_800BF65C:\n"
-    "lhu $2,8($4)\n"
-    "lw $3,184($16)\n"
-    "lw $4,184($16)\n"
-    "sh $2,200($16)\n"
-    "lhu $3,10($3)\n"
-    "li $2,1\n"
-    "sh $3,202($16)\n"
-    "move $3,$4\n"
-    "lhu $6,12($4)\n"
-    "lhu $4,200($16)\n"
-    "lhu $5,202($16)\n"
-    "addiu $3,$3,16\n"
-    "sw $3,188($16)\n"
-    "sll $4,$4,0x3\n"
-    "addu $3,$3,$4\n"
-    "sll $5,$5,0x2\n"
-    "sw $3,192($16)\n"
-    "addu $3,$3,$5\n"
-    "sh $6,204($16)\n"
-    "sw $3,196($16)\n"
-    "L_800BF6AC:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800BF540\n.set at\n.set reorder\n");
+typedef struct { int magic; int version; unsigned short a; unsigned short b; unsigned short c; } Header;
+typedef struct {
+    int type; char pad0[180];
+    Header *data; char *base; char *mid; char *end;
+    unsigned short a, b, c;
+    unsigned char ready, x207, x208, x209;
+    char pad1[10]; int slot;
+    char *name; int lang;
+} Obj;
+extern int D_800F3884;
+extern int D_800F271C;
+extern char D_800F2758[];
+extern char *D_800F3EA4[][13];
+extern int func_80005A3C(char *, void *, void *, int);
+extern void func_800AA658(void *, void *);
+extern void func_800AAA60(char *, int, char *);
+int func_800BF540(Obj *o)
+{
+    int lang;
+    Header *h;
+    char *heap;
+    o->x207 = 0;
+    o->x208 = 0;
+    o->x209 = 0;
+    o->ready = 0;
+    lang = D_800F3884;
+    o->type = 54;
+    heap = D_800F2758;
+    o->data = 0;
+    o->base = 0;
+    o->mid = 0;
+    o->end = 0;
+    o->a = 0;
+    o->b = 0;
+    o->c = 0;
+    if (!lang) lang = 1;
+    o->name = "pinfo.com";
+    o->lang = lang;
+    if (!func_80005A3C(D_800F3EA4[D_800F271C][o->slot], &o->data, heap, 1)) return 0;
+    h = o->data;
+    if (h->magic != 0x4D4D4F43 || h->version != 0x30000) {
+        func_800AA658(heap, &o->data);
+        func_800AAA60("c:/dev/olympics_2000/code/common/Comm.cpp", 430, "Commentary database signature incorrect\n");
+        return 0;
+    }
+    o->a = h->a;
+    o->b = o->data->b;
+    o->c = o->data->c;
+    o->base = (char *)o->data + 16;
+    o->mid = o->base + o->a * 8;
+    o->end = o->mid + o->b * 4;
+    return 1;
+}

@@ -1,93 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C6E94\n.ent func_800C6E94\n"
-    "func_800C6E94:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,32($29)\n"
-    "move $18,$4\n"
-    "addiu $4,$29,16\n"
-    "sw $16,24($29)\n"
-    "move $16,$5\n"
-    "move $5,$0\n"
-    "sw $17,28($29)\n"
-    "move $17,$6\n"
-    "sw $31,36($29)\n"
-    "jal func_80037F30\n"
-    "li $6,4\n"
-    "move $4,$18\n"
-    "li $5,12\n"
-    "li $2,3\n"
-    "andi $16,$16,0xff\n"
-    "sb $2,19($29)\n"
-    "addu $2,$29,$16\n"
-    "lbu $16,16($2)\n"
-    "addiu $6,$18,17128\n"
-    "sw $0,17128($18)\n"
-    "jal func_8008393C\n"
-    "addu $16,$16,$17\n"
-    "andi $16,$16,0xff\n"
-    "sll $2,$16,0x3\n"
-    "subu $2,$2,$16\n"
-    "lw $3,17128($18)\n"
-    "sll $2,$2,0x1\n"
-    "addu $3,$3,$2\n"
-    "sw $3,17124($18)\n"
-    "lb $2,2($3)\n"
-    "sw $2,17608($18)\n"
-    "move $2,$3\n"
-    "lbu $4,3($3)\n"
-    "addiu $2,$2,4\n"
-    "sw $2,17596($18)\n"
-    "sb $4,17595($18)\n"
-    "lbu $2,1($3)\n"
-    "move $3,$4\n"
-    "sb $3,17594($18)\n"
-    "lw $3,17608($18)\n"
-    "sh $0,17632($18)\n"
-    "sb $2,17604($18)\n"
-    "li $2,2\n"
-    "bne $3,$2,L_800C6FB4\n"
-    "move $4,$0\n"
-    "lw $2,17124($18)\n"
-    "lb $3,9($2)\n"
-    "sw $0,17628($18)\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lb $3,17595($18)\n"
-    "sll $2,$2,0x9\n"
-    "blez $3,L_800C6FD0\n"
-    "sw $2,3856($18)\n"
-    "lw $6,17124($18)\n"
-    "move $5,$3\n"
-    "L_800C6F78:\n"
-    "andi $2,$4,0xff\n"
-    "addu $2,$6,$2\n"
-    "lb $3,9($2)\n"
-    "addiu $4,$4,1\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lw $3,17628($18)\n"
-    "sll $2,$2,0x9\n"
-    "addu $3,$3,$2\n"
-    "andi $2,$4,0xff\n"
-    "slt $2,$2,$5\n"
-    "bnez $2,L_800C6F78\n"
-    "sw $3,17628($18)\n"
-    "j func_80070CB0\n"
-    "nop\n"
-    "L_800C6FB4:\n"
-    "lw $2,17124($18)\n"
-    "lb $3,0($2)\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x9\n"
-    "sw $2,3856($18)\n"
-    "sw $2,17628($18)\n"
-    "L_800C6FD0:\n"
-    "lw $31,36($29)\n"
-    "lw $18,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800C6E94\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef short s16;
+typedef int s32;
+
+extern void func_80037F30(void *dst, s32 v, s32 n);
+extern void func_8008393C(u8 *p, s32 id, void *out);
+
+#define W(o) (*(s32 *)(p + (o)))
+#define B(o) (*(u8 *)(p + (o)))
+#define SB(o) (*(s8 *)(p + (o)))
+#define H(o) (*(s16 *)(p + (o)))
+#define P(o) (*(u8 **)(p + (o)))
+
+void func_800C6E94(u8 *p, u8 sel, s32 base)
+{
+    u8 buf[4];
+    u8 idx;
+    u8 *e;
+    u8 i;
+    u8 n;
+
+    func_80037F30(buf, 0, 4);
+    buf[3] = 3;
+    idx = buf[sel] + base;
+    W(0x42E8) = 0;
+    func_8008393C(p, 12, p + 0x42E8);
+    P(0x42E4) = P(0x42E8) + idx * 14;
+    W(0x44C8) = (s8)P(0x42E4)[2];
+    SB(0x44BB) = P(0x42E4)[3];
+    P(0x44BC) = P(0x42E4) + 4;
+    B(0x44C4) = P(0x42E4)[1];
+    B(0x44BA) = SB(0x44BB);
+    H(0x44E0) = 0;
+    if (W(0x44C8) == 2) {
+        W(0xF10) = (s8)P(0x42E4)[9] * 7680;
+        W(0x44DC) = 0;
+        for (i = 0; i < SB(0x44BB); i++) {
+            W(0x44DC) += (s8)(P(0x42E4) + i)[9] * 7680;
+        }
+    } else {
+        W(0x44DC) = W(0xF10) = (s8)P(0x42E4)[0] * 7680;
+    }
+}

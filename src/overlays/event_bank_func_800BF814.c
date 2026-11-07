@@ -1,106 +1,50 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BF814\n.ent func_800BF814\n"
-    "func_800BF814:\n"
-    "addiu $29,$29,-88\n"
-    "sw $16,48($29)\n"
-    "move $16,$4\n"
-    "sw $20,64($29)\n"
-    "move $20,$0\n"
-    "sw $21,68($29)\n"
-    "addiu $21,$16,17232\n"
-    "sw $19,60($29)\n"
-    "addiu $19,$29,16\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,2424($1)\n"
-    "lui $2,0x800f\n"
-    "sw $22,72($29)\n"
-    "addiu $22,$2,6880\n"
-    "sw $23,76($29)\n"
-    "li $23,32767\n"
-    "sw $31,80($29)\n"
-    "sw $18,56($29)\n"
-    "sw $17,52($29)\n"
-    "sw $0,36($29)\n"
-    "sw $0,40($29)\n"
-    "swc1 $f0,32($29)\n"
-    "andi $4,$20,0xff\n"
-    "sltiu $2,$4,8\n"
-    "beqz $2,L_800BF974\n"
-    "li $3,1\n"
-    "lw $2,17360($16)\n"
-    "sllv $18,$3,$4\n"
-    "and $2,$2,$18\n"
-    "beqz $2,L_800BF96C\n"
-    "sllv $2,$4,$3\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "subu $2,$2,$4\n"
-    "sll $2,$2,0x3\n"
-    "subu $2,$2,$4\n"
-    "sll $17,$2,0x2\n"
-    "lw $3,17364($16)\n"
-    "lwc1 $f0,17232($16)\n"
-    "addu $3,$17,$3\n"
-    "addiu $3,$3,84\n"
-    "lwc1 $f2,0($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f0,4($21)\n"
-    "lwc1 $f2,4($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($19)\n"
-    "lwc1 $f2,8($21)\n"
-    "lwc1 $f0,8($3)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "move $4,$19\n"
-    "jal func_800AD7D0\n"
-    "swc1 $f2,8($19)\n"
-    "lwc1 $f2,17588($16)\n"
-    "lwc1 $f4,17584($16)\n"
-    "add.s $f2,$f2,$f4\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800BF96C\n"
-    "move $4,$22\n"
-    "li $5,87\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $3,104($22)\n"
-    "mult $3,$23\n"
-    "move $4,$22\n"
-    "move $5,$2\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "addiu $5,$29,32\n"
-    "lw $4,17364($16)\n"
-    "lui $6,0xbeb6\n"
-    "ori $6,$6,0xddb7\n"
-    "lbu $2,17654($16)\n"
-    "addu $4,$17,$4\n"
-    "addiu $4,$4,272\n"
-    "addiu $2,$2,1\n"
-    "jal func_800AEC30\n"
-    "sb $2,17654($16)\n"
-    "lw $2,17360($16)\n"
-    "nor $3,$0,$18\n"
-    "and $2,$2,$3\n"
-    "sw $2,17360($16)\n"
-    "L_800BF96C:\n"
-    "j func_800717CC\n"
-    "addiu $20,$20,1\n"
-    "L_800BF974:\n"
-    "lw $31,80($29)\n"
-    "lw $23,76($29)\n"
-    "lw $22,72($29)\n"
-    "lw $21,68($29)\n"
-    "lw $20,64($29)\n"
-    "lw $19,60($29)\n"
-    "lw $18,56($29)\n"
-    "lw $17,52($29)\n"
-    "lw $16,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,88\n"
-    ".end func_800BF814\n.set at\n.set reorder\n");
+typedef int s32;
+typedef unsigned char u8;
+typedef struct { u8 pad[104]; s32 vol; } Snd;
+typedef struct { float x, y, z; } Vec;
+typedef struct { float a; s32 b; s32 c; } Arg;
+typedef struct { u8 pad[84]; Vec pos; u8 pad2[176]; u8 tail[76]; } Ent;
+extern Snd D_800F1AE0;
+extern s32 func_8001D4B8(Snd *, s32, s32, s32);
+extern void func_8001D640(Snd *, s32, s32);
+extern float func_800AD7D0(Vec *);
+extern void func_800AEC30(void *, Arg *, float);
+static inline s32 scl(s32 v, s32 m)
+{
+    return (v * m) >> 15;
+}
+static inline void vsub(Vec *a, Vec *b, Vec *r)
+{
+    r->x = a->x - b->x;
+    r->y = a->y - b->y;
+    r->z = a->z - b->z;
+}
+static inline void hit(u8 *t, Arg *q)
+{
+    func_800AEC30(t, q, -0.3571603f);
+}
+void func_80071774(u8 *o)
+{
+    Vec d;
+    Arg q;
+    u8 i;
+    i = 0;
+    q.b = 0;
+    q.c = 0;
+    q.a = -1.3652916f;
+    while (1) {
+        s32 m;
+        if (!(i < 8)) break;
+        m = 1 << i;
+        if (*(s32 *)(o + 17360) & m) {
+            vsub((Vec *)(o + 17232), &(*(Ent **)(o + 17364))[i].pos, &d);
+            if (func_800AD7D0(&d) < *(float *)(o + 17588) + *(float *)(o + 17584)) {
+                func_8001D640(&D_800F1AE0, func_8001D4B8(&D_800F1AE0, 87, 0, 1), scl(D_800F1AE0.vol, 32767));
+                o[17654]++;
+                hit((*(Ent **)(o + 17364))[i].tail, &q);
+                *(s32 *)(o + 17360) &= ~m;
+            }
+        }
+        i++;
+    }
+}

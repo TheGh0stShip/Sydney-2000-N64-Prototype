@@ -1,0 +1,10 @@
+/* Initialized data retained at ROM 0x6E6DC. */
+typedef unsigned int u32;
+typedef char check_u32_size[sizeof(u32) == 4 ? 1 : -1];
+
+u32 closing_data_80070C30[25] __attribute__((section(".data"))) = {
+    0x66616E66, 0x61726531, 0x2E62696E, 0x00000000, 0x66616E66, 0x61726532, 0x2E62696E, 0x00000000,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000, 0x80072688, 0x00000000, 0x800AC37C, 0x00000000,
+    0x800AC334, 0x00000000, 0x800AC1B8, 0x00000000, 0x800AC178, 0x00000000, 0x80070C90, 0x00000000,
+    0x800725B8,
+};

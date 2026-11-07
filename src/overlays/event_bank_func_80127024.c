@@ -3,8 +3,8 @@
 #define I(p, o) (*(int *)((char *)(p) + (o)))
 #define P(p, o) (*(char **)((char *)(p) + (o)))
 
-#define D_80081434 (*(float *)0x80081434)
-#define D_80081438 (*(float *)0x80081438)
+#define D_80081434 (30.0f)
+#define D_80081438 (256.0f)
 
 void func_80127024(char *self, int unused, int which)
 {

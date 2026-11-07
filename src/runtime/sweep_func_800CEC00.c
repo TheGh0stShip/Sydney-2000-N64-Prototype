@@ -1,135 +1,64 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800CEC00\n.ent func_800CEC00\n"
-    "func_800CEC00:\n"
-    "addiu $29,$29,-136\n"
-    "sw $17,116($29)\n"
-    "move $17,$4\n"
-    "sdc1 $f20,128($29)\n"
-    "mtc1 $5,$f20\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25744($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25740($1)\n"
-    "mul.s $f0,$f20,$f0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-25736($1)\n"
-    "lui $2,0x8009\n"
-    "sw $31,120($29)\n"
-    "sw $16,112($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $11,$2,-25756\n"
-    "lw $8,0($11)\n"
-    "lw $9,4($11)\n"
-    "lw $10,8($11)\n"
-    "sw $8,16($29)\n"
-    "sw $9,20($29)\n"
-    "sw $10,24($29)\n"
-    "c.le.s $f4,$f0\n"
-    "nop\n"
-    "bc1t L_800CEC7C\n"
-    "swc1 $f20,212($17)\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $5,$f6\n"
-    "j L_800CEC90\n"
-    "nop\n"
-    "L_800CEC7C:\n"
-    "sub.s $f0,$f0,$f4\n"
-    "lui $2,0x8000\n"
-    "trunc.w.s $f6,$f0\n"
-    "mfc1 $5,$f6\n"
-    "or $5,$5,$2\n"
-    "L_800CEC90:\n"
-    "lui $2,0xcccc\n"
-    "ori $2,$2,0xcccd\n"
-    "multu $5,$2\n"
-    "li $4,3\n"
-    "sh $0,1308($17)\n"
-    "mfhi $8\n"
-    "srlv $3,$8,$4\n"
-    "addiu $2,$3,4\n"
-    "sh $2,1304($17)\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x1\n"
-    "subu $2,$5,$2\n"
-    "addiu $2,$2,4\n"
-    "jal func_800B31EC\n"
-    "sh $2,1306($17)\n"
-    "addiu $4,$17,1084\n"
-    "lui $5,0x800f\n"
-    "addiu $5,$5,18756\n"
-    "lui $3,0x800f\n"
-    "addiu $2,$17,1304\n"
-    "jal func_800B360C\n"
-    "sw $2,4720($3)\n"
-    "addiu $16,$29,32\n"
-    "move $4,$16\n"
-    "neg.s $f20,$f20\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-25732($1)\n"
-    "mfc1 $5,$f20\n"
-    "li $6,3\n"
-    "sw $0,68($29)\n"
-    "sw $0,64($29)\n"
-    "sw $0,56($29)\n"
-    "sw $0,48($29)\n"
-    "sw $0,40($29)\n"
-    "sw $0,36($29)\n"
-    "sw $0,104($29)\n"
-    "sw $0,100($29)\n"
-    "sw $0,96($29)\n"
-    "swc1 $f0,40($16)\n"
-    "swc1 $f0,20($16)\n"
-    "jal func_800AD388\n"
-    "swc1 $f0,32($29)\n"
-    "lui $2,0x800f\n"
-    "lwc1 $f2,36($29)\n"
-    "lwc1 $f0,18780($2)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "move $4,$16\n"
-    "addiu $5,$29,16\n"
-    "addiu $6,$17,396\n"
-    "move $7,$0\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f2,36($29)\n"
-    "lui $3,0x800f\n"
-    "lwc1 $f0,400($17)\n"
-    "lw $2,18752($3)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-25728($1)\n"
-    "addiu $4,$2,5\n"
-    "add.s $f0,$f0,$f2\n"
-    "sltiu $2,$4,6\n"
-    "sw $4,18752($3)\n"
-    "bnez $2,L_800CEDE4\n"
-    "swc1 $f0,400($17)\n"
-    "lui $3,0x51eb\n"
-    "ori $3,$3,0x851f\n"
-    "sll $2,$4,0xf\n"
-    "subu $2,$2,$4\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "multu $2,$3\n"
-    "move $4,$16\n"
-    "li $5,203\n"
-    "move $6,$0\n"
-    "move $7,$6\n"
-    "mfhi $3\n"
-    "jal func_8001D4B8\n"
-    "srl $17,$3,0x5\n"
-    "lw $3,104($16)\n"
-    "mult $17,$3\n"
-    "move $4,$16\n"
-    "move $5,$2\n"
-    "mflo $3\n"
-    "jal func_8001D640\n"
-    "sra $6,$3,0xf\n"
-    "L_800CEDE4:\n"
-    "lw $31,120($29)\n"
-    "lw $17,116($29)\n"
-    "lw $16,112($29)\n"
-    "ldc1 $f20,128($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,136\n"
-    ".end func_800CEC00\n.set at\n.set reorder\n");
+typedef struct { float m[19]; } Mtx;
+typedef struct { short hi, lo, z; } Dig;
+typedef struct {
+    char p0[0xD4];
+    float ang;
+    char p1[0x18C - 0xD8];
+    float pos[2];
+    char p2[0x43C - 0x194];
+    char snd[0x518 - 0x43C];
+    Dig d;
+} Obj;
+typedef struct { char p0[0x68]; int vol; } Aud;
+
+extern Dig *D_800F1270;
+extern char D_800F4944[];
+extern float D_800F495C;
+extern unsigned int D_800F4940;
+extern Aud D_800F1AE0;
+extern void func_800B31EC(int);
+extern void func_800B360C(void *, void *);
+extern void func_800AD388(Mtx *, float, int);
+extern void func_800AD2A8(Mtx *, float *, void *, int);
+extern int func_8001D4B8(Aud *, int, int, int);
+extern void func_8001D640(Aud *, int, int);
+
+void func_800CEC00(Obj *o, float a)
+{
+    float dir[3] = { 48.0f, 0.0f, 0.0f };
+    Mtx m;
+    Mtx *p;
+    unsigned int n;
+    int x;
+
+    o->ang = a;
+    n = a * 57.29578f + 0.5f;
+    o->d.z = 0;
+    o->d.hi = n / 10 + 4;
+    o->d.lo = n % 10 + 4;
+    func_800B31EC(3);
+    D_800F1270 = &o->d;
+    func_800B360C(o->snd, D_800F4944);
+    m.m[9] = 0.0f;
+    m.m[8] = 0.0f;
+    m.m[6] = 0.0f;
+    m.m[4] = 0.0f;
+    m.m[2] = 0.0f;
+    m.m[1] = 0.0f;
+    m.m[18] = 0.0f;
+    m.m[17] = 0.0f;
+    m.m[16] = 0.0f;
+    p = &m;
+    p->m[10] = 1.0f;
+    p->m[5] = 1.0f;
+    m.m[0] = 1.0f;
+    func_800AD388(&m, -a, 3);
+    m.m[1] *= D_800F495C;
+    func_800AD2A8(&m, dir, o->pos, 0);
+    o->pos[1] += 29.0f;
+    D_800F4940 += 5;
+    if (D_800F4940 >= 6) {
+        x = D_800F4940 * 32767 / 100;
+        func_8001D640(&D_800F1AE0, func_8001D4B8(&D_800F1AE0, 203, 0, 0), x * D_800F1AE0.vol >> 15);
+    }
+}

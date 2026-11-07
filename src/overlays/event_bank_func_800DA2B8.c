@@ -1,87 +1,34 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DA2B8\n.ent func_800DA2B8\n"
-    "func_800DA2B8:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lbu $2,1548($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $2,20188($2)\n"
-    "lbu $6,733($2)\n"
-    "sll $2,$6,0x2\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $4,$16,$2\n"
-    "lh $3,24766($4)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800DA3DC\n"
-    "li $2,0x9000\n"
-    "lw $3,24748($4)\n"
-    "slt $2,$2,$3\n"
-    "bnez $2,L_800DA328\n"
-    "li $5,168\n"
-    "lw $2,24752($4)\n"
-    "slti $2,$2,2305\n"
-    "beqz $2,L_800DA328\n"
-    "li $17,243\n"
-    "j func_800757BC\n"
-    "li $5,176\n"
-    "L_800DA328:\n"
-    "li $17,242\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800DA364\n"
-    "addu $5,$6,$5\n"
-    "lw $3,24968($16)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800DA368\n"
-    "lui $6,0x7fff\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800DA364:\n"
-    "lui $6,0x7fff\n"
-    "L_800DA368:\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x4\n"
-    "subu $3,$3,$2\n"
-    "sll $3,$3,0x5\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "and $2,$2,$6\n"
-    "sw $2,10004($5)\n"
-    "srl $2,$2,0x1c\n"
-    "sltiu $2,$2,5\n"
-    "beqz $2,L_800DA3DC\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lw $2,2564($2)\n"
-    "beqz $2,L_800DA3DC\n"
-    "li $2,1\n"
-    "lw $3,24968($16)\n"
-    "bne $3,$2,L_800DA3DC\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "move $5,$17\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800DA3DC:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800DA2B8\n.set at\n.set reorder\n");
+typedef int s32;
+typedef short s16;
+typedef unsigned int u32;
+typedef unsigned char u8;
+extern u8 *D_800FC270;
+extern u32 D_800F2714;
+extern u8 D_800F3BC0[];
+extern void func_800C0110(void *, s32, s32, s32);
+void func_80075748(u8 *o)
+{
+    u8 *p = *(u8 **)(o + (o[1548] << 2) + 20188);
+    u8 k = p[733];
+    u8 *e = o + k * 20;
+    s32 a;
+    s32 b;
+    if (*(s16 *)(e + 24766) == 1) {
+        return;
+    }
+    a = 168;
+    if (*(s32 *)(e + 24748) <= 0x9000 && *(s32 *)(e + 24752) < 2305) {
+        b = 243;
+        a = 176;
+    } else {
+        b = 242;
+    }
+    a += k;
+    if (*(s32 *)(D_800FC270 + 2564) != 0 && *(s32 *)(o + 24968) == 1) {
+        func_800C0110(D_800F3BC0, a, 0, 0);
+    }
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    if ((D_800F2714 >> 28) < 5 && *(s32 *)(D_800FC270 + 2564) != 0 && *(s32 *)(o + 24968) == 1) {
+        func_800C0110(D_800F3BC0, b, 0, 0);
+    }
+}

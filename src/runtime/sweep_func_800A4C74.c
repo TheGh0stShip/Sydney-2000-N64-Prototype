@@ -1,125 +1,63 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A4C74\n.ent func_800A4C74\n"
-    "func_800A4C74:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lb $4,253($16)\n"
-    "lbu $2,185($16)\n"
-    "bne $4,$2,L_800A4CC0\n"
-    "move $6,$5\n"
-    "sll $2,$5,0x18\n"
-    "blez $2,L_800A4CB0\n"
-    "move $4,$16\n"
-    "jal func_800A54B0\n"
-    "move $4,$16\n"
-    "j L_800A4E20\n"
-    "nop\n"
-    "L_800A4CB0:\n"
-    "jal func_800A4968\n"
-    "li $5,1\n"
-    "j L_800A4E20\n"
-    "nop\n"
-    "L_800A4CC0:\n"
-    "lb $3,254($16)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800A4D20\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$16,$2\n"
-    "lh $2,260($2)\n"
-    "bnez $2,L_800A4D20\n"
-    "li $5,89\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,6880\n"
-    "move $4,$16\n"
-    "move $6,$0\n"
-    "jal func_8001D4B8\n"
-    "li $7,1\n"
-    "lw $4,104($16)\n"
-    "li $3,32767\n"
-    "mult $4,$3\n"
-    "move $5,$2\n"
-    "move $4,$16\n"
-    "mflo $8\n"
-    "jal func_8001D640\n"
-    "sra $6,$8,0xf\n"
-    "j L_800A4E20\n"
-    "nop\n"
-    "L_800A4D20:\n"
-    "lbu $2,254($16)\n"
-    "addu $2,$2,$6\n"
-    "sb $2,254($16)\n"
-    "sll $2,$2,0x18\n"
-    "bgtz $2,L_800A4D3C\n"
-    "li $2,1\n"
-    "sb $2,254($16)\n"
-    "L_800A4D3C:\n"
-    "lb $3,254($16)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800A4DF0\n"
-    "move $4,$16\n"
-    "jal func_800A5DDC\n"
-    "move $5,$0\n"
-    "lb $2,253($16)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lbu $3,261($2)\n"
-    "sltiu $2,$3,7\n"
-    "beqz $2,L_800A4DF0\n"
-    "lui $2,0x8008\n"
-    "addiu $2,$2,21168\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "li $2,-1\n"
-    "j L_800A4DEC\n"
-    "sh $2,256($16)\n"
-    "li $2,23\n"
-    "j L_800A4DEC\n"
-    "sh $0,256($16)\n"
-    "li $2,24\n"
-    "sh $2,256($16)\n"
-    "j L_800A4DEC\n"
-    "li $2,42\n"
-    "li $2,43\n"
-    "sh $2,256($16)\n"
-    "j L_800A4DEC\n"
-    "li $2,57\n"
-    "li $2,58\n"
-    "sh $2,256($16)\n"
-    "j L_800A4DEC\n"
-    "li $2,74\n"
-    "li $2,75\n"
-    "sh $2,256($16)\n"
-    "j L_800A4DEC\n"
-    "li $2,86\n"
-    "li $2,87\n"
-    "sh $2,256($16)\n"
-    "li $2,105\n"
-    "L_800A4DEC:\n"
-    "sh $2,258($16)\n"
-    "L_800A4DF0:\n"
-    "lb $2,254($16)\n"
-    "slti $2,$2,3\n"
-    "bnez $2,L_800A4E18\n"
-    "move $4,$16\n"
-    "sb $0,254($16)\n"
-    "jal func_800A4968\n"
-    "li $5,1\n"
-    "move $4,$16\n"
-    "jal func_800A5DDC\n"
-    "li $5,1\n"
-    "L_800A4E18:\n"
-    "jal L_800A4E30\n"
-    "move $4,$16\n"
-    "L_800A4E20:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    "L_800A4E30:\n"
-    ".end func_800A4C74\n.set at\n.set reorder\n");
+typedef struct { char pad[0x68]; int vol; } Snd;
+typedef struct { short val; short pad; } Ent;
+typedef struct {
+    char pad0[0xB9];
+    unsigned char max;
+    char padba[0xFD - 0xBA];
+    signed char cur;
+    signed char cnt;
+    char padff;
+    short lo;
+    short hi;
+    Ent ent[8];
+} Menu;
+
+extern Snd D_800F1AE0;
+extern void func_800A54B0(Menu *m);
+extern void func_800A4968(Menu *m, int a);
+extern void func_800A5DDC(Menu *m, int a);
+extern void func_800A4E30(Menu *m);
+extern int func_8001D4B8(Snd *s, int id, int a, int b);
+extern void func_8001D640(Snd *s, int h, int vol);
+
+void func_800A4C74(Menu *m, signed char d)
+{
+    int h;
+
+    if (m->cur == m->max) {
+        if (d > 0) {
+            func_800A54B0(m);
+        } else {
+            func_800A4968(m, 1);
+        }
+        return;
+    }
+    if (m->cnt == 1 && m->ent[m->cur].val == 0) {
+        int k = 32767;
+        h = func_8001D4B8(&D_800F1AE0, 89, 0, 1);
+        func_8001D640(&D_800F1AE0, h, (D_800F1AE0.vol * k) >> 15);
+        return;
+    }
+    m->cnt += d;
+    if (m->cnt <= 0) {
+        m->cnt = 1;
+    }
+    if (m->cnt == 1) {
+        func_800A5DDC(m, 0);
+        switch ((unsigned char)m->ent[m->cur].val) {
+        case 0: m->lo = -1; m->hi = -1; break;
+        case 1: m->lo = 0; m->hi = 23; break;
+        case 2: m->lo = 24; m->hi = 42; break;
+        case 3: m->lo = 43; m->hi = 57; break;
+        case 4: m->lo = 58; m->hi = 74; break;
+        case 5: m->lo = 75; m->hi = 86; break;
+        case 6: m->lo = 87; m->hi = 105; break;
+        }
+    }
+    if (m->cnt >= 3) {
+        m->cnt = 0;
+        func_800A4968(m, 1);
+        func_800A5DDC(m, 1);
+    }
+    func_800A4E30(m);
+}

@@ -1,137 +1,91 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80111428\n.ent func_80111428\n"
-    "func_80111428:\n"
-    "addiu $29,$29,-24\n"
-    "move $8,$4\n"
-    "lui $2,0x8010\n"
-    "sw $31,16($29)\n"
-    "sb $0,742($8)\n"
-    "lw $4,-15760($2)\n"
-    "lw $3,2560($4)\n"
-    "li $5,5\n"
-    "bne $3,$5,L_801114C8\n"
-    "li $2,4\n"
-    "lbu $2,741($8)\n"
-    "beqz $2,L_801114F8\n"
-    "li $2,1\n"
-    "lbu $3,426($8)\n"
-    "beq $3,$2,L_8011146C\n"
-    "li $9,25\n"
-    "li $9,75\n"
-    "L_8011146C:\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $10\n"
-    "srl $2,$10,0x10\n"
-    "sltu $2,$9,$2\n"
-    "beqz $2,L_801115F0\n"
-    "sw $3,5104($5)\n"
-    "j func_8007C8F0\n"
-    "nop\n"
-    "L_801114C8:\n"
-    "bne $3,$2,L_80111588\n"
-    "li $2,6\n"
-    "lbu $2,741($8)\n"
-    "bnez $2,L_8011150C\n"
-    "sltiu $2,$2,4\n"
-    "lbu $3,426($8)\n"
-    "li $2,1\n"
-    "bnel $3,$2,L_801114FC\n"
-    "move $4,$8\n"
-    "lw $2,2564($4)\n"
-    "beq $2,$5,L_801115B4\n"
-    "move $4,$8\n"
-    "L_801114F8:\n"
-    "move $4,$8\n"
-    "L_801114FC:\n"
-    "jal func_8007D050\n"
-    "li $5,1\n"
-    "j func_8007C908\n"
-    "nop\n"
-    "L_8011150C:\n"
-    "bnez $2,L_801115F0\n"
-    "li $2,1\n"
-    "lbu $3,426($8)\n"
-    "beq $3,$2,L_80111574\n"
-    "move $9,$0\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $10\n"
-    "srl $2,$10,0x10\n"
-    "sltiu $2,$2,26\n"
-    "beqz $2,L_80111578\n"
-    "sw $3,5104($5)\n"
-    "L_80111574:\n"
-    "li $9,1\n"
-    "L_80111578:\n"
-    "beqz $9,L_801115F0\n"
-    "nop\n"
-    "j func_8007C8F0\n"
-    "nop\n"
-    "L_80111588:\n"
-    "beq $3,$2,L_801115F0\n"
-    "nop\n"
-    "lw $3,788($8)\n"
-    "lw $2,3344($4)\n"
-    "slt $2,$2,$3\n"
-    "bnez $2,L_801115D4\n"
-    "li $2,1\n"
-    "lbu $2,741($8)\n"
-    "bnez $2,L_801115C4\n"
-    "sltiu $2,$2,4\n"
-    "move $4,$8\n"
-    "L_801115B4:\n"
-    "jal func_8007D050\n"
-    "li $5,2\n"
-    "j func_8007C908\n"
-    "nop\n"
-    "L_801115C4:\n"
-    "beqz $2,L_801115E0\n"
-    "nop\n"
-    "j func_8007C900\n"
-    "nop\n"
-    "L_801115D4:\n"
-    "lbu $3,426($8)\n"
-    "bne $3,$2,L_801115F0\n"
-    "nop\n"
-    "L_801115E0:\n"
-    "jal func_8007D6BC\n"
-    "move $4,$8\n"
-    "j func_8007C908\n"
-    "nop\n"
-    "L_801115F0:\n"
-    "jal func_8007D77C\n"
-    "move $4,$8\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_80111428\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef unsigned int u32;
+
+typedef struct {
+    char pad0[0xA00];
+    s32 mode;
+    s32 sub;
+    char padA08[0xD10 - 0xA08];
+    s32 limit;
+} Game;
+
+typedef struct {
+    char pad0[0x1AA];
+    u8 side;
+    char pad1AB[0x2E5 - 0x1AB];
+    u8 level;
+    u8 flag;
+    char pad2E7[0x314 - 0x2E7];
+    s32 score;
+} Actor;
+
+extern Game *D_800FC270;
+extern u32 D_800F13F0;
+extern void func_8007D050(Actor *, s32);
+extern void func_8007D6BC(Actor *);
+extern void func_8007D77C(Actor *);
+
+static inline u32 rnd(u32 n)
+{
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    return ((D_800F13F0 >> 15) * n) >> 16;
+}
+
+void func_8007C738(Actor *a)
+{
+    Game *g;
+    u32 thr;
+    s32 hit;
+
+    a->flag = 0;
+    g = D_800FC270;
+    if (g->mode == 5) {
+        if (a->level == 0) {
+            func_8007D050(a, 1);
+            return;
+        }
+        thr = 25;
+        if (a->side != 1) thr = 75;
+        if (thr < rnd(100)) {
+            func_8007D6BC(a);
+            return;
+        }
+    } else if (g->mode == 4) {
+        if (a->level == 0) {
+            if (a->side == 1 && g->sub == 5) {
+                func_8007D050(a, 2);
+                return;
+            }
+            func_8007D050(a, 1);
+            return;
+        }
+        if (a->level >= 4) {
+            hit = 0;
+            if (a->side == 1 || rnd(100) < 26) {
+                hit = 1;
+            }
+            if (hit) {
+                func_8007D6BC(a);
+                return;
+            }
+        }
+    } else if (g->mode != 6) {
+        if (a->score <= g->limit) {
+            if (a->level == 0) {
+                func_8007D050(a, 2);
+                return;
+            }
+            if (a->level >= 4) {
+                func_8007D6BC(a);
+                return;
+            }
+        } else {
+            if (a->side == 1) {
+                func_8007D6BC(a);
+                return;
+            }
+        }
+    }
+    func_8007D77C(a);
+}

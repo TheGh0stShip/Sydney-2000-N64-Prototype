@@ -1,102 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80089E58\n.ent func_80089E58\n"
-    "func_80089E58:\n"
-    "addiu $29,$29,-40\n"
-    "sw $31,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $16,24($29)\n"
-    "lw $3,16($5)\n"
-    "sltiu $2,$3,19\n"
-    "beqz $2,L_80089FC4\n"
-    "move $17,$4\n"
-    "lui $2,0x8007\n"
-    "addiu $2,$2,3992\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "move $4,$17\n"
-    "lw $5,23004($4)\n"
-    "jal func_80076E24\n"
-    "li $6,1\n"
-    "j func_80071C54\n"
-    "nop\n"
-    "li $4,0x8264\n"
-    "addu $4,$17,$4\n"
-    "li $6,1\n"
-    "li $2,2\n"
-    "sw $2,16($29)\n"
-    "lw $5,12112($17)\n"
-    "j func_80071C4C\n"
-    "move $7,$6\n"
-    "li $2,2\n"
-    "sw $2,16($29)\n"
-    "li $4,0x8264\n"
-    "addu $4,$17,$4\n"
-    "addiu $5,$17,23196\n"
-    "li $6,1\n"
-    "j func_80071C4C\n"
-    "move $7,$6\n"
-    "li $2,2\n"
-    "sw $2,16($29)\n"
-    "li $4,0x8264\n"
-    "addu $4,$17,$4\n"
-    "li $5,0x8358\n"
-    "addu $5,$17,$5\n"
-    "li $6,1\n"
-    "j func_80071C4C\n"
-    "move $7,$6\n"
-    "li $16,0x8264\n"
-    "addu $16,$17,$16\n"
-    "move $4,$16\n"
-    "li $5,0x8358\n"
-    "addu $5,$17,$5\n"
-    "li $6,1\n"
-    "move $7,$6\n"
-    "move $2,$6\n"
-    "jal func_800A9B78\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "j func_80071C40\n"
-    "addiu $5,$17,23196\n"
-    "li $16,0x8264\n"
-    "addu $16,$17,$16\n"
-    "move $4,$16\n"
-    "addiu $5,$17,23196\n"
-    "li $6,1\n"
-    "move $7,$6\n"
-    "move $2,$6\n"
-    "jal func_800A9B78\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "li $6,1\n"
-    "sw $0,16($29)\n"
-    "lw $5,23004($17)\n"
-    "j func_80071C4C\n"
-    "move $7,$6\n"
-    "li $16,0x8264\n"
-    "addu $16,$17,$16\n"
-    "move $4,$16\n"
-    "addiu $5,$17,23196\n"
-    "li $6,1\n"
-    "move $7,$6\n"
-    "move $2,$6\n"
-    "jal func_800A9B78\n"
-    "sw $2,16($29)\n"
-    "move $4,$16\n"
-    "li $5,0x8358\n"
-    "addu $5,$17,$5\n"
-    "li $6,1\n"
-    "move $7,$6\n"
-    "sw $0,16($29)\n"
-    "jal func_800A9B78\n"
-    "nop\n"
-    "L_80089FC4:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80089E58\n.set at\n.set reorder\n");
+typedef struct Obj {
+    char pad[0x2F50];
+    void *unk2F50;
+    char pad2F54[0x59DC - 0x2F54];
+    void *unk59DC;
+    char pad59E0[0x5A9C - 0x59E0];
+    char unk5A9C[0x8264 - 0x5A9C];
+    char unk8264[0x8358 - 0x8264];
+    char unk8358[4];
+} Obj;
+typedef struct Arg { int pad[4]; int kind; } Arg;
+extern void func_80076E24(Obj *, void *, int);
+extern void func_800A9B78(void *, void *, int, int, int);
+void func_80089E58(Obj *o, Arg *a)
+{
+    switch (a->kind) {
+    case 0:
+        break;
+    case 1:
+        func_80076E24(o, o->unk59DC, 1);
+        break;
+    case 2:
+        func_800A9B78(o->unk8264, o->unk2F50, 1, 1, 2);
+        break;
+    case 3:
+        func_800A9B78(o->unk8264, o->unk5A9C, 1, 1, 2);
+        break;
+    case 6:
+        func_800A9B78(o->unk8264, o->unk8358, 1, 1, 2);
+        break;
+    case 12:
+        func_800A9B78(o->unk8264, o->unk8358, 1, 1, 1);
+        func_800A9B78(o->unk8264, o->unk5A9C, 1, 1, 0);
+        break;
+    case 16:
+        func_800A9B78(o->unk8264, o->unk5A9C, 1, 1, 1);
+        func_800A9B78(o->unk8264, o->unk59DC, 1, 1, 0);
+        break;
+    case 18:
+        func_800A9B78(o->unk8264, o->unk5A9C, 1, 1, 1);
+        func_800A9B78(o->unk8264, o->unk8358, 1, 1, 0);
+        break;
+    }
+}
