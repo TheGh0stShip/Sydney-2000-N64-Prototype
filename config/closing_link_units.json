@@ -94,7 +94,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "38b314b34196ff758d867736e25ea12a7ece752e6e5b27a52726c2b10d4a1559",
+      "object_sha256_at_discovery": "4caba04084dd59825d17db1df5dc9fd31c97482a3591ef62123517c629e1f5a3",
       "pipeline": "sn",
       "row_sha256": "ab07eb6c6aeeb4dc88460b481084b457bd499d580d6ebd862c5480133afa66d4",
       "section_bases": {
@@ -172,7 +172,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "498ca69fbfcd7ce59c7d14ebd4253d0aab8603a08c4b5f2e93fb27e394bf74a0",
+      "object_sha256_at_discovery": "cc648fad4b95b7ea6af3e2e875f6be90daef970ec5608fc82569854f05428624",
       "pipeline": "sn",
       "row_sha256": "14f1bd6b5b40f08a500bef996d1274041fc9421ed265614782d0a10ac16c8ae2",
       "section_bases": {
@@ -208,7 +208,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "cf29a1e8d181a88b1ad8e11b477f07c033d2f7ac3b9969f7227c8fe2d2a39449",
+      "object_sha256_at_discovery": "480d6fe64a7c9fd31ed31faf8a1f5ecc8054fdf103f08954e4575b6302fe14b9",
       "pipeline": "sn",
       "row_sha256": "d195670e7979b82eb4bff395fb66b6ee8b53dbdc5580f4d547ef805cf3b61c23",
       "section_bases": {
@@ -244,7 +244,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "37d491ad7b09ffdc5bcafc1b88f33fad5135eaa852cae7331a0222ad76e885aa",
+      "object_sha256_at_discovery": "b6aefe6470649577a4f891b5a9c903209ccddcdb30ce3087328ad3416cf7c9df",
       "pipeline": "sn",
       "row_sha256": "9d51c5a9e38b9736c2cc1ca59e11dd9a5c7a8f9d34fe013b8e1b9c1053aee1aa",
       "section_bases": {
@@ -285,7 +285,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "b2e0c268eebc28e231c3b79e83fa07e496dd582c4dd6493c80606dcf2970020b",
+      "object_sha256_at_discovery": "9972b750704387e93a1589c2eb017786407da71f87c6997239694717c9e72392",
       "pipeline": "sn",
       "row_sha256": "f4e4ca0d1c9fb15530fe5c6f13292febe779f522842188a5454d1af4ca72e889",
       "section_bases": {
@@ -346,7 +346,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "5f3a4670b477131824af64f3d90399ac94bb2032937e629b2210bd74dd0ca711",
+      "object_sha256_at_discovery": "72c60b647d244053b7fb1de100a639747c3816158a88f8fa666872149dfcb523",
       "pipeline": "sn",
       "row_sha256": "cb9226ed0bc9fdcf14a6297ec30dbb342c91fe3110af7f79191c0184451fa069",
       "section_bases": {
@@ -405,7 +405,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "04e990c111273b6afdae1a1e3118cee027df6a0c64bd3e712e8fded4ec4cb676",
+      "object_sha256_at_discovery": "75dc3dc26d89c84484a5cd07cbae820d2c61752bdafa405e6b822513a244a87b",
       "pipeline": "sn",
       "row_sha256": "ea5e8902144d16e29d5ffa4de20c3c87c033c5d91f949e19973865a547450bb8",
       "section_bases": {
@@ -449,7 +449,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "717801146fef90c0a6ccd41d0556b221945ef510521ae1e4dfa074d74f3a32f2",
+      "object_sha256_at_discovery": "6b81cdd65977dc5b41d19570bc80ba4dfd8da75b4e96afcdaf4653853d65a843",
       "pipeline": "sn",
       "row_sha256": "d1e0bcf7640c00e944185c8664241ddd47375cf8518ebf0c456226de2a094882",
       "section_bases": {
@@ -499,7 +499,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "3a7852721aabacac6d3bc089fcb44b52cca26209ce95f3b5dafd3ee6f172bfbf",
+      "object_sha256_at_discovery": "afa6bc6a49fc5c9f0a265693d62edd28f53f59d723c645b1dea9a75c92b379e7",
       "pipeline": "sn",
       "row_sha256": "044b9b87af71426c3fbe8740192844e50f8cc373b0554314c3cf9bad5a30ca71",
       "section_bases": {
@@ -571,7 +571,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "0797dbc1c7de044c0511d440c1376cd2e12d7321a1865b493acc93c25a4cfba4",
+      "object_sha256_at_discovery": "1c40cd762da5816a46f8d7c131579d82ec579c8fcd66a76f942989f90742a4c4",
       "pipeline": "sn",
       "row_sha256": "bfc2992afd35a679e8baf7514b5e41cc8bf2d8aaefbe4ef27955d25863dee701",
       "section_bases": {
@@ -626,7 +626,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "bf973ecb926501b6696936c6064db528955161c5e58fb865f1ffdf955efb9878",
+      "object_sha256_at_discovery": "09cffd6804cd559de2096925e00bffb02943b627e5325dcb5653151473d70699",
       "pipeline": "sn",
       "row_sha256": "5152744d7aca9e5ffa2926ba2b7a097615b12a81f1cb21e1829f253ce399fa00",
       "section_bases": {
@@ -667,7 +667,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "322f9aec902eeef3e21b653a4d426acead150ab176e4bc8c4055db7e5a6cacd1",
+      "object_sha256_at_discovery": "5775301f1705c568192329817357ba3c0b01b6659f5da15abd3edd0faca83e59",
       "pipeline": "sn",
       "row_sha256": "122079b049099908bee23630054a5c353d0473a963e80a86e6e71f559c2814e0",
       "section_bases": {
@@ -707,7 +707,7 @@
       "includes": [],
       "manifest": "config/overlay/closing/matching_delta_80002550_sn.tsv",
       "normalization": null,
-      "object_sha256_at_discovery": "a49bcd7918cfc2c932a00ab6d2502a2c0cbd566a233cd08b21526b9fdc1fe0d6",
+      "object_sha256_at_discovery": "eeda2bee5f4ce45cf2c362a7e9d394db2a623864609aea58d6d1a0131cbbf37a",
       "pipeline": "sn",
       "row_sha256": "6f2af61ca4fde37ab93afee29596bb725e6a63ebac53b9af7bd49f0f1c63116c",
       "section_bases": {

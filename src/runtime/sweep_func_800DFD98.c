@@ -1,165 +1,127 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800DFD98\n.ent func_800DFD98\n"
-    "func_800DFD98:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "sw $17,28($29)\n"
-    "sw $31,32($29)\n"
-    "jal func_800DF828\n"
-    "move $17,$5\n"
-    "addiu $3,$17,-9\n"
-    "sltiu $2,$3,35\n"
-    "beqz $2,L_800DFFE0\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-19576\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "li $2,1\n"
-    "sb $2,520($3)\n"
-    "lui $2,0x800f\n"
-    "lw $2,9760($2)\n"
-    "beqz $2,L_800DFE28\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,7\n"
-    "lui $2,0x800f\n"
-    "move $7,$16\n"
-    "lw $5,10052($2)\n"
-    "li $2,15\n"
-    "sw $0,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $2,20($29)\n"
-    "j L_800DFFE0\n"
-    "nop\n"
-    "L_800DFE28:\n"
-    "lw $4,188($16)\n"
-    "jal func_800E8EB4\n"
-    "nop\n"
-    "lui $3,0x1\n"
-    "j L_800DFEC8\n"
-    "ori $3,$3,0x12\n"
-    "jal func_800E2788\n"
-    "move $4,$16\n"
-    "j L_800DFFE0\n"
-    "nop\n"
-    "lui $6,0x8010\n"
-    "lw $4,-15760($6)\n"
-    "addiu $2,$17,-17\n"
-    "sh $2,2524($4)\n"
-    "andi $2,$2,0xffff\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "lhu $3,526($2)\n"
-    "lhu $2,2524($4)\n"
-    "lhu $5,3408($4)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$4,$2\n"
-    "sh $3,2528($4)\n"
-    "sh $3,2530($4)\n"
-    "lwc1 $f0,1208($2)\n"
-    "andi $2,$5,0x80\n"
-    "beqz $2,L_800DFEF8\n"
-    "swc1 $f0,56($4)\n"
-    "li $2,1\n"
-    "sb $2,2536($4)\n"
-    "lw $3,-15760($6)\n"
-    "andi $2,$5,0xff7f\n"
-    "sh $2,3408($4)\n"
-    "lhu $2,2524($3)\n"
-    "sw $2,3400($3)\n"
-    "lw $4,188($16)\n"
-    "jal func_800E8EB4\n"
-    "nop\n"
-    "lui $3,0x1\n"
-    "ori $3,$3,0x14\n"
-    "L_800DFEC8:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,9952\n"
-    "li $6,3\n"
-    "lui $2,0x800f\n"
-    "lui $7,0x800f\n"
-    "lw $5,10052($2)\n"
-    "addiu $7,$7,4512\n"
-    "sw $16,16($29)\n"
-    "jal func_800AB2A4\n"
-    "sw $3,20($29)\n"
-    "j L_800DFFE0\n"
-    "nop\n"
-    "L_800DFEF8:\n"
-    "move $4,$16\n"
-    "jal func_800E11E4\n"
-    "li $5,1\n"
-    "j L_800DFFE0\n"
-    "nop\n"
-    "li $5,1024\n"
-    "lw $4,188($16)\n"
-    "jal func_800E9A2C\n"
-    "li $6,1\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,22784\n"
-    "li $5,21\n"
-    "li $2,17\n"
-    "lui $3,0x8010\n"
-    "sw $2,19104($16)\n"
-    "li $2,2\n"
-    "jal func_800D53A0\n"
-    "sh $2,-4426($3)\n"
-    "j L_800DFFDC\n"
-    "li $2,1\n"
-    "move $5,$0\n"
-    "lui $2,0x8010\n"
-    "addiu $7,$2,-12916\n"
-    "lui $2,0x8010\n"
-    "lw $6,-2940($2)\n"
-    "L_800DFF5C:\n"
-    "andi $4,$5,0xff\n"
-    "addiu $5,$5,1\n"
-    "sll $3,$4,0x3\n"
-    "addu $3,$3,$7\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$6,$2\n"
-    "addiu $4,$4,29\n"
-    "sw $2,0($3)\n"
-    "andi $2,$5,0xff\n"
-    "beqz $2,L_800DFF5C\n"
-    "sw $4,4($3)\n"
-    "move $4,$0\n"
-    "move $5,$4\n"
-    "move $6,$4\n"
-    "jal func_80008570\n"
-    "move $7,$4\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lbu $2,1266($2)\n"
-    "beqz $2,L_800DFFC0\n"
-    "move $4,$16\n"
-    "jal func_800E287C\n"
-    "move $5,$0\n"
-    "j L_800DFFDC\n"
-    "li $2,1\n"
-    "L_800DFFC0:\n"
-    "j L_800DFFD0\n"
-    "li $5,1\n"
-    "move $4,$16\n"
-    "move $5,$0\n"
-    "L_800DFFD0:\n"
-    "jal L_800DFFF4\n"
-    "nop\n"
-    "li $2,1\n"
-    "L_800DFFDC:\n"
-    "sb $2,19102($16)\n"
-    "L_800DFFE0:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    "L_800DFFF4:\n"
-    ".end func_800DFD98\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned short a;
+    unsigned short b;
+} Pair;
+
+typedef struct {
+    char p0[0x38];
+    float f38;
+    char p1[0x208 - 0x3C];
+    unsigned char b208;
+    char p2[0x20C - 0x209];
+    Pair pair[12];
+    char p3[0x4B8 - 0x23C];
+    float spd[12];
+    char p4[0x4F2 - 0x4E8];
+    unsigned char b4F2;
+    char p5[0x9DC - 0x4F3];
+    unsigned short sel;
+    char p6[0x9E0 - 0x9DE];
+    unsigned short v9E0;
+    unsigned short v9E2;
+    char p7[0x9E8 - 0x9E4];
+    unsigned char b9E8;
+    char p8[0xD48 - 0x9E9];
+    int wD48;
+    char p9[0xD50 - 0xD4C];
+    unsigned short flags;
+} Glob;
+
+typedef struct {
+    char p0[0xBC];
+    char *snd;
+    char p1[0x4A9E - 0xC0];
+    unsigned char done;
+    char p2[0x4AA0 - 0x4A9F];
+    int state;
+} Obj;
+
+typedef struct {
+    short *p;
+    int v;
+} Slot;
+
+extern Glob *D_800FC270;
+extern int D_800F2620;
+extern char D_800F26E0[];
+extern int D_800F2744;
+extern char D_800F11A0[];
+extern short D_800FEEB6;
+extern char D_800F5900[];
+extern Slot D_800FCD8C[];
+extern short *D_800FF484;
+
+void func_800DF828(Obj *p, int k);
+void func_800AB2A4(char *, int, int, void *, void *, int);
+void func_800E8EB4(char *s);
+void func_800E2788(Obj *p);
+void func_800E11E4(Obj *p, int n);
+void func_800E9A2C(char *s, int f, int n);
+void func_800D53A0(char *s, int n);
+void func_80008570(int a, int b, int c, int d);
+void func_800E287C(Obj *p, int n);
+void func_800DFFF4(Obj *p, int n);
+
+void func_800DFD98(Obj *p, int k)
+{
+    Glob *g;
+    unsigned short f;
+    unsigned short v;
+    unsigned char i;
+
+    func_800DF828(p, k);
+    switch (k) {
+    case 43:
+        D_800FC270->b208 = 1;
+        if (D_800F2620) {
+            func_800AB2A4(D_800F26E0, D_800F2744, 7, p, 0, 15);
+            return;
+        }
+        func_800E8EB4(p->snd);
+        func_800AB2A4(D_800F26E0, D_800F2744, 3, D_800F11A0, p, 0x10012);
+        return;
+    case 15:
+        func_800E2788(p);
+        return;
+    case 17: case 18: case 19: case 20: case 21: case 22:
+    case 23: case 24: case 25: case 26: case 27: case 28:
+        g = D_800FC270;
+        g->sel = k - 17;
+        v = g->pair[g->sel].b;
+        g->v9E0 = v;
+        g->v9E2 = v;
+        f = g->flags;
+        g->f38 = g->spd[g->sel];
+        if (f & 0x80) {
+            g->b9E8 = 1;
+            g->flags = f & 0xFF7F;
+            D_800FC270->wD48 = D_800FC270->sel;
+            func_800E8EB4(p->snd);
+            func_800AB2A4(D_800F26E0, D_800F2744, 3, D_800F11A0, p, 0x10014);
+        } else {
+            func_800E11E4(p, 1);
+        }
+        return;
+    case 10:
+        func_800E9A2C(p->snd, 1024, 1);
+        p->state = 17;
+        D_800FEEB6 = 2;
+        func_800D53A0(D_800F5900, 21);
+        p->done = 1;
+        return;
+    case 39:
+        for (i = 0; i < 1; i++) {
+            D_800FCD8C[i].p = &D_800FF484[i];
+            D_800FCD8C[i].v = i + 29;
+        }
+        func_80008570(0, 0, 0, 0);
+        if (D_800FC270->b4F2) func_800E287C(p, 0);
+        else func_800DFFF4(p, 1);
+        p->done = 1;
+        return;
+    case 9:
+        func_800DFFF4(p, 0);
+        p->done = 1;
+        return;
+    }
+}
