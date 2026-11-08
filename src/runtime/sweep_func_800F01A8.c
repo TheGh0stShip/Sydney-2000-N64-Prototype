@@ -1,180 +1,98 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F01A8\n.ent func_800F01A8\n"
-    "func_800F01A8:\n"
-    "addiu $29,$29,-48\n"
-    "sw $20,32($29)\n"
-    "move $20,$4\n"
-    "sw $31,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $19,28($29)\n"
-    "sw $18,24($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_800AC308\n"
-    "sw $16,16($29)\n"
-    "jal func_800EA4B0\n"
-    "move $4,$20\n"
-    "lui $4,0x8010\n"
-    "jal func_800EA5FC\n"
-    "addiu $4,$4,-720\n"
-    "jal func_80006A18\n"
-    "addiu $4,$20,432\n"
-    "lui $16,0x800f\n"
-    "addiu $16,$16,10072\n"
-    "move $4,$16\n"
-    "lui $5,0x8010\n"
-    "jal func_800AA658\n"
-    "addiu $5,$5,180\n"
-    "move $4,$16\n"
-    "lui $5,0x8010\n"
-    "jal func_800AA658\n"
-    "addiu $5,$5,188\n"
-    "move $19,$0\n"
-    "lui $21,0x800f\n"
-    "move $18,$20\n"
-    "L_800F0220:\n"
-    "sltiu $2,$19,24\n"
-    "beql $2,$0,L_800F02C0\n"
-    "move $19,$0\n"
-    "lw $4,232($18)\n"
-    "jal func_800EF964\n"
-    "addiu $16,$20,192\n"
-    "lw $4,232($18)\n"
-    "jal func_800EF95C\n"
-    "nop\n"
-    "lw $17,232($18)\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "addiu $4,$21,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800F02B4\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "L_800F02B4:\n"
-    "addiu $18,$18,4\n"
-    "j L_800F0220\n"
-    "addiu $19,$19,1\n"
-    "L_800F02C0:\n"
-    "lui $21,0x800f\n"
-    "move $18,$20\n"
-    "L_800F02C8:\n"
-    "sltiu $2,$19,24\n"
-    "beqz $2,L_800F0368\n"
-    "nop\n"
-    "lw $4,328($18)\n"
-    "jal func_800EF8AC\n"
-    "addiu $16,$20,212\n"
-    "lw $4,328($18)\n"
-    "jal func_800EF8A4\n"
-    "nop\n"
-    "lw $17,328($18)\n"
-    "lw $2,180($17)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "addiu $4,$21,9952\n"
-    "move $5,$17\n"
-    "jal func_800AACB0\n"
-    "move $6,$0\n"
-    "lhu $2,18($16)\n"
-    "lhu $3,16($16)\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800F035C\n"
-    "li $5,2\n"
-    "lw $2,180($17)\n"
-    "lh $4,8($2)\n"
-    "lw $2,12($2)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "lw $2,12($16)\n"
-    "sw $17,0($2)\n"
-    "lw $2,12($16)\n"
-    "lhu $3,18($16)\n"
-    "addiu $2,$2,4\n"
-    "addiu $3,$3,1\n"
-    "sw $2,12($16)\n"
-    "sh $3,18($16)\n"
-    "L_800F035C:\n"
-    "addiu $18,$18,4\n"
-    "j L_800F02C8\n"
-    "addiu $19,$19,1\n"
-    "L_800F0368:\n"
-    "lw $17,192($20)\n"
-    "beqz $17,L_800F03B0\n"
-    "addiu $16,$20,192\n"
-    "sw $0,192($20)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800F038C\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,196\n"
-    "L_800F038C:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800F03A0\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,200\n"
-    "L_800F03A0:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,192($20)\n"
-    "L_800F03B0:\n"
-    "lw $17,212($20)\n"
-    "beqz $17,L_800F03F8\n"
-    "addiu $16,$20,212\n"
-    "sw $0,212($20)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_800F03D4\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,216\n"
-    "L_800F03D4:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_800F03E8\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,220\n"
-    "L_800F03E8:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,212($20)\n"
-    "L_800F03F8:\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "jal func_800AA658\n"
-    "addiu $5,$20,428\n"
-    "sw $0,428($20)\n"
-    "sw $0,424($20)\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    ".end func_800F01A8\n.set at\n.set reorder\n");
+typedef struct { short offset; short pad; void (*fn)(void *, ...); } VEntry;
+typedef struct { char pad0[8]; VEntry release; VEntry pad1; VEntry reset; } VTable;
+typedef struct { char pad0[180]; VTable *vt; } Unit;
+typedef struct { void *heap; void *a; void *b; Unit **cur; unsigned short cap; unsigned short n; } Pool;
+
+typedef struct {
+    char pad0[192];
+    Pool pool;
+    Pool pool2;
+    Unit *units[24];
+    Unit *units2[24];
+    int w424;
+    void *buf;
+    char o432;
+} Obj;
+
+extern char D_800F26E0[];
+extern char D_800F2758[];
+extern char D_800FFD30[];
+extern void *D_801000B4;
+extern void *D_801000BC;
+extern void func_800AC308(Obj *o);
+extern void func_800EA4B0(Obj *o);
+extern void func_800EA5FC(void *p);
+extern void func_80006A18(void *p);
+extern void func_800AA658(void *heap, void **slot);
+extern void func_800EF964(Unit *u);
+extern void func_800EF95C(Unit *u);
+extern void func_800EF8AC(Unit *u);
+extern void func_800EF8A4(Unit *u);
+extern void func_800AACB0(void *list, Unit *u, int flag);
+
+static inline void pool_push(Pool *p, Unit *u)
+{
+    if (p->n < p->cap) {
+        u->vt->release.fn((char *)u + u->vt->release.offset, 2);
+        *p->cur = u;
+        p->cur++;
+        p->n++;
+    }
+}
+
+static inline void pool_free(Pool *p)
+{
+    void *heap = p->heap;
+    if (heap) {
+        p->heap = 0;
+        if (p->a) func_800AA658(heap, &p->a);
+        if (p->b) func_800AA658(heap, &p->b);
+        p->cap = 0;
+        p->n = 0;
+        p->cur = 0;
+        p->heap = 0;
+    }
+}
+
+void func_800F01A8(Obj *o)
+{
+    unsigned int i;
+    Unit *u;
+    Pool *p;
+
+    func_800AC308(o);
+    func_800EA4B0(o);
+    func_800EA5FC(D_800FFD30);
+    func_80006A18(&o->o432);
+    func_800AA658(D_800F2758, &D_801000B4);
+    func_800AA658(D_800F2758, &D_801000BC);
+    i = 0;
+    while (1) {
+        if (i >= 24) break;
+        func_800EF964(o->units[i]);
+        p = &o->pool;
+        func_800EF95C(o->units[i]);
+        u = o->units[i];
+        u->vt->reset.fn((char *)u + u->vt->reset.offset);
+        func_800AACB0(D_800F26E0, u, 0);
+        pool_push(p, u);
+        i++;
+    }
+    i = 0;
+    while (1) {
+        if (i >= 24) break;
+        func_800EF8AC(o->units2[i]);
+        p = &o->pool2;
+        func_800EF8A4(o->units2[i]);
+        u = o->units2[i];
+        u->vt->reset.fn((char *)u + u->vt->reset.offset);
+        func_800AACB0(D_800F26E0, u, 0);
+        pool_push(p, u);
+        i++;
+    }
+    pool_free(&o->pool);
+    pool_free(&o->pool2);
+    func_800AA658(D_800F2758, &o->buf);
+    o->buf = 0;
+    o->w424 = 0;
+}

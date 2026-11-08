@@ -1,247 +1,105 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80098D08\n.ent func_80098D08\n"
-    "func_80098D08:\n"
-    "addiu $29,$29,-32\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,28($29)\n"
-    "sw $17,20($29)\n"
-    "jal func_80099FE4\n"
-    "sw $16,16($29)\n"
-    "jal func_80099728\n"
-    "move $4,$18\n"
-    "addiu $16,$18,2564\n"
-    "jal func_800AC334\n"
-    "move $4,$16\n"
-    "jal func_800CC47C\n"
-    "move $4,$16\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,564\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,352\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,140\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,1412\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,1200\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,988\n"
-    "jal func_800AC334\n"
-    "addiu $4,$18,776\n"
-    "lw $2,1668($18)\n"
-    "beqz $2,L_80098D90\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$18,1668\n"
-    "sw $0,1668($18)\n"
-    "L_80098D90:\n"
-    "lw $2,1672($18)\n"
-    "beqz $2,L_80098DA8\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$18,1672\n"
-    "sw $0,1672($18)\n"
-    "L_80098DA8:\n"
-    "lw $2,1676($18)\n"
-    "beqz $2,L_80098DC0\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$18,1676\n"
-    "sw $0,1676($18)\n"
-    "L_80098DC0:\n"
-    "lw $2,1660($18)\n"
-    "beqz $2,L_80098DD8\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$18,1660\n"
-    "sw $0,1660($18)\n"
-    "L_80098DD8:\n"
-    "lw $2,1664($18)\n"
-    "beqz $2,L_80098DF0\n"
-    "nop\n"
-    "jal func_8001A248\n"
-    "addiu $4,$18,1664\n"
-    "sw $0,1664($18)\n"
-    "L_80098DF0:\n"
-    "lw $2,1656($18)\n"
-    "beqz $2,L_80098E0C\n"
-    "move $16,$0\n"
-    "jal func_8001A248\n"
-    "addiu $4,$18,1656\n"
-    "sw $0,1656($18)\n"
-    "move $16,$0\n"
-    "L_80098E0C:\n"
-    "andi $2,$16,0xff\n"
-    "L_80098E10:\n"
-    "sll $4,$2,0x2\n"
-    "addu $17,$18,$4\n"
-    "lw $2,1624($17)\n"
-    "beqz $2,L_80098E30\n"
-    "addiu $4,$4,1624\n"
-    "jal func_8001A248\n"
-    "addu $4,$18,$4\n"
-    "sw $0,1624($17)\n"
-    "L_80098E30:\n"
-    "addiu $16,$16,1\n"
-    "andi $2,$16,0xff\n"
-    "sltiu $2,$2,8\n"
-    "bnez $2,L_80098E10\n"
-    "andi $2,$16,0xff\n"
-    "jal func_800CE594\n"
-    "addiu $16,$18,120\n"
-    "lw $17,120($18)\n"
-    "beqz $17,L_80098E94\n"
-    "nop\n"
-    "sw $0,120($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80098E70\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,124\n"
-    "L_80098E70:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80098E84\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,128\n"
-    "L_80098E84:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,120($18)\n"
-    "L_80098E94:\n"
-    "lw $17,100($18)\n"
-    "beqz $17,L_80098EDC\n"
-    "addiu $16,$18,100\n"
-    "sw $0,100($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80098EB8\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,104\n"
-    "L_80098EB8:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80098ECC\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,108\n"
-    "L_80098ECC:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,100($18)\n"
-    "L_80098EDC:\n"
-    "lw $17,80($18)\n"
-    "beqz $17,L_80098F24\n"
-    "addiu $16,$18,80\n"
-    "sw $0,80($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80098F00\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,84\n"
-    "L_80098F00:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80098F14\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,88\n"
-    "L_80098F14:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,80($18)\n"
-    "L_80098F24:\n"
-    "lw $17,60($18)\n"
-    "beqz $17,L_80098F6C\n"
-    "addiu $16,$18,60\n"
-    "sw $0,60($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80098F48\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,64\n"
-    "L_80098F48:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80098F5C\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,68\n"
-    "L_80098F5C:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,60($18)\n"
-    "L_80098F6C:\n"
-    "lw $17,40($18)\n"
-    "beqz $17,L_80098FB4\n"
-    "addiu $16,$18,40\n"
-    "sw $0,40($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80098F90\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,44\n"
-    "L_80098F90:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80098FA4\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,48\n"
-    "L_80098FA4:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,40($18)\n"
-    "L_80098FB4:\n"
-    "lw $17,20($18)\n"
-    "beqz $17,L_80098FFC\n"
-    "addiu $16,$18,20\n"
-    "sw $0,20($18)\n"
-    "lw $2,4($16)\n"
-    "beqz $2,L_80098FD8\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,24\n"
-    "L_80098FD8:\n"
-    "lw $2,8($16)\n"
-    "beqz $2,L_80098FEC\n"
-    "move $4,$17\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,28\n"
-    "L_80098FEC:\n"
-    "sh $0,16($16)\n"
-    "sh $0,18($16)\n"
-    "sw $0,12($16)\n"
-    "sw $0,20($18)\n"
-    "L_80098FFC:\n"
-    "lw $16,0($18)\n"
-    "beqz $16,L_80099044\n"
-    "nop\n"
-    "lw $2,4($18)\n"
-    "beqz $2,L_80099020\n"
-    "sw $0,0($18)\n"
-    "move $4,$16\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,4\n"
-    "L_80099020:\n"
-    "lw $2,8($18)\n"
-    "beqz $2,L_80099034\n"
-    "move $4,$16\n"
-    "jal func_800AA658\n"
-    "addiu $5,$18,8\n"
-    "L_80099034:\n"
-    "sh $0,16($18)\n"
-    "sh $0,18($18)\n"
-    "sw $0,12($18)\n"
-    "sw $0,0($18)\n"
-    "L_80099044:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_80098D08\n.set at\n.set reorder\n");
+typedef struct { void *heap; void *a; void *b; void **cur; unsigned short cap; unsigned short n; } Pool;
+typedef struct { char b[212]; } Blk212;
+
+typedef struct {
+    Pool p0;
+    Pool p20;
+    Pool p40;
+    Pool p60;
+    Pool p80;
+    Pool p100;
+    Pool p120;
+    Blk212 u140;
+    Blk212 u352;
+    Blk212 u564;
+    Blk212 u776;
+    Blk212 u988;
+    Blk212 u1200;
+    Blk212 u1412;
+    int h1624[8];
+    int h1656;
+    int h1660;
+    int h1664;
+    int h1668;
+    int h1672;
+    int h1676;
+    char pad1680[2564 - 1680];
+    char u2564;
+} Obj;
+
+extern void func_80099FE4(Obj *o);
+extern void func_80099728(Obj *o);
+extern void func_800AC334(void *p);
+extern void func_800CC47C(void *p);
+extern void func_8001A248(int *p);
+extern void func_800CE594(void);
+extern void func_800AA658(void *heap, void **slot);
+
+static inline void pool_free(Pool *p)
+{
+    void *heap = p->heap;
+    if (heap) {
+        p->heap = 0;
+        if (p->a) func_800AA658(heap, &p->a);
+        if (p->b) func_800AA658(heap, &p->b);
+        p->cap = 0;
+        p->n = 0;
+        p->cur = 0;
+        p->heap = 0;
+    }
+}
+
+void func_80098D08(Obj *o)
+{
+    unsigned char i;
+
+    func_80099FE4(o);
+    func_80099728(o);
+    func_800AC334(&o->u2564);
+    func_800CC47C(&o->u2564);
+    func_800AC334(&o->u564);
+    func_800AC334(&o->u352);
+    func_800AC334(&o->u140);
+    func_800AC334(&o->u1412);
+    func_800AC334(&o->u1200);
+    func_800AC334(&o->u988);
+    func_800AC334(&o->u776);
+    if (o->h1668) {
+        func_8001A248(&o->h1668);
+        o->h1668 = 0;
+    }
+    if (o->h1672) {
+        func_8001A248(&o->h1672);
+        o->h1672 = 0;
+    }
+    if (o->h1676) {
+        func_8001A248(&o->h1676);
+        o->h1676 = 0;
+    }
+    if (o->h1660) {
+        func_8001A248(&o->h1660);
+        o->h1660 = 0;
+    }
+    if (o->h1664) {
+        func_8001A248(&o->h1664);
+        o->h1664 = 0;
+    }
+    if (o->h1656) {
+        func_8001A248(&o->h1656);
+        o->h1656 = 0;
+    }
+    for (i = 0; i < 8; i++) {
+        if (o->h1624[i]) {
+            func_8001A248(&o->h1624[i]);
+            o->h1624[i] = 0;
+        }
+    }
+    func_800CE594();
+    pool_free(&o->p120);
+    pool_free(&o->p100);
+    pool_free(&o->p80);
+    pool_free(&o->p60);
+    pool_free(&o->p40);
+    pool_free(&o->p20);
+    pool_free(&o->p0);
+}
