@@ -1,84 +1,52 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80126788\n.ent func_80126788\n"
-    "func_80126788:\n"
-    "addiu $29,$29,-40\n"
-    "sw $18,24($29)\n"
-    "move $18,$4\n"
-    "sw $31,32($29)\n"
-    "sw $19,28($29)\n"
-    "sw $17,20($29)\n"
-    "sw $16,16($29)\n"
-    "lw $19,4($18)\n"
-    "lbu $3,1556($19)\n"
-    "li $2,5\n"
-    "bne $3,$2,L_801267C4\n"
-    "move $4,$0\n"
-    "lbu $2,426($18)\n"
-    "xori $2,$2,0x4\n"
-    "sltu $4,$4,$2\n"
-    "L_801267C4:\n"
-    "beqz $4,L_801267D8\n"
-    "nop\n"
-    "lbu $5,2072($18)\n"
-    "jal func_800832B8\n"
-    "move $4,$18\n"
-    "L_801267D8:\n"
-    "lbu $2,2072($18)\n"
-    "li $3,2\n"
-    "addiu $2,$2,1\n"
-    "sb $2,2072($18)\n"
-    "andi $2,$2,0xff\n"
-    "bne $2,$3,L_80126830\n"
-    "move $17,$0\n"
-    "andi $3,$17,0xff\n"
-    "sltiu $2,$3,3\n"
-    "beqz $2,L_80126830\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$18,$2\n"
-    "lw $16,26984($2)\n"
-    "addiu $17,$17,1\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,2196\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,1984\n"
-    "jal func_800ADC1C\n"
-    "addiu $4,$16,2408\n"
-    "j func_80082EF8\n"
-    "andi $3,$17,0xff\n"
-    "L_80126830:\n"
-    "lbu $3,2072($18)\n"
-    "li $2,9\n"
-    "bne $3,$2,L_80126890\n"
-    "move $4,$0\n"
-    "lw $2,740($18)\n"
-    "lbu $3,426($18)\n"
-    "sltiu $5,$2,1\n"
-    "li $2,4\n"
-    "beq $3,$2,L_80126864\n"
-    "move $6,$5\n"
-    "lbu $2,1556($19)\n"
-    "xori $2,$2,0x2\n"
-    "sltu $4,$4,$2\n"
-    "L_80126864:\n"
-    "beqz $4,L_80126890\n"
-    "li $2,5\n"
-    "lbu $3,1556($19)\n"
-    "bne $3,$2,L_80126880\n"
-    "addiu $4,$18,2076\n"
-    "j func_80082F88\n"
-    "move $6,$0\n"
-    "L_80126880:\n"
-    "move $5,$6\n"
-    "li $6,1\n"
-    "jal func_8009D708\n"
-    "nop\n"
-    "L_80126890:\n"
-    "lw $31,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80126788\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+
+extern void func_800832B8(u8 *p, s32 a);
+extern void func_800ADC1C(u8 *p);
+extern void func_8009D708(u8 *p, s32 a, s32 b);
+
+typedef struct Obj { u8 pad[26984]; u8 *tbl[3]; } Obj;
+#define B(o) (*(u8 *)(p + (o)))
+
+void func_80126788(u8 *p)
+{
+    u8 *q;
+    u8 *o;
+    u8 i;
+    s32 a;
+    s32 c;
+
+    q = *(u8 **)(p + 4);
+    c = 0;
+    if (q[1556] == 5) {
+        c = B(426) != 4;
+    }
+    if (c) {
+        func_800832B8(p, B(2072));
+    }
+    if (++B(2072) == 2) {
+        i = 0;
+        while (1) {
+            if (!(i < 3)) break;
+            o = ((Obj *)p)->tbl[i];
+            func_800ADC1C(o + 2196);
+            func_800ADC1C(o + 1984);
+            func_800ADC1C(o + 2408);
+            i++;
+        }
+    }
+    if (B(2072) == 9) {
+        a = *(s32 *)(p + 740) == 0;
+        c = 0;
+        if (B(426) != 4) {
+            c = q[1556] != 2;
+        }
+        if (c) {
+            if (q[1556] == 5) {
+                func_8009D708(p + 2076, a, 0);
+            } else {
+                func_8009D708(p + 2076, a, 1);
+            }
+        }
+    }
+}

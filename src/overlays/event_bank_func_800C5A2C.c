@@ -1,135 +1,76 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C5A2C\n.ent func_800C5A2C\n"
-    "func_800C5A2C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lbu $2,18136($4)\n"
-    "andi $3,$2,0x3\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800C5A70\n"
-    "slti $2,$3,2\n"
-    "beql $2,$0,L_800C5A60\n"
-    "li $2,2\n"
-    "beql $3,$0,L_800C5A88\n"
-    "sw $0,18148($4)\n"
-    "j func_800713C8\n"
-    "nop\n"
-    "L_800C5A60:\n"
-    "beq $3,$2,L_800C5A7C\n"
-    "nop\n"
-    "j func_800713C8\n"
-    "nop\n"
-    "L_800C5A70:\n"
-    "lwc1 $f0,18164($4)\n"
-    "j func_800713C8\n"
-    "swc1 $f0,18148($4)\n"
-    "L_800C5A7C:\n"
-    "lwc1 $f0,18164($4)\n"
-    "neg.s $f0,$f0\n"
-    "swc1 $f0,18148($4)\n"
-    "L_800C5A88:\n"
-    "lwc1 $f4,18148($4)\n"
-    "lwc1 $f0,18160($4)\n"
-    "add.s $f4,$f4,$f0\n"
-    "lwc1 $f2,18140($4)\n"
-    "sub.s $f6,$f4,$f2\n"
-    "lwc1 $f0,18168($4)\n"
-    "mul.s $f0,$f6,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "lwc1 $f0,17240($4)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2300($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f4,18148($4)\n"
-    "swc1 $f2,18140($4)\n"
-    "c.lt.s $f6,$f0\n"
-    "nop\n"
-    "bc1f L_800C5AE4\n"
-    "swc1 $f0,17240($4)\n"
-    "lbu $2,18136($4)\n"
-    "swc1 $f6,17240($4)\n"
-    "sw $0,18160($4)\n"
-    "andi $2,$2,0xfe\n"
-    "sb $2,18136($4)\n"
-    "L_800C5AE4:\n"
-    "lwc1 $f0,17240($4)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2304($1)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800C5B14\n"
-    "nop\n"
-    "lbu $2,18136($4)\n"
-    "swc1 $f2,17240($4)\n"
-    "sw $0,18160($4)\n"
-    "andi $2,$2,0xfd\n"
-    "sb $2,18136($4)\n"
-    "L_800C5B14:\n"
-    "lbu $2,18136($4)\n"
-    "andi $3,$2,0xc\n"
-    "li $2,4\n"
-    "beq $3,$2,L_800C5B50\n"
-    "slti $2,$3,5\n"
-    "beql $2,$0,L_800C5B40\n"
-    "li $2,8\n"
-    "beql $3,$0,L_800C5B64\n"
-    "sw $0,18152($4)\n"
-    "j func_800714A4\n"
-    "nop\n"
-    "L_800C5B40:\n"
-    "beq $3,$2,L_800C5B5C\n"
-    "nop\n"
-    "j func_800714A4\n"
-    "nop\n"
-    "L_800C5B50:\n"
-    "lwc1 $f0,18164($4)\n"
-    "j func_800714A0\n"
-    "neg.s $f0,$f0\n"
-    "L_800C5B5C:\n"
-    "lwc1 $f0,18164($4)\n"
-    "swc1 $f0,18152($4)\n"
-    "L_800C5B64:\n"
-    "lwc1 $f4,18152($4)\n"
-    "lwc1 $f0,18156($4)\n"
-    "add.s $f4,$f4,$f0\n"
-    "lwc1 $f2,18144($4)\n"
-    "sub.s $f6,$f4,$f2\n"
-    "lwc1 $f0,18168($4)\n"
-    "mul.s $f0,$f6,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "lwc1 $f0,17236($4)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f6,2308($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f4,18152($4)\n"
-    "swc1 $f2,18144($4)\n"
-    "c.lt.s $f6,$f0\n"
-    "nop\n"
-    "bc1f L_800C5BC0\n"
-    "swc1 $f0,17236($4)\n"
-    "lbu $2,18136($4)\n"
-    "swc1 $f6,17236($4)\n"
-    "sw $0,18156($4)\n"
-    "andi $2,$2,0xf7\n"
-    "sb $2,18136($4)\n"
-    "L_800C5BC0:\n"
-    "lwc1 $f0,17236($4)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2312($1)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800C5BF0\n"
-    "nop\n"
-    "lbu $2,18136($4)\n"
-    "swc1 $f2,17236($4)\n"
-    "sw $0,18156($4)\n"
-    "andi $2,$2,0xfb\n"
-    "sb $2,18136($4)\n"
-    "L_800C5BF0:\n"
-    "jal func_800AD9E8\n"
-    "addiu $4,$4,17152\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800C5A2C\n.set at\n.set reorder\n");
+typedef struct Cam {
+    char pad0[17152];
+    char sub[84];        /* 17152 */
+    float y;             /* 17236 */
+    float x;             /* 17240 */
+    char pad1[18136 - 17244];
+    unsigned char flags; /* 18136 */
+    char pad2[3];
+    float px;            /* 18140 */
+    float py;            /* 18144 */
+    float vx;            /* 18148 */
+    float vy;            /* 18152 */
+    float ay;            /* 18156 */
+    float ax;            /* 18160 */
+    float speed;         /* 18164 */
+    float k;             /* 18168 */
+} Cam;
+
+void func_800AD9E8(void *p);
+
+void func_800C5A2C(Cam *o)
+{
+    float d;
+
+    switch (o->flags & 3) {
+    case 0:
+        o->vx = 0.0f;
+        break;
+    case 1:
+        o->vx = o->speed;
+        break;
+    case 2:
+        o->vx = -o->speed;
+        break;
+    }
+    o->vx += o->ax;
+    d = o->vx - o->px;
+    o->px += d * o->k;
+    o->x += o->px;
+    if (o->x > 72.0874f) {
+        o->x = 72.0874f;
+        o->ax = 0.0f;
+        o->flags &= ~1;
+    }
+    if (o->x < 6.553402f) {
+        o->x = 6.553402f;
+        o->ax = 0.0f;
+        o->flags &= ~2;
+    }
+    switch (o->flags & 0xC) {
+    case 0:
+        o->vy = 0.0f;
+        break;
+    case 4:
+        o->vy = -o->speed;
+        break;
+    case 8:
+        o->vy = o->speed;
+        break;
+    }
+    o->vy += o->ay;
+    d = o->vy - o->py;
+    o->py += d * o->k;
+    o->y += o->py;
+    if (o->y > 32.767f) {
+        o->y = 32.767f;
+        o->ay = 0.0f;
+        o->flags &= ~8;
+    }
+    if (o->y < -32.767f) {
+        o->y = -32.767f;
+        o->ay = 0.0f;
+        o->flags &= ~4;
+    }
+    func_800AD9E8(o->sub);
+}

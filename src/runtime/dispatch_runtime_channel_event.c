@@ -40,15 +40,12 @@ void func_800B34F4(RuntimeNode *root) {
     event.kind=7;
     event.time=runtimePropertyClock;
     node=root->first;
-loop:
-    if(node) {
+    while(1) {
+        if(!node) break;
         next=node->next;
         if(node->kind==specialKind) {
             node->methods->event.invoke((u8*)node+node->methods->event.delta,&event);
-            node=next;
-            goto loop;
-        }
-        if(node->flags&channelFlag) {
+        } else if(node->flags&channelFlag) {
             i=0;
             channels=channelBase;
             for(;i<13;i++) {
@@ -58,9 +55,6 @@ loop:
                 channels++;
             }
         }
-        /* Keep the ordinary traversal tail distinct from the special-kind tail. */
-        __asm__("" : : "r"(next));
         node=next;
-        goto loop;
     }
 }

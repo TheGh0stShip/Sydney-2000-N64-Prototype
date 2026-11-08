@@ -1,38 +1,20 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EA114\n.ent func_800EA114\n"
-    "func_800EA114:\n"
-    "lw $3,20($4)\n"
-    "lw $6,16($4)\n"
-    "bgez $5,L_800EA14C\n"
-    "slt $2,$5,$6\n"
-    "move $5,$0\n"
-    "move $4,$3\n"
-    "L_800EA12C:\n"
-    "slt $2,$5,$6\n"
-    "beqz $2,L_800EA178\n"
-    "move $3,$4\n"
-    "lb $2,0($3)\n"
-    "beqz $2,L_800EA170\n"
-    "addiu $5,$5,1\n"
-    "j L_800EA12C\n"
-    "addiu $4,$3,44\n"
-    "L_800EA14C:\n"
-    "beql $2,$0,L_800EA17C\n"
-    "lui $2,0x8010\n"
-    "sll $2,$5,0x1\n"
-    "addu $2,$2,$5\n"
-    "sll $2,$2,0x2\n"
-    "subu $2,$2,$5\n"
-    "sll $2,$2,0x2\n"
-    "jr $31\n"
-    "addu $2,$3,$2\n"
-    "L_800EA170:\n"
-    "jr $31\n"
-    "move $2,$4\n"
-    "L_800EA178:\n"
-    "lui $2,0x8010\n"
-    "L_800EA17C:\n"
-    "jr $31\n"
-    "addiu $2,$2,15632\n"
-    ".end func_800EA114\n.set at\n.set reorder\n");
+typedef struct { signed char used; char pad[43]; } Slot;
+typedef struct { char p0[16]; int count; Slot *slots; } Pool;
+extern Slot defaultSlot;
+
+Slot *func_800EA114(Pool *pool, int i)
+{
+    Slot *s = pool->slots;
+    int n = pool->count;
+    if (i < 0) {
+        i = 0;
+        while (1) {
+            if (i >= n) break;
+            if (s[i].used == 0) return &s[i];
+            i++;
+        }
+    } else if (i < n) {
+        return &s[i];
+    }
+    return &defaultSlot;
+}

@@ -1,110 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B8DC8\n.ent func_800B8DC8\n"
-    "func_800B8DC8:\n"
-    "addiu $29,$29,-80\n"
-    "sw $17,68($29)\n"
-    "move $17,$4\n"
-    "move $4,$5\n"
-    "sw $16,64($29)\n"
-    "sw $31,72($29)\n"
-    "lw $2,0($7)\n"
-    "lw $3,96($29)\n"
-    "beqz $2,L_800B8E58\n"
-    "move $16,$6\n"
-    "lwc1 $f0,368($17)\n"
-    "lwc1 $f2,0($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$17,368\n"
-    "swc1 $f0,368($17)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,4($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,8($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,380($17)\n"
-    "lwc1 $f2,0($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$17,380\n"
-    "swc1 $f0,380($17)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,4($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,8($3)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "L_800B8E58:\n"
-    "lwc1 $f6,0($16)\n"
-    "lwc1 $f0,368($17)\n"
-    "add.s $f6,$f6,$f0\n"
-    "addiu $2,$17,368\n"
-    "swc1 $f6,48($29)\n"
-    "lwc1 $f4,4($16)\n"
-    "lwc1 $f0,4($2)\n"
-    "add.s $f4,$f4,$f0\n"
-    "swc1 $f4,52($29)\n"
-    "lwc1 $f2,8($16)\n"
-    "lwc1 $f0,8($2)\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,56($29)\n"
-    "lwc1 $f0,392($17)\n"
-    "sub.s $f0,$f6,$f0\n"
-    "addiu $2,$17,392\n"
-    "swc1 $f0,16($29)\n"
-    "lwc1 $f0,4($2)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "addiu $3,$29,16\n"
-    "swc1 $f4,4($3)\n"
-    "lwc1 $f0,8($2)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "swc1 $f2,8($3)\n"
-    "swc1 $f6,392($17)\n"
-    "lwc1 $f0,52($29)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,56($29)\n"
-    "swc1 $f0,8($2)\n"
-    "lw $5,24($29)\n"
-    "jal func_800AE9DC\n"
-    "move $6,$17\n"
-    "lwc1 $f0,0($16)\n"
-    "lwc1 $f2,380($17)\n"
-    "addiu $4,$17,20\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $5,$29,48\n"
-    "addiu $6,$29,32\n"
-    "swc1 $f0,48($29)\n"
-    "lwc1 $f0,4($16)\n"
-    "lwc1 $f2,384($17)\n"
-    "move $7,$0\n"
-    "add.s $f0,$f0,$f2\n"
-    "move $16,$2\n"
-    "sw $0,56($29)\n"
-    "jal func_800AD2A8\n"
-    "swc1 $f0,52($29)\n"
-    "lwc1 $f0,32($29)\n"
-    "lwc1 $f2,84($17)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$17,84\n"
-    "swc1 $f0,84($17)\n"
-    "lwc1 $f0,36($29)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,8($2)\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,40($29)\n"
-    "add.s $f0,$f0,$f2\n"
-    "move $4,$17\n"
-    "jal func_800B9480\n"
-    "swc1 $f0,8($2)\n"
-    "move $2,$16\n"
-    "lw $31,72($29)\n"
-    "lw $17,68($29)\n"
-    "lw $16,64($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,80\n"
-    ".end func_800B8DC8\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct { float m[16]; Vec pos; } Xf;
+typedef struct {
+    char pad0[20]; Xf xf;
+    char pad1[368 - 96]; Vec v368; Vec v380; Vec v392;
+} Obj;
+extern int func_800AE9DC(void *, float, Obj *);
+extern void func_800AD2A8(Xf *, Vec *, Vec *, int);
+extern void func_800B9480(Obj *);
+static inline void vacc(Vec *a, Vec *r) { r->x += a->x; r->y += a->y; r->z += a->z; }
+static inline void vadd(Vec *a, Vec *b, Vec *r) { r->x = a->x + b->x; r->y = a->y + b->y; r->z = a->z + b->z; }
+static inline void vsub(Vec *a, Vec *b, Vec *r) { r->x = a->x - b->x; r->y = a->y - b->y; r->z = a->z - b->z; }
+static inline void vcpy(Vec *a, Vec *r) { r->x = a->x; r->y = a->y; r->z = a->z; }
+int func_800B8DC8(Obj *o, void *ctx, Vec *pos, int *flag, Vec *d)
+{
+    Vec t;
+    Vec c;
+    Vec a;
+    int r;
+    if (*flag) {
+        vacc(d, &o->v368);
+        vacc(d, &o->v380);
+    }
+    vadd(pos, &o->v368, &a);
+    vsub(&a, &o->v392, &t);
+    vcpy(&a, &o->v392);
+    r = func_800AE9DC(ctx, t.z, o);
+    a.x = pos->x + o->v380.x;
+    a.y = pos->y + o->v380.y;
+    a.z = 0.0f;
+    func_800AD2A8(&o->xf, &a, &c, 0);
+    vadd(&c, &o->xf.pos, &o->xf.pos);
+    func_800B9480(o);
+    return r;
+}

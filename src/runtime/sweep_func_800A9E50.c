@@ -1,74 +1,24 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A9E50\n.ent func_800A9E50\n"
-    "func_800A9E50:\n"
-    "move $8,$4\n"
-    "move $9,$5\n"
-    "move $6,$0\n"
-    "lbu $2,4($8)\n"
-    "beqz $2,L_800A9EBC\n"
-    "move $4,$6\n"
-    "li $7,1\n"
-    "lui $2,0x800f\n"
-    "addiu $5,$2,9584\n"
-    "andi $2,$4,0xff\n"
-    "L_800A9E78:\n"
-    "lw $3,0($8)\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $2,0($2)\n"
-    "lhu $2,4($2)\n"
-    "bnel $2,$7,L_800A9EA8\n"
-    "addiu $4,$4,1\n"
-    "andi $2,$6,0xff\n"
-    "addu $2,$2,$5\n"
-    "sb $4,0($2)\n"
-    "addiu $6,$6,1\n"
-    "addiu $4,$4,1\n"
-    "L_800A9EA8:\n"
-    "lbu $3,4($8)\n"
-    "andi $2,$4,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800A9E78\n"
-    "andi $2,$4,0xff\n"
-    "L_800A9EBC:\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "andi $6,$6,0xff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "sw $3,10004($5)\n"
-    "lui $3,0x800f\n"
-    "addiu $3,$3,9584\n"
-    "mflo $10\n"
-    "srl $2,$10,0x10\n"
-    "addu $2,$2,$3\n"
-    "lbu $2,0($2)\n"
-    "lw $3,0($8)\n"
-    "sb $2,5($8)\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x15\n"
-    "addu $2,$2,$3\n"
-    "lw $2,0($2)\n"
-    "lbu $2,3($2)\n"
-    "sb $2,0($9)\n"
-    "lb $2,5($8)\n"
-    "lw $3,0($8)\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $2,0($2)\n"
-    "lhu $2,0($2)\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800A9E50\n.set at\n.set reorder\n");
+typedef struct { unsigned short f0; unsigned char pad2; unsigned char f3; unsigned short f4; } Info;
+typedef struct { Info *info; int pad; } Slot;
+typedef struct { Slot *slots; unsigned char count; signed char sel; } Set;
+extern unsigned char D_800F2570[];
+extern unsigned int D_800F2714;
+static inline unsigned short rnd(unsigned int n)
+{
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    return ((D_800F2714 >> 15) * n) >> 16;
+}
+unsigned short func_800A9E50(Set *s, unsigned char *out)
+{
+    unsigned char i;
+    unsigned char n = 0;
+    for (i = 0; i < s->count; i++) {
+        if (s->slots[i].info->f4 == 1) {
+            D_800F2570[n] = i;
+            n++;
+        }
+    }
+    s->sel = D_800F2570[rnd(n)];
+    *out = s->slots[s->sel].info->f3;
+    return s->slots[s->sel].info->f0;
+}

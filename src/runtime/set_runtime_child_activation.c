@@ -29,7 +29,7 @@ typedef char activation_channel_offset[(unsigned long)&((RuntimeNode *)0)->chann
 typedef char activation_state_offset[(unsigned long)&((RuntimeNode *)0)->state == 0xD4 ? 1 : -1];
 extern s32 runtimeChannels[13];
 void func_800B2158(RuntimeNode *root,s32 active) {
-    register RuntimeNode *node __asm__("s0");
+    RuntimeNode *node;
     u8 i;
     s32 specialKind;
     u32 channelFlag;
@@ -40,8 +40,8 @@ void func_800B2158(RuntimeNode *root,s32 active) {
     specialKind=0x3D;
     channelFlag=0x20000;
     channels=runtimeChannels;
-loop:
-    if(node) {
+    while(1) {
+        if(!node) break;
         if(node->kind!=specialKind) {
             if(node->flags&channelFlag) {
                 for(i=0;i<13;i++) {
@@ -55,6 +55,5 @@ loop:
             else node->methods->deactivate.invoke((u8*)node+node->methods->deactivate.delta);
         }
         node=node->next;
-        goto loop;
     }
 }

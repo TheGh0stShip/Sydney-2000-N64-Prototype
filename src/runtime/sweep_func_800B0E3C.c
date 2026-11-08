@@ -1,87 +1,21 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B0E3C\n.ent func_800B0E3C\n"
-    "func_800B0E3C:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,20($29)\n"
-    "lw $2,220($16)\n"
-    "lw $4,28($2)\n"
-    "lw $3,4($4)\n"
-    "li $2,1\n"
-    "beq $3,$2,L_800B0EA0\n"
-    "move $5,$0\n"
-    "slti $2,$3,2\n"
-    "beqz $2,L_800B0E80\n"
-    "li $2,2\n"
-    "beqz $3,L_800B0E90\n"
-    "nop\n"
-    "j L_800B0EB8\n"
-    "nop\n"
-    "L_800B0E80:\n"
-    "beq $3,$2,L_800B0EB0\n"
-    "nop\n"
-    "j L_800B0EB8\n"
-    "nop\n"
-    "L_800B0E90:\n"
-    "lw $2,0($4)\n"
-    "lw $5,0($2)\n"
-    "j L_800B0EB8\n"
-    "nop\n"
-    "L_800B0EA0:\n"
-    "lw $2,0($4)\n"
-    "lh $5,0($2)\n"
-    "j L_800B0EB8\n"
-    "nop\n"
-    "L_800B0EB0:\n"
-    "lw $2,0($4)\n"
-    "lb $5,0($2)\n"
-    "L_800B0EB8:\n"
-    "lw $2,8($4)\n"
-    "and $2,$5,$2\n"
-    "beqz $2,L_800B0F10\n"
-    "lui $3,0x1\n"
-    "lw $2,220($16)\n"
-    "lw $2,4($2)\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800B0EF4\n"
-    "nop\n"
-    "lw $2,196($16)\n"
-    "beqz $2,L_800B0EF4\n"
-    "addiu $4,$16,196\n"
-    "lui $5,0xc8ff\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0xffff\n"
-    "L_800B0EF4:\n"
-    "lw $4,220($16)\n"
-    "lui $3,0xfdff\n"
-    "lw $2,4($4)\n"
-    "ori $3,$3,0xffff\n"
-    "and $2,$2,$3\n"
-    "j L_800B0F50\n"
-    "sw $2,4($4)\n"
-    "L_800B0F10:\n"
-    "lw $2,220($16)\n"
-    "lw $2,4($2)\n"
-    "and $2,$2,$3\n"
-    "beqz $2,L_800B0F3C\n"
-    "nop\n"
-    "lw $2,196($16)\n"
-    "beqz $2,L_800B0F3C\n"
-    "addiu $4,$16,196\n"
-    "lui $5,0xc880\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0x8080\n"
-    "L_800B0F3C:\n"
-    "lw $2,220($16)\n"
-    "lw $3,4($2)\n"
-    "lui $4,0x200\n"
-    "or $3,$3,$4\n"
-    "sw $3,4($2)\n"
-    "L_800B0F50:\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800B0E3C\n.set at\n.set reorder\n");
+typedef struct { void *ptr; int type; int mask; } Bind;
+typedef struct { char pad0[4]; int flags; char pad1[20]; Bind *bind; } Cfg;
+typedef struct { char pad0[196]; int handle; char pad1[20]; Cfg *cfg; } Obj;
+extern void func_800191E0(int *, unsigned int);
+void func_800B0E3C(Obj *o)
+{
+    Bind *b = o->cfg->bind;
+    int v = 0;
+    switch (b->type) {
+    case 0: v = *(int *)b->ptr; break;
+    case 1: v = *(short *)b->ptr; break;
+    case 2: v = *(signed char *)b->ptr; break;
+    }
+    if (v & b->mask) {
+        if ((o->cfg->flags & 0x10000) && o->handle) func_800191E0(&o->handle, 0xC8FFFFFF);
+        o->cfg->flags &= ~0x2000000;
+    } else {
+        if ((o->cfg->flags & 0x10000) && o->handle) func_800191E0(&o->handle, 0xC8808080);
+        o->cfg->flags |= 0x2000000;
+    }
+}

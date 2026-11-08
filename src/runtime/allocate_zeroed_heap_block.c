@@ -23,22 +23,23 @@ extern u32 func_800AA650(RuntimeHeap *);
 extern void func_800B3AFC(void *, u32, u32);
 
 s32 func_800AA804(RuntimeHeap *heap, void **output, s32 size, const char *tag) {
-    register s32 largest __asm__("$17");
+    s32 largest;
+    s32 n;
     RuntimeHeapBlock *block;
     if (!heap->first)
         func_800AAA60(runtimeHeapSourceName, 0x21D, runtimeEmptyHeapAssertion);
     if (*output)
         func_800AAA60(runtimeHeapSourceName, 0x21E, runtimeOutputAssertion);
-    size += 0x23;
-    size &= -16;
-    size -= 0x14;
+    n = size + 0x23;
+    n &= -16;
+    n -= 0x14;
     largest = -1;
     block = heap->first;
     for (;;) {
         if (block->free == 0xFF) {
-            if (block->size >= size) {
+            if (block->size >= n) {
                 largest = 0;
-                func_800AA724(heap, output, size, tag, block);
+                func_800AA724(heap, output, n, tag, block);
                 break;
             }
             if (largest < block->size) largest = block->size;
@@ -47,6 +48,6 @@ s32 func_800AA804(RuntimeHeap *heap, void **output, s32 size, const char *tag) {
         block = (RuntimeHeapBlock *)((u8 *)block + block->size + 0x14);
     }
     func_800AA650(heap);
-    func_800B3AFC(*output, 0, size);
+    func_800B3AFC(*output, 0, n);
     return largest;
 }

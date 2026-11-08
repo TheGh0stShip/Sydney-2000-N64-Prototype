@@ -1,257 +1,97 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A6E1C\n.ent func_800A6E1C\n"
-    "func_800A6E1C:\n"
-    "addiu $29,$29,-24\n"
-    "li $2,5\n"
-    "sw $31,16($29)\n"
-    "lbu $3,31919($4)\n"
-    "mtc1 $5,$f4\n"
-    "beq $3,$2,L_800A71C0\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5600($1)\n"
-    "lwc1 $f2,1284($2)\n"
-    "add.s $f6,$f2,$f0\n"
-    "c.lt.s $f6,$f4\n"
-    "nop\n"
-    "bc1f L_800A6E84\n"
-    "sub.s $f8,$f2,$f0\n"
-    "lbu $2,31919($4)\n"
-    "li $3,1\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "sb $3,31956($4)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,486\n"
-    "L_800A6E84:\n"
-    "c.le.s $f4,$f6\n"
-    "nop\n"
-    "bc1f L_800A6EC8\n"
-    "lui $2,0x8010\n"
-    "c.lt.s $f2,$f4\n"
-    "nop\n"
-    "bc1f L_800A6EC8\n"
-    "li $3,2\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "sb $3,31956($4)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,483\n"
-    "L_800A6EC8:\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1284($2)\n"
-    "c.le.s $f4,$f0\n"
-    "nop\n"
-    "bc1fl L_800A6F2C\n"
-    "lui $2,0x8010\n"
-    "c.lt.s $f8,$f4\n"
-    "nop\n"
-    "bc1fl L_800A6F2C\n"
-    "lui $2,0x8010\n"
-    "lwc1 $f0,1328($2)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A6F28\n"
-    "li $3,3\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "sb $3,31956($4)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,483\n"
-    "L_800A6F28:\n"
-    "lui $2,0x8010\n"
-    "L_800A6F2C:\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1284($2)\n"
-    "c.le.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A6F8C\n"
-    "nop\n"
-    "c.lt.s $f8,$f4\n"
-    "nop\n"
-    "bc1f L_800A6F8C\n"
-    "nop\n"
-    "lwc1 $f0,1328($2)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A6F8C\n"
-    "li $3,4\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "sb $3,31956($4)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,483\n"
-    "L_800A6F8C:\n"
-    "c.le.s $f4,$f8\n"
-    "nop\n"
-    "bc1f L_800A6FD8\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1328($2)\n"
-    "c.lt.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A6FD8\n"
-    "li $3,5\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "sb $3,31956($4)\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,484\n"
-    "L_800A6FD8:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5604($1)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A7010\n"
-    "nop\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,485\n"
-    "L_800A7010:\n"
-    "c.le.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A7058\n"
-    "nop\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5608($1)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A7058\n"
-    "nop\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,481\n"
-    "L_800A7058:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5612($1)\n"
-    "c.le.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A70A8\n"
-    "nop\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5616($1)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A70B0\n"
-    "nop\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,477\n"
-    "L_800A70A8:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5620($1)\n"
-    "L_800A70B0:\n"
-    "c.le.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A70F8\n"
-    "nop\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5624($1)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A7100\n"
-    "nop\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,478\n"
-    "L_800A70F8:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5628($1)\n"
-    "L_800A7100:\n"
-    "c.le.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A7148\n"
-    "nop\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5632($1)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A7150\n"
-    "nop\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,479\n"
-    "L_800A7148:\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5636($1)\n"
-    "L_800A7150:\n"
-    "c.le.s $f0,$f4\n"
-    "nop\n"
-    "bc1f L_800A7198\n"
-    "nop\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f0,5640($1)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800A7198\n"
-    "nop\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "j func_800761B4\n"
-    "li $5,480\n"
-    "L_800A7198:\n"
-    "lbu $2,31919($4)\n"
-    "addiu $2,$2,-3\n"
-    "sltiu $2,$2,2\n"
-    "bnez $2,L_800A71C0\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,15296\n"
-    "li $5,482\n"
-    "move $6,$0\n"
-    "jal func_800C0110\n"
-    "move $7,$6\n"
-    "L_800A71C0:\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_800A6E1C\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+typedef struct G
+{
+  u8 pad[1284];
+  f32 h0;
+  u8 pad1[1328 - 1288];
+  f32 h1;
+} G;
+extern G *D_800FC270;
+extern char D_800F3BC0[];
+extern void func_800C0110(char *a, s32 b, s32 c, s32 d);
+inline static void say(u8 *p, s32 n)
+{
+  if (p[31919] == 3 || p[31919] == 4)
+    return;
+  func_800C0110(D_800F3BC0, n, 0, 0);
+}
+
+void func_800A6E1C(u8 *p, f32 x)
+{
+  f32 t;
+  f32 hi;
+  f32 lo;
+  if (p[31919] == 5)
+  {
+    return;
+  }
+  t = D_800FC270->h0;
+  hi = t + 0.1f;
+  lo = t - 0.1f;
+  if (hi < x)
+  {
+    p[31956] = 1;
+    say(p, 486);
+  }
+  else
+    if ((x <= hi) && (t < x))
+  {
+    p[31956] = 2;
+    say(p, 483);
+  }
+  else
+    if (((x <= D_800FC270->h0) && (lo < x)) && (D_800FC270->h1 < x))
+  {
+    p[31956] = 3;
+    say(p, 483);
+  }
+  else
+    if (((x <= D_800FC270->h0) && (lo < x)) && (x < D_800FC270->h1))
+  {
+    p[31956] = 4;
+    say(p, 483);
+  }
+  else
+    if ((x <= lo) && (D_800FC270->h1 < x))
+  {
+    p[31956] = 5;
+    say(p, 484);
+  }
+  else
+    if (x < 13.0f)
+  {
+    say(p, 485);
+  }
+  else
+    if ((13.0f <= x) && (x < 14.5f))
+  {
+    say(p, 481);
+  }
+  else
+    if ((14.0f <= x) && (x < 15.5f))
+  {
+    say(p, 477);
+  }
+  else
+    if ((15.5f <= x) && (x < 16.5f))
+  {
+    say(p, 478);
+  }
+  else
+    if ((16.5f <= x) && (x < 17.5f))
+  {
+    say(p, 479);
+  }
+  else
+    if ((17.5f <= x) && (x < 18.5f))
+  {
+    say(p, 480);
+  }
+  else
+  {
+    say(p, 482);
+  }
+}

@@ -1,62 +1,56 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009B670\n.ent func_8009B670\n"
-    "func_8009B670:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $6,0x800f\n"
-    "move $4,$0\n"
-    "move $5,$4\n"
-    "addiu $6,$6,6040\n"
-    "move $7,$4\n"
-    "sw $31,28($29)\n"
-    "jal func_800DA804\n"
-    "sw $0,16($29)\n"
-    "move $7,$0\n"
-    "move $4,$7\n"
-    "move $6,$7\n"
-    "lui $3,0x8010\n"
-    "sll $2,$2,0x18\n"
-    "lw $3,-15760($3)\n"
-    "sra $9,$2,0x18\n"
-    "addiu $8,$3,2576\n"
-    "L_8009B6BC:\n"
-    "bnez $7,L_8009B714\n"
-    "sll $2,$4,0x1\n"
-    "sltu $2,$4,$9\n"
-    "beqz $2,L_8009B70C\n"
-    "sll $2,$4,0x1\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x2\n"
-    "addu $5,$2,$8\n"
-    "lbu $3,425($16)\n"
-    "lbu $2,1($5)\n"
-    "bnel $3,$2,L_8009B6BC\n"
-    "addiu $4,$4,1\n"
-    "lbu $3,424($16)\n"
-    "lb $2,0($5)\n"
-    "bnel $3,$2,L_8009B704\n"
-    "move $6,$4\n"
-    "j L_8009B6BC\n"
-    "li $7,1\n"
-    "L_8009B704:\n"
-    "j L_8009B6BC\n"
-    "addiu $4,$6,1\n"
-    "L_8009B70C:\n"
-    "beql $7,$0,L_8009B71C\n"
-    "sll $2,$6,0x1\n"
-    "L_8009B714:\n"
-    "j L_8009B720\n"
-    "addu $2,$2,$4\n"
-    "L_8009B71C:\n"
-    "addu $2,$2,$6\n"
-    "L_8009B720:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$8\n"
-    "lb $2,9($2)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_8009B670\n.set at\n.set reorder\n");
+typedef struct {
+    char pad0[0x20];
+    unsigned char state;
+    char pad21[0x3C - 0x21];
+} Kind;
+typedef struct {
+    signed char kind;         /* 0x0 */
+    unsigned char variant;    /* 0x1 */
+    char pad2[7];
+    signed char value;        /* 0x9 */
+    char padA[2];
+} Entry;
+typedef struct {
+    Kind kinds[42];
+    char pad9D8[0xA10 - 42 * 0x3C];
+    Entry entries[16];        /* 0xA10 */
+} Glob;
+typedef struct {
+    char pad0[0x1A8];
+    unsigned char kind;       /* 0x1A8 */
+    unsigned char variant;    /* 0x1A9 */
+} Player;
+extern Glob *D_800FC270;
+extern char D_800F1798[];
+extern int func_800DA804(int a, int b, void *c, int d, int e);
+signed char func_8009B670(Player *p)
+{
+    int done;
+    unsigned int i;
+    unsigned int best;
+    signed char n;
+    Entry *list;
+    n = func_800DA804(0, 0, D_800F1798, 0, 0);
+    done = 0;
+    i = 0;
+    best = 0;
+    list = D_800FC270->entries;
+    while (1) {
+        if (done) break;
+        if (!(i < n)) break;
+        if (p->variant == list[i].variant) {
+            if (p->kind == list[i].kind) {
+                done = 1;
+            } else {
+                best = i;
+                i = best + 1;
+            }
+        } else {
+            i++;
+        }
+    }
+    if (done == 0) {
+        return list[best].value;
+    }
+    return list[i].value;
+}

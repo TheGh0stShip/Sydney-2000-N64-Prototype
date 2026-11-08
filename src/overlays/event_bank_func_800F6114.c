@@ -1,202 +1,68 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800F6114\n.ent func_800F6114\n"
-    "func_800F6114:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "move $11,$5\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "addiu $10,$16,430\n"
-    "sw $31,28($29)\n"
-    "mflo $12\n"
-    "srl $2,$12,0x10\n"
-    "sltiu $2,$2,75\n"
-    "beqz $2,L_800F6188\n"
-    "sw $3,5104($5)\n"
-    "j func_8007BC0C\n"
-    "li $2,32\n"
-    "L_800F6188:\n"
-    "li $2,49\n"
-    "sh $2,430($16)\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $8,0x800f\n"
-    "li $9,20\n"
-    "lw $4,5104($8)\n"
-    "li $6,6\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $4,$2,0x3\n"
-    "subu $4,$4,$2\n"
-    "and $4,$4,$7\n"
-    "srl $5,$4,0xf\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "mult $5,$9\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "mflo $4\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "addiu $10,$10,2\n"
-    "sw $3,5104($8)\n"
-    "mflo $9\n"
-    "srl $2,$9,0x10\n"
-    "beqz $2,L_800F623C\n"
-    "srl $8,$4,0x10\n"
-    "li $4,20\n"
-    "li $3,48\n"
-    "L_800F6224:\n"
-    "beql $2,$8,L_800F6230\n"
-    "sh $3,0($10)\n"
-    "sh $4,0($10)\n"
-    "L_800F6230:\n"
-    "addiu $2,$2,-1\n"
-    "bnez $2,L_800F6224\n"
-    "addiu $10,$10,2\n"
-    "L_800F623C:\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $12\n"
-    "srl $8,$12,0x10\n"
-    "sltiu $2,$8,55\n"
-    "beqz $2,L_800F6298\n"
-    "sw $3,5104($5)\n"
-    "j func_8007BD28\n"
-    "li $2,21\n"
-    "L_800F6298:\n"
-    "sltiu $2,$8,80\n"
-    "bnez $2,L_800F62A8\n"
-    "li $2,46\n"
-    "li $2,47\n"
-    "L_800F62A8:\n"
-    "sh $2,0($10)\n"
-    "addiu $10,$10,2\n"
-    "lui $6,0x7fff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "srl $2,$3,0x1e\n"
-    "beqz $2,L_800F6304\n"
-    "sw $3,5104($5)\n"
-    "li $3,19\n"
-    "L_800F62F4:\n"
-    "sh $3,0($10)\n"
-    "addiu $2,$2,-1\n"
-    "bnez $2,L_800F62F4\n"
-    "addiu $10,$10,2\n"
-    "L_800F6304:\n"
-    "li $2,53\n"
-    "sh $2,0($10)\n"
-    "li $2,1\n"
-    "beq $11,$2,L_800F634C\n"
-    "addiu $10,$10,2\n"
-    "slti $2,$11,2\n"
-    "beqz $2,L_800F6334\n"
-    "li $2,2\n"
-    "beqz $11,L_800F6344\n"
-    "lui $7,0x7fff\n"
-    "j func_8007BDE0\n"
-    "ori $7,$7,0xffff\n"
-    "L_800F6334:\n"
-    "beq $11,$2,L_800F6354\n"
-    "lui $7,0x7fff\n"
-    "j func_8007BDE0\n"
-    "ori $7,$7,0xffff\n"
-    "L_800F6344:\n"
-    "j func_8007BDD8\n"
-    "move $8,$0\n"
-    "L_800F634C:\n"
-    "j func_8007BDD8\n"
-    "li $8,30\n"
-    "L_800F6354:\n"
-    "li $8,90\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,100\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $12\n"
-    "srl $2,$12,0x10\n"
-    "sltu $2,$2,$8\n"
-    "beqz $2,L_800F63B8\n"
-    "sw $3,5104($5)\n"
-    "li $2,52\n"
-    "sh $2,0($10)\n"
-    "addiu $10,$10,2\n"
-    "L_800F63B8:\n"
-    "li $2,-1\n"
-    "sh $2,0($10)\n"
-    "lh $5,430($16)\n"
-    "move $4,$16\n"
-    "sb $0,429($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lwc1 $f0,788($16)\n"
-    "swc1 $f0,632($16)\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800F6114\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef short s16;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+typedef struct { u32 seed; } Rng;
+extern Rng D_800F13F0;
+extern s32 func_800B9E9C(u8 *o, s32 a, s32 b, s32 c, s32 d);
+static inline u32 rnd(Rng *g, u32 n)
+{
+    g->seed = (g->seed * 16807) & 0x7FFFFFFF;
+    return ((g->seed >> 15) * n) >> 16;
+}
+
+void func_800F6114(u8 *o, s32 mode)
+{
+    s16 *p = (s16 *)(o + 430);
+    u32 r, a, i;
+
+    if (rnd(&D_800F13F0, 100) < 75) {
+        *p = 32;
+    } else {
+        *p = 49;
+    }
+    p++;
+    r = rnd(&D_800F13F0, 20);
+    i = rnd(&D_800F13F0, 6);
+    for (; i != 0; i--) {
+        if (i != r) {
+            *p = 20;
+        } else {
+            *p = 48;
+        }
+        p++;
+    }
+    r = rnd(&D_800F13F0, 100);
+    if (r < 55) {
+        *p = 21;
+    } else if (r < 80) {
+        *p = 46;
+    } else {
+        *p = 47;
+    }
+    p++;
+    D_800F13F0.seed = (D_800F13F0.seed * 16807) & 0x7FFFFFFF;
+    for (i = D_800F13F0.seed >> 30; i != 0; i--) {
+        *p++ = 19;
+    }
+    *p++ = 53;
+    switch (mode) {
+    case 0:
+        r = 0;
+        break;
+    case 1:
+        r = 30;
+        break;
+    case 2:
+        r = 90;
+        break;
+    }
+    if (rnd(&D_800F13F0, 100) < r) {
+        *p++ = 52;
+    }
+    *p = -1;
+    o[429] = 0;
+    func_800B9E9C(o, *(s16 *)(o + 430), -1, *(s32 *)(o + 632), 0);
+    *(f32 *)(o + 632) = *(f32 *)(o + 788);
+}

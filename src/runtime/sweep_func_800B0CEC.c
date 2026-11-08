@@ -1,100 +1,43 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800B0CEC\n.ent func_800B0CEC\n"
-    "func_800B0CEC:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $31,24($29)\n"
-    "sw $17,20($29)\n"
-    "lw $2,220($16)\n"
-    "lw $3,4($2)\n"
-    "lui $2,0x1\n"
-    "and $2,$3,$2\n"
-    "beqz $2,L_800B0D78\n"
-    "move $17,$5\n"
-    "lw $2,196($16)\n"
-    "beqz $2,L_800B0DF4\n"
-    "nop\n"
-    "beqz $17,L_800B0D4C\n"
-    "lui $2,0x800\n"
-    "and $2,$3,$2\n"
-    "bnez $2,L_800B0D4C\n"
-    "addiu $4,$16,196\n"
-    "lui $5,0xc840\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0x4040\n"
-    "j L_800B0DF4\n"
-    "nop\n"
-    "L_800B0D4C:\n"
-    "lw $2,220($16)\n"
-    "lw $2,4($2)\n"
-    "lui $3,0x200\n"
-    "and $2,$2,$3\n"
-    "bnez $2,L_800B0DF4\n"
-    "addiu $4,$16,196\n"
-    "lui $5,0xc8ff\n"
-    "jal func_800191E0\n"
-    "ori $5,$5,0xffff\n"
-    "j L_800B0DF4\n"
-    "nop\n"
-    "L_800B0D78:\n"
-    "lw $3,8($16)\n"
-    "beqz $3,L_800B0E28\n"
-    "nop\n"
-    "beqz $17,L_800B0DB4\n"
-    "lui $5,0x1\n"
-    "li $4,128\n"
-    "L_800B0D90:\n"
-    "beqz $3,L_800B0DF4\n"
-    "nop\n"
-    "lw $2,192($3)\n"
-    "and $2,$2,$5\n"
-    "bnel $2,$0,L_800B0DA8\n"
-    "sb $4,203($3)\n"
-    "L_800B0DA8:\n"
-    "lw $3,12($3)\n"
-    "j L_800B0D90\n"
-    "nop\n"
-    "L_800B0DB4:\n"
-    "li $4,255\n"
-    "L_800B0DB8:\n"
-    "beqz $3,L_800B0DDC\n"
-    "nop\n"
-    "lw $2,192($3)\n"
-    "and $2,$2,$5\n"
-    "bnel $2,$0,L_800B0DD0\n"
-    "sb $4,203($3)\n"
-    "L_800B0DD0:\n"
-    "lw $3,12($3)\n"
-    "j L_800B0DB8\n"
-    "nop\n"
-    "L_800B0DDC:\n"
-    "lw $2,852($16)\n"
-    "andi $2,$2,0x1\n"
-    "beqz $2,L_800B0DF4\n"
-    "nop\n"
-    "lw $2,684($16)\n"
-    "sw $2,456($16)\n"
-    "L_800B0DF4:\n"
-    "beqz $17,L_800B0E10\n"
-    "lui $4,0x8\n"
-    "lw $2,220($16)\n"
-    "lw $3,4($2)\n"
-    "or $3,$3,$4\n"
-    "j L_800B0E28\n"
-    "sw $3,4($2)\n"
-    "L_800B0E10:\n"
-    "lw $4,220($16)\n"
-    "lui $3,0xfff7\n"
-    "lw $2,4($4)\n"
-    "ori $3,$3,0xffff\n"
-    "and $2,$2,$3\n"
-    "sw $2,4($4)\n"
-    "L_800B0E28:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800B0CEC\n.set at\n.set reorder\n");
+typedef struct Node { char pad0[12]; struct Node *next; char pad1[176]; int flags; char pad2[7]; unsigned char alpha; } Node;
+typedef struct { char pad[4]; int flags; } Cfg;
+typedef struct {
+    char pad0[8]; Node *list;
+    char pad1[184]; int handle;
+    char pad2[20]; Cfg *cfg;
+    char pad3[232]; int current;
+    char pad4[224]; int alt;
+    char pad5[164]; int mode;
+} Obj;
+extern void func_800191E0(int *, unsigned int);
+void func_800B0CEC(Obj *o, int on)
+{
+    int flags = o->cfg->flags;
+    if (flags & 0x10000) {
+        if (o->handle) {
+            if (on && !(flags & 0x8000000)) {
+                func_800191E0(&o->handle, 0xC8404040);
+            } else if (!(o->cfg->flags & 0x2000000)) {
+                func_800191E0(&o->handle, 0xC8FFFFFF);
+            }
+        }
+    } else {
+        Node *n = o->list;
+        if (!n) return;
+        if (on) {
+            while (1) {
+                if (!n) break;
+                if (n->flags & 0x10000) n->alpha = 128;
+                n = n->next;
+            }
+        } else {
+            while (1) {
+                if (!n) break;
+                if (n->flags & 0x10000) n->alpha = 255;
+                n = n->next;
+            }
+            if (o->mode & 1) o->current = o->alt;
+        }
+    }
+    if (on) o->cfg->flags |= 0x80000;
+    else o->cfg->flags &= ~0x80000;
+}

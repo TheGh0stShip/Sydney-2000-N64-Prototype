@@ -10,8 +10,8 @@ extern void func_800AAED0(PriorityHeap *, u32);
 typedef char check_priority_pointer_width[sizeof(void *) == 4 ? 1 : -1];
 typedef char check_priority_entry_width[sizeof(PriorityEntry) == 24 ? 1 : -1];
 void func_800AB038(PriorityHeap *heap, PriorityEntry **outputArgument, u32 indexArgument) {
-    register PriorityEntry **output __asm__("$19") = outputArgument;
-    register u32 index __asm__("$18") = indexArgument;
+    u32 index = indexArgument;
+    PriorityEntry **output = outputArgument;
     u32 selected = (u16)index;
     if (heap->count < selected)
         func_8001C3B8(runtimeQueueBoundsAssertion, runtimeQueueSourceName, 0x1F0);

@@ -1,49 +1,35 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E778C\n.ent func_800E778C\n"
-    "func_800E778C:\n"
-    "move $9,$0\n"
-    "li $14,255\n"
-    "li $13,1\n"
-    "move $12,$9\n"
-    "move $11,$4\n"
-    "L_800E77A0:\n"
-    "lw $2,0($4)\n"
-    "lhu $2,6($2)\n"
-    "sltu $2,$9,$2\n"
-    "beqz $2,L_800E7820\n"
-    "addu $2,$4,$9\n"
-    "lb $8,1028($2)\n"
-    "bltz $8,L_800E7810\n"
-    "move $7,$0\n"
-    "lw $2,4($11)\n"
-    "move $10,$12\n"
-    "addiu $6,$2,12\n"
-    "L_800E77CC:\n"
-    "sltiu $2,$7,4\n"
-    "beqz $2,L_800E7810\n"
-    "addu $2,$7,$10\n"
-    "addu $5,$4,$2\n"
-    "sb $0,1284($5)\n"
-    "lbu $2,0($6)\n"
-    "beq $2,$14,L_800E7804\n"
-    "addu $2,$4,$2\n"
-    "lb $3,1028($2)\n"
-    "slt $2,$8,$3\n"
-    "beqz $2,L_800E7804\n"
-    "subu $2,$3,$8\n"
-    "sllv $2,$13,$2\n"
-    "sb $2,1284($5)\n"
-    "L_800E7804:\n"
-    "addiu $6,$6,2\n"
-    "j L_800E77CC\n"
-    "addiu $7,$7,1\n"
-    "L_800E7810:\n"
-    "addiu $12,$12,4\n"
-    "addiu $11,$11,4\n"
-    "j L_800E77A0\n"
-    "addiu $9,$9,1\n"
-    "L_800E7820:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800E778C\n.set at\n.set reorder\n");
+typedef struct { char p0[6]; unsigned short n; } Hdr;
+typedef struct { unsigned char id; unsigned char pad; } Link;
+typedef struct { char p0[12]; Link l[4]; } Node;
+typedef struct {
+    Hdr *hdr; Node *nodes[(1028 - 4) / 4];
+    signed char lv[1284 - 1028];
+    unsigned char out[256][4];
+} Obj;
+
+void func_800E778C(Obj *o)
+{
+    unsigned int i, k;
+    int v, w;
+    Link *p;
+    i = 0;
+    while (1) {
+        if (i >= o->hdr->n) break;
+        v = o->lv[i];
+        if (v >= 0) {
+            p = o->nodes[i]->l;
+            k = 0;
+            while (1) {
+                if (k >= 4) break;
+                o->out[i][k] = 0;
+                if (p->id != 255) {
+                    w = o->lv[p->id];
+                    if (v < w) o->out[i][k] = 1 << (w - v);
+                }
+                p++;
+                k++;
+            }
+        }
+        i++;
+    }
+}

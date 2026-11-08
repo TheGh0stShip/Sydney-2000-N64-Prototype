@@ -1,54 +1,26 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9548\n.ent func_800E9548\n"
-    "func_800E9548:\n"
-    "addiu $29,$29,-32\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $17,20($29)\n"
-    "sw $31,24($29)\n"
-    "lw $3,28536($16)\n"
-    "li $2,-1\n"
-    "beq $3,$2,L_800E95F0\n"
-    "move $17,$5\n"
-    "andi $2,$17,0x1\n"
-    "beqz $2,L_800E95AC\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$16\n"
-    "addiu $2,$2,24632\n"
-    "addiu $4,$16,28096\n"
-    "li $5,1\n"
-    "lw $3,192($2)\n"
-    "li $6,-5\n"
-    "and $3,$3,$6\n"
-    "jal func_800B2158\n"
-    "sw $3,192($2)\n"
-    "L_800E95AC:\n"
-    "andi $2,$17,0x2\n"
-    "beqz $2,L_800E95F0\n"
-    "addiu $4,$16,28316\n"
-    "lw $3,28536($16)\n"
-    "li $5,1\n"
-    "sll $2,$3,0x3\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$16\n"
-    "addiu $2,$2,24864\n"
-    "lw $3,192($2)\n"
-    "li $6,-5\n"
-    "and $3,$3,$6\n"
-    "jal func_800B2158\n"
-    "sw $3,192($2)\n"
-    "L_800E95F0:\n"
-    "lw $31,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800E9548\n.set at\n.set reorder\n");
+typedef struct { char pad[192]; int flags; char pad2[36]; } Rec;
+typedef struct {
+    char pad[24632];
+    Rec recs[14];
+    char pad2[216];
+    char a[220];
+    char b[220];
+    int idx;
+} Obj;
+extern void func_800B2158(void *, int);
+static inline void off(Rec *r, void *a)
+{
+    r->flags &= ~4;
+    func_800B2158(a, 1);
+}
+void func_800E9548(Obj *o, int flags)
+{
+    if (o->idx != -1) {
+        if (flags & 1) {
+            off(o->recs + o->idx, o->a);
+        }
+        if (flags & 2) {
+            off(o->recs + o->idx + 1, o->b);
+        }
+    }
+}

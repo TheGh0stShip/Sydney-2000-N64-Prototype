@@ -1,180 +1,133 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EF0E0\n.ent func_800EF0E0\n"
-    "func_800EF0E0:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,24($29)\n"
-    "move $16,$4\n"
-    "lui $2,0x8010\n"
-    "lw $3,-15760($2)\n"
-    "li $2,4\n"
-    "sw $31,32($29)\n"
-    "sw $17,28($29)\n"
-    "sw $0,768($16)\n"
-    "sw $0,772($16)\n"
-    "lw $4,2560($3)\n"
-    "mtc1 $5,$f2\n"
-    "beq $4,$2,L_800EF12C\n"
-    "li $2,5\n"
-    "bne $4,$2,L_800EF150\n"
-    "lui $2,0x8010\n"
-    "lwc1 $f0,3560($3)\n"
-    "j func_8007B928\n"
-    "nop\n"
-    "L_800EF12C:\n"
-    "lwc1 $f0,1324($3)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800EF14C\n"
-    "li $2,1\n"
-    "sw $2,772($16)\n"
-    "j func_8007B948\n"
-    "move $3,$2\n"
-    "L_800EF14C:\n"
-    "lui $2,0x8010\n"
-    "L_800EF150:\n"
-    "lw $2,-15760($2)\n"
-    "lwc1 $f0,1280($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800EF174\n"
-    "li $2,1\n"
-    "sw $2,768($16)\n"
-    "j func_8007B948\n"
-    "move $3,$2\n"
-    "L_800EF174:\n"
-    "move $3,$0\n"
-    "lw $2,784($16)\n"
-    "sw $0,776($16)\n"
-    "lw $2,1168($2)\n"
-    "beqz $2,L_800EF198\n"
-    "move $4,$0\n"
-    "lw $2,744($16)\n"
-    "bnez $2,L_800EF19C\n"
-    "nop\n"
-    "L_800EF198:\n"
-    "li $4,1\n"
-    "L_800EF19C:\n"
-    "beqz $4,L_800EF20C\n"
-    "lui $6,0x7fff\n"
-    "lui $5,0x800f\n"
-    "sw $0,748($16)\n"
-    "lw $4,5104($5)\n"
-    "ori $6,$6,0xffff\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,5104($5)\n"
-    "srl $3,$3,0x1d\n"
-    "li $2,1\n"
-    "beql $3,$2,L_800EF328\n"
-    "li $5,30\n"
-    "beqz $3,L_800EF204\n"
-    "li $2,2\n"
-    "beq $3,$2,L_800EF2E4\n"
-    "li $5,33\n"
-    "j func_8007BAFC\n"
-    "move $4,$16\n"
-    "L_800EF204:\n"
-    "j func_8007BAF8\n"
-    "li $5,31\n"
-    "L_800EF20C:\n"
-    "li $17,1\n"
-    "beqz $3,L_800EF280\n"
-    "sw $17,748($16)\n"
-    "lui $7,0x7fff\n"
-    "ori $7,$7,0xffff\n"
-    "lui $5,0x800f\n"
-    "lw $4,5104($5)\n"
-    "li $6,3\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sllv $3,$2,$6\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$7\n"
-    "srl $2,$3,0xf\n"
-    "mult $2,$6\n"
-    "mflo $8\n"
-    "srl $2,$8,0x10\n"
-    "beqz $2,L_800EF278\n"
-    "sw $3,5104($5)\n"
-    "beq $2,$17,L_800EF314\n"
-    "li $5,29\n"
-    "j func_8007BAEC\n"
-    "li $2,2\n"
-    "L_800EF278:\n"
-    "j func_8007BAE8\n"
-    "li $5,28\n"
-    "L_800EF280:\n"
-    "lw $2,4($16)\n"
-    "li $3,0x8000\n"
-    "addu $2,$2,$3\n"
-    "lb $2,1044($2)\n"
-    "blez $2,L_800EF2EC\n"
-    "nop\n"
-    "mfc1 $5,$f2\n"
-    "jal func_8007B800\n"
-    "move $4,$16\n"
-    "beqz $2,L_800EF328\n"
-    "li $5,32\n"
-    "jal func_8009B670\n"
-    "move $4,$16\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x18\n"
-    "beqz $2,L_800EF2D4\n"
-    "li $5,28\n"
-    "bltz $2,L_800EF324\n"
-    "slti $2,$2,3\n"
-    "beqz $2,L_800EF324\n"
-    "li $5,26\n"
-    "L_800EF2D4:\n"
-    "li $2,2\n"
-    "sw $17,776($16)\n"
-    "j func_8007BAF8\n"
-    "sw $2,748($16)\n"
-    "L_800EF2E4:\n"
-    "j func_8007BAF8\n"
-    "li $5,32\n"
-    "L_800EF2EC:\n"
-    "jal func_8009B670\n"
-    "move $4,$16\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x18\n"
-    "beqz $2,L_800EF318\n"
-    "li $5,28\n"
-    "bltz $2,L_800EF324\n"
-    "slti $2,$2,3\n"
-    "beqz $2,L_800EF328\n"
-    "li $5,27\n"
-    "L_800EF314:\n"
-    "li $5,26\n"
-    "L_800EF318:\n"
-    "li $2,2\n"
-    "j func_8007BAF8\n"
-    "sw $2,748($16)\n"
-    "L_800EF324:\n"
-    "li $5,27\n"
-    "L_800EF328:\n"
-    "move $4,$16\n"
-    "li $2,1\n"
-    "lui $7,0x3f80\n"
-    "li $6,-1\n"
-    "sw $0,16($29)\n"
-    "jal func_800B9FA4\n"
-    "sw $2,20($29)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800EF0E0\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef signed char s8;
+typedef int s32;
+typedef unsigned int u32;
+typedef float f32;
+
+#define W(p, o) (*(s32 *)((u8 *)(p) + (o)))
+#define F(p, o) (*(f32 *)((u8 *)(p) + (o)))
+
+extern u8 *D_800FC270;
+extern u32 D_800F13F0;
+extern s32 func_8007B800(u8 *o, f32 x);
+extern s8 func_8009B670(u8 *o);
+extern void func_800B9FA4(u8 *o, s32 a, s32 b, f32 c, s32 d, s32 e);
+
+static inline u32 rnd(u32 n)
+{
+    D_800F13F0 = (D_800F13F0 * 16807) & 0x7FFFFFFF;
+    return ((D_800F13F0 >> 15) * n) >> 16;
+}
+
+void func_800EF0E0(u8 *o, f32 x)
+{
+    s32 hit;
+    s32 a;
+    s32 flag;
+    s32 one;
+    f32 f;
+    u8 *g = D_800FC270;
+    s32 t;
+
+    W(o, 768) = 0;
+    W(o, 772) = 0;
+    t = W(g, 2560);
+    switch (t) {
+    case 5:
+        f = F(g, 3560);
+        break;
+    case 4:
+        if (F(g, 1324) < x) {
+            W(o, 772) = 1;
+            hit = 1;
+            goto done;
+        }
+    default:
+        f = F(D_800FC270, 1280);
+        break;
+    }
+    if (f < x) {
+        W(o, 768) = 1;
+        hit = 1;
+    } else {
+        hit = 0;
+    }
+done:
+    W(o, 776) = 0;
+    flag = 0;
+    if (W(W(o, 784), 1168) == 0 || W(o, 744) == 0) {
+        flag = 1;
+    }
+    if (flag) {
+        W(o, 748) = 0;
+        switch (rnd(4)) {
+        case 0:
+            a = 31;
+            break;
+        case 1:
+            a = 30;
+            break;
+        case 2:
+            a = 32;
+            break;
+        default:
+            a = 33;
+            break;
+        }
+    } else {
+        one = 1;
+        W(o, 748) = one;
+        if (hit) {
+            switch (rnd(3)) {
+            case 0:
+                a = 28;
+                break;
+            case 1:
+                a = 26;
+                break;
+            default:
+                a = 29;
+                break;
+            }
+            W(o, 748) = 2;
+        } else if (*(s8 *)(W(o, 4) + 0x8000 + 1044) > 0) {
+            hit = func_8007B800(o, x);
+            if (hit != 0) {
+                switch (func_8009B670(o)) {
+                case 0:
+                    a = 28;
+                    W(o, 776) = one;
+                    W(o, 748) = 2;
+                    break;
+                case 1:
+                case 2:
+                    a = 26;
+                    W(o, 776) = one;
+                    W(o, 748) = 2;
+                    break;
+                default:
+                    a = 27;
+                    break;
+                }
+            } else {
+                a = 32;
+            }
+        } else {
+            switch (func_8009B670(o)) {
+            case 0:
+                a = 28;
+                W(o, 748) = 2;
+                break;
+            case 1:
+            case 2:
+                a = 26;
+                W(o, 748) = 2;
+                break;
+            default:
+                a = 27;
+                break;
+            }
+        }
+    }
+    func_800B9FA4(o, a, -1, 1.0f, 0, 1);
+}

@@ -1747,11 +1747,6 @@
       ]
     },
     {
-      "id": "event_bank_data_8009CDF8",
-      "source": "src/data/event_bank_data_8009CDF8.c",
-      "inputs": {
-        "src/data/event_bank_data_8009CDF8.c": "3f37da21202ae6269db025ca41bf6f4710fcaef3f9b9c43148a0eb35be580c7f"
-      },
       "pipeline": "sn",
       "flags": [
         "-O2",
@@ -1763,14 +1758,19 @@
       ],
       "include_dirs": [],
       "symbols": {},
+      "id": "event_bank_data_8009CE20",
+      "source": "src/data/event_bank_data_8009CE20.c",
+      "inputs": {
+        "src/data/event_bank_data_8009CE20.c": "7b59b0f126fca70ad6cc06b4daafb868114e8ab17764ddb5029a411d696a2d22"
+      },
       "sections": [
         {
           "name": ".data",
           "segment": "event_bank",
-          "rom_start": 642552,
-          "vram": 2148126200,
-          "size": 440,
-          "sha256": "3eb52767ac433fb69bd661ee0508c80ec6e15f7eaeb4a48cd92c20f44c2ba27f"
+          "rom_start": 642592,
+          "vram": 2148126240,
+          "size": 400,
+          "sha256": "eb0ec7e13eba166c0add546a2ffe860359fe63be21dc29764b697b969872988b"
         }
       ]
     },
@@ -1985,7 +1985,7 @@
       "id": "event_bank_data_800A259C",
       "source": "src/data/event_bank_data_800A259C.c",
       "inputs": {
-        "src/data/event_bank_data_800A259C.c": "1c109ca0b7ccd37f0feda1dc87cb57458ed9890304a659026a49ed8240ae2174"
+        "src/data/event_bank_data_800A259C.c": "e36d549f630ba98f06450f121baae7613ab06609f6a19f41b83bc6bac75829dc"
       },
       "sections": [
         {
@@ -1993,8 +1993,36 @@
           "segment": "event_bank",
           "rom_start": 664988,
           "vram": 2148148636,
-          "size": 180,
-          "sha256": "97f7ec49a8d09b0cb4cecbbf9ccf98d3d1361364715f46a61f5ab3e60033c45f"
+          "size": 68,
+          "sha256": "90e1fa57825a7c926c29c7629352897236f18b65e92cf34b0d77b0c99a2c425a"
+        }
+      ]
+    },
+    {
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "id": "event_bank_data_800A260C",
+      "source": "src/data/event_bank_data_800A260C.c",
+      "inputs": {
+        "src/data/event_bank_data_800A260C.c": "e638ad663168a473609a56b3e2aaeadad01f91cfcf052945546b8774ed8b43fb"
+      },
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 665100,
+          "vram": 2148148748,
+          "size": 68,
+          "sha256": "35c819178a78d449039a8425338c80601bc43d5835ac4f1e1afd841958b49ef8"
         }
       ]
     },
@@ -2850,19 +2878,19 @@
       ],
       "include_dirs": [],
       "symbols": {},
-      "id": "event_bank_data_800C4FBC",
-      "source": "src/data/event_bank_data_800C4FBC.c",
+      "id": "event_bank_data_800C4FCC",
+      "source": "src/data/event_bank_data_800C4FCC.c",
       "inputs": {
-        "src/data/event_bank_data_800C4FBC.c": "f768d7dc00844fd2379e8e77549e4c418c6674f507ffa030bc769d5324bd26f9"
+        "src/data/event_bank_data_800C4FCC.c": "fbc7f826906c429fd159340e026dc70f513e190fbcfabc8c9b39dcedb9c29655"
       },
       "sections": [
         {
           "name": ".data",
           "segment": "event_bank",
-          "rom_start": 806844,
-          "vram": 2148290492,
-          "size": 292,
-          "sha256": "30123858744cdcbac8f055c58eea439a697a921144e08aa233c63c409e6df4f6"
+          "rom_start": 806860,
+          "vram": 2148290508,
+          "size": 276,
+          "sha256": "223e27800c959d3fda6de4baf1d18a5938584ac71bced8420094a5592b00fab3"
         }
       ]
     },
@@ -4785,7 +4813,7 @@
       "id": "event_bank_data_80116E80",
       "source": "src/data/event_bank_data_80116E80.c",
       "inputs": {
-        "src/data/event_bank_data_80116E80.c": "2facba5739dfe41d30670872168608c678ed8b8da9d60b0276c47d04fb5ee2b3"
+        "src/data/event_bank_data_80116E80.c": "9790f6c37081ba7faebc9c29feb11fcf153916e326af1c5e9689eefbb12376a3"
       },
       "sections": [
         {
@@ -4793,8 +4821,36 @@
           "segment": "event_bank",
           "rom_start": 1142400,
           "vram": 2148626048,
-          "size": 592,
-          "sha256": "a54211047a4d69b5317035ca3c862b6051014c740e3c2e31b9fa819bfd8559fa"
+          "size": 360,
+          "sha256": "b91547e1b994fa029149d64a040cf43d36a9fef84538745ad8662b11a298cbd4"
+        }
+      ]
+    },
+    {
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "id": "event_bank_data_8011708C",
+      "source": "src/data/event_bank_data_8011708C.c",
+      "inputs": {
+        "src/data/event_bank_data_8011708C.c": "8746b58e4fd3dfb1f567818d38e9721eda43978e7a03c8c59f50c65cfc4bf687"
+      },
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 1142924,
+          "vram": 2148626572,
+          "size": 68,
+          "sha256": "ee364aa42c7aa7457db7c97c5622b9181a49546b3805e05f7094b4c2103b3bda"
         }
       ]
     },
@@ -6210,19 +6266,19 @@
       ],
       "include_dirs": [],
       "symbols": {},
-      "id": "runtime_data_80086070",
-      "source": "src/data/runtime_data_80086070.c",
+      "id": "runtime_data_80086078",
+      "source": "src/data/runtime_data_80086078.c",
       "inputs": {
-        "src/data/runtime_data_80086070.c": "ec7be70226dbbe105382e2212f5b7655e685369b21f5ad73c616e97a24bcb430"
+        "src/data/runtime_data_80086078.c": "485c50079ca83c8b4ff159ea7a3dbb40c7ca76e7e7dc49df1bdb4bdb030ed82e"
       },
       "sections": [
         {
           "name": ".data",
           "segment": "runtime",
-          "rom_start": 1218912,
-          "vram": 2148032624,
-          "size": 816,
-          "sha256": "735d9736339fb010bc49d1369f8ae22b6a14e97191e3f4404c6ea77d132ca100"
+          "rom_start": 1218920,
+          "vram": 2148032632,
+          "size": 808,
+          "sha256": "103fe02bc7749e467b31048db4da0aff877831e29ee76118ed2663bf6698060f"
         }
       ]
     },
@@ -6465,7 +6521,7 @@
       "id": "runtime_data_80086D10",
       "source": "src/data/runtime_data_80086D10.c",
       "inputs": {
-        "src/data/runtime_data_80086D10.c": "9fc1e6be380af1e035c3ed04496a107172da2b63c103fc43a59fa91bc2a5af76"
+        "src/data/runtime_data_80086D10.c": "7e42cc9c0d2bac7688db22c092a90cdcd93e03f927b74771704128af3ec09960"
       },
       "sections": [
         {
@@ -6473,8 +6529,36 @@
           "segment": "runtime",
           "rom_start": 1222144,
           "vram": 2148035856,
-          "size": 168,
-          "sha256": "922f1b64a0a502ee1f7138fa15b351723d076a418eb253a82bc158928dc25112"
+          "size": 128,
+          "sha256": "b6cc33c82f6c491416f18fd91937b9d4a9a0bfbc12df0a511c6b38f22fd7dd38"
+        }
+      ]
+    },
+    {
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "id": "runtime_data_80086DA4",
+      "source": "src/data/runtime_data_80086DA4.c",
+      "inputs": {
+        "src/data/runtime_data_80086DA4.c": "9545601f42a21e3fb4ee4568997eb4d39755a5a3547e8e703f7174c27b6e06be"
+      },
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "runtime",
+          "rom_start": 1222292,
+          "vram": 2148036004,
+          "size": 20,
+          "sha256": "d33a2aa9c83c225384706f18c9ca536c46e7968a509792380675983d6438537f"
         }
       ]
     },

@@ -1,130 +1,91 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_80117AC4\n.ent func_80117AC4\n"
-    "func_80117AC4:\n"
-    "addiu $29,$29,-40\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "sw $18,24($29)\n"
-    "move $18,$5\n"
-    "sw $17,20($29)\n"
-    "move $17,$6\n"
-    "lui $4,0x800f\n"
-    "addiu $4,$4,10072\n"
-    "addiu $5,$16,732\n"
-    "li $6,212\n"
-    "lui $7,0x8008\n"
-    "sw $31,28($29)\n"
-    "sdc1 $f20,32($29)\n"
-    "jal func_800AA804\n"
-    "addiu $7,$7,-7880\n"
-    "lw $5,732($16)\n"
-    "jal func_800AAA58\n"
-    "li $4,212\n"
-    "jal func_800ADED4\n"
-    "move $4,$2\n"
-    "li $2,7\n"
-    "beq $18,$2,L_80117B2C\n"
-    "lui $4,0x8008\n"
-    "j func_8007EC84\n"
-    "addiu $4,$4,-7872\n"
-    "L_80117B2C:\n"
-    "lui $4,0x8008\n"
-    "addiu $4,$4,-7812\n"
-    "addiu $5,$16,736\n"
-    "jal func_80013E7C\n"
-    "move $6,$0\n"
-    "lw $3,732($16)\n"
-    "sw $2,196($3)\n"
-    "lw $4,732($16)\n"
-    "lw $2,196($4)\n"
-    "beqz $2,L_80117C90\n"
-    "li $5,1\n"
-    "lw $2,0($17)\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$5,$2\n"
-    "lw $3,732($16)\n"
-    "lw $2,180($3)\n"
-    "move $5,$16\n"
-    "lh $4,16($2)\n"
-    "lw $2,20($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "lw $3,732($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-7752($1)\n"
-    "addiu $2,$3,20\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "li $2,7\n"
-    "beq $18,$2,L_80117C1C\n"
-    "swc1 $f0,20($3)\n"
-    "li $6,3\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f20,-7748($1)\n"
-    "lw $4,732($16)\n"
-    "mfc1 $5,$f20\n"
-    "jal func_800AD434\n"
-    "addiu $4,$4,20\n"
-    "li $6,3\n"
-    "lw $4,732($16)\n"
-    "mfc1 $5,$f20\n"
-    "jal func_800AD388\n"
-    "addiu $4,$4,20\n"
-    "lw $2,732($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-7744($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-7740($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-7736($1)\n"
-    "j func_8007ED8C\n"
-    "addiu $2,$2,20\n"
-    "L_80117C1C:\n"
-    "lw $2,732($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-7732($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,-7728($1)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-7724($1)\n"
-    "addiu $2,$2,20\n"
-    "swc1 $f0,64($2)\n"
-    "swc1 $f2,68($2)\n"
-    "swc1 $f4,72($2)\n"
-    "lw $4,732($16)\n"
-    "jal func_800AD890\n"
-    "li $5,1\n"
-    "lw $2,732($16)\n"
-    "lw $2,208($2)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-7720($1)\n"
-    "lw $2,8($2)\n"
-    "swc1 $f0,40($2)\n"
-    "lw $4,732($16)\n"
-    "jal func_800AD9E8\n"
-    "nop\n"
-    "lw $3,732($16)\n"
-    "lw $2,180($3)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$3,$4\n"
-    "L_80117C90:\n"
-    "lw $31,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "ldc1 $f20,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_80117AC4\n.set at\n.set reorder\n");
+typedef struct VEntry {
+    short delta;
+    short pad;
+    void (*fn)();
+} VEntry;
+
+typedef struct Inner {
+    char pad0[40];
+    float f28;
+} Inner;
+
+typedef struct Holder {
+    char pad0[8];
+    Inner *in;
+} Holder;
+
+typedef struct Part {
+    char pad0[20];
+    float m[19];        /* 20 */
+    char pad1[180 - 96];
+    VEntry *vt;         /* 180 */
+    char pad2[196 - 184];
+    int res;            /* 196 */
+    char pad3[208 - 200];
+    Holder *h;          /* 208 */
+} Part;
+
+typedef struct Obj {
+    char pad0[732];
+    Part *p;            /* 732 */
+    char name[4];       /* 736 */
+} Obj;
+
+extern char D_800F2758[];
+
+void func_800AA804(void *heap, void *slot, int size, char *tag);
+void *func_800AAA58(int size, void *p);
+void func_800ADED4(void *p);
+int func_80013E7C(char *path, void *dst, int flags);
+void func_800ADC54(void *p, int mask);
+void func_800AD434(float *m, float a, int axis);
+void func_800AD388(float *m, float a, int axis);
+void func_800AD890(void *p, int on);
+void func_800AD9E8(void *p);
+
+void func_80117AC4(Obj *o, int mode, int *bit)
+{
+    float *m;
+
+    func_800AA804(D_800F2758, &o->p, 212, "DIV_BRD");
+    func_800ADED4(func_800AAA58(212, o->p));
+    if (mode != 7) {
+        o->p->res = func_80013E7C("GRAPHICS__ENVIRONMENTS__POOL__COMMONOBJECTS__DIVINGBN_OBB", o->name, 0);
+    } else {
+        o->p->res = func_80013E7C("GRAPHICS__ENVIRONMENTS__POOL__COMMONOBJECTS__DIVINGB_OBB", o->name, 0);
+    }
+    if (o->p->res != 0) {
+        func_800ADC54(o->p, 1 << *bit);
+        o->p->vt[2].fn((char *)o->p + o->p->vt[2].delta, o);
+        {
+            float *mm = o->p->m;
+            mm[9] = 0.0f;
+            mm[8] = 0.0f;
+            mm[6] = 0.0f;
+            mm[4] = 0.0f;
+            mm[2] = 0.0f;
+            mm[1] = 0.0f;
+            mm[18] = 0.0f;
+            mm[17] = 0.0f;
+            mm[16] = 0.0f;
+            mm[0] = mm[5] = mm[10] = 1.0f;
+        }
+        if (mode != 7) {
+            func_800AD434(o->p->m, -1.5707961f, 3);
+            func_800AD388(o->p->m, -1.5707961f, 3);
+            m = o->p->m;
+            m[16] = 1552.3365f;
+            m[17] = 179.27632f;
+            m[18] = 95.0243f;
+        } else {
+            m = o->p->m;
+            m[16] = 1552.3365f;
+            m[17] = 179.27632f;
+            m[18] = -32.767f;
+        }
+        func_800AD890(o->p, 1);
+        o->p->h->in->f28 = 327.669983f;
+        func_800AD9E8(o->p);
+        o->p->vt[8].fn((char *)o->p + o->p->vt[8].delta);
+    }
+}

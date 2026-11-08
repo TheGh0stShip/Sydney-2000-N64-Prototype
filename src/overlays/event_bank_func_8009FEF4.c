@@ -1,110 +1,45 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8009FEF4\n.ent func_8009FEF4\n"
-    "func_8009FEF4:\n"
-    "addiu $29,$29,-40\n"
-    "move $8,$0\n"
-    "addiu $7,$5,84\n"
-    "mtc1 $0,$f10\n"
-    "addiu $6,$29,16\n"
-    "sw $31,32($29)\n"
-    "lbu $2,1756($4)\n"
-    "sltiu $2,$2,16\n"
-    "beqz $2,L_8009FFB0\n"
-    "nop\n"
-    "lbu $3,1756($4)\n"
-    "lwc1 $f4,84($5)\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addiu $2,$2,1180\n"
-    "addu $3,$4,$2\n"
-    "lwc1 $f0,12($3)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "addiu $2,$3,12\n"
-    "swc1 $f4,16($29)\n"
-    "lwc1 $f8,4($7)\n"
-    "lwc1 $f0,4($2)\n"
-    "sub.s $f8,$f8,$f0\n"
-    "swc1 $f8,4($6)\n"
-    "lwc1 $f6,8($7)\n"
-    "lwc1 $f0,8($2)\n"
-    "sub.s $f6,$f6,$f0\n"
-    "swc1 $f6,8($6)\n"
-    "lwc1 $f2,24($3)\n"
-    "mul.s $f2,$f2,$f4\n"
-    "addiu $2,$3,24\n"
-    "lwc1 $f0,8($2)\n"
-    "mul.s $f0,$f0,$f6\n"
-    "lwc1 $f4,4($2)\n"
-    "mul.s $f4,$f4,$f8\n"
-    "add.s $f2,$f2,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "c.lt.s $f2,$f10\n"
-    "nop\n"
-    "bc1f L_8009FFB0\n"
-    "nop\n"
-    "lbu $2,1756($4)\n"
-    "li $8,1\n"
-    "addu $2,$2,$8\n"
-    "j func_8007414C\n"
-    "sb $2,1756($4)\n"
-    "L_8009FFB0:\n"
-    "bnez $8,L_800A0060\n"
-    "li $2,1\n"
-    "addiu $7,$5,84\n"
-    "addiu $6,$29,16\n"
-    "mtc1 $0,$f10\n"
-    "lbu $2,1756($4)\n"
-    "beqz $2,L_800A005C\n"
-    "move $3,$2\n"
-    "sll $2,$3,0x3\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addiu $2,$2,1144\n"
-    "addu $3,$4,$2\n"
-    "lwc1 $f4,84($5)\n"
-    "lwc1 $f0,0($3)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "swc1 $f4,16($29)\n"
-    "lwc1 $f8,4($7)\n"
-    "lwc1 $f0,4($3)\n"
-    "sub.s $f8,$f8,$f0\n"
-    "swc1 $f8,4($6)\n"
-    "lwc1 $f6,8($7)\n"
-    "lwc1 $f0,8($3)\n"
-    "sub.s $f6,$f6,$f0\n"
-    "swc1 $f6,8($6)\n"
-    "lwc1 $f2,24($3)\n"
-    "mul.s $f2,$f2,$f4\n"
-    "addiu $2,$3,24\n"
-    "lwc1 $f0,8($2)\n"
-    "mul.s $f0,$f0,$f6\n"
-    "lwc1 $f4,4($2)\n"
-    "mul.s $f4,$f4,$f8\n"
-    "add.s $f2,$f2,$f4\n"
-    "add.s $f2,$f2,$f0\n"
-    "c.le.s $f10,$f2\n"
-    "nop\n"
-    "bc1f L_800A0060\n"
-    "li $2,1\n"
-    "lbu $2,1756($4)\n"
-    "li $8,1\n"
-    "addiu $2,$2,-1\n"
-    "j func_80074204\n"
-    "sb $2,1756($4)\n"
-    "L_800A005C:\n"
-    "li $2,1\n"
-    "L_800A0060:\n"
-    "bne $8,$2,L_800A007C\n"
-    "nop\n"
-    "lbu $5,1756($4)\n"
-    "addiu $4,$4,23728\n"
-    "addiu $5,$5,6\n"
-    "jal func_800A9BE8\n"
-    "andi $5,$5,0xff\n"
-    "L_800A007C:\n"
-    "lw $31,32($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_8009FEF4\n.set at\n.set reorder\n");
+typedef unsigned char u8;
+typedef struct Vec { float x, y, z; } Vec;
+typedef struct Node { Vec p0; Vec p1; Vec n; } Node;
+typedef struct Obj {
+    char pad[0x49C];
+    Node nodes[16];
+    char pad6DC[0x6DC - (0x49C + 16 * 36)];
+    u8 idx;
+    char pad6DD[0x5CB0 - 0x6DD];
+    char unk5CB0[4];
+} Obj;
+typedef struct Arg { char pad[0x54]; Vec pos; } Arg;
+extern void func_800A9BE8(void *, int);
+static inline float side(Vec *a, Vec *b, Vec *n, Vec *d)
+{
+    d->x = a->x - b->x;
+    d->y = a->y - b->y;
+    d->z = a->z - b->z;
+    return n->x * d->x + n->y * d->y + n->z * d->z;
+}
+void func_8009FEF4(Obj *o, Arg *a)
+{
+    Vec d;
+    int flag = 0;
+    Node *n;
+    while (1) {
+        if (!(o->idx < 16)) break;
+        n = &o->nodes[o->idx];
+        if (!(side(&a->pos, &n->p1, &n->n, &d) < 0.0f)) break;
+        flag = 1;
+        o->idx++;
+    }
+    if (flag == 0) {
+        while (1) {
+            if (o->idx == 0) break;
+            n = &o->nodes[o->idx - 1];
+            if (!(0.0f <= side(&a->pos, &n->p0, &n->n, &d))) break;
+            flag = 1;
+            o->idx--;
+        }
+    }
+    if (flag == 1) {
+        func_800A9BE8(o->unk5CB0, (u8)(o->idx + 6));
+    }
+}

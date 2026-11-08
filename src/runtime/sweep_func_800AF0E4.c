@@ -1,68 +1,37 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AF0E4\n.ent func_800AF0E4\n"
-    "func_800AF0E4:\n"
-    "mtc1 $5,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f8,24688($1)\n"
-    "mul.s $f8,$f0,$f8\n"
-    "nop\n"
-    "mul.s $f14,$f0,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24692($1)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "mul.s $f6,$f2,$f2\n"
-    "add.s $f8,$f8,$f0\n"
-    "add.s $f8,$f8,$f0\n"
-    "mul.s $f8,$f8,$f2\n"
-    "sll $6,$6,0x2\n"
-    "lw $2,12($4)\n"
-    "add.s $f12,$f14,$f14\n"
-    "addu $6,$6,$2\n"
-    "lw $2,0($6)\n"
-    "add.s $f12,$f12,$f14\n"
-    "lwc1 $f2,40($2)\n"
-    "mul.s $f2,$f12,$f2\n"
-    "add.s $f4,$f6,$f6\n"
-    "add.s $f4,$f4,$f6\n"
-    "lwc1 $f0,4($2)\n"
-    "mul.s $f0,$f4,$f0\n"
-    "sub.s $f16,$f4,$f8\n"
-    "lwc1 $f10,16($2)\n"
-    "mul.s $f10,$f16,$f10\n"
-    "sub.s $f8,$f8,$f12\n"
-    "lwc1 $f6,28($2)\n"
-    "mul.s $f6,$f8,$f6\n"
-    "neg.s $f0,$f0\n"
-    "add.s $f0,$f0,$f10\n"
-    "add.s $f0,$f0,$f6\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,0($7)\n"
-    "lwc1 $f0,8($2)\n"
-    "mul.s $f0,$f4,$f0\n"
-    "lwc1 $f10,20($2)\n"
-    "mul.s $f10,$f16,$f10\n"
-    "lwc1 $f6,32($2)\n"
-    "mul.s $f6,$f8,$f6\n"
-    "lwc1 $f2,44($2)\n"
-    "mul.s $f2,$f12,$f2\n"
-    "neg.s $f0,$f0\n"
-    "add.s $f0,$f0,$f10\n"
-    "add.s $f0,$f0,$f6\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($7)\n"
-    "lwc1 $f0,12($2)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lwc1 $f0,24($2)\n"
-    "mul.s $f16,$f16,$f0\n"
-    "lwc1 $f0,36($2)\n"
-    "mul.s $f8,$f8,$f0\n"
-    "lwc1 $f0,48($2)\n"
-    "mul.s $f12,$f12,$f0\n"
-    "neg.s $f4,$f4\n"
-    "add.s $f4,$f4,$f16\n"
-    "add.s $f4,$f4,$f8\n"
-    "add.s $f4,$f4,$f12\n"
-    "jr $31\n"
-    "swc1 $f4,8($7)\n"
-    ".end func_800AF0E4\n.set at\n.set reorder\n");
+
+typedef float f32;
+typedef int s32;
+typedef struct
+{
+  f32 x;
+  f32 y;
+  f32 z;
+} Vec;
+typedef struct
+{
+  f32 pad;
+  Vec p0;
+  Vec p1;
+  Vec p2;
+  Vec p3;
+} Seg;
+typedef struct
+{
+  s32 pad[3];
+  Seg **segs;
+} Path;
+void func_800AF0E4(Path *path, f32 t, s32 idx, Vec *out)
+{
+  f32 u = 1.0f - t;
+  f32 uu = u * u;
+  f32 tt = t * t;
+  f32 m = (((t * 4.0f) + t) + t) * u;
+  f32 a = (tt + tt) + tt;
+  f32 b = (uu + uu) + uu;
+  f32 c = b - m;
+  f32 d = m - a;
+  Seg *s = path->segs[idx];
+  out->x = (((-(b * s->p0.x)) + (c * s->p1.x)) + (d * s->p2.x)) + (a * s->p3.x);
+  out->y = (((-(b * s->p0.y)) + (c * s->p1.y)) + (d * s->p2.y)) + (a * s->p3.y);
+  out->z = (((-(b * s->p0.z)) + (c * s->p1.z)) + (d * s->p2.z)) + (a * s->p3.z);
+}
