@@ -3315,34 +3315,6 @@
       ]
     },
     {
-      "pipeline": "sn",
-      "flags": [
-        "-O2",
-        "-G0",
-        "-mcpu=vr4300",
-        "-mips3",
-        "-mhard-float",
-        "-meb"
-      ],
-      "include_dirs": [],
-      "symbols": {},
-      "id": "event_bank_data_800D0370",
-      "source": "src/data/event_bank_data_800D0370.c",
-      "inputs": {
-        "src/data/event_bank_data_800D0370.c": "8a0b2ea39ef42e2905b9bece047db87d65dcd034f014f6fec10707fbd39332d5"
-      },
-      "sections": [
-        {
-          "name": ".data",
-          "segment": "event_bank",
-          "rom_start": 852848,
-          "vram": 2148336496,
-          "size": 8,
-          "sha256": "0dccba20600d3bc3e61e55cdee3066b085c57f32f7d24d42653262317549ba9d"
-        }
-      ]
-    },
-    {
       "id": "event_bank_data_800D0414",
       "source": "src/data/event_bank_data_800D0414.c",
       "inputs": {
@@ -4029,7 +4001,7 @@
       "id": "event_bank_data_800E6F6C",
       "source": "src/data/event_bank_data_800E6F6C.c",
       "inputs": {
-        "src/data/event_bank_data_800E6F6C.c": "451062b542c539c6438e42a6966b6b0b425a6ca3a3c989d1014eec0ee2cbd5a0"
+        "src/data/event_bank_data_800E6F6C.c": "bcc636e00f1b70242c57bff922972341660be6d0f819259fa9558be1a7582612"
       },
       "sections": [
         {
@@ -4037,8 +4009,36 @@
           "segment": "event_bank",
           "rom_start": 946028,
           "vram": 2148429676,
-          "size": 580,
-          "sha256": "572562e51e1d109c303b66a7c3bfa0533c44782ee06b9f63e64647227d5d3f09"
+          "size": 196,
+          "sha256": "1d0d01d3b0ad78602e9c9d0a0f6415fbc586e3f2b7372642de4f35b80c3e20d3"
+        }
+      ]
+    },
+    {
+      "pipeline": "sn",
+      "flags": [
+        "-O2",
+        "-G0",
+        "-mcpu=vr4300",
+        "-mips3",
+        "-mhard-float",
+        "-meb"
+      ],
+      "include_dirs": [],
+      "symbols": {},
+      "id": "event_bank_data_800E7034",
+      "source": "src/data/event_bank_data_800E7034.c",
+      "inputs": {
+        "src/data/event_bank_data_800E7034.c": "93cca4f95e8d42c4e0ce0d7de2b5454f0a29b85e5dd519385bbb0a2abceef798"
+      },
+      "sections": [
+        {
+          "name": ".data",
+          "segment": "event_bank",
+          "rom_start": 946228,
+          "vram": 2148429876,
+          "size": 380,
+          "sha256": "9ee5a1f41056cb2bb9a8f117b07a14916d7d383fdd6ced3c61a466f1f3aaf813"
         }
       ]
     },

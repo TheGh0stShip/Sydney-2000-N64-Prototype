@@ -1,135 +1,66 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D0880\n.ent func_800D0880\n"
-    "func_800D0880:\n"
-    "addiu $29,$29,-40\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "lui $2,0x8007\n"
-    "andi $5,$5,0xff\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "addiu $10,$2,2048\n"
-    "lwl $7,0($10)\n"
-    "lwr $7,3($10)\n"
-    "swl $7,16($29)\n"
-    "swr $7,19($29)\n"
-    "addu $2,$29,$5\n"
-    "lbu $16,16($2)\n"
-    "li $5,19\n"
-    "sw $0,17132($17)\n"
-    "addu $16,$16,$6\n"
-    "jal func_8008393C\n"
-    "addiu $6,$17,17132\n"
-    "andi $16,$16,0xff\n"
-    "sll $2,$16,0x3\n"
-    "addu $2,$2,$16\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,17132($17)\n"
-    "lui $1,0x8007\n"
-    "lwc1 $f2,2052($1)\n"
-    "addu $3,$3,$2\n"
-    "sw $3,17128($17)\n"
-    "lbu $2,0($3)\n"
-    "sb $2,18309($17)\n"
-    "lb $2,1($3)\n"
-    "move $6,$3\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "move $2,$3\n"
-    "div.s $f0,$f0,$f2\n"
-    "swc1 $f0,18256($17)\n"
-    "lb $3,4($2)\n"
-    "lb $4,14($2)\n"
-    "sw $0,18268($17)\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$2,$4\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,18264($17)\n"
-    "lb $2,4($6)\n"
-    "beqz $2,L_800D0998\n"
-    "move $5,$0\n"
-    "andi $3,$5,0xff\n"
-    "L_800D094C:\n"
-    "addu $3,$6,$3\n"
-    "addiu $5,$5,1\n"
-    "lb $4,4($3)\n"
-    "lb $3,14($3)\n"
-    "lwc1 $f2,18268($17)\n"
-    "lw $6,17128($17)\n"
-    "sll $2,$4,0x2\n"
-    "addu $2,$2,$4\n"
-    "sll $2,$2,0x1\n"
-    "addu $2,$2,$3\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "andi $2,$5,0xff\n"
-    "addu $2,$6,$2\n"
-    "swc1 $f2,18268($17)\n"
-    "lb $2,4($2)\n"
-    "bnez $2,L_800D094C\n"
-    "andi $3,$5,0xff\n"
-    "L_800D0998:\n"
-    "lw $4,17128($17)\n"
-    "sw $0,18284($17)\n"
-    "lb $3,0($4)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800D0A00\n"
-    "nop\n"
-    "lb $2,24($4)\n"
-    "beqz $2,L_800D0A08\n"
-    "move $5,$0\n"
-    "andi $2,$5,0xff\n"
-    "L_800D09C0:\n"
-    "addu $2,$4,$2\n"
-    "addiu $5,$5,1\n"
-    "lb $2,24($2)\n"
-    "lwc1 $f2,18284($17)\n"
-    "lw $4,17128($17)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "add.s $f2,$f2,$f0\n"
-    "andi $2,$5,0xff\n"
-    "addu $2,$4,$2\n"
-    "swc1 $f2,18284($17)\n"
-    "lb $2,24($2)\n"
-    "bnez $2,L_800D09C0\n"
-    "andi $2,$5,0xff\n"
-    "j func_80070E98\n"
-    "nop\n"
-    "L_800D0A00:\n"
-    "lwc1 $f0,18268($17)\n"
-    "swc1 $f0,18284($17)\n"
-    "L_800D0A08:\n"
-    "lwc1 $f0,18268($17)\n"
-    "lw $2,17128($17)\n"
-    "swc1 $f0,18272($17)\n"
-    "lb $2,24($2)\n"
-    "lw $3,17128($17)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "swc1 $f0,18280($17)\n"
-    "lb $3,24($3)\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "lw $3,17128($17)\n"
-    "sll $2,$2,0x9\n"
-    "sw $2,3856($17)\n"
-    "lbu $2,34($3)\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x18\n"
-    "sh $2,18232($17)\n"
-    "lbu $2,35($3)\n"
-    "sll $2,$2,0x18\n"
-    "sra $2,$2,0x18\n"
-    "sh $2,18230($17)\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,40\n"
-    ".end func_800D0880\n.set at\n.set reorder\n");
+typedef struct {
+    signed char kind;
+    signed char rate;
+    char p2[2];
+    signed char a[10];
+    signed char b[10];
+    signed char c[10];
+    unsigned char d34;
+    unsigned char d35;
+} Entry;
+
+typedef struct {
+    char p0[3856];
+    int f3856;
+    char pF14[13268];
+    Entry *cur;
+    Entry *tracks;
+    char p42F0[1094];
+    short f18230;
+    short f18232;
+    char p473A[22];
+    float f18256;
+    char p4754[4];
+    float f18264;
+    float f18268;
+    float f18272;
+    char p4764[4];
+    float f18280;
+    float f18284;
+    char p4770[21];
+    unsigned char kind;
+} Game;
+
+extern void func_8008393C(Game *g, int id, Entry **out);
+
+void func_80070D10(Game *g, unsigned char n, int add)
+{
+    unsigned char tbl[4] = { 0, 1, 3, 6 };
+    unsigned char idx;
+    unsigned char i;
+
+    idx = tbl[n] + add;
+    g->tracks = 0;
+    func_8008393C(g, 19, &g->tracks);
+    g->cur = g->tracks + idx;
+    g->kind = g->cur->kind;
+    g->f18256 = g->cur->rate / 100.0f;
+    g->f18264 = g->cur->a[0] * 10 + g->cur->b[0];
+    g->f18268 = 0.0f;
+    for (i = 0; g->cur->a[i] != 0; i++) {
+        g->f18268 += g->cur->a[i] * 10 + g->cur->b[i];
+    }
+    g->f18284 = 0.0f;
+    if (g->cur->kind == 1) {
+        for (i = 0; g->cur->c[i] != 0; i++) {
+            g->f18284 += g->cur->c[i];
+        }
+    } else {
+        g->f18284 = g->f18268;
+    }
+    g->f18272 = g->f18268;
+    g->f18280 = g->cur->c[0];
+    g->f3856 = g->cur->c[0] * 7680;
+    g->f18232 = (signed char)g->cur->d34;
+    g->f18230 = (signed char)g->cur->d35;
+}

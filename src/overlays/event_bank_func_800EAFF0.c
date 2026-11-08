@@ -1,132 +1,121 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EAFF0\n.ent func_800EAFF0\n"
-    "func_800EAFF0:\n"
-    "addiu $29,$29,-72\n"
-    "sw $16,64($29)\n"
-    "move $16,$4\n"
-    "sw $31,68($29)\n"
-    "lwc1 $f2,88($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,-29792($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800EB0EC\n"
-    "li $3,0x88bc\n"
-    "lw $2,4($16)\n"
-    "lwc1 $f0,84($16)\n"
-    "addu $2,$2,$3\n"
-    "addiu $3,$16,84\n"
-    "swc1 $f0,64($2)\n"
-    "lwc1 $f0,4($3)\n"
-    "swc1 $f0,68($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "swc1 $f0,72($2)\n"
-    "lwc1 $f0,84($16)\n"
-    "swc1 $f0,1180($16)\n"
-    "lwc1 $f0,4($3)\n"
-    "addiu $2,$16,1180\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($3)\n"
-    "addiu $3,$16,1168\n"
-    "swc1 $f0,8($2)\n"
-    "lwc1 $f0,1168($16)\n"
-    "lui $2,0x8008\n"
-    "sw $0,1136($16)\n"
-    "swc1 $f0,1156($16)\n"
-    "lwc1 $f2,4($3)\n"
-    "lwc1 $f0,-9068($2)\n"
-    "addiu $2,$16,1156\n"
-    "swc1 $f2,4($2)\n"
-    "lwc1 $f2,8($3)\n"
-    "add.s $f0,$f0,$f0\n"
-    "swc1 $f2,8($2)\n"
-    "addiu $2,$16,20\n"
-    "neg.s $f0,$f0\n"
-    "swc1 $f0,1152($16)\n"
-    "lwc1 $f0,64($2)\n"
-    "swc1 $f0,1140($16)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$16,1140\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "swc1 $f0,8($3)\n"
-    "lbu $3,832($16)\n"
-    "li $2,32\n"
-    "beqz $3,L_800EB0C8\n"
-    "sw $2,172($16)\n"
-    "sb $0,832($16)\n"
-    "L_800EB0C8:\n"
-    "lbu $3,426($16)\n"
-    "li $2,1\n"
-    "bne $3,$2,L_800EB0EC\n"
-    "lui $4,0x8004\n"
-    "lbu $5,732($16)\n"
-    "lui $6,0x3f66\n"
-    "ori $6,$6,0x6666\n"
-    "jal func_800084C0\n"
-    "addiu $4,$4,17904\n"
-    "L_800EB0EC:\n"
-    "lbu $2,1089($16)\n"
-    "bnez $2,L_800EB1CC\n"
-    "move $4,$16\n"
-    "li $5,1\n"
-    "addiu $6,$29,24\n"
-    "addiu $7,$29,56\n"
-    "addiu $2,$29,40\n"
-    "sw $2,16($29)\n"
-    "jal func_800B9BD4\n"
-    "sw $0,20($29)\n"
-    "lbu $3,1040($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $3,1036($16)\n"
-    "lw $2,932($2)\n"
-    "slt $2,$2,$3\n"
-    "beqz $2,L_800EB1C8\n"
-    "addiu $2,$3,256\n"
-    "lbu $2,1040($16)\n"
-    "lbu $3,1041($16)\n"
-    "sw $0,1036($16)\n"
-    "addiu $2,$2,1\n"
-    "sb $2,1040($16)\n"
-    "andi $2,$2,0xff\n"
-    "sltu $2,$2,$3\n"
-    "beqz $2,L_800EB1CC\n"
-    "move $4,$16\n"
-    "lbu $3,1040($16)\n"
-    "sw $0,16($29)\n"
-    "lw $7,632($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $5,928($2)\n"
-    "jal func_800B9E9C\n"
-    "li $6,-1\n"
-    "lbu $3,1040($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lw $5,932($2)\n"
-    "jal func_800B9A68\n"
-    "move $4,$16\n"
-    "lbu $3,1040($16)\n"
-    "sll $2,$3,0x1\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$16,$2\n"
-    "lbu $2,939($2)\n"
-    "j func_8007CD3C\n"
-    "sb $2,1089($16)\n"
-    "L_800EB1C8:\n"
-    "sw $2,1036($16)\n"
-    "L_800EB1CC:\n"
-    "lw $31,68($29)\n"
-    "lw $16,64($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,72\n"
-    ".end func_800EAFF0\n.set at\n.set reorder\n");
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vec;
+
+typedef struct {
+    char p0[64];
+    Vec pos;
+} Sub;
+
+typedef struct {
+    char p0[0x88BC];
+    Sub cam;
+} World;
+
+typedef struct {
+    int a;
+    int limit;
+    char p8[3];
+    unsigned char next;
+} Step;
+
+typedef struct {
+    char p0[4];
+    World *world;
+    char p8[12];
+    Sub base;
+    char p60[76];
+    int f172;
+    char pB0[250];
+    unsigned char f426;
+    char p1AB[205];
+    int f632;
+    char p27C[96];
+    unsigned char f732;
+    char p2DD[99];
+    unsigned char f832;
+    char p341[95];
+    Step steps[9];
+    int timer;
+    unsigned char idx;
+    unsigned char count;
+    char p412[47];
+    unsigned char f1089;
+    char p442[46];
+    int f1136;
+    Vec v474;
+    float f1152;
+    Vec v484;
+    Vec v490;
+    Vec v49C;
+} Obj;
+
+struct Snd;
+
+extern struct Snd D_800445F0;
+extern float D_8007DC94;
+
+extern void func_800084C0(struct Snd *s, int id, float vol);
+extern void func_800B9BD4(Obj *o, int n, Vec *a, float *b, Vec *c, int z);
+extern void func_800B9E9C(Obj *o, int a, int b, int c, int z);
+extern void func_800B9A68(Obj *o, int v);
+
+static inline void vput(Sub *d, Vec *s)
+{
+    d->pos.x = s->x;
+    d->pos.y = s->y;
+    d->pos.z = s->z;
+}
+
+static inline void vcopy(Vec *d, Vec *s)
+{
+    d->x = s->x;
+    d->y = s->y;
+    d->z = s->z;
+}
+
+static inline void vget(Vec *d, Sub *s)
+{
+    d->x = s->pos.x;
+    d->y = s->pos.y;
+    d->z = s->pos.z;
+}
+
+void func_8007CB60(Obj *o)
+{
+    Vec a;
+    Vec c;
+    float b;
+
+    if (o->base.pos.y < -3.27669978f) {
+        vput(&o->world->cam, &o->base.pos);
+        vcopy(&o->v49C, &o->base.pos);
+        o->f1136 = 0;
+        vcopy(&o->v484, &o->v490);
+        o->f1152 = -(D_8007DC94 + D_8007DC94);
+        vget(&o->v474, &o->base);
+        o->f172 = 32;
+        if (o->f832 != 0) {
+            o->f832 = 0;
+        }
+        if (o->f426 == 1) {
+            func_800084C0(&D_800445F0, o->f732, 0.9f);
+        }
+    }
+    if (o->f1089 == 0) {
+        func_800B9BD4(o, 1, &a, &b, &c, 0);
+        if (o->timer > o->steps[o->idx].limit) {
+            o->timer = 0;
+            o->idx++;
+            if (o->idx < o->count) {
+                func_800B9E9C(o, o->steps[o->idx].a, -1, o->f632, 0);
+                func_800B9A68(o, o->steps[o->idx].limit);
+                o->f1089 = o->steps[o->idx].next;
+            }
+        } else {
+            o->timer += 256;
+        }
+    }
+}
