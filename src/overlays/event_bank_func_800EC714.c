@@ -1,104 +1,77 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800EC714\n.ent func_800EC714\n"
-    "func_800EC714:\n"
-    "addiu $29,$29,-120\n"
-    "sw $19,108($29)\n"
-    "move $19,$4\n"
-    "sw $18,104($29)\n"
-    "move $18,$5\n"
-    "sw $17,100($29)\n"
-    "lui $17,0x8007\n"
-    "addiu $17,$17,29712\n"
-    "move $4,$17\n"
-    "li $5,1\n"
-    "sw $31,112($29)\n"
-    "jal func_800AEF6C\n"
-    "sw $16,96($29)\n"
-    "move $16,$2\n"
-    "move $4,$16\n"
-    "jal func_800AF0BC\n"
-    "addiu $5,$29,24\n"
-    "move $4,$16\n"
-    "addiu $16,$29,40\n"
-    "jal func_800AF088\n"
-    "move $5,$16\n"
-    "addiu $2,$29,24\n"
-    "move $4,$16\n"
-    "lwc1 $f6,40($29)\n"
-    "lwc1 $f0,24($29)\n"
-    "lwc1 $f4,44($29)\n"
-    "sub.s $f6,$f6,$f0\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,8($2)\n"
-    "sub.s $f4,$f4,$f0\n"
-    "lwc1 $f0,48($29)\n"
-    "move $5,$4\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f6,40($29)\n"
-    "swc1 $f4,44($29)\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f0,48($29)\n"
-    "move $4,$17\n"
-    "jal func_800AEF6C\n"
-    "li $5,1\n"
-    "addiu $4,$19,652\n"
-    "move $5,$19\n"
-    "jal func_800AE72C\n"
-    "move $6,$2\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-30332($1)\n"
-    "beqz $18,L_800EC7DC\n"
-    "nop\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f4,-30328($1)\n"
-    "L_800EC7DC:\n"
-    "lwc1 $f6,40($29)\n"
-    "mul.s $f6,$f6,$f4\n"
-    "lwc1 $f2,44($29)\n"
-    "mul.s $f2,$f2,$f4\n"
-    "lwc1 $f0,48($29)\n"
-    "mul.s $f0,$f0,$f4\n"
-    "swc1 $f6,40($29)\n"
-    "swc1 $f2,44($29)\n"
-    "swc1 $f0,48($29)\n"
-    "lwc1 $f0,84($19)\n"
-    "lwc1 $f2,40($29)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $2,$19,84\n"
-    "swc1 $f0,84($19)\n"
-    "lwc1 $f0,4($2)\n"
-    "lwc1 $f2,44($29)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($2)\n"
-    "lwc1 $f2,48($29)\n"
-    "move $4,$19\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $3,$19,368\n"
-    "li $5,1\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $2,$19,20\n"
-    "lwc1 $f0,64($2)\n"
-    "addiu $18,$29,56\n"
-    "swc1 $f0,368($19)\n"
-    "lwc1 $f0,68($2)\n"
-    "move $6,$18\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "addiu $17,$29,88\n"
-    "swc1 $f0,8($3)\n"
-    "lwc1 $f0,64($2)\n"
-    "move $7,$17\n"
-    "swc1 $f0,392($19)\n"
-    "lwc1 $f0,68($2)\n"
-    "addiu $3,$19,392\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f0,72($2)\n"
-    "addiu $16,$29,72\n"
-    "swc1 $f0,8($3)\n"
-    "sw $16,16($29)\n"
-    "jal func_800B9BD4\n"
-    "sw $0,20($29)\n"
-    "move $4,$19\n"
-    ".end func_800EC714\n.set at\n.set reorder\n");
+typedef struct Vec3 {
+    float x, y, z;
+} Vec3;
+
+typedef struct Body {
+    char pad0[64];
+    Vec3 pos;               /* 64 */
+} Body;
+
+typedef struct Obj {
+    char pad0[20];
+    Body body;              /* 20 */
+    char pad1[368 - 96];
+    Vec3 last;              /* 368 */
+    char pad2[392 - 380];
+    Vec3 prev;              /* 392 */
+    char pad3[652 - 404];
+    char link[4];           /* 652 */
+} Obj;
+
+extern char D_80077410[];
+
+void *func_800AEF6C(char *name, int a);
+void func_800AF0BC(void *h, Vec3 *v);
+void func_800AF088(void *h, Vec3 *v);
+void func_800AD6D0(Vec3 *in, Vec3 *out);
+void func_800AE72C(char *link, Obj *o, void *h);
+void func_800B9BD4(Obj *o, int a, Vec3 *b, float *c, Vec3 *d, int e);
+void func_800B9964(Obj *o, Vec3 *b, float *c, Vec3 *d);
+
+static inline void vsub(Vec3 *d, Vec3 *s)
+{
+    d->x -= s->x;
+    d->y -= s->y;
+    d->z -= s->z;
+}
+
+static inline void vscale(Vec3 *v, float s)
+{
+    v->x *= s;
+    v->y *= s;
+    v->z *= s;
+}
+
+static inline void getpos(Vec3 *d, Body *b)
+{
+    d->x = b->pos.x;
+    d->y = b->pos.y;
+    d->z = b->pos.z;
+}
+
+void func_800EC714(Obj *o, int fast)
+{
+    Vec3 a;
+    Vec3 dir;
+    Vec3 v1;
+    Vec3 v3;
+    float v2[2];
+    void *h;
+
+    h = func_800AEF6C(D_80077410, 1);
+    func_800AF0BC(h, &a);
+    func_800AF088(h, &dir);
+    vsub(&dir, &a);
+    func_800AD6D0(&dir, &dir);
+    func_800AE72C(o->link, o, func_800AEF6C(D_80077410, 1));
+    if (fast) {
+        vscale(&dir, 49.150497f);
+    } else {
+        vscale(&dir, 19.6602f);
+    }
+    vsub(&o->body.pos, &dir);
+    getpos(&o->last, &o->body);
+    getpos(&o->prev, &o->body);
+    func_800B9BD4(o, 1, &v1, v2, &v3, 0);
+    func_800B9964(o, &v1, v2, &v3);
+}

@@ -1,96 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C7570\n.ent func_800C7570\n"
-    "func_800C7570:\n"
-    "addiu $29,$29,-24\n"
-    "sw $31,16($29)\n"
-    "lhu $3,1762($4)\n"
-    "andi $2,$3,0x8\n"
-    "beqz $2,L_800C75BC\n"
-    "andi $2,$3,0x10\n"
-    "lwc1 $f0,1752($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30732($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,1744($4)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800C75F8\n"
-    "swc1 $f0,1752($4)\n"
-    "move $2,$3\n"
-    "andi $2,$2,0xfff7\n"
-    "j L_800C75F4\n"
-    "swc1 $f2,1752($4)\n"
-    "L_800C75BC:\n"
-    "beqz $2,L_800C75F8\n"
-    "nop\n"
-    "lwc1 $f0,1752($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30728($1)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "lwc1 $f2,1744($4)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800C75F8\n"
-    "swc1 $f0,1752($4)\n"
-    "lhu $2,1762($4)\n"
-    "swc1 $f2,1752($4)\n"
-    "andi $2,$2,0xffef\n"
-    "L_800C75F4:\n"
-    "sh $2,1762($4)\n"
-    "L_800C75F8:\n"
-    "lhu $3,1762($4)\n"
-    "andi $2,$3,0x2\n"
-    "beqz $2,L_800C763C\n"
-    "andi $2,$3,0x4\n"
-    "lwc1 $f0,1748($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30724($1)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lwc1 $f2,1740($4)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800C7678\n"
-    "swc1 $f0,1748($4)\n"
-    "move $2,$3\n"
-    "andi $2,$2,0xfffd\n"
-    "j L_800C7674\n"
-    "swc1 $f2,1748($4)\n"
-    "L_800C763C:\n"
-    "beqz $2,L_800C7678\n"
-    "nop\n"
-    "lwc1 $f0,1748($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30720($1)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "lwc1 $f2,1740($4)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800C7678\n"
-    "swc1 $f0,1748($4)\n"
-    "lhu $2,1762($4)\n"
-    "swc1 $f2,1748($4)\n"
-    "andi $2,$2,0xfffb\n"
-    "L_800C7674:\n"
-    "sh $2,1762($4)\n"
-    "L_800C7678:\n"
-    "lwc1 $f2,1748($4)\n"
-    "lwc1 $f0,1740($4)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800C76A8\n"
-    "nop\n"
-    "lwc1 $f2,1752($4)\n"
-    "lwc1 $f0,1744($4)\n"
-    "c.eq.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800C76A8\n"
-    "sh $0,1760($4)\n"
-    "L_800C76A8:\n"
-    "jal L_800C76BC\n"
-    "nop\n"
-    "lw $31,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    "L_800C76BC:\n"
-    ".end func_800C7570\n.set at\n.set reorder\n");
+typedef struct {
+    char p0[1740];
+    float maxA;
+    float maxB;
+    float a;
+    float b;
+    char p1[4];
+    short done;
+    unsigned short flags;
+} Obj;
+
+extern void func_800C76BC(Obj *o);
+
+void func_800C7570(Obj *o)
+{
+    if (o->flags & 8) {
+        o->b += 0.033333335f;
+        if (o->maxB <= o->b) {
+            o->b = o->maxB;
+            o->flags &= ~8;
+        }
+    } else if (o->flags & 0x10) {
+        o->b -= 0.033333335f;
+        if (o->b <= o->maxB) {
+            o->b = o->maxB;
+            o->flags &= ~0x10;
+        }
+    }
+    if (o->flags & 2) {
+        o->a += 0.033333335f;
+        if (o->maxA <= o->a) {
+            o->a = o->maxA;
+            o->flags &= ~2;
+        }
+    } else if (o->flags & 4) {
+        o->a -= 0.033333335f;
+        if (o->a <= o->maxA) {
+            o->a = o->maxA;
+            o->flags &= ~4;
+        }
+    }
+    if (o->a == o->maxA && o->b == o->maxB) o->done = 0;
+    func_800C76BC(o);
+}

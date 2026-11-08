@@ -1,80 +1,41 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3D40\n.ent func_800E3D40\n"
-    "func_800E3D40:\n"
-    "move $4,$0\n"
-    "li $2,9\n"
-    "beq $5,$2,L_800E3E58\n"
-    "move $8,$4\n"
-    "li $2,11\n"
-    "beq $5,$2,L_800E3E58\n"
-    "sltu $2,$5,$2\n"
-    "beqz $2,L_800E3E18\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-18488\n"
-    "sll $3,$5,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $8,$2,1528\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $8,$2,1540\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $4,$2,1552\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $4,$2,1712\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $4,$2,1872\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $4,$2,2032\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $4,$2,2192\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $8,$2,2352\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "j L_800E3E18\n"
-    "addiu $4,$2,2364\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addiu $8,$2,2464\n"
-    "L_800E3E18:\n"
-    "beqz $8,L_800E3E24\n"
-    "addu $2,$8,$6\n"
-    "sb $7,0($2)\n"
-    "L_800E3E24:\n"
-    "beqz $4,L_800E3E58\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$4\n"
-    "andi $3,$6,0x3\n"
-    "addu $4,$2,$3\n"
-    "sll $3,$3,0x2\n"
-    "sb $7,0($4)\n"
-    "lwc1 $f0,16($29)\n"
-    "addu $2,$2,$3\n"
-    "swc1 $f0,4($2)\n"
-    "L_800E3E58:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800E3D40\n.set at\n.set reorder\n");
+typedef struct { unsigned char b[4]; float f[4]; } Ent;
+typedef struct {
+    char p0[1528];
+    unsigned char s0[12];
+    unsigned char s1[12];
+    Ent e0[8];
+    Ent e1[8];
+    Ent e2[8];
+    Ent e3[8];
+    Ent e4[8];
+    unsigned char s2[12];
+    Ent e5[5];
+    unsigned char s3[4];
+} Game;
+
+extern Game *D_800FC270;
+
+void func_800E3D40(void *self, int k, unsigned int idx, unsigned char v, float f)
+{
+    Ent *ep = 0;
+    unsigned char *bp = 0;
+
+    if (k == 9 || k == 11) return;
+    switch (k) {
+    case 0: bp = D_800FC270->s0; break;
+    case 1: bp = D_800FC270->s1; break;
+    case 2: ep = D_800FC270->e0; break;
+    case 3: ep = D_800FC270->e1; break;
+    case 4: ep = D_800FC270->e2; break;
+    case 5: ep = D_800FC270->e3; break;
+    case 6: ep = D_800FC270->e4; break;
+    case 7: bp = D_800FC270->s2; break;
+    case 8: ep = D_800FC270->e5; break;
+    case 10: bp = D_800FC270->s3; break;
+    }
+    if (bp) bp[idx] = v;
+    if (ep) {
+        ep[idx >> 2].b[idx & 3] = v;
+        ep[idx >> 2].f[idx & 3] = f;
+    }
+}

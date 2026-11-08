@@ -1,104 +1,44 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800AE5C0\n.ent func_800AE5C0\n"
-    "func_800AE5C0:\n"
-    "lw $2,4($4)\n"
-    "bnez $2,L_800AE5D8\n"
-    "nop\n"
-    "lw $2,8($4)\n"
-    "beqz $2,L_800AE5E0\n"
-    "nop\n"
-    "L_800AE5D8:\n"
-    "jr $31\n"
-    "move $2,$0\n"
-    "L_800AE5E0:\n"
-    "lw $3,0($4)\n"
-    "addiu $2,$3,-1\n"
-    "sltiu $2,$2,3\n"
-    "beqz $2,L_800AE720\n"
-    "addiu $2,$3,-2\n"
-    "sltiu $2,$2,2\n"
-    "beqz $2,L_800AE610\n"
-    "nop\n"
-    "lwc1 $f0,48($4)\n"
-    "lwc1 $f2,28($4)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,48($4)\n"
-    "L_800AE610:\n"
-    "lwc1 $f0,0($5)\n"
-    "lwc1 $f2,44($4)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $2,$4,44\n"
-    "swc1 $f0,0($5)\n"
-    "lwc1 $f0,4($5)\n"
-    "lwc1 $f2,4($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,4($5)\n"
-    "lwc1 $f0,8($5)\n"
-    "lwc1 $f2,8($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($5)\n"
-    "lw $3,0($4)\n"
-    "li $2,3\n"
-    "bnel $3,$2,L_800AE724\n"
-    "move $2,$0\n"
-    "lwc1 $f0,4($5)\n"
-    "lwc1 $f2,36($4)\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800AE6B0\n"
-    "nop\n"
-    "swc1 $f2,4($5)\n"
-    "lwc1 $f6,48($4)\n"
-    "lwc1 $f0,32($4)\n"
-    "mul.s $f6,$f6,$f0\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24656($1)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lwc1 $f4,44($4)\n"
-    "mul.s $f4,$f4,$f0\n"
-    "lwc1 $f0,32($4)\n"
-    "mul.s $f0,$f0,$f2\n"
-    "lwc1 $f2,52($4)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "neg.s $f6,$f6\n"
-    "swc1 $f6,48($4)\n"
-    "swc1 $f4,44($4)\n"
-    "swc1 $f2,52($4)\n"
-    "L_800AE6B0:\n"
-    "lwc1 $f4,48($4)\n"
-    "mtc1 $0,$f0\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800AE6EC\n"
-    "nop\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,24660($1)\n"
-    "neg.s $f0,$f4\n"
-    "c.le.s $f0,$f2\n"
-    "nop\n"
-    "bc1t L_800AE704\n"
-    "move $2,$0\n"
-    "j L_800AE724\n"
-    "nop\n"
-    "L_800AE6EC:\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f0,24664($1)\n"
-    "c.le.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800AE724\n"
-    "move $2,$0\n"
-    "L_800AE704:\n"
-    "lwc1 $f2,4($5)\n"
-    "lwc1 $f0,36($4)\n"
-    "c.le.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800AE720\n"
-    "li $2,1\n"
-    "sw $2,8($4)\n"
-    "L_800AE720:\n"
-    "move $2,$0\n"
-    "L_800AE724:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800AE5C0\n.set at\n.set reorder\n");
+typedef struct { float x, y, z; } Vec;
+typedef struct {
+    int type;        /* 0x00 */
+    int busy;        /* 0x04 */
+    int landed;      /* 0x08 */
+    char padc[0x1C - 0xC];
+    float gravity;   /* 0x1C */
+    float bounce;    /* 0x20 */
+    float floor;     /* 0x24 */
+    char pad28[0x2C - 0x28];
+    Vec vel;         /* 0x2C */
+} Body;
+int func_800AE5C0(Body *b, Vec *pos)
+{
+    Vec *v;
+    float vy;
+    if (b->busy != 0 || b->landed != 0) {
+        return 0;
+    }
+    if (b->type >= 1 && b->type <= 3) {
+        if (b->type >= 2 && b->type <= 3) {
+            b->vel.y = b->vel.y + b->gravity;
+        }
+        v = &b->vel;
+        pos->x = pos->x + v->x;
+        pos->y = pos->y + v->y;
+        pos->z = pos->z + v->z;
+        if (b->type == 3) {
+            if (pos->y <= b->floor) {
+                pos->y = b->floor;
+                b->vel.y = -(b->vel.y * b->bounce);
+                b->vel.x = b->vel.x * (b->bounce * 0.5f);
+                b->vel.z = b->vel.z * (b->bounce * 0.5f);
+            }
+            vy = b->vel.y;
+            if (vy < 0.0f ? -vy <= 0.163835f : vy <= 0.163835f) {
+                if (pos->y <= b->floor) {
+                    b->landed = 1;
+                }
+            }
+        }
+    }
+    return 0;
+}

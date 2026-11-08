@@ -1,77 +1,36 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800A9F58\n.ent func_800A9F58\n"
-    "func_800A9F58:\n"
-    "move $7,$4\n"
-    "move $11,$5\n"
-    "lui $6,0x7fff\n"
-    "ori $6,$6,0xffff\n"
-    "move $8,$0\n"
-    "lui $5,0x800f\n"
-    "lw $4,10004($5)\n"
-    "li $10,-1\n"
-    "sll $3,$4,0x2\n"
-    "addu $3,$3,$4\n"
-    "sll $2,$3,0x4\n"
-    "subu $2,$2,$3\n"
-    "sll $2,$2,0x5\n"
-    "addu $2,$2,$4\n"
-    "sll $3,$2,0x3\n"
-    "subu $3,$3,$2\n"
-    "and $3,$3,$6\n"
-    "sw $3,10004($5)\n"
-    "lbu $9,5($7)\n"
-    "move $2,$10\n"
-    "sb $2,5($7)\n"
-    "li $2,100\n"
-    "srl $3,$3,0xf\n"
-    "mult $3,$2\n"
-    "lw $3,0($7)\n"
-    "sll $2,$9,0x18\n"
-    "sra $2,$2,0x15\n"
-    "addu $6,$2,$3\n"
-    "mflo $12\n"
-    "srl $2,$12,0x10\n"
-    "addiu $5,$2,1\n"
-    "L_800A9FD4:\n"
-    "lw $2,0($6)\n"
-    "lhu $2,6($2)\n"
-    "bnez $2,L_800A9FF0\n"
-    "andi $2,$8,0xff\n"
-    "sb $9,5($7)\n"
-    "jr $31\n"
-    "li $2,22\n"
-    "L_800A9FF0:\n"
-    "lw $3,4($6)\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$3\n"
-    "lw $4,0($2)\n"
-    "lhu $2,2($4)\n"
-    "andi $3,$5,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnel $2,$0,L_800AA020\n"
-    "addiu $8,$8,1\n"
-    "lbu $2,1($4)\n"
-    "j L_800AA028\n"
-    "sb $2,5($7)\n"
-    "L_800AA020:\n"
-    "lbu $2,3($4)\n"
-    "subu $5,$5,$2\n"
-    "L_800AA028:\n"
-    "lb $2,5($7)\n"
-    "beq $2,$10,L_800A9FD4\n"
-    "sll $2,$2,0x3\n"
-    "lw $3,0($7)\n"
-    "addu $2,$2,$3\n"
-    "lw $2,0($2)\n"
-    "lbu $2,3($2)\n"
-    "sb $2,0($11)\n"
-    "lb $2,5($7)\n"
-    "lw $3,0($7)\n"
-    "sll $2,$2,0x3\n"
-    "addu $2,$2,$3\n"
-    "lw $2,0($2)\n"
-    "lhu $2,0($2)\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800A9F58\n.set at\n.set reorder\n");
+typedef struct { unsigned short f0; unsigned char pad2; unsigned char f3; unsigned short f4; unsigned short f6; } Info;
+typedef struct { unsigned char pad0; unsigned char next; unsigned short threshold; } Option;
+typedef struct { Info *info; Option **options; } Slot;
+typedef struct { Slot *slots; unsigned char count; signed char sel; } Set;
+extern unsigned int D_800F2714;
+static inline unsigned short rnd(unsigned int n)
+{
+    D_800F2714 = (D_800F2714 * 16807) & 0x7FFFFFFF;
+    return ((D_800F2714 >> 15) * n) >> 16;
+}
+unsigned short func_800A9F58(Set *s, unsigned char *out)
+{
+    unsigned char j;
+    unsigned char r;
+    signed char old;
+    Option *opt;
+    r = rnd(100) + 1;
+    old = s->sel;
+    s->sel = -1;
+    j = 0;
+    do {
+        if (s->slots[old].info->f6 == 0) {
+            s->sel = old;
+            return 22;
+        }
+        opt = s->slots[old].options[j];
+        if (opt->threshold >= r) {
+            s->sel = opt->next;
+        } else {
+            j++;
+            r -= opt->threshold;
+        }
+    } while (s->sel == -1);
+    *out = s->slots[s->sel].info->f3;
+    return s->slots[s->sel].info->f0;
+}

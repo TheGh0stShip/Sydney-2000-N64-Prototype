@@ -1,113 +1,33 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E3B8C\n.ent func_800E3B8C\n"
-    "func_800E3B8C:\n"
-    "sltiu $2,$5,11\n"
-    "beqz $2,L_800E3D30\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-18600\n"
-    "sll $3,$5,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addu $2,$2,$6\n"
-    "lbu $2,1528($2)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addu $2,$2,$6\n"
-    "lbu $2,1540($2)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $5,0x8010\n"
-    "andi $4,$6,0x3\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addu $4,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "lbu $2,1552($3)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $5,0x8010\n"
-    "andi $4,$6,0x3\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addu $4,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "lbu $2,1712($3)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $5,0x8010\n"
-    "andi $4,$6,0x3\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addu $4,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "lbu $2,1872($3)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $5,0x8010\n"
-    "andi $4,$6,0x3\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addu $4,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "lbu $2,2032($3)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $5,0x8010\n"
-    "andi $4,$6,0x3\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addu $4,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "lbu $2,2192($3)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addu $2,$2,$6\n"
-    "lbu $2,2352($2)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $5,0x8010\n"
-    "andi $4,$6,0x3\n"
-    "srl $3,$6,0x2\n"
-    "sll $2,$3,0x2\n"
-    "addu $2,$2,$3\n"
-    "sll $2,$2,0x2\n"
-    "lw $3,-15760($5)\n"
-    "addu $4,$4,$2\n"
-    "addu $3,$3,$4\n"
-    "lbu $2,2364($3)\n"
-    "jr $31\n"
-    "nop\n"
-    "lui $2,0x8010\n"
-    "lw $2,-15760($2)\n"
-    "addu $2,$2,$6\n"
-    "lbu $2,2464($2)\n"
-    "jr $31\n"
-    "nop\n"
-    "L_800E3D30:\n"
-    "jr $31\n"
-    "move $2,$0\n"
-    ".end func_800E3B8C\n.set at\n.set reorder\n");
+typedef struct { unsigned char b[4]; float f[4]; } Ent;
+typedef struct {
+    char p0[1528];
+    unsigned char s0[12];
+    unsigned char s1[12];
+    Ent e0[8];
+    Ent e1[8];
+    Ent e2[8];
+    Ent e3[8];
+    Ent e4[8];
+    unsigned char s2[12];
+    Ent e5[5];
+    unsigned char s3[4];
+} Game;
+
+extern Game *D_800FC270;
+
+unsigned char func_800E3B8C(void *self, int k, unsigned int idx)
+{
+    switch (k) {
+    case 0: return D_800FC270->s0[idx];
+    case 1: return D_800FC270->s1[idx];
+    case 2: return D_800FC270->e0[idx >> 2].b[idx & 3];
+    case 3: return D_800FC270->e1[idx >> 2].b[idx & 3];
+    case 4: return D_800FC270->e2[idx >> 2].b[idx & 3];
+    case 5: return D_800FC270->e3[idx >> 2].b[idx & 3];
+    case 6: return D_800FC270->e4[idx >> 2].b[idx & 3];
+    case 7: return D_800FC270->s2[idx];
+    case 8: return D_800FC270->e5[idx >> 2].b[idx & 3];
+    case 10: return D_800FC270->s3[idx];
+    }
+    return 0;
+}
