@@ -1,163 +1,104 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E9D10\n.ent func_800E9D10\n"
-    "func_800E9D10:\n"
-    "lw $6,188($4)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f14,-16084($1)\n"
-    "L_800E9D1C:\n"
-    "beqz $6,L_800E9F24\n"
-    "nop\n"
-    "lw $7,8($6)\n"
-    "lhu $2,2($6)\n"
-    "lw $8,4($6)\n"
-    "beqz $2,L_800E9F18\n"
-    "nop\n"
-    "beqz $8,L_800E9F18\n"
-    "addiu $4,$7,44\n"
-    "L_800E9D40:\n"
-    "lhu $5,0($7)\n"
-    "beql $5,$0,L_800E9F0C\n"
-    "addiu $8,$8,-1\n"
-    "lh $2,-42($4)\n"
-    "bgtz $2,L_800E9D60\n"
-    "move $3,$2\n"
-    "j L_800E9D6C\n"
-    "move $5,$0\n"
-    "L_800E9D60:\n"
-    "addiu $2,$3,-1\n"
-    "move $3,$2\n"
-    "sh $2,-42($4)\n"
-    "L_800E9D6C:\n"
-    "andi $2,$5,0x80\n"
-    "bnez $2,L_800E9EAC\n"
-    "andi $2,$5,0x200\n"
-    "lwc1 $f2,-24($4)\n"
-    "lwc1 $f0,-16($4)\n"
-    "lwc1 $f12,-28($4)\n"
-    "add.s $f6,$f2,$f0\n"
-    "lwc1 $f4,-40($4)\n"
-    "lwc1 $f10,-20($4)\n"
-    "add.s $f4,$f4,$f12\n"
-    "lwc1 $f2,-32($4)\n"
-    "add.s $f2,$f2,$f10\n"
-    "lwc1 $f0,-36($4)\n"
-    "andi $2,$5,0x1000\n"
-    "swc1 $f4,-40($4)\n"
-    "swc1 $f2,-32($4)\n"
-    "lwc1 $f2,-12($4)\n"
-    "beqz $2,L_800E9E30\n"
-    "add.s $f8,$f0,$f6\n"
-    "andi $2,$5,0x800\n"
-    "beqz $2,L_800E9DD0\n"
-    "nop\n"
-    "c.le.s $f2,$f8\n"
-    "j L_800E9DD4\n"
-    "nop\n"
-    "L_800E9DD0:\n"
-    "c.le.s $f8,$f2\n"
-    "L_800E9DD4:\n"
-    "nop\n"
-    "bc1f L_800E9DF4\n"
-    "nop\n"
-    "mul.s $f0,$f6,$f14\n"
-    "neg.s $f6,$f0\n"
-    "mul.s $f0,$f6,$f14\n"
-    "mov.s $f8,$f2\n"
-    "add.s $f6,$f6,$f0\n"
-    "L_800E9DF4:\n"
-    "c.eq.s $f8,$f2\n"
-    "nop\n"
-    "bc1f L_800E9E98\n"
-    "andi $2,$5,0x400\n"
-    "beqz $2,L_800E9E14\n"
-    "andi $2,$5,0x8000\n"
-    "mul.s $f0,$f6,$f14\n"
-    "sub.s $f6,$f6,$f0\n"
-    "L_800E9E14:\n"
-    "beql $2,$0,L_800E9E9C\n"
-    "swc1 $f12,-28($4)\n"
-    "mul.s $f12,$f12,$f14\n"
-    "nop\n"
-    "mul.s $f10,$f10,$f14\n"
-    "j L_800E9E9C\n"
-    "swc1 $f12,-28($4)\n"
-    "L_800E9E30:\n"
-    "andi $2,$5,0x2000\n"
-    "beqz $2,L_800E9E68\n"
-    "andi $2,$5,0x800\n"
-    "beqz $2,L_800E9E50\n"
-    "nop\n"
-    "c.le.s $f2,$f8\n"
-    "j L_800E9E54\n"
-    "nop\n"
-    "L_800E9E50:\n"
-    "c.le.s $f8,$f2\n"
-    "L_800E9E54:\n"
-    "nop\n"
-    "bc1tl L_800E9E98\n"
-    "move $5,$0\n"
-    "j L_800E9E9C\n"
-    "swc1 $f12,-28($4)\n"
-    "L_800E9E68:\n"
-    "andi $2,$5,0x4000\n"
-    "beqz $2,L_800E9E98\n"
-    "andi $2,$5,0x800\n"
-    "beqz $2,L_800E9E88\n"
-    "nop\n"
-    "c.le.s $f2,$f8\n"
-    "j L_800E9E8C\n"
-    "nop\n"
-    "L_800E9E88:\n"
-    "c.le.s $f8,$f2\n"
-    "L_800E9E8C:\n"
-    "nop\n"
-    "bc1tl L_800E9E98\n"
-    "mov.s $f8,$f2\n"
-    "L_800E9E98:\n"
-    "swc1 $f12,-28($4)\n"
-    "L_800E9E9C:\n"
-    "swc1 $f10,-20($4)\n"
-    "swc1 $f6,-24($4)\n"
-    "swc1 $f8,-36($4)\n"
-    "andi $2,$5,0x200\n"
-    "L_800E9EAC:\n"
-    "beqz $2,L_800E9EC4\n"
-    "andi $2,$5,0x100\n"
-    "lwc1 $f0,-8($4)\n"
-    "lwc1 $f2,-4($4)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,-8($4)\n"
-    "L_800E9EC4:\n"
-    "beqz $2,L_800E9EF0\n"
-    "sll $2,$3,0x10\n"
-    "lh $3,2($4)\n"
-    "sra $2,$2,0x10\n"
-    "slt $3,$3,$2\n"
-    "bnez $3,L_800E9EF0\n"
-    "nop\n"
-    "lhu $2,0($4)\n"
-    "lhu $3,4($4)\n"
-    "addu $2,$2,$3\n"
-    "sh $2,0($4)\n"
-    "L_800E9EF0:\n"
-    "bnel $5,$0,L_800E9F08\n"
-    "sh $5,0($7)\n"
-    "lhu $2,2($6)\n"
-    "addiu $2,$2,-1\n"
-    "sh $2,2($6)\n"
-    "sh $5,0($7)\n"
-    "L_800E9F08:\n"
-    "addiu $8,$8,-1\n"
-    "L_800E9F0C:\n"
-    "addiu $4,$4,64\n"
-    "bnez $8,L_800E9D40\n"
-    "addiu $7,$7,64\n"
-    "L_800E9F18:\n"
-    "lw $6,12($6)\n"
-    "j L_800E9D1C\n"
-    "nop\n"
-    "L_800E9F24:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800E9D10\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned short flags;
+    short timer;
+    float x, y, z;
+    float vx, vy, vz;
+    float grav;
+    float floor;
+    float ang, dang;
+    unsigned short frame;
+    short last;
+    unsigned short fstep;
+    char pad[64 - 50];
+} Part;
+
+typedef struct Node {
+    short pad0;
+    unsigned short active;
+    int count;
+    Part *parts;
+    struct Node *next;
+} Node;
+
+typedef struct {
+    char pad[188];
+    Node *list;
+} Sys;
+
+void func_800E9D10(Sys *s)
+{
+    Node *n;
+    Part *p;
+    int cnt;
+    unsigned short flags;
+    short t;
+    float vx, vy, vz, y, fl;
+
+    n = s->list;
+    while (1) {
+        if (n == 0) return;
+        p = n->parts;
+        cnt = n->count;
+        if (n->active != 0) {
+        for (; cnt != 0; cnt--, p++) {
+            flags = p->flags;
+            if (flags == 0) continue;
+            t = p->timer;
+            if (t <= 0) {
+                flags = 0;
+            } else {
+                t--;
+                p->timer = t;
+            }
+            if (!(flags & 0x80)) {
+                vy = p->vy + p->grav;
+                vx = p->vx;
+                vz = p->vz;
+                p->x += vx;
+                p->z += vz;
+                fl = p->floor;
+                y = p->y + vy;
+                if (flags & 0x1000) {
+                    if (flags & 0x800) {
+                        if (fl <= y) {
+                        vy = -(vy * 0.5f);
+                        vy += vy * 0.5f;
+                        y = fl;
+                    }
+                    } else if (y <= fl) {
+                        vy = -(vy * 0.5f);
+                        vy += vy * 0.5f;
+                        y = fl;
+                    }
+                    if (y == fl) {
+                        if (flags & 0x400) vy -= vy * 0.5f;
+                        if (flags & 0x8000) {
+                            vx *= 0.5f;
+                            vz *= 0.5f;
+                        }
+                    }
+                } else if (flags & 0x2000) {
+                    if (flags & 0x800) {
+                        if (fl <= y) flags = 0;
+                    } else if (y <= fl) flags = 0;
+                } else if (flags & 0x4000) {
+                    if (flags & 0x800) {
+                        if (fl <= y) y = fl;
+                    } else if (y <= fl) y = fl;
+                }
+                p->vx = vx;
+                p->vz = vz;
+                p->vy = vy;
+                p->y = y;
+            }
+            if (flags & 0x200) p->ang += p->dang;
+            if (flags & 0x100) {
+                if (t <= p->last) p->frame += p->fstep;
+            }
+            if (flags == 0) n->active--;
+            p->flags = flags;
+        }
+        }
+        n = n->next;
+    }
+}

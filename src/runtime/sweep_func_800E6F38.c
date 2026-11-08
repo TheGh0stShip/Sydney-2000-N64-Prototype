@@ -1,159 +1,73 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800E6F38\n.ent func_800E6F38\n"
-    "func_800E6F38:\n"
-    "addiu $29,$29,-48\n"
-    "sw $19,28($29)\n"
-    "move $19,$4\n"
-    "sw $17,20($29)\n"
-    "move $17,$5\n"
-    "sw $16,16($29)\n"
-    "move $16,$0\n"
-    "move $5,$0\n"
-    "sw $31,40($29)\n"
-    "sw $21,36($29)\n"
-    "sw $20,32($29)\n"
-    "sw $18,24($29)\n"
-    "lhu $2,24($17)\n"
-    "li $6,9\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$19,$2\n"
-    "lw $2,4($2)\n"
-    "li $7,5\n"
-    "sw $0,28($17)\n"
-    "jal func_800E7460\n"
-    "addiu $18,$2,408\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "lui $21,0x8010\n"
-    "addiu $20,$21,13568\n"
-    "jal L_800E7180\n"
-    "move $7,$20\n"
-    "sll $2,$2,0x10\n"
-    "bnez $2,L_800E6FC4\n"
-    "move $4,$19\n"
-    "lw $2,28($17)\n"
-    "li $16,36\n"
-    "addiu $2,$2,8\n"
-    "sw $2,28($17)\n"
-    "L_800E6FC4:\n"
-    "andi $5,$16,0xff\n"
-    "li $6,5\n"
-    "jal func_800E7460\n"
-    "move $7,$6\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "jal L_800E7180\n"
-    "move $7,$20\n"
-    "sll $2,$2,0x10\n"
-    "bnez $2,L_800E7004\n"
-    "move $4,$19\n"
-    "lw $2,28($17)\n"
-    "addiu $16,$16,4\n"
-    "addiu $2,$2,2\n"
-    "sw $2,28($17)\n"
-    "L_800E7004:\n"
-    "andi $5,$16,0xff\n"
-    "li $6,5\n"
-    "jal func_800E7460\n"
-    "li $7,3\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "jal L_800E7180\n"
-    "move $7,$20\n"
-    "sll $2,$2,0x10\n"
-    "bnez $2,L_800E7044\n"
-    "move $4,$19\n"
-    "lw $2,28($17)\n"
-    "addiu $16,$16,18\n"
-    "addiu $2,$2,4\n"
-    "sw $2,28($17)\n"
-    "L_800E7044:\n"
-    "andi $5,$16,0xff\n"
-    "li $6,3\n"
-    "jal func_800E7460\n"
-    "move $7,$6\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "jal L_800E7180\n"
-    "move $7,$20\n"
-    "sll $2,$2,0x10\n"
-    "bnez $2,L_800E7084\n"
-    "move $4,$19\n"
-    "lw $2,28($17)\n"
-    "addiu $16,$16,2\n"
-    "addiu $2,$2,1\n"
-    "sw $2,28($17)\n"
-    "L_800E7084:\n"
-    "andi $5,$16,0xff\n"
-    "li $6,3\n"
-    "jal func_800E7460\n"
-    "li $7,2\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "jal L_800E7180\n"
-    "move $7,$20\n"
-    "sll $2,$2,0x10\n"
-    "beql $2,$0,L_800E70B4\n"
-    "addiu $16,$16,9\n"
-    "L_800E70B4:\n"
-    "move $4,$19\n"
-    "andi $5,$16,0xff\n"
-    "li $6,2\n"
-    "jal func_800E7460\n"
-    "move $7,$6\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "jal L_800E7180\n"
-    "move $7,$20\n"
-    "sll $2,$2,0x10\n"
-    "beql $2,$0,L_800E70E8\n"
-    "addiu $16,$16,1\n"
-    "L_800E70E8:\n"
-    "lui $2,0x38e3\n"
-    "ori $2,$2,0x8e39\n"
-    "andi $3,$16,0xff\n"
-    "multu $3,$2\n"
-    "move $4,$19\n"
-    "move $5,$17\n"
-    "move $6,$18\n"
-    "move $7,$20\n"
-    "mfhi $8\n"
-    "srl $2,$8,0x1\n"
-    "andi $2,$2,0xff\n"
-    "subu $3,$3,$2\n"
-    "sll $3,$3,0x1\n"
-    "li $2,4\n"
-    "sw $3,32($17)\n"
-    "sb $2,13568($21)\n"
-    "addiu $2,$16,1\n"
-    "sb $2,2($7)\n"
-    "addiu $2,$16,9\n"
-    "sb $16,1($7)\n"
-    "sb $2,3($7)\n"
-    "jal L_800E7180\n"
-    "sb $16,4($7)\n"
-    "sll $2,$2,0x10\n"
-    "bnez $2,L_800E715C\n"
-    "nop\n"
-    "lw $2,32($17)\n"
-    "addiu $2,$2,1\n"
-    "sw $2,32($17)\n"
-    "L_800E715C:\n"
-    "lw $31,40($29)\n"
-    "lw $21,36($29)\n"
-    "lw $20,32($29)\n"
-    "lw $19,28($29)\n"
-    "lw $18,24($29)\n"
-    "lw $17,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,48\n"
-    "L_800E7180:\n"
-    ".end func_800E6F38\n.set at\n.set reorder\n");
+typedef struct {
+    unsigned char kind;
+    unsigned char a;
+    unsigned char b;
+    unsigned char c;
+    unsigned char d;
+} Pat;
+
+typedef struct {
+    unsigned char cells[9][5];
+} Grid;
+
+typedef struct {
+    char p0[408];
+    Grid grid;
+} Board;
+
+typedef struct {
+    int pad;
+    Board *boards[4];
+} Game;
+
+typedef struct {
+    char p0[24];
+    unsigned short who;
+    short pad;
+    int score;
+    int bonus;
+} Player;
+
+extern Pat D_80103500;
+
+void func_800E7460(Game *g, unsigned char base, unsigned char w, unsigned char h);
+short func_800E7180(Game *g, Player *p, Grid *grid, Pat *pat);
+
+void func_800E6F38(Game *g, Player *p)
+{
+    unsigned char k = 0;
+    Grid *grid = &g->boards[p->who]->grid;
+
+    p->score = 0;
+    func_800E7460(g, 0, 9, 5);
+    if (!func_800E7180(g, p, grid, &D_80103500)) {
+        k = 36;
+        p->score += 8;
+    }
+    func_800E7460(g, k, 5, 5);
+    if (!func_800E7180(g, p, grid, &D_80103500)) {
+        k += 4;
+        p->score += 2;
+    }
+    func_800E7460(g, k, 5, 3);
+    if (!func_800E7180(g, p, grid, &D_80103500)) {
+        k += 18;
+        p->score += 4;
+    }
+    func_800E7460(g, k, 3, 3);
+    if (!func_800E7180(g, p, grid, &D_80103500)) {
+        k += 2;
+        p->score += 1;
+    }
+    func_800E7460(g, k, 3, 2);
+    if (!func_800E7180(g, p, grid, &D_80103500)) k += 9;
+    func_800E7460(g, k, 2, 2);
+    if (!func_800E7180(g, p, grid, &D_80103500)) k += 1;
+    p->bonus = (k - k / 9) * 2;
+    D_80103500.kind = 4;
+    D_80103500.a = k;
+    D_80103500.b = k + 1;
+    D_80103500.c = k + 9;
+    D_80103500.d = k;
+    if (!func_800E7180(g, p, grid, &D_80103500)) p->bonus++;
+}

@@ -1,153 +1,49 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800D7370\n.ent func_800D7370\n"
-    "func_800D7370:\n"
-    "addiu $29,$29,-96\n"
-    "sw $17,36($29)\n"
-    "move $17,$4\n"
-    "sw $16,32($29)\n"
-    "addiu $16,$29,24\n"
-    "move $4,$16\n"
-    "li $5,0xffff\n"
-    "sw $31,40($29)\n"
-    "sdc1 $f30,88($29)\n"
-    "sdc1 $f28,80($29)\n"
-    "sdc1 $f26,72($29)\n"
-    "sdc1 $f24,64($29)\n"
-    "sdc1 $f22,56($29)\n"
-    "sdc1 $f20,48($29)\n"
-    "jal func_8001A330\n"
-    "sw $0,24($29)\n"
-    "lui $5,0xc190\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f30,-23444($1)\n"
-    "lui $7,0x43ef\n"
-    "ori $7,$7,0x8000\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f28,-23440($1)\n"
-    "mtc1 $0,$f22\n"
-    "mfc1 $6,$f30\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f28,16($29)\n"
-    "mfc1 $5,$f22\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f20,-23436($1)\n"
-    "mfc1 $6,$f22\n"
-    "mfc1 $7,$f20\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "jal func_8001A210\n"
-    "swc1 $f20,16($29)\n"
-    "move $4,$16\n"
-    "jal func_800191E0\n"
-    "lui $5,0x8200\n"
-    "move $4,$16\n"
-    "lw $2,24($29)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f24,-23432($1)\n"
-    "li $5,0xffff\n"
-    "sw $0,24($29)\n"
-    "jal func_8001A330\n"
-    "sw $2,220($17)\n"
-    "mfc1 $5,$f24\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f26,-23428($1)\n"
-    "lui $6,0xc090\n"
-    "mfc1 $7,$f26\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f30,16($29)\n"
-    "mfc1 $5,$f22\n"
-    "mfc1 $6,$f22\n"
-    "mfc1 $7,$f20\n"
-    "move $4,$16\n"
-    "swc1 $f20,16($29)\n"
-    "jal func_8001A210\n"
-    "sw $0,20($29)\n"
-    "move $4,$16\n"
-    "jal func_800191E0\n"
-    "lui $5,0xff00\n"
-    "move $4,$16\n"
-    "lw $2,24($29)\n"
-    "li $5,0xffff\n"
-    "sw $0,24($29)\n"
-    "jal func_8001A330\n"
-    "sw $2,224($17)\n"
-    "mfc1 $5,$f24\n"
-    "mfc1 $6,$f28\n"
-    "mfc1 $7,$f26\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-23424($1)\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mfc1 $5,$f22\n"
-    "mfc1 $6,$f22\n"
-    "mfc1 $7,$f20\n"
-    "move $4,$16\n"
-    "swc1 $f20,16($29)\n"
-    "jal func_8001A210\n"
-    "sw $0,20($29)\n"
-    "move $4,$16\n"
-    "jal func_800191E0\n"
-    "lui $5,0xff00\n"
-    "move $4,$16\n"
-    "lw $2,24($29)\n"
-    "li $5,0xffff\n"
-    "sw $0,24($29)\n"
-    "jal func_8001A330\n"
-    "sw $2,228($17)\n"
-    "mfc1 $5,$f24\n"
-    "mfc1 $6,$f30\n"
-    "lui $7,0xc190\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f28,16($29)\n"
-    "mfc1 $5,$f22\n"
-    "mfc1 $6,$f22\n"
-    "mfc1 $7,$f20\n"
-    "move $4,$16\n"
-    "swc1 $f20,16($29)\n"
-    "jal func_8001A210\n"
-    "sw $0,20($29)\n"
-    "move $4,$16\n"
-    "jal func_800191E0\n"
-    "lui $5,0xff00\n"
-    "move $4,$16\n"
-    "lw $2,24($29)\n"
-    "li $5,0xffff\n"
-    "sw $0,24($29)\n"
-    "jal func_8001A330\n"
-    "sw $2,232($17)\n"
-    "lui $5,0x43ef\n"
-    "ori $5,$5,0x8000\n"
-    "mfc1 $6,$f30\n"
-    "mfc1 $7,$f26\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f28,16($29)\n"
-    "mfc1 $5,$f22\n"
-    "mfc1 $7,$f20\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "move $6,$5\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "move $4,$16\n"
-    "jal func_800191E0\n"
-    "lui $5,0xff00\n"
-    "lw $2,24($29)\n"
-    "sw $2,236($17)\n"
-    "lw $31,40($29)\n"
-    "lw $17,36($29)\n"
-    "lw $16,32($29)\n"
-    "ldc1 $f30,88($29)\n"
-    "ldc1 $f28,80($29)\n"
-    "ldc1 $f26,72($29)\n"
-    "ldc1 $f24,64($29)\n"
-    "ldc1 $f22,56($29)\n"
-    "ldc1 $f20,48($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,96\n"
-    ".end func_800D7370\n.set at\n.set reorder\n");
+typedef struct {
+    char p0[220];
+    int bg;
+    int top;
+    int mid;
+    int left;
+    int right;
+} Frame;
+
+void func_8001A330(int *res, int v);
+void func_8001A1D8(int *res, float x0, float y0, float x1, float y1);
+void func_8001A210(int *res, float a, float b, float c, float d, int e);
+void func_800191E0(int *res, unsigned int color);
+
+void func_800D7370(Frame *f)
+{
+    int res;
+
+    res = 0;
+    func_8001A330(&res, 0xFFFF);
+    func_8001A1D8(&res, -18.0f, -3.5f, 479.0f, 11.5f);
+    func_8001A210(&res, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_800191E0(&res, 0x82000000);
+    f->bg = res;
+    res = 0;
+    func_8001A330(&res, 0xFFFF);
+    func_8001A1D8(&res, -19.0f, -4.5f, 480.0f, -3.5f);
+    func_8001A210(&res, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_800191E0(&res, 0xFF000000);
+    f->top = res;
+    res = 0;
+    func_8001A330(&res, 0xFFFF);
+    func_8001A1D8(&res, -19.0f, 11.5f, 480.0f, 12.5f);
+    func_8001A210(&res, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_800191E0(&res, 0xFF000000);
+    f->mid = res;
+    res = 0;
+    func_8001A330(&res, 0xFFFF);
+    func_8001A1D8(&res, -19.0f, -3.5f, -18.0f, 11.5f);
+    func_8001A210(&res, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_800191E0(&res, 0xFF000000);
+    f->left = res;
+    res = 0;
+    func_8001A330(&res, 0xFFFF);
+    func_8001A1D8(&res, 479.0f, -3.5f, 480.0f, 11.5f);
+    func_8001A210(&res, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+    func_800191E0(&res, 0xFF000000);
+    f->right = res;
+}

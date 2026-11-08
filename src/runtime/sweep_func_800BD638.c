@@ -1,155 +1,57 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800BD638\n.ent func_800BD638\n"
-    "func_800BD638:\n"
-    "addiu $29,$29,-128\n"
-    "sw $18,72($29)\n"
-    "lw $18,144($29)\n"
-    "sw $19,76($29)\n"
-    "move $19,$6\n"
-    "sw $31,92($29)\n"
-    "sw $22,88($29)\n"
-    "sw $21,84($29)\n"
-    "sw $20,80($29)\n"
-    "sw $17,68($29)\n"
-    "sw $16,64($29)\n"
-    "sdc1 $f26,120($29)\n"
-    "sdc1 $f24,112($29)\n"
-    "sdc1 $f22,104($29)\n"
-    "sdc1 $f20,96($29)\n"
-    "lwc1 $f0,0($19)\n"
-    "lwc1 $f2,0($18)\n"
-    "mul.s $f2,$f2,$f0\n"
-    "lwc1 $f4,4($18)\n"
-    "lwc1 $f0,4($19)\n"
-    "move $20,$4\n"
-    "mul.s $f4,$f4,$f0\n"
-    "move $4,$5\n"
-    "lwc1 $f6,8($18)\n"
-    "lwc1 $f0,8($19)\n"
-    "lw $21,148($29)\n"
-    "mul.s $f6,$f6,$f0\n"
-    "lwc1 $f0,0($4)\n"
-    "move $22,$7\n"
-    "swc1 $f0,48($29)\n"
-    "lwc1 $f0,4($4)\n"
-    "add.s $f2,$f2,$f4\n"
-    "swc1 $f0,52($29)\n"
-    "lwc1 $f0,8($4)\n"
-    "add.s $f2,$f2,$f6\n"
-    "addiu $5,$29,48\n"
-    "swc1 $f0,56($29)\n"
-    "jal func_800AD6D0\n"
-    "neg.s $f22,$f2\n"
-    "mtc1 $0,$f16\n"
-    "mov.s $f24,$f0\n"
-    "c.eq.s $f24,$f16\n"
-    "nop\n"
-    "bc1t L_800BD84C\n"
-    "move $2,$0\n"
-    "lwc1 $f12,0($18)\n"
-    "lwc1 $f20,48($29)\n"
-    "mul.s $f0,$f12,$f20\n"
-    "lwc1 $f14,4($18)\n"
-    "lwc1 $f18,52($29)\n"
-    "mul.s $f4,$f14,$f18\n"
-    "lwc1 $f10,8($18)\n"
-    "lwc1 $f6,56($29)\n"
-    "mul.s $f2,$f10,$f6\n"
-    "add.s $f0,$f0,$f4\n"
-    "add.s $f8,$f0,$f2\n"
-    "c.le.s $f16,$f8\n"
-    "nop\n"
-    "bc1t L_800BD84C\n"
-    "addiu $17,$20,12\n"
-    "lwc1 $f0,12($20)\n"
-    "mul.s $f0,$f12,$f0\n"
-    "lwc1 $f4,4($17)\n"
-    "mul.s $f4,$f14,$f4\n"
-    "lwc1 $f2,8($17)\n"
-    "mul.s $f2,$f10,$f2\n"
-    "add.s $f0,$f0,$f4\n"
-    "add.s $f0,$f0,$f2\n"
-    "add.s $f0,$f22,$f0\n"
-    "div.s $f0,$f0,$f8\n"
-    "neg.s $f0,$f0\n"
-    "c.le.s $f0,$f16\n"
-    "nop\n"
-    "bc1t L_800BD84C\n"
-    "addiu $16,$29,16\n"
-    "mul.s $f2,$f20,$f0\n"
-    "nop\n"
-    "mul.s $f4,$f18,$f0\n"
-    "nop\n"
-    "mul.s $f6,$f6,$f0\n"
-    "swc1 $f2,16($29)\n"
-    "swc1 $f4,4($16)\n"
-    "swc1 $f6,8($16)\n"
-    "lwc1 $f0,12($20)\n"
-    "add.s $f2,$f2,$f0\n"
-    "swc1 $f2,16($29)\n"
-    "lwc1 $f0,4($17)\n"
-    "add.s $f4,$f4,$f0\n"
-    "move $4,$16\n"
-    "swc1 $f4,4($16)\n"
-    "lwc1 $f0,8($17)\n"
-    "move $5,$22\n"
-    "add.s $f6,$f6,$f0\n"
-    "move $6,$19\n"
-    "move $7,$18\n"
-    "jal L_800BD884\n"
-    "swc1 $f6,8($16)\n"
-    "li $3,-1\n"
-    "bne $2,$3,L_800BD7D0\n"
-    "addiu $4,$29,32\n"
-    "j L_800BD84C\n"
-    "move $2,$0\n"
-    "L_800BD7D0:\n"
-    "lwc1 $f0,16($29)\n"
-    "lwc1 $f2,12($20)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,32($29)\n"
-    "lwc1 $f0,4($16)\n"
-    "lwc1 $f2,4($17)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,36($29)\n"
-    "lwc1 $f0,8($16)\n"
-    "lwc1 $f2,8($17)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "move $5,$4\n"
-    "jal func_800AD6D0\n"
-    "swc1 $f0,40($29)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f2,28508($1)\n"
-    "div.s $f0,$f0,$f24\n"
-    "mul.s $f0,$f0,$f2\n"
-    "li $2,1\n"
-    "lui $3,0x800f\n"
-    "lw $3,10052($3)\n"
-    "trunc.w.s $f26,$f0\n"
-    "mfc1 $4,$f26\n"
-    "addu $3,$3,$4\n"
-    "sw $3,36($21)\n"
-    "lw $9,16($29)\n"
-    "lw $10,20($29)\n"
-    "lw $11,24($29)\n"
-    "sw $9,0($21)\n"
-    "sw $10,4($21)\n"
-    "sw $11,8($21)\n"
-    "L_800BD84C:\n"
-    "lw $31,92($29)\n"
-    "lw $22,88($29)\n"
-    "lw $21,84($29)\n"
-    "lw $20,80($29)\n"
-    "lw $19,76($29)\n"
-    "lw $18,72($29)\n"
-    "lw $17,68($29)\n"
-    "lw $16,64($29)\n"
-    "ldc1 $f26,120($29)\n"
-    "ldc1 $f24,112($29)\n"
-    "ldc1 $f22,104($29)\n"
-    "ldc1 $f20,96($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,128\n"
-    "L_800BD884:\n"
-    ".end func_800BD638\n.set at\n.set reorder\n");
+typedef struct {
+    float x, y, z;
+} Vec;
+
+typedef struct {
+    Vec dir;
+    Vec org;
+} Ray;
+
+typedef struct {
+    Vec pos;
+    char pad[36 - 12];
+    int dist;
+} Hit;
+
+extern int D_800F2744;
+
+float func_800AD6D0(Vec *src, Vec *dst);
+int func_800BD884(Vec *pt, void *poly, Vec *a, Vec *n);
+
+int func_800BD638(Ray *r, Vec *dir, Vec *p, void *poly, Vec *n, Hit *out)
+{
+    Vec h;
+    Vec dd;
+    Vec v;
+    float d, len, dn, t;
+    Vec *o;
+    Vec *hp;
+
+    d = -(n->x * p->x + n->y * p->y + n->z * p->z);
+    v.x = dir->x;
+    v.y = dir->y;
+    v.z = dir->z;
+    len = func_800AD6D0(dir, &v);
+    if (len == 0.0f) return 0;
+    dn = n->x * v.x + n->y * v.y + n->z * v.z;
+    if (0.0f <= dn) return 0;
+    o = &r->org;
+    t = -((d + (n->x * o->x + n->y * o->y + n->z * o->z)) / dn);
+    if (t <= 0.0f) return 0;
+    hp = &h;
+    hp->x = v.x * t;
+    hp->y = v.y * t;
+    hp->z = v.z * t;
+    hp->x += o->x;
+    hp->y += o->y;
+    hp->z += o->z;
+    if (func_800BD884(hp, poly, p, n) != -1) {
+        dd.x = hp->x - o->x;
+        dd.y = hp->y - o->y;
+        dd.z = hp->z - o->z;
+        out->dist = D_800F2744 + (int)(func_800AD6D0(&dd, &dd) / len * 256.0f);
+        out->pos = h;
+        return 1;
+    }
+    return 0;
+}

@@ -1,75 +1,65 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_8011C628\n.ent func_8011C628\n"
-    "func_8011C628:\n"
-    "addiu $29,$29,-24\n"
-    "sw $16,16($29)\n"
-    "move $16,$4\n"
-    "addiu $4,$16,84\n"
-    "sw $31,20($29)\n"
-    "sw $7,84($16)\n"
-    "lwc1 $f0,40($29)\n"
-    "lwc1 $f2,84($16)\n"
-    "lui $1,0x8008\n"
-    "lwc1 $f6,2760($1)\n"
-    "addiu $3,$16,224\n"
-    "swc1 $f0,92($16)\n"
-    "swc1 $f2,224($16)\n"
-    "mov.s $f2,$f0\n"
-    "lwc1 $f0,84($16)\n"
-    "lwc1 $f4,224($16)\n"
-    "add.s $f2,$f2,$f6\n"
-    "sw $5,196($16)\n"
-    "sw $6,88($16)\n"
-    "sub.s $f0,$f0,$f4\n"
-    "sw $0,228($16)\n"
-    "swc1 $f2,232($16)\n"
-    "swc1 $f0,212($16)\n"
-    "lwc1 $f0,4($4)\n"
-    "lwc1 $f2,4($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $2,$16,212\n"
-    "swc1 $f0,4($2)\n"
-    "lwc1 $f0,8($4)\n"
-    "lwc1 $f2,8($3)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "swc1 $f0,8($2)\n"
-    "addiu $2,$16,248\n"
-    "lwc1 $f4,92($16)\n"
-    "lwc1 $f0,84($16)\n"
-    "sub.s $f4,$f4,$f6\n"
-    "sw $0,252($16)\n"
-    "mov.s $f2,$f0\n"
-    "sub.s $f2,$f2,$f0\n"
-    "swc1 $f0,248($16)\n"
-    "swc1 $f4,256($16)\n"
-    "swc1 $f2,236($16)\n"
-    "lwc1 $f0,4($4)\n"
-    "lwc1 $f2,4($2)\n"
-    "sub.s $f0,$f0,$f2\n"
-    "addiu $3,$16,236\n"
-    "swc1 $f0,4($3)\n"
-    "lwc1 $f2,8($4)\n"
-    "lwc1 $f0,8($2)\n"
-    "sub.s $f2,$f2,$f0\n"
-    "li $5,1\n"
-    "move $4,$16\n"
-    "jal func_800AD890\n"
-    "swc1 $f2,8($3)\n"
-    "lw $2,208($16)\n"
-    "lwc1 $f0,84($16)\n"
-    "lw $2,8($2)\n"
-    "swc1 $f0,12($2)\n"
-    "lwc1 $f0,88($16)\n"
-    "move $4,$16\n"
-    "swc1 $f0,16($2)\n"
-    "lwc1 $f0,92($16)\n"
-    "li $5,1\n"
-    "jal func_800ADC54\n"
-    "swc1 $f0,20($2)\n"
-    "sw $0,172($16)\n"
-    "lw $31,20($29)\n"
-    "lw $16,16($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,24\n"
-    ".end func_8011C628\n.set at\n.set reorder\n");
+typedef struct {
+    float x;
+    float y;
+    float z;
+} Vec;
+
+typedef struct {
+    char p0[12];
+    Vec pos;
+} Node;
+
+typedef struct {
+    char p0[8];
+    Node *node;
+} Model;
+
+typedef struct {
+    char p0[84];
+    Vec pos;
+    char p60[76];
+    int f172;
+    char pB0[20];
+    int f196;
+    char pC8[8];
+    Model *model;
+    Vec d1;
+    Vec a;
+    Vec d2;
+    Vec b;
+} Obj;
+
+extern void func_800AD890(Obj *o, int n);
+extern void func_800ADC54(Obj *o, int n);
+
+static inline void vsub(Vec *d, Vec *p, Vec *q)
+{
+    d->x = p->x - q->x;
+    d->y = p->y - q->y;
+    d->z = p->z - q->z;
+}
+
+void func_80080FA8(Obj *o, int mode, float y, float x, float z)
+{
+    Node *n;
+
+    o->f196 = mode;
+    o->pos.x = x;
+    o->pos.y = y;
+    o->pos.z = z;
+    o->a.x = o->pos.x;
+    o->a.y = 0.0f;
+    o->a.z = o->pos.z + 11.7961206f;
+    vsub(&o->d1, &o->pos, &o->a);
+    o->b.x = o->pos.x;
+    o->b.y = 0.0f;
+    o->b.z = o->pos.z - 11.7961206f;
+    vsub(&o->d2, &o->pos, &o->b);
+    func_800AD890(o, 1);
+    n = o->model->node;
+    n->pos.x = o->pos.x;
+    n->pos.y = o->pos.y;
+    n->pos.z = o->pos.z;
+    func_800ADC54(o, 1);
+    o->f172 = 0;
+}

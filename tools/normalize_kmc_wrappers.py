@@ -3480,11 +3480,11 @@ def normalize_framebuffer_wait(lines: list[str]) -> list[str]:
     body = [
         line.strip().split("#", 1)[0].rstrip()
         for line in lines
-        if line.strip() and not line.lstrip().startswith((".set", "#"))
+        if line.strip() and not line.lstrip().startswith((".set", ".file", "#"))
     ]
     digest = hashlib.sha256("\n".join(body).encode()).hexdigest()
-    expected_digest = "ad05496eaadde65d206c6e3678fba18780a140847d629f33949db1007efb413b"
-    if len(body) != 87 or digest != expected_digest:
+    expected_digest = "98b25eeca4b3db43c8106acb5cbfae659d7856a08e8c78065d27fbeca6350de2"
+    if len(body) != 86 or digest != expected_digest:
         raise ValueError(
             "unexpected framebuffer-wait compiler body: "
             f"digest {digest}, count {len(body)}"
@@ -3591,11 +3591,11 @@ def normalize_render_shutdown(lines: list[str]) -> list[str]:
     body = [
         line.strip().split("#", 1)[0].rstrip()
         for line in lines
-        if line.strip() and not line.lstrip().startswith((".set", "#"))
+        if line.strip() and not line.lstrip().startswith((".set", ".file", "#"))
     ]
     digest = hashlib.sha256("\n".join(body).encode()).hexdigest()
-    expected_digest = "0ee2bc6f071683dc74fdba02054301ec4144df77ba275b3841c494b1aa7552fc"
-    if len(body) != 70 or digest != expected_digest:
+    expected_digest = "999a02dd5e874b6a9cbabe7d3f3ff688dde48fcfbe9c2dcc482245656327a1a5"
+    if len(body) != 69 or digest != expected_digest:
         raise ValueError(
             "unexpected render-shutdown compiler body: "
             f"digest {digest}, count {len(body)}"

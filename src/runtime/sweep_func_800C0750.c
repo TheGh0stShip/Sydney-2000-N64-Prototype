@@ -1,156 +1,125 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C0750\n.ent func_800C0750\n"
-    "func_800C0750:\n"
-    "addiu $29,$29,-56\n"
-    "sw $17,28($29)\n"
-    "move $17,$4\n"
-    "sw $31,32($29)\n"
-    "sw $16,24($29)\n"
-    "sdc1 $f22,48($29)\n"
-    "sdc1 $f20,40($29)\n"
-    "sw $0,196($17)\n"
-    "lbu $4,79($29)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-31912($1)\n"
-    "mtc1 $7,$f22\n"
-    "addiu $2,$17,20\n"
-    "sw $0,36($2)\n"
-    "sw $0,32($2)\n"
-    "sw $0,24($2)\n"
-    "sw $0,16($2)\n"
-    "sw $0,8($2)\n"
-    "sw $0,4($2)\n"
-    "sw $0,72($2)\n"
-    "sw $0,68($2)\n"
-    "sw $0,64($2)\n"
-    "swc1 $f0,40($2)\n"
-    "swc1 $f0,20($2)\n"
-    "swc1 $f0,20($17)\n"
-    "sw $5,64($2)\n"
-    "sw $6,68($2)\n"
-    "sw $0,72($2)\n"
-    "lw $2,192($17)\n"
-    "lui $3,0x2\n"
-    "sb $0,201($17)\n"
-    "or $2,$2,$3\n"
-    "andi $3,$4,0xff\n"
-    "sw $2,192($17)\n"
-    "sltiu $2,$3,30\n"
-    "beqz $2,L_800C08D8\n"
-    "lui $2,0x8009\n"
-    "addiu $2,$2,-31904\n"
-    "sll $3,$3,0x2\n"
-    "addu $3,$3,$2\n"
-    "lw $2,0($3)\n"
-    "jr $2\n"
-    "nop\n"
-    "addiu $4,$17,196\n"
-    "jal func_8001A330\n"
-    "li $5,0xffff\n"
-    "j L_800C08D8\n"
-    "nop\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08D0\n"
-    "addiu $5,$5,-32032\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08D0\n"
-    "addiu $5,$5,-32020\n"
-    "jal func_800ADC10\n"
-    "move $4,$17\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08D0\n"
-    "addiu $5,$5,-32008\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08D0\n"
-    "addiu $5,$5,-31996\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08D0\n"
-    "addiu $5,$5,-31984\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08B8\n"
-    "addiu $5,$5,-31972\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08B8\n"
-    "addiu $5,$5,-31960\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "addiu $5,$5,-31948\n"
-    "j L_800C08BC\n"
-    "li $2,2\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "j L_800C08B8\n"
-    "addiu $5,$5,-31936\n"
-    "addiu $4,$17,196\n"
-    "lui $5,0x8009\n"
-    "addiu $5,$5,-31924\n"
-    "L_800C08B8:\n"
-    "li $2,1\n"
-    "L_800C08BC:\n"
-    "sb $2,201($17)\n"
-    "lw $2,192($17)\n"
-    "lui $3,0x2\n"
-    "or $2,$2,$3\n"
-    "sw $2,192($17)\n"
-    "L_800C08D0:\n"
-    "jal func_80019680\n"
-    "nop\n"
-    "L_800C08D8:\n"
-    "lw $2,196($17)\n"
-    "beqz $2,L_800C097C\n"
-    "addiu $16,$17,196\n"
-    "lw $5,80($29)\n"
-    "jal func_800191E0\n"
-    "move $4,$16\n"
-    "mtc1 $0,$f20\n"
-    "mfc1 $7,$f22\n"
-    "lwc1 $f0,72($29)\n"
-    "mfc1 $5,$f20\n"
-    "mfc1 $6,$f20\n"
-    "move $4,$16\n"
-    "jal func_8001A1D8\n"
-    "swc1 $f0,16($29)\n"
-    "mfc1 $5,$f20\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-31784($1)\n"
-    "move $4,$16\n"
-    "sw $0,20($29)\n"
-    "mfc1 $7,$f0\n"
-    "move $6,$5\n"
-    "jal func_8001A210\n"
-    "sw $7,16($29)\n"
-    "lui $2,0x800f\n"
-    "lw $2,25584($2)\n"
-    "move $4,$17\n"
-    "lw $2,216($2)\n"
-    "li $5,1\n"
-    "jal func_800ADC54\n"
-    "sllv $5,$5,$2\n"
-    "jal func_8001457C\n"
-    "move $4,$17\n"
-    "lw $5,212($17)\n"
-    "lw $2,192($17)\n"
-    "lw $3,180($17)\n"
-    "ori $2,$2,0x2\n"
-    "sw $2,192($17)\n"
-    "lh $4,16($3)\n"
-    "lw $2,20($3)\n"
-    "jalr $2\n"
-    "addu $4,$17,$4\n"
-    "L_800C097C:\n"
-    "lw $31,32($29)\n"
-    "lw $17,28($29)\n"
-    "lw $16,24($29)\n"
-    "ldc1 $f22,48($29)\n"
-    "ldc1 $f20,40($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,56\n"
-    ".end func_800C0750\n.set at\n.set reorder\n");
+typedef struct {
+    short off;
+    short pad;
+    void (*fn)();
+} VEnt;
+
+typedef struct {
+    char p0[16];
+    VEnt setup;
+} VTbl;
+
+typedef struct {
+    char p0[20];
+    float m[19];
+    char p1[180 - 96];
+    VTbl *vt;
+    char p2[192 - 184];
+    int flags;
+    int res;
+    char p3[201 - 200];
+    unsigned char mode;
+    char p4[212 - 202];
+    int arg;
+} Sprite;
+
+typedef struct {
+    char p0[216];
+    int slot;
+} Ctx;
+
+extern Ctx *D_800F63F0;
+
+void func_8001A330(int *res, int v);
+void func_80019680(int *res, char *name);
+void func_800ADC10(Sprite *s);
+void func_800191E0(int *res, int a);
+void func_8001A1D8(int *res, float x0, float y0, float x1, float y1);
+void func_8001A210(int *res, float a, float b, float c, float d, int e);
+void func_800ADC54(Sprite *s, int mask);
+void func_8001457C(Sprite *s);
+
+static inline void ident(float *m)
+{
+    m[9] = 0;
+    m[8] = 0;
+    m[6] = 0;
+    m[4] = 0;
+    m[2] = 0;
+    m[1] = 0;
+    m[18] = 0;
+    m[17] = 0;
+    m[16] = 0;
+    m[10] = 1.0f;
+    m[5] = 1.0f;
+    m[0] = 1.0f;
+}
+
+void func_800C0750(Sprite *s, float x, float y, float w, float h, unsigned char kind, int arg)
+{
+    float *m;
+
+    s->res = 0;
+    m = s->m;
+    ident(m);
+    m[16] = x;
+    m[17] = y;
+    m[18] = 0;
+    s->mode = 0;
+    s->flags |= 0x20000;
+    switch (kind) {
+    case 0:
+        func_8001A330(&s->res, 0xFFFF);
+        break;
+    case 1:
+        func_80019680(&s->res, "TITLE_FLUID");
+        break;
+    case 2:
+        func_80019680(&s->res, "TITLE_FADE");
+        break;
+    case 3:
+        func_800ADC10(s);
+        func_80019680(&s->res, "TITLE_CURVE");
+        break;
+    case 4:
+        func_80019680(&s->res, "TITLE_TRIM");
+        break;
+    case 5:
+        func_80019680(&s->res, "OLY_LOGO");
+        break;
+    case 8:
+        s->mode = 1;
+        s->flags |= 0x20000;
+        func_80019680(&s->res, "BAR_FLAG");
+        break;
+    case 6:
+        s->mode = 1;
+        s->flags |= 0x20000;
+        func_80019680(&s->res, "FIRE_PROC");
+        break;
+    case 7:
+        s->mode = 2;
+        s->flags |= 0x20000;
+        func_80019680(&s->res, "FLAME_BOT");
+        break;
+    case 28:
+        s->mode = 1;
+        s->flags |= 0x20000;
+        func_80019680(&s->res, "ICON_ACCEPT");
+        break;
+    case 29:
+        s->mode = 1;
+        s->flags |= 0x20000;
+        func_80019680(&s->res, "ICON_BACK");
+        break;
+    }
+    if (s->res != 0) {
+        func_800191E0(&s->res, arg);
+        func_8001A1D8(&s->res, 0.0f, 0.0f, w, h);
+        func_8001A210(&s->res, 0.0f, 0.0f, 1.0f, 1.0f, 0);
+        func_800ADC54(s, 1 << D_800F63F0->slot);
+        func_8001457C(s);
+        s->flags |= 2;
+        s->vt->setup.fn((char *)s + s->vt->setup.off, s->arg);
+    }
+}

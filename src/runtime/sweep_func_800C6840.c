@@ -1,116 +1,55 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C6840\n.ent func_800C6840\n"
-    "func_800C6840:\n"
-    "addiu $29,$29,-32\n"
-    "move $8,$5\n"
-    "andi $6,$6,0xff\n"
-    "sll $2,$6,0x1\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$2,$6\n"
-    "sll $2,$2,0x2\n"
-    "lui $3,0x8010\n"
-    "addiu $3,$3,6496\n"
-    "sw $16,24($29)\n"
-    "addu $16,$2,$3\n"
-    "lw $2,52($29)\n"
-    "move $9,$7\n"
-    "beqz $2,L_800C6910\n"
-    "sw $31,28($29)\n"
-    "addiu $4,$16,196\n"
-    "lui $3,0x8010\n"
-    "andi $2,$8,0xff\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30820($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f6,-30816($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30812($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-30808($1)\n"
-    "mfc1 $6,$f0\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "div.s $f6,$f6,$f0\n"
-    "andi $2,$9,0xff\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f6\n"
-    "lui $2,0x8010\n"
-    "swc1 $f6,6484($3)\n"
-    "swc1 $f4,16($29)\n"
-    "sw $6,6472($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "lui $2,0x8010\n"
-    "swc1 $f4,6480($2)\n"
-    "mfc1 $5,$f0\n"
-    "add.s $f0,$f0,$f6\n"
-    "lui $2,0x8010\n"
-    "sw $5,6468($2)\n"
-    "mfc1 $7,$f0\n"
-    "lui $2,0x8010\n"
-    "j L_800C6994\n"
-    "sw $7,6476($2)\n"
-    "L_800C6910:\n"
-    "addiu $4,$16,196\n"
-    "lui $3,0x8010\n"
-    "andi $2,$8,0xff\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-30804($1)\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30800($1)\n"
-    "mfc1 $5,$f0\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mfc1 $7,$f2\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f2,-30796($1)\n"
-    "andi $2,$9,0xff\n"
-    "div.s $f2,$f2,$f0\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "mul.s $f0,$f0,$f2\n"
-    "mtc1 $0,$f4\n"
-    "lui $2,0x8010\n"
-    "sw $5,6468($2)\n"
-    "lui $2,0x8010\n"
-    "add.s $f0,$f0,$f4\n"
-    "swc1 $f2,6484($3)\n"
-    "sw $7,6476($2)\n"
-    "add.s $f2,$f0,$f2\n"
-    "lui $2,0x8010\n"
-    "mfc1 $6,$f0\n"
-    "sub.s $f2,$f2,$f4\n"
-    "sw $6,6472($2)\n"
-    "lui $2,0x8010\n"
-    "swc1 $f2,6480($2)\n"
-    "swc1 $f2,16($29)\n"
-    "L_800C6994:\n"
-    "jal func_8001A1D8\n"
-    "nop\n"
-    "lw $2,180($16)\n"
-    "lh $4,24($2)\n"
-    "lw $2,28($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $5,48($29)\n"
-    "lw $3,180($16)\n"
-    "li $2,1\n"
-    "sb $2,176($16)\n"
-    "lh $4,16($3)\n"
-    "lw $2,20($3)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $2,180($16)\n"
-    "lh $4,64($2)\n"
-    "lw $2,68($2)\n"
-    "jalr $2\n"
-    "addu $4,$16,$4\n"
-    "lw $31,28($29)\n"
-    "lw $16,24($29)\n"
-    "jr $31\n"
-    "addiu $29,$29,32\n"
-    ".end func_800C6840\n.set at\n.set reorder\n");
+typedef struct {
+    short off;
+    short pad;
+    void (*fn)();
+} VEnt;
+
+typedef struct {
+    char p0[16];
+    VEnt draw;
+    VEnt reset;
+    char p1[64 - 32];
+    VEnt update;
+} VTbl;
+
+typedef struct {
+    char p0[176];
+    unsigned char ready;
+    char p1[180 - 177];
+    VTbl *vt;
+    char p2[196 - 184];
+    char box[212 - 196];
+} Panel;
+
+extern Panel D_80101960[];
+extern float D_80101944;
+extern float D_80101948;
+extern float D_8010194C;
+extern float D_80101950;
+extern float D_80101954;
+
+void func_8001A1D8(void *box, float x0, float y0, float x1, float y1);
+
+void func_800C6840(void *unused, unsigned char cols, unsigned char idx, unsigned char col, int arg4, int vert)
+{
+    Panel *o = &D_80101960[idx];
+    if (vert) {
+        D_80101954 = 545.0f / cols;
+        D_80101944 = col * D_80101954 + -150.0f;
+        D_80101948 = -2.0f;
+        D_8010194C = D_80101944 + D_80101954;
+        D_80101950 = 9.0f;
+        func_8001A1D8(o->box, D_80101944, D_80101948, D_8010194C, D_80101950);
+    } else {
+        D_80101954 = 55.0f / cols;
+        D_80101944 = -8.0f;
+        D_8010194C = 98.0f;
+        D_80101948 = col * D_80101954 + 0.0f;
+        D_80101950 = D_80101948 + D_80101954 - 0.0f;
+        func_8001A1D8(o->box, D_80101944, D_80101948, D_8010194C, D_80101950);
+    }
+    o->vt->reset.fn((char *)o + o->vt->reset.off);
+    o->ready = 1;
+    o->vt->draw.fn((char *)o + o->vt->draw.off, arg4);
+    o->vt->update.fn((char *)o + o->vt->update.off);
+}

@@ -1,127 +1,60 @@
-/* Symbolic reconstruction of the reviewed overlay routine. */
-__asm__(
-    ".set noreorder\n.set noat\n.text\n.globl func_800C9C9C\n.ent func_800C9C9C\n"
-    "func_800C9C9C:\n"
-    "move $7,$4\n"
-    "lwc1 $f4,452($7)\n"
-    "lwc1 $f0,612($7)\n"
-    "c.lt.s $f4,$f0\n"
-    "nop\n"
-    "bc1f L_800C9D2C\n"
-    "nop\n"
-    "sub.s $f2,$f0,$f4\n"
-    "add.s $f2,$f2,$f2\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29060($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800C9CD8\n"
-    "mov.s $f2,$f0\n"
-    "L_800C9CD8:\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29056($1)\n"
-    "div.s $f0,$f2,$f0\n"
-    "add.s $f0,$f4,$f0\n"
-    "lwc1 $f2,612($7)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800C9D2C\n"
-    "swc1 $f0,452($7)\n"
-    "lw $3,608($7)\n"
-    "li $2,-2\n"
-    "swc1 $f2,452($7)\n"
-    "and $2,$3,$2\n"
-    "andi $3,$3,0x2\n"
-    "bnez $3,L_800C9D2C\n"
-    "sw $2,608($7)\n"
-    "addiu $3,$7,364\n"
-    "sw $0,604($7)\n"
-    "lw $2,192($3)\n"
-    "ori $2,$2,0x2\n"
-    "sw $2,192($3)\n"
-    "L_800C9D2C:\n"
-    "lw $2,204($7)\n"
-    "lwc1 $f0,616($7)\n"
-    "lwc1 $f2,88($2)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1f L_800C9E5C\n"
-    "nop\n"
-    "sub.s $f2,$f0,$f2\n"
-    "add.s $f2,$f2,$f2\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29052($1)\n"
-    "c.lt.s $f2,$f0\n"
-    "nop\n"
-    "bc1tl L_800C9D68\n"
-    "mov.s $f2,$f0\n"
-    "L_800C9D68:\n"
-    "lbu $2,585($7)\n"
-    "beqz $2,L_800C9DB4\n"
-    "move $6,$0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f0,-29048($1)\n"
-    "div.s $f2,$f2,$f0\n"
-    "andi $2,$6,0xff\n"
-    "L_800C9D84:\n"
-    "sll $2,$2,0x2\n"
-    "addu $2,$7,$2\n"
-    "lw $2,204($2)\n"
-    "lwc1 $f0,88($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "addiu $6,$6,1\n"
-    "swc1 $f0,88($2)\n"
-    "lbu $3,585($7)\n"
-    "andi $2,$6,0xff\n"
-    "sltu $2,$2,$3\n"
-    "bnez $2,L_800C9D84\n"
-    "andi $2,$6,0xff\n"
-    "L_800C9DB4:\n"
-    "lw $2,204($7)\n"
-    "lwc1 $f0,616($7)\n"
-    "lwc1 $f2,88($2)\n"
-    "c.lt.s $f0,$f2\n"
-    "nop\n"
-    "bc1f L_800C9E5C\n"
-    "move $6,$0\n"
-    "lui $1,0x8009\n"
-    "lwc1 $f4,-29044($1)\n"
-    "L_800C9DD8:\n"
-    "lbu $2,585($7)\n"
-    "andi $5,$6,0xff\n"
-    "sltu $2,$5,$2\n"
-    "beqz $2,L_800C9E40\n"
-    "sll $4,$5,0x2\n"
-    "addu $4,$7,$4\n"
-    "lw $3,204($4)\n"
-    "lwc1 $f0,620($7)\n"
-    "lbu $2,585($7)\n"
-    "mtc1 $5,$f2\n"
-    "cvt.s.w $f2,$f2\n"
-    "swc1 $f0,88($3)\n"
-    "mtc1 $2,$f0\n"
-    "cvt.s.w $f0,$f0\n"
-    "div.s $f0,$f4,$f0\n"
-    "mul.s $f2,$f2,$f0\n"
-    "lw $2,204($4)\n"
-    "lwc1 $f0,88($2)\n"
-    "add.s $f0,$f0,$f2\n"
-    "swc1 $f0,88($2)\n"
-    "lw $3,204($4)\n"
-    "lw $2,192($3)\n"
-    "addiu $6,$6,1\n"
-    "ori $2,$2,0x2\n"
-    "j L_800C9DD8\n"
-    "sw $2,192($3)\n"
-    "L_800C9E40:\n"
-    "lw $3,608($7)\n"
-    "li $2,-3\n"
-    "and $2,$3,$2\n"
-    "andi $3,$3,0x1\n"
-    "bnez $3,L_800C9E5C\n"
-    "sw $2,608($7)\n"
-    "sw $0,604($7)\n"
-    "L_800C9E5C:\n"
-    "jr $31\n"
-    "nop\n"
-    ".end func_800C9C9C\n.set at\n.set reorder\n");
+typedef struct { char p0[88]; float y; char p1[192 - 92]; unsigned int flags; } Item;
+typedef struct {
+    char p0[204];
+    Item *items[40];
+    Item sub;
+    char p1[585 - 560];
+    unsigned char count;
+    char p2[604 - 586];
+    int state;
+    unsigned int flags;
+    float tgt;
+    float tgt2;
+    float base;
+} Obj;
+
+static inline void set2(Item *it)
+{
+    it->flags |= 2;
+}
+
+void func_800C9C9C(Obj *o)
+{
+    float d;
+    float step;
+    unsigned char i;
+
+    if (o->sub.y < o->tgt) {
+        d = o->tgt - o->sub.y;
+        d += d;
+        if (d < 8.19175f) d = 8.19175f;
+        o->sub.y = o->sub.y + d / 30.0f;
+        if (o->tgt < o->sub.y) {
+            o->sub.y = o->tgt;
+            o->flags &= ~1;
+            if (!(o->flags & 2)) {
+                o->state = 0;
+                set2(&o->sub);
+            }
+        }
+    }
+    if (o->items[0]->y < o->tgt2) {
+        d = o->tgt2 - o->items[0]->y;
+        d += d;
+        if (d < 20.479374f) d = 20.479374f;
+        for (i = 0; i < o->count; i++) o->items[i]->y += d / 30.0f;
+        if (o->items[0]->y > o->tgt2) {
+            i = 0;
+            while (1) {
+                if (!(i < o->count)) break;
+                step = 49.150497f / o->count;
+                o->items[i]->y = o->base;
+                o->items[i]->y += i * step;
+                o->items[i]->flags |= 2;
+                i++;
+            }
+            o->flags &= ~2;
+            if (!(o->flags & 1)) o->state = 0;
+        }
+    }
+}
