@@ -1,0 +1,17 @@
+0x131598	0x54	src/decompiled/func_8008DCA8.cpp	--symbol=_vt.3Obj:0x80083DD0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	fa86714b5bdd6f34b95b71d509ff6a32debe28664bc3d4d8d08d0030b24df904
+0x13D460	0x200	src/decompiled/func_80099B70.cpp	--section-base=.rdata:0x800843E8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	676fc2fdc2c43a971bc437cc8bf01cba1ad3e53f917d601026ec86f8ebb9e38e
+0x145B38	0x90	src/decompiled/func_800A2248.cpp	--symbol=_vt.3Sub:0x800848D0 --symbol=_vt.3Obj:0x80084FF0 --symbol=_vt.3Mid:0x80085068 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f4e2c1a32470763abd926bf21314f7015f2b71fbeaed20e42cce772bb3f4d466
+0x1465A0	0x44	src/decompiled/func_800A2CB0.cpp	--symbol=_vt.3Obj:0x80085130 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	edd5e025f8f24d894e5f3170ef2cc99aac810d53ca571daa555f9de57fad17ee
+0x149CE0	0x4c	src/decompiled/func_800A63F0.cpp	--symbol=_vt.3Obj:0x80085720 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	532d7ee2c2f0f2ba517597428a500b3a98c9dc443444e8b9008281268c8bd8fd
+0x14A480	0x84	src/decompiled/func_800A6B90.cpp	--symbol=_vt.3Obj:0x80085798 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	56b9a3ab8008111d4317a28197a9b222a5e55153116351d454ce9a390529a770
+0x14AC94	0x64	src/decompiled/func_800A73A4.cpp	--symbol=_vt.3Obj:0x80085888 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	9b9d51c9473461c08f38cc72a98e4c6f0f113ff55687de6c3c8feee53e541f18
+0x14AE44	0xb0	src/decompiled/func_800A7554.cpp	--section-base=.rdata:0x80085910 --symbol=_vt.3Obj:0x800858D0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9e5fbc679a54f126af76755b852de384e385920c1a9637e2e87db59c44708e68
+0x14BFC0	0x94	src/decompiled/func_800A86D0.cpp	--symbol=_vt.3Obj:0x800859E0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	e6205da3e132b52f3171a8e104d9195231377ce2050804662d8a2031ca9b4de5
+0x15DAEC	0xc8	src/decompiled/func_800BA1FC.cpp	--symbol=_vt.3Obj:0x80086D30 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e451fdb600c97c9b52a09aad4c0324c2c3335ccd09f990e2b1a4eff16e8b05a2
+0x1644DC	0x4c	src/decompiled/func_800C0BEC.cpp	--symbol=_vt.3Obj:0x80088408 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7ea29907435c06c33f240a662c1eb7d7ecb9ee4bd037e00fc658ffb267dc6a3b
+0x16D9D4	0x78	src/decompiled/func_800CA0E4.cpp	--symbol=_vt.3Obj:0x80088E90 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7a9ca46f5a98c92b2d10ad6b36ab507829ad6b96d8d889ee433e50acbb63c17b
+0x16E0B8	0x94	src/decompiled/func_800CA7C8.cpp	--symbol=_vt.3Obj:0x800895D8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	613b8adfcd1e22fac32a5cc19dec4c546be7190fd2d9ae6c2c73730c52bb545a
+0x16E150	0x108	src/decompiled/func_800CA860.cpp	--symbol=_vt.5Child:0x80086598 --symbol=_vt.3Obj:0x80089660 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	4ee5bd21f50374b88093b6af2b428c92559d9e1324bf7d512c77ca05eb188cd5
+0x17028C	0x144	src/decompiled/func_800CC99C.cpp	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	01f03f24de2c7ad86535f359257bb610ee56af36264e8c46a571e748d748a3e9
+0x1704F4	0x58	src/decompiled/func_800CCC04.cpp	--symbol=_vt.3Obj:0x80089888 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	97a65c5e4fe49628c22b2d3ad88996abd79174a93961c888f2fc536eff341c4b
+0x172920	0x288	src/decompiled/func_800CF030.cpp	--symbol=_vt.6Screen:0x80089C80 --symbol=_vt.4Card:0x80086598 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	fdf7823fd7bf10b13b5299ca50b8c47942598262b15fdf4de86fd2713e09f51d

@@ -89,7 +89,6 @@
 0x14FEBC	0x14C	src/claude/func_800AC5CC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6e27b283dc69e4af6eaa241abc12095e9f5a0d94eecb0a63e307425997c18d23
 0x1506f8	0x118	src/runtime/sweep_func_800ACE08.c	--symbol=sqrtf:0x8002E800 --section-base=.rodata:0x80085EC0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	345ac91534e15676a9e348ef3c1ff75c3b994ff7dedf580f0bc611f5b410f20e
 0x150810	0x198	src/claude/func_800ACF20.c	--section-base=.rdata:0x80085EC8 --symbol=acos:0x800382A0 --symbol=sinf:0x8002EFF0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	fb0fd40ddfa47a2ca715d022c770c631fc92277f47bb07397c62b1f228b68a0d
-0x1509a8	0x104	src/claude/func_800AD0B8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	4cb8f1c33aa1800733a3546a4c8f7d79e1acbf5c9363215ce3d9035e882c6f47
 0x150AAC	0xEC	src/claude/func_800AD1BC.c	--section-base=.rdata:0x80085ED0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b69a984c129ef45ab66a94c3bd7e5799d9a91f987cc36519db1278920cc53a98
 0x150b98	0xe0	src/claude/func_800AD2A8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	b18b071b6015fe8234214e1243f3cf4387d150f8c6a5a828ade04342dcbb9180
 0x150e7c	0x144	src/runtime/sweep_func_800AD58C.c	 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e63065381a391eb5bf61d16cf0984e96a1d91f91da1d8cd71c6be43d414e5b63

@@ -1,0 +1,5 @@
+0x12398C	0x118	src/decompiled/func_8012398C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	e387f4ae21dcd37e2b84a17b66ea7535384e7bb2b908c01d94934ad62edfae66
+0x123B90	0xa4	src/decompiled/func_80123B90.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d8c9bd3fc37faadd008cf20c3890289a52e956e870c017f1fadc128f59afeec4
+0x123D10	0xc0	src/decompiled/func_80123D10.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f7ed47c74d190bfa4e79f0ea3f5d4415872da7ae0469b0d1548464c8dbe47590
+0x1240E8	0x60	src/decompiled/func_801240E8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	abea1de6f690d5ed2c507ebe15c4df194dabdfc7153bec24b434e869533e0a0b
+0x126E5C	0xe8	src/decompiled/func_80126E5C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	8dced487bc73d2f6e4fe787b2bab5610b4b3829a7e2bdacd6287edb888550a0d

@@ -312,7 +312,12 @@ def generate(rom_path: Path, output: Path, jobs: int) -> dict:
     outcomes = batch(units, config, target, symbols, jobs, True)
     verified = []
     for row, outcome in zip(provenance, outcomes):
-        if not outcome.exact or outcome.result is None:
+        # Newer n64dk versions distinguish byte-identical units whose stated
+        # relocation addresses still need the final link proof as "assumed".
+        # This ledger measures only bytes actually compared here; the complete
+        # reconstruction gate separately proves every placement against the ROM.
+        if (outcome.result is None or not outcome.result.text.match or
+                any(not section.match for section in outcome.result.sections)):
             raise ValueError(f"{row['source']}: matching verification failed: {outcome.error}")
         if outcome.vram - ROM_TO_VRAM != row['text_rom_start']:
             raise ValueError('matching result/provenance order changed')

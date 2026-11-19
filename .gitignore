@@ -3,5 +3,6 @@
 *.n64
 *.v64
 build/
+.n64dk/
 .toolchain/
 __pycache__/

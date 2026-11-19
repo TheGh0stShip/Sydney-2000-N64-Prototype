@@ -1,0 +1,41 @@
+0x13B40C	0x490	src/decompiled/func_80097B1C.c	--section-base=.rdata:0x80084348 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	8c2ef4bdd92c3269cbae545f53662a1794d70975a77ad9dab25f9b8000a9f447
+0x13D018	0x448	src/decompiled/func_80099728.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	15e1e7b3fd9bd800bb941a6280318d93be944c4c6f2734e8797321e52b6833b2
+0x13D660	0x274	src/decompiled/func_80099D70.c	--section-base=.rdata:0x80084404 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	bc9a5d55e229dc466e81646ced18011ea60d6374229c3679f18a7a086f0eb06f
+0x13DF70	0x1a8	src/decompiled/func_8009A680.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -fno-strength-reduce	0dc5faef7f1c694af1998a9cc73c0e4e4ab965b1493c565dca15906d81004856
+0x13FF80	0x2bc	src/decompiled/func_8009C690.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	8844d29af7fff9caee974701de882571fb0990ab694bfbe52e7d4d849862b8e2
+0x143248	0xac	src/decompiled/func_8009F958.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e683e1fd9fab0cbef54bde12dae089eebb6b8681464cd17fb056c6fa939cc141
+0x144918	0x44	src/decompiled/func_800A1028.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	02edd50c96202df14631d74615ebe456446d9ac8161195fbd8d754eb3b5c5fe2
+0x148258	0x30c	src/decompiled/func_800A4968.c	--section-base=.rdata:0x80085290 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78c2f825caf33e7a10ad2a7bfbec14ec2658f680cb677c3d3b06886ac7e7968b
+0x14AF00	0x300	src/decompiled/func_800A7610.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1e4a5176411a0adfc71a48df123fc63239875aec67a0ef29c7c170e66942e2e7
+0x14D540	0x68	src/decompiled/func_800A9C50.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e7bb947377adb359d771e1fb43670fcc1951faa64f933ae400d04e39eafb61f0
+0x14E5A0	0x220	src/decompiled/func_800AACB0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d88776851b5453d01a835705d940ac0e3f0fcff101e9a09275369cac2d3c4d79
+0x150008	0x2a0	src/decompiled/func_800AC718.c	--section-base=.rdata:0x80085E74 --symbol=sqrtf:0x8002E800 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	26e9e2931f311d18b86ec902cd3a0aca36a1da4ea96fdf1a73b20c874f25dfec
+0x1509A8	0x104	src/decompiled/func_800AD0B8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	4cb8f1c33aa1800733a3546a4c8f7d79e1acbf5c9363215ce3d9035e882c6f47
+0x153340	0x2b0	src/decompiled/func_800AFA50.c	--section-base=.rdata:0x80086160 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3dfe3fe1a122ff8a41e60a4dff2daefa42ef0af3160d47b762073f20096672b0
+0x154BD8	0x148	src/decompiled/func_800B12E8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	acd7233d6ce81967ef43ce587ad66437926ca87ab58b0aa7e7ce26dc4dacfd22
+0x15A310	0x238	src/decompiled/func_800B6A20.c	--section-base=.rdata:0x80086AB0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	2fb213d3504397e618cf6e509a912ca5df39b08d8faa17b61f2ff6e281cfca56
+0x15E5F0	0x224	src/decompiled/func_800BAD00.c	--section-base=.rdata:0x80086DF0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	8058ecf5cbbb3263a028a57a90be681e2263002878911c197fb2ab64798376da
+0x15F8F8	0x58	src/decompiled/func_800BC008.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	716767236c38e5bcd3a27c12a7c23c8a886dbf3932555b02640173bd39e29fac
+0x163FB8	0x84	src/decompiled/func_800C06C8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	96edb3260be36e64c18dec5a3285160650398a959f89c6d25419b6a42d3f29ae
+0x1646E0	0x5d4	src/decompiled/func_800C0DF0.c	--section-base=.rdata:0x80088508 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	de9965ffc06a277e3d674cd28f8827b6bb92d74d2f5fa86ea78a93a7054c0701
+0x1652CC	0x230	src/decompiled/func_800C19DC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	610a8a0bd275f31f00607dc1181b248d1d85ed9898d121650f2ac5943fdb9cb6
+0x1668D0	0x378	src/decompiled/func_800C2FE0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f3ef3f48ef353fdf95640ac73ab342387719dd17e8012aa3e561701ef119f112
+0x167680	0x278	src/decompiled/func_800C3D90.c	--section-base=.rdata:0x800885CC -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6d8d153b63577aa75166b49530d937a2c1e7d80da9cbdb881501223e11399415
+0x16CE00	0xa4	src/decompiled/func_800C9510.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	68119deb06daff5da754d5ae4b2591c064e9ce91bf3a8c63828c836c66d09c9e
+0x16E3B8	0x564	src/decompiled/func_800CAAC8.c	--section-base=.rdata:0x80089628 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	22a80e2c39ad28c4c28e0a1915947e6b435315f969a1bf8e0e36577fc007be11
+0x17079C	0x44	src/decompiled/func_800CCEAC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0596c2641cb6dad5065b675a230c93671206198516e7fb874e44d018c7b2a0b1
+0x1707E0	0x45c	src/decompiled/func_800CCEF0.c	--section-base=.rdata:0x800899A0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0a01ea16a40c12e17f4dc32f3299ef2205161a251357213e1702368b70dc7bc0
+0x171C98	0x3c	src/decompiled/func_800CE3A8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f469d37e9996386c69ca69df605964888c9bf77a8078cf63605bd77269a3a507
+0x171D58	0x12c	src/decompiled/func_800CE468.c	--section-base=.rdata:0x80089B20 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1143f1e896e449cf794f9ef12c51d7016f0974c7a6fc5ffec9823c2f1c2b7341
+0x1720A0	0x450	src/decompiled/func_800CE7B0.c	--section-base=.rdata:0x80089B3C -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	d6397cc3fa9269eb442400cdc195dbec5f5c37da57e8383dcfec7a46f1d6d714
+0x17A2DC	0x6c	src/decompiled/func_800D69EC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9fe8f75e9ee9396dba1d195b677a91f8b717eabed40f378e3d655f4a24e321a9
+0x17BA90	0x348	src/decompiled/func_800D81A0.c	--section-base=.rdata:0x8008A728 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7e59477ce40c6480ea98a05a719c6e18f14131e9d1d8fbb83da2be55353b6cdc
+0x17CC50	0x58	src/decompiled/func_800D9360.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	7c1f7db09217b25a5d88c29de841c9f81e18e500ae36139121a4367980424cf2
+0x17D424	0xf8	src/decompiled/func_800D9B34.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e41463a9769c501e34bba0d6c89f8cf530cf52ced185d8ba1d37aeb22c4baa52
+0x17D51C	0x210	src/decompiled/func_800D9C2C.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	3ee389618c5f39faa744aedf59ae8158ecbc999b69c7d868ed143f2d1d125a60
+0x17F5E8	0x480	src/decompiled/func_800DBCF8.c	--section-base=.rdata:0x8008ACF0 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	11f1146ae363767ce5d070fa647c186d93998bbac90f29f9273680c6b94940d4
+0x17FA68	0x484	src/decompiled/func_800DC178.c	--section-base=.rdata:0x8008AD08 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5a5ea8dcb79186c86daee7a1e68b3f43b85c7aaaed4f5f473c7a7130c5f6ed24
+0x1889BC	0x54	src/decompiled/func_800E50CC.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	81bd52178e72238a75b6bf3bade31c9b9a20d03eb23a7b62bd3e2f8f6741c8af
+0x189410	0x2ec	src/decompiled/func_800E5B20.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	cf44deab83317299ccdaeed82720a202f32fa39ddea16dc6ce8e3cfdab48f0f0
+0x18A3E8	0x254	src/decompiled/func_800E6AF8.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	e1ba0704bc8e96f26db8f398aa2ccf6ab42ba62ef67914b7018fba6a8fdf0ac0
+0x18DE50	0x44	src/decompiled/func_800EA560.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	0c4c4f2643b7e29f67b2d74834c32af719ce681b5f755e598256b427b3454829

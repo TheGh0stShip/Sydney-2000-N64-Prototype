@@ -1,0 +1,4 @@
+0x85EB4	0x244	src/decompiled/func_80085EB4.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	a142be1da192c6bdc5b31658507e51833e39b186a42ae3321598e57be4fec319
+0x862F4	0x2fc	src/decompiled/func_800862F4.c	--section-base=.rdata:0x800712B8 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	1483b1814d49ee09b7068c7231a5866c2d64e9743c3cd2d3a3070f6b56684702
+0x87D68	0x100	src/decompiled/func_80087D68.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	6ceec28bf7a9b3200caff6f61bed5f435240e8707ed7ee67ddf0f5ca857b7669
+0x87E68	0x84	src/decompiled/func_80087E68.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	11789b2f195cc03ca46a553522993e7c2e6545efffc601adfdf58852404882b2

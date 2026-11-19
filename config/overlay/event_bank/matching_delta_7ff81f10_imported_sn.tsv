@@ -1,0 +1,2 @@
+0xF6CE0	0x44c	src/decompiled/func_800F6CE0.c	--section-base=.rdata:0x80078920 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	71f329e81be522eedbba399a3b9796795fc05605805830765a38fbfd2bed7f58
+0xF9864	0x60	src/decompiled/func_800F9864.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	70f64914af7ede764b65664a8bd863ab56f9a26973ed79c1e7a99b8622ef6ca6

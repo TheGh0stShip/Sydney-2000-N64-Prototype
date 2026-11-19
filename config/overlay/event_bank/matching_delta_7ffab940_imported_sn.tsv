@@ -1,0 +1,3 @@
+0xC5EBC	0x450	src/decompiled/func_800C5EBC.c	--section-base=.rdata:0x80070930 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	48c7216f7d0fb9837cd7380a62fcb24c61b509a6d5285a02dd34f8e852575832
+0xC630C	0x344	src/decompiled/func_800C630C.c	--section-base=.rdata:0x80070954 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	5610c47a6b262e6a3aed4ff073be4d4840e411d64328c5c72b21938c136a4349
+0xC6650	0x278	src/decompiled/func_800C6650.c	--section-base=.rdata:0x80070974 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	f023894e408ca54f14b9ed3fc6c2e374603e7d8ff0077a5be336f17a61e30f90

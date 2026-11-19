@@ -1,0 +1,6 @@
+[pipelines.sydney_cxx]
+family = "gcc"
+timeout = 120
+steps = [
+  "python3 {project}/tools/build_sydney_cxx.py --source {source} --object {object} --workdir {workdir} -- {flags} {includes}",
+]

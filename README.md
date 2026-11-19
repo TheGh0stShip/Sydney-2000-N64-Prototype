@@ -28,13 +28,20 @@ Accepted image:
 
 The initial program is loaded from ROM `0x1000..0x69070` at
 `0x80000400..0x80068470`. BSS occupies `0x80068470..0x800707D0`.
-The current survey identifies 743 CPU functions. The game and most libraries were
-built with KMC GCC. Matching CPU manifests and three source-built RSP programs
-cover 193,400 unique bytes of the 229,736-byte surveyed resident text span
-(84.18%). Complete extents are covered for 703 of 743 CPU functions. Another 32
-have reconstructed bodies with uncovered zero-padding suffixes (312 bytes total),
-and 8 have wholly unmatched bodies (27,728 bytes). The remaining 8,296 uncovered
-bytes are outside catalogued CPU function extents and need further classification.
+The resident survey identifies 743 CPU functions. All 743 resident extents now
+rebuild from source and the resident ByteMatch report is 100%. That percentage is
+deliberately scoped to the initial program; it is not a claim that every runtime
+image and overlay has been decompiled into maintainable C.
+
+The November 2026 overlay import replaced 110 disassembly-wrapper units with
+52,256 bytes of recompilable source: 88 C functions and 22 C++ functions. The
+C++ units use the original GCC 2.8.1 front end with the SN Systems assembler.
+Every imported function reproduces its instruction bytes, and the complete
+32 MiB reconstruction still has the expected SHA-1. The import rejected 39
+nominal package matches: 13 failed independent replay, four used a looser address
+mask, and 22 overlap larger wrapper units that must be split before ownership can
+change safely. Fourteen explicitly unverified candidates are also excluded.
+See [the import record](docs/sydney-round12-import.md).
 Eight former CPU catalogue entries were scalar routines inside the graphics
 microcode; their compatibility symbols remain, and the complete RSP source now
 supersedes the old 208-byte assembly fragments without adding CPU functions.
@@ -45,9 +52,11 @@ audit verified 728 compiler-emitted zero bytes, completing 77 extents without
 adding function bodies. The current report counts the
 union of matching ranges and requires complete extent coverage. These are
 resident survey measures, not whole-game percentages. The independently mapped
-event bank at ROM `0x70800..0x127640` has a reproducible whole-bank survey;
-2,191 exact symbolic units currently cover 542,348 bytes. Initialized-data
-coverage is 206,160 unique bytes of 206,160 classified bytes (100%), recorded in
+event bank at ROM `0x70800..0x127640` and startup runtime at ROM
+`0x127640..0x1A3AB0` have reproducible source-link plans. Their machine-shaped
+wrapper sources remain migration scaffolding unless a unit is listed in
+`config/imported_round12.tsv`; byte reproduction alone is not presented as human
+review. Initialized-data coverage is recorded in
 `config/matching_data.json`. `make data-ledger` rebuilds all matching units and
 regenerates this ledger, including source-built data sections with frozen placements.
 Reporting checks the recorded source, manifest,
@@ -70,6 +79,13 @@ Exact startup-runtime C matches are recorded separately in
 `VRAM - ROM = 0x7FF5C710`; the resident delta is not reused. These matches do not
 change resident coverage or imply that all runtime candidates or other overlay
 banks are decompiled.
+
+Imported GCC 2.8.1 C++ units live in `src/decompiled/*.cpp`; their manifests use
+the `custom:sydney_cxx` pipeline from `n64dk.toml`. The pipeline requires the SN
+N64 assembler tools plus a `gcc2.8.1pm/cc1plus` executable under
+`N64DK_TOOLCHAIN`. `tools/build_sydney_cxx.py` preprocesses the source, runs the
+original front end, adapts its assembly syntax, and produces the SN object used by
+the same frozen source-link and ROM-comparison gates as C.
 `src/game/initialize_debug_memory_regions.c` reconstructs `func_80028D54`; its
 reviewed equivalent instruction transformations are checked by
 `tools/verify_sn_normalized.py` before comparison against the original bytes.
@@ -121,10 +137,12 @@ compared against the original image.
 
 ## Matching rule
 
-A source unit is matched only when its rebuilt bytes compare equal with the
-corresponding original range. `make verify` currently verifies the supplied original image and the individual
-matching units; it does not link or hash a rebuilt image. Whole-image completion
-still requires a source-linked ROM build and comparison with the expected SHA-1.
+A source unit is credited only when its rebuilt instruction bytes compare equal
+with the corresponding original range. Address, constant-pool, and switch-table
+placements are additionally settled by the source-only link plans and
+`make reconstruction-verify`, which compares the completed image against the
+expected ROM. A byte-identical wrapper is not automatically described as clean,
+portable, or human-reviewed source.
 
 ## Source-built resident pieces
 

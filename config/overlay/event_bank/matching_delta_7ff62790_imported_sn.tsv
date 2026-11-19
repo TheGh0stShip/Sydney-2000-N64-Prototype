@@ -1,0 +1,2 @@
+0x11E4F0	0x3b0	src/decompiled/func_8011E4F0.c	--section-base=.rdata:0x80080B70 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	4396ed9d5e18b3b9f878ad9f6371aa0995db2559d18ff68edf73cf74c74a265e
+0x11EC1C	0x214	src/decompiled/func_8011EC1C.c	--section-base=.rdata:0x80080BA4 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	a77f287894f138e74c2c1e12b59a56ed03407deec4e187dffdae6e5390ff870c

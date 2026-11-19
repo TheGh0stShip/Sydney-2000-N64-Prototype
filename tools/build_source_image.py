@@ -46,7 +46,7 @@ PROFILES = {
     'matching_kmc_as.tsv': ('kmc+as', ['tools/ultralib/include', 'tools/ultralib/include/PR', 'tools/ultralib/include/compiler/gcc', 'tools/ultralib/src/audio', 'tools/ultralib/src/gu', 'tools/battletanx_ga/src/libmus', 'tools/battletanx_ga/src/n_audio', 'tools/battletanx_ga/include']),
     'matching_ido.tsv': ('ido5.3', []),
     'matching_ido_normalized.tsv': ('ido5.3', []),
-    'matching_sn.tsv': ('sn', []),
+    'matching_sn.tsv': ('sn', ['src/decompiled']),
     'matching_sn_normalized.tsv': ('sn', []),
     'matching_as.tsv': ('as', []),
 }
@@ -538,29 +538,31 @@ def main() -> None:
         START, END = 0x127640, 0x1A3AB0
         SEGMENT = 'runtime'
         MANIFEST_DIR = 'config/runtime'
-        PROFILES = {'matching_sn.tsv': ('sn', []),
-                    'matching_sweep_sn.tsv': ('sn', []),
+        PROFILES = {'matching_sn.tsv': ('sn', ['src/decompiled']),
+                    'matching_sweep_sn.tsv': ('sn', ['src/decompiled']),
+                    'matching_imported_sn.tsv': ('sn', ['src/decompiled']),
+                    'matching_cxx.tsv': ('custom:sydney_cxx', ['src/decompiled']),
                     'matching_kmc.tsv': ('kmc+as', [])}
     elif args.segment == 'ceremony':
         DELTA = 0x80007924
         START, END = 0x69070, 0x6DF40
         SEGMENT = 'ceremony'
         MANIFEST_DIR = 'config/overlay/ceremony'
-        PROFILES = {'matching_sn.tsv': ('sn', []),
-                    'matching_sweep_sn.tsv': ('sn', [])}
+        PROFILES = {'matching_sn.tsv': ('sn', ['src/decompiled']),
+                    'matching_sweep_sn.tsv': ('sn', ['src/decompiled'])}
     elif args.segment == 'closing':
         DELTA = 0x80002554
         START, END = 0x6DF40, 0x70800
         SEGMENT = 'closing'
         MANIFEST_DIR = 'config/overlay/closing'
-        PROFILES = {'matching_sn.tsv': ('sn', [])}
+        PROFILES = {'matching_sn.tsv': ('sn', ['src/decompiled'])}
     elif args.segment == 'event_bank':
         DELTA = 0x80000000
         START, END = 0x70800, 0x127640
         SEGMENT = 'event_bank'
         MANIFEST_DIR = 'config/overlay/event_bank'
         PROFILES = {
-            'matching_sn.tsv': ('sn', []),
+            'matching_sn.tsv': ('sn', ['src/decompiled']),
             'matching_delta_7ffdaa10_sn.tsv': ('sn', [], 0x7FFDAA10),
             'matching_delta_7ffd4240_sn.tsv': ('sn', [], 0x7FFD4240),
             'matching_delta_7ffc82f0_sn.tsv': ('sn', [], 0x7FFC82F0),
@@ -586,7 +588,15 @@ def main() -> None:
     for manifest in (ROOT / MANIFEST_DIR).glob('matching_delta_*_sn.tsv'):
         match = re.fullmatch(r'matching_delta_([0-9a-fA-F]{8})_sn\.tsv', manifest.name)
         if match:
-            PROFILES[manifest.name] = ('sn', [], int(match.group(1), 16))
+            PROFILES[manifest.name] = ('sn', ['src/decompiled'], int(match.group(1), 16))
+    for manifest in (ROOT / MANIFEST_DIR).glob('matching_delta_*_imported_sn.tsv'):
+        match = re.fullmatch(r'matching_delta_([0-9a-fA-F]{8})_imported_sn\.tsv', manifest.name)
+        if match:
+            PROFILES[manifest.name] = ('sn', ['src/decompiled'], int(match.group(1), 16))
+    for manifest in (ROOT / MANIFEST_DIR).glob('matching_delta_*_cxx.tsv'):
+        match = re.fullmatch(r'matching_delta_([0-9a-fA-F]{8})_cxx\.tsv', manifest.name)
+        if match:
+            PROFILES[manifest.name] = ('custom:sydney_cxx', ['src/decompiled'], int(match.group(1), 16))
     plans = {'resident': 'config/link_units.json',
              'runtime': 'config/runtime_link_units.json',
              'ceremony': 'config/overlay_link_units.json',

@@ -1,0 +1,5 @@
+0xD6164	0x34c	src/decompiled/func_800D6164.c	--section-base=.rdata:0x80070F70 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	78ca8cb405d7c45b46c728463b5ff036fac567b45c6cde1f424f418419942dbe
+0xD6FAC	0x22c	src/decompiled/func_800D6FAC.c	--section-base=.rdata:0x80071018 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	9550b1ccaf8a8ed5d77df1e8a57b5daa85d018383f68bf4830d04c6ede07be6b
+0xD8860	0x218	src/decompiled/func_800D8860.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	aa9cdfd2f15864bdf56bfed29f0360635d56f4a06b9152f575665e79de4abdcf
+0xDB3F0	0x84	src/decompiled/func_800DB3F0.c	-O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb -mno-split-addresses	fe32d4e3a81747a97c6332eb8bd615929c06bea4ed316bf38248d50a00f33bc3
+0xDBBE0	0x98	src/decompiled/func_800DBBE0.c	--section-base=.rdata:0x80071450 -O2 -G0 -mcpu=vr4300 -mips3 -mhard-float -meb	62da90382259f8bc306be2544a96c56cafba8e420efcba8c06808128086f3451
