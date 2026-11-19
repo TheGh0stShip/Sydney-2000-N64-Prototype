@@ -15,7 +15,7 @@ setup: $(BUILD_DIR)/main_segment.bin
 $(BUILD_DIR)/main_segment.bin: $(BASEROM) tools/extract.py
 	$(PYTHON) tools/extract.py $(BASEROM) $(BUILD_DIR)
 
-verify: $(BASEROM) rsp-test rsp-verify report-test source-image-test initialized-data-test reconstruction-test initialized-data-verify archive-directory-test archive-assets-test verify-archive-directory verify-archive-assets data-ledger-check inventory-check verify-matching verify-runtime verify-overlays
+verify: $(BASEROM) rsp-test report-test source-image-test initialized-data-test reconstruction-test archive-directory-test archive-assets-test data-ledger-check inventory-check reconstruction-verify
 	$(PYTHON) tools/verify.py $(BASEROM)
 
 inventory: $(BASEROM)
